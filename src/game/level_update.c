@@ -6,6 +6,7 @@
 #include "audio/external.h"
 #include "level_update.h"
 #include "game_init.h"
+#include "hud.h"
 #include "level_update.h"
 #include "main.h"
 #include "engine/math_util.h"
@@ -979,6 +980,47 @@ void basic_update(UNUSED s16 *arg) {
     }
 }
 
+u8 joystickCooldowns[4];
+s8 determine_joystick_movement(void) {
+    u8 i;
+    u8 directionsHeld = 0;
+    for(i = 0; i < 4; i++) {
+        if(joystickCooldowns[i] == 0) {
+            switch(i) {
+                case 0:
+                    if(gPlayer1Controller->stickX < -20) {
+                        joystickCooldowns[i] = 5;
+                        directionsHeld |= JOYSTICK_LEFT;
+                    }
+                    break;
+                case 1:
+                    if(gPlayer1Controller->stickX > 20) {
+                        joystickCooldowns[i] = 5;
+                        directionsHeld |= JOYSTICK_RIGHT;
+                    }
+                    break;
+                case 2:
+                    if(gPlayer1Controller->stickY > 20) {
+                        joystickCooldowns[i] = 5;
+                        directionsHeld |= JOYSTICK_UP;
+                    }
+                    break;
+                case 3:
+                    if(gPlayer1Controller->stickY < -20) {
+                        joystickCooldowns[i] = 5;
+                        directionsHeld |= JOYSTICK_DOWN;
+                    }
+                    break;
+            }
+        } else {
+            joystickCooldowns[i]--;
+        }
+    }
+    return directionsHeld;
+}
+
+u8 gDirectionsHeld;
+
 s32 play_mode_normal(void) {
     if (gCurrDemoInput != NULL) {
         print_intro_text();
@@ -1024,6 +1066,8 @@ s32 play_mode_normal(void) {
             set_play_mode(PLAY_MODE_PAUSED);
         }
     }
+
+    gDirectionsHeld = determine_joystick_movement();
 
     return 0;
 }
@@ -1210,7 +1254,11 @@ s32 init_level(void) {
             set_mario_action(gMarioState, ACT_IDLE, 0);
         } else if (gDebugLevelSelect == 0) {
             if (gMarioState->action != ACT_UNINITIALIZED) {
-                    set_mario_action(gMarioState, ACT_IDLE, 0);
+                set_mario_action(gMarioState, ACT_IDLE, 0);
+                if(!save_file_exists(gCurrSaveFileNum - 1)) {
+                    save_file_set_dog_string(gCurrSaveFileNum - 1, &dogString);
+                    gKeyboard = 1;
+                }
             }
         }
     }
@@ -1223,6 +1271,8 @@ s32 init_level(void) {
                     set_mario_action(gMarioState, ACT_IDLE, 0);
                 } else {
                     set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
+                    save_file_set_dog_string(gCurrSaveFileNum - 1, &dogString);
+                    gKeyboard = 1;
                     val4 = 1;
                 }
             }
@@ -1238,7 +1288,6 @@ s32 init_level(void) {
         if (gCurrDemoInput == NULL) {
             set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
         }
-        save_file_set_dog_string(gCurrSaveFileNum - 1, &dogString);
     }
 #if ENABLE_RUMBLE
     if (gCurrDemoInput == NULL) {

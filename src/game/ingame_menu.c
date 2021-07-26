@@ -10,6 +10,7 @@
 #include "eu_translation.h"
 #include "game_init.h"
 #include "gfx_dimensions.h"
+#include "hud.h"
 #include "ingame_menu.h"
 #include "level_update.h"
 #include "levels/castle_grounds/header.h"
@@ -36,7 +37,6 @@ u8 textCurrRatio43[] = { TEXT_HUD_CURRENT_RATIO_43 };
 u8 textCurrRatio169[] = { TEXT_HUD_CURRENT_RATIO_169 };
 u8 textPressL[] = { TEXT_HUD_PRESS_L };
 u8 textWideInfo[] = { TEXT_HUD_WIDE_INFO };
-u8 textWideInfo2[] = { TEXT_HUD_WIDE_INFO2 };
 #endif
 
 extern u8 gLastCompletedCourseNum;
@@ -365,7 +365,7 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
                 create_dl_translation_matrix(MENU_MTX_NOPUSH, (f32)(gDialogCharWidths[DIALOG_CHAR_SPACE]), 0.0f, 0.0f);
                 break; // ? needed to match
             case DIALOG_CHAR_DOG:
-                render_dog_string(lineNum, &linePos, linesPerBox, xMatrix, lowerBound);
+                render_dog_string();
                 break;
             default:
                 render_generic_char(str[strPos]);
@@ -1555,7 +1555,6 @@ void render_widescreen_setting(void) {
         print_generic_string(10, 20, textCurrRatio169);
         print_generic_string(10, 7, textPressL);
         print_generic_string(10, 220, textWideInfo);
-        print_generic_string(10, 200, textWideInfo2);
     }
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
     if (gPlayer1Controller->buttonPressed & L_TRIG){
@@ -2184,4 +2183,179 @@ s16 render_menus_and_dialogs(void) {
         gDialogColorFadeTimer = (s16) gDialogColorFadeTimer + 0x1000;
     }
     return index;
+}
+
+void print_string_with_shadow(s16 x, s16 y, const u8 *str, u32 color) {
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, color & 0xFF);
+    print_generic_string(x, y - 1, str);
+    gDPSetEnvColor(gDisplayListHead++, (color >> 24), (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
+    print_generic_string(x, y, str);
+}
+
+void render_char_with_shadow(u8 c, u32 color) {
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, 0.0f, -1.0f, 0.0f);
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, color & 0xFF);
+    render_generic_char(c);
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, 0.0f, 1.0f, 0.0f);
+    gDPSetEnvColor(gDisplayListHead++, (color >> 24), (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF);
+    render_generic_char(c);
+}
+
+Vtx icon_icon_mesh_vtx_0[4] = {
+	{{{0, 0, 0},0, {-16, 1008},{0x0, 0x0, 0x7F, 0xFF}}},
+	{{{20, 0, 0},0, {1008, 1008},{0x0, 0x0, 0x7F, 0xFF}}},
+	{{{20, 30, 0},0, {1008, -16},{0x0, 0x0, 0x7F, 0xFF}}},
+	{{{0, 30, 0},0, {-16, -16},{0x0, 0x0, 0x7F, 0xFF}}},
+};
+
+Gfx icon_icon_mesh_tri_0[] = {
+	gsSPVertex(icon_icon_mesh_vtx_0 + 0, 4, 0),
+	gsSP1Triangle(0, 1, 2, 0),
+	gsSP1Triangle(0, 2, 3, 0),
+	gsSPEndDisplayList(),
+};
+
+Gfx mat_icon_f3d_material_002[] = {
+	gsDPPipeSync(),
+	gsDPSetCombineLERP(0, 0, 0, ENVIRONMENT, 0, 0, 0, 1, 0, 0, 0, ENVIRONMENT, 0, 0, 0, 1),
+	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsDPSetEnvColor(0, 37, 52, 255),
+	gsSPEndDisplayList(),
+};
+
+Gfx icon_mesh[] = {
+	gsSPDisplayList(mat_icon_f3d_material_002),
+	gsSPDisplayList(icon_icon_mesh_tri_0),
+	gsDPPipeSync(),
+	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPClearGeometryMode(G_TEXTURE_GEN),
+	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
+	gsSPTexture(65535, 65535, 0, 0, 0),
+	gsSPEndDisplayList(),
+};
+
+u8 textEnterDogName[] = { TEXT_ENTER_DOG_NAME };
+u8 textKeyboardDefines[] = { TEXT_KEYBOARD_DEFINES };
+u8 dogStringTemp[9] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF };
+u8 topBarMap[2][10] = {
+{ 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 }, 
+{ 0xFA, 0xFD, 0xF9, 0xE5, 0xE6, 0xFB, 0xF2, 0xF3, 0xF4, 0xF7 }, };
+
+s32 gKeyboardShifted;
+s8 keyboardCursorX = 0;
+s8 keyboardCursorY = 0;
+void render_dog_keyboard(void) {
+    u8 i, init, max, actualTick, topBar;
+    s8 length;
+    u32 white = 0xFFFFFFFF;
+
+    if(gPlayer1Controller->buttonPressed & R_TRIG)
+        gKeyboardShifted ^= 0x1;
+    gSPDisplayList(gDisplayListHead++, kb_bg_Plane_mesh);
+
+    if(gDirectionsHeld & JOYSTICK_LEFT) {
+        keyboardCursorX--;
+        if(keyboardCursorX < 0) {
+            keyboardCursorX = 9;
+        }
+    }
+    if(gDirectionsHeld & JOYSTICK_RIGHT) {
+        keyboardCursorX++;
+        if(keyboardCursorX > 9) {
+            keyboardCursorX = 0;
+        }
+    }
+    if(gDirectionsHeld & JOYSTICK_UP) {
+        keyboardCursorY--;
+        if(keyboardCursorY < 0) {
+            keyboardCursorY = 3;
+        }
+    }
+    if(gDirectionsHeld & JOYSTICK_DOWN) {
+        keyboardCursorY++;
+        if(keyboardCursorY > 3) {
+            keyboardCursorY = 0;
+        }
+    }
+
+    create_dl_translation_matrix(MENU_MTX_PUSH, 18.0f + (keyboardCursorX*24.0f), 128.0f - (keyboardCursorY*28.0f), 0.0f);
+    gSPDisplayList(gDisplayListHead++, &icon_mesh);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    print_string_with_shadow(20, 220, textEnterDogName, white);
+    print_string_with_shadow(20, 20, textKeyboardDefines, white);
+    length = -1;
+    for(i = 0; i < 8; i++) {
+        dogStringTemp[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
+        if(dogStringTemp[i] != 0xFF) {
+            length = i;
+        }
+    }
+    
+    
+    create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, 10.0f, 64.0f, 0.0f);
+    // for(i = 0; i < 0x40; i++) {
+    //     render_generic_char(i);
+    //     if(i % 10 == 9) {
+    //         create_dl_translation_matrix(MENU_MTX_NOPUSH, -108.0f, -14.0f, 0.0f);
+    //     } else {
+    //         create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
+    //     }
+    // }
+    if(gKeyboardShifted) {
+        init = 0x0A;
+        max = 0x24;
+        topBar = 0x1;
+    } else {
+        init = 0x24;
+        max = 0x3E;
+        topBar = 0x0;
+    }
+    actualTick = 0;
+    for(i = 0; i < 10; i++) {
+        render_char_with_shadow(topBarMap[topBar][i], white);
+        create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
+    }
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, -120.0f, -14.0f, 0.0f);
+    for(i = init; i < max; i++) {
+        render_char_with_shadow(i, white);
+        if(actualTick % 10 == 9) {
+            create_dl_translation_matrix(MENU_MTX_NOPUSH, -108.0f, -14.0f, 0.0f);
+        } else {
+            create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
+        }
+        actualTick++;
+    }
+    render_char_with_shadow(0x3F, white);
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
+    render_char_with_shadow(0x3E, white);
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
+    render_char_with_shadow(0x52, white);
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
+    render_char_with_shadow(0x50, white);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+    if(length < 7 && (gPlayer1Controller->buttonPressed & A_BUTTON)) {
+        if(keyboardCursorY == 0) {
+            dogStringTemp[length + 1] = topBarMap[topBar][keyboardCursorX];
+        } else {
+            dogStringTemp[length + 1] = init + keyboardCursorX + ((keyboardCursorY - 1)*0x0A);
+        }
+    }
+    if(length > -1 && (gPlayer1Controller->buttonPressed & B_BUTTON)) {
+        dogStringTemp[length] = 0xFF;
+    }
+    save_file_set_dog_string(gCurrSaveFileNum - 1, &dogStringTemp);
+
+    create_dl_scale_matrix(MENU_MTX_PUSH, 4.0f, 4.0f, 1.0f);
+    print_string_with_shadow(5, 41, dogStringTemp, white);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+
+    if(length > -1 && gPlayer1Controller->buttonPressed & START_BUTTON) {
+        gKeyboard = 0;
+    }
 }

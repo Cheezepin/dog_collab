@@ -455,6 +455,9 @@ void render_hud_camera_status(void) {
  * Render HUD strings using hudDisplayFlags with it's render functions,
  * excluding the cannon reticle which detects a camera preset for it.
  */
+
+s32 gKeyboard = 0;
+
 void render_hud(void) {
     s16 hudDisplayFlags;
 #ifdef VERSION_EU
@@ -497,7 +500,7 @@ void render_hud(void) {
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_STAR_COUNT) {
-            render_hud_stars();
+            //render_hud_stars();
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_KEYS) {
@@ -520,6 +523,10 @@ void render_hud(void) {
         if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_NODES)
         {
             print_text(10, 60, "SURFACE NODE POOL FULL");
+        }
+
+        if (gKeyboard) {
+            render_dog_keyboard();
         }
     }
 }

@@ -24,4 +24,6 @@ enum CameraHUDLut {
 void set_hud_camera_status(s16 status);
 void render_hud(void);
 
+extern s32 gKeyboard;
+
 #endif // HUD_H

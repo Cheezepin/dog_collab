@@ -1579,6 +1579,9 @@ void print_save_file_star_count(s8 fileIndex, s16 x, s16 y) {
  * Same rule applies for score, copy and erase strings.
  */
 void print_main_menu_strings(void) {
+    u8 x, y, i, j;
+    u8 dogString[17] = { 0x16, 0x24, 0x35, 0x2C, 0x32, 0x9E, 0xE5, 0x9E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF };
+    u8 *string;
     // Print "SELECT FILE" text
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
@@ -1597,15 +1600,49 @@ void print_main_menu_strings(void) {
     print_generic_string(ERASE_X, 39, textErase);
     sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
     print_generic_string(SOUNDMODE_X1, 39, textSoundModes[sSoundMode]);
+
+    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
+    for(i = 0; i < 4; i++) {
+        switch(i) {
+            case 0:
+                x = MARIOTEXT_X1;
+                y = 65;
+                string = &textMarioA;
+                break;
+            case 1:
+                x = MARIOTEXT_X2;
+                y = 65;
+                string = &textMarioB;
+                break;
+            case 2:
+                x = MARIOTEXT_X1;
+                y = 105;
+                string = &textMarioC;
+                break;
+            case 3:
+                x = MARIOTEXT_X2;
+                y = 105;
+                string = &textMarioD;
+                break;
+        }
+        if(save_file_exists(i)) {
+            for(j = 0; j < 8; j++) {
+                dogString[8 + j] = save_file_get_dog_string(i, j);
+            }
+            string = &dogString;
+        }
+        print_generic_string(x, 228 - y, string);
+    }
+
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
     // Print file names
-    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
-    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_menu_generic_string(MARIOTEXT_X1, 65, textMarioA);
-    print_menu_generic_string(MARIOTEXT_X2, 65, textMarioB);
-    print_menu_generic_string(MARIOTEXT_X1, 105, textMarioC);
-    print_menu_generic_string(MARIOTEXT_X2, 105, textMarioD);
-    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
+    // gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
+    // gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
+    // print_menu_generic_string(MARIOTEXT_X1, 65, textMarioA);
+    // print_menu_generic_string(MARIOTEXT_X2, 65, textMarioB);
+    // print_menu_generic_string(MARIOTEXT_X1, 105, textMarioC);
+    // print_menu_generic_string(MARIOTEXT_X2, 105, textMarioD);
+    // gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
 }
 
 

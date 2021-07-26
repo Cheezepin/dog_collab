@@ -30,8 +30,7 @@
 #define TEXT_HUD_CURRENT_RATIO_43 _("ASPECT RATIO: 4:3")
 #define TEXT_HUD_CURRENT_RATIO_169 _("ASPECT RATIO: 16:9")
 #define TEXT_HUD_PRESS_L _("PRESS L TO SWITCH")
-#define TEXT_HUD_WIDE_INFO _("PLEASE CONFIGURE YOUR DISPLAY OR YOUR EMULATOR TO")
-#define TEXT_HUD_WIDE_INFO2 _("STRETCH THE IMAGE TO 16:9")
+#define TEXT_HUD_WIDE_INFO _("PLEASE CONFIGURE YOUR DISPLAY OR YOUR EMULATOR TO\nSTRETCH THE IMAGE TO 16:9")
 #endif
 
 #if defined(VERSION_JP) || defined(VERSION_SH)
@@ -145,10 +144,10 @@
 #define TEXT_COPY_FILE _("COPY FILE")
 #define TEXT_ERASE_FILE _("ERASE FILE")
 #define TEXT_SOUND_SELECT _("SOUND SELECT")
-#define TEXT_FILE_MARIO_A _("MARIO A")
-#define TEXT_FILE_MARIO_B _("MARIO B")
-#define TEXT_FILE_MARIO_C _("MARIO C")
-#define TEXT_FILE_MARIO_D _("MARIO D")
+#define TEXT_FILE_MARIO_A _("Mario A")
+#define TEXT_FILE_MARIO_B _("Mario B")
+#define TEXT_FILE_MARIO_C _("Mario C")
+#define TEXT_FILE_MARIO_D _("Mario D")
 
 // Menu Options
 #define TEXT_SCORE _("SCORE")
@@ -230,6 +229,9 @@
 #define TEXT_LETS_HAVE_CAKE _("let's bake a delicious cake...")
 #define TEXT_FOR_MARIO _("...for Mario...")
 #define TEXT_FILE_MARIO_QUESTION _("Mario!")
+
+#define TEXT_ENTER_DOG_NAME _("Name this dog:")
+#define TEXT_KEYBOARD_DEFINES _("[A]: Select  [B]: Delete\n[R]: Shift   START: Submit")
 
 #endif
 

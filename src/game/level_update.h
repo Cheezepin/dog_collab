@@ -128,5 +128,13 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum);
 s32 lvl_set_current_level(UNUSED s16 arg0, s32 levelNum);
 s32 lvl_play_the_end_screen_sound(UNUSED s16 arg0, UNUSED s32 arg1);
 void basic_update(UNUSED s16 *arg);
+s8 determine_joystick_movement(void);
+
+extern u8 gDirectionsHeld;
+
+#define JOYSTICK_LEFT  0x1
+#define JOYSTICK_RIGHT 0x2
+#define JOYSTICK_UP    0x4
+#define JOYSTICK_DOWN  0x8
 
 #endif // LEVEL_UPDATE_H

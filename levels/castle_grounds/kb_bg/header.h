@@ -1,0 +1,12 @@
+extern u8 kb_bg_doggard_rgba32[];
+extern Vtx kb_bg_Plane_mesh_vtx_0[30];
+extern Gfx kb_bg_Plane_mesh_tri_0[];
+extern Vtx kb_bg_Plane_mesh_vtx_1[12];
+extern Gfx kb_bg_Plane_mesh_tri_1[];
+extern Vtx kb_bg_Plane_mesh_vtx_2[100];
+extern Gfx kb_bg_Plane_mesh_tri_2[];
+extern Gfx mat_kb_bg_f3d_material_001[];
+extern Gfx mat_kb_bg_f3d_material[];
+extern Gfx mat_kb_bg_doggard[];
+extern Gfx mat_revert_kb_bg_doggard[];
+extern Gfx kb_bg_Plane_mesh[];

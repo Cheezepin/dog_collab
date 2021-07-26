@@ -2076,7 +2076,7 @@ so come back later.\n\
 DEFINE_DIALOG(DIALOG_167, 1, 4, 30, 200, _("\
 Princess Toadstool's\n\
 castle is just ahead.\n\
-🐶 is a good boy!\n\
+@FF0000FF🐶 is a good boy!\n\
 \n\
 Press [A] to jump, [Z] to\n\
 crouch, and [B] to punch,\n\
