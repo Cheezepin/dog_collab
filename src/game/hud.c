@@ -499,8 +499,8 @@ void render_hud(void) {
             render_hud_coins();
         }
 
-        if (hudDisplayFlags & HUD_DISPLAY_FLAG_STAR_COUNT) {
-            //render_hud_stars();
+        if (!gKeyboard && hudDisplayFlags & HUD_DISPLAY_FLAG_STAR_COUNT) {
+            render_hud_stars();
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_KEYS) {

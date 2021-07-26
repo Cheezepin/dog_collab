@@ -2357,5 +2357,6 @@ void render_dog_keyboard(void) {
 
     if(length > -1 && gPlayer1Controller->buttonPressed & START_BUTTON) {
         gKeyboard = 0;
+        set_mario_action(gMarioState, ACT_IDLE, 0);
     }
 }

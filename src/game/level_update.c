@@ -1258,6 +1258,7 @@ s32 init_level(void) {
                 if(!save_file_exists(gCurrSaveFileNum - 1)) {
                     save_file_set_dog_string(gCurrSaveFileNum - 1, &dogString);
                     gKeyboard = 1;
+                    set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
                 }
             }
         }
@@ -1273,6 +1274,7 @@ s32 init_level(void) {
                     set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
                     save_file_set_dog_string(gCurrSaveFileNum - 1, &dogString);
                     gKeyboard = 1;
+                    set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
                     val4 = 1;
                 }
             }
