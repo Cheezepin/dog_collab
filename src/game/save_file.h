@@ -42,6 +42,8 @@ struct SaveFile
 
     u8 courseCoinScores[COURSE_STAGES_COUNT];
 
+    u8 dogString[8];
+
     struct SaveBlockSignature signature;
 };
 
@@ -79,9 +81,9 @@ struct MainMenuSaveData
 struct SaveBuffer
 {
     // Each of the four save files has two copies. If one is bad, the other is used as a backup.
-    struct SaveFile files[NUM_SAVE_FILES][2];
+    struct SaveFile files[NUM_SAVE_FILES];
     // The main menu data has two copies. If one is bad, the other is used as a backup.
-    struct MainMenuSaveData menuData[2];
+    struct MainMenuSaveData menuData;
 };
 
 STATIC_ASSERT(sizeof(struct SaveBuffer) <= EEPROM_SIZE, "ERROR: Save struct too big for specified save type");
@@ -172,6 +174,9 @@ void save_file_move_cap_to_default_location(void);
 void disable_warp_checkpoint(void);
 void check_if_should_set_warp_checkpoint(struct WarpNode *warpNode);
 s32 check_warp_checkpoint(struct WarpNode *warpNode);
+
+u32 save_file_get_dog_string(s32 fileIndex, s32 stringIndex);
+void save_file_set_dog_string(s32 fileIndex, u8 *string);
 
 #ifdef VERSION_EU
 enum EuLanguages {

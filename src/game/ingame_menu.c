@@ -259,6 +259,25 @@ void render_multi_text_string(s8 multiTextID)
     }
 }
 
+void render_dog_string(void)
+{
+    s8 i;
+    u8 length = 8;
+    u8 dogString[9];
+
+    for(i = 0; i < 9; i++) {
+        dogString[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
+        if(dogString[i] == 0xFF && length == 8) {
+            length = i;
+        }
+    }
+    dogString[8] = 0xFF;
+    for (i = 0; i < length; i++) {
+        render_generic_char(dogString[i]);
+        create_dl_translation_matrix(MENU_MTX_NOPUSH, (gDialogCharWidths[dogString[i]]), 0, 0);
+    }
+}
+
 #define MAX_STRING_WIDTH 16
 
 /**
@@ -302,6 +321,9 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
             case DIALOG_CHAR_SPACE:
                 create_dl_translation_matrix(MENU_MTX_NOPUSH, (f32)(gDialogCharWidths[DIALOG_CHAR_SPACE]), 0.0f, 0.0f);
                 break; // ? needed to match
+            case DIALOG_CHAR_DOG:
+                render_dog_string(lineNum, &linePos, linesPerBox, xMatrix, lowerBound);
+                break;
             default:
                 render_generic_char(str[strPos]);
                 if (mark != DIALOG_MARK_NONE) {
@@ -765,6 +787,31 @@ void render_multi_text_string_lines(s8 multiTextId, s8 lineNum, s16 *linePos, s8
     linePos += textLengths[multiTextId].length;
 }
 
+void render_dog_string_lines(s8 lineNum, s16 *linePos, s8 linesPerBox, s8 xMatrix, s8 lowerBound)
+{
+    s8 i;
+    u8 length = 8;
+    u8 dogString[9];
+
+    for(i = 0; i < 9; i++) {
+        dogString[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
+        if(dogString[i] == 0xFF && length == 8) {
+            length = i;
+        }
+    }
+    dogString[8] = 0xFF;
+
+    if (lineNum >= lowerBound && lineNum <= (lowerBound + linesPerBox)) {
+        if (linePos[0] != 0 || (xMatrix != 1)) {
+            create_dl_translation_matrix(MENU_MTX_NOPUSH, (gDialogCharWidths[DIALOG_CHAR_SPACE] * (xMatrix - 1)), 0, 0);
+        }
+        for (i = 0; i < length; i++) {
+            render_generic_char(dogString[i]);
+            create_dl_translation_matrix(MENU_MTX_NOPUSH, (gDialogCharWidths[dogString[i]]), 0, 0);
+        }
+    }
+    linePos += length;
+}
 
 u32 ensure_nonnegative(s16 value) {
     if (value < 0) {
@@ -849,6 +896,9 @@ void handle_dialog_text_and_pages(s8 colorMode, struct DialogEntry *dialog, s8 l
                 break;
             case DIALOG_CHAR_STAR_COUNT:
                 render_star_count_dialog_text(&xMatrix, &linePos);
+                break;
+            case DIALOG_CHAR_DOG:
+                render_dog_string_lines(lineNum, &linePos, linesPerBox, xMatrix, lowerBound);
                 break;
             default: // any other character
                 if (lineNum >= lowerBound && lineNum <= lowerBound + linesPerBox) {

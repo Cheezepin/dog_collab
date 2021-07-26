@@ -1172,6 +1172,8 @@ s32 update_level(void) {
     return changeLevel;
 }
 
+u8 dogString[8] = { 0x10, 0x32, 0x27, 0x27, 0x24, 0x35, 0x27, 0xFF };
+
 s32 init_level(void) {
     s32 val4 = 0;
 
@@ -1236,6 +1238,7 @@ s32 init_level(void) {
         if (gCurrDemoInput == NULL) {
             set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
         }
+        save_file_set_dog_string(gCurrSaveFileNum - 1, &dogString);
     }
 #if ENABLE_RUMBLE
     if (gCurrDemoInput == NULL) {

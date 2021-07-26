@@ -251,6 +251,9 @@
 '☆' = 0xFD
 '\n' = 0xFE
 
+# custom
+'🐶' = 0xEF
+
 # hiragana or katakana with dakuten
 'が' = 0xF0, 0x45
 'ぎ' = 0xF0, 0x46
