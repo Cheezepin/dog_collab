@@ -1,6 +1,6 @@
 Gfx kb_bg_doggard_rgba32_aligner[] = {gsSPEndDisplayList()};
 u8 kb_bg_doggard_rgba32[] = {
-	#include "levels/castle_grounds/doggard.rgba32.inc.c"
+	#include "levels/castle_grounds/CUSTOM_doggard.rgba32.inc.c"
 };
 
 Vtx kb_bg_Plane_mesh_vtx_0[30] = {
