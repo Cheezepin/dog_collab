@@ -210,6 +210,21 @@
             "envelope": "envelope11",
             "sound_lo": "12_snare_drum_1",
             "sound": "13_snare_drum_2"
+        },
+        "instElectricPiano": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "26_crystal_rhodes"
+        },
+        "instBass": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "1A_slap_bass"
+        },
+        "instGrandPiano": {
+            "release_rate": 34,
+            "envelope": "envelope0",
+            "sound": "44_grand_piano"
         }
     },
     "instrument_list": [
@@ -221,10 +236,11 @@
         "inst5",
         "inst6",
         "inst7",
-        null,
-        null,
+        "instElectricPiano",
+        "instBass",
         "inst10",
         "inst8",
-        "inst9"
+        "inst9",
+        "instGrandPiano"
     ]
 }

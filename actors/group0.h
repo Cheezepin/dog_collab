@@ -390,4 +390,6 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "podoboo/geo_header.h"
 
+
+#include "dog/anim_header.h"
 #endif

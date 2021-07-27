@@ -68,3 +68,5 @@
 #include "spike_ball/anims/data.inc.c"
 #include "spike_ball/anims/table.inc.c"
 #include "podoboo/model.inc.c"
+#include "dog/anims/data.inc.c"
+#include "dog/anims/table.inc.c"

@@ -557,4 +557,6 @@ extern const BehaviorScript bhvSpike[];
 extern const BehaviorScript bhvSpikeBall[];
 extern const BehaviorScript bhvPodoboo[];
 
+extern const BehaviorScript bhvDogNPC[];
+
 #endif // BEHAVIOR_DATA_H
