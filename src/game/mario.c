@@ -35,6 +35,7 @@
 
 u32 unused80339F10;
 s8 filler80339F1C[20];
+s8 gCheckingWaterForMario = FALSE;
 
 /**************************************************
  *                    ANIMATIONS                  *
@@ -1209,9 +1210,9 @@ s32 set_water_plunge_action(struct MarioState *m) {
         m->faceAngle[0] = 0;
     }
 
-    if (m->area->camera->mode != CAMERA_MODE_WATER_SURFACE) {
-        set_camera_mode(m->area->camera, CAMERA_MODE_WATER_SURFACE, 1);
-    }
+    // if (m->area->camera->mode != CAMERA_MODE_WATER_SURFACE) {
+    //     set_camera_mode(m->area->camera, CAMERA_MODE_WATER_SURFACE, 1);
+    // }
 
     return set_mario_action(m, ACT_WATER_PLUNGE, 0);
 }
@@ -1355,7 +1356,9 @@ void update_mario_geometry_inputs(struct MarioState *m) {
 
     m->ceilHeight = vec3f_find_ceil(m->pos, m->pos[1], &m->ceil);
     gasLevel = find_poison_gas_level(m->pos[0], m->pos[2]);
+    gCheckingWaterForMario = TRUE;
     m->waterLevel = find_water_level(m->pos[0], m->pos[2]);
+    gCheckingWaterForMario = FALSE;
 
     if (m->floor != NULL) {
         m->floorAngle = atan2s(m->floor->normal.z, m->floor->normal.x);
@@ -1441,11 +1444,11 @@ void update_mario_inputs(struct MarioState *m) {
  * Set's the camera preset for submerged action behaviors.
  */
 void set_submerged_cam_preset_and_spawn_bubbles(struct MarioState *m) {
-    f32 heightBelowWater;
+    // f32 heightBelowWater;
     s16 camPreset;
 
     if ((m->action & ACT_GROUP_MASK) == ACT_GROUP_SUBMERGED) {
-        heightBelowWater = (f32)(m->waterLevel - 80) - m->pos[1];
+        // heightBelowWater = (f32)(m->waterLevel - 80) - m->pos[1];
         camPreset = m->area->camera->mode;
 
         if (m->action & ACT_FLAG_METAL_WATER) {
@@ -1453,13 +1456,13 @@ void set_submerged_cam_preset_and_spawn_bubbles(struct MarioState *m) {
                 set_camera_mode(m->area->camera, CAMERA_MODE_CLOSE, 1);
             }
         } else {
-            if ((heightBelowWater > 800.0f) && (camPreset != CAMERA_MODE_BEHIND_MARIO)) {
-                set_camera_mode(m->area->camera, CAMERA_MODE_BEHIND_MARIO, 1);
-            }
+            // if ((heightBelowWater > 800.0f) && (camPreset != CAMERA_MODE_BEHIND_MARIO)) {
+            //     set_camera_mode(m->area->camera, CAMERA_MODE_BEHIND_MARIO, 1);
+            // }
 
-            if ((heightBelowWater < 400.0f) && (camPreset != CAMERA_MODE_WATER_SURFACE)) {
-                set_camera_mode(m->area->camera, CAMERA_MODE_WATER_SURFACE, 1);
-            }
+            // if ((heightBelowWater < 400.0f) && (camPreset != CAMERA_MODE_WATER_SURFACE)) {
+            //     set_camera_mode(m->area->camera, CAMERA_MODE_WATER_SURFACE, 1);
+            // }
 
             // As long as Mario isn't drowning or at the top
             // of the water with his head out, spawn bubbles.
@@ -1842,8 +1845,10 @@ void init_mario(void) {
     gMarioState->riddenObj = NULL;
     gMarioState->usedObj = NULL;
 
+    gCheckingWaterForMario = TRUE;
     gMarioState->waterLevel =
         find_water_level(gMarioSpawnInfo->startPos[0], gMarioSpawnInfo->startPos[2]);
+    gCheckingWaterForMario = FALSE;
 
     gMarioState->area = gCurrentArea;
     gMarioState->marioObj = gMarioObject;

@@ -6,6 +6,7 @@
 #include "surface_collision.h"
 #include "extended_bounds.h"
 #include "trig_tables.inc.c"
+#include "game/camera.h"
 
 #include "config.h"
 
@@ -873,4 +874,16 @@ s32 anim_spline_poll(Vec3f result) {
     }
 
     return hasEnded;
+}
+
+f32 get_relative_position_between_ranges(f32 x, f32 fromA, f32 toA, f32 fromB, f32 toB) {
+    return (x - fromA) / (toA - fromA) * (toB - fromB) + fromB;
+}
+
+s16 approach_yaw(s16 curYaw, s16 target, f32 speed) {
+    return (s16) (target - approach_f32_asymptotic(
+        (s16) (target - curYaw),
+        0,
+        speed
+    ));
 }

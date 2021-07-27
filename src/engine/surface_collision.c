@@ -473,54 +473,6 @@ static f32 get_floor_height_at_location(s32 x, s32 z, struct Surface *surf) {
 }
 
 /**
- * Iterate through the list of water floors and find the first water floor under a given point.
- */
-struct Surface *find_water_floor_from_list(struct SurfaceNode *surfaceNode, s32 x, s32 y, s32 z,
-                                            f32 *pheight) {
-    register struct Surface *surf;
-    struct Surface *floor = NULL;
-    struct SurfaceNode *topSurfaceNode = surfaceNode;
-    struct SurfaceNode *bottomSurfaceNode = surfaceNode;
-    f32 height = FLOOR_LOWER_LIMIT;
-    f32 bottomHeight = FLOOR_LOWER_LIMIT;
-
-    // Iterate through the list of water floors until there are no more water floors.
-    while (bottomSurfaceNode != NULL) {
-        f32 curBottomHeight = FLOOR_LOWER_LIMIT;
-        surf = bottomSurfaceNode->surface;
-        bottomSurfaceNode = bottomSurfaceNode->next;
-
-        if (surf->type != SURFACE_NEW_WATER_BOTTOM || !check_within_triangle_bounds(x, z, surf)) continue;
-
-        curBottomHeight = get_floor_height_at_location(x, z, surf);
-
-        if (curBottomHeight < y - 78.0f) continue;
-        if (curBottomHeight >= y - 78.0f) bottomHeight = curBottomHeight;
-    }
-
-    // Iterate through the list of water tops until there are no more water tops.
-    while (topSurfaceNode != NULL) {
-        f32 curHeight = FLOOR_LOWER_LIMIT;
-        surf = topSurfaceNode->surface;
-        topSurfaceNode = topSurfaceNode->next;
-
-        if (surf->type == SURFACE_NEW_WATER_BOTTOM || !check_within_triangle_bounds(x, z, surf)) continue;
-
-        curHeight = get_floor_height_at_location(x, z, surf);
-
-        if (bottomHeight != FLOOR_LOWER_LIMIT && curHeight > bottomHeight) continue;
-
-        if (curHeight > height) {
-            height = curHeight;
-            *pheight = curHeight;
-            floor = surf;
-        }
-    }
-
-    return floor;
-}
-
-/**
  * Find the height of the highest floor below a point.
  */
 f32 find_floor_height(f32 x, f32 y, f32 z) {
@@ -629,6 +581,85 @@ f32 find_floor(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfloor) {
     gNumCalls.floor += 1;
 
     return height;
+}
+
+/**
+ * Iterate through the list of water floors and find the first water bottom under a given point.
+ */
+f32 find_water_bottom_from_list(struct SurfaceNode *surfaceNode, s32 x, s32 y, s32 z) {
+    register struct Surface *surf;
+    struct SurfaceNode *bottomSurfaceNode = surfaceNode;
+    f32 bottomHeight = FLOOR_LOWER_LIMIT;
+    f32 topBottomHeight = FLOOR_LOWER_LIMIT;
+#ifdef WATER_BOTTOM_FORCE
+    s32 bottomForce = 0;
+#endif WATER_BOTTOM_FORCE
+
+    // Iterate through the list of water floors until there are no more water floors.
+    while (bottomSurfaceNode != NULL) {
+        f32 curBottomHeight = FLOOR_LOWER_LIMIT;
+
+        surf = bottomSurfaceNode->surface;
+        bottomSurfaceNode = bottomSurfaceNode->next;
+
+        if (surf->type != SURFACE_NEW_WATER_BOTTOM || !check_within_triangle_bounds(x, z, surf)) continue;
+
+        curBottomHeight = get_floor_height_at_location(x, z, surf);
+
+        if (curBottomHeight < y + 78.0f) {
+            if (curBottomHeight > topBottomHeight) {
+                topBottomHeight = curBottomHeight;
+#ifdef WATER_BOTTOM_FORCE
+                bottomForce = surf->force;
+#endif
+            }
+            continue;
+        }
+        if (curBottomHeight >= y + 78.0f) bottomHeight = curBottomHeight;
+    }
+
+    if (gCheckingWaterForMario) {
+        gMarioState->waterBottomHeight = topBottomHeight;
+#ifdef WATER_BOTTOM_FORCE
+        gMarioState->waterBottomParam = bottomForce;
+#endif
+    }
+
+    return bottomHeight;
+}
+
+/**
+ * Iterate through the list of water floors and find the first water floor under a given point.
+ */
+struct Surface *find_water_floor_from_list(struct SurfaceNode *surfaceNode, s32 x, s32 y, s32 z,
+                                            f32 *pheight) {
+    register struct Surface *surf;
+    struct Surface *floor = NULL;
+    struct SurfaceNode *topSurfaceNode = surfaceNode;
+
+    f32 height = FLOOR_LOWER_LIMIT;
+    f32 bottomHeight = find_water_bottom_from_list(surfaceNode, x, y, z);
+
+    // Iterate through the list of water tops until there are no more water tops.
+    while (topSurfaceNode != NULL) {
+        f32 curHeight = FLOOR_LOWER_LIMIT;
+        surf = topSurfaceNode->surface;
+        topSurfaceNode = topSurfaceNode->next;
+
+        if (surf->type == SURFACE_NEW_WATER_BOTTOM || !check_within_triangle_bounds(x, z, surf)) continue;
+
+        curHeight = get_floor_height_at_location(x, z, surf);
+
+        if (bottomHeight != FLOOR_LOWER_LIMIT && curHeight > bottomHeight) continue;
+
+        if (curHeight > height) {
+            height = curHeight;
+            *pheight = curHeight;
+            floor = surf;
+        }
+    }
+
+    return floor;
 }
 
 /**
