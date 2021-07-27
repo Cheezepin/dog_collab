@@ -272,7 +272,9 @@ static s32 perform_ground_quarter_step(struct MarioState *m, Vec3f nextPos) {
     floorHeight = find_floor(nextPos[0], nextPos[1], nextPos[2], &floor);
     ceilHeight = vec3f_find_ceil(nextPos, nextPos[1], &ceil);
 
+    gCheckingWaterForMario = TRUE;
     waterLevel = find_water_level(nextPos[0], nextPos[2]);
+    gCheckingWaterForMario = FALSE;
 
     m->wall = upperWall;
 
@@ -406,7 +408,9 @@ s32 perform_air_quarter_step(struct MarioState *m, Vec3f intendedPos, u32 stepAr
     floorHeight = find_floor(nextPos[0], nextPos[1], nextPos[2], &floor);
     ceilHeight = vec3f_find_ceil(nextPos, nextPos[1], &ceil);
 
+    gCheckingWaterForMario = TRUE;
     waterLevel = find_water_level(nextPos[0], nextPos[2]);
+    gCheckingWaterForMario = FALSE;
 
     //m->wall = NULL;
 

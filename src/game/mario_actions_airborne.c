@@ -827,37 +827,9 @@ s32 act_air_throw(struct MarioState *m) {
 }
 
 s32 act_water_jump(struct MarioState *m) {
-    if (m->forwardVel < 15.0f) {
-        mario_set_forward_vel(m, 15.0f);
-    }
-
-    play_mario_sound(m, SOUND_ACTION_UNKNOWN432, 0);
-    set_mario_animation(m, MARIO_ANIM_SINGLE_JUMP);
-
-    switch (perform_air_step(m, AIR_STEP_CHECK_LEDGE_GRAB)) {
-        case AIR_STEP_LANDED:
-            set_mario_action(m, ACT_JUMP_LAND, 0);
-            set_camera_mode(m->area->camera, m->area->camera->defMode, 1);
-            break;
-
-        case AIR_STEP_HIT_WALL:
-            mario_set_forward_vel(m, 15.0f);
-            break;
-
-        case AIR_STEP_GRABBED_LEDGE:
-#ifndef VERSION_JP
-            set_mario_animation(m, MARIO_ANIM_IDLE_ON_LEDGE);
-#endif
-            set_mario_action(m, ACT_LEDGE_GRAB, 0);
-            set_camera_mode(m->area->camera, m->area->camera->defMode, 1);
-            break;
-
-        case AIR_STEP_HIT_LAVA_WALL:
-            lava_boost_on_wall(m);
-            break;
-    }
-
-    return FALSE;
+    set_camera_mode(m->area->camera, m->area->camera->defMode, 1);
+    set_mario_action(m, ACT_JUMP, 0);
+    return act_jump(m);
 }
 
 s32 act_hold_water_jump(struct MarioState *m) {
