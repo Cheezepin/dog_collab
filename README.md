@@ -139,6 +139,9 @@ The repo also supports building a ROM with no compression.
 This is not recommended as it increases ROM size significantly, with little point other than load times decreased to almost nothing.
 To switch to no compression, run make with the ``COMPRESS=uncomp`` argument.
 
+## Creating patches
+You can create a bps patch after building by using `make patch`. This will be located in the build directory under the same `TARGET_STRING` as your rom build.
+
 ## FAQ
 
 Q: Why in the hell are you bundling your own build of ``ld``?
