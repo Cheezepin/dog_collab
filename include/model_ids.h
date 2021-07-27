@@ -586,6 +586,8 @@
 #define MODEL_VCUTM_WARP_PIPE                     MODEL_LEVEL_GEOMETRY_16   // warp_pipe_geo
 #define MODEL_CASTLE_GROUNDS_WARP_PIPE            MODEL_LEVEL_GEOMETRY_16   // warp_pipe_geo
 
+#define MODEL_DOG                         0xFF
+
 #define MODEL_REX                         0x1FF
 #define MODEL_GALOOMBA                    0x1FE
 #define MODEL_BLOOPER                     0x1FD

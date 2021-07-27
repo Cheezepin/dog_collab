@@ -112,6 +112,7 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_EXPLOSION,               explosion_geo),
     LOAD_MODEL_FROM_GEO(MODEL_DIRT_ANIMATION,          dirt_animation_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CARTOON_STAR,            cartoon_star_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DOG,                     dog_geo),
     LOAD_MODEL_FROM_GEO(MODEL_REX,                     rex_geo),
     LOAD_MODEL_FROM_GEO(MODEL_GALOOMBA,                galoomba_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BLOOPER,                 blooper_geo),
