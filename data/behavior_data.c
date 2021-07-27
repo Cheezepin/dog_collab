@@ -2837,10 +2837,10 @@ const BehaviorScript bhvHiddenBlueCoin[] = {
     SET_HITBOX(/*Radius*/ 100, /*Height*/ 64),
     SET_INT(oDamageOrCoinValue, 5),
     SET_INT(oIntangibleTimer, 0),
-    SET_INT(oAnimState, -1),
+    SET_INT(oBehParams2ndByte, -1),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_hidden_blue_coin_loop),
-        ADD_INT(oAnimState, 1),
+        ADD_INT(oBehParams2ndByte, 1),
     END_LOOP(),
 };
 

@@ -28,8 +28,21 @@ void bhv_hidden_blue_coin_loop(void) {
             // Wait until the blue coin switch starts ticking to activate.
             blueCoinSwitch = o->oHiddenBlueCoinSwitch;
 
+            if (o->oOpacity) {
+                cur_obj_enable_rendering();
+            } else {
+                cur_obj_disable_rendering();
+            }
+            if (gMarioState->floor != NULL && gMarioState->floor->object == blueCoinSwitch) {
+                o->oFC += 0x600;
+                o->oOpacity = 91 + (sins(o->oFC) * 90);//approach_s16_symmetric(o->oOpacity, 165, 25);
+            } else {
+                o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 40);
+            }
+
             if (blueCoinSwitch->oAction == BLUE_COIN_SWITCH_ACT_TICKING) {
                 o->oAction++; // Set to HIDDEN_BLUE_COIN_ACT_ACTIVE
+                o->oOpacity = 255;
             }
 
             break;
