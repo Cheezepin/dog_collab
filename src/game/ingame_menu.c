@@ -262,16 +262,16 @@ void render_multi_text_string(s8 multiTextID)
 void render_dog_string(void)
 {
     s8 i;
-    u8 length = 8;
-    u8 dogString[9];
+    u8 length = DOG_STRING_LENGTH;
+    u8 dogString[DOG_STRING_LENGTH + 1];
 
-    for(i = 0; i < 9; i++) {
+    for(i = 0; i < DOG_STRING_LENGTH + 1; i++) {
         dogString[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
-        if(dogString[i] == 0xFF && length == 8) {
+        if(dogString[i] == 0xFF && length == 12) {
             length = i;
         }
     }
-    dogString[8] = 0xFF;
+    dogString[DOG_STRING_LENGTH] = 0xFF;
     for (i = 0; i < length; i++) {
         render_generic_char(dogString[i]);
         create_dl_translation_matrix(MENU_MTX_NOPUSH, (gDialogCharWidths[dogString[i]]), 0, 0);
@@ -837,23 +837,24 @@ void render_multi_text_string_lines(s8 multiTextId, s8 lineNum, s16 *linePos, s8
 void render_dog_string_lines(s8 lineNum, s16 *linePos, s8 linesPerBox, s8 xMatrix, s8 lowerBound)
 {
     s8 i;
-    u8 length = 8;
-    u8 dogString[9];
+    u8 length = DOG_STRING_LENGTH;
+    u8 dogString[DOG_STRING_LENGTH + 1];
 
-    for(i = 0; i < 9; i++) {
+    for(i = 0; i < DOG_STRING_LENGTH + 1; i++) {
         dogString[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
-        if(dogString[i] == 0xFF && length == 8) {
+        if(dogString[i] == 0xFF && length == 12) {
             length = i;
         }
     }
-    dogString[8] = 0xFF;
+    dogString[DOG_STRING_LENGTH] = 0xFF;
 
     if (lineNum >= lowerBound && lineNum <= (lowerBound + linesPerBox)) {
         if (linePos[0] != 0 || (xMatrix != 1)) {
             create_dl_translation_matrix(MENU_MTX_NOPUSH, (gDialogCharWidths[DIALOG_CHAR_SPACE] * (xMatrix - 1)), 0, 0);
         }
         for (i = 0; i < length; i++) {
-            render_generic_char(dogString[i]);
+            if(dogString[i] != DIALOG_CHAR_SPACE)
+                render_generic_char(dogString[i]);
             create_dl_translation_matrix(MENU_MTX_NOPUSH, (gDialogCharWidths[dogString[i]]), 0, 0);
         }
     }
@@ -2236,7 +2237,7 @@ Gfx icon_mesh[] = {
 
 u8 textEnterDogName[] = { TEXT_ENTER_DOG_NAME };
 u8 textKeyboardDefines[] = { TEXT_KEYBOARD_DEFINES };
-u8 dogStringTemp[9] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF };
+u8 dogStringTemp[DOG_STRING_LENGTH + 1] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF };
 u8 topBarMap[2][10] = {
 { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 }, 
 { 0xFA, 0xFD, 0xF9, 0xE5, 0xE6, 0xFB, 0xF2, 0xF3, 0xF4, 0xF7 }, };
@@ -2286,7 +2287,7 @@ void render_dog_keyboard(void) {
     print_string_with_shadow(20, 220, textEnterDogName, white);
     print_string_with_shadow(20, 20, textKeyboardDefines, white);
     length = -1;
-    for(i = 0; i < 8; i++) {
+    for(i = 0; i < DOG_STRING_LENGTH; i++) {
         dogStringTemp[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
         if(dogStringTemp[i] != 0xFF) {
             length = i;
@@ -2331,14 +2332,29 @@ void render_dog_keyboard(void) {
     render_char_with_shadow(0x3F, white);
     create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
     render_char_with_shadow(0x3E, white);
-    create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
-    render_char_with_shadow(0x52, white);
-    create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
-    render_char_with_shadow(0x50, white);
+    // create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
+    // render_char_with_shadow(0x52, white);
+    // create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
+    // render_char_with_shadow(0x50, white);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
-    if(length < 7 && (gPlayer1Controller->buttonPressed & A_BUTTON)) {
-        if(keyboardCursorY == 0) {
+    if(length < DOG_STRING_LENGTH - 1 && (gPlayer1Controller->buttonPressed & A_BUTTON)) {
+        if(keyboardCursorY == 3 && keyboardCursorX > 5) {
+            u8 key;
+            switch(keyboardCursorX - 6) {
+                case 0:
+                    key = 0x3F;
+                    break;
+                case 1:
+                    key = 0x3E;
+                    break;
+                case 2:
+                case 3:
+                    key = 0x9E;
+                    break;
+            }
+            dogStringTemp[length + 1] = key;
+        } else if(keyboardCursorY == 0) {
             dogStringTemp[length + 1] = topBarMap[topBar][keyboardCursorX];
         } else {
             dogStringTemp[length + 1] = init + keyboardCursorX + ((keyboardCursorY - 1)*0x0A);
@@ -2349,8 +2365,8 @@ void render_dog_keyboard(void) {
     }
     save_file_set_dog_string(gCurrSaveFileNum - 1, &dogStringTemp);
 
-    create_dl_scale_matrix(MENU_MTX_PUSH, 4.0f, 4.0f, 1.0f);
-    print_string_with_shadow(5, 41, dogStringTemp, white);
+    create_dl_scale_matrix(MENU_MTX_PUSH, 3.0f, 3.0f, 1.0f);
+    print_string_with_shadow(7, 58, dogStringTemp, white);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);

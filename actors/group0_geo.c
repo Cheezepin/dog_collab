@@ -18,3 +18,18 @@
 #include "mario/geo.inc.c"
 
 #include "dog/geo.inc.c"
+
+#include "rex/geo.inc.c"
+#include "galoomba/geo.inc.c"
+#include "blooper/geo.inc.c"
+#include "blargg/geo.inc.c"
+#include "buzzy_beetle/geo.inc.c"
+#include "nipper/geo.inc.c"
+#include "cleft/geo.inc.c"
+#include "motos/geo.inc.c"
+#include "strollin_stu/geo.inc.c"
+#include "laser_ring_spawner/geo.inc.c"
+#include "laser_ring/geo.inc.c"
+#include "spike/geo.inc.c"
+#include "spike_ball/geo.inc.c"
+#include "podoboo/geo.inc.c"

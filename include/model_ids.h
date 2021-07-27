@@ -342,7 +342,7 @@
 #define MODEL_HEAVE_HO                    0x59        // heave_ho_geo
 
 // group 2
-#define MODEL_BLARGG                      0x54        // blargg_geo
+//#define MODEL_BLARGG                      0x54        // blargg_geo
 #define MODEL_BULLY                       0x56        // bully_geo
 #define MODEL_BULLY_BOSS                  0x57        // bully_boss_geo
 
@@ -585,5 +585,20 @@
 #define MODEL_THI_WARP_PIPE                       MODEL_LEVEL_GEOMETRY_16   // warp_pipe_geo
 #define MODEL_VCUTM_WARP_PIPE                     MODEL_LEVEL_GEOMETRY_16   // warp_pipe_geo
 #define MODEL_CASTLE_GROUNDS_WARP_PIPE            MODEL_LEVEL_GEOMETRY_16   // warp_pipe_geo
+
+#define MODEL_REX                         0x1FF
+#define MODEL_GALOOMBA                    0x1FE
+#define MODEL_BLOOPER                     0x1FD
+#define MODEL_BLARGG                      0x1FC
+#define MODEL_BUZZY_BEETLE                0x1FB
+#define MODEL_NIPPER                      0x1FA
+#define MODEL_CLEFT                       0x1F9
+#define MODEL_MOTOS                       0x1F8
+#define MODEL_STROLLIN_STU                0x1F7
+#define MODEL_LASER_RING_SPAWNER          0x1F6
+#define MODEL_LASER_RING                  0x1F5
+#define MODEL_SPIKE                       0x1F4
+#define MODEL_SPIKE_BALL                  0x1F3
+#define MODEL_PODOBOO                     0x1F2
 
 #endif // MODEL_IDS_H

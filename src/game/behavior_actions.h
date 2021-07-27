@@ -552,6 +552,34 @@ void bhv_dust_smoke_loop(void);
 void bhv_yoshi_loop(void);
 void bhv_volcano_trap_loop(void);
 
+void bhv_motos_loop(void);
+void bhv_motos_hand_loop(void);
+void bhv_rex_init(void);
+void bhv_rex_update(void);
+void bhv_galoomba_init(void);
+void bhv_galoomba_update(void);
+void bhv_blooper_init(void);
+void bhv_blooper_update(void);
+void bhv_blargg_init(void);
+void bhv_blargg_update(void);
+void bhv_buzzy_beetle_init(void);
+void bhv_buzzy_beetle_update(void);
+void bhv_nipper_init(void);
+void bhv_nipper_update(void);
+void bhv_cleft_init(void);
+void bhv_cleft_update(void);
+void bhv_strollin_stu_init(void);
+void bhv_strollin_stu_update(void);
+void bhv_laser_ring_spawner_init(void);
+void bhv_laser_ring_spawner_loop(void);
+void bhv_laser_ring_init(void);
+void bhv_laser_ring_loop(void);
+void bhv_spike_init(void);
+void bhv_spike_update(void);
+void bhv_spike_ball_init(void);
+void bhv_spike_ball_loop(void);
+void bhv_podoboo_loop(void);
+
 Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
 
 // Bowser

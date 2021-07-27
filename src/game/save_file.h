@@ -18,6 +18,8 @@
 
 #define NUM_SAVE_FILES 4
 
+#define DOG_STRING_LENGTH 12
+
 struct SaveBlockSignature
 {
     u16 magic;
@@ -42,7 +44,7 @@ struct SaveFile
 
     u8 courseCoinScores[COURSE_STAGES_COUNT];
 
-    u8 dogString[8];
+    u8 dogString[DOG_STRING_LENGTH];
 
     struct SaveBlockSignature signature;
 };

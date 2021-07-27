@@ -344,4 +344,50 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "dog/geo_header.h"
 
+#include "rex/geo_header.h"
+
+
+#include "rex/anim_header.h"
+#include "galoomba/geo_header.h"
+
+
+#include "galoomba/anim_header.h"
+#include "blooper/geo_header.h"
+
+
+#include "blooper/anim_header.h"
+#include "blargg/geo_header.h"
+
+
+#include "blargg/anim_header.h"
+
+#include "buzzy_beetle/geo_header.h"
+
+
+#include "buzzy_beetle/anim_header.h"
+#include "nipper/geo_header.h"
+
+
+#include "nipper/anim_header.h"
+#include "cleft/geo_header.h"
+
+
+#include "cleft/anim_header.h"
+#include "motos/header.h"
+#include "strollin_stu/geo_header.h"
+
+
+#include "strollin_stu/anim_header.h"
+#include "laser_ring/geo_header.h"
+#include "laser_ring_spawner/geo_header.h"
+
+#include "spike/geo_header.h"
+#include "spike/anim_header.h"
+#include "spike_ball/geo_header.h"
+
+
+#include "spike_ball/anim_header.h"
+
+#include "podoboo/geo_header.h"
+
 #endif

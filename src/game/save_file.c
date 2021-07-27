@@ -725,7 +725,7 @@ u32 save_file_get_dog_string(s32 fileIndex, s32 stringIndex) {
 
 void save_file_set_dog_string(s32 fileIndex, u8 *string) {
     u8 i;
-    for(i = 0; i < 8; i++) {
+    for(i = 0; i < DOG_STRING_LENGTH; i++) {
         gSaveBuffer.files[fileIndex].dogString[i] = string[i];
     }
 }

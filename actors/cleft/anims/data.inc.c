@@ -1,0 +1,5 @@
+#include "anim_walk.inc.c"
+#include "anim_trip.inc.c"
+#include "anim_idle.inc.c"
+#include "anim_waddle.inc.c"
+#include "anim_getup.inc.c"
