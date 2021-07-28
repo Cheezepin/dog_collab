@@ -19,7 +19,7 @@ void dmat_init(u32 **t_array, u8 *rom, u32 width, u32 height, u32 g_img_siz, u32
 	}
 }
 
-void dmat_copy(u8 *t_pointer, u32 **t_array, u32 idx, u32 count) {
+void dmat_copy(Texture t_pointer[], u32 **t_array, u32 idx, u32 count) {
 	u32 *rom = t_array[idx % count];
 
 	dma_read(segmented_to_virtual(t_pointer), rom, rom + (u32) t_array[1] - (u32) t_array[0]);
