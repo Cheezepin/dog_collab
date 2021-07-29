@@ -84,5 +84,6 @@ void mem_pool_free(struct MemoryPool *pool, void *addr);
 void *alloc_display_list(u32 size);
 void setup_dma_table_list(struct DmaHandlerList *list, void *srcAddr, void *buffer);
 s32 load_patchable_table(struct DmaHandlerList *list, s32 index);
+void dma_read(u8 *dest, u8 *srcStart, u8 *srcEnd);
 
 #endif // MEMORY_H
