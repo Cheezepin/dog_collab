@@ -63,4 +63,8 @@ extern const LevelScript level_ccm_entry[];
 
 #include "levels/ccm/magma_thwomp/collision_header.h"
 
+#include "levels/ccm/swing_board/geo_header.h"
+
+#include "levels/ccm/swing_board/collision_header.h"
+
 #endif

@@ -562,6 +562,7 @@ extern const BehaviorScript bhvDogNPC[];
 //START ROVERT BEHAVIOR
 
 extern const BehaviorScript bhvMagmaThwomp[];
+extern const BehaviorScript bhvSwingBoard[];
 
 //END ROVERT BEHAVIOR
 

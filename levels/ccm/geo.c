@@ -26,3 +26,4 @@
 #include "levels/ccm/geo.inc.c"
 
 #include "levels/ccm/magma_thwomp/geo.inc.c"
+#include "levels/ccm/swing_board/geo.inc.c"

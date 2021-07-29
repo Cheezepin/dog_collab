@@ -8,7 +8,13 @@ void bhv_podoboo_loop() {
 
     switch(o->oAction) {
         case 0: //Init
-            o->oHomeX = find_floor(o->oPosX, o->oPosY, o->oPosZ, &sp24);
+            if (o->oBehParams2ndByte == 0) {
+                o->oHomeX = find_floor(o->oPosX, o->oPosY, o->oPosZ, &sp24);
+                }
+                else
+                {
+                o->oHomeX = o->oPosY - (o->oBehParams2ndByte*300.0f);
+                }
             o->oAction++;
             o->oFaceAngleRoll = 0x7FFF;
             o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
@@ -49,7 +55,7 @@ void bhv_podoboo_loop() {
                 //Calculate upward velocity
                 o->oHomeZ = o->oPosY;
                 while(o->oHomeZ < o->oHomeY) {
-                    o->oVelY += 1.5;
+                    o->oVelY += 1.75;
                     o->oHomeZ += o->oVelY;
                     }
                 //End

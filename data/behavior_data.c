@@ -6309,4 +6309,16 @@ const BehaviorScript bhvMagmaThwomp[] = {
     END_LOOP(),
 }; 
 
+const BehaviorScript bhvSwingBoard[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(swing_board_collision),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 4000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_swing_Board),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+}; 
+
 //END ROVERT BEHAVIOR

@@ -49,3 +49,5 @@
 
 #include "levels/ccm/magma_thwomp/model.inc.c"
 #include "levels/ccm/magma_thwomp/collision.inc.c"
+#include "levels/ccm/swing_board/model.inc.c"
+#include "levels/ccm/swing_board/collision.inc.c"

@@ -24,3 +24,33 @@ void bhv_Magma_Thwomp() {
         o->oVelY = 0;
         }
     }
+
+void bhv_swing_Board (void) {
+        if (o->oAction == 0) {
+            if (gMarioObject->platform == o) {
+                o->oAction = 1;
+                o->oTimer = 0;
+                play_sound(SOUND_GENERAL_OPEN_CHEST, o->header.gfx.cameraToObject);
+                }
+            }
+        if (o->oAction == 1) {
+            o->oFaceAngleRoll += o->oMoveAngleRoll;
+            if (o->oFaceAngleRoll > 0x4000) {
+                o->oMoveAngleRoll -= 0x50;
+                }
+                else
+                {
+                o->oMoveAngleRoll += 0x50;
+                }
+
+            if (o->oTimer < 120) {
+                o->oMoveAngleRoll *= .98;
+                }
+
+            }
+        if (o->oDistanceToMario > 5000.0f) {
+            o->oAction = 0;
+            o->oMoveAngleRoll = 0;;
+            o->oFaceAngleRoll = 0;
+            }
+    }
