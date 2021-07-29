@@ -191,7 +191,7 @@ void bhv_motos_loop(void) {
                 bhv_motos_main();
             break;
         case HELD_HELD:
-            cur_obj_unrender_and_reset_state(MOTOS_ANIM_WALK, MOTOS_ACT_WAIT);
+            cur_obj_unrender_set_action_and_anim(MOTOS_ANIM_WALK, MOTOS_ACT_WAIT);
             break;
         case HELD_THROWN:
         case HELD_DROPPED:
