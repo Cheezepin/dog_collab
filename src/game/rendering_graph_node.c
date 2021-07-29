@@ -44,6 +44,7 @@ s16 gMatStackIndex;
 Mat4 gMatStack[32];
 Mtx *gMatStackFixed[32];
 f32 aspect;
+u8 heatValue = 0; //Controls the intensity of the heatwave. Goes up to 255.
 
 /**
  * Animation nodes have state in global variables, so this struct captures
@@ -288,6 +289,7 @@ static void geo_process_ortho_projection(struct GraphNodeOrthoProjection *node) 
  * Process a perspective projection node.
  */
 static void geo_process_perspective(struct GraphNodePerspective *node) {
+    f32 heatWave;
     if (node->fnNode.func != NULL) {
         node->fnNode.func(GEO_CONTEXT_RENDER, &node->fnNode.node, gMatStack[gMatStackIndex]);
     }
@@ -304,7 +306,16 @@ static void geo_process_perspective(struct GraphNodePerspective *node) {
         aspect = 1.33333f;
         #endif
 
-        guPerspective(mtx, &perspNorm, node->fov, aspect, node->near / WORLD_SCALE, node->far / WORLD_SCALE, 1.0f);
+        if (heatValue > 0)
+        {
+            heatWave = sins((gGlobalTimer*7000)*(heatValue*0.004)) * heatValue*0.0002f;
+        }
+        else
+        {
+            heatWave = approach_f32_asymptotic(heatWave, 0, 0.2f);
+        }
+
+        guPerspective(mtx, &perspNorm, node->fov+heatWave*10, aspect+(heatWave/2), node->near / WORLD_SCALE, node->far / WORLD_SCALE, 1.0f);
         gSPPerspNormalize(gDisplayListHead++, perspNorm);
 
         gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(mtx), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
@@ -332,7 +343,7 @@ static void geo_process_level_of_detail(struct GraphNodeLevelOfDetail *node) {
 #else
     distanceFromCam = -gMatStack[gMatStackIndex][3][2];
 #endif
-	
+
     if ((f32)node->minDistance <= distanceFromCam && distanceFromCam < (f32)node->maxDistance) {
         if (node->node.children != 0) {
             geo_process_node_and_siblings(node->node.children);
