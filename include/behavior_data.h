@@ -559,4 +559,10 @@ extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
 
+//START ROVERT BEHAVIOR
+
+extern const BehaviorScript bhvMagmaThwomp[];
+
+//END ROVERT BEHAVIOR
+
 #endif // BEHAVIOR_DATA_H

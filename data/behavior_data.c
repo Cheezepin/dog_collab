@@ -53,6 +53,7 @@
 #include "levels/wf/header.h"
 #include "levels/bowser_2/header.h"
 #include "levels/ttm/header.h"
+#include "levels/ccm/header.h"
 
 #include "make_const_nonconst.h"
 #include "behavior_data.h"
@@ -6291,4 +6292,21 @@ const BehaviorScript bhvDogNPC[] = {
     END_LOOP(),
 };
 
+//START ROVERT BEHAVIOR
 
+const BehaviorScript bhvMagmaThwomp[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(magma_thwomp_collision),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    DROP_TO_FLOOR(),
+    ADD_FLOAT(oPosY, 1),
+    SCALE(/*Unused*/ 0, /*Field*/ 100),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 4000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_Magma_Thwomp),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+}; 
+
+//END ROVERT BEHAVIOR

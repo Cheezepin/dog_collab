@@ -603,4 +603,10 @@
 #define MODEL_SPIKE_BALL                  0x1F3
 #define MODEL_PODOBOO                     0x1F2
 
+//START ROVERT MODEL IDS
+
+#define MODEL_MAGMA_THWOMP 0x100
+
+//END ROVERT MODEL IDS
+
 #endif // MODEL_IDS_H
