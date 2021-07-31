@@ -6883,17 +6883,12 @@ layer_end
 
 .sound_air_howling_wind:
 chan_setlayer 0, .layer_2AA7
-chan_setlayer 1, .layer_2AB7
 chan_setpanmix 0
 .chan_2A89:
 chan_setbank 5
 chan_setinstr 6
 chan_setdecayrelease 3
 chan_setval 1
-chan_call .delay
-chan_setbank 6
-chan_setinstr 9
-chan_setdecayrelease 3
 chan_setval 199
 chan_call .delay
 chan_setval 100

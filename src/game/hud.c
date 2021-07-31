@@ -52,7 +52,7 @@ void print_fps(s32 x, s32 y)
 
     sprintf(text, "%2.2f", fps);
 
-    print_text(x, y, text);
+    print_small_text(x, y, text, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
 }
 
 // ------------ END OF FPS COUNER -----------------
@@ -457,12 +457,15 @@ void render_hud_camera_status(void) {
  */
 
 s32 gKeyboard = 0;
+u8 fDebug = 1;
+extern s32 mempool;
 
 void render_hud(void) {
     s16 hudDisplayFlags;
 #ifdef VERSION_EU
     Mtx *mtx;
 #endif
+    s8 textBytes[32];
 
     hudDisplayFlags = gHudDisplay.flags;
 
@@ -527,6 +530,30 @@ void render_hud(void) {
 
         if (gKeyboard) {
             render_dog_keyboard();
+        }
+
+        if (fDebug)
+        {
+            sprintf(textBytes, "RAM: %06X", main_pool_available());
+            print_small_text(16, 16, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
+            sprintf(textBytes, "/%06X", mempool);
+            print_small_text(96, 16, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
+            sprintf(textBytes, "(%d_)", (s32)(((f32)main_pool_available()/(f32)mempool)*100));
+            print_small_text(160, 16, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
+            print_fps(16,28);
+            sprintf(textBytes, "CPU: %d_", (s32)(cpuTime/16666.6f));
+            print_small_text(16, 40, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
+            sprintf(textBytes, "RDP: %d_", (s32)(rdpTime/16666.6f));
+            print_small_text(16, 52, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
+            sprintf(textBytes, "X: %d", (s32)(gMarioState->pos[0]));
+            print_small_text(16, 64, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
+            sprintf(textBytes, "Y: %d", (s32)(gMarioState->pos[1]));
+            print_small_text(16, 76, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
+            sprintf(textBytes, "Z: %d", (s32)(gMarioState->pos[2]));
+            print_small_text(16, 88, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
+            sprintf(textBytes, "D: %d", (s16)(gMarioState->faceAngle[1]));
+            print_small_text(16, 100, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
+
         }
     }
 }

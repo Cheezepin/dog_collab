@@ -359,8 +359,6 @@ void add_glyph_texture(s8 glyphIndex) {
     gSPDisplayList(gDisplayListHead++, dl_hud_img_load_tex_block);
 }
 
-#ifndef WIDESCREEN
-/**
  * Clips textrect into the boundaries defined.
  */
 void clip_to_bounds(s32 *x, s32 *y) {
