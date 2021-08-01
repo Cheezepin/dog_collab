@@ -51,3 +51,6 @@
 #include "levels/ccm/magma_thwomp/collision.inc.c"
 #include "levels/ccm/swing_board/model.inc.c"
 #include "levels/ccm/swing_board/collision.inc.c"
+#include "levels/ccm/propane_thrower/model.inc.c"
+#include "levels/ccm/lava_grate/model.inc.c"
+#include "levels/ccm/lava_grate/collision.inc.c"

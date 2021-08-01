@@ -50,6 +50,7 @@ void bhv_motos_wait(void) {
     cur_obj_init_animation_with_sound(MOTOS_ANIM_WAIT);
     
     if (o->oDistanceToMario < 500.f) {
+        //cur_obj_play_sound_2(SOUND_MOTOS);
         o->oAction = MOTOS_ACT_PLAYER_SEARCH;
     }
 }
@@ -58,11 +59,7 @@ void bhv_motos_player_search(void) {
     cur_obj_init_animation_with_sound(MOTOS_ANIM_WALK);
     o->oForwardVel = 5.f; // Sped up (was 2.f)
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 800); // Sped up (was 300)
-    
-    if (o->oInteractStatus & INT_STATUS_GRABBED_MARIO) {
-        o->oAction = MOTOS_ACT_PLAYER_CARRY;
-        o->oChuckyaUnk88 = 1;
-    }
+
 }
 
 void bhv_motos_player_carry(void) {
@@ -96,17 +93,40 @@ void bhv_motos_carry_run(void) {
     o->oForwardVel = 15.f; // Sped up (was 5.f)
     cur_obj_init_animation_with_sound(MOTOS_ANIM_CARRY_RUN);
     
+    cur_obj_play_sound_1(SOUND_AIR_HEAVEHO_MOVE);
+
     if (bhv_motos_do_throw_mario())
         o->oAction = MOTOS_ACT_PLAYER_PITCH;
     // Useless else clause removed
 }
 
 void bhv_motos_thrown(void) {
-    cur_obj_init_animation_with_sound(MOTOS_ANIM_WALK);
+    struct Object *coin;
+    cur_obj_init_animation_with_sound(MOTOS_ANIM_DOWN_STOP);
     
     if (o->oMoveFlags & OBJ_MOVE_LANDED) {
-        o->oAction = MOTOS_ACT_RECOVER; // New action: recover (used to go straight back into wait)
-        cur_obj_play_sound_2(SOUND_OBJ2_LARGE_BULLY_ATTACKED);
+
+        //if (save_file_get_badge_equip() & (1<<3)) {
+            //o->oHealth-=2;
+            //}
+            //else
+            //{
+            //o->oHealth--;
+            //}
+
+        if (o->oHealth > 0) {
+            o->oAction = MOTOS_ACT_RECOVER; // New action: recover (used to go straight back into wait)
+            }
+            else
+            {
+            obj_mark_for_deletion(o);
+
+            coin = spawn_object(o, MODEL_BLUE_COIN, bhvBlueCoinMotos);
+            cur_obj_play_sound_2(SOUND_GENERAL_COIN_SPURT_2);
+            coin->oForwardVel = 10.0f;
+            coin->oVelY = 20.0f;
+            coin->oMoveAngleYaw = (f32)(o->oFaceAngleYaw + 0x8000) + random_float() * 1024.0f;
+            }
     }
 }
 
@@ -127,6 +147,7 @@ void bhv_motos_recover(void) {
 }
 
 void bhv_motos_death(void) {
+    cur_obj_init_animation_with_sound(MOTOS_ANIM_WAIT);
     // Taken from bully code to handle death
     if (obj_lava_death()) {
         struct Object *coin = spawn_object(o, MODEL_BLUE_COIN, bhvBlueCoinMotos);
@@ -140,6 +161,7 @@ void bhv_motos_death(void) {
 
 void bhv_motos_main() {
     f32 floorY;
+    struct Surface *sObjFloor;
 
     cur_obj_update_floor_and_walls();
 
@@ -182,6 +204,11 @@ void bhv_motos_loop(void) {
     cur_obj_scale(2.0f);
     o->oInteractionSubtype |= INT_SUBTYPE_GRABS_MARIO;
     
+    if (o->oInteractStatus & INT_STATUS_GRABBED_MARIO) {
+        o->oAction = MOTOS_ACT_PLAYER_CARRY;
+        o->oChuckyaUnk88 = 1;
+    }
+
     switch (o->oHeldState) {
         case HELD_FREE:
             // If clause to prevent Motos from updating physics while dying from lava
@@ -191,7 +218,7 @@ void bhv_motos_loop(void) {
                 bhv_motos_main();
             break;
         case HELD_HELD:
-            cur_obj_unrender_and_reset_state(MOTOS_ANIM_WALK, MOTOS_ACT_WAIT);
+            cur_obj_unrender_set_action_and_anim(MOTOS_ANIM_WALK, MOTOS_ACT_WAIT);
             break;
         case HELD_THROWN:
         case HELD_DROPPED:

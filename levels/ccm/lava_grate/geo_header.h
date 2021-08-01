@@ -1,0 +1,17 @@
+extern const GeoLayout lava_grate_geo[];
+extern Lights1 lava_grate_metal_plate_lights;
+extern Lights1 lava_grate_grate_lights;
+extern u8 lava_grate_MetalTile_i8[];
+extern u8 lava_grate_grate_ia8[];
+extern Vtx lava_grate_Cube_004_mesh_layer_1_vtx_cull[8];
+extern Vtx lava_grate_Cube_004_mesh_layer_1_vtx_0[80];
+extern Gfx lava_grate_Cube_004_mesh_layer_1_tri_0[];
+extern Vtx lava_grate_Cube_004_mesh_layer_4_vtx_cull[8];
+extern Vtx lava_grate_Cube_004_mesh_layer_4_vtx_0[8];
+extern Gfx lava_grate_Cube_004_mesh_layer_4_tri_0[];
+extern Gfx mat_lava_grate_metal_plate[];
+extern Gfx mat_revert_lava_grate_metal_plate[];
+extern Gfx mat_lava_grate_grate[];
+extern Gfx lava_grate_Cube_004_mesh_layer_1[];
+extern Gfx lava_grate_Cube_004_mesh_layer_4[];
+extern Gfx lava_grate_material_revert_render_settings[];

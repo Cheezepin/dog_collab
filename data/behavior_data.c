@@ -6268,7 +6268,7 @@ const BehaviorScript bhvPodoboo[] = {
     OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
     SET_HOME(),
     SET_INTERACT_TYPE(INTERACT_FLAME),
-    SET_HITBOX_WITH_OFFSET(/*Radius*/ 50, /*Height*/ 25, /*Downwards offset*/ 25),
+    SET_HITBOX_WITH_OFFSET(/*Radius*/ 80, /*Height*/ 50, /*Downwards offset*/ 25),
     SET_INT(oIntangibleTimer, 0),
     BEGIN_LOOP(),
         SET_INT(oInteractStatus, 0),
@@ -6317,6 +6317,80 @@ const BehaviorScript bhvSwingBoard[] = {
     SET_FLOAT(oDrawingDistance, 4000),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_swing_Board),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+}; 
+
+const BehaviorScript bhvMotosHand[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW)),
+    BILLBOARD(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_motos_hand_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvBlueCoinMotos[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    CALL_NATIVE(bhv_moving_blue_coin_init),
+    GOTO(bhvMovingYellowCoin + 1 + 2),
+};
+
+const BehaviorScript bhvMotos[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+    LOAD_ANIMATIONS(oAnimations, motos_anime),
+    SET_INT(oInteractType, INTERACT_GRABBABLE),
+    SET_INT(oHealth, 2),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 100),
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 1000, /*Friction*/ 1000, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
+    SPAWN_OBJ(/*Model*/ MODEL_NONE, /*Behavior*/ bhvMotosHand),
+    SET_INT(oIntangibleTimer, 0),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_motos_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvPropaneThrower[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
+    SET_INTERACT_TYPE(INTERACT_IGLOO_BARRIER),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 200),
+    SET_INT(oIntangibleTimer, 0),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        SET_INT(oInteractStatus, 0),
+        CALL_NATIVE(bhv_Propane_Shooter),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvPropane[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    SET_HOME(),
+    SCALE(/*Unused*/ 0, /*Field*/ 700),
+    SET_INTERACT_TYPE(INTERACT_FLAME),
+    SET_HITBOX_WITH_OFFSET(/*Radius*/ 50, /*Height*/ 25, /*Downwards offset*/ 25),
+    SET_INT(oIntangibleTimer, 0),
+    CALL_NATIVE(bhv_init_room),
+    BEGIN_LOOP(),
+        SET_INT(oInteractStatus, 0),
+        ANIMATE_TEXTURE(oAnimState, 2),
+        CALL_NATIVE(bhv_Propane_Flame),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvLavaGrate[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(lava_grate_collision),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SCALE(/*Unused*/ 0, /*Field*/ 100),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 4000),
+    SET_FLOAT(oCollisionDistance, 4000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_lava_grate_loop),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 }; 
