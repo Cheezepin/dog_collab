@@ -818,19 +818,12 @@ s32 act_water_ground_pound(struct MarioState *m) {
 
     play_sound_if_no_flag(m, SOUND_ACTION_THROW, MARIO_ACTION_SOUND_PLAYED);
 
-    if (m->input & INPUT_A_PRESSED) {
-        return set_mario_action(m, ACT_BREASTSTROKE, 0);
+    if ((m->input & INPUT_A_PRESSED) || (m->input & INPUT_B_PRESSED) || (m->actionState == 2)) {
+        if (m->actionTimer > 0) return set_mario_action(m, ACT_WATER_IDLE, 0);
+        else m->actionState = 2;
     }
 
     if (m->actionState == 0) {
-        if (m->actionTimer < 16) {
-            yOffset = 10 - m->actionTimer;
-            if (m->pos[1] + yOffset + 160.0f < m->waterLevel) {
-                m->pos[1] += yOffset;
-                vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
-            }
-        }
-
         m->vel[1] = -35.0f;
         mario_set_forward_vel(m, 0.0f);
 
@@ -845,7 +838,7 @@ s32 act_water_ground_pound(struct MarioState *m) {
             play_sound(SOUND_MARIO_GROUND_POUND_WAH, m->marioObj->header.gfx.cameraToObject);
             m->actionState = 1;
         }
-    } else {
+    } else if (m->actionState == 1) {
         m->faceAngle[0] = approach_yaw(m->faceAngle[0], 0, 0.08f);
         set_mario_animation(m, MARIO_ANIM_GROUND_POUND);
 
@@ -858,13 +851,25 @@ s32 act_water_ground_pound(struct MarioState *m) {
             }
             set_camera_shake_from_hit(SHAKE_GROUND_POUND);
         } else if (stepResult == WATER_STEP_HIT_WALL) {
-            // mario_set_forward_vel(m, -16.0f);
             if (m->vel[1] > 0.0f) {
                 m->vel[1] = 0.0f;
             }
+        }
+    } else {
+        m->actionTimer++;
 
-            // m->particleFlags |= PARTICLE_VERTICAL_STAR;
-            // set_mario_action(m, ACT_BACKWARD_WATER_KB, 0);
+        stepResult = perform_water_step(m);
+        if (stepResult == WATER_STEP_HIT_FLOOR) {
+            play_mario_heavy_landing_sound(m, SOUND_ACTION_TERRAIN_HEAVY_LANDING);
+            if (!check_fall_damage(m, ACT_HARD_BACKWARD_GROUND_KB)) {
+                m->particleFlags |= PARTICLE_MIST_CIRCLE;
+                set_mario_action(m, ACT_WATER_IDLE, 0);
+            }
+            set_camera_shake_from_hit(SHAKE_GROUND_POUND);
+        } else if (stepResult == WATER_STEP_HIT_WALL) {
+            if (m->vel[1] > 0.0f) {
+                m->vel[1] = 0.0f;
+            }
         }
     }
 
