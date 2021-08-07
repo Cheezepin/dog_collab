@@ -814,7 +814,6 @@ static s32 act_water_throw(struct MarioState *m) {
 
 s32 act_water_ground_pound(struct MarioState *m) {
     u32 stepResult;
-    f32 yOffset;
 
     play_sound_if_no_flag(m, SOUND_ACTION_THROW, MARIO_ACTION_SOUND_PLAYED);
 
@@ -845,10 +844,8 @@ s32 act_water_ground_pound(struct MarioState *m) {
         stepResult = perform_water_step(m);
         if (stepResult == WATER_STEP_HIT_FLOOR) {
             play_mario_heavy_landing_sound(m, SOUND_ACTION_TERRAIN_HEAVY_LANDING);
-            if (!check_fall_damage(m, ACT_HARD_BACKWARD_GROUND_KB)) {
-                m->particleFlags |= PARTICLE_MIST_CIRCLE;
-                set_mario_action(m, ACT_WATER_IDLE, 0);
-            }
+            m->particleFlags |= PARTICLE_MIST_CIRCLE;
+            set_mario_action(m, ACT_WATER_IDLE, 0);
             set_camera_shake_from_hit(SHAKE_GROUND_POUND);
         } else if (stepResult == WATER_STEP_HIT_WALL) {
             if (m->vel[1] > 0.0f) {
@@ -861,10 +858,8 @@ s32 act_water_ground_pound(struct MarioState *m) {
         stepResult = perform_water_step(m);
         if (stepResult == WATER_STEP_HIT_FLOOR) {
             play_mario_heavy_landing_sound(m, SOUND_ACTION_TERRAIN_HEAVY_LANDING);
-            if (!check_fall_damage(m, ACT_HARD_BACKWARD_GROUND_KB)) {
-                m->particleFlags |= PARTICLE_MIST_CIRCLE;
-                set_mario_action(m, ACT_WATER_IDLE, 0);
-            }
+            m->particleFlags |= PARTICLE_MIST_CIRCLE;
+            set_mario_action(m, ACT_WATER_IDLE, 0);
             set_camera_shake_from_hit(SHAKE_GROUND_POUND);
         } else if (stepResult == WATER_STEP_HIT_WALL) {
             if (m->vel[1] > 0.0f) {
