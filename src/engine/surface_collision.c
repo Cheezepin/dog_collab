@@ -7,6 +7,7 @@
 #include "game/object_list_processor.h"
 #include "surface_collision.h"
 #include "surface_load.h"
+#include "game/puppyprint.h"
 
 /**************************************************
  *                      WALLS                     *
@@ -187,6 +188,7 @@ s32 find_wall_collisions(struct WallCollisionData *colData) {
     s32 numCollisions = 0;
     s16 x = colData->x;
     s16 z = colData->z;
+    OSTime first = osGetTime();
 
     colData->numWalls = 0;
 
@@ -212,6 +214,8 @@ s32 find_wall_collisions(struct WallCollisionData *colData) {
 
     // Increment the debug tracker.
     gNumCalls.wall += 1;
+
+    collisionTime[perfIteration] += osGetTime()-first;
 
     return numCollisions;
 }
@@ -263,7 +267,7 @@ static struct Surface *find_ceil_from_list(struct SurfaceNode *surfaceNode, s32 
 		nx = surf->normal.x;
 		ny = surf->normal.y;
 		nz = surf->normal.z;
-		oo = surf->originOffset;		
+		oo = surf->originOffset;
 		// If a wall, ignore it. Likely a remnant, should never occur.
 		if (ny == 0.0f) {
 			continue;
@@ -299,6 +303,7 @@ f32 find_ceil(f32 posX, f32 posY, f32 posZ, struct Surface **pceil) {
     f32 height = CELL_HEIGHT_LIMIT;
     f32 dynamicHeight = CELL_HEIGHT_LIMIT;
     s16 x, y, z;
+    OSTime first = osGetTime();
 
     //! (Parallel Universes) Because position is casted to an s16, reaching higher
     // float locations  can return ceilings despite them not existing there.
@@ -336,6 +341,8 @@ f32 find_ceil(f32 posX, f32 posY, f32 posZ, struct Surface **pceil) {
 
     // Increment the debug tracker.
     gNumCalls.ceil += 1;
+
+    collisionTime[perfIteration] += osGetTime()-first;
 
     return height;
 }
@@ -514,6 +521,7 @@ f32 unused_find_dynamic_floor(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfl
  */
 f32 find_floor(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfloor) {
     s16 cellZ, cellX;
+    OSTime first = osGetTime();
 
     struct Surface *floor, *dynamicFloor;
     struct SurfaceNode *surfaceList;
@@ -579,6 +587,8 @@ f32 find_floor(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfloor) {
 
     // Increment the debug tracker.
     gNumCalls.floor += 1;
+
+    collisionTime[perfIteration] += osGetTime()-first;
 
     return height;
 }
@@ -667,6 +677,7 @@ struct Surface *find_water_floor_from_list(struct SurfaceNode *surfaceNode, s32 
  */
 f32 find_water_floor(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfloor) {
     s16 cellZ, cellX;
+    OSTime first = osGetTime();
 
     struct Surface *floor = NULL;
     struct SurfaceNode *surfaceList;
@@ -697,6 +708,9 @@ f32 find_water_floor(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfloor) {
     } else {
         *pfloor = floor;
     }
+
+
+    collisionTime[perfIteration] += osGetTime()-first;
 
     return height;
 }

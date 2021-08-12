@@ -15,6 +15,7 @@
 #include "sm64.h"
 #include "sound_init.h"
 #include "rumble_init.h"
+#include "puppyprint.h"
 
 #define MUSIC_NONE 0xFFFF
 
@@ -335,6 +336,7 @@ void audio_game_loop_tick(void) {
 void thread4_sound(UNUSED void *arg) {
     audio_init();
     sound_init();
+    OSTime lastTime;
 
     // Zero-out unused vector
     vec3f_copy(unused80339DC0, gVec3fZero);
@@ -346,14 +348,16 @@ void thread4_sound(UNUSED void *arg) {
         OSMesg msg;
 
         osRecvMesg(&sSoundMesgQueue, &msg, OS_MESG_BLOCK);
+        lastTime = osGetTime();
         if (gResetTimer < 25) {
             struct SPTask *spTask;
             profiler_log_thread4_time();
-            spTask = create_next_audio_frame_task(); 
+            spTask = create_next_audio_frame_task();
             if (spTask != NULL) {
                 dispatch_audio_sptask(spTask);
             }
             profiler_log_thread4_time();
+            profiler_update(audioTime, lastTime);
         }
     }
 }

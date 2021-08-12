@@ -12,6 +12,7 @@
 #include "sm64.h"
 #include "game_init.h"
 #include "engine/extended_bounds.h"
+#include "puppyprint.h"
 
 #include "config.h"
 
@@ -1118,6 +1119,7 @@ void geo_process_node_and_siblings(struct GraphNode *firstNode) {
  */
 void geo_process_root(struct GraphNodeRoot *node, Vp *b, Vp *c, s32 clearColor) {
     UNUSED s32 unused;
+    OSTime first = osGetTime();
 
     if (node->node.flags & GRAPH_RENDER_ACTIVE) {
         Mtx *initialMatrix;
@@ -1158,4 +1160,5 @@ void geo_process_root(struct GraphNodeRoot *node, Vp *b, Vp *c, s32 clearColor) 
         }
         main_pool_free(gDisplayListHeap);
     }
+    profiler_update(graphTime, first);
 }

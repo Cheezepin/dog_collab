@@ -19,6 +19,7 @@
 #include "segment2.h"
 #include "segment_symbols.h"
 #include "rumble_init.h"
+#include "puppyprint.h"
 #ifdef HVQM
 #include <hvqm/hvqm.h>
 #endif
@@ -689,67 +690,12 @@ void setup_game_memory(void) {
     load_segment_decompress(2, _segment2_mio0SegmentRomStart, _segment2_mio0SegmentRomEnd);
 }
 
-void profiler_update(OSTime *time, OSTime time2)
-{
-    time[gGlobalTimer % NUM_PERF_ITERATIONS] = osGetTime() - time2;
-}
-
-void get_average_perf_time(OSTime *time)
-{
-    s32 i = 0;
-    s32 total = 0;
-    for (i = 0; i < NUM_PERF_ITERATIONS-1; i++)
-    {
-        total += time[i];
-    }
-    time[NUM_PERF_ITERATIONS] = total/NUM_PERF_ITERATIONS;
-}
-
-//General
-OSTime cpuTime = 0;
-OSTime rspTime = 0;
-OSTime rdpTime = 0;
-OSTime ramTime = 0;
-OSTime loadTime = 0;
-OSTime gLastOSTime = 0;
-
-//CPU
-OSTime collisionTime[NUM_PERF_ITERATIONS+1];
-OSTime behaviourTime[NUM_PERF_ITERATIONS+1];
-OSTime scriptTime[NUM_PERF_ITERATIONS+1];
-//RDP
-OSTime bufferTime[NUM_PERF_ITERATIONS+1];
-OSTime tmemTime[NUM_PERF_ITERATIONS+1];
-OSTime busTime[NUM_PERF_ITERATIONS+1];
-
-void profiler_work(void)
-{
-    bufferTime[gGlobalTimer % NUM_PERF_ITERATIONS] = (IO_READ(DPC_BUFBUSY_REG));
-    tmemTime[gGlobalTimer % NUM_PERF_ITERATIONS] = (IO_READ(DPC_TMEM_REG));
-    busTime[gGlobalTimer % NUM_PERF_ITERATIONS] = (IO_READ(DPC_PIPEBUSY_REG));
-    OSTime newTime = osGetTime();
-
-    get_average_perf_time(scriptTime);
-    get_average_perf_time(bufferTime);
-    get_average_perf_time(tmemTime);
-    get_average_perf_time(busTime);
-    get_average_perf_time(collisionTime);
-
-    rdpTime = bufferTime[NUM_PERF_ITERATIONS];
-    rdpTime = MAX(rdpTime, tmemTime[NUM_PERF_ITERATIONS]);
-    rdpTime = MAX(rdpTime, busTime[NUM_PERF_ITERATIONS]);
-    cpuTime = scriptTime[NUM_PERF_ITERATIONS];
-
-    gLastOSTime = newTime;
-    IO_WRITE(DPC_STATUS_REG, DPC_CLR_CLOCK_CTR | DPC_CLR_CMD_CTR | DPC_CLR_PIPE_CTR | DPC_CLR_TMEM_CTR);
-}
-
 /**
  * Main game loop thread. Runs forever as long as the game continues.
  */
 void thread5_game_loop(UNUSED void *arg) {
     struct LevelCommand *addr;
-    OSTime lastTime = 1;
+    OSTime lastTime = 0;
 
     setup_game_memory();
 #if ENABLE_RUMBLE
@@ -783,7 +729,8 @@ void thread5_game_loop(UNUSED void *arg) {
             continue;
         }
         profiler_log_thread5_time(THREAD5_START);
-        //profiler_update(&scriptTime, lastTime);
+        lastTime = osGetTime();
+        collisionTime[perfIteration] = 0;
 
         // If any controllers are plugged in, start read the data for when
         // read_controller_inputs is called later.
@@ -798,10 +745,11 @@ void thread5_game_loop(UNUSED void *arg) {
         select_gfx_pool();
         read_controller_inputs();
         addr = level_script_execute(addr);
+        profiler_update(scriptTime, lastTime);
 
         display_and_vsync();
 
-        profiler_work();
+        puppyprint_profiler_process();
 
         // when debug info is enabled, print the "BUF %d" information.
         if (gShowDebugText) {

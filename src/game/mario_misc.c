@@ -609,15 +609,30 @@ Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat
                 vec3f_copy(gMirrorMario.scale, mario->header.gfx.scale);
 
                 gMirrorMario.animInfo = mario->header.gfx.animInfo;
-                gMirrorMario.pos[0] -= 1370;
+                gMirrorMario.pos[0] -= 1340;
                 gMirrorMario.pos[1] = -(mario->header.gfx.pos[1]-76);
-                gMirrorMario.pos[2] -= 2690;
+                gMirrorMario.pos[2] -= 2620;
                 gMirrorMario.scale[1] *= -1.0f;
                 ((struct GraphNode *) &gMirrorMario)->flags |= 1;
             } else {
                 ((struct GraphNode *) &gMirrorMario)->flags &= ~1;
             }
             break;
+    }
+    return NULL;
+}
+
+Gfx *geo_render_bell(s32 callContext, struct GraphNode *node, UNUSED Mat4 *c) {
+    struct GraphNodeGenerated *asGenerated = (struct GraphNodeGenerated *) node;
+    s16 rotX = sins(gAreaUpdateCounter * 850) * 0x3000;
+
+    if (callContext == GEO_CONTEXT_RENDER)
+    {
+        struct GraphNodeRotation *rotNode = (struct GraphNodeRotation *) node->next;
+
+        rotNode->rotation[0] = rotX;
+        //if (ABS(rotX) == 0x3000)
+       //     play_sound
     }
     return NULL;
 }
