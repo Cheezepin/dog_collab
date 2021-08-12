@@ -49,11 +49,11 @@ void puppyprint_render_profiler(void)
     print_small_text(160, 224, textBytes, PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL);
 
     print_fps(16,40);
-    sprintf(textBytes, "CPU: %dms (%d_)", (s32)cpuTime/56, (s32)cpuTime/16666);
+    sprintf(textBytes, "CPU: %dus (%d_)", (s32)cpuTime/56, (s32)cpuTime/16666);
     print_small_text(16, 52, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
-    sprintf(textBytes, "RSP: %dms (%d_)", (s32)rspTime/56, (s32)rspTime/16666);
+    sprintf(textBytes, "RSP: %dus (%d_)", (s32)rspTime/56, (s32)rspTime/16666);
     print_small_text(16, 64, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
-    sprintf(textBytes, "RDP: %dms (%d_)", (s32)rdpTime/56, (s32)rdpTime/16666);
+    sprintf(textBytes, "RDP: %dus (%d_)", (s32)rdpTime/56, (s32)rdpTime/16666);
     print_small_text(16, 76, textBytes, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL);
 
     sprintf(textBytes, "OBJ: %d/%d", gObjectCounter, OBJECT_POOL_CAPACITY);
@@ -79,54 +79,55 @@ void puppyprint_render_profiler(void)
     sprintf(textBytes, "D: %04X", (u16)(gCamera->yaw));
     print_small_text(304, 188, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL);
 
-    #define ADDTIMES (f32)(collisionTime[NUM_PERF_ITERATIONS] + graphTime[NUM_PERF_ITERATIONS] + behaviourTime[NUM_PERF_ITERATIONS] + audioTime[NUM_PERF_ITERATIONS])
+    #define ADDTIMES (f32)MAX(collisionTime[NUM_PERF_ITERATIONS] + graphTime[NUM_PERF_ITERATIONS] + behaviourTime[NUM_PERF_ITERATIONS] + audioTime[NUM_PERF_ITERATIONS], 1)
 
     perfPercentage[0] = (f32)collisionTime[NUM_PERF_ITERATIONS]/ADDTIMES;
     perfPercentage[1] = (f32)graphTime[NUM_PERF_ITERATIONS]/ADDTIMES;
     perfPercentage[2] = (f32)behaviourTime[NUM_PERF_ITERATIONS]/ADDTIMES;
     perfPercentage[3] = (f32)audioTime[NUM_PERF_ITERATIONS]/ADDTIMES;
 
+    perfPercentage2[0] = (f32)collisionTime[NUM_PERF_ITERATIONS]/MAX(1666666, ADDTIMES);
+    perfPercentage2[1] = (f32)graphTime[NUM_PERF_ITERATIONS]/MAX(1666666, ADDTIMES);;
+    perfPercentage2[2] = (f32)behaviourTime[NUM_PERF_ITERATIONS]/MAX(1666666, ADDTIMES);;
+    perfPercentage2[3] = (f32)audioTime[NUM_PERF_ITERATIONS]/MAX(1666666, ADDTIMES);;
+
     #undef ADDTIMES
 
-    perfPercentage2[0] = (f32)collisionTime[NUM_PERF_ITERATIONS]/1666666;
-    perfPercentage2[1] = (f32)graphTime[NUM_PERF_ITERATIONS]/1666666;
-    perfPercentage2[2] = (f32)behaviourTime[NUM_PERF_ITERATIONS]/1666666;
-    perfPercentage2[3] = (f32)audioTime[NUM_PERF_ITERATIONS]/1666666;
-
-    sprintf(textBytes, "Collision: <COL_99505099>%dms", (s32)collisionTime[NUM_PERF_ITERATIONS]/56);
+    sprintf(textBytes, "Collision: <COL_99505099>%dus", (s32)collisionTime[NUM_PERF_ITERATIONS]/56);
     print_small_text(304, 40, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL);
-    sprintf(textBytes, "Graph: <COL_50509999>%dms", (s32)graphTime[NUM_PERF_ITERATIONS]/56);
+    sprintf(textBytes, "Graph: <COL_50509999>%dus", (s32)graphTime[NUM_PERF_ITERATIONS]/56);
     print_small_text(304, 52, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL);
-    sprintf(textBytes, "Behaviour: <COL_50995099>%dms", (s32)behaviourTime[NUM_PERF_ITERATIONS]/56);
+    sprintf(textBytes, "Behaviour: <COL_50995099>%dus", (s32)behaviourTime[NUM_PERF_ITERATIONS]/56);
     print_small_text(304, 64, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL);
-    sprintf(textBytes, "Audio: <COL_99995099>%dms", (s32)audioTime[NUM_PERF_ITERATIONS]/56);
+    sprintf(textBytes, "Audio: <COL_99995099>%dus", (s32)audioTime[NUM_PERF_ITERATIONS]/56);
     print_small_text(304, 76, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL);
     //Render CPU breakdown bar.
     prepare_blank_box();
-    graphPos = 224+(80*perfPercentage[0]);
+    graphPos = 224 + CLAMP((80*perfPercentage[0]), 1, 80);
     render_blank_box(224, 92, graphPos, 100, 255, 0, 0, 255);
     prevGraph = graphPos;
-    graphPos +=(80*perfPercentage[1]);
+    graphPos += CLAMP((80*perfPercentage[1]), 1, 80);
     render_blank_box(prevGraph, 92, graphPos, 100, 0, 0, 255, 255);
     prevGraph = graphPos;
-    graphPos +=(80*perfPercentage[2]);
+    graphPos += CLAMP((80*perfPercentage[2]), 1, 80);
     render_blank_box(prevGraph, 92, graphPos, 100, 0, 255, 0, 255);
     prevGraph = graphPos;
-    render_blank_box(prevGraph, 92, 304, 100, 255, 255, 0, 255);
+    graphPos += CLAMP((80*perfPercentage[3]), 1, 80);
+    render_blank_box(prevGraph, 92, MAX(304, graphPos), 100, 255, 255, 0, 255);
     //Render secondary CPU breakdown bar, in relation 33333ms of overhead.
-    graphPos = 224+(80*perfPercentage2[0]);
+    graphPos = 224 + CLAMP((80*perfPercentage2[0]), 1, 80);
     render_blank_box(224, 104, graphPos, 112, 255, 0, 0, 255);
     prevGraph = graphPos;
-    graphPos +=(80*perfPercentage2[1]);
+    graphPos += CLAMP((80*perfPercentage2[1]), 1, 80);
     render_blank_box(prevGraph, 104, graphPos, 112, 0, 0, 255, 255);
     prevGraph = graphPos;
-    graphPos +=(80*perfPercentage2[2]);
+    graphPos += CLAMP((80*perfPercentage2[2]), 1, 80);
     render_blank_box(prevGraph, 104, graphPos, 112, 0, 255, 0, 255);
     prevGraph = graphPos;
-    graphPos +=(80*perfPercentage2[3]);
+    graphPos += CLAMP((80*perfPercentage2[3]), 1, 80);
     render_blank_box(prevGraph, 104, graphPos, 112, 255, 255, 0, 255);
     prevGraph = graphPos;
-    render_blank_box(prevGraph, 104, 304, 112, 255, 255, 255, 255);
+    render_blank_box(prevGraph, 104, MAX(304, graphPos), 112, 255, 255, 255, 255);
     finish_blank_box();
 }
 
@@ -186,8 +187,6 @@ void puppyprint_profiler_process(void)
 void prepare_blank_box(void)
 {
     gDPSetCombineMode(gDisplayListHead++, BLANK, BLANK);
-    gDPSetRenderMode(gDisplayListHead++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
-    gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
 }
 
 void finish_blank_box(void)
@@ -196,11 +195,35 @@ void finish_blank_box(void)
     gSPDisplayList(gDisplayListHead++,dl_hud_img_end);
 }
 
+//This does some epic shenanigans to figure out the optimal way to draw this.
+//If the width is a multiple of 4, then use fillmode (fastest)
+//Otherwise, if there's transparency, it uses that rendermode, which is slower than using opaque rendermodes.
 void render_blank_box(s16 x1, s16 y1, s16 x2, s16 y2, u8 r, u8 g, u8 b, u8 a)
 {
-    gDPSetEnvColor(gDisplayListHead++, r, g, b, a);
-    gSPScisTextureRectangle(gDisplayListHead++, x1 << 2, y1 << 2, x2 << 2, y2 << 2, 0, 0 << 5, 0 << 5,  4096, 1024);
+    s32 cycleadd = 0;
+    if (ABS(x1 - x2) % 4 == 0)
+    {
+        gDPSetCycleType(gDisplayListHead++, G_CYC_FILL);
+        gDPSetRenderMode(gDisplayListHead++, G_RM_NOOP, G_RM_NOOP);
+        cycleadd = 1;
+    }
+    else
+    {
+        gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+        if (a == 255)
+        {
+            gDPSetRenderMode(gDisplayListHead++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+        }
+        else
+        {
+            gDPSetRenderMode(gDisplayListHead++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+        }
+        cycleadd = 0;
+    }
     gDPPipeSync(gDisplayListHead++);
+    gDPSetFillColor(gDisplayListHead++, GPACK_RGBA5551(r, g, b, 1) << 16 | GPACK_RGBA5551(r, g, b, 1));
+    gDPSetEnvColor(gDisplayListHead++,r,g,b,a);
+    gDPFillRectangle(gDisplayListHead++, x1, y1, x2-cycleadd, y2-cycleadd);
 }
 
 

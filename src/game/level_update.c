@@ -563,7 +563,7 @@ void check_instant_warp(void) {
             #ifdef INSTANT_WARP_OFFSET_FIX
                 gMarioObject->header.gfx.pos[0] = gMarioState->pos[0];
                 gMarioObject->header.gfx.pos[1] = gMarioState->pos[1];
-                gMarioObject->header.gfx.pos[2] = gMarioState->pos[2];               
+                gMarioObject->header.gfx.pos[2] = gMarioState->pos[2];
             #endif
                 cameraAngle = gMarioState->area->camera->yaw;
 
@@ -1255,11 +1255,11 @@ s32 init_level(void) {
         } else if (gDebugLevelSelect == 0) {
             if (gMarioState->action != ACT_UNINITIALIZED) {
                 set_mario_action(gMarioState, ACT_IDLE, 0);
-                if(!save_file_exists(gCurrSaveFileNum - 1)) {
+                /*if(!save_file_exists(gCurrSaveFileNum - 1)) {
                     save_file_set_dog_string(gCurrSaveFileNum - 1, &dogString);
                     gKeyboard = 1;
                     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
-                }
+                }*/
             }
         }
     }

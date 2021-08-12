@@ -527,9 +527,9 @@ void render_hud(void) {
             print_text(10, 60, "SURFACE NODE POOL FULL");
         }
 
-        if (gKeyboard) {
+        /*if (gKeyboard) {
             render_dog_keyboard();
-        }
+        }*/
 
         if (fDebug)
         {

@@ -2,6 +2,8 @@
 #define PUPPYPRINT_H
 
 
+#define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
+
 //This is how many indexes of timers are saved at once. higher creates a smoother average, but naturally uses more RAM. 15's fine.
 #define NUM_PERF_ITERATIONS 15
 

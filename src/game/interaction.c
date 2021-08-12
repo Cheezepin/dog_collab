@@ -965,6 +965,7 @@ u32 interact_warp_door(struct MarioState *m, UNUSED u32 interactType, struct Obj
 }
 
 u32 get_door_save_file_flag(struct Object *door) {
+    return TRUE;
     u32 saveFileFlag = 0;
     s16 requiredNumStars = door->oBehParams >> 24;
 
