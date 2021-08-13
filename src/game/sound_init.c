@@ -349,6 +349,7 @@ void thread4_sound(UNUSED void *arg) {
 
         osRecvMesg(&sSoundMesgQueue, &msg, OS_MESG_BLOCK);
         lastTime = osGetTime();
+        dmaAudioTime[perfIteration] = 0;
         if (gResetTimer < 25) {
             struct SPTask *spTask;
             profiler_log_thread4_time();
@@ -358,6 +359,7 @@ void thread4_sound(UNUSED void *arg) {
             }
             profiler_log_thread4_time();
             profiler_update(audioTime, lastTime);
+            audioTime[perfIteration] -= dmaAudioTime[perfIteration];
         }
     }
 }

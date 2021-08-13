@@ -531,6 +531,8 @@ void render_hud(void) {
             render_dog_keyboard();
         }*/
 
+        print_set_envcolour(255, 255, 255, 255);
+
         if (fDebug)
         {
             puppyprint_render_profiler();

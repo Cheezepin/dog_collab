@@ -11,6 +11,7 @@
 #include "memory.h"
 #include "segment_symbols.h"
 #include "segments.h"
+#include "puppyprint.h"
 #ifdef GZIP
 #include <gzip.h>
 #endif
@@ -259,6 +260,7 @@ u32 main_pool_pop_state(void) {
  */
 void dma_read(u8 *dest, u8 *srcStart, u8 *srcEnd) {
     u32 size = ALIGN16(srcEnd - srcStart);
+    OSTime first = osGetTime();
 
     osInvalDCache(dest, size);
     while (size != 0) {
@@ -272,6 +274,7 @@ void dma_read(u8 *dest, u8 *srcStart, u8 *srcEnd) {
         srcStart += copySize;
         size -= copySize;
     }
+    dmaTime[perfIteration] += osGetTime()-first;
 }
 
 /**
@@ -296,6 +299,7 @@ static void *dynamic_dma_read(u8 *srcStart, u8 *srcEnd, u32 side) {
  */
 void *load_segment(s32 segment, u8 *srcStart, u8 *srcEnd, u32 side) {
     void *addr = dynamic_dma_read(srcStart, srcEnd, side);
+    ramsizeSegment[segment+7] = (s32)srcEnd- (s32)srcStart;
 
     if (addr != NULL) {
         set_segment_base_addr(segment, addr);
@@ -377,6 +381,7 @@ void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd) {
         }
     } else {
     }
+    ramsizeSegment[segment+7] = (s32)srcEnd- (s32)srcStart;
     return dest;
 }
 

@@ -728,24 +728,41 @@ void thread5_game_loop(UNUSED void *arg) {
             draw_reset_bars();
             continue;
         }
-        profiler_log_thread5_time(THREAD5_START);
-        lastTime = osGetTime();
-        collisionTime[perfIteration] = 0;
+        while (TRUE)
+        {
+            profiler_log_thread5_time(THREAD5_START);
+            lastTime = osGetTime();
+            collisionTime[perfIteration] = 0;
+            behaviourTime[perfIteration] = 0;
+            dmaTime[perfIteration] = 0;
 
-        // If any controllers are plugged in, start read the data for when
-        // read_controller_inputs is called later.
-        if (gControllerBits) {
-#if ENABLE_RUMBLE
-            block_until_rumble_pak_free();
-#endif
-            osContStartReadData(&gSIEventMesgQueue);
+            // If any controllers are plugged in, start read the data for when
+            // read_controller_inputs is called later.
+            if (gControllerBits) {
+    #if ENABLE_RUMBLE
+                block_until_rumble_pak_free();
+    #endif
+                osContStartReadData(&gSIEventMesgQueue);
+            }
+
+            audio_game_loop_tick();
+            select_gfx_pool();
+            read_controller_inputs();
+            addr = level_script_execute(addr);
+            profiler_update(scriptTime, lastTime);
+            if (benchmarkLoop > 0)
+            {
+                benchmarkLoop--;
+                benchMark[benchmarkLoop] = osGetTime() - lastTime;
+                if (benchmarkLoop == 0)
+                {
+                    puppyprint_profiler_finished();
+                    break;
+                }
+            }
+            else
+                break;
         }
-
-        audio_game_loop_tick();
-        select_gfx_pool();
-        read_controller_inputs();
-        addr = level_script_execute(addr);
-        profiler_update(scriptTime, lastTime);
 
         display_and_vsync();
 
