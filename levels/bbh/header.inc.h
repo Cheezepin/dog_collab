@@ -1,0 +1,13 @@
+extern const GeoLayout bbh_area_1_geo[];
+extern const GeoLayout bbh_area_1[];
+extern const Collision bbh_area_1_collision[];
+extern const MacroObject bbh_area_1_macro_objs[];
+extern Lights1 bbh_dl_Clouds_lights;
+extern u8 bbh_dl_darkclouds_i8_i8[];
+extern Vtx bbh_dl_Clouds_mesh_layer_1_vtx_cull[8];
+extern Vtx bbh_dl_Clouds_mesh_layer_1_vtx_0[4];
+extern Gfx bbh_dl_Clouds_mesh_layer_1_tri_0[];
+extern Gfx mat_bbh_dl_Clouds[];
+extern Gfx mat_revert_bbh_dl_Clouds[];
+extern Gfx bbh_dl_Clouds_mesh_layer_1[];
+extern Gfx bbh_dl_material_revert_render_settings[];

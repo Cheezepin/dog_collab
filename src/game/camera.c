@@ -6327,67 +6327,7 @@ struct CameraTrigger sCamCastle[] = {
  * The triggers are also responsible for warping the camera below platforms.
  */
 struct CameraTrigger sCamBBH[] = {
-    { 1, cam_bbh_enter_front_door, 742, 0, 2369, 200, 200, 200, 0 },
-    { 1, cam_bbh_leave_front_door, 741, 0, 1827, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 222, 0, 1458, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 222, 0, 639, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 435, 0, 222, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 1613, 0, 222, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 1827, 0, 1459, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, -495, 819, 1407, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, -495, 819, 640, 250, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 179, 819, 222, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 1613, 819, 222, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 1827, 819, 486, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 1827, 819, 1818, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_2_lower, 2369, 0, 1459, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_2_lower, 3354, 0, 1347, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_2_lower, 2867, 514, 1843, 512, 102, 409, 0 },
-    { 1, cam_bbh_room_4, 3354, 0, 804, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_4, 1613, 0, -320, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_8, 435, 0, -320, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_5_library, -2021, 0, 803, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_5_library, -320, 0, 640, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_5_library_to_hidden_transition, -1536, 358, -254, 716, 363, 102, 0 },
-    { 1, cam_bbh_room_5_hidden_to_library_transition, -1536, 358, -459, 716, 363, 102, 0 },
-    { 1, cam_bbh_room_5_hidden, -1560, 0, -1314, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_3, -320, 0, 1459, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_3, -2021, 0, 1345, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_2_library, 2369, 819, 486, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_2_library, 2369, 1741, 486, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_2_library_to_trapdoor_transition, 2867, 1228, 1174, 716, 414, 102, 0 },
-    { 1, cam_bbh_room_2_trapdoor_transition, 2867, 1228, 1378, 716, 414, 102, 0 },
-    { 1, cam_bbh_room_2_trapdoor, 2369, 819, 1818, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_9_attic, 1829, 1741, 486, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_9_attic, 741, 1741, 1587, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_9_attic_transition, 102, 2048, -191, 100, 310, 307, 0 },
-    { 1, cam_bbh_room_9_mr_i_transition, 409, 2048, -191, 100, 310, 307, 0 },
-    { 1, cam_bbh_room_13_balcony, 742, 1922, 2164, 200, 200, 200, 0 },
-    { 1, cam_bbh_fall_off_roof, 587, 1322, 2677, 1000, 400, 600, 0 },
-    { 1, cam_bbh_room_3, -1037, 819, 1408, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_3, -1970, 1024, 1345, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_8, 179, 819, -320, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_7_mr_i, 1613, 819, -320, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_7_mr_i_to_coffins_transition, 2099, 1228, -819, 102, 414, 716, 0 },
-    { 1, cam_bbh_room_7_coffins_to_mr_i_transition, 2304, 1228, -819, 102, 414, 716, 0 },
-    { 1, cam_bbh_room_6, -1037, 819, 640, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_6, -1970, 1024, 803, 200, 200, 200, 0 },
-    { 1, cam_bbh_room_1, 1827, 819, 1818, 200, 200, 200, 0 },
-    { 1, cam_bbh_fall_into_pool, 2355, -1112, -193, 1228, 500, 1343, 0 },
-    { 1, cam_bbh_fall_into_pool, 2355, -1727, 1410, 1228, 500, 705, 0 },
-    { 1, cam_bbh_elevator_room_lower, 0, -2457, 1827, 250, 200, 250, 0 },
-    { 1, cam_bbh_elevator_room_lower, 0, -2457, 2369, 250, 200, 250, 0 },
-    { 1, cam_bbh_elevator_room_lower, 0, -2457, 4929, 250, 200, 250, 0 },
-    { 1, cam_bbh_elevator_room_lower, 0, -2457, 4387, 250, 200, 250, 0 },
-    { 1, cam_bbh_room_0_back_entrance, 1887, -2457, 204, 250, 200, 250, 0 },
-    { 1, cam_bbh_room_0, 1272, -2457, 204, 250, 200, 250, 0 },
-    { 1, cam_bbh_room_0, -1681, -2457, 204, 250, 200, 250, 0 },
-    { 1, cam_bbh_room_0_back_entrance, -2296, -2457, 204, 250, 200, 250, 0 },
-    { 1, cam_bbh_elevator, -2939, -605, 5367, 800, 100, 800, 0 },
-    { 1, cam_bbh_room_12_upper, -2939, -205, 5367, 300, 100, 300, 0 },
-    { 1, cam_bbh_room_12_upper, -2332, -204, 4714, 250, 200, 250, 0x6000 },
-    { 1, cam_bbh_room_0_back_entrance, -1939, -204, 4340, 250, 200, 250, 0x6000 },
-    NULL_TRIGGER
+	NULL_TRIGGER
 };
 
 #define _ NULL
@@ -10836,26 +10776,26 @@ u8 sDanceCutsceneIndexTable[][4] = {
  * and if the result is non-zero, the camera will zoom out.
  */
 u8 sZoomOutAreaMasks[] = {
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // Unused         | Unused
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // Unused         | Unused
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // BBH            | CCM
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // CASTLE_INSIDE  | HMC
-    ZOOMOUT_AREA_MASK(1,0,0,0, 1,0,0,0), // SSL            | BOB
-    ZOOMOUT_AREA_MASK(1,0,0,0, 1,0,0,0), // SL             | WDW
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,1,0,0), // JRB            | THI
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // TTC            | RR
-    ZOOMOUT_AREA_MASK(1,0,0,0, 1,0,0,0), // CASTLE_GROUNDS | BITDW
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // VCUTM          | BITFS
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // SA             | BITS
-    ZOOMOUT_AREA_MASK(1,0,0,0, 0,0,0,0), // LLL            | DDD
-    ZOOMOUT_AREA_MASK(1,0,0,0, 0,0,0,0), // WF             | ENDING
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // COURTYARD      | PSS
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // COTMC          | TOTWC
-    ZOOMOUT_AREA_MASK(1,0,0,0, 1,0,0,0), // BOWSER_1       | WMOTR
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // Unused         | BOWSER_2
-    ZOOMOUT_AREA_MASK(1,0,0,0, 0,0,0,0), // BOWSER_3       | Unused
-    ZOOMOUT_AREA_MASK(1,0,0,0, 0,0,0,0), // TTM            | Unused
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // Unused         | Unused
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // BBH            | CCM
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // CASTLE_INSIDE  | HMC
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SSL            | BOB
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SL             | WDW
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 0, 0), // JRB            | THI
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // SA             | BITS
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // WF             | ENDING
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // COURTYARD      | PSS
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // COTMC          | TOTWC
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // BOWSER_1       | WMOTR
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // Unused         | BOWSER_2
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // BOWSER_3       | Unused
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // TTM            | Unused
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sZoomOutAreaMasks) - 1 == LEVEL_MAX / 2, "Make sure you edit sZoomOutAreaMasks when adding / removing courses.");
