@@ -3,6 +3,7 @@
 const GeoLayout bbh_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -2450, 193, 2639, bbh_dl_Cloud_mesh_layer_1),
 		GEO_DISPLAY_LIST(1, bbh_dl_Clouds_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
