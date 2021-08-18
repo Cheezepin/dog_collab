@@ -107,7 +107,7 @@ else ifeq ($(VERSION),sh)
   GRUCODE   ?= f3dzex
 endif
 
-TARGET := sm64.$(VERSION)
+TARGET := dogcollab.$(VERSION)
 
 
 # GRUCODE - selects which RSP microcode to use.
@@ -179,7 +179,7 @@ endif
 COMPARE ?= 0
 $(eval $(call validate-option,COMPARE,0 1))
 
-TARGET_STRING := sm64.$(VERSION).$(CONSOLE).$(GRUCODE)
+TARGET_STRING := dogcollab.$(VERSION).$(CONSOLE).$(GRUCODE)
 # If non-default settings were chosen, disable COMPARE
 ifeq ($(filter $(TARGET_STRING), sm64.jp.f3d_old sm64.us.f3d_old sm64.eu.f3d_new sm64.sh.f3d_new),)
   COMPARE := 0

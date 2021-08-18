@@ -56,3 +56,4 @@
 #include "levels/bitfs/seesaw_platform/collision.inc.c"
 #include "levels/bitfs/areas/1/trajectory.inc.c"
 #include "levels/bitfs/areas/1/movtext.inc.c"
+#include "levels/bitfs/leveldata.inc.c"
