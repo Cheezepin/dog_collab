@@ -70,3 +70,6 @@
 #include "levels/bbh/coffin/collision.inc.c"
 #include "levels/bbh/areas/1/movtext.inc.c"
 #include "levels/bbh/leveldata.inc.c"
+
+#include "levels/bbh/bounce_cloud/model.inc.c"
+#include "levels/bbh/bounce_cloud/collision.inc.c"

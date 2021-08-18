@@ -23,3 +23,5 @@
 #include "levels/bbh/coffin/geo.inc.c"
 #include "levels/bbh/areas/1/geo.inc.c"
 #include "levels/bbh/geo.inc.c"
+
+#include "levels/bbh/bounce_cloud/geo.inc.c"

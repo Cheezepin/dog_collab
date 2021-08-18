@@ -603,4 +603,14 @@
 #define MODEL_SPIKE_BALL                  0x1F3
 #define MODEL_PODOBOO                     0x1F2
 
+
+
+
+
+
+
+//comits models
+#define MODEL_BOUNCE_CLOUD 0x100
+
+
 #endif // MODEL_IDS_H

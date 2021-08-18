@@ -113,4 +113,8 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/header.inc.h"
 
+#include "levels/bbh/bounce_cloud/geo_header.h"
+
+#include "levels/bbh/bounce_cloud/collision_header.h"
+
 #endif

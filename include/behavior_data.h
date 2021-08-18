@@ -562,4 +562,8 @@ extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
 
+
+
+extern const BehaviorScript bhvBounceCloud[];
+
 #endif // BEHAVIOR_DATA_H
