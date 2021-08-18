@@ -25,3 +25,4 @@
 #include "levels/bbh/geo.inc.c"
 
 #include "levels/bbh/bounce_cloud/geo.inc.c"
+#include "levels/bbh/stretch_cloud/geo.inc.c"

@@ -1,3 +1,34 @@
+void bhv_stretch_cloud_init(void) {  
+    o->oFloatF4 = 1.0f;
+}
+
+
+void bhv_stretch_cloud_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            o->header.gfx.scale[0] = approach_f32(o->header.gfx.scale[0], 3.0f, 0.07f, 0.07f);
+            if (o->header.gfx.scale[0] != 3.0f) {
+                o->oTimer = 0;
+            }
+            if (o->oTimer > 45) {
+                o->oAction = 1;
+            }
+            break;
+        case 1:
+            o->header.gfx.scale[0] = approach_f32(o->header.gfx.scale[0], 1.0f, 0.07f, 0.07f);
+            if (o->header.gfx.scale[0] != 1.0f) {
+                o->oTimer = 0;
+            }
+            if (o->oTimer > 45) {
+                o->oAction = 0;
+            }
+            break;
+    }
+}
+
+
+
+
 void bhv_bounce_cloud_init(void) {  
     o->oFloatF4 = 1.0f;
 }

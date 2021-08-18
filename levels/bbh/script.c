@@ -33,6 +33,7 @@ const LevelScript level_bbh_entry[] = {
 	JUMP_LINK(script_func_global_7), 
 	JUMP_LINK(script_func_global_18), 
 	LOAD_MODEL_FROM_GEO(MODEL_BOUNCE_CLOUD, bounce_cloud_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_STRETCH_CLOUD, stretch_cloud_geo), 
 
 	AREA(1, bbh_area_1),
 		OBJECT(MODEL_NONE, 0, 176, 0, 0, -180, 0, 0x000B0000, bhvAirborneDeathWarp),
@@ -43,6 +44,8 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_NONE, -2507, 169, -1011, 0, 0, 0, 0x00000000, bhvCloud),
 		OBJECT(MODEL_NONE, -2982, 169, 1337, 0, 0, 0, 0x00000000, bhvCloud),
 		OBJECT(MODEL_NONE, -1348, 169, 2504, 0, 0, 0, 0x00000000, bhvCloud),
+		OBJECT(MODEL_STRETCH_CLOUD, -6814, 169, 4019, 0, 0, 0, 0x00000000, bhvStretchCloud),
+		OBJECT(MODEL_STRETCH_CLOUD, -4379, 169, 5983, 0, 90, 0, 0x00000000, bhvStretchCloud),
 		TERRAIN(bbh_area_1_collision),
 		MACRO_OBJECTS(bbh_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),

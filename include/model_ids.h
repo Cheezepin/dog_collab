@@ -598,10 +598,10 @@
 #define MODEL_MOTOS                       0x1F8
 #define MODEL_STROLLIN_STU                0x1F7
 #define MODEL_LASER_RING_SPAWNER          0x1F6
-#define MODEL_LASER_RING                  0x1F5
-#define MODEL_SPIKE                       0x1F4
-#define MODEL_SPIKE_BALL                  0x1F3
-#define MODEL_PODOBOO                     0x1F2
+#define MODEL_LASER_RING                  5
+#define MODEL_SPIKE                       4
+#define MODEL_SPIKE_BALL                  3
+#define MODEL_PODOBOO                     2
 
 
 
@@ -610,7 +610,8 @@
 
 
 //comits models
-#define MODEL_BOUNCE_CLOUD 0x100
+#define MODEL_BOUNCE_CLOUD                0x100
+#define MODEL_STRETCH_CLOUD               0x101
 
 
 #endif // MODEL_IDS_H

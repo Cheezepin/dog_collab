@@ -616,6 +616,11 @@ extern struct WaterDropletParams gShallowWaterWaveDropletParams;
 
 void bhv_bounce_cloud_loop(void);
 void bhv_bounce_cloud_init(void);
+void bhv_stretch_cloud_loop(void);
+void bhv_stretch_cloud_init(void);
+
+
+
 
 
 

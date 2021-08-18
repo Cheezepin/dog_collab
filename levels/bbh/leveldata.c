@@ -73,3 +73,5 @@
 
 #include "levels/bbh/bounce_cloud/model.inc.c"
 #include "levels/bbh/bounce_cloud/collision.inc.c"
+#include "levels/bbh/stretch_cloud/model.inc.c"
+#include "levels/bbh/stretch_cloud/collision.inc.c"
