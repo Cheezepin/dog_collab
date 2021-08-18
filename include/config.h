@@ -107,6 +107,8 @@
 #define MODEL_ID_COUNT 512
 // Increase audio heap size to allow for more concurrent notes to be played and for more custom sequences/banks to be imported (does nothing with EU and SH versions)
 #define EXPAND_AUDIO_HEAP
+// Allow all surfaces types to have force, (doesn't require setting force, just allows it to be optional)
+#define ALL_SURFACES_HAVE_FORCE
 
 // BUG/GAME QOL FIXES
 // Fix instant warp offset not working when warping across different areas
@@ -120,7 +122,7 @@
 // The last frame that will be considered a firsty when wallkicking
 #define FIRSTY_LAST_FRAME 1
 // 46 degree walkicks
-//#define WALLKICKS_46_DEGREES
+#define WALLKICKS_46_DEGREES
 // Disable BLJs and crush SimpleFlips's dreams
 //#define DISABLE_BLJ
 
