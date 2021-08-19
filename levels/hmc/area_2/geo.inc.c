@@ -6,8 +6,8 @@ const GeoLayout hmc_area_2_geo[] = {
 		GEO_SWITCH_CASE(4, geo_switch_area),
 		GEO_OPEN_NODE(),
 			GEO_BRANCH(1, hmc_dl_Area_2_Room_1_geo),
-			GEO_BRANCH(1, hmc_dl_Lobby_geo),
-			GEO_BRANCH(1, hmc_dl_Lobby_001_geo),
+			GEO_BRANCH(1, hmc_dl_Area_2_Room_2_geo),
+			GEO_BRANCH(1, hmc_dl_Dangling_Chain_geo),
 		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
@@ -15,20 +15,27 @@ const GeoLayout hmc_area_2_geo[] = {
 const GeoLayout hmc_dl_Area_2_Room_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_TRANSLATE_NODE_WITH_DL(1, 850, 4560, -1697, hmc_dl_Lobby_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, 908, 6808, -53, hmc_dl_Lobby_Boss_Mat_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
-const GeoLayout hmc_dl_Lobby_geo[] = {
+const GeoLayout hmc_dl_Area_2_Room_2_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(1, 908, 6806, -53, hmc_dl_Lobby_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(4, -4188, 7000, -57, hmc_dl_Chains_mesh_layer_4),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -3513, 5104, -1734, hmc_dl_Lobby_002_mesh_layer_1),
+		GEO_OPEN_NODE(),
+			GEO_DISPLAY_LIST(4, hmc_dl_Lobby_002_mesh_layer_4),
+		GEO_CLOSE_NODE(),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -3653, 4857, -597, hmc_dl_Shipping_Crates_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
-const GeoLayout hmc_dl_Lobby_001_geo[] = {
+const GeoLayout hmc_dl_Dangling_Chain_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(1, 908, 6806, -53, hmc_dl_Lobby_001_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(4, -7523, 6831, -3386, hmc_dl_Dangling_Chain_mesh_layer_4),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -55,6 +62,7 @@ const GeoLayout hmc_area_2[] = {
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(1, hmc_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(4, hmc_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

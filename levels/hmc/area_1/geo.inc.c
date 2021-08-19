@@ -65,6 +65,7 @@ const GeoLayout hmc_dl_Area_1_Room_2_geo[] = {
 		GEO_TRANSLATE_NODE_WITH_DL(1, 908, 1488, -40, hmc_dl_Elevator_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(5, 341, 1619, -682, hmc_dl_God_Rays_003_mesh_layer_5),
 		GEO_TRANSLATE_NODE_WITH_DL(1, 455, 1793, -259, hmc_dl_House_Interior_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -3633, 4416, -16483, hmc_dl_Shipping_Crate_002_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
