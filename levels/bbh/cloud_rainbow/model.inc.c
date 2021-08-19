@@ -1,3 +1,7 @@
+Lights1 cloud_rainbow_Rainbow_lights = gdSPDefLights1(
+	0x7F, 0x7F, 0x7F,
+	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
+
 Gfx cloud_rainbow_rgba32_hq_rainbow_rgba32_aligner[] = {gsSPEndDisplayList()};
 u8 cloud_rainbow_rgba32_hq_rainbow_rgba32[] = {
 	0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x02, 0xff, 
@@ -515,23 +519,29 @@ u8 cloud_rainbow_rgba32_hq_rainbow_rgba32[] = {
 	
 };
 
-Vtx cloud_rainbow_Rainbow_mesh_layer_5_vtx_0[4] = {
-	{{{203, 0, 0},0, {-16, 16},{0x0, 0x7F, 0x0, 0xFF}}},
-	{{{-203, 0, 0},0, {16368, 16},{0x0, 0x7F, 0x0, 0xFF}}},
-	{{{-203, 0, 10},0, {16368, -16},{0x0, 0x7F, 0x0, 0xFF}}},
-	{{{203, 0, 10},0, {-16, -16},{0x0, 0x7F, 0x0, 0xFF}}},
+Vtx cloud_rainbow_Rainbow_mesh_layer_5_vtx_0[8] = {
+	{{{162, 0, 0},0, {-16, 16},{0x0, 0x7F, 0x0, 0x0}}},
+	{{{-162, 0, 0},0, {16368, 16},{0x0, 0x7F, 0x0, 0x0}}},
+	{{{-162, 0, 2},0, {16368, 11},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{162, 0, 2},0, {-16, 11},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{-162, 0, 8},0, {16368, -11},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{162, 0, 8},0, {-16, -11},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{-162, 0, 10},0, {16368, -16},{0x0, 0x7F, 0x0, 0x0}}},
+	{{{162, 0, 10},0, {-16, -16},{0x0, 0x7F, 0x0, 0x0}}},
 };
 
 Gfx cloud_rainbow_Rainbow_mesh_layer_5_tri_0[] = {
-	gsSPVertex(cloud_rainbow_Rainbow_mesh_layer_5_vtx_0 + 0, 4, 0),
+	gsSPVertex(cloud_rainbow_Rainbow_mesh_layer_5_vtx_0 + 0, 8, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+	gsSP2Triangles(3, 2, 4, 0, 3, 4, 5, 0),
+	gsSP2Triangles(5, 4, 6, 0, 5, 6, 7, 0),
 	gsSPEndDisplayList(),
 };
 
 
 Gfx mat_cloud_rainbow_Rainbow[] = {
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(0, 0, 0, TEXEL0, 0, 0, 0, ENVIRONMENT, 0, 0, 0, TEXEL0, 0, 0, 0, ENVIRONMENT),
+	gsDPSetCombineLERP(0, 0, 0, TEXEL0, SHADE, 0, ENVIRONMENT, 0, 0, 0, 0, TEXEL0, SHADE, 0, ENVIRONMENT, 0),
 	gsSPClearGeometryMode(G_CULL_BACK),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPTileSync(),
@@ -543,6 +553,7 @@ Gfx mat_cloud_rainbow_Rainbow[] = {
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_32b, 128, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 1, 0, G_TX_WRAP | G_TX_NOMIRROR, 9, 0),
 	gsDPSetTileSize(0, 0, 0, 2044, 4),
 	gsDPSetEnvColor(254, 254, 254, 153),
+	gsSPSetLights1(cloud_rainbow_Rainbow_lights),
 	gsSPEndDisplayList(),
 };
 
