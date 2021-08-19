@@ -45,3 +45,4 @@
 #include "levels/bitfs/sinking_platforms/geo.inc.c"
 #include "levels/bitfs/seesaw_platform/geo.inc.c"
 #include "levels/bitfs/areas/1/geo.inc.c"
+#include "levels/bitfs/geo.inc.c"
