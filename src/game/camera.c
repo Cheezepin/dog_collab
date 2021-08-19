@@ -6402,6 +6402,10 @@ struct CameraTrigger sCamBBH[] = {
  *
  * Each table is terminated with NULL_TRIGGER
  */
+struct CameraTrigger sCamBitFS[] = {
+	NULL_TRIGGER
+};
+
 struct CameraTrigger sCamBitDW[] = {
 	NULL_TRIGGER
 };
