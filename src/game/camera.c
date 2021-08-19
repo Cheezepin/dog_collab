@@ -6405,6 +6405,7 @@ struct CameraTrigger sCamBBH[] = {
 struct CameraTrigger sCamBitFS[] = {
 	NULL_TRIGGER
 };
+
 struct CameraTrigger sCamBitDW[] = {
 	NULL_TRIGGER
 };
