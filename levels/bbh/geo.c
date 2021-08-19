@@ -26,3 +26,5 @@
 
 #include "levels/bbh/bounce_cloud/geo.inc.c"
 #include "levels/bbh/stretch_cloud/geo.inc.c"
+#include "levels/bbh/rainbow_cloud/geo.inc.c"
+#include "levels/bbh/cloud_rainbow/geo.inc.c"

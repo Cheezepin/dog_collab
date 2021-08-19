@@ -3,13 +3,8 @@
 const GeoLayout bbh_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(1, -2450, 193, 2639, bbh_dl_Cloud_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -3180, 193, 4159, bbh_dl_Cloud_mesh_layer_1),
 		GEO_DISPLAY_LIST(1, bbh_dl_Clouds_mesh_layer_1),
-		GEO_TRANSLATE_NODE_WITH_DL(5, -3173, 206, 5641, bbh_dl_Rainbow_mesh_layer_5),
-		GEO_TRANSLATE_NODE_WITH_DL(1, -3179, 249, 6254, bbh_dl_VomitCloud_mesh_layer_1),
-		GEO_OPEN_NODE(),
-			GEO_DISPLAY_LIST(5, bbh_dl_VomitCloud_mesh_layer_5),
-		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -35,7 +30,6 @@ const GeoLayout bbh_area_1[] = {
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
-		GEO_DISPLAY_LIST(5, bbh_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(1, bbh_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),

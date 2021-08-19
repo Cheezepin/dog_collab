@@ -75,3 +75,8 @@
 #include "levels/bbh/bounce_cloud/collision.inc.c"
 #include "levels/bbh/stretch_cloud/model.inc.c"
 #include "levels/bbh/stretch_cloud/collision.inc.c"
+#include "levels/bbh/rainbow_cloud/model.inc.c"
+#include "levels/bbh/rainbow_cloud/anims/data.inc.c"
+#include "levels/bbh/rainbow_cloud/anims/table.inc.c"
+#include "levels/bbh/cloud_rainbow/collision.inc.c"
+#include "levels/bbh/cloud_rainbow/model.inc.c"

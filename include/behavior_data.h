@@ -566,6 +566,9 @@ extern const BehaviorScript bhvDogNPC[];
 
 extern const BehaviorScript bhvBounceCloud[];
 extern const BehaviorScript bhvStretchCloud[];
+extern const BehaviorScript bhvRainbowCloud[];
+extern const BehaviorScript bhvCloudRainbow[];
+
 
 
 

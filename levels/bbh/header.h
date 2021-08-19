@@ -121,4 +121,12 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/stretch_cloud/collision_header.h"
 
+#include "levels/bbh/rainbow_cloud/geo_header.h"
+
+#include "levels/bbh/rainbow_cloud/anim_header.h"
+
+#include "levels/bbh/cloud_rainbow/collision_header.h"
+
+#include "levels/bbh/cloud_rainbow/geo_header.h"
+
 #endif
