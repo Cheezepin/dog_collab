@@ -47,17 +47,19 @@ void bhv_rainbow_cloud_init(void) {
 void bhv_rainbow_cloud_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (o->oTimer > 25 && o->oDistanceToMario < 2500.0f) {
+            if (o->oDistanceToMario < 2500.0f) {
                 o->oAction = 1;
                 cur_obj_init_animation_with_sound(0);
             }
             break;
         case 1:
             if (o->header.gfx.animInfo.animFrame == 16) {
+                o->oAnimState = 1;
                 o->oObjF4 = spawn_object(o, MODEL_CLOUD_RAINBOW, bhvCloudRainbow);
                 o->oObjF4->oPosY -= 70.0f;
             } else if (cur_obj_check_if_at_animation_end()) {
                 o->oAction = 0;
+                o->oAnimState = 0;
                 cur_obj_init_animation_with_sound(1);
             }
             break;

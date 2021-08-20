@@ -5,6 +5,8 @@ const GeoLayout bbh_area_1_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(1, -3180, 193, 4159, bbh_dl_Cloud_mesh_layer_1),
 		GEO_DISPLAY_LIST(1, bbh_dl_Clouds_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -15270, 3, 19352, bbh_dl_Metal_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -10845, 3, 19117, bbh_dl_Metal_001_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
