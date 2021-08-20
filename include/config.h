@@ -58,7 +58,7 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
-#define TEST_LEVEL LEVEL_BITFS
+#define TEST_LEVEL LEVEL_HMC
 
 // COMMON HACK CHANGES
 // Internal ROM name. NEEDS TO BE **EXACTLY** 20 CHARACTERS. Can't be 19 characters, can't be 21 characters. You can fill it with spaces.
@@ -100,7 +100,7 @@
 #define NO_FALSE_LEDGEGRABS
 
 
-// HACKER QOL 
+// HACKER QOL
 // Increase the maximum pole length (it will treat bparam1 and bparam2 as a single value)
 #define LONGER_POLES
 // Number of possible unique model ID's (keep it higher than 256)

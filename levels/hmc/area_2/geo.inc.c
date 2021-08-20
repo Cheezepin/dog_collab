@@ -3,10 +3,11 @@
 const GeoLayout hmc_area_2_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_SWITCH_CASE(4, geo_switch_area),
+		GEO_SWITCH_CASE(5, geo_switch_area),
 		GEO_OPEN_NODE(),
 			GEO_BRANCH(1, hmc_dl_Area_2_Room_1_geo),
 			GEO_BRANCH(1, hmc_dl_Area_2_Room_2_geo),
+			GEO_BRANCH(1, hmc_dl_Area_2_Room_3_geo),
 			GEO_BRANCH(1, hmc_dl_Dangling_Chain_geo),
 		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
@@ -17,6 +18,7 @@ const GeoLayout hmc_dl_Area_2_Room_1_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(1, 850, 4560, -1697, hmc_dl_Lobby_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(1, 908, 6808, -53, hmc_dl_Lobby_Boss_Mat_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -1087, 4329, -692, hmc_dl_Lobby_Crates_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -28,7 +30,17 @@ const GeoLayout hmc_dl_Area_2_Room_2_geo[] = {
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(4, hmc_dl_Lobby_002_mesh_layer_4),
 		GEO_CLOSE_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(1, -3653, 4857, -597, hmc_dl_Shipping_Crates_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -3653, 4857, -597, hmc_dl_Shipping_Containers_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, -4436, 4567, -1744, hmc_dl_Warehouse_Crates_mesh_layer_1),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout hmc_dl_Area_2_Room_3_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_TRANSLATE_NODE_WITH_DL(1, 265, 4632, -5259, hmc_dl_Engine_Room_Crates_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, 850, 4560, -1697, hmc_dl_Generator_Room_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(5, 901, 4464, -6421, hmc_dl_Generator_Room_001_mesh_layer_5),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -62,6 +74,7 @@ const GeoLayout hmc_area_2[] = {
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(1, hmc_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(5, hmc_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(4, hmc_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
