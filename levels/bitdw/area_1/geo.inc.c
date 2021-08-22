@@ -27,7 +27,6 @@ const GeoLayout bitdw_dl_B_geo[] = {
 			GEO_TRANSLATE_NODE_WITH_DL(1, 1912, -2290, 2895, bitdw_dl_start_platform_right_side_mesh_layer_1),
 			GEO_TRANSLATE_NODE_WITH_DL(1, 1282, -2108, 0, bitdw_dl_walljumps_mesh_layer_1),
 		GEO_CLOSE_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(1, 6842, -305, -4497, bitdw_dl_forth_torus_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(1, 0, -372, -922, bitdw_dl_pipe_1_final_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(5, -3883, -6582, -2395, bitdw_dl_pipe_1_final_001_mesh_layer_5),
 		GEO_OPEN_NODE(),
@@ -72,8 +71,8 @@ const GeoLayout bitdw_area_1[] = {
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
-		GEO_DISPLAY_LIST(1, bitdw_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(5, bitdw_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(1, bitdw_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };
