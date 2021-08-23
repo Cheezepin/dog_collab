@@ -1,4 +1,4 @@
-Lights1 stretch_cloud_Cloud_002_lights = gdSPDefLights1(
+Lights1 stretch_cloud_Cloud_001_lights = gdSPDefLights1(
 	0x7F, 0x7F, 0x7F,
 	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
 
@@ -531,35 +531,35 @@ Vtx stretch_cloud_Cloud_mesh_layer_1_vtx_cull[8] = {
 };
 
 Vtx stretch_cloud_Cloud_mesh_layer_1_vtx_0[29] = {
-	{{{357, -53, -220},0, {2179, 1350},{0x62, 0xBB, 0xD5, 0xFF}}},
-	{{{158, -53, -349},0, {2005, 772},{0xE, 0xBC, 0x95, 0xFF}}},
-	{{{279, 53, -317},0, {2270, 864},{0x3D, 0x3B, 0xA1, 0xFF}}},
-	{{{-150, -119, 171},0, {362, 1083},{0xF2, 0x82, 0xA, 0xFF}}},
-	{{{169, -58, 339},0, {454, 1980},{0x1B, 0xA9, 0x59, 0xFF}}},
-	{{{337, -58, 171},0, {1239, 2055},{0x54, 0xA3, 0x14, 0xFF}}},
-	{{{359, 59, 90},0, {1525, 1797},{0x6F, 0x3E, 0x7, 0xFF}}},
-	{{{364, 53, -96},0, {1993, 1437},{0x6D, 0x40, 0xF7, 0xFF}}},
-	{{{169, 129, -148},0, {1690, 783},{0x19, 0x78, 0xE0, 0xFF}}},
-	{{{42, 53, -305},0, {1730, 453},{0x2, 0x56, 0xA3, 0xFF}}},
-	{{{-161, -53, -349},0, {1416, 271},{0xEA, 0xBD, 0x96, 0xFF}}},
-	{{{-293, -53, 28},0, {443, 540},{0xAC, 0xA0, 0xFC, 0xFF}}},
-	{{{-330, -53, 262},0, {-152, 798},{0x9D, 0xC3, 0x33, 0xFF}}},
-	{{{-118, -53, 370},0, {-121, 1371},{0xF6, 0xB8, 0x68, 0xFF}}},
-	{{{88, 59, 361},0, {175, 1672},{0x8, 0x40, 0x6E, 0xFF}}},
-	{{{318, 39, 320},0, {781, 2237},{0x58, 0x18, 0x58, 0xFF}}},
-	{{{205, 131, 207},0, {843, 1540},{0x20, 0x77, 0x1F, 0xFF}}},
-	{{{123, 142, -78},0, {1422, 783},{0x16, 0x7B, 0xEB, 0xFF}}},
-	{{{-95, 156, -141},0, {1124, 247},{0xEB, 0x7B, 0xE7, 0xFF}}},
-	{{{-151, 120, -189},0, {1125, 161},{0xE6, 0x78, 0xDF, 0xFF}}},
-	{{{-40, 53, -317},0, {1594, 302},{0x2, 0x52, 0x9F, 0xFF}}},
-	{{{-277, 53, -305},0, {1146, -36},{0xB8, 0x3A, 0xA9, 0xFF}}},
-	{{{-345, -53, -200},0, {838, 184},{0x9E, 0xB6, 0xDF, 0xFF}}},
-	{{{-349, 53, 139},0, {52, 410},{0x8F, 0x39, 0x9, 0xFF}}},
-	{{{-242, 53, 351},0, {-340, 921},{0xC6, 0x38, 0x62, 0xFF}}},
-	{{{-120, 126, 231},0, {134, 837},{0xEB, 0x78, 0x23, 0xFF}}},
-	{{{-12, 184, 33},0, {856, 611},{0xFA, 0x7F, 0x3, 0xFF}}},
-	{{{-164, 118, 73},0, {481, 513},{0xD1, 0x76, 0x5, 0xFF}}},
-	{{{-338, 53, -76},0, {568, 148},{0x91, 0x3D, 0xFE, 0xFF}}},
+	{{{357, -53, -220},0, {2179, 1350},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{158, -53, -349},0, {2005, 772},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{279, 53, -317},0, {2270, 864},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-150, -119, 171},0, {362, 1083},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{169, -58, 339},0, {454, 1980},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{337, -58, 171},0, {1239, 2055},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{359, 59, 90},0, {1525, 1797},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{364, 53, -96},0, {1993, 1437},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{169, 129, -148},0, {1690, 783},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{42, 53, -305},0, {1730, 453},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-161, -53, -349},0, {1416, 271},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-293, -53, 28},0, {443, 540},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-330, -53, 262},0, {-152, 798},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-118, -53, 370},0, {-121, 1371},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{88, 59, 361},0, {175, 1672},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{318, 39, 320},0, {781, 2237},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{205, 131, 207},0, {843, 1540},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{123, 142, -78},0, {1422, 783},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-95, 156, -141},0, {1124, 247},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-151, 120, -189},0, {1125, 161},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-40, 53, -317},0, {1594, 302},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-277, 53, -305},0, {1146, -36},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-345, -53, -200},0, {838, 184},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-349, 53, 139},0, {52, 410},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-242, 53, 351},0, {-340, 921},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-120, 126, 231},0, {134, 837},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-12, 184, 33},0, {856, 611},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-164, 118, 73},0, {481, 513},{0xE6, 0xED, 0xFF, 0xFF}}},
+	{{{-338, 53, -76},0, {568, 148},{0xE6, 0xED, 0xFF, 0xFF}}},
 };
 
 Gfx stretch_cloud_Cloud_mesh_layer_1_tri_0[] = {
@@ -595,9 +595,10 @@ Gfx stretch_cloud_Cloud_mesh_layer_1_tri_0[] = {
 };
 
 
-Gfx mat_stretch_cloud_Cloud_002[] = {
+Gfx mat_stretch_cloud_Cloud_001[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
+	gsSPClearGeometryMode(G_LIGHTING),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPTileSync(),
 	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 1, stretch_cloud_clouds_i8_i8),
@@ -607,7 +608,13 @@ Gfx mat_stretch_cloud_Cloud_002[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b, 8, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0),
 	gsDPSetTileSize(0, 0, 0, 252, 252),
-	gsSPSetLights1(stretch_cloud_Cloud_002_lights),
+	gsSPSetLights1(stretch_cloud_Cloud_001_lights),
+	gsSPEndDisplayList(),
+};
+
+Gfx mat_revert_stretch_cloud_Cloud_001[] = {
+	gsDPPipeSync(),
+	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPEndDisplayList(),
 };
 
@@ -616,8 +623,9 @@ Gfx stretch_cloud_Cloud_mesh_layer_1[] = {
 	gsSPVertex(stretch_cloud_Cloud_mesh_layer_1_vtx_cull + 0, 8, 0),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPCullDisplayList(0, 7),
-	gsSPDisplayList(mat_stretch_cloud_Cloud_002),
+	gsSPDisplayList(mat_stretch_cloud_Cloud_001),
 	gsSPDisplayList(stretch_cloud_Cloud_mesh_layer_1_tri_0),
+	gsSPDisplayList(mat_revert_stretch_cloud_Cloud_001),
 	gsSPEndDisplayList(),
 };
 

@@ -9,6 +9,7 @@ extern Vtx bounce_cloud_Cloud_001_mesh_layer_5_vtx_cull[8];
 extern Vtx bounce_cloud_Cloud_001_mesh_layer_5_vtx_0[4];
 extern Gfx bounce_cloud_Cloud_001_mesh_layer_5_tri_0[];
 extern Gfx mat_bounce_cloud_Cloud_001[];
+extern Gfx mat_revert_bounce_cloud_Cloud_001[];
 extern Gfx mat_bounce_cloud_SmileFace[];
 extern Gfx bounce_cloud_Cloud_001_mesh_layer_1[];
 extern Gfx bounce_cloud_Cloud_001_mesh_layer_5[];
