@@ -614,6 +614,7 @@
 #define MODEL_STRETCH_CLOUD               0x101
 #define MODEL_RAINBOW_CLOUD               0x102
 #define MODEL_CLOUD_RAINBOW               0x103
+#define MODEL_RAIN_CLOUD                  0x104
 
 
 #endif // MODEL_IDS_H

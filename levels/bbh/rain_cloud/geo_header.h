@@ -1,0 +1,16 @@
+extern const GeoLayout rain_cloud_geo[];
+extern Lights1 rain_cloud_Cloud_002_lights;
+extern Lights1 rain_cloud_CryEyes_lights;
+extern u8 rain_cloud_clouds_i8_i8[];
+extern u8 rain_cloud_crying_face_rgba32[];
+extern Vtx rain_cloud_RainCloud_mesh_layer_1_vtx_cull[8];
+extern Vtx rain_cloud_RainCloud_mesh_layer_1_vtx_0[29];
+extern Gfx rain_cloud_RainCloud_mesh_layer_1_tri_0[];
+extern Vtx rain_cloud_RainCloud_mesh_layer_5_vtx_cull[8];
+extern Vtx rain_cloud_RainCloud_mesh_layer_5_vtx_0[8];
+extern Gfx rain_cloud_RainCloud_mesh_layer_5_tri_0[];
+extern Gfx mat_rain_cloud_Cloud_002[];
+extern Gfx mat_rain_cloud_CryEyes[];
+extern Gfx rain_cloud_RainCloud_mesh_layer_1[];
+extern Gfx rain_cloud_RainCloud_mesh_layer_5[];
+extern Gfx rain_cloud_material_revert_render_settings[];

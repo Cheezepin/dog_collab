@@ -11,6 +11,53 @@ struct ObjectHitbox sRainbowCloudHitbox = {
     /* hurtboxHeight: */ 125,
 };
 
+void bhv_rain_cloud_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            if (gMarioObject->platform == o) {
+                if (o->oTimer > 10) {
+                    o->oAction = 1;
+                }
+                o->oPosY = approach_f32(o->oPosY, o->oHomeY - 30.0f, 4.0f, 4.0f);
+                o->header.gfx.scale[1] = approach_f32(o->header.gfx.scale[1], 0.88f, 0.02f, 0.02f);
+            } else {
+                o->oTimer = 0;
+            }
+            break;
+        case 1:
+            if (o->oPosY - (o->oHomeY + 1000.0f) > -200.0f) {
+                o->oFloatF4 = approach_f32(o->oFloatF4, 8.0f, 4.0f, 4.0f);
+            } else {
+                o->oFloatF4 = approach_f32(o->oFloatF4, 30.0f, 3.0f, 3.0f);
+            }
+            o->oPosY = approach_f32(o->oPosY, o->oHomeY + 1000.0f, o->oFloatF4, o->oFloatF4);
+
+            if (o->oPosY == o->oHomeY + 1000.0f) {
+                if (o->oTimer > 30 && gMarioObject->platform != o) {
+                    o->oAction = 2;
+                    o->oFloatF4 = 0;
+                }
+                o->header.gfx.scale[1] = approach_f32(o->header.gfx.scale[1], 1.0f, 0.02f, 0.02f);
+            } else {
+                o->oTimer = 0;
+            }
+            break;
+        case 2:
+            if (o->oPosY - o->oHomeY < 200.0f) {
+                o->oFloatF4 = approach_f32(o->oFloatF4, 8.0f, 4.0f, 4.0f);
+            } else {
+                o->oFloatF4 = approach_f32(o->oFloatF4, 30.0f, 3.0f, 3.0f);
+            }
+            o->oPosY = approach_f32(o->oPosY, o->oHomeY, o->oFloatF4, o->oFloatF4);
+            if (o->oPosY == o->oHomeY) {
+                o->oAction = 0;
+                o->oFloatF4 = 0;
+            }
+            break;
+    }
+}
+
+
 
 void bhv_cloud_rainbow_loop(void) {
     switch (o->oAction) {

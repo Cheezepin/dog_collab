@@ -80,3 +80,5 @@
 #include "levels/bbh/rainbow_cloud/anims/table.inc.c"
 #include "levels/bbh/cloud_rainbow/collision.inc.c"
 #include "levels/bbh/cloud_rainbow/model.inc.c"
+#include "levels/bbh/rain_cloud/model.inc.c"
+#include "levels/bbh/rain_cloud/collision.inc.c"

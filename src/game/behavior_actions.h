@@ -621,6 +621,7 @@ void bhv_stretch_cloud_init(void);
 void bhv_rainbow_cloud_loop(void);
 void bhv_rainbow_cloud_init(void);
 void bhv_cloud_rainbow_loop(void);
+void bhv_rain_cloud_loop(void);
 
 
 
