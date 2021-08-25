@@ -5,7 +5,6 @@ const GeoLayout bbh_area_1_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(1, -13175, 1105, 4656, bbh_dl_Cloud_mesh_layer_1),
 		GEO_DISPLAY_LIST(1, bbh_dl_Clouds_mesh_layer_1),
-		GEO_TRANSLATE_NODE_WITH_DL(1, -15020, 0, 17160, bbh_dl_Clouds_001_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(1, -14173, 647, 9265, bbh_dl_Clouds_002_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(1, -6090, 3, 15737, bbh_dl_Metal_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(1, -3318, 3, 18254, bbh_dl_Metal_001_mesh_layer_1),

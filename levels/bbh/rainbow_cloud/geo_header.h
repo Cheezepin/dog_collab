@@ -9,7 +9,6 @@ extern Gfx rainbow_cloud_rdl_mesh_layer_1_tri_0[];
 extern Vtx rainbow_cloud_rdl_mesh_layer_5_vtx_0[4];
 extern Gfx rainbow_cloud_rdl_mesh_layer_5_tri_0[];
 extern Gfx mat_rainbow_cloud_Cloud_001[];
-extern Gfx mat_revert_rainbow_cloud_Cloud_001[];
 extern Gfx mat_rainbow_cloud_CloudFace[];
 extern Gfx mat_revert_rainbow_cloud_CloudFace[];
 extern Gfx mat_rainbow_cloud_CloudFace_001[];
