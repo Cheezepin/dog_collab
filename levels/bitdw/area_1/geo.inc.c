@@ -37,7 +37,7 @@ const GeoLayout bitdw_dl_B_geo[] = {
 		GEO_TRANSLATE_NODE_WITH_DL(5, 4890, -7350, 9456, bitdw_dl_TOWER_mesh_layer_5),
 		GEO_TRANSLATE_NODE_WITH_DL(5, 4890, -7350, 9456, bitdw_dl_TOWER_001_mesh_layer_5),
 		GEO_TRANSLATE_NODE_WITH_DL(5, 5362, -1569, 6347, bitdw_dl_water_bottom_mesh_layer_5),
-		GEO_TRANSLATE_NODE_WITH_DL(1, 5519, -1418, 6331, bitdw_dl_water_top_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(5, 5519, -1418, 6331, bitdw_dl_water_top_mesh_layer_5),
 		GEO_TRANSLATE_NODE_WITH_DL(5, 5617, -1505, 6295, bitdw_dl_water_top_fake_mesh_layer_5),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

@@ -7,6 +7,12 @@
 #include "game/object_list_processor.h"
 #include "surface_collision.h"
 #include "surface_load.h"
+#include "surface_terrains.h"
+#include "game/interaction.h"
+#include "object_fields.h"
+#include "behavior_data.h"
+
+#define o gCurrentObject
 
 /**************************************************
  *                      WALLS                     *
@@ -113,7 +119,8 @@ static s32 find_wall_collisions_from_list(struct SurfaceNode *surfaceNode,
             if (surf->flags & SURFACE_FLAG_NO_CAM_COLLISION || surf->type == SURFACE_NEW_WATER || surf->type == SURFACE_NEW_WATER_BOTTOM) {
                 continue;
             }
-        } else {
+        }
+        else {
             // Ignore camera only surfaces.
             if (surf->type == SURFACE_CAMERA_BOUNDARY || surf->type == SURFACE_NEW_WATER || surf->type == SURFACE_NEW_WATER_BOTTOM) {
                 continue;
@@ -133,6 +140,19 @@ static s32 find_wall_collisions_from_list(struct SurfaceNode *surfaceNode,
                     continue;
                 }
             }
+            if (surf->type == SURFACE_INTERACT_SHOCK) {
+               if(gMarioState == ACT_FLAG_INVULNERABLE) {
+                   break;
+               }
+              else if (o != NULL && o == gMarioObject && gMarioState != ACT_FLAG_INVULNERABLE) {
+                   o->oPosX = gMarioObject->oPosX;
+                   o->oPosY = gMarioObject->oPosY-5;
+                   o->oPosZ = gMarioObject->oPosZ;
+                    spawn_object(o, MODEL_NONE, bhvMarioPlane);
+                    interact_shock(gMarioState, INTERACT_SHOCK, o);
+                    continue;
+               }
+            } 
         }
 
         //! (Wall Overlaps) Because this doesn't update the x and z local variables,

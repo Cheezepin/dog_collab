@@ -59,7 +59,13 @@ static s8 arrow_lift_move_back(void) {
  * rotating thing
  */
 void bhv_emu_lift_loop(void) {
-    obj_set_angle(o,0,10,0);
-    load_object_collision_model;
+    print_fps(1,1);
 }
 
+void bhv_emu_electric_spinner(void) {
+    print_fps(64,10);
+}
+
+void bhv_mario_plane_loop(void) {
+    mark_obj_for_deletion(o);
+}

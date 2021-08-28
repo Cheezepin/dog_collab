@@ -13,6 +13,7 @@
 #define SURFACE_SLOW                         0x0009 // Slow down Mario, unused
 #define SURFACE_DEATH_PLANE                  0x000A // Death floor
 #define SURFACE_CLOSE_CAMERA                 0x000B // Close camera
+#define SURFACE_INTERACT_SHOCK               0x000C // Surface with INTERACT_SHOCK incomplete rn
 #define SURFACE_WATER                        0x000D // Water, has no action, used on some waterboxes below
 #define SURFACE_FLOWING_WATER                0x000E // Water (flowing), has parameters
 #define SURFACE_INTANGIBLE                   0x0012 // Intangible (Separates BBH mansion from merry-go-round, for room usage)
