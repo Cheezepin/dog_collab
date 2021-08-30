@@ -167,6 +167,9 @@ void bhv_bounce_cloud_loop(void) {
                 drop_and_set_mario_action(m, ACT_TWIRLING, 0);
                 o->oAction = 1;
             }
+            o->oFC += 0x400;
+            o->oGraphYOffset = 20.0f * sins(o->oFC);
+            o->oFaceAngleYaw += 0xC0;
             break;
         case 1:
             o->oFloatF4 -= 0.15f;

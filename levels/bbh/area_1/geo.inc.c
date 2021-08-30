@@ -8,6 +8,7 @@ const GeoLayout bbh_area_1_geo[] = {
 		GEO_TRANSLATE_NODE_WITH_DL(1, -12613, 892, 1861, bbh_dl_GenericCloudPlat_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(1, 4144, -394, 8526, bbh_dl_Metal_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(1, 4144, -758, 10447, bbh_dl_Metal_001_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(1, 12892, 874, 13272, bbh_dl_Metal_002_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(1, -10250, 1072, 14251, bbh_dl_PrisonWalls_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
@@ -34,8 +35,8 @@ const GeoLayout bbh_area_1[] = {
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
-		GEO_DISPLAY_LIST(4, bbh_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(1, bbh_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(4, bbh_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

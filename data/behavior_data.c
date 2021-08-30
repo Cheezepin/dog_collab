@@ -6389,3 +6389,4 @@ const BehaviorScript bhvRainCloud[] = {
         CALL_NATIVE(bhv_rain_cloud_loop),
     END_LOOP(),
 };
+

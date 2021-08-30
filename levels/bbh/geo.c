@@ -29,3 +29,4 @@
 #include "levels/bbh/rainbow_cloud/geo.inc.c"
 #include "levels/bbh/cloud_rainbow/geo.inc.c"
 #include "levels/bbh/rain_cloud/geo.inc.c"
+#include "levels/bbh/mist_secret/geo.inc.c"

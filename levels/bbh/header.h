@@ -133,4 +133,6 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/rain_cloud/collision_header.h"
 
+#include "levels/bbh/mist_secret/geo_header.h"
+
 #endif

@@ -82,3 +82,4 @@
 #include "levels/bbh/cloud_rainbow/model.inc.c"
 #include "levels/bbh/rain_cloud/model.inc.c"
 #include "levels/bbh/rain_cloud/collision.inc.c"
+#include "levels/bbh/mist_secret/model.inc.c"
