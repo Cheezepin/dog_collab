@@ -6327,6 +6327,7 @@ const BehaviorScript bhvBounceCloud[] = {
     LOAD_COLLISION_DATA(bounce_cloud_collision),
     SET_FLOAT(oDrawingDistance, 0x4000),
     SET_FLOAT(oCollisionDistance, 0x300),
+    SET_HOME(),
     CALL_NATIVE(bhv_bounce_cloud_init),
     BEGIN_LOOP(),
         CALL_NATIVE(load_object_collision_model),

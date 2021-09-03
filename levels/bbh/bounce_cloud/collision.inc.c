@@ -1,6 +1,6 @@
 const Collision bounce_cloud_collision[] = {
 	COL_INIT(),
-	COL_VERTEX_INIT(8),
+	COL_VERTEX_INIT(12),
 	COL_VERTEX(-212, -80, 220),
 	COL_VERTEX(-212, 80, 220),
 	COL_VERTEX(-212, 80, -220),
@@ -9,6 +9,10 @@ const Collision bounce_cloud_collision[] = {
 	COL_VERTEX(212, -80, -220),
 	COL_VERTEX(212, 80, 220),
 	COL_VERTEX(212, -80, 220),
+	COL_VERTEX(318, 80, -330),
+	COL_VERTEX(-318, 80, -330),
+	COL_VERTEX(-318, 80, 330),
+	COL_VERTEX(318, 80, 330),
 	COL_TRI_INIT(SURFACE_DEFAULT, 12),
 	COL_TRI(0, 1, 2),
 	COL_TRI(0, 2, 3),
@@ -20,8 +24,8 @@ const Collision bounce_cloud_collision[] = {
 	COL_TRI(7, 1, 0),
 	COL_TRI(3, 5, 7),
 	COL_TRI(3, 7, 0),
-	COL_TRI(4, 2, 1),
-	COL_TRI(4, 1, 6),
+	COL_TRI(8, 9, 10),
+	COL_TRI(8, 10, 11),
 	COL_TRI_STOP(),
 	COL_END()
 };

@@ -94,7 +94,7 @@ void bhv_rainbow_cloud_init(void) {
 void bhv_rainbow_cloud_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (o->oDistanceToMario < 2500.0f) {
+            if (o->oDistanceToMario < 2000.0f) {
                 o->oAction = 1;
                 cur_obj_init_animation_with_sound(0);
             }
@@ -125,8 +125,9 @@ void bhv_stretch_cloud_init(void) {
 void bhv_stretch_cloud_loop(void) {
     switch (o->oAction) {
         case 0:
-            o->header.gfx.scale[0] = approach_f32_asymptotic(o->header.gfx.scale[0], 3.0f, 0.15f);
-            if (o->header.gfx.scale[0] - 3.0f < -0.1f) {
+            o->header.gfx.scale[0] = approach_f32_asymptotic(o->header.gfx.scale[0], 2.5f, 0.15f);
+            o->header.gfx.scale[2] = o->header.gfx.scale[0];
+            if (o->header.gfx.scale[0] - 2.5f < -0.1f) {
                 o->oTimer = 0;
             }
             if (o->oTimer > 45) {
@@ -135,6 +136,7 @@ void bhv_stretch_cloud_loop(void) {
             break;
         case 1:
             o->header.gfx.scale[0] = approach_f32_asymptotic(o->header.gfx.scale[0], 1.0f, 0.15f);
+            o->header.gfx.scale[2] = o->header.gfx.scale[0];
             if (o->header.gfx.scale[0] - 1.0f > 0.1f) {
                 o->oTimer = 0;
             }
@@ -168,7 +170,7 @@ void bhv_bounce_cloud_loop(void) {
                 o->oAction = 1;
             }
             o->oFC += 0x400;
-            o->oGraphYOffset = 20.0f * sins(o->oFC);
+            o->oPosY = o->oHomeY + (20.0f * sins(o->oFC));
             o->oFaceAngleYaw += 0xC0;
             break;
         case 1:
