@@ -11,6 +11,47 @@ struct ObjectHitbox sRainbowCloudHitbox = {
     /* hurtboxHeight: */ 125,
 };
 
+
+
+void bhv_fade_cloud_init(void) {
+
+}
+
+
+void bhv_fade_cloud_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            if (o->oTimer > o->oBehParams2ndByte) {
+                o->oAction = 1;
+            }
+            break;
+        case 1:
+            if (o->oTimer > 90)
+                o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 0x6);
+            if (o->oOpacity == 0) {
+                o->oAction = 2;
+            }
+            break;
+        case 2:
+            if (o->oTimer > 90) {
+                 o->oOpacity = approach_s16_symmetric(o->oOpacity, 255, 0x8);
+            }
+            if (o->oOpacity == 255) {
+                o->oAction = 1;
+            }
+            break;
+    }
+    if (o->oOpacity > 20) {
+        load_object_collision_model();
+    }
+}
+
+
+
+
+
+
+
 void bhv_rain_cloud_loop(void) {
     switch (o->oAction) {
         case 0:

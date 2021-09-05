@@ -30,3 +30,4 @@
 #include "levels/bbh/cloud_rainbow/geo.inc.c"
 #include "levels/bbh/rain_cloud/geo.inc.c"
 #include "levels/bbh/mist_secret/geo.inc.c"
+#include "levels/bbh/fade_cloud/geo.inc.c"

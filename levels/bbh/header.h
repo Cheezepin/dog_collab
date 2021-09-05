@@ -135,4 +135,8 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/mist_secret/geo_header.h"
 
+#include "levels/bbh/fade_cloud/collision_header.h"
+
+#include "levels/bbh/fade_cloud/geo_header.h"
+
 #endif

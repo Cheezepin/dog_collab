@@ -616,6 +616,7 @@
 #define MODEL_CLOUD_RAINBOW               0x103
 #define MODEL_RAIN_CLOUD                  0x104
 #define MODEL_MIST_SECRET                 0x105
+#define MODEL_FADE_CLOUD                  0x106
 
 
 #endif // MODEL_IDS_H

@@ -569,6 +569,7 @@ extern const BehaviorScript bhvStretchCloud[];
 extern const BehaviorScript bhvRainbowCloud[];
 extern const BehaviorScript bhvCloudRainbow[];
 extern const BehaviorScript bhvRainCloud[];
+extern const BehaviorScript bhvFadeCloud[];
 
 
 
