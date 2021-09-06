@@ -15,12 +15,12 @@ struct ObjectHitbox sRainbowCloudHitbox = {
 void bhv_fade_cloud_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (o->oTimer > o->oBehParams2ndByte) {
+            if (gMarioObject->platform == o) {
                 o->oAction = 1;
             }
             break;
         case 1:
-            if (o->oTimer > 120)
+            if (o->oTimer > 20)
                 o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 0x6);
             if (o->oOpacity == 0) {
                 o->oAction = 2;
@@ -31,7 +31,7 @@ void bhv_fade_cloud_loop(void) {
                  o->oOpacity = approach_s16_symmetric(o->oOpacity, 255, 0x8);
             }
             if (o->oOpacity == 255) {
-                o->oAction = 1;
+                o->oAction = 0;
             }
             break;
     }

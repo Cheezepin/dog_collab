@@ -92,7 +92,7 @@ extern Gfx bbh_dl_BigCloud_006_mesh_layer_1_tri_0[];
 extern Vtx bbh_dl_BigCloud_006_mesh_layer_1_vtx_1[50];
 extern Gfx bbh_dl_BigCloud_006_mesh_layer_1_tri_1[];
 extern Vtx bbh_dl_GenericCloudPlat_003_mesh_layer_1_vtx_cull[8];
-extern Vtx bbh_dl_GenericCloudPlat_003_mesh_layer_1_vtx_0[29];
+extern Vtx bbh_dl_GenericCloudPlat_003_mesh_layer_1_vtx_0[93];
 extern Gfx bbh_dl_GenericCloudPlat_003_mesh_layer_1_tri_0[];
 extern Gfx mat_bbh_dl_Clouds_layer1[];
 extern Gfx mat_revert_bbh_dl_Clouds_layer1[];
