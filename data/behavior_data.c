@@ -6401,7 +6401,6 @@ const BehaviorScript bhvFadeCloud[] = {
     SET_FLOAT(oCollisionDistance, 0x600),
     SET_HOME(),
     SET_INT(oOpacity, 255),
-    CALL_NATIVE(bhv_fade_cloud_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_fade_cloud_loop),
     END_LOOP(),
