@@ -129,7 +129,7 @@ void bhv_rainbow_cloud_init(void) {
 void bhv_rainbow_cloud_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (o->oDistanceToMario < 2000.0f) {
+            if (o->oDistanceToMario < 2000.0f && absf(o->oPosY - gMarioState->pos[1]) < 1500.0f) {
                 o->oAction = 1;
                 cur_obj_init_animation_with_sound(0);
             }
