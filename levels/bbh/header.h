@@ -139,4 +139,8 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/fade_cloud/geo_header.h"
 
+#include "levels/bbh/body_lakitu/geo_header.h"
+
+#include "levels/bbh/body_lakitu/anim_header.h"
+
 #endif

@@ -11,6 +11,48 @@ struct ObjectHitbox sRainbowCloudHitbox = {
     /* hurtboxHeight: */ 125,
 };
 
+s32 Set_NPC_Dialog(s32 dialogId) {
+    if (set_mario_npc_dialog(1) == 2) {
+        o->activeFlags |= 0x20; /* bit 5 */
+        if (cutscene_object_with_dialog(CUTSCENE_DIALOG, o, dialogId)
+            != 0) {
+            set_mario_npc_dialog(0);
+            o->activeFlags &= ~0x20; /* bit 5 */
+            o->oInteractStatus = 0;
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+
+void bhv_body_lakitu_init(void) {
+    o->oGraphYOffset = -22.0f;
+}
+
+
+void bhv_body_lakitu_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            if(o->oInteractStatus == INT_STATUS_INTERACTED) {
+                o->oAction = 1;
+                play_toads_jingle();
+            }
+            break;
+        case 1:
+            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
+            if (Set_NPC_Dialog(o->oBehParams2ndByte)) {
+                o->oAction = 0;
+            }
+            break;
+    }
+    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x1C0);
+    o->oInteractStatus = 0;
+}
+
+
+
+
 
 void bhv_fade_cloud_loop(void) {
     switch (o->oAction) {

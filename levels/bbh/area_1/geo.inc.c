@@ -38,6 +38,7 @@ const GeoLayout bbh_area_1_geo[] = {
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2832, 129, 15408, 0, -3, 0, bbh_dl_GenericCloudPlat_002_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 854, -757, -7323, 0, -90, 0, bbh_dl_Metal_001_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 12682, 874, 4077, 0, -90, 0, bbh_dl_Metal_002_mesh_layer_1),
+			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -7340, 304, -8059, 0, -90, 0, bbh_dl_Metal_003_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -9293, 1072, -10250, 0, -90, 0, bbh_dl_PrisonWalls_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 8388, 193, 17238, 0, -3, 0, bbh_dl_RCloudFenceSet_mesh_layer_1),
 			GEO_OPEN_NODE(),

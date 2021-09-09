@@ -85,3 +85,6 @@
 #include "levels/bbh/mist_secret/model.inc.c"
 #include "levels/bbh/fade_cloud/collision.inc.c"
 #include "levels/bbh/fade_cloud/model.inc.c"
+#include "levels/bbh/body_lakitu/model.inc.c"
+#include "levels/bbh/body_lakitu/anims/data.inc.c"
+#include "levels/bbh/body_lakitu/anims/table.inc.c"

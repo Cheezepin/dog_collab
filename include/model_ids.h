@@ -617,6 +617,7 @@
 #define MODEL_RAIN_CLOUD                  0x104
 #define MODEL_MIST_SECRET                 0x105
 #define MODEL_FADE_CLOUD                  0x106
+#define MODEL_BODY_LAKITU                 0x107
 
 
 #endif // MODEL_IDS_H
