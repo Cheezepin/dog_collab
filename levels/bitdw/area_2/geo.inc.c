@@ -3,7 +3,8 @@
 const GeoLayout bitdw_area_2_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(1, 11274, 3060, -3927, bitdw_dl_area_2_torus_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(5, 11274, 3060, -3927, bitdw_dl_area_2_torus_mesh_layer_5),
+		GEO_TRANSLATE_NODE_WITH_DL(1, 11274, 3060, -3927, bitdw_dl_area_2_torus_001_mesh_layer_1),
 		GEO_TRANSLATE_NODE(LAYER_OPAQUE, 10193, -7329, -2930),
 		GEO_DISPLAY_LIST(1, bitdw_dl_Cube_001_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(1, 10193, -10741, -15458, bitdw_dl_final_warp_mesh_layer_1),
@@ -33,6 +34,7 @@ const GeoLayout bitdw_area_2[] = {
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
+		GEO_DISPLAY_LIST(5, bitdw_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(1, bitdw_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),

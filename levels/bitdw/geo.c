@@ -44,3 +44,5 @@
 #include "levels/bitdw/rainbow_chain/geo.inc.c"
 #include "levels/bitdw/electric_spinner/geo_header.h"
 #include "levels/bitdw/electric_spinner/geo.inc.c"
+#include "levels/bitdw/simple_spinner/geo_header.h"
+#include "levels/bitdw/simple_spinner/geo.inc.c"

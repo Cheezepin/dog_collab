@@ -32,6 +32,7 @@ extern const GeoLayout geo_bitdw_000600[];
 extern const GeoLayout geo_bitdw_000618[];
 extern const GeoLayout rainbow_chain_geo[];
 extern const GeoLayout electric_spinner_geo[];
+extern const GeoLayout simple_spinner_geo[];
 
 // leveldata
 extern const Gfx bitdw_seg7_dl_070020C8[];
@@ -74,6 +75,8 @@ extern const Collision bitdw_seg7_collision_0700FC7C[];
 extern const Collision bitdw_seg7_collision_0700FD9C[];
 extern const Collision rainbow_chain_collision[];
 extern const Collision electric_spinner_collision[];
+extern const Collision simple_spinner_collision[];
+extern const Collision simple_spinner_shock_collision[];
 
 // script
 extern const LevelScript level_bitdw_entry[];
