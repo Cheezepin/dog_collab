@@ -34,7 +34,7 @@ extern u8 bbh_dl_wood_flooring2_ci4_pal_rgba16[];
 extern u8 bbh_dl_arrow_ci8[];
 extern u8 bbh_dl_arrow_ci8_pal_rgba16[];
 extern Vtx bbh_dl_BigCloud_mesh_layer_1_vtx_cull[8];
-extern Vtx bbh_dl_BigCloud_mesh_layer_1_vtx_0[160];
+extern Vtx bbh_dl_BigCloud_mesh_layer_1_vtx_0[307];
 extern Gfx bbh_dl_BigCloud_mesh_layer_1_tri_0[];
 extern Vtx bbh_dl_BigCloud_001_mesh_layer_4_vtx_cull[8];
 extern Vtx bbh_dl_BigCloud_001_mesh_layer_4_vtx_0[50];
