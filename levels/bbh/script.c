@@ -101,7 +101,7 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_STRETCH_CLOUD, 3505, -728, 6737, 0, 90, 0, 0x00000000, bhvStretchCloud),
 		TERRAIN(bbh_area_1_collision),
 		MACRO_OBJECTS(bbh_area_1_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_COMIT_CLOUD),
 		TERRAIN_TYPE(TERRAIN_SAND),
 	END_AREA(),
 
