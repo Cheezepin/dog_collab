@@ -24,6 +24,7 @@
 #include "sound_init.h"
 #include "rumble_init.h"
 #include "config.h"
+#include "game/object_list_processor.h"
 
 #define INT_GROUND_POUND_OR_TWIRL (1 << 0) // 0x01
 #define INT_PUNCH                 (1 << 1) // 0x02
@@ -1284,7 +1285,7 @@ u32 interact_bully(struct MarioState *m, UNUSED u32 interactType, struct Object 
 u32 interact_shock(struct MarioState *m, UNUSED u32 interactType, struct Object *o) {
     if (!sInvulnerable && !(m->flags & MARIO_VANISH_CAP)
         && !(o->oInteractionSubtype & INT_SUBTYPE_DELAY_INVINCIBILITY)) {
-        u32 actionArg = (m->action & (ACT_FLAG_AIR | ACT_FLAG_ON_POLE | ACT_FLAG_HANGING)) == 0;
+        u32 actionArg = (m->action & (ACT_FLAG_AIR || ACT_FLAG_ON_POLE | ACT_FLAG_HANGING)) == 0;
 
         o->oInteractStatus = INT_STATUS_INTERACTED | INT_STATUS_ATTACKED_MARIO;
         m->interactObj = o;
@@ -1296,10 +1297,10 @@ u32 interact_shock(struct MarioState *m, UNUSED u32 interactType, struct Object 
 #endif
 
         if (m->action & (ACT_FLAG_SWIMMING | ACT_FLAG_METAL_WATER)) {
-            return drop_and_set_mario_action(m, ACT_WATER_SHOCKED, 0);
+            return set_mario_action(m, ACT_WATER_SHOCKED, 0);
         } else {
             update_mario_sound_and_camera(m);
-            return drop_and_set_mario_action(m, ACT_SHOCKED, actionArg);
+            return set_mario_action(m, ACT_SHOCKED, actionArg);
         }
     }
 
@@ -1897,6 +1898,16 @@ void mario_handle_special_floors(struct MarioState *m) {
                 case SURFACE_BURNING:
                     check_lava_boost(m);
                     break;
+            }
+        }
+        //u32 interact_shock(struct MarioState *m, UNUSED u32 interactType, struct Object *o);
+        if (!(m->action & ACT_FLAG_AIR) && !(m->action & ACT_FLAG_SWIMMING)) {
+            switch (floorType) {
+                case SURFACE_INTERACT_SHOCK:
+                m->health -= 10;
+                interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
+                
+                break;
             }
         }
     }
