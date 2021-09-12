@@ -207,7 +207,7 @@ void bhv_stretch_cloud_loop(void) {
             if (o->header.gfx.scale[0] - 2.5f < -0.1f) {
                 o->oTimer = 0;
             }
-            if (o->oTimer > 45) {
+            if (o->oTimer > 55) {
                 o->oAction = 1;
             }
             break;
@@ -217,7 +217,7 @@ void bhv_stretch_cloud_loop(void) {
             if (o->header.gfx.scale[0] - 1.0f > 0.1f) {
                 o->oTimer = 0;
             }
-            if (o->oTimer > 45) {
+            if (o->oTimer > 55) {
                 o->oAction = 0;
             }
             break;
