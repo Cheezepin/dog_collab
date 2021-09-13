@@ -14,9 +14,12 @@
 
 
 #include "src/game/texscroll/bbh_texscroll.inc.c"
+#include "src/game/texscroll/bitdw_texscroll.inc.c"
 void scroll_textures() {
 	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_bbh_segment_7SegmentRomStart)) {
 		scroll_textures_bbh();
 	}
-
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_bitdw_segment_7SegmentRomStart)) {
+		scroll_textures_bitdw();
+	}
 }
