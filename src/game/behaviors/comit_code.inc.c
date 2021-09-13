@@ -51,7 +51,12 @@ void bhv_body_lakitu_loop(void) {
 }
 
 
-
+void bhv_fade_cloud_init(void) {
+    o->oBehParams2ndByte = random_u16() & 0x3;
+    if (o->oBehParams2ndByte == 3) {
+        o->oBehParams2ndByte = 0;
+    }
+}
 
 
 void bhv_fade_cloud_loop(void) {

@@ -3,9 +3,27 @@
 const GeoLayout bbh_area_2_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_SWITCH_CASE(3, geo_switch_area),
+		GEO_OPEN_NODE(),
+			GEO_BRANCH(1, bbh_dl_21__RedCoins_geo),
+			GEO_BRANCH(1, bbh_dl_22__Fwoosh_geo),
+		GEO_CLOSE_NODE(),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout bbh_dl_21__RedCoins_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -7085, -717, 623, 0, 7, 0, bbh_dl_BigCloud_005_mesh_layer_1),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -5692, 177, 3744, 0, -156, 0, bbh_dl_BigCloud_006_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 6639, 218, 6309, 0, 87, 0, bbh_dl_GenericCloudPlat_003_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -5692, 177, 3744, 0, -156, 0, bbh_dl_Inside_mesh_layer_1),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout bbh_dl_22__Fwoosh_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 15015, 10045, -12251, 0, -156, 0, bbh_dl_FwooshRoom_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
