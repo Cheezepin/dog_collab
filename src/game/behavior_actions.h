@@ -631,6 +631,8 @@ void bhv_body_lakitu_loop(void);
 void bhv_body_lakitu_init(void);
 void bhv_mg_fwoosh_update(void);
 void bhv_fwoosh_button_loop(void);
+void bhv_metal_crate_loop(void);
+void bhv_metal_crate_init(void);
 
 
 

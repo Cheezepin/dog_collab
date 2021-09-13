@@ -44,6 +44,24 @@ s32 Set_NPC_Dialog(s32 dialogId) {
 //FWOOSH START
 static s8 sMGCloudPartHeights[] = { 11, 8, 12, 8, 9, 9 };
 
+void bhv_metal_crate_init(void) {
+    o->oObjF4 = cur_obj_nearest_object_with_behavior(bhvMinigameFwoosh);
+    if (o->oObjF4 == NULL)
+        o->activeFlags = 0;
+}
+
+void bhv_metal_crate_loop(void) {
+    o->oAction = o->oObjF4->o104;
+    switch (o->oAction) {
+        case 0:
+            o->oPosZ = approach_f32_asymptotic(o->oPosZ, o->oHomeZ, 0.05f);
+            break;
+        case 1:
+            o->oPosZ = approach_f32_asymptotic(o->oPosZ, o->oHomeZ - 2000, 0.05f);
+            break;
+    }
+}
+
 
 void bhv_fwoosh_button_loop(void) {
     switch (o->oAction) {
@@ -115,9 +133,11 @@ static void mg_fwoosh_update(void) {
             o->oCloudGrowSpeed -= 0.05f;
         } else if (obj->oAction == 3) {
             cur_obj_play_sound_1(SOUND_AIR_BLOW_WIND);
-            cur_obj_spawn_strong_wind_particles(12, 3.0f, 0.0f, -50.0f, 120.0f);
+            cur_obj_spawn_strong_wind_particles(6, 3.0f, 0.0f, -50.0f, 120.0f);
+            o->o104 = 1;
         } else {
             o->oCloudBlowing = o->oTimer = 0;
+            o->o104 = 0;
         }
     } else {
         notstatic_approach_f32_ptr(&o->header.gfx.scale[0], 5.0f, 0.2f);

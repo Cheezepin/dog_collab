@@ -90,3 +90,5 @@
 #include "levels/bbh/body_lakitu/anims/table.inc.c"
 #include "levels/bbh/fwoosh_button/model.inc.c"
 #include "levels/bbh/fwoosh_button/collision.inc.c"
+#include "levels/bbh/metal_crate/model.inc.c"
+#include "levels/bbh/metal_crate/collision.inc.c"

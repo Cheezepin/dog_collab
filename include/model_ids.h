@@ -623,6 +623,7 @@
 #define MODEL_FADE_CLOUD                  0x106
 #define MODEL_BODY_LAKITU                 0x107
 #define MODEL_FWOOSH_BUTTON               0x108
+#define MODEL_METAL_CRATE                 0x109
 
 
 #endif // MODEL_IDS_H

@@ -49,6 +49,7 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_FADE_CLOUD, fade_cloud_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_BODY_LAKITU, body_lakitu_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_FWOOSH_BUTTON, fwoosh_button_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_METAL_CRATE, metal_crate_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -193,6 +194,9 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_FWOOSH_BUTTON, 12899, 8125, -11118, 0, 0, 0, 0x00000000, bhvFwooshButton),
 		OBJECT(MODEL_FWOOSH_BUTTON, 13686, 8125, -11118, 0, 0, 0, 0x00000000, bhvFwooshButton),
 		OBJECT(MODEL_FWOOSH_BUTTON, 14472, 8125, -11118, 0, 0, 0, 0x00000000, bhvFwooshButton),
+		OBJECT(MODEL_METAL_CRATE, 14472, 8125, -11928, 0, -180, 0, 0x00000000, bhvMetalCrate),
+		OBJECT(MODEL_METAL_CRATE, 13686, 8125, -11928, 0, -180, 0, 0x00000000, bhvMetalCrate),
+		OBJECT(MODEL_METAL_CRATE, 12899, 8125, -11928, 0, -180, 0, 0x00000000, bhvMetalCrate),
 		OBJECT(MODEL_NONE, 13726, 8325, -10179, 0, -180, 0, 0x001A0000, bhvAirborneWarp),
 		TERRAIN(bbh_area_2_collision),
 		ROOMS(bbh_area_2_collision_rooms),

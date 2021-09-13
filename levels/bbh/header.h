@@ -147,4 +147,8 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/fwoosh_button/collision_header.h"
 
+#include "levels/bbh/metal_crate/geo_header.h"
+
+#include "levels/bbh/metal_crate/collision_header.h"
+
 #endif

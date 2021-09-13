@@ -33,3 +33,4 @@
 #include "levels/bbh/fade_cloud/geo.inc.c"
 #include "levels/bbh/body_lakitu/geo.inc.c"
 #include "levels/bbh/fwoosh_button/geo.inc.c"
+#include "levels/bbh/metal_crate/geo.inc.c"
