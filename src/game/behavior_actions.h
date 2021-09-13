@@ -629,6 +629,8 @@ void bhv_fade_cloud_loop(void);
 void bhv_fade_cloud_init(void);
 void bhv_body_lakitu_loop(void);
 void bhv_body_lakitu_init(void);
+void bhv_mg_fwoosh_update(void);
+void bhv_fwoosh_button_loop(void);
 
 
 

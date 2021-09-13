@@ -88,3 +88,5 @@
 #include "levels/bbh/body_lakitu/model.inc.c"
 #include "levels/bbh/body_lakitu/anims/data.inc.c"
 #include "levels/bbh/body_lakitu/anims/table.inc.c"
+#include "levels/bbh/fwoosh_button/model.inc.c"
+#include "levels/bbh/fwoosh_button/collision.inc.c"

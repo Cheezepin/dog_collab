@@ -32,3 +32,4 @@
 #include "levels/bbh/mist_secret/geo.inc.c"
 #include "levels/bbh/fade_cloud/geo.inc.c"
 #include "levels/bbh/body_lakitu/geo.inc.c"
+#include "levels/bbh/fwoosh_button/geo.inc.c"

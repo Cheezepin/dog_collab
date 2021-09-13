@@ -577,6 +577,8 @@ extern const BehaviorScript bhvCloudRainbow[];
 extern const BehaviorScript bhvRainCloud[];
 extern const BehaviorScript bhvFadeCloud[];
 extern const BehaviorScript bhvBodyLakitu[];
+extern const BehaviorScript bhvMinigameFwoosh[];
+extern const BehaviorScript bhvFwooshButton[];
 
 
 

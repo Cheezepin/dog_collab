@@ -39,7 +39,7 @@ const LevelScript level_bbh_entry[] = {
 	JUMP_LINK(script_func_global_7), 
 	JUMP_LINK(script_func_global_18), 
 	LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, castle_door_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_WARP_PIPE,    warp_pipe_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_WARP_PIPE, warp_pipe_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_BOUNCE_CLOUD, bounce_cloud_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_STRETCH_CLOUD, stretch_cloud_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_RAINBOW_CLOUD, rainbow_cloud_geo), 
@@ -48,6 +48,7 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_MIST_SECRET, mist_secret_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_FADE_CLOUD, fade_cloud_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_BODY_LAKITU, body_lakitu_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_FWOOSH_BUTTON, fwoosh_button_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -186,6 +187,12 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_RED_COIN, 10002, 635, 2393, 0, 0, 0, 0x00000000, bhvRedCoin),
 		OBJECT(MODEL_RED_COIN, 9724, 1311, 6739, 0, 0, 0, 0x00000000, bhvRedCoin),
 		OBJECT(MODEL_NONE, 5967, 554, 4614, 0, 0, 0, 0x02000000, bhvHiddenRedCoinStar),
+		OBJECT(MODEL_NONE, 12899, 8225, -11628, 0, -180, 0, 0x00000000, bhvMinigameFwoosh),
+		OBJECT(MODEL_NONE, 13686, 8225, -11628, 0, -180, 0, 0x00000000, bhvMinigameFwoosh),
+		OBJECT(MODEL_NONE, 14472, 8225, -11628, 0, -180, 0, 0x00000000, bhvMinigameFwoosh),
+		OBJECT(MODEL_FWOOSH_BUTTON, 12899, 8125, -11118, 0, 0, 0, 0x00000000, bhvFwooshButton),
+		OBJECT(MODEL_FWOOSH_BUTTON, 13686, 8125, -11118, 0, 0, 0, 0x00000000, bhvFwooshButton),
+		OBJECT(MODEL_FWOOSH_BUTTON, 14472, 8125, -11118, 0, 0, 0, 0x00000000, bhvFwooshButton),
 		OBJECT(MODEL_NONE, 13726, 8325, -10179, 0, -180, 0, 0x001A0000, bhvAirborneWarp),
 		TERRAIN(bbh_area_2_collision),
 		ROOMS(bbh_area_2_collision_rooms),

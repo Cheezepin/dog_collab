@@ -143,4 +143,8 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/body_lakitu/anim_header.h"
 
+#include "levels/bbh/fwoosh_button/geo_header.h"
+
+#include "levels/bbh/fwoosh_button/collision_header.h"
+
 #endif

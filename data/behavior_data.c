@@ -6459,7 +6459,6 @@ const BehaviorScript bhvFadeCloud[] = {
 };
 
 
-
 const BehaviorScript bhvBodyLakitu[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_ACTIVE_FROM_AFAR)),
@@ -6489,6 +6488,30 @@ const BehaviorScript bhvSimpleSpinnerShock[] = {
     SET_HOME(),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_emu_simple_spinner),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvMinigameFwoosh[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    BILLBOARD(),
+    SET_HOME(),
+    SET_INT(oOpacity, 240),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_mg_fwoosh_update),
+    END_LOOP(),
+};
+
+
+const BehaviorScript bhvFwooshButton[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(fwoosh_button_collision),
+    SET_FLOAT(oDrawingDistance, 0x4000),
+    SET_FLOAT(oCollisionDistance, 0x500),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_fwoosh_button_loop),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };

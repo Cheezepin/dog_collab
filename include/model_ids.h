@@ -622,6 +622,7 @@
 #define MODEL_MIST_SECRET                 0x105
 #define MODEL_FADE_CLOUD                  0x106
 #define MODEL_BODY_LAKITU                 0x107
+#define MODEL_FWOOSH_BUTTON               0x108
 
 
 #endif // MODEL_IDS_H

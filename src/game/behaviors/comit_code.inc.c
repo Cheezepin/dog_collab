@@ -11,6 +11,20 @@ struct ObjectHitbox sRainbowCloudHitbox = {
     /* hurtboxHeight: */ 125,
 };
 
+s32 notstatic_approach_f32_ptr(f32 *px, f32 target, f32 delta) {
+    if (*px > target) {
+        delta = -delta;
+    }
+
+    *px += delta;
+
+    if ((*px - target) * delta >= 0) {
+        *px = target;
+        return TRUE;
+    }
+    return FALSE;
+}
+
 s32 Set_NPC_Dialog(s32 dialogId) {
     if (set_mario_npc_dialog(1) == 2) {
         o->activeFlags |= 0x20; /* bit 5 */
@@ -25,6 +39,133 @@ s32 Set_NPC_Dialog(s32 dialogId) {
     return FALSE;
 }
 
+
+
+//FWOOSH START
+static s8 sMGCloudPartHeights[] = { 11, 8, 12, 8, 9, 9 };
+
+
+void bhv_fwoosh_button_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_UNKNOWN_13)) {
+                o->oAction = 1;
+            }
+            break;
+        case 1:
+            cur_obj_scale_over_time(2, 3, 1.0f, 0.2f);
+            if (o->oTimer == 3) {
+                cur_obj_play_sound_2(SOUND_GENERAL2_PURPLE_SWITCH);
+                o->oAction = 3;
+            }
+            break;
+        case 2:
+            cur_obj_scale_over_time(2, 3, 0.2f, 1.0f);
+            if (o->oTimer == 3) {
+                o->oAction = 0;
+            }
+            break;
+        case 3:
+            if (!cur_obj_is_mario_on_platform()) {
+                o->oAction = 2;
+            }
+            break;
+    }
+}
+
+
+
+static void mg_fwoosh_spawn_parts(void) {
+    struct Object *cloudPart;
+    s32 i;
+
+    // Spawn the pieces of the cloud itself
+    for (i = 0; i < 5; i++) {
+        cloudPart = spawn_object_relative(i, 0, 0, 0, o, MODEL_MIST, bhvCloudPart);
+
+        if (cloudPart != NULL) {
+            obj_set_billboard(cloudPart);
+        }
+    }
+
+    if (o->oBehParams2ndByte == CLOUD_BP_FWOOSH) {
+        // Spawn fwoosh's face
+        spawn_object_relative(5, 0, 0, 0, o, MODEL_FWOOSH, bhvCloudPart);
+
+        cur_obj_scale(5.0f);
+
+        o->oCloudCenterX = o->oPosX;
+        o->oCloudCenterY = o->oPosY;
+    }
+
+    o->oAction = CLOUD_ACT_MAIN;
+}
+
+/**
+ * Move in a circle. Unload if mario moves far away. If mario stays close for
+ * long enough, blow wind at him.
+ */
+static void mg_fwoosh_update(void) {
+    struct Object *obj;
+    obj = cur_obj_nearest_object_with_behavior(bhvFwooshButton);
+    if (o->oCloudBlowing) {
+
+        if (o->oCloudGrowSpeed > -0.18f) {
+            o->header.gfx.scale[0] += o->oCloudGrowSpeed;
+            o->oCloudGrowSpeed -= 0.05f;
+        } else if (obj->oAction == 3) {
+            cur_obj_play_sound_1(SOUND_AIR_BLOW_WIND);
+            cur_obj_spawn_strong_wind_particles(12, 3.0f, 0.0f, -50.0f, 120.0f);
+        } else {
+            o->oCloudBlowing = o->oTimer = 0;
+        }
+    } else {
+        notstatic_approach_f32_ptr(&o->header.gfx.scale[0], 5.0f, 0.2f);
+
+        if (obj->oAction == 3) {
+            o->oCloudBlowing = TRUE;
+            o->oCloudGrowSpeed = 0.24f;
+        }
+
+        //o->oCloudCenterX = o->oHomeX + 100.0f * coss(o->oCloudFwooshMovementRadius);
+        //o->oPosZ = o->oHomeZ + 100.0f * sins(o->oCloudFwooshMovementRadius);
+        o->oCloudCenterY = o->oHomeY;
+    }
+
+    cur_obj_scale(o->header.gfx.scale[0]);
+}
+
+/**
+ * Main update function for bhvCloud. This controls the cloud's movement, when it
+ * unloads, and when fwoosh blows wind.
+ */
+static void mg_fwoosh_act_main(void) {
+    s16 localOffsetPhase;
+    f32 localOffset;
+
+    localOffsetPhase = 0x800 * gGlobalTimer;
+
+    mg_fwoosh_update();
+
+    localOffset = 2 * coss(localOffsetPhase) * o->header.gfx.scale[0];
+
+    o->oPosX = o->oCloudCenterX + localOffset;
+    o->oPosY = o->oCloudCenterY + localOffset + 12.0f * o->header.gfx.scale[0];
+}
+
+
+void bhv_mg_fwoosh_update(void) {
+    switch (o->oAction) {
+        case CLOUD_ACT_SPAWN_PARTS:
+            mg_fwoosh_spawn_parts();
+            break;
+        case CLOUD_ACT_MAIN:
+            mg_fwoosh_act_main();
+            break;
+    }
+}
+
+//FWOOSH END
 
 void bhv_body_lakitu_init(void) {
     o->oGraphYOffset = -22.0f;
