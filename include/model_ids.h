@@ -211,6 +211,7 @@
 #define MODEL_BITDW_STAIRCASE                     0x3F        // geo_bitdw_000600
 #define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA      
 #define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB 
+#define MODEL_BITDW_SIMPLE_SPINNER                0x1AD
 
 // vcutm
 #define MODEL_VCUTM_SEESAW_PLATFORM               0x36        // vcutm_geo_0001F0
