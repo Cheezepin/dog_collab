@@ -635,6 +635,9 @@ void bhv_metal_crate_loop(void);
 void bhv_metal_crate_init(void);
 void bhv_fwooshmg_handler_update(void);
 void bhv_fwooshmg_handler_init(void);
+void bhv_fwooshmg_goomba_update(void);
+void bhv_fwooshmg_koopa_update(void);
+void bhv_fwooshmg_star_loop(void);
 
 
 

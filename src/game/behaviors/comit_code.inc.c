@@ -1,4 +1,6 @@
 
+extern u8 sGoombaAttackHandlers[][6];
+
 struct ObjectHitbox sRainbowCloudHitbox = {
     /* interactType: */ INTERACT_DAMAGE,
     /* downOffset: */ 125,
@@ -67,12 +69,81 @@ Vec3f gComitCamPos[2] = {
     {0, 0, 0},
 };
 
+void bhv_fwooshmg_koopa_update(void) {
+    struct Object *obj;
+    o->oFaceAngleYaw = 0x4000;
+    cur_obj_init_animation_with_sound(9);
+    cur_obj_update_floor_and_walls();
+
+    o->oPosX += 10.0f;
+    cur_obj_move_standard(-78);
+
+    if (o->oFloorType == SURFACE_DEATH_PLANE && o->oPosY - o->oFloorHeight < 500.0f) {
+        o->activeFlags = 0;
+        obj = cur_obj_nearest_object_with_behavior(bhvFwooshMGHandler);
+        if (obj == NULL)
+            return;
+        obj->oF8 += 2;
+        play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
+    }
+    if (o->oPosX > 16466.0f) {
+        o->activeFlags = 0;
+    }
+}
+
+
+
+void bhv_fwooshmg_goomba_update(void) {
+    f32 animSpeed;
+    struct Object *obj;
+    o->oMoveAngleYaw = 0x4000;
+    cur_obj_scale(o->oGoombaScale);
+    obj_update_blinking(&o->oGoombaBlinkTimer, 30, 50, 5);
+    cur_obj_update_floor_and_walls();
+
+    if ((animSpeed = o->oForwardVel / o->oGoombaScale * 0.4f) < 1.0f) {
+        animSpeed = 1.0f;
+    }
+    cur_obj_init_animation_with_accel_and_sound(0, animSpeed);
+
+    o->oPosX += 5.0f;
+    if (o->oBehParams2ndByte == 1) {
+        o->oPosX += 5.0f;
+    }
+    cur_obj_move_standard(-78);
+
+    if (o->oFloorType == SURFACE_DEATH_PLANE && o->oPosY - o->oFloorHeight < 500.0f) {
+        o->activeFlags = 0;
+        obj = cur_obj_nearest_object_with_behavior(bhvFwooshMGHandler);
+        if (obj == NULL)
+            return;
+        obj->oF8++;
+        if (o->oBehParams2ndByte == 1) {
+            obj->oF8 += 4;
+        }
+        play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
+    }
+    if (o->oPosX > 16466.0f) {
+        o->activeFlags = 0;
+    }
+}
+
+
+void bhv_fwooshmg_star_loop(void) {
+    if (o->oF4 == 1) {
+        spawn_default_star(o->oPosX, o->oPosY, o->oPosZ);
+        o->activeFlags = 0;
+    }
+}
+
+
 void bhv_fwooshmg_handler_init(void) {
-    o->oF4 = 120*30;
+    o->oF4 = 5*30;
 }
 
 
 void bhv_fwooshmg_handler_update(void) {
+    struct Object *obj;
     Vec3f pos;
     switch (o->oAction) {
         case 0:
@@ -89,14 +160,22 @@ void bhv_fwooshmg_handler_update(void) {
             vec3f_set(gComitCamPos[1], o->oPosX, 8000.0f, o->oPosZ - 1800.0f);
 
             o->oF4--;
-            print_text_fmt_int(20, 200, "TIME  %d", o->oF4 / 30);
-            print_text_fmt_int(20, 215, "POINTS %d", o->oF8);
+            print_text_fmt_int(20, 215, "TIME  %d", o->oF4 / 30);
+            print_text_fmt_int(20, 200, "POINTS %d", o->oF8);
             if (o->oF4 <= 0) {
                 o->oAction = 2;
             }
             break;
         case 2:
-
+            if (o->oF8 >= 10) {
+                obj = cur_obj_nearest_object_with_behavior(bhvFwooshMGStar);
+                if (obj != NULL) {
+                    obj->oF4 = 1;
+                }
+            } else {
+                gMarioState->health = 0xFF;
+            }
+            o->activeFlags = 0;
             break;
     }
 }
@@ -109,13 +188,23 @@ void bhv_metal_crate_init(void) {
 }
 
 void bhv_metal_crate_loop(void) {
+    f32 posZ;
     o->oAction = o->oObjF4->o104;
     switch (o->oAction) {
         case 0:
-            o->oPosZ = approach_f32_asymptotic(o->oPosZ, o->oHomeZ, 0.05f);
+            o->oFloatF8 = approach_f32(o->oFloatF8, 50.0f, 6.0f, 6.0f);
+            o->oPosZ = approach_f32(o->oPosZ, o->oHomeZ, o->oFloatF8, o->oFloatF8);
             break;
         case 1:
-            o->oPosZ = approach_f32_asymptotic(o->oPosZ, o->oHomeZ - 2000, 0.05f);
+            o->oFloatF8 = approach_f32(o->oFloatF8, 100.0f, 10.0f, 10.0f);
+            posZ = o->oPosZ;
+            o->oPosZ = approach_f32_asymptotic(o->oPosZ, o->oHomeZ - 2000.0f, 0.05f);
+            if (posZ - o->oPosZ < 60.0f) {
+                o->oPosZ = posZ - 60.0f;
+            }
+            if (o->oPosZ < o->oHomeZ - 2000.0f) {
+                o->oPosZ = o->oHomeZ - 2000.0f;
+            }
             break;
     }
 }

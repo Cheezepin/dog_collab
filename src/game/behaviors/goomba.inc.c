@@ -42,7 +42,7 @@ static struct GoombaProperties sGoombaProperties[] = {
 /**
  * Attack handlers for goombas.
  */
-static u8 sGoombaAttackHandlers[][6] = {
+u8 sGoombaAttackHandlers[][6] = {
     // regular and tiny
     {
         /* ATTACK_PUNCH:                 */ ATTACK_HANDLER_KNOCKBACK,
