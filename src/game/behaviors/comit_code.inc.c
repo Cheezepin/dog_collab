@@ -1,5 +1,6 @@
 
 extern u8 sGoombaAttackHandlers[][6];
+extern struct ModeTransitionInfo sModeInfo;
 
 struct ObjectHitbox sRainbowCloudHitbox = {
     /* interactType: */ INTERACT_DAMAGE,
@@ -13,7 +14,30 @@ struct ObjectHitbox sRainbowCloudHitbox = {
     /* hurtboxHeight: */ 125,
 };
 
-extern struct ModeTransitionInfo sModeInfo;
+
+struct FwooshMG
+{
+    s16 timeCode;
+    s8 type;
+    s8 row;
+};
+
+
+struct FwooshMG sMGSpawners[] = {
+    {30, 0, 0,},
+    {60, 0, 0,},
+    {90, 0, 0,},
+    {105, 0, 0,},
+    {120, 0, 0,},
+    {125, 0, 0,},
+    {125, 1, 1,},
+    {150, 1, 1,},
+    {160, 0, 0,},
+    {170, 0, 0,},
+    {175, 2, 2,},
+};
+
+
 
 void CL_set_camera_pos(Vec3f pos, Vec3f foc) {
     struct MarioState *marioStates = &gMarioStates[0];
@@ -69,6 +93,19 @@ Vec3f gComitCamPos[2] = {
     {0, 0, 0},
 };
 
+s32 sMGModelSpawnTable[] = {
+    MODEL_GOOMBA, MODEL_KOOPA_WITH_SHELL, MODEL_GOOMBA,
+};
+
+const BehaviorScript *sMGBhvSpawnTable[] = {
+    bhvFwooshMGGoomba, bhvFwooshMGKoopa, bhvFwooshMGGoomba,
+};
+
+f32 sMGRowTable[] = {
+    -14372.0f, -13922.0f, -13472.0f,
+};
+
+
 void bhv_fwooshmg_koopa_update(void) {
     struct Object *obj;
     o->oFaceAngleYaw = 0x4000;
@@ -83,10 +120,10 @@ void bhv_fwooshmg_koopa_update(void) {
         obj = cur_obj_nearest_object_with_behavior(bhvFwooshMGHandler);
         if (obj == NULL)
             return;
-        obj->oF8 += 2;
+        obj->os16F6 += 2;
         play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
     }
-    if (o->oPosX > 16466.0f) {
+    if (o->oPosX > 15966.0f) {
         o->activeFlags = 0;
     }
 }
@@ -117,13 +154,13 @@ void bhv_fwooshmg_goomba_update(void) {
         obj = cur_obj_nearest_object_with_behavior(bhvFwooshMGHandler);
         if (obj == NULL)
             return;
-        obj->oF8++;
+        obj->os16F6++;
         if (o->oBehParams2ndByte == 1) {
-            obj->oF8 += 4;
+            obj->os16F6 += 4;
         }
         play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
     }
-    if (o->oPosX > 16466.0f) {
+    if (o->oPosX > 15966.0f) {
         o->activeFlags = 0;
     }
 }
@@ -137,8 +174,21 @@ void bhv_fwooshmg_star_loop(void) {
 }
 
 
+void fwooshmg_spawn_enemies(void) {
+    struct Object *obj;
+    while (sMGSpawners[o->os16F8].timeCode <= 90*30 - o->os16F4) {
+        obj = spawn_object(o, sMGModelSpawnTable[sMGSpawners[o->os16F8].type], sMGBhvSpawnTable[sMGSpawners[o->os16F8].type]);
+        if (sMGSpawners[o->os16F8].type == 2) {
+            obj->oBehParams2ndByte = 1;
+        }
+        vec3f_set(&obj->oPosX, 11366.0f, 8125.00f, sMGRowTable[sMGSpawners[o->os16F8].row]);
+        o->os16F8++;
+    }
+}
+
+
 void bhv_fwooshmg_handler_init(void) {
-    o->oF4 = 5*30;
+    o->os16F4 = 90*30;
 }
 
 
@@ -155,19 +205,37 @@ void bhv_fwooshmg_handler_update(void) {
             if (gMarioState->pos[2] > -11500.0f) {
                 gMarioState->pos[2] = -11500.0f;
             }
+            fwooshmg_spawn_enemies();
+            
             gComitCam = 1;
             vec3f_copy(gComitCamPos[0], &o->oPosX);
             vec3f_set(gComitCamPos[1], o->oPosX, 8000.0f, o->oPosZ - 1800.0f);
 
-            o->oF4--;
-            print_text_fmt_int(20, 215, "TIME  %d", o->oF4 / 30);
-            print_text_fmt_int(20, 200, "POINTS %d", o->oF8);
-            if (o->oF4 <= 0) {
+            o->os16F4--;
+            if (o->os16F4 > 10*30) {
+                if (o->os16F4 % 30 == 0) {
+                    play_sound(SOUND_GENERAL2_SWITCH_TICK_SLOW, gGlobalSoundSource);
+                }
+                o->os16FC = 10;
+                o->os16FE = 20;
+            } else {
+                if (o->os16F4 % 30 == 0 || o->os16F4 % 30 == 15) {
+                    play_sound(SOUND_GENERAL2_SWITCH_TICK_FAST, gGlobalSoundSource);
+                }
+                o->o100 += 0x1000;
+                o->os16FC = 10 + (sins(o->o100) * 2);
+                o->os16FE = 20 + (coss(o->o100) * 2);
+            }
+
+            print_text_fmt_int(o->os16FE, o->os16FC, "TIME  %d", o->os16F4 / 30);
+            print_text_fmt_int(20, 200, "POINTS %d", o->os16F6);
+            print_text_fmt_int(20, 215, "GOAL %d", 10);
+            if (o->os16F4 <= 0) {
                 o->oAction = 2;
             }
             break;
         case 2:
-            if (o->oF8 >= 10) {
+            if (o->os16F6 >= 10) {
                 obj = cur_obj_nearest_object_with_behavior(bhvFwooshMGStar);
                 if (obj != NULL) {
                     obj->oF4 = 1;
@@ -196,6 +264,7 @@ void bhv_metal_crate_loop(void) {
             o->oPosZ = approach_f32(o->oPosZ, o->oHomeZ, o->oFloatF8, o->oFloatF8);
             break;
         case 1:
+            load_object_collision_model();
             o->oFloatF8 = approach_f32(o->oFloatF8, 100.0f, 10.0f, 10.0f);
             posZ = o->oPosZ;
             o->oPosZ = approach_f32_asymptotic(o->oPosZ, o->oHomeZ - 2000.0f, 0.05f);
