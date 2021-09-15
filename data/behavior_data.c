@@ -6535,6 +6535,7 @@ const BehaviorScript bhvMetalCrate[] = {
 const BehaviorScript bhvFwooshMGHandler[] = {
     BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE(bhv_fwooshmg_handler_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_fwooshmg_handler_update),
     END_LOOP(),

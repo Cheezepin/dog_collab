@@ -67,6 +67,11 @@ Vec3f gComitCamPos[2] = {
     {0, 0, 0},
 };
 
+void bhv_fwooshmg_handler_init(void) {
+    o->oF4 = 120*30;
+}
+
+
 void bhv_fwooshmg_handler_update(void) {
     Vec3f pos;
     switch (o->oAction) {
@@ -82,9 +87,16 @@ void bhv_fwooshmg_handler_update(void) {
             gComitCam = 1;
             vec3f_copy(gComitCamPos[0], &o->oPosX);
             vec3f_set(gComitCamPos[1], o->oPosX, 8000.0f, o->oPosZ - 1800.0f);
-            //CL_set_camera_pos(&o->oPosX, pos);
+
+            o->oF4--;
+            print_text_fmt_int(20, 200, "TIME  %d", o->oF4 / 30);
+            print_text_fmt_int(20, 215, "POINTS %d", o->oF8);
+            if (o->oF4 <= 0) {
+                o->oAction = 2;
+            }
             break;
         case 2:
+
             break;
     }
 }

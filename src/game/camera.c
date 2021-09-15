@@ -3230,6 +3230,9 @@ void update_camera(struct Camera *c) {
         vec3f_copy(&c->pos, gComitCamPos[0]);
         vec3f_copy(&c->focus, gComitCamPos[1]);
         gCamera->yaw = gCamera->nextYaw = 0;
+        gComitCam = 2;
+    } else if (gComitCam == 2) {
+        c->pos[1] = gMarioState->pos[1] + 160.0f;
         gComitCam = 0;
     }
     //mrcomit code end
