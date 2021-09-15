@@ -151,4 +151,8 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/metal_crate/collision_header.h"
 
+#include "levels/bbh/lowpoly_koopa/geo_header.h"
+
+#include "levels/bbh/lowpoly_goomba/geo_header.h"
+
 #endif

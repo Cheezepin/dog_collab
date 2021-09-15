@@ -50,6 +50,8 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_BODY_LAKITU, body_lakitu_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_FWOOSH_BUTTON, fwoosh_button_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_METAL_CRATE, metal_crate_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_LOWPOLY_KOOPA, lowpoly_koopa_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_LOWPOLY_GOOMBA, lowpoly_goomba_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */

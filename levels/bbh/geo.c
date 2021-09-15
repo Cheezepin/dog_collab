@@ -34,3 +34,5 @@
 #include "levels/bbh/body_lakitu/geo.inc.c"
 #include "levels/bbh/fwoosh_button/geo.inc.c"
 #include "levels/bbh/metal_crate/geo.inc.c"
+#include "levels/bbh/lowpoly_koopa/geo.inc.c"
+#include "levels/bbh/lowpoly_goomba/geo.inc.c"

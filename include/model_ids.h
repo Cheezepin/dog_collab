@@ -624,6 +624,8 @@
 #define MODEL_BODY_LAKITU                 0x107
 #define MODEL_FWOOSH_BUTTON               0x108
 #define MODEL_METAL_CRATE                 0x109
+#define MODEL_LOWPOLY_KOOPA               0x10A
+#define MODEL_LOWPOLY_GOOMBA              0x10B
 
 
 #endif // MODEL_IDS_H

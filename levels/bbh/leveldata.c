@@ -92,3 +92,5 @@
 #include "levels/bbh/fwoosh_button/collision.inc.c"
 #include "levels/bbh/metal_crate/model.inc.c"
 #include "levels/bbh/metal_crate/collision.inc.c"
+#include "levels/bbh/lowpoly_koopa/model.inc.c"
+#include "levels/bbh/lowpoly_goomba/model.inc.c"

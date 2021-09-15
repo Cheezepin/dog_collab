@@ -212,7 +212,7 @@ Vec3f gComitCamPos[2] = {
 };
 
 s32 sMGModelSpawnTable[] = {
-    MODEL_GOOMBA, MODEL_KOOPA_WITH_SHELL, MODEL_GOOMBA,
+    MODEL_LOWPOLY_GOOMBA, MODEL_LOWPOLY_KOOPA, MODEL_LOWPOLY_GOOMBA,
 };
 
 const BehaviorScript *sMGBhvSpawnTable[] = {
