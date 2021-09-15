@@ -18,23 +18,141 @@ struct ObjectHitbox sRainbowCloudHitbox = {
 struct FwooshMG
 {
     s16 timeCode;
-    s8 type;
-    s8 row;
+    s16 type;
+};
+
+#define MINIGAME_SECONDS 120
+#define MINIGAME_GOAL 80
+
+struct FwooshMG sMGSpawnersRow1[] = {
+    {0, 0,},
+    {60, 0,},
+    {120, 0,},
+    {200, 0,},
+    {230, 0,},
+    {260, 0,},
+    {290, 0,},
+    {350, 0,},
+
+    {480, 0,},
+    {510, 0,},
+    {540, 0,},
+    {600, 0,},
+    {630, 0,},
+
+    {700, 0,},
+    {730, 0,},
+    {760, 0,},
+
+    {850, 0,},
+    {880, 0,},
+    {910, 0,},
+
+    {1000, 0,},
+    {1100, 0,},
+    {1190, 0,},
+    {1280, 0,},
+    {1370, 0,},
+    {1460, 0,},
+    {1550, 0,},
+    {1580, 1,},
+    {1640, 0,},
+    {1730, 0,},
+    {1820, 0,},
+    {1850, 1,},
+    {1880, 0,},
+    {1940, 0,},
+    {1970, 1,},
+    {2000, 0,},
+    {2060, 0,},
+    {2090, 1,},
+    {2110, 1,},
+    {2120, 0,},
+    {2180, 0,},
+    {2240, 0,},
+    {2270, 1,},
+    {2300, 0,},
+    {2360, 0,},
+    {2420, 0,},
+    {2440, 1,},
+    {2480, 0,},
+    {2540, 0,},
+
+    //LAST GOOMBA AT 2600
+    {2600, 0,},
+    {-1, 0,},
 };
 
 
-struct FwooshMG sMGSpawners[] = {
-    {30, 0, 0,},
-    {60, 0, 0,},
-    {90, 0, 0,},
-    {105, 0, 0,},
-    {120, 0, 0,},
-    {125, 0, 0,},
-    {125, 1, 1,},
-    {150, 1, 1,},
-    {160, 0, 0,},
-    {170, 0, 0,},
-    {175, 2, 2,},
+struct FwooshMG sMGSpawnersRow2[] = {
+    {390, 1,},
+    {440, 1,},
+    {550, 1,},
+    {580, 1,},
+    {730, 1,},
+    {750, 0,},
+
+    {800, 0,},
+    {860, 0,},
+    {920, 0,},
+
+    {1000, 0,},
+
+    {1150, 1,},
+    {1180, 0,},
+    {1350, 1,},
+    {1400, 1,},
+    {1450, 1,},
+    {1600, 1,},
+    {1630, 1,},
+    {1750, 1,},
+    {1800, 1,},
+    {2000, 1,},
+    {2015, 0,},
+    {2030, 1,},
+    {2060, 1,},
+    {2075, 0,},
+    {2100, 1,},
+    {2105, 0,},
+    {2200, 1,},
+    {2400, 1,},
+    {2410, 0,},
+    {2440, 0,},
+    {2470, 0,},
+    {2500, 0,},
+    {2700, 1,},
+    {2900, 1,},
+    {2950, 1,},
+    //LAST KOOPA AT 3000
+    {3000, 1,},
+    {-1, 0,},
+};
+
+struct FwooshMG sMGSpawnersRow3[] = {
+    //introduce 3rd row
+    {1350, 1,},
+    {1380, 0,},
+    {1440, 0,},
+    {1500, 0,},
+    {1650, 1,},
+
+    {1800, 1,},
+    {1900, 0,},
+    {1930, 0,},
+    {2000, 0,},
+    {2040, 1,},
+    {2080, 1,},
+    {2100, 1,},
+
+    //introduce big goomba
+    {2250, 2,},
+    {2475, 2,},
+    {2700, 2,},
+    {2925, 2,},
+
+    //LAST BIG GOOMBA AT 3150
+    {3150, 2,},
+    {-1, 0,},
 };
 
 
@@ -112,7 +230,9 @@ void bhv_fwooshmg_koopa_update(void) {
     cur_obj_init_animation_with_sound(9);
     cur_obj_update_floor_and_walls();
 
-    o->oPosX += 10.0f;
+    if (!(o->oMoveFlags & OBJ_MOVE_HIT_WALL)) {
+        o->oPosX += 10.0f;
+    }
     cur_obj_move_standard(-78);
 
     if (o->oFloorType == SURFACE_DEATH_PLANE && o->oPosY - o->oFloorHeight < 500.0f) {
@@ -133,19 +253,20 @@ void bhv_fwooshmg_koopa_update(void) {
 void bhv_fwooshmg_goomba_update(void) {
     f32 animSpeed;
     struct Object *obj;
-    o->oMoveAngleYaw = 0x4000;
+    o->oFaceAngleYaw = 0x4000;
     cur_obj_scale(o->oGoombaScale);
     obj_update_blinking(&o->oGoombaBlinkTimer, 30, 50, 5);
     cur_obj_update_floor_and_walls();
 
-    if ((animSpeed = o->oForwardVel / o->oGoombaScale * 0.4f) < 1.0f) {
-        animSpeed = 1.0f;
-    }
+    o->oForwardVel = 0;
+    animSpeed = 1.0f;
     cur_obj_init_animation_with_accel_and_sound(0, animSpeed);
 
-    o->oPosX += 5.0f;
-    if (o->oBehParams2ndByte == 1) {
+    if (!(o->oMoveFlags & OBJ_MOVE_HIT_WALL)) {
         o->oPosX += 5.0f;
+        if (o->oBehParams2ndByte == 1) {
+            o->oPosX += 5.0f;
+        }
     }
     cur_obj_move_standard(-78);
 
@@ -176,19 +297,39 @@ void bhv_fwooshmg_star_loop(void) {
 
 void fwooshmg_spawn_enemies(void) {
     struct Object *obj;
-    while (sMGSpawners[o->os16F8].timeCode <= 90*30 - o->os16F4) {
-        obj = spawn_object(o, sMGModelSpawnTable[sMGSpawners[o->os16F8].type], sMGBhvSpawnTable[sMGSpawners[o->os16F8].type]);
-        if (sMGSpawners[o->os16F8].type == 2) {
+    while (sMGSpawnersRow1[o->os16F8].timeCode != -1 && sMGSpawnersRow1[o->os16F8].timeCode <= (MINIGAME_SECONDS*30 + 1) - o->os16F4) {
+        obj = spawn_object(o, sMGModelSpawnTable[sMGSpawnersRow1[o->os16F8].type], sMGBhvSpawnTable[sMGSpawnersRow1[o->os16F8].type]);
+        if (sMGSpawnersRow1[o->os16F8].type == 2) {
             obj->oBehParams2ndByte = 1;
         }
-        vec3f_set(&obj->oPosX, 11366.0f, 8125.00f, sMGRowTable[sMGSpawners[o->os16F8].row]);
+        vec3f_set(&obj->oPosX, 11366.0f, 8125.00f, sMGRowTable[0]);
         o->os16F8++;
+    }
+
+
+    while (sMGSpawnersRow2[o->os16FA].timeCode != -1 && sMGSpawnersRow2[o->os16FA].timeCode <= (MINIGAME_SECONDS*30 + 1) - o->os16F4) {
+        obj = spawn_object(o, sMGModelSpawnTable[sMGSpawnersRow2[o->os16FA].type], sMGBhvSpawnTable[sMGSpawnersRow2[o->os16FA].type]);
+        if (sMGSpawnersRow2[o->os16FA].type == 2) {
+            obj->oBehParams2ndByte = 1;
+        }
+        vec3f_set(&obj->oPosX, 11366.0f, 8125.00f, sMGRowTable[1]);
+        o->os16FA++;
+    }
+
+    
+    while (sMGSpawnersRow3[o->os16FC].timeCode != -1 && sMGSpawnersRow3[o->os16FC].timeCode <= (MINIGAME_SECONDS*30 + 1) - o->os16F4) {
+        obj = spawn_object(o, sMGModelSpawnTable[sMGSpawnersRow3[o->os16FC].type], sMGBhvSpawnTable[sMGSpawnersRow3[o->os16FC].type]);
+        if (sMGSpawnersRow3[o->os16FC].type == 2) {
+            obj->oBehParams2ndByte = 1;
+        }
+        vec3f_set(&obj->oPosX, 11366.0f, 8125.00f, sMGRowTable[2]);
+        o->os16FC++;
     }
 }
 
 
 void bhv_fwooshmg_handler_init(void) {
-    o->os16F4 = 90*30;
+    o->os16F4 = (MINIGAME_SECONDS*30 + 1);
 }
 
 
@@ -216,26 +357,26 @@ void bhv_fwooshmg_handler_update(void) {
                 if (o->os16F4 % 30 == 0) {
                     play_sound(SOUND_GENERAL2_SWITCH_TICK_SLOW, gGlobalSoundSource);
                 }
-                o->os16FC = 10;
-                o->os16FE = 20;
+                o->os16104 = 10;
+                o->os16106 = 20;
             } else {
                 if (o->os16F4 % 30 == 0 || o->os16F4 % 30 == 15) {
                     play_sound(SOUND_GENERAL2_SWITCH_TICK_FAST, gGlobalSoundSource);
                 }
                 o->o100 += 0x1000;
-                o->os16FC = 10 + (sins(o->o100) * 2);
-                o->os16FE = 20 + (coss(o->o100) * 2);
+                o->os16104 = 10 + (sins(o->o100) * 2);
+                o->os16106 = 20 + (coss(o->o100) * 2);
             }
 
-            print_text_fmt_int(o->os16FE, o->os16FC, "TIME  %d", o->os16F4 / 30);
+            print_text_fmt_int(o->os16106, o->os16104, "TIME  %d", o->os16F4 / 30);
             print_text_fmt_int(20, 200, "POINTS %d", o->os16F6);
-            print_text_fmt_int(20, 215, "GOAL %d", 10);
+            print_text_fmt_int(20, 215, "GOAL %d", MINIGAME_GOAL);
             if (o->os16F4 <= 0) {
                 o->oAction = 2;
             }
             break;
         case 2:
-            if (o->os16F6 >= 10) {
+            if (o->os16F6 >= MINIGAME_GOAL) {
                 obj = cur_obj_nearest_object_with_behavior(bhvFwooshMGStar);
                 if (obj != NULL) {
                     obj->oF4 = 1;
