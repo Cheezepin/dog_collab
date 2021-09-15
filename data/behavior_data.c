@@ -6530,3 +6530,12 @@ const BehaviorScript bhvMetalCrate[] = {
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
+
+
+const BehaviorScript bhvFwooshMGHandler[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_fwooshmg_handler_update),
+    END_LOOP(),
+};

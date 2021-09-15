@@ -11,6 +11,24 @@ struct ObjectHitbox sRainbowCloudHitbox = {
     /* hurtboxHeight: */ 125,
 };
 
+extern struct ModeTransitionInfo sModeInfo;
+
+void CL_set_camera_pos(Vec3f pos, Vec3f foc) {
+    struct MarioState *marioStates = &gMarioStates[0];
+    struct LinearTransitionPoint *start = &sModeInfo.transitionStart;
+    struct LinearTransitionPoint *end = &sModeInfo.transitionEnd;
+
+    vec3f_copy(gLakituState.curPos, pos);
+    vec3f_copy(gLakituState.curFocus, foc);
+    vec3f_copy(gLakituState.goalPos, pos);
+    vec3f_copy(gLakituState.goalFocus, foc);
+    vec3f_copy(start->focus, foc);
+    vec3f_copy(start->pos, pos);
+    vec3f_copy(end->focus, foc);
+    vec3f_copy(end->pos, pos);
+}
+
+
 s32 notstatic_approach_f32_ptr(f32 *px, f32 target, f32 delta) {
     if (*px > target) {
         delta = -delta;
@@ -43,6 +61,34 @@ s32 Set_NPC_Dialog(s32 dialogId) {
 
 //FWOOSH START
 static s8 sMGCloudPartHeights[] = { 11, 8, 12, 8, 9, 9 };
+s8 gComitCam = 0;
+Vec3f gComitCamPos[2] = {
+    {0, 0, 0},
+    {0, 0, 0},
+};
+
+void bhv_fwooshmg_handler_update(void) {
+    Vec3f pos;
+    switch (o->oAction) {
+        case 0:
+            if (gMarioState->pos[2] < -11500.0f) {
+                o->oAction = 1;
+            }
+            break;
+        case 1:
+            if (gMarioState->pos[2] > -11500.0f) {
+                gMarioState->pos[2] = -11500.0f;
+            }
+            gComitCam = 1;
+            vec3f_copy(gComitCamPos[0], &o->oPosX);
+            vec3f_set(gComitCamPos[1], o->oPosX, 8000.0f, o->oPosZ - 1800.0f);
+            //CL_set_camera_pos(&o->oPosX, pos);
+            break;
+        case 2:
+            break;
+    }
+}
+
 
 void bhv_metal_crate_init(void) {
     o->oObjF4 = cur_obj_nearest_object_with_behavior(bhvMinigameFwoosh);

@@ -3029,6 +3029,9 @@ void update_lakitu(struct Camera *c) {
 }
 
 
+extern s8 gComitCam;
+extern Vec3f gComitCamPos[2];
+
 /**
  * The main camera update function.
  * Gets controller input, checks for cutscenes, handles mode changes, and moves the camera
@@ -3221,6 +3224,15 @@ void update_camera(struct Camera *c) {
             play_sound_button_change_blocked();
         }
     }
+
+    //mrcomit code
+    if (gCurrLevelNum == LEVEL_BBH && gComitCam == 1) {
+        vec3f_copy(&c->pos, gComitCamPos[0]);
+        vec3f_copy(&c->focus, gComitCamPos[1]);
+        gCamera->yaw = gCamera->nextYaw = 0;
+        gComitCam = 0;
+    }
+    //mrcomit code end
 
     update_lakitu(c);
 

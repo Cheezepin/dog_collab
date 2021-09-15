@@ -580,6 +580,7 @@ extern const BehaviorScript bhvBodyLakitu[];
 extern const BehaviorScript bhvMinigameFwoosh[];
 extern const BehaviorScript bhvFwooshButton[];
 extern const BehaviorScript bhvMetalCrate[];
+extern const BehaviorScript bhvFwooshMGHandler[];
 
 
 

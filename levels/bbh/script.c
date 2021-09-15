@@ -203,6 +203,7 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_METAL_CRATE, 14472, 8125, -12772, 0, -180, 0, 0x00000000, bhvMetalCrate),
 		OBJECT(MODEL_METAL_CRATE, 13686, 8125, -12772, 0, -180, 0, 0x00000000, bhvMetalCrate),
 		OBJECT(MODEL_METAL_CRATE, 12899, 8125, -12772, 0, -180, 0, 0x00000000, bhvMetalCrate),
+		OBJECT(MODEL_NONE, 13686, 13077, -11575, 0, 0, 0, 0x00000000, bhvFwooshMGHandler),
 		OBJECT(MODEL_NONE, 13726, 8325, -10179, 0, -180, 0, 0x001A0000, bhvFlyingWarp),
 		OBJECT(MODEL_NONE, 13686, 8145, -9047, 0, 0, 0, 0x40550000, bhvWarp),
 		TERRAIN(bbh_area_2_collision),

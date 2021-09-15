@@ -633,6 +633,7 @@ void bhv_mg_fwoosh_update(void);
 void bhv_fwoosh_button_loop(void);
 void bhv_metal_crate_loop(void);
 void bhv_metal_crate_init(void);
+void bhv_fwooshmg_handler_update(void);
 
 
 
