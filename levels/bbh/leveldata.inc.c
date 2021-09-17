@@ -1,3 +1,4 @@
+#include "levels/bbh/texture_include.inc.c"
 #include "levels/bbh/area_1/collision.inc.c"
 #include "levels/bbh/area_1/macro.inc.c"
 #include "levels/bbh/area_1/spline.inc.c"
@@ -5,4 +6,8 @@
 #include "levels/bbh/area_2/room.inc.c"
 #include "levels/bbh/area_2/macro.inc.c"
 #include "levels/bbh/area_2/spline.inc.c"
+#include "levels/bbh/area_3/collision.inc.c"
+#include "levels/bbh/area_3/room.inc.c"
+#include "levels/bbh/area_3/macro.inc.c"
+#include "levels/bbh/area_3/spline.inc.c"
 #include "levels/bbh/model.inc.c"
