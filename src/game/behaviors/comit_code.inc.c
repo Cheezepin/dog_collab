@@ -203,6 +203,32 @@ s32 Set_NPC_Dialog(s32 dialogId) {
 
 
 
+
+
+void bhv_mist_trigger_loop(void) {
+    struct Object *hiddenStar;
+    o->oF4 += 0x400;
+    o->oGraphYOffset = 30.0f * sins(o->oF4);
+    o->oFaceAngleYaw += 0xC0;
+    if (obj_check_if_collided_with_object(o, gMarioObject) == 1) {
+        hiddenStar = cur_obj_nearest_object_with_behavior(bhvHiddenStar);
+        if (hiddenStar != NULL) {
+            hiddenStar->oHiddenStarTriggerCounter++;
+            if (hiddenStar->oHiddenStarTriggerCounter != 5) {
+                spawn_orange_number(hiddenStar->oHiddenStarTriggerCounter, 0, 0, 0);
+            }
+
+            play_sound(SOUND_MENU_COLLECT_SECRET
+                           + (((u8) hiddenStar->oHiddenStarTriggerCounter - 1) << 16),
+                       gGlobalSoundSource);
+        }
+
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }
+}
+
+
+
 //FWOOSH START
 static s8 sMGCloudPartHeights[] = { 11, 8, 12, 8, 9, 9 };
 s8 gComitCam = 0;

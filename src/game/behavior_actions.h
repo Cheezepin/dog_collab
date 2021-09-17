@@ -638,6 +638,7 @@ void bhv_fwooshmg_handler_init(void);
 void bhv_fwooshmg_goomba_update(void);
 void bhv_fwooshmg_koopa_update(void);
 void bhv_fwooshmg_star_loop(void);
+void bhv_mist_trigger_loop(void);
 
 
 

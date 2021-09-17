@@ -50,8 +50,8 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_BODY_LAKITU, body_lakitu_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_FWOOSH_BUTTON, fwoosh_button_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_METAL_CRATE, metal_crate_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_LOWPOLY_KOOPA, lowpoly_koopa_geo),
-	LOAD_MODEL_FROM_GEO(MODEL_LOWPOLY_GOOMBA, lowpoly_goomba_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_LOWPOLY_KOOPA, lowpoly_koopa_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_LOWPOLY_GOOMBA, lowpoly_goomba_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -94,11 +94,11 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_NONE, 9036, 256, 8071, 0, -136, 0, 0x00150000, bhvFadingWarp),
 		OBJECT(MODEL_BODY_LAKITU, -8684, 14, 8849, 0, -90, 0, 0x00000000, bhvBodyLakitu),
 		OBJECT(MODEL_NONE, 3288, 1587, 4366, 0, 0, 0, 0x00550000, bhvFlyingWarp),
-		OBJECT(MODEL_MIST_SECRET, 10164, 183, 8771, 0, 0, 0, 0x00000000, bhvHiddenStarTrigger),
-		OBJECT(MODEL_MIST_SECRET, -5978, 340, 8491, 0, 0, 0, 0x00000000, bhvHiddenStarTrigger),
-		OBJECT(MODEL_MIST_SECRET, -918, 2374, 2007, 0, 0, 0, 0x00000000, bhvHiddenStarTrigger),
-		OBJECT(MODEL_MIST_SECRET, 2694, -528, 4582, 0, 0, 0, 0x00000000, bhvHiddenStarTrigger),
-		OBJECT(MODEL_MIST_SECRET, -7082, 2952, 10951, 0, 0, 0, 0x00000000, bhvHiddenStarTrigger),
+		OBJECT(MODEL_MIST_SECRET, 10164, 183, 8771, 0, 0, 0, 0x00000000, bhvMistTrigger),
+		OBJECT(MODEL_MIST_SECRET, -5978, 340, 8491, 0, 0, 0, 0x00000000, bhvMistTrigger),
+		OBJECT(MODEL_MIST_SECRET, -918, 2374, 2007, 0, 0, 0, 0x00000000, bhvMistTrigger),
+		OBJECT(MODEL_MIST_SECRET, 2694, -528, 4582, 0, 0, 0, 0x00000000, bhvMistTrigger),
+		OBJECT(MODEL_MIST_SECRET, -7082, 2952, 10951, 0, 0, 0, 0x00000000, bhvMistTrigger),
 		OBJECT(MODEL_CASTLE_GROUNDS_WARP_PIPE, 3299, 1356, 3900, 0, 0, 0, 0x001D0000, bhvWarpPipe),
 		OBJECT(MODEL_RAINBOW_CLOUD, 9861, 145, 5607, 0, 177, 0, 0x00000000, bhvRainbowCloud),
 		OBJECT(MODEL_RAINBOW_CLOUD, 15216, 572, -7039, 0, 98, 0, 0x00010000, bhvRainbowCloud),
