@@ -14,6 +14,18 @@ struct ObjectHitbox sRainbowCloudHitbox = {
     /* hurtboxHeight: */ 125,
 };
 
+struct ObjectHitbox sLightningBoltHitbox = {
+    /* interactType: */ INTERACT_DAMAGE,
+    /* downOffset: */ 125,
+    /* damageOrCoinValue: */ 2,
+    /* health: */ 0,
+    /* numLootCoins: */ 0,
+    /* radius: */ 150,
+    /* height: */ 125,
+    /* hurtboxRadius: */ 150,
+    /* hurtboxHeight: */ 125,
+};
+
 
 struct FwooshMG
 {
@@ -205,6 +217,80 @@ s32 Set_NPC_Dialog(s32 dialogId) {
 
 
 
+
+
+
+
+
+
+//BOSS CODE START
+
+void bhv_lightning_bolt_init(void) {
+    obj_set_hitbox(o, &sLightningBoltHitbox);    
+    o->oForwardVel = 60.0f;
+}
+
+void bhv_lightning_bolt_loop(void) {
+    if (o->oTimer < 15) {
+        if (absi(o->oMoveAngleYaw - o->oAngleToMario) < 0x1000) {
+            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x200);
+        }
+    }
+    cur_obj_move_using_fvel_and_gravity();
+    if (o->oInteractStatus || o->oTimer > 90) {
+        spawn_mist_particles();
+        o->activeFlags = 0;
+    }
+}
+
+
+void bhv_lightning_cloud_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            if (o->oDistanceToMario < 2000.0f && absf(o->oPosY - gMarioState->pos[1]) < 1500.0f) {
+                o->oAction = 1;
+                cur_obj_init_animation_with_sound(0);
+            }
+            break;
+        case 1:
+            if (o->header.gfx.animInfo.animFrame == 16) {
+                o->oAnimState = 1;
+                o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_BOLT, bhvLightningBolt);
+                o->oObjF4->oPosY -= 70.0f;
+            } else if (cur_obj_check_if_at_animation_end()) {
+                o->oAction = 0;
+                o->oAnimState = 0;
+                cur_obj_init_animation_with_sound(1);
+            }
+            break;
+    }
+    o->oInteractStatus = 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+//BOSS CODE END
+
+
+
+
+
+
+
+
+
+
+
+
+
 void bhv_mist_trigger_loop(void) {
     struct Object *hiddenStar;
     o->oF4 += 0x400;
@@ -226,6 +312,15 @@ void bhv_mist_trigger_loop(void) {
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -569,6 +664,24 @@ void bhv_mg_fwoosh_update(void) {
 }
 
 //FWOOSH END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void bhv_body_lakitu_init(void) {
     o->oGraphYOffset = -22.0f;

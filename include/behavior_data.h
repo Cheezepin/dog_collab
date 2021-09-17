@@ -585,6 +585,8 @@ extern const BehaviorScript bhvFwooshMGGoomba[];
 extern const BehaviorScript bhvFwooshMGKoopa[];
 extern const BehaviorScript bhvFwooshMGStar[];
 extern const BehaviorScript bhvMistTrigger[];
+extern const BehaviorScript bhvLightningCloud[];
+extern const BehaviorScript bhvLightningBolt[];
 
 
 

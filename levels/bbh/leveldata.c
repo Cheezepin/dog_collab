@@ -94,3 +94,7 @@
 #include "levels/bbh/metal_crate/collision.inc.c"
 #include "levels/bbh/lowpoly_koopa/model.inc.c"
 #include "levels/bbh/lowpoly_goomba/model.inc.c"
+#include "levels/bbh/lightning_cloud/model.inc.c"
+#include "levels/bbh/lightning_cloud/anims/data.inc.c"
+#include "levels/bbh/lightning_cloud/anims/table.inc.c"
+#include "levels/bbh/lightning_bolt/model.inc.c"

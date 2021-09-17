@@ -36,3 +36,5 @@
 #include "levels/bbh/metal_crate/geo.inc.c"
 #include "levels/bbh/lowpoly_koopa/geo.inc.c"
 #include "levels/bbh/lowpoly_goomba/geo.inc.c"
+#include "levels/bbh/lightning_cloud/geo.inc.c"
+#include "levels/bbh/lightning_bolt/geo.inc.c"

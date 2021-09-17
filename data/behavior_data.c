@@ -6593,3 +6593,27 @@ const BehaviorScript bhvMistTrigger[] = {
         CALL_NATIVE(bhv_mist_trigger_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvLightningCloud[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
+    LOAD_ANIMATIONS(oAnimations, rainbow_cloud_anims),
+    ANIMATE(1),
+    SET_FLOAT(oDrawingDistance, 0x4000),
+    SET_HOME(),
+    CALL_NATIVE(bhv_rainbow_cloud_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_lightning_cloud_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvLightningBolt[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW)),
+    SET_FLOAT(oDrawingDistance, 0x4000),
+    SET_HOME(),
+    CALL_NATIVE(bhv_lightning_bolt_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_lightning_bolt_loop),
+    END_LOOP(),
+};

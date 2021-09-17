@@ -626,6 +626,8 @@
 #define MODEL_METAL_CRATE                 0x109
 #define MODEL_LOWPOLY_KOOPA               0x10A
 #define MODEL_LOWPOLY_GOOMBA              0x10B
+#define MODEL_LIGHTNING_CLOUD             0x10C
+#define MODEL_LIGHTNING_BOLT              0x10D
 
 
 #endif // MODEL_IDS_H

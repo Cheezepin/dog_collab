@@ -15894,9 +15894,9 @@ Gfx bbh_dl_BigCloud3_001_mesh_layer_1[] = {
 	gsSPVertex(bbh_dl_BigCloud3_001_mesh_layer_1_vtx_cull + 0, 8, 0),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPCullDisplayList(0, 7),
-	gsSPDisplayList(mat_bbh_dl_Clouds_layer1),
+	gsSPDisplayList(mat_bbh_dl_BlueClouds_layer1),
 	gsSPDisplayList(bbh_dl_BigCloud3_001_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_bbh_dl_Clouds_layer1),
+	gsSPDisplayList(mat_revert_bbh_dl_BlueClouds_layer1),
 	gsSPEndDisplayList(),
 };
 

@@ -155,4 +155,10 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/lowpoly_goomba/geo_header.h"
 
+#include "levels/bbh/lightning_cloud/geo_header.h"
+
+#include "levels/bbh/lightning_cloud/anim_header.h"
+
+#include "levels/bbh/lightning_bolt/geo_header.h"
+
 #endif

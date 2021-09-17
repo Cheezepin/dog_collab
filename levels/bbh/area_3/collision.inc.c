@@ -41,7 +41,7 @@ const Collision bbh_area_3_collision[] = {
 	COL_TRI(6, 0, 4),
 	COL_TRI(7, 8, 1),
 	COL_TRI(7, 1, 0),
-	COL_TRI_INIT(SURFACE_NOT_SLIPPERY, 31),
+	COL_TRI_INIT(SURFACE_DEFAULT, 31),
 	COL_TRI(9, 10, 11),
 	COL_TRI(9, 11, 12),
 	COL_TRI(13, 14, 15),

@@ -52,6 +52,8 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_METAL_CRATE, metal_crate_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_LOWPOLY_KOOPA, lowpoly_koopa_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_LOWPOLY_GOOMBA, lowpoly_goomba_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_CLOUD, lightning_cloud_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_BOLT, lightning_bolt_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -66,9 +68,9 @@ const LevelScript level_bbh_entry[] = {
 		WARP_NODE(0x15, LEVEL_BBH, 0x01, 0x14, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x1D, LEVEL_BBH, 0x02, 0x1A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x55, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_NONE, 2833, 1556, 4487, 0, 156, 0, 0x000B0000, bhvAirborneDeathWarp),
-		MARIO_POS(0x01, 156, 2833, 1556, 4487),
-		OBJECT(MODEL_NONE, 2833, 1556, 4487, 0, 156, 0, 0x000A0000, bhvFlyingWarp),
+		OBJECT(MODEL_NONE, 11083, -572, 15037, 0, 86, 0, 0x000B0000, bhvAirborneDeathWarp),
+		MARIO_POS(0x01, 86, 11083, -572, 15037),
+		OBJECT(MODEL_NONE, 11083, -572, 15037, 0, 86, 0, 0x000A0000, bhvFlyingWarp),
 		OBJECT(MODEL_BLUE_COIN, -4487, 3783, 13326, 0, 0, 0, 0x00000000, bhvHiddenBlueCoin),
 		OBJECT(MODEL_BLUE_COIN, -5010, 3596, 12604, 0, 0, 0, 0x00000000, bhvHiddenBlueCoin),
 		OBJECT(MODEL_BLUE_COIN, -6031, 4254, 14158, 0, 0, 0, 0x00000000, bhvHiddenBlueCoin),
@@ -223,8 +225,9 @@ const LevelScript level_bbh_entry[] = {
 		WARP_NODE(0xF1, LEVEL_BBH, 0x03, 0x0B, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x0A, LEVEL_BBH, 0x01, 0x0C, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x0B, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_NONE, -77793, -505, 3936, 0, 90, 0, 0x000B0000, bhvAirborneDeathWarp),
+		OBJECT(MODEL_NONE, -1710, 350, 25, 0, 175, 0, 0x000B0000, bhvAirborneDeathWarp),
 		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, -1612, 50, 258, 0, 0, 0, 0x000A0000, bhvDoorWarp),
+		OBJECT(MODEL_LIGHTNING_CLOUD, -1470, 218, -1103, 0, 0, 0, 0x00000000, bhvLightningCloud),
 		TERRAIN(bbh_area_3_collision),
 		ROOMS(bbh_area_3_collision_rooms),
 		MACRO_OBJECTS(bbh_area_3_macro_objs),
@@ -235,7 +238,7 @@ const LevelScript level_bbh_entry[] = {
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 156, 2833, 1556, 4487),
+	MARIO_POS(0x01, 86, 11083, -572, 15037),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),
