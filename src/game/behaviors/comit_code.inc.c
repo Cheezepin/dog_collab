@@ -269,6 +269,7 @@ void bhv_floor_door_loop(void) {
                 cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
                 o->oPosZ = approach_f32(o->oPosZ, o->oHomeZ - 600.0f, 12.0f, 12.0f);
                 if (o->oPosZ == o->oHomeZ - 600.0f) {
+                    play_puzzle_jingle();
                     o->activeFlags = 0;
                     set_mario_npc_dialog(0);
                 }
