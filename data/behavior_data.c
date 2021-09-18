@@ -6617,3 +6617,30 @@ const BehaviorScript bhvLightningBolt[] = {
         CALL_NATIVE(bhv_lightning_bolt_loop),
     END_LOOP(),
 };
+
+
+const BehaviorScript bhvFloorDoor[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(floor_door_collision),
+    SET_FLOAT(oDrawingDistance, 0x4000),
+    SET_FLOAT(oCollisionDistance, 0x500),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_floor_door_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvFloorDoorButton[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(fwoosh_button_collision),
+    SET_FLOAT(oDrawingDistance, 0x4000),
+    SET_FLOAT(oCollisionDistance, 0x500),
+    CALL_NATIVE(bhv_init_room),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_floor_door_button_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};

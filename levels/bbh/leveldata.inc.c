@@ -1,5 +1,6 @@
 #include "levels/bbh/texture_include.inc.c"
 #include "levels/bbh/area_1/collision.inc.c"
+#include "levels/bbh/area_1/room.inc.c"
 #include "levels/bbh/area_1/macro.inc.c"
 #include "levels/bbh/area_1/spline.inc.c"
 #include "levels/bbh/area_2/collision.inc.c"

@@ -3,7 +3,17 @@
 const GeoLayout bbh_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_SWITCH_CASE(2, geo_switch_area),
+		GEO_OPEN_NODE(),
+			GEO_BRANCH(1, bbh_dl_11__Ground_geo),
+		GEO_CLOSE_NODE(),
 		GEO_ROTATION_NODE(LAYER_OPAQUE, 0, 90, 0),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout bbh_dl_11__Ground_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
 		GEO_ROTATION_NODE(LAYER_OPAQUE, 0, 90, 0),
 		GEO_OPEN_NODE(),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -10481, 692, -4727, 0, -83, 0, bbh_dl_BigCloud_mesh_layer_1),
@@ -17,6 +27,10 @@ const GeoLayout bbh_area_1_geo[] = {
 			GEO_TRANSLATE_ROTATE(LAYER_OPAQUE, -15014, 1571, 12501, 0, -109, 0),
 			GEO_OPEN_NODE(),
 				GEO_SCALE_WITH_DL(LAYER_OPAQUE, 447043, bbh_dl_Building_mesh_layer_1),
+			GEO_CLOSE_NODE(),
+			GEO_TRANSLATE_ROTATE(LAYER_OPAQUE, -3729, 1998, 3477, 0, -109, 0),
+			GEO_OPEN_NODE(),
+				GEO_SCALE_WITH_DL(LAYER_OPAQUE, 447043, bbh_dl_Building_001_mesh_layer_1),
 			GEO_CLOSE_NODE(),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 5514, 1118, 16717, 0, -104, 0, bbh_dl_CloudIsland_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 9668, 1030, 11428, 0, 26, 0, bbh_dl_CloudIsland2_mesh_layer_1),

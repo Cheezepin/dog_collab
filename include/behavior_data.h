@@ -587,6 +587,8 @@ extern const BehaviorScript bhvFwooshMGStar[];
 extern const BehaviorScript bhvMistTrigger[];
 extern const BehaviorScript bhvLightningCloud[];
 extern const BehaviorScript bhvLightningBolt[];
+extern const BehaviorScript bhvFloorDoor[];
+extern const BehaviorScript bhvFloorDoorButton[];
 
 
 

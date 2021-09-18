@@ -642,6 +642,8 @@ void bhv_mist_trigger_loop(void);
 void bhv_lightning_cloud_loop(void);
 void bhv_lightning_bolt_loop(void);
 void bhv_lightning_bolt_init(void);
+void bhv_floor_door_loop(void);
+void bhv_floor_door_button_loop(void);
 
 
 

@@ -15,7 +15,7 @@ struct ObjectHitbox sRainbowCloudHitbox = {
 };
 
 struct ObjectHitbox sLightningBoltHitbox = {
-    /* interactType: */ INTERACT_DAMAGE,
+    /* interactType: */ INTERACT_SHOCK,
     /* downOffset: */ 125,
     /* damageOrCoinValue: */ 2,
     /* health: */ 0,
@@ -26,6 +26,12 @@ struct ObjectHitbox sLightningBoltHitbox = {
     /* hurtboxHeight: */ 125,
 };
 
+
+s8 gComitCam = 0;
+Vec3f gComitCamPos[2] = {
+    {0, 0, 0},
+    {0, 0, 0},
+};
 
 struct FwooshMG
 {
@@ -216,6 +222,60 @@ s32 Set_NPC_Dialog(s32 dialogId) {
 
 
 
+void bhv_floor_door_button_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_UNKNOWN_13)) {
+                o->oAction = 1;
+            }
+            break;
+        case 1:
+            cur_obj_scale_over_time(2, 3, 1.0f, 0.2f);
+            if (o->oTimer == 3) {
+                cur_obj_play_sound_2(SOUND_GENERAL2_PURPLE_SWITCH);
+                o->oAction = 2;
+            }
+            break;
+    }
+}
+
+
+
+
+void bhv_floor_door_loop(void) {
+    struct Object *obj;
+    switch (o->oAction) {
+        case 0:
+            obj = cur_obj_nearest_object_with_behavior(bhvFloorDoorButton);
+            if (obj == NULL || obj->oAction == 2) {
+                o->oAction = 1;
+                vec3f_copy(gComitCamPos[1], &o->oPosX);
+                vec3f_set(gComitCamPos[0], o->oPosX, o->oHomeY + 500.0f, o->oPosZ + 800.0f);
+            }
+            break;
+        case 1:
+            set_mario_npc_dialog(1);
+            gComitCam = 1;
+            cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
+            o->oPosY = approach_f32(o->oPosY, o->oHomeY - 50.0f, 2.5f, 2.5f);
+            if (o->oPosY == o->oHomeY - 50.0f) {
+                o->oAction = 2;
+            }
+            break;
+        case 2:
+            set_mario_npc_dialog(1);
+            gComitCam = 1;
+            if (o->oTimer > 5) {
+                cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
+                o->oPosZ = approach_f32(o->oPosZ, o->oHomeZ - 600.0f, 12.0f, 12.0f);
+                if (o->oPosZ == o->oHomeZ - 600.0f) {
+                    o->activeFlags = 0;
+                    set_mario_npc_dialog(0);
+                }
+            }
+            break;
+    }
+}
 
 
 
@@ -326,11 +386,6 @@ void bhv_mist_trigger_loop(void) {
 
 //FWOOSH START
 static s8 sMGCloudPartHeights[] = { 11, 8, 12, 8, 9, 9 };
-s8 gComitCam = 0;
-Vec3f gComitCamPos[2] = {
-    {0, 0, 0},
-    {0, 0, 0},
-};
 
 s32 sMGModelSpawnTable[] = {
     MODEL_LOWPOLY_GOOMBA, MODEL_LOWPOLY_KOOPA, MODEL_LOWPOLY_GOOMBA,

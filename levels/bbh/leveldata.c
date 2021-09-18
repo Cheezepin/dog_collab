@@ -98,3 +98,5 @@
 #include "levels/bbh/lightning_cloud/anims/data.inc.c"
 #include "levels/bbh/lightning_cloud/anims/table.inc.c"
 #include "levels/bbh/lightning_bolt/model.inc.c"
+#include "levels/bbh/floor_door/model.inc.c"
+#include "levels/bbh/floor_door/collision.inc.c"

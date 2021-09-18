@@ -38,3 +38,4 @@
 #include "levels/bbh/lowpoly_goomba/geo.inc.c"
 #include "levels/bbh/lightning_cloud/geo.inc.c"
 #include "levels/bbh/lightning_bolt/geo.inc.c"
+#include "levels/bbh/floor_door/geo.inc.c"
