@@ -1,6 +1,6 @@
 const Collision bbh_area_3_collision[] = {
 	COL_INIT(),
-	COL_VERTEX_INIT(31),
+	COL_VERTEX_INIT(34),
 	COL_VERTEX(0, -5000, 0),
 	COL_VERTEX(28329, -5000, 0),
 	COL_VERTEX(28329, -5000, -28329),
@@ -32,6 +32,9 @@ const Collision bbh_area_3_collision[] = {
 	COL_VERTEX(-652, 50, -3547),
 	COL_VERTEX(-4368, -350, -2465),
 	COL_VERTEX(-4368, 50, -2465),
+	COL_VERTEX(-2429, -350, 4852),
+	COL_VERTEX(192, -350, 4852),
+	COL_VERTEX(192, -350, 2231),
 	COL_TRI_INIT(SURFACE_DEATH_PLANE, 8),
 	COL_TRI(0, 1, 2),
 	COL_TRI(0, 2, 3),
@@ -41,7 +44,7 @@ const Collision bbh_area_3_collision[] = {
 	COL_TRI(6, 0, 4),
 	COL_TRI(7, 8, 1),
 	COL_TRI(7, 1, 0),
-	COL_TRI_INIT(SURFACE_NOT_SLIPPERY, 31),
+	COL_TRI_INIT(SURFACE_DEFAULT, 33),
 	COL_TRI(9, 10, 11),
 	COL_TRI(9, 11, 12),
 	COL_TRI(13, 14, 15),
@@ -73,6 +76,8 @@ const Collision bbh_area_3_collision[] = {
 	COL_TRI(12, 22, 20),
 	COL_TRI(20, 26, 16),
 	COL_TRI(12, 20, 16),
+	COL_TRI(31, 32, 33),
+	COL_TRI(31, 33, 23),
 	COL_TRI_STOP(),
 	COL_END()
 };

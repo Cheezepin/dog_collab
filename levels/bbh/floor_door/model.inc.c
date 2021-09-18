@@ -519,28 +519,28 @@ u8 floor_door_i8_metal_pattern2_i8[] = {
 	
 };
 
-Vtx floor_door_BigCloud2_002_mesh_layer_1_vtx_cull[8] = {
-	{{{-210, 10, 226},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-210, 10, 226},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-210, 10, -226},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-210, 10, -226},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{210, 10, 226},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{210, 10, 226},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{210, 10, -226},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{210, 10, -226},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+Vtx floor_door_FloorDoor_mesh_layer_1_vtx_cull[8] = {
+	{{{-198, 10, 228},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-198, 10, 228},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-198, 10, -228},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-198, 10, -228},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{198, 10, 228},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{198, 10, 228},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{198, 10, -228},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{198, 10, -228},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
 };
 
-Vtx floor_door_BigCloud2_002_mesh_layer_1_vtx_0[6] = {
-	{{{182, 10, 137},0, {2180, 1685},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{210, 10, -89},0, {2180, 331},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{28, 10, -226},0, {1008, -346},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-210, 10, 89},0, {-164, 1685},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-182, 10, -137},0, {-164, 331},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-28, 10, 226},0, {1008, 2362},{0xFF, 0xFF, 0xFF, 0xFF}}},
+Vtx floor_door_FloorDoor_mesh_layer_1_vtx_0[6] = {
+	{{{198, 10, 114},0, {2180, 1685},{0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{198, 10, -114},0, {2180, 331},{0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{0, 10, -228},0, {1008, -346},{0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-198, 10, 114},0, {-164, 1685},{0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-198, 10, -114},0, {-164, 331},{0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{0, 10, 228},0, {1008, 2362},{0xFF, 0xFF, 0xFF, 0xFF}}},
 };
 
-Gfx floor_door_BigCloud2_002_mesh_layer_1_tri_0[] = {
-	gsSPVertex(floor_door_BigCloud2_002_mesh_layer_1_vtx_0 + 0, 6, 0),
+Gfx floor_door_FloorDoor_mesh_layer_1_tri_0[] = {
+	gsSPVertex(floor_door_FloorDoor_mesh_layer_1_vtx_0 + 0, 6, 0),
 	gsSP2Triangles(0, 1, 2, 0, 2, 3, 0, 0),
 	gsSP2Triangles(2, 4, 3, 0, 3, 5, 0, 0),
 	gsSPEndDisplayList(),
@@ -570,13 +570,13 @@ Gfx mat_revert_floor_door_Metal_001[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx floor_door_BigCloud2_002_mesh_layer_1[] = {
+Gfx floor_door_FloorDoor_mesh_layer_1[] = {
 	gsSPClearGeometryMode(G_LIGHTING),
-	gsSPVertex(floor_door_BigCloud2_002_mesh_layer_1_vtx_cull + 0, 8, 0),
+	gsSPVertex(floor_door_FloorDoor_mesh_layer_1_vtx_cull + 0, 8, 0),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPCullDisplayList(0, 7),
 	gsSPDisplayList(mat_floor_door_Metal_001),
-	gsSPDisplayList(floor_door_BigCloud2_002_mesh_layer_1_tri_0),
+	gsSPDisplayList(floor_door_FloorDoor_mesh_layer_1_tri_0),
 	gsSPDisplayList(mat_revert_floor_door_Metal_001),
 	gsSPEndDisplayList(),
 };
