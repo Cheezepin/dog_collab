@@ -6600,7 +6600,7 @@ const BehaviorScript bhvLightningCloud[] = {
     LOAD_ANIMATIONS(oAnimations, rainbow_cloud_anims),
     ANIMATE(1),
     SET_FLOAT(oDrawingDistance, 0x4000),
-    SET_HOME(),
+    //SET_HOME(),
     CALL_NATIVE(bhv_rainbow_cloud_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_lightning_cloud_loop),

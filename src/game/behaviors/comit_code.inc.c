@@ -356,15 +356,8 @@ void bhv_lightning_bolt_loop(void) {
 }
 
 
-void bhv_lightning_cloud_loop(void) {
-    switch (o->oAction) {
-        case 0:
-            if (o->oDistanceToMario < 3000.0f && o->oTimer > 15/* && absf(o->oPosY - gMarioState->pos[1]) < 1500.0f*/) {
-                o->oAction = 2;
-                //cur_obj_init_animation_with_sound(0);
-            }
-            break;
-        case 1:
+// LIGHTNING BOLT CODE
+/*
             if (o->header.gfx.animInfo.animFrame == 16) {
                 o->oAnimState = 1;
                 o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_BOLT, bhvLightningBolt);
@@ -373,6 +366,42 @@ void bhv_lightning_cloud_loop(void) {
                 o->oAction = 0;
                 o->oAnimState = 0;
                 cur_obj_init_animation_with_sound(1);
+            }
+*/
+
+
+void bhv_lightning_cloud_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            if (o->oDistanceToMario < 15000.0f/* && absf(o->oPosY - gMarioState->pos[1]) < 1500.0f*/) {
+                o->oAction = 1;
+                //cur_obj_init_animation_with_sound(0);
+
+                /* RANDOM LOCATION
+                o->o100 = cur_obj_angle_to_home() + (s32)((random_float() - 0.5f) * 0x1000);
+                o->oFloatF8 = sins(o->o100) * 1000.0f;
+                o->oFloatFC = coss(o->o100) * 1000.0f;*/
+
+                o->o100 = o->oAngleToMario + (s32)((random_float() - 0.5f) * 0x2000);
+                o->oFloatF8 = sins(o->o100) * ((random_float() * 500.0f) + 500.0f);
+                if (o->oFloatF8 + o->oPosX > 1000.0f) {
+                    o->oFloatF8 = 1000.0f - o->oPosX;
+                }
+                o->oFloatFC = coss(o->o100) * 1000.0f;
+                if (o->oFloatFC + o->oPosZ > 1000.0f) {
+                    o->oFloatFC = 1000.0f - o->oPosZ;
+                }
+
+            }
+            break;
+        case 1:
+            o->oPosX = approach_f32(o->oPosX, o->oFloatF8, 60.0f, 60.0f);
+            o->oPosZ = approach_f32(o->oPosZ, o->oFloatFC, 60.0f, 60.0f);
+
+            o->oFaceAngleYaw = approach_s16_symmetric(o->oFaceAngleYaw, o->o100, 0x1800);
+
+            if (o->oPosX == o->oFloatF8 && o->oPosZ == o->oFloatFC) {
+                o->oAction = 2;
             }
             break;
         case 2:
