@@ -165,4 +165,6 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/floor_door/collision_header.h"
 
+#include "levels/bbh/lightning_strike/geo_header.h"
+
 #endif

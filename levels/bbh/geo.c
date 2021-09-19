@@ -39,3 +39,4 @@
 #include "levels/bbh/lightning_cloud/geo.inc.c"
 #include "levels/bbh/lightning_bolt/geo.inc.c"
 #include "levels/bbh/floor_door/geo.inc.c"
+#include "levels/bbh/lightning_strike/geo.inc.c"

@@ -644,6 +644,8 @@ void bhv_lightning_bolt_loop(void);
 void bhv_lightning_bolt_init(void);
 void bhv_floor_door_loop(void);
 void bhv_floor_door_button_loop(void);
+void bhv_lightning_strike_init(void);
+void bhv_lightning_strike_loop(void);
 
 
 

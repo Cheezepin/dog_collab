@@ -27,6 +27,19 @@ struct ObjectHitbox sLightningBoltHitbox = {
 };
 
 
+static struct ObjectHitbox sLightningHitbox = {
+    /* interactType:      */ INTERACT_SHOCK,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 2,
+    /* health:            */ 0,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 200,
+    /* height:            */ 1000,
+    /* hurtboxRadius:     */ 0,
+    /* hurtboxHeight:     */ 0,
+};
+
+
 s8 gComitCam = 0;
 Vec3f gComitCamPos[2] = {
     {0, 0, 0},
@@ -286,6 +299,44 @@ void bhv_floor_door_loop(void) {
 
 //BOSS CODE START
 
+void bhv_lightning_strike_init(void) {
+    o->oOpacity = 0;
+    obj_set_hitbox(o, &sLightningHitbox);
+    if (o->oBehParams >> 24) {
+        cur_obj_become_intangible();
+        o->oAction = 4;
+    }
+}
+
+void bhv_lightning_strike_loop(void) {
+    o->oInteractStatus = 0;
+    switch (o->oAction) {
+        case 0:
+            cur_obj_become_intangible();
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, 255, 15);
+            if (o->oOpacity == 255) {
+                o->oAction = 1;
+                cur_obj_shake_screen(0);
+            }
+            break;
+        case 1:
+            cur_obj_become_tangible();
+            if (o->oTimer > 30) {
+                o->oAction = 2;
+            }
+            break;
+        case 2:
+            cur_obj_become_intangible();
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 60);
+            if (o->oOpacity == 0) {
+                o->activeFlags = 0;
+            }
+            break;
+    }
+}
+
+
+
 void bhv_lightning_bolt_init(void) {
     obj_set_hitbox(o, &sLightningBoltHitbox);    
     o->oForwardVel = 60.0f;
@@ -308,9 +359,9 @@ void bhv_lightning_bolt_loop(void) {
 void bhv_lightning_cloud_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (o->oDistanceToMario < 2000.0f && absf(o->oPosY - gMarioState->pos[1]) < 1500.0f) {
-                o->oAction = 1;
-                cur_obj_init_animation_with_sound(0);
+            if (o->oDistanceToMario < 3000.0f && o->oTimer > 15/* && absf(o->oPosY - gMarioState->pos[1]) < 1500.0f*/) {
+                o->oAction = 2;
+                //cur_obj_init_animation_with_sound(0);
             }
             break;
         case 1:
@@ -322,6 +373,18 @@ void bhv_lightning_cloud_loop(void) {
                 o->oAction = 0;
                 o->oAnimState = 0;
                 cur_obj_init_animation_with_sound(1);
+            }
+            break;
+        case 2:
+            if (o->oTimer == 0) {
+                o->oAnimState = 1;
+                o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_STRIKE, bhvLightningStrike);
+            } else {
+                if (o->oObjF4 == NULL || o->oObjF4->activeFlags == 0) {
+                    o->oObjF4 = NULL;
+                    o->oAction = 0;
+                    o->oAnimState = 0;
+                }
             }
             break;
     }

@@ -55,6 +55,7 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_CLOUD, lightning_cloud_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_BOLT, lightning_bolt_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_FLOOR_DOOR, floor_door_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_STRIKE, lightning_strike_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -231,9 +232,9 @@ const LevelScript level_bbh_entry[] = {
 		WARP_NODE(0xF1, LEVEL_BBH, 0x03, 0x0B, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x0A, LEVEL_BBH, 0x02, 0x4A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x0B, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_NONE, -1710, 350, 25, 0, 175, 0, 0x000B0000, bhvAirborneDeathWarp),
-		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, -1612, 50, 258, 0, 0, 0, 0x000A0000, bhvDoorWarp),
-		OBJECT(MODEL_LIGHTNING_CLOUD, -1470, 218, -1103, 0, 0, 0, 0x00000000, bhvLightningCloud),
+		OBJECT(MODEL_NONE, 451, -32, 12219, 0, 175, 0, 0x000B0000, bhvAirborneDeathWarp),
+		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, 381, -350, 12615, 0, -180, 0, 0x000A0000, bhvDoorWarp),
+		OBJECT(MODEL_LIGHTNING_CLOUD, 0, 969, 0, 0, 0, 0, 0x00000000, bhvLightningCloud),
 		TERRAIN(bbh_area_3_collision),
 		ROOMS(bbh_area_3_collision_rooms),
 		MACRO_OBJECTS(bbh_area_3_macro_objs),

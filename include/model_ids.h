@@ -629,6 +629,7 @@
 #define MODEL_LIGHTNING_CLOUD             0x10C
 #define MODEL_LIGHTNING_BOLT              0x10D
 #define MODEL_FLOOR_DOOR                  0x10E
+#define MODEL_LIGHTNING_STRIKE            0x10F
 
 
 #endif // MODEL_IDS_H
