@@ -2,7 +2,7 @@ extern void scroll_bitdw_dl_pipe_water_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_Cube_004_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_first_torus_mesh_layer_1_vtx_0();
 extern void scroll_bitdw_dl_first_torus_mesh_layer_5_vtx_0();
-extern void scroll_bitdw_dl_gateway_cube_mesh_layer_5_vtx_0();
+extern void scroll_bitdw_dl_first_walljumps_right_side_001_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_mid_platform_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_walljumps_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_first_torus_001_mesh_layer_1_vtx_0();

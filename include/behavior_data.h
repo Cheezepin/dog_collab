@@ -561,8 +561,11 @@ extern const BehaviorScript bhvSpikeBall[];
 extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
-extern const BehaviorScript bhvEmuLift[];
+extern const BehaviorScript bhvRotatingTorus[];
 extern const BehaviorScript bhvElectricSpinner[];
-extern const BehaviorScript bhvMarioPlane[];
+extern const BehaviorScript bhvSimpleSpinner[];
+extern const BehaviorScript bhvSimpleSpinnerShock[];
+extern const BehaviorScript bhvShockTexture[];
+extern const BehaviorScript bhvSphere[];
 
 #endif // BEHAVIOR_DATA_H
