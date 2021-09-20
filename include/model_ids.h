@@ -630,6 +630,7 @@
 #define MODEL_LIGHTNING_BOLT              0x10D
 #define MODEL_FLOOR_DOOR                  0x10E
 #define MODEL_LIGHTNING_STRIKE            0x10F
+#define MODEL_LIGHTNING_BLAST             0x110
 
 
 #endif // MODEL_IDS_H

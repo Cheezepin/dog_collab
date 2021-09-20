@@ -6657,3 +6657,13 @@ const BehaviorScript bhvLightningStrike[] = {
         CALL_NATIVE(bhv_lightning_strike_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvLightningBlast[] = {
+    BEGIN(OBJ_LIST_DESTRUCTIVE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_FLOAT(oDrawingDistance, 0x4000),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_lightning_blast_loop),
+    END_LOOP(),
+};

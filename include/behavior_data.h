@@ -590,6 +590,7 @@ extern const BehaviorScript bhvLightningBolt[];
 extern const BehaviorScript bhvFloorDoor[];
 extern const BehaviorScript bhvFloorDoorButton[];
 extern const BehaviorScript bhvLightningStrike[];
+extern const BehaviorScript bhvLightningBlast[];
 
 
 

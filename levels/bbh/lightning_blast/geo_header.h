@@ -1,0 +1,10 @@
+extern const GeoLayout lightning_blast_geo[];
+extern Lights1 lightning_blast_Blast_lights;
+extern u8 lightning_blast_noise_i8[];
+extern Vtx lightning_blast_Blast_mesh_layer_5_vtx_cull[8];
+extern Vtx lightning_blast_Blast_mesh_layer_5_vtx_0[28];
+extern Gfx lightning_blast_Blast_mesh_layer_5_tri_0[];
+extern Gfx mat_lightning_blast_Blast[];
+extern Gfx mat_revert_lightning_blast_Blast[];
+extern Gfx lightning_blast_Blast_mesh_layer_5[];
+extern Gfx lightning_blast_material_revert_render_settings[];

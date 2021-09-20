@@ -56,6 +56,7 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_BOLT, lightning_bolt_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_FLOOR_DOOR, floor_door_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_STRIKE, lightning_strike_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_BLAST, lightning_blast_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
