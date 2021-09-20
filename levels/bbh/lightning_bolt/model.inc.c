@@ -47,30 +47,46 @@ Gfx lightning_bolt_bolt_mesh_layer_1_tri_0[] = {
 Gfx mat_lightning_bolt_Billboard[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE),
+	gsSPClearGeometryMode(G_CULL_BACK),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetEnvColor(254, 254, 0, 255),
 	gsSPSetLights1(lightning_bolt_Billboard_lights),
 	gsSPEndDisplayList(),
 };
 
+Gfx mat_revert_lightning_bolt_Billboard[] = {
+	gsDPPipeSync(),
+	gsSPSetGeometryMode(G_CULL_BACK),
+	gsSPEndDisplayList(),
+};
+
 Gfx mat_lightning_bolt_Yellow[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(ENVIRONMENT, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, ENVIRONMENT, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
+	gsSPClearGeometryMode(G_CULL_BACK),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetEnvColor(254, 254, 0, 255),
 	gsSPSetLights1(lightning_bolt_Yellow_lights),
 	gsSPEndDisplayList(),
 };
 
+Gfx mat_revert_lightning_bolt_Yellow[] = {
+	gsDPPipeSync(),
+	gsSPSetGeometryMode(G_CULL_BACK),
+	gsSPEndDisplayList(),
+};
+
 Gfx lightning_bolt_bb_mesh_layer_5[] = {
 	gsSPDisplayList(mat_lightning_bolt_Billboard),
 	gsSPDisplayList(lightning_bolt_bb_mesh_layer_5_tri_0),
+	gsSPDisplayList(mat_revert_lightning_bolt_Billboard),
 	gsSPEndDisplayList(),
 };
 
 Gfx lightning_bolt_bolt_mesh_layer_1[] = {
 	gsSPDisplayList(mat_lightning_bolt_Yellow),
 	gsSPDisplayList(lightning_bolt_bolt_mesh_layer_1_tri_0),
+	gsSPDisplayList(mat_revert_lightning_bolt_Yellow),
 	gsSPEndDisplayList(),
 };
 

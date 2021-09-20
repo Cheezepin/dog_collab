@@ -6597,8 +6597,8 @@ const BehaviorScript bhvMistTrigger[] = {
 const BehaviorScript bhvLightningCloud[] = {
     BEGIN(OBJ_LIST_LEVEL),
     OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
-    LOAD_ANIMATIONS(oAnimations, rainbow_cloud_anims),
-    ANIMATE(1),
+    LOAD_ANIMATIONS(oAnimations, lightning_cloud_anims),
+    ANIMATE(2),
     SET_FLOAT(oDrawingDistance, 0x4000),
     //SET_HOME(),
     CALL_NATIVE(bhv_rainbow_cloud_init),
@@ -6665,5 +6665,19 @@ const BehaviorScript bhvLightningBlast[] = {
     SET_HOME(),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_lightning_blast_loop),
+    END_LOOP(),
+};
+
+
+const BehaviorScript bhvCenterPlatform[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(center_platform_collision),
+    SET_FLOAT(oDrawingDistance, 0x7FFF),
+    SET_FLOAT(oCollisionDistance, 0x4000),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_center_platform_loop),
+        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };

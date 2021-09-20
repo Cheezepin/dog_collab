@@ -102,3 +102,5 @@
 #include "levels/bbh/floor_door/collision.inc.c"
 #include "levels/bbh/lightning_strike/model.inc.c"
 #include "levels/bbh/lightning_blast/model.inc.c"
+#include "levels/bbh/center_platform/model.inc.c"
+#include "levels/bbh/center_platform/collision.inc.c"

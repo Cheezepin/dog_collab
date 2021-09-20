@@ -41,3 +41,4 @@
 #include "levels/bbh/floor_door/geo.inc.c"
 #include "levels/bbh/lightning_strike/geo.inc.c"
 #include "levels/bbh/lightning_blast/geo.inc.c"
+#include "levels/bbh/center_platform/geo.inc.c"

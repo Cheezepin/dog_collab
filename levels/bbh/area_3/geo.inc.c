@@ -22,7 +22,6 @@ const GeoLayout bbh_dl_31__Boss_geo[] = {
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 63486, -514, 7536, 0, 7, 0, bbh_dl_BigCloud3_001_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 65728, 1940, 14220, 0, -109, 0, bbh_dl_Building_002_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 67102, -550, 15972, 0, -83, 0, bbh_dl_CloudIsland3_001_mesh_layer_1),
-			GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 65534, 102, 0, bbh_dl_Metal_mesh_layer_1),
 		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
