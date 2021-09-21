@@ -648,6 +648,7 @@ void bhv_lightning_strike_init(void);
 void bhv_lightning_strike_loop(void);
 void bhv_lightning_blast_loop(void);
 void bhv_center_platform_loop(void);
+void bhv_lightning_button_loop(void);
 
 
 

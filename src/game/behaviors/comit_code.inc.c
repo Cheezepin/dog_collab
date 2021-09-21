@@ -298,6 +298,33 @@ void bhv_floor_door_loop(void) {
 
 
 //BOSS CODE START
+void bhv_lightning_button_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_UNKNOWN_13)) {
+                o->oAction = 1;
+            }
+            break;
+        case 1:
+            cur_obj_scale_over_time(2, 3, 1.0f, 0.2f);
+            if (o->oTimer == 3) {
+                cur_obj_play_sound_2(SOUND_GENERAL2_PURPLE_SWITCH);
+                o->oAction = 3;
+            }
+            break;
+        case 2:
+            cur_obj_scale_over_time(2, 3, 0.2f, 1.0f);
+            if (o->oTimer == 3) {
+                o->oAction = 0;
+            }
+            break;
+        case 3:
+            if (!cur_obj_is_mario_on_platform()) {
+                o->oAction = 2;
+            }
+            break;
+    }
+}
 
 void bhv_center_platform_loop(void) {
     switch (o->oAction) {
@@ -307,7 +334,13 @@ void bhv_center_platform_loop(void) {
             }
             break;
         case 1:
+            cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
             o->oPosY = approach_f32(o->oPosY, o->oHomeY + 9000.0f, 15.0f, 15.0f);
+            if (o->oPosY == o->oHomeY + 9000.0f) {
+                cur_obj_shake_screen(0);
+                o->oAction = 2;
+                o->oF4 = 0;
+            }
             break;
     }
 }
@@ -319,10 +352,12 @@ void bhv_lightning_blast_loop(void) {
     o->oPosX = o->parentObj->oPosX;
     o->oPosY = o->parentObj->oPosY - 210.0f;
     o->header.gfx.scale[2] = approach_f32(o->header.gfx.scale[2], 80.0f, 5.0f, 5.0f);
-    if (absf(o->oPosX - gMarioState->pos[0]) < 50.0f && absf(o->oPosY - (gMarioState->pos[1] + 50.0f)) < 80.0f) {
+    if (absf(o->oPosX - gMarioState->pos[0]) < 50.0f && absf(o->oPosY - (gMarioState->pos[1] + 50.0f)) < 80.0f
+        && o->oTimer > 6) {
         actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
         set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
         gMarioState->hurtCounter += 8;
+        o->oTimer = 0;
     }
 }
 
@@ -389,7 +424,7 @@ void bhv_lightning_bolt_loop(void) {
         set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
         gMarioState->hurtCounter += 8;
     }
-    if (o->oInteractStatus || o->oTimer > 90) {
+    if (o->oInteractStatus || o->oTimer > 120) {
         spawn_mist_particles();
         o->activeFlags = 0;
     }
@@ -399,7 +434,9 @@ void bhv_lightning_bolt_loop(void) {
 void lightning_cloud_bolt_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (o->oDistanceToMario < 15000.0f && o->oTimer > 10) {
+            o->oPosX = approach_f32(o->oPosX, 0, 100.0f, 100.0f);
+            o->oPosZ = approach_f32(o->oPosZ, gMarioState->pos[2] - 4500.0f, 100.0f, 100.0f);
+            if (o->oPosX == 0 && o->oPosZ == gMarioState->pos[2] - 4500.0f) {
                 o->oAction = 1;
                 cur_obj_init_animation_with_sound(1);
             }
@@ -410,11 +447,23 @@ void lightning_cloud_bolt_loop(void) {
                 o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_BOLT, bhvLightningBolt);
                 o->oObjF4->oPosY -= 70.0f;
             } else if (cur_obj_check_if_at_animation_end()) {
-                o->oAction = 0;
+                o->oAction = 2;
                 o->oAnimState = 0;
                 cur_obj_init_animation_with_sound(2);
             }
             break;
+        case 2:
+            if (o->oDistanceToMario < 15000.0f && o->oTimer > 10) {
+                o->oAction = 1;
+                cur_obj_init_animation_with_sound(1);
+            }
+            break;
+    }
+    if (o->oAction) {
+        o->os16102 += 0xC0;
+        o->oPosX = sins(o->os16102) * 1500.0f;
+        o->oPosZ = gMarioState->pos[2] - 4500.0f;
+        o->oMoveAngleYaw = o->oFaceAngleYaw = approach_s16_symmetric(o->oFaceAngleYaw, o->oAngleToMario, 0x400);
     }
 }
 
@@ -512,9 +561,15 @@ void lightning_cloud_blast_loop(void) {
             } else if (o->header.gfx.animInfo.animFrame > 18) {
                 o->os16102 += 0x100;
                 o->oPosX = sins(o->os16102) * 3000.0f;
-                //o->oAction = 0;
-                //o->oAnimState = 0;
-                //cur_obj_init_animation_with_sound(1);
+                if (o->oObj10C->oF4 == 0) {
+                    o->oAction = 0;
+                    o->o104 = 3;
+                    o->oAnimState = 0;
+                    o->oObjF4->activeFlags = 0;
+                    o->oObjF4 = NULL;
+                    o->os16102 = 0;
+                    cur_obj_init_animation_with_sound(1);
+                }
             }
             break;
     }
