@@ -6383,3 +6383,23 @@ const BehaviorScript bhvSimpleSpinnerShock[] = {
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvSphere[] = {
+     BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    ADD_FLOAT(oPosY, 1),
+    LOAD_COLLISION_DATA(sphere_collision),
+    SET_FLOAT(oCollisionDistance, 8000),
+    SET_FLOAT(oDrawingDistance, 8000),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_emu_sphere),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvPaletteSwap[] = {
+    BEGIN_LOOP(),
+    CALL_NATIVE(palette_swap),
+    END_LOOP(),
+};

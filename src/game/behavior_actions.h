@@ -582,6 +582,8 @@ void bhv_podoboo_loop(void);
 void bhv_emu_electric_spinner(void);
 void bhv_shock_texture_loop(void);
 void bhv_emu_simple_spinner(void);
+void bhv_emu_sphere(void);
+void palette_swap(void);
 
 Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
 

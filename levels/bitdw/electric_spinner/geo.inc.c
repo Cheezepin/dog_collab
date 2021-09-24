@@ -5,9 +5,11 @@ const GeoLayout electric_spinner_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_ROTATION_NODE(LAYER_OPAQUE, 0, 0, 0),
 		GEO_OPEN_NODE(),
+			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, electric_spinner_000_displaylist_mesh_layer_5),
 			GEO_DISPLAY_LIST(LAYER_OPAQUE, electric_spinner_000_displaylist_mesh_layer_1),
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, electric_spinner_material_revert_render_settings),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, electric_spinner_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

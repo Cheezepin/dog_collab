@@ -211,6 +211,8 @@
 #define MODEL_BITDW_STAIRCASE                     0x3F        // geo_bitdw_000600
 #define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA      
 #define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB 
+#define MODEL_BITDW_SIMPLE_SPINNER                0x1AC
+#define MODEL_BITDW_SPHERE                        0x1AD
 
 // vcutm
 #define MODEL_VCUTM_SEESAW_PLATFORM               0x36        // vcutm_geo_0001F0
@@ -464,7 +466,7 @@
 #define MODEL_TTM_SLIDE_EXIT_PODIUM       0x7B        // ttm_geo_000DF4
 #define MODEL_WOODEN_SIGNPOST             0x7C        // wooden_signpost_geo
 #define MODEL_UNKNOWN_7D                  0x7D        // referenced in macro presets. Unknown usage
-#define MODEL_MARIO_PLANE                 0x1AC       // plane that spawns under mario to prevent a downwarp
+
 // find me
 #define MODEL_CANNON_BARREL               0x7F        // cannon_barrel_geo
 #define MODEL_CANNON_BASE                 0x80        // cannon_base_geo
