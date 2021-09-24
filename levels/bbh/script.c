@@ -239,6 +239,7 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_NONE, 6769, -32, 6552, 0, -95, 0, 0x000B0000, bhvAirborneDeathWarp),
 		OBJECT(MODEL_CENTER_PLATFORM, 0, 0, 0, 0, 0, 0, 0x00000000, bhvCenterPlatform),
 		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, 7165, -350, 6623, 0, -90, 0, 0x000A0000, bhvDoorWarp),
+		OBJECT(MODEL_FWOOSH_BUTTON, -13, 9067, -3221, 0, 0, 0, 0x00000000, bhvLightningButton),
 		OBJECT(MODEL_LIGHTNING_CLOUD, 0, 867, 0, 0, 0, 0, 0x00000000, bhvLightningCloud),
 		TERRAIN(bbh_area_3_collision),
 		ROOMS(bbh_area_3_collision_rooms),

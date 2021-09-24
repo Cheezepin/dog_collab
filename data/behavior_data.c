@@ -6695,3 +6695,16 @@ const BehaviorScript bhvLightningButton[] = {
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvBonusLightningCloud[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
+    LOAD_ANIMATIONS(oAnimations, lightning_cloud_anims),
+    ANIMATE(2),
+    SET_FLOAT(oDrawingDistance, 0x4000),
+    //SET_HOME(),
+    CALL_NATIVE(bhv_rainbow_cloud_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_bonus_lightning_cloud_loop),
+    END_LOOP(),
+};

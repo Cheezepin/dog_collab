@@ -593,6 +593,7 @@ extern const BehaviorScript bhvLightningStrike[];
 extern const BehaviorScript bhvLightningBlast[];
 extern const BehaviorScript bhvCenterPlatform[];
 extern const BehaviorScript bhvLightningButton[];
+extern const BehaviorScript bhvBonusLightningCloud[];
 
 
 
