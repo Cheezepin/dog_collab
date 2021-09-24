@@ -51,26 +51,26 @@ Gfx sl_dl_Cube_mesh_tri_0[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx sl_dl_Water_Bottom_mesh_layer_5_vtx_cull[8] = {
-	{{{-16384, 0, 16384},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-16384, 0, 16384},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-16384, 0, -16384},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-16384, 0, -16384},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{16384, 0, 16384},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{16384, 0, 16384},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{16384, 0, -16384},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{16384, 0, -16384},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+Vtx sl_dl_Water_Bottom_Visual_mesh_layer_5_vtx_cull[8] = {
+	{{{-32700, 0, 32700},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-32700, 0, 32700},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-32700, 0, -32700},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-32700, 0, -32700},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{32700, 0, 32700},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{32700, 0, 32700},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{32700, 0, -32700},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{32700, 0, -32700},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
 };
 
-Vtx sl_dl_Water_Bottom_mesh_layer_5_vtx_0[4] = {
-	{{{-16384, 0, 16384},0, {-16, 1008},{0x0, 0x7F, 0x0, 0xFF}}},
-	{{{16384, 0, 16384},0, {1008, 1008},{0x0, 0x7F, 0x0, 0xFF}}},
-	{{{16384, 0, -16384},0, {1008, -16},{0x0, 0x7F, 0x0, 0xFF}}},
-	{{{-16384, 0, -16384},0, {-16, -16},{0x0, 0x7F, 0x0, 0xFF}}},
+Vtx sl_dl_Water_Bottom_Visual_mesh_layer_5_vtx_0[4] = {
+	{{{-32700, 0, 32700},0, {-16, 1008},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{32700, 0, 32700},0, {1008, 1008},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{32700, 0, -32700},0, {1008, -16},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{-32700, 0, -32700},0, {-16, -16},{0x0, 0x7F, 0x0, 0xFF}}},
 };
 
-Gfx sl_dl_Water_Bottom_mesh_layer_5_tri_0[] = {
-	gsSPVertex(sl_dl_Water_Bottom_mesh_layer_5_vtx_0 + 0, 4, 0),
+Gfx sl_dl_Water_Bottom_Visual_mesh_layer_5_tri_0[] = {
+	gsSPVertex(sl_dl_Water_Bottom_Visual_mesh_layer_5_vtx_0 + 0, 4, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSPEndDisplayList(),
 };
@@ -108,13 +108,13 @@ Gfx sl_dl_Cube_mesh[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx sl_dl_Water_Bottom_mesh_layer_5[] = {
+Gfx sl_dl_Water_Bottom_Visual_mesh_layer_5[] = {
 	gsSPClearGeometryMode(G_LIGHTING),
-	gsSPVertex(sl_dl_Water_Bottom_mesh_layer_5_vtx_cull + 0, 8, 0),
+	gsSPVertex(sl_dl_Water_Bottom_Visual_mesh_layer_5_vtx_cull + 0, 8, 0),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPCullDisplayList(0, 7),
 	gsSPDisplayList(mat_sl_dl_Water_Bottom),
-	gsSPDisplayList(sl_dl_Water_Bottom_mesh_layer_5_tri_0),
+	gsSPDisplayList(sl_dl_Water_Bottom_Visual_mesh_layer_5_tri_0),
 	gsSPDisplayList(mat_revert_sl_dl_Water_Bottom),
 	gsSPEndDisplayList(),
 };

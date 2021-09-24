@@ -4,7 +4,7 @@ const GeoLayout sl_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -6500, 0, sl_dl_Cube_mesh),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 0, -5900, 0, sl_dl_Water_Bottom_mesh_layer_5),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 0, -5900, 0, sl_dl_Water_Bottom_Visual_mesh_layer_5),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -27,9 +27,6 @@ const GeoLayout sl_area_1[] = {
 					GEO_BRANCH(1, sl_area_1_geo),
 					GEO_RENDER_OBJ(),
 					GEO_ASM(ENVFX_MODE_NONE, geo_envfx_main),
-                    GEO_ASM(0, geo_backdrop_move),
-                    GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, 0, 0, 0, sl_backdrop_Backdrop_mesh),
-                    GEO_ASM(0, geo_zbuffer_clear),
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),

@@ -745,6 +745,9 @@ void reset_mario_pitch(struct MarioState *m) {
 u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *o) {
     m->numCoins += o->oDamageOrCoinValue;
     m->healCounter += 4 * o->oDamageOrCoinValue;
+#ifdef BREATH_METER
+    m->breathCounter += (4 * o->oDamageOrCoinValue);
+#endif
 
     o->oInteractStatus = INT_STATUS_INTERACTED;
 #ifdef X_COIN_STAR
@@ -763,7 +766,11 @@ u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *
 }
 
 u32 interact_water_ring(struct MarioState *m, UNUSED u32 interactType, struct Object *o) {
-    m->healCounter += 4 * o->oDamageOrCoinValue;
+#ifdef BREATH_METER
+    m->breathCounter    += (4 * o->oDamageOrCoinValue);
+#else
+    m->healCounter      += (4 * o->oDamageOrCoinValue);
+#endif
     o->oInteractStatus = INT_STATUS_INTERACTED;
     return FALSE;
 }
@@ -787,6 +794,9 @@ u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct O
         if (!noExit) {
             m->hurtCounter = 0;
             m->healCounter = 0;
+#ifdef BREATH_METER
+            m->breathCounter = 0;
+#endif
             if (m->capTimer > 1) {
                 m->capTimer = 1;
             }
