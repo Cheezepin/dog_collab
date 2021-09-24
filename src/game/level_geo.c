@@ -8,6 +8,7 @@
 #include "camera.h"
 #include "envfx_snow.h"
 #include "level_geo.h"
+#include "game_init.h"
 
 /**
  * Geo function that generates a displaylist for environment effects such as
@@ -76,4 +77,41 @@ Gfx *geo_skybox_main(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) 
     }
 
     return gfx;
+}
+
+Gfx *geo_zbuffer_clear(s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 *mtx) {
+    Gfx *dl = NULL;
+    if (callContext == GEO_CONTEXT_RENDER) {
+        Gfx *dlHead = NULL;
+        dl = alloc_display_list(13 * sizeof(*dl));
+        dlHead = dl;
+        gDPPipeSync(dlHead++);
+        gDPSetRenderMode(dlHead++, G_RM_NOOP, G_RM_NOOP2);
+        gDPSetCycleType(dlHead++, G_CYC_FILL);
+        gDPSetDepthSource(dlHead++, G_ZS_PIXEL);
+        gDPSetDepthImage(dlHead++, gPhysicalZBuffer);
+        gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gPhysicalZBuffer);
+        gDPSetFillColor(dlHead++,
+                        GPACK_ZDZ(G_MAXFBZ, 0) << 16 | GPACK_ZDZ(G_MAXFBZ, 0));
+        gDPFillRectangle(dlHead++, 0, gBorderHeight, SCREEN_WIDTH - 1,
+                        SCREEN_HEIGHT - 1 - gBorderHeight);
+        gDPPipeSync(dlHead++);
+        gDPSetCycleType(dlHead++, G_CYC_1CYCLE);
+        gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH,
+                        gPhysicalFrameBuffers[sRenderingFrameBuffer]);
+        gDPSetScissor(dlHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
+                  SCREEN_HEIGHT - gBorderHeight);
+        gSPEndDisplayList(dlHead++);
+    }
+    return dl;
+}
+
+Gfx *geo_backdrop_move(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        f32 scale = .95;
+        ((struct GraphNodeTranslation *) node->next)->translation[0] = gLakituState.pos[0] * scale;
+        ((struct GraphNodeTranslation *) node->next)->translation[1] = gLakituState.pos[1] * scale;
+        ((struct GraphNodeTranslation *) node->next)->translation[2] = gLakituState.pos[2] * scale;
+    }
+    return 0;
 }
