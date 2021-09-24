@@ -3,6 +3,7 @@
 #include "memory.h"
 #include "engine/math_util.h"
 #include "src/engine/behavior_script.h"
+#include "tile_scroll.h"
 #include "texscroll.h"
 
 #ifdef TARGET_N64

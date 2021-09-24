@@ -13,8 +13,14 @@
 
 #include "actors/common1.h"
 
+/* Fast64 begin persistent block [includes] */
+/* Fast64 end persistent block [includes] */
+
 #include "make_const_nonconst.h"
 #include "levels/bitdw/header.h"
+
+/* Fast64 begin persistent block [scripts] */
+/* Fast64 end persistent block [scripts] */
 
 const LevelScript level_bitdw_entry[] = {
 	INIT_LEVEL(),
@@ -65,6 +71,9 @@ const LevelScript level_bitdw_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_BITDW_SIMPLE_SPINNER, simple_spinner_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_BITDW_SPHERE, sphere_geo), 
 
+	/* Fast64 begin persistent block [level commands] */
+	/* Fast64 end persistent block [level commands] */
+
 	AREA(1, bitdw_area_1),
 		WARP_NODE(0xF1, LEVEL_CASTLE, 0x01, 0x25, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
@@ -74,8 +83,9 @@ const LevelScript level_bitdw_entry[] = {
 		OBJECT(0x1AB, -6000, 19, 1806, 0, 21, 0, 0x10F000FF, bhvElectricSpinner),
 		OBJECT(0x1AB, -6619, -1089, -1377, 0, -9, 0, 0x00000FFF, bhvElectricSpinner),
 		OBJECT(0x1AB, -6538, -1192, -1872, 0, -9, 0, 0x10000FFF, bhvElectricSpinner),
-		OBJECT(0x1AB, 161, 1267, 5363, 0, 90, 0, 0x000000FF, bhvElectricSpinner),
+		OBJECT(0x1AB, 161, 1157, 5363, 0, 90, 0, 0x000000FF, bhvElectricSpinner),
 		OBJECT(MODEL_NONE, 11951, -3584, 8790, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(MODEL_NONE, 10003, -4901, 8716, 0, 0, 0, 0x00000000, bhvPaletteSwap),
 		OBJECT(MODEL_RED_COIN, 8794, -7708, 7870, 0, 0, 0, 0x00000000, bhvRedCoin),
 		OBJECT(MODEL_RED_COIN, 2773, -5713, 7939, 0, 0, 0, 0x00000000, bhvRedCoin),
 		OBJECT(MODEL_RED_COIN, 4869, -3894, 6288, 0, 0, 0, 0x00000000, bhvRedCoin),
@@ -98,6 +108,8 @@ const LevelScript level_bitdw_entry[] = {
 		MACRO_OBJECTS(bitdw_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
 		TERRAIN_TYPE(TERRAIN_STONE),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
 	AREA(2, bitdw_area_2),
@@ -124,6 +136,8 @@ const LevelScript level_bitdw_entry[] = {
 		MACRO_OBJECTS(bitdw_area_2_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
 		TERRAIN_TYPE(TERRAIN_STONE),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),

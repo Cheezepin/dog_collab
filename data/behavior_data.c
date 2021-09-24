@@ -6397,3 +6397,9 @@ const BehaviorScript bhvSphere[] = {
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvPaletteSwap[] = {
+    BEGIN_LOOP(),
+    CALL_NATIVE(palette_swap),
+    END_LOOP(),
+};

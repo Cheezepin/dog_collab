@@ -28,11 +28,9 @@ void scroll_bitdw_dl_pipe_water_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 		vertices[i].n.tc[1] += deltaY;
 	}
-	currentX += deltaX;
-	currentY += deltaY;
-	timeY += 1;
-
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
+
 void scroll_bitdw_dl_Cube_004_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 24;
@@ -53,11 +51,11 @@ void scroll_bitdw_dl_Cube_004_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 	}
 	currentX += deltaX;
-
 }
+
 void scroll_bitdw_dl_first_torus_mesh_layer_1_vtx_0() {
 	int i = 0;
-	int count = 433;
+	int count = 443;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
@@ -75,8 +73,8 @@ void scroll_bitdw_dl_first_torus_mesh_layer_1_vtx_0() {
 		vertices[i].n.tc[1] += deltaY;
 	}
 	currentY += deltaY;
-
 }
+
 void scroll_bitdw_dl_first_torus_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 46;
@@ -107,11 +105,9 @@ void scroll_bitdw_dl_first_torus_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 		vertices[i].n.tc[1] += deltaY;
 	}
-	currentX += deltaX;
-	currentY += deltaY;
-	timeY += 1;
-
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
+
 void scroll_bitdw_dl_first_walljumps_right_side_001_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 16;
@@ -132,8 +128,8 @@ void scroll_bitdw_dl_first_walljumps_right_side_001_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 	}
 	currentX += deltaX;
-
 }
+
 void scroll_bitdw_dl_mid_platform_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 56;
@@ -164,11 +160,9 @@ void scroll_bitdw_dl_mid_platform_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 		vertices[i].n.tc[1] += deltaY;
 	}
-	currentX += deltaX;
-	currentY += deltaY;
-	timeY += 1;
-
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
+
 void scroll_bitdw_dl_walljumps_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 28;
@@ -199,11 +193,9 @@ void scroll_bitdw_dl_walljumps_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 		vertices[i].n.tc[1] += deltaY;
 	}
-	currentX += deltaX;
-	currentY += deltaY;
-	timeY += 1;
-
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
+
 void scroll_bitdw_dl_first_torus_001_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 143;
@@ -224,8 +216,8 @@ void scroll_bitdw_dl_first_torus_001_mesh_layer_1_vtx_0() {
 		vertices[i].n.tc[1] += deltaY;
 	}
 	currentY += deltaY;
-
 }
+
 void scroll_bitdw_dl_second_torus_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 339;
@@ -246,8 +238,8 @@ void scroll_bitdw_dl_second_torus_mesh_layer_1_vtx_0() {
 		vertices[i].n.tc[1] += deltaY;
 	}
 	currentY += deltaY;
-
 }
+
 void scroll_bitdw_dl_second_torus_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 8;
@@ -278,11 +270,9 @@ void scroll_bitdw_dl_second_torus_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 		vertices[i].n.tc[1] += deltaY;
 	}
-	currentX += deltaX;
-	currentY += deltaY;
-	timeY += 1;
-
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
+
 void scroll_bitdw_dl_second_torus_001_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 28;
@@ -303,11 +293,11 @@ void scroll_bitdw_dl_second_torus_001_mesh_layer_1_vtx_0() {
 		vertices[i].n.tc[1] += deltaY;
 	}
 	currentY += deltaY;
-
 }
+
 void scroll_bitdw_dl_TOWER_mesh_layer_5_vtx_0() {
 	int i = 0;
-	int count = 343;
+	int count = 373;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
@@ -325,8 +315,8 @@ void scroll_bitdw_dl_TOWER_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 	}
 	currentX += deltaX;
-
 }
+
 void scroll_bitdw_dl_TOWER_002_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 24;
@@ -347,8 +337,8 @@ void scroll_bitdw_dl_TOWER_002_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[1] += deltaY;
 	}
 	currentY += deltaY;
-
 }
+
 void scroll_bitdw_dl_water_bottom_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 23;
@@ -369,8 +359,8 @@ void scroll_bitdw_dl_water_bottom_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 	}
 	currentX += deltaX;
-
 }
+
 void scroll_bitdw_dl_water_top_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 23;
@@ -401,11 +391,9 @@ void scroll_bitdw_dl_water_top_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 		vertices[i].n.tc[1] += deltaY;
 	}
-	currentX += deltaX;
-	currentY += deltaY;
-	timeY += 1;
-
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
+
 void scroll_bitdw_dl_water_top_fake_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 23;
@@ -436,11 +424,9 @@ void scroll_bitdw_dl_water_top_fake_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 		vertices[i].n.tc[1] += deltaY;
 	}
-	currentX += deltaX;
-	currentY += deltaY;
-	timeY += 1;
-
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
+
 void scroll_bitdw_dl_area_2_torus_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 206;
@@ -471,11 +457,9 @@ void scroll_bitdw_dl_area_2_torus_mesh_layer_5_vtx_0() {
 		vertices[i].n.tc[0] += deltaX;
 		vertices[i].n.tc[1] += deltaY;
 	}
-	currentX += deltaX;
-	currentY += deltaY;
-	timeY += 1;
-
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
+
 void scroll_bitdw_dl_area_2_torus_001_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 337;
@@ -496,8 +480,8 @@ void scroll_bitdw_dl_area_2_torus_001_mesh_layer_1_vtx_0() {
 		vertices[i].n.tc[1] += deltaY;
 	}
 	currentY += deltaY;
-
 }
+
 void scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 630;
@@ -518,8 +502,8 @@ void scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0() {
 		vertices[i].n.tc[1] += deltaY;
 	}
 	currentY += deltaY;
-
 }
+
 void scroll_bitdw() {
 	scroll_bitdw_dl_pipe_water_mesh_layer_5_vtx_0();
 	scroll_bitdw_dl_Cube_004_mesh_layer_5_vtx_0();

@@ -567,5 +567,6 @@ extern const BehaviorScript bhvSimpleSpinner[];
 extern const BehaviorScript bhvSimpleSpinnerShock[];
 extern const BehaviorScript bhvShockTexture[];
 extern const BehaviorScript bhvSphere[];
+extern const BehaviorScript bhvPaletteSwap[];
 
 #endif // BEHAVIOR_DATA_H

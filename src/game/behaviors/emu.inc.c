@@ -1,3 +1,4 @@
+#include "levels/bitdw/model.inc.c"
 void bhv_emu_electric_spinner(void) {
     long a;
     a = o->oBehParams;
@@ -80,4 +81,51 @@ void bhv_emu_sphere(void){
     else {
         o->oFaceAnglePitch += a;
     }
+}
+
+// This accounts for both the first and second u8 entries
+#define COLOR_INDEX(_x) _x*2, _x*2+1
+
+// Color count is actually color count*2, since u16 is stored as two u8
+#define COLOR_COUNT 8
+
+u8* vein_rock;
+
+u8 swapSlots[COLOR_COUNT];
+
+u8 indices[] = {
+    COLOR_INDEX(1),
+    COLOR_INDEX(2),
+    COLOR_INDEX(3),
+    COLOR_INDEX(4),
+};
+
+void bhv_cycle_lava(void){
+
+    if (o->oTimer == 0) {
+        vein_rock = segmented_to_virtual(mat_bitdw_dl_vein_rock);
+    }
+
+    if (o->oTimer % 6 == 0) {
+        int i;
+        int index;
+        
+        for (i = 0; i < COLOR_COUNT; i++) {
+            index = (i+2)%COLOR_COUNT;
+            swapSlots[index] = vein_rock[indices[i]];
+        }
+
+        for(i = 0; i < COLOR_COUNT; i++) {
+            vein_rock[indices[i]] = swapSlots[i];
+        }
+    }
+o->oAction = 0;
+}
+
+static void (*sPaletteSwap[])(void) = {
+    bhv_cycle_lava,
+};
+
+void palette_swap(void){
+     cur_obj_call_action_function(sPaletteSwap);
 }
