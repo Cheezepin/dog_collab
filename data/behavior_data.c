@@ -6703,7 +6703,7 @@ const BehaviorScript bhvBonusLightningCloud[] = {
     ANIMATE(2),
     SET_FLOAT(oDrawingDistance, 0x4000),
     //SET_HOME(),
-    CALL_NATIVE(bhv_rainbow_cloud_init),
+    CALL_NATIVE(bhv_bonus_lightning_cloud_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_bonus_lightning_cloud_loop),
     END_LOOP(),

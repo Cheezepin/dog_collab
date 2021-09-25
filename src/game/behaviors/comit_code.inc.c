@@ -399,6 +399,7 @@ void bhv_lightning_strike_init(void) {
 
 void bhv_lightning_strike_loop(void) {
     u32 actionArg;
+    struct Object *obj;
     if (o->oInteractStatus) {
         actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
         set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
@@ -428,6 +429,8 @@ void bhv_lightning_strike_loop(void) {
             }
             break;
     }
+    obj = cur_obj_nearest_object_with_behavior(bhvCenterPlatform);
+    o->oPosY = obj->oPosY + 67.0f;
 }
 
 
@@ -653,18 +656,165 @@ void bhv_lightning_cloud_loop(void) {
     o->oInteractStatus = 0;
 }
 
+
+void bonus_lightning_cloud_bolt_loop(void) {
+    struct Object *obj;
+    switch (o->oAction) {
+        case 0:
+            o->oPosX = approach_f32(o->oPosX, 0, 100.0f, 100.0f);
+            o->oPosZ = approach_f32(o->oPosZ, gMarioState->pos[2] - 4500.0f, 100.0f, 100.0f);
+            if (o->oPosX == 0 && o->oPosZ == gMarioState->pos[2] - 4500.0f) {
+                o->oAction = 1;
+                cur_obj_init_animation_with_sound(1);
+            }
+            break;
+        case 1:
+            if (o->header.gfx.animInfo.animFrame == 16) {
+                o->oAnimState = 1;
+                o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_BOLT, bhvLightningBolt);
+                o->oObjF4->oPosY -= 70.0f;
+            } else if (cur_obj_check_if_at_animation_end()) {
+                o->oAction = 2;
+                o->oAnimState = 0;
+                cur_obj_init_animation_with_sound(2);
+            }
+            break;
+        case 2:
+            if (o->oDistanceToMario < 15000.0f && o->oTimer > 10) {
+                o->oAction = 1;
+                cur_obj_init_animation_with_sound(1);
+            }
+            break;
+    }
+    if (o->oAction) {
+        o->os16102 += 0xC0;
+        o->oPosX = sins(o->os16102) * 1500.0f;
+        o->oPosZ = gMarioState->pos[2] - 4500.0f;
+        o->oMoveAngleYaw = o->oFaceAngleYaw = approach_s16_symmetric(o->oFaceAngleYaw, o->oAngleToMario, 0x400);
+    }
+    obj = cur_obj_nearest_object_with_behavior(bhvLightningButton);
+    if (obj != NULL && obj->oAction == 2) {
+        cur_obj_init_animation_with_sound(2);
+        o->oAction = 0;
+        o->os16102 = 0;
+        o->o10C = 4;
+    }
+}
+
+
+void bonus_lightning_cloud_strike_loop(void) {
+    f32 dist, dist2;
+    struct Object *obj;
+    obj = cur_obj_nearest_object_with_behavior(bhvCenterPlatform);
+    o->oPosY = obj->oPosY + 1067.0f;
+    switch (o->oAction) {
+        case 0:
+            o->oAction = 1;
+            //cur_obj_init_animation_with_sound(0);
+
+            /* RANDOM LOCATION
+            o->os16100 = cur_obj_angle_to_home() + (s32)((random_float() - 0.5f) * 0x1000);
+            o->oFloatF8 = sins(o->os16100) * 1000.0f;
+            if (o->oFloatF8 + o->oPosX > 1000.0f) {
+                o->oFloatF8 = 1000.0f - o->oPosX;
+            }
+            o->oFloatFC = coss(o->os16100) * 1000.0f;
+            if (o->oFloatFC + o->oPosZ > 1000.0f) {
+                o->oFloatFC = 1000.0f - o->oPosZ;
+            }
+            o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC, o->oFloatF8);*/
+
+            o->os16100 = cur_obj_angle_to_home() + (s32)((random_float() - 0.5f) * 0x2000);
+            if (o->oDistanceToMario > 1000.0f)
+                dist = 1000.0f;
+            else
+                dist = o->oDistanceToMario;
+
+            dist2 = dist + ((random_float() - 0.5f) * 300.0f);
+            dist += ((random_float() - 0.5f) * 300.0f);
+            o->oFloatF8 = sins(o->os16100) * dist;
+            if (o->oFloatF8 + o->oPosX > 1000.0f) {
+                o->oFloatF8 = 1000.0f - o->oPosX;
+            }
+            o->oFloatFC = coss(o->os16100) * dist2;
+            if (o->oFloatFC + o->oPosZ > 1000.0f) {
+                o->oFloatFC = 1000.0f - o->oPosZ;
+            }
+
+            o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC, o->oFloatF8);
+            break;
+        case 1:
+            o->oPosX = approach_f32(o->oPosX, o->oFloatF8, 60.0f, 60.0f);
+            o->oPosZ = approach_f32(o->oPosZ, o->oFloatFC, 60.0f, 60.0f);
+
+            if (o->oPosX == o->oFloatF8 && o->oPosZ == o->oFloatFC) {
+                o->oAction = 2;
+            }
+            break;
+        case 2:
+            if (o->oTimer == 0) {
+                o->oAnimState = 1;
+                o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_STRIKE, bhvLightningStrike);
+            } else {
+                if (o->oObjF4 == NULL || o->oObjF4->activeFlags == 0) {
+                    o->oObjF4 = NULL;
+                    o->oAction = 0;
+                    o->oAnimState = 0;
+                }
+            }
+            break;
+    }
+}
+
+
+void bhv_bonus_lightning_cloud_init(void) {
+    obj_set_hitbox(o, &sRainbowCloudHitbox);
+    vec3f_set(&o->oPosX, 0, 800.0f, 0);
+}
+
+void bonus_lightning_cloud_get_action(s32 type) {
+    switch (type) {
+        case 0:
+            if (o->parentObj->os16104 == 1 || o->parentObj->os16104 == 2) {
+                o->o10C = 1;
+            } else if (o->parentObj->os16104 == 3) {
+                o->o10C = 3;
+            }
+            break;
+        case 1:
+            if (o->parentObj->os16104 == 1) {
+                o->o10C = 1;
+            } else if (o->parentObj->os16104 == 2) {
+                o->o10C = 2;
+            }else if (o->parentObj->os16104 == 3) {
+                o->o10C = 3;
+            }
+            break;
+    }
+}
+
 void bhv_bonus_lightning_cloud_loop(void) {
+    struct Object *obj;
+    bonus_lightning_cloud_get_action(o->oBehParams2ndByte);
     switch (o->o10C) {
         case 0:
             break;
         case 1:
-            lightning_cloud_strike_loop();
+            bonus_lightning_cloud_strike_loop();
             break;
         case 2:
             lightning_cloud_blast_loop();
             break;
         case 3:
-            lightning_cloud_bolt_loop();
+            bonus_lightning_cloud_bolt_loop();
+            break;
+        case 4:
+            obj = cur_obj_nearest_object_with_behavior(bhvCenterPlatform);
+            if (obj != NULL) {
+                o->oPosY = approach_f32(o->oPosY, obj->oHomeY + 400.0f, 75.0f, 75.0f);
+                o->oPosX = approach_f32(o->oPosX, 500, 20.0f, 20.0f);
+                o->oPosZ = approach_f32(o->oPosZ, 0.0f, 20.0f, 20.0f);
+            }
             break;
     }
     o->oInteractStatus = 0;
