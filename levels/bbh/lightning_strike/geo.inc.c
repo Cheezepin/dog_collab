@@ -4,7 +4,6 @@ const GeoLayout lightning_strike_switch_opt1[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, lightning_strike_lightning_mesh_layer_1_mat_override_Blank_0),
-		GEO_DISPLAY_LIST(LAYER_ALPHA, lightning_strike_lightning_mesh_layer_5_mat_override_Blank_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -20,7 +19,6 @@ const GeoLayout lightning_strike_geo[] = {
 				GEO_NODE_START(),
 				GEO_OPEN_NODE(),
 					GEO_DISPLAY_LIST(LAYER_OPAQUE, lightning_strike_lightning_mesh_layer_1),
-					GEO_DISPLAY_LIST(LAYER_TRANSPARENT, lightning_strike_lightning_mesh_layer_5),
 				GEO_CLOSE_NODE(),
 				GEO_BRANCH(1, lightning_strike_switch_opt1),
 			GEO_CLOSE_NODE(),
