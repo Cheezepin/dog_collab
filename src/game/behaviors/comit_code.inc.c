@@ -326,15 +326,25 @@ void bhv_lightning_button_loop(void) {
     }
 }
 
+
+void center_platform_restrict_mario(void) {
+    f32 dist = o->oDistanceToMario - 2200.0f;
+    if (dist > 0) {
+        gMarioState->pos[0] -= dist * sins(o->oAngleToMario);
+        gMarioState->pos[2] -= dist * coss(o->oAngleToMario);
+    }
+}
+
+
 void bhv_center_platform_loop(void) {
     struct Object *obj;
     switch (o->oAction) {
         case 0:
-            if (o->oF4 == 1) {
-                o->oAction = 1;
-            }
+            if (o->oDistanceToMario < 2200.0f)
+                o->oAction = 4;
             break;
         case 1:
+            center_platform_restrict_mario();
             cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
             o->oPosY = approach_f32(o->oPosY, o->oHomeY + 9000.0f, 15.0f, 15.0f);
             if (o->oPosY == o->oHomeY + 9000.0f) {
@@ -366,6 +376,12 @@ void bhv_center_platform_loop(void) {
                 cur_obj_shake_screen(0);
                 o->oAction = 0;
                 o->oF4 = 0;
+            }
+            break;
+        case 4:
+            center_platform_restrict_mario();
+            if (o->oF4 == 1) {
+                o->oAction = 1;
             }
             break;
     }
@@ -430,9 +446,12 @@ void bhv_lightning_strike_loop(void) {
                 o->oAction = 2;
                 o->oOpacity = 255;
                 cur_obj_shake_screen(0);
+                cur_obj_play_sound_1(SOUND_OBJ_THWOMP);
+                cur_obj_play_sound_1(SOUND_GENERAL2_BOBOMB_EXPLOSION);
             }
             break;
         case 2:
+            cur_obj_play_sound_1(SOUND_AIR_AMP_BUZZ);
             cur_obj_become_tangible();
             if (o->oTimer > 20) {
                 o->oAction = 3;
@@ -467,6 +486,7 @@ void bhv_lightning_bolt_init(void) {
 
 void bhv_lightning_bolt_loop(void) {
     u32 actionArg;
+    cur_obj_play_sound_1(SOUND_AIR_AMP_BUZZ);
     if (o->oTimer < 15) {
         if (absi(o->oMoveAngleYaw - o->oAngleToMario) < 0x1000) {
             o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x200);
@@ -502,6 +522,7 @@ void lightning_cloud_bolt_loop(void) {
                 o->oAnimState = 1;
                 o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_BOLT, bhvLightningBolt);
                 o->oObjF4->oPosY -= 170.0f;
+                cur_obj_play_sound_1(SOUND_OBJ_MONTY_MOLE_ATTACK);
             } else if (cur_obj_check_if_at_animation_end()) {
                 o->oAction = 2;
                 o->oAnimState = 0;
@@ -638,6 +659,7 @@ void lightning_cloud_blast_loop(void) {
                 o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_BLAST, bhvLightningBlast);
                 o->oObjF4->oFaceAngleYaw += 0x8000;
                 o->oObjF4->oPosY -= 210.0f;
+                cur_obj_play_sound_1(SOUND_OBJ2_BOWSER_ROAR);
             } else if (o->header.gfx.animInfo.animFrame > 18) {
                 o->os16102 += 0x100;
                 o->oPosX = sins(o->os16102) * 3000.0f;
