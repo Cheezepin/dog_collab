@@ -306,4 +306,7 @@ s32 obj_has_model(struct Object *obj, u16 modelID);
 // End of ultrasm64-extbounds stuff
 Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED void *context);
 
+
+Gfx *geo_comit_set_brightness(s32 callContext, struct GraphNode *node, UNUSED void *context);
+
 #endif // OBJECT_HELPERS_H

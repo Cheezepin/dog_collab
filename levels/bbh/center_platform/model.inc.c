@@ -1040,26 +1040,15 @@ u8 center_platform_i8_metal_texture_i8[] = {
 	
 };
 
-Vtx center_platform_CenterPlat_mesh_layer_1_vtx_cull[8] = {
-	{{{-3025, -143, 3025},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-3025, 67, 3025},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-3025, 67, -3025},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-3025, -143, -3025},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{3025, -143, 3025},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{3025, 67, 3025},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{3025, 67, -3025},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{3025, -143, -3025},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-};
-
-Vtx center_platform_CenterPlat_mesh_layer_1_vtx_0[45] = {
-	{{{3025, -143, 0},0, {3380, -4718},{0x93, 0x99, 0x95, 0xFF}}},
-	{{{2139, -143, 2139},0, {6734, -1364},{0x93, 0x99, 0x95, 0xFF}}},
-	{{{0, -143, 3025},0, {6734, 3380},{0x93, 0x99, 0x95, 0xFF}}},
+Vtx center_platform_cdl_mesh_layer_1_vtx_0[45] = {
 	{{{-3025, -143, 0},0, {-1364, 6734},{0x93, 0x99, 0x95, 0xFF}}},
-	{{{-2139, -143, 2139},0, {3380, 6734},{0x93, 0x99, 0x95, 0xFF}}},
-	{{{0, -143, -3025},0, {-4718, -1364},{0x93, 0x99, 0x95, 0xFF}}},
 	{{{-2139, -143, -2139},0, {-4718, 3380},{0x93, 0x99, 0x95, 0xFF}}},
+	{{{0, -143, -3025},0, {-4718, -1364},{0x93, 0x99, 0x95, 0xFF}}},
+	{{{3025, -143, 0},0, {3380, -4718},{0x93, 0x99, 0x95, 0xFF}}},
 	{{{2139, -143, -2139},0, {-1364, -4718},{0x93, 0x99, 0x95, 0xFF}}},
+	{{{0, -143, 3025},0, {6734, 3380},{0x93, 0x99, 0x95, 0xFF}}},
+	{{{2139, -143, 2139},0, {6734, -1364},{0x93, 0x99, 0x95, 0xFF}}},
+	{{{-2139, -143, 2139},0, {3380, 6734},{0x93, 0x99, 0x95, 0xFF}}},
 	{{{3025, -143, 0},0, {17611, 7132},{0x93, 0x99, 0x95, 0xFF}}},
 	{{{2139, -143, -2139},0, {22355, 7132},{0x93, 0x99, 0x95, 0xFF}}},
 	{{{2139, 67, -2139},0, {22355, 6734},{0xC4, 0xCC, 0xC6, 0xFF}}},
@@ -1099,8 +1088,8 @@ Vtx center_platform_CenterPlat_mesh_layer_1_vtx_0[45] = {
 	{{{2139, 67, -2139},0, {-15595, 6734},{0xC4, 0xCC, 0xC6, 0xFF}}},
 };
 
-Gfx center_platform_CenterPlat_mesh_layer_1_tri_0[] = {
-	gsSPVertex(center_platform_CenterPlat_mesh_layer_1_vtx_0 + 0, 32, 0),
+Gfx center_platform_cdl_mesh_layer_1_tri_0[] = {
+	gsSPVertex(center_platform_cdl_mesh_layer_1_vtx_0 + 0, 32, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(2, 4, 3, 0, 3, 5, 0, 0),
 	gsSP2Triangles(3, 6, 5, 0, 5, 7, 0, 0),
@@ -1115,7 +1104,7 @@ Gfx center_platform_CenterPlat_mesh_layer_1_tri_0[] = {
 	gsSP2Triangles(25, 24, 26, 0, 27, 25, 26, 0),
 	gsSP2Triangles(27, 26, 28, 0, 29, 27, 28, 0),
 	gsSP2Triangles(29, 28, 30, 0, 31, 29, 30, 0),
-	gsSPVertex(center_platform_CenterPlat_mesh_layer_1_vtx_0 + 32, 13, 0),
+	gsSPVertex(center_platform_cdl_mesh_layer_1_vtx_0 + 32, 13, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 0, 2, 0),
 	gsSP2Triangles(3, 2, 4, 0, 5, 3, 4, 0),
 	gsSP2Triangles(6, 7, 4, 0, 6, 4, 8, 0),
@@ -1124,7 +1113,7 @@ Gfx center_platform_CenterPlat_mesh_layer_1_tri_0[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx center_platform_CenterPlat_mesh_layer_1_vtx_1[9] = {
+Vtx center_platform_cdl_mesh_layer_1_vtx_1[9] = {
 	{{{-1741, 67, -1741},0, {-3652, 2938},{0xA9, 0xB0, 0xAB, 0xFF}}},
 	{{{-2462, 67, 0},0, {-922, 5668},{0xA9, 0xB0, 0xAB, 0xFF}}},
 	{{{0, 67, 0},0, {1008, 1008},{0xF5, 0xFF, 0xF8, 0xFF}}},
@@ -1136,8 +1125,8 @@ Vtx center_platform_CenterPlat_mesh_layer_1_vtx_1[9] = {
 	{{{0, 67, -2462},0, {-3652, -922},{0xA9, 0xB0, 0xAB, 0xFF}}},
 };
 
-Gfx center_platform_CenterPlat_mesh_layer_1_tri_1[] = {
-	gsSPVertex(center_platform_CenterPlat_mesh_layer_1_vtx_1 + 0, 9, 0),
+Gfx center_platform_cdl_mesh_layer_1_tri_1[] = {
+	gsSPVertex(center_platform_cdl_mesh_layer_1_vtx_1 + 0, 9, 0),
 	gsSP2Triangles(0, 1, 2, 0, 1, 3, 2, 0),
 	gsSP2Triangles(3, 4, 2, 0, 4, 5, 2, 0),
 	gsSP2Triangles(5, 6, 2, 0, 6, 7, 2, 0),
@@ -1148,7 +1137,7 @@ Gfx center_platform_CenterPlat_mesh_layer_1_tri_1[] = {
 
 Gfx mat_center_platform_Metal3[] = {
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
+	gsDPSetCombineLERP(TEXEL0, 0, SHADE, ENVIRONMENT, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, ENVIRONMENT, 0, 0, 0, ENVIRONMENT),
 	gsSPClearGeometryMode(G_LIGHTING),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPTileSync(),
@@ -1171,7 +1160,7 @@ Gfx mat_revert_center_platform_Metal3[] = {
 
 Gfx mat_center_platform_Metal2[] = {
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
+	gsDPSetCombineLERP(TEXEL0, 0, SHADE, ENVIRONMENT, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, ENVIRONMENT, 0, 0, 0, ENVIRONMENT),
 	gsSPClearGeometryMode(G_LIGHTING),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPTileSync(),
@@ -1192,16 +1181,12 @@ Gfx mat_revert_center_platform_Metal2[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx center_platform_CenterPlat_mesh_layer_1[] = {
-	gsSPClearGeometryMode(G_LIGHTING),
-	gsSPVertex(center_platform_CenterPlat_mesh_layer_1_vtx_cull + 0, 8, 0),
-	gsSPSetGeometryMode(G_LIGHTING),
-	gsSPCullDisplayList(0, 7),
+Gfx center_platform_cdl_mesh_layer_1[] = {
 	gsSPDisplayList(mat_center_platform_Metal3),
-	gsSPDisplayList(center_platform_CenterPlat_mesh_layer_1_tri_0),
+	gsSPDisplayList(center_platform_cdl_mesh_layer_1_tri_0),
 	gsSPDisplayList(mat_revert_center_platform_Metal3),
 	gsSPDisplayList(mat_center_platform_Metal2),
-	gsSPDisplayList(center_platform_CenterPlat_mesh_layer_1_tri_1),
+	gsSPDisplayList(center_platform_cdl_mesh_layer_1_tri_1),
 	gsSPDisplayList(mat_revert_center_platform_Metal2),
 	gsSPEndDisplayList(),
 };

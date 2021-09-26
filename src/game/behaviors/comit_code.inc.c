@@ -33,8 +33,8 @@ static struct ObjectHitbox sLightningHitbox = {
     /* damageOrCoinValue: */ 0,
     /* health:            */ 0,
     /* numLootCoins:      */ 0,
-    /* radius:            */ 400,
-    /* height:            */ 1000,
+    /* radius:            */ 200,
+    /* height:            */ 800,
     /* hurtboxRadius:     */ 0,
     /* hurtboxHeight:     */ 0,
 };
@@ -185,6 +185,35 @@ struct FwooshMG sMGSpawnersRow3[] = {
     {3150, 2,},
     {-1, 0,},
 };
+
+Gfx *geo_comit_set_brightness(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+    Gfx *dlStart, *dlHead;
+    struct Object *objectGraphNode;
+    struct GraphNodeGenerated *currentGraphNode;
+    s32 objectBrightness;
+
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        objectGraphNode = (struct Object *) gCurGraphNodeObject; // TODO: change this to object pointer?
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+
+        if (gCurGraphNodeHeldObject) {
+            objectGraphNode = gCurGraphNodeHeldObject->objNode;
+        }
+
+        objectBrightness = objectGraphNode->oOpacity;
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
+
+        dlHead = dlStart;
+        currentGraphNode->fnNode.node.flags = 0x100 | (currentGraphNode->fnNode.node.flags & 0xFF);
+
+        gDPSetEnvColor(dlHead++, objectBrightness, objectBrightness, objectBrightness, 255);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}
 
 
 
@@ -345,6 +374,7 @@ void bhv_center_platform_loop(void) {
             break;
         case 1:
             center_platform_restrict_mario();
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, 20, 2);
             cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
             o->oPosY = approach_f32(o->oPosY, o->oHomeY + 9000.0f, 15.0f, 15.0f);
             if (o->oPosY == o->oHomeY + 9000.0f) {
@@ -354,12 +384,14 @@ void bhv_center_platform_loop(void) {
             }
             break;
         case 2:
+            o->oOpacity = 0;
             obj = cur_obj_nearest_object_with_behavior(bhvLightningCloud);
             if (obj != NULL && obj->os16104 == 4) {
                 o->oAction = 3;
             }
             break;
         case 3:
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, 20, 2);
             cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
             o->oPosY = approach_f32(o->oPosY, o->oHomeY, 60.0f, 60.0f);
 
@@ -379,6 +411,7 @@ void bhv_center_platform_loop(void) {
             }
             break;
         case 4:
+            o->oOpacity = 0;
             center_platform_restrict_mario();
             if (o->oF4 == 1) {
                 o->oAction = 1;
@@ -498,7 +531,7 @@ void bhv_lightning_bolt_loop(void) {
         set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
         gMarioState->hurtCounter += 8;
     }
-    if (o->oInteractStatus || o->oTimer > 120) {
+    if (o->oInteractStatus || o->oTimer > 120 || (o->parentObj->os16104 == 4 || o->parentObj->o110 == 4)) {
         spawn_mist_particles();
         o->parentObj->oObjF4 = NULL;
         o->activeFlags = 0;
@@ -558,7 +591,7 @@ void lightning_cloud_bolt_loop(void) {
             obj->oBehParams2ndByte = 1;
         } else {
             o->os16106 = 3;
-            spawn_default_star(0.0f, 10000.0f, 0.0f);
+            spawn_default_star(0.0f, 9700.0f, 0.0f);
             o->os16104 = 5;
         }
     }
@@ -579,22 +612,29 @@ void lightning_cloud_strike_loop(void) {
                 o->oFloatF8 = sins(o->os16100) * 1000.0f;
                 o->oFloatFC = coss(o->os16100) * 1000.0f;*/
 
-                o->os16100 = o->oAngleToMario + (s32)((random_float() - 0.5f) * 0x2000);
-                if (o->oDistanceToMario > 1000.0f)
-                    dist = 1000.0f;
-                else
-                    dist = o->oDistanceToMario;
+                //o->os16100 = o->oAngleToMario;// + (s32)((random_float() - 0.5f) * 0x400);
+                if (lateral_dist_between_objects(o, gMarioObject) > 500.0f) {
+                    o->oFloatF8 = gMarioState->pos[0] + ((random_float() - 0.5f) * 50.0f);
+                    o->oFloatFC = gMarioState->pos[2] + ((random_float() - 0.5f) * 50.0f);
+                } else {
+                    o->oFloatF8 = o->oPosX - (gMarioState->pos[0] - o->oPosX);
+                    o->oFloatFC = o->oPosZ - (gMarioState->pos[2] - o->oPosZ);
+                }
 
-                dist2 = dist + ((random_float() - 0.5f) * 300.0f);
-                dist += ((random_float() - 0.5f) * 300.0f);
-                o->oFloatF8 = sins(o->os16100) * dist;
-                if (o->oFloatF8 + o->oPosX > 1000.0f) {
-                    o->oFloatF8 = 1000.0f - o->oPosX;
-                }
-                o->oFloatFC = coss(o->os16100) * dist2;
-                if (o->oFloatFC + o->oPosZ > 1000.0f) {
-                    o->oFloatFC = 1000.0f - o->oPosZ;
-                }
+                //dist2 += ((random_float() - 0.5f) * 50.0f);
+                //dist += ((random_float() - 0.5f) * 50.0f);
+                //o->oFloatF8 = sins(o->os16100) * dist;
+                /*if (o->oFloatF8 + o->oPosX > 2500.0f) {
+                    o->oFloatF8 = 2500.0f - o->oPosX;
+                } else if (o->oFloatF8 + o->oPosX < -2500.0f) {
+                    o->oFloatF8 = -2500.0f - o->oPosX;
+                }*/
+                //o->oFloatFC = coss(o->os16100) * dist2;
+                /*if (o->oFloatFC + o->oPosZ > 2500.0f) {
+                    o->oFloatFC = 2500.0f - o->oPosZ;
+                }  else if (o->oFloatFC + o->oPosZ < -2500.0f) {
+                    o->oFloatFC = -2500.0f - o->oPosZ;
+                }*/
 
                 o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC, o->oFloatF8);
                 if (o->oObjF4 == NULL) {
@@ -682,6 +722,7 @@ void lightning_cloud_blast_loop(void) {
 
 void bhv_lightning_cloud_loop(void) {
     struct Object *obj;
+    f32 dist;
     switch (o->os16104) {
         case 0:
             if (o->oDistanceToMario < 1500.0f) {
@@ -706,19 +747,21 @@ void bhv_lightning_cloud_loop(void) {
                 o->oPosX = approach_f32(o->oPosX, 0, 20.0f, 20.0f);
                 o->oPosZ = approach_f32(o->oPosZ, -1000.0f, 20.0f, 20.0f);
             }
-            if (o->oTimer > 120) {
+            if (o->oTimer > 120 && obj->oAction == 4) {
                 o->os16104 = 1;
             }
             break;
         case 5:
             o->oFaceAngleYaw = approach_s16_symmetric(o->oFaceAngleYaw, 0, 0x400);
-            o->oPosX = approach_f32(o->oPosX, 0, 50.0f, 50.0f);
-            o->oPosY = approach_f32(o->oPosY, 9700.0f, 50.0f, 50.0f);
-            o->oPosZ = approach_f32(o->oPosZ, -3500.0f, 50.0f, 50.0f);
+            o->oPosX = approach_f32(o->oPosX, 0, 60.0f, 60.0f);
+            o->oPosY = approach_f32(o->oPosY, 9450.0f, 60.0f, 60.0f);
+            o->oPosZ = approach_f32(o->oPosZ, -1000.0f, 60.0f, 60.0f);
 
-            if (o->oPosX == 0 && o->oPosY == 9700.0f && o->oPosZ == -3500.0f) {
+            dist = approach_f32(o->header.gfx.scale[0], 0.33f, 0.005f, 0.005f);
+            cur_obj_scale(dist);
+            if (o->oPosX == 0 && o->oPosY == 9450.0f && o->oPosZ == -1000.0f && dist == 0.33f) {
+                o->oMoveAngleYaw = o->oFaceAngleYaw = 0;
                 obj = spawn_object(o, MODEL_RAINBOW_CLOUD, bhvRainbowCloud);
-                obj_scale(obj, 3.0f);
                 o->activeFlags = 0;
             }
             break;
@@ -801,22 +844,31 @@ void bonus_lightning_cloud_strike_loop(void) {
             }
             o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC, o->oFloatF8);*/
 
-            o->os16100 = cur_obj_angle_to_home() + (s32)((random_float() - 0.5f) * 0x2000);
-            if (o->oDistanceToMario > 1000.0f)
-                dist = 1000.0f;
-            else
-                dist = o->oDistanceToMario;
+            //o->os16100 = o->oAngleToMario + (s32)((random_float() - 0.5f) * 0x200);
+            //dist = o->oDistanceToMario;
+            if (lateral_dist_between_objects(o, gMarioObject) > 500.0f) {
+                o->oFloatF8 = gMarioState->pos[0] + ((random_float() - 0.5f) * 50.0f);
+                o->oFloatFC = gMarioState->pos[2] + ((random_float() - 0.5f) * 50.0f);
+            } else {
+                o->oFloatF8 = -gMarioState->pos[0];
+                o->oFloatFC = -gMarioState->pos[2];
+            }
 
-            dist2 = dist + ((random_float() - 0.5f) * 300.0f);
-            dist += ((random_float() - 0.5f) * 300.0f);
-            o->oFloatF8 = sins(o->os16100) * dist;
-            if (o->oFloatF8 + o->oPosX > 1000.0f) {
-                o->oFloatF8 = 1000.0f - o->oPosX;
-            }
-            o->oFloatFC = coss(o->os16100) * dist2;
-            if (o->oFloatFC + o->oPosZ > 1000.0f) {
-                o->oFloatFC = 1000.0f - o->oPosZ;
-            }
+
+            //dist2 = dist + ((random_float() - 0.5f) * 50.0f);
+            //dist += ((random_float() - 0.5f) * 50.0f);
+            //o->oFloatF8 = sins(o->os16100) * dist;
+            /*if (o->oFloatF8 + o->oPosX > 2500.0f) {
+                o->oFloatF8 = 2500.0f - o->oPosX;
+            } else if (o->oFloatF8 + o->oPosX < -2500.0f) {
+                o->oFloatF8 = -2500.0f - o->oPosX;
+            }*/
+            //o->oFloatFC = coss(o->os16100) * dist2;
+            /*if (o->oFloatFC + o->oPosZ > 2500.0f) {
+                o->oFloatFC = 2500.0f - o->oPosZ;
+            }  else if (o->oFloatFC + o->oPosZ < -2500.0f) {
+                o->oFloatFC = -2500.0f - o->oPosZ;
+            }*/
 
             o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC, o->oFloatF8);
             if (o->oObjF4 == NULL) {
@@ -891,8 +943,15 @@ void bonus_lightning_cloud_blast_loop(void) {
 
 
 void bhv_bonus_lightning_cloud_init(void) {
+    f32 xpos;
     obj_set_hitbox(o, &sRainbowCloudHitbox);
-    vec3f_set(&o->oPosX, 0, 800.0f, 0);
+    if (o->oBehParams2ndByte) {
+        xpos = 1500.0f;
+    } else {
+        xpos = -1500.0f;
+    }
+    vec3f_set(&o->oPosX, xpos, 800.0f, -1500.0f);
+    o->oFaceAngleYaw = o->oMoveAngleYaw = 0;
 }
 
 void bonus_lightning_cloud_get_action(s32 type) {
@@ -932,7 +991,7 @@ void bonus_lightning_cloud_get_action(s32 type) {
 
 void bhv_bonus_lightning_cloud_loop(void) {
     struct Object *obj;
-    f32 xPos;
+    f32 xPos, dist;
     bonus_lightning_cloud_get_action(o->oBehParams2ndByte);
     switch (o->o110) {
         case 0:
@@ -957,17 +1016,19 @@ void bhv_bonus_lightning_cloud_loop(void) {
         case 5:
             o->oFaceAngleYaw = approach_s16_symmetric(o->oFaceAngleYaw, 0, 0x400);
             if (o->oBehParams2ndByte) {
-                xPos = -1500.0f;
+                xPos = -400.0f;
             } else {
-                xPos = 1500.0f;
+                xPos = 400.0f;
             }
-            o->oPosX = approach_f32(o->oPosX, xPos, 50.0f, 50.0f);
-            o->oPosY = approach_f32(o->oPosY, 9400.0f, 50.0f, 50.0f);
-            o->oPosZ = approach_f32(o->oPosZ, -3500.0f, 50.0f, 50.0f);
+            o->oPosX = approach_f32(o->oPosX, xPos, 60.0f, 60.0f);
+            o->oPosY = approach_f32(o->oPosY, 9250.0f, 60.0f, 60.0f);
+            o->oPosZ = approach_f32(o->oPosZ, -1000.0f, 60.0f, 60.0f);
 
-            if (o->oPosX == xPos && o->oPosY == 9400.0f && o->oPosZ == -3500.0f) {
+            dist = approach_f32(o->header.gfx.scale[0], 0.33f, 0.005f, 0.005f);
+            cur_obj_scale(dist);
+            if (o->oPosX == xPos && o->oPosY == 9250.0f && o->oPosZ == -1000.0f && dist == 0.33f) {
+                o->oMoveAngleYaw = o->oFaceAngleYaw = 0;
                 obj = spawn_object(o, MODEL_RAINBOW_CLOUD, bhvRainbowCloud);
-                obj_scale(obj, 3.0f);
                 o->activeFlags = 0;
             }
             break;
