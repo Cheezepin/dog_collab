@@ -1,6 +1,7 @@
 
 extern u8 sGoombaAttackHandlers[][6];
 extern struct ModeTransitionInfo sModeInfo;
+extern s16 sInvulnerable;
 
 struct ObjectHitbox sRainbowCloudHitbox = {
     /* interactType: */ INTERACT_DAMAGE,
@@ -32,13 +33,24 @@ static struct ObjectHitbox sLightningHitbox = {
     /* downOffset:        */ 0,
     /* damageOrCoinValue: */ 0,
     /* health:            */ 0,
-    /* numLootCoins:      */ 0,
+    /* numLootCoins:      */ 3,
     /* radius:            */ 200,
     /* height:            */ 800,
     /* hurtboxRadius:     */ 0,
     /* hurtboxHeight:     */ 0,
 };
 
+static struct ObjectHitbox sComitCoinHitbox = {
+    /* interactType: */ INTERACT_COIN,
+    /* downOffset: */ 0,
+    /* damageOrCoinValue: */ 1,
+    /* health: */ 0,
+    /* numLootCoins: */ 0,
+    /* radius: */ 150,
+    /* height: */ 64,
+    /* hurtboxRadius: */ 0,
+    /* hurtboxHeight: */ 0,
+};
 
 s8 gComitCam = 0;
 Vec3f gComitCamPos[2] = {
@@ -327,6 +339,14 @@ void bhv_floor_door_loop(void) {
 
 
 //BOSS CODE START
+void bhv_comit_coin_init(void) {
+    cur_obj_set_behavior(bhvYellowCoin);
+    obj_set_hitbox(o, &sComitCoinHitbox);
+    bhv_init_room();
+    if (o->oFloorHeight < FLOOR_LOWER_LIMIT_MISC)
+        obj_mark_for_deletion(o);
+}
+
 void bhv_lightning_button_loop(void) {
     switch (o->oAction) {
         case 0:
@@ -367,6 +387,7 @@ void center_platform_restrict_mario(void) {
 
 void bhv_center_platform_loop(void) {
     struct Object *obj;
+    s32 i;
     switch (o->oAction) {
         case 0:
             if (o->oDistanceToMario < 2200.0f)
@@ -381,6 +402,12 @@ void bhv_center_platform_loop(void) {
                 cur_obj_shake_screen(0);
                 o->oAction = 2;
                 o->oF4 = 0;
+
+                obj = cur_obj_nearest_object_with_behavior(bhvYellowCoin);
+                while (obj != NULL) {
+                    obj->activeFlags = 0;
+                    obj = cur_obj_nearest_object_with_behavior(bhvYellowCoin);
+                }
             }
             break;
         case 2:
@@ -415,6 +442,14 @@ void bhv_center_platform_loop(void) {
             center_platform_restrict_mario();
             if (o->oF4 == 1) {
                 o->oAction = 1;
+
+                for (i = 0; i < 25; i++) {
+                    obj = spawn_object(o, MODEL_YELLOW_COIN, bhvComitCoin);
+
+                    obj->oPosX = (random_float() - 0.5f) * 3000.0f;
+                    obj->oPosZ = (random_float() - 0.5f) * 3000.0f;
+                    obj->oPosY = 2000.0f + (random_float() * 6000.0f);
+                }
             }
             break;
     }
@@ -429,7 +464,7 @@ void bhv_lightning_blast_loop(void) {
     if (o->oBehParams2ndByte == 0) {
         o->oPosX = o->parentObj->oPosX;
         if (absf(o->oPosX - gMarioState->pos[0]) < 50.0f && absf(o->oPosY - (gMarioState->pos[1] + 50.0f)) < 80.0f
-            && o->oTimer > 6) {
+            && o->oTimer > 6 && !sInvulnerable) {
             actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
             set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
             gMarioState->hurtCounter += 8;
@@ -438,7 +473,7 @@ void bhv_lightning_blast_loop(void) {
     } else {
         o->oPosZ = o->parentObj->oPosZ;
         if (absf(o->oPosZ - gMarioState->pos[2]) < 50.0f && absf(o->oPosY - (gMarioState->pos[1] + 50.0f)) < 80.0f
-            && o->oTimer > 6) {
+            && o->oTimer > 6 && !sInvulnerable) {
             actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
             set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
             gMarioState->hurtCounter += 8;
@@ -458,7 +493,7 @@ void bhv_lightning_strike_init(void) {
 }
 
 void bhv_lightning_strike_loop(void) {
-    u32 actionArg;
+    u32 actionArg, chance;
     struct Object *obj;
     if (o->oInteractStatus) {
         actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
@@ -481,6 +516,10 @@ void bhv_lightning_strike_loop(void) {
                 cur_obj_shake_screen(0);
                 cur_obj_play_sound_1(SOUND_OBJ_THWOMP);
                 cur_obj_play_sound_1(SOUND_GENERAL2_BOBOMB_EXPLOSION);
+                chance = o->oNumLootCoins * 0xC00;
+                if (random_u16() < chance) {
+                    obj_spawn_loot_yellow_coins(o, 1, 35.0f);
+                }
             }
             break;
         case 2:
@@ -531,7 +570,7 @@ void bhv_lightning_bolt_loop(void) {
         set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
         gMarioState->hurtCounter += 8;
     }
-    if (o->oInteractStatus || o->oTimer > 120 || (o->parentObj->os16104 == 4 || o->parentObj->o110 == 4)) {
+    if (o->oInteractStatus || o->oTimer > 120 || (o->parentObj->os16104 > 3 || o->parentObj->o110 > 3)) {
         spawn_mist_particles();
         o->parentObj->oObjF4 = NULL;
         o->activeFlags = 0;

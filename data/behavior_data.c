@@ -6708,3 +6708,14 @@ const BehaviorScript bhvBonusLightningCloud[] = {
         CALL_NATIVE(bhv_bonus_lightning_cloud_loop),
     END_LOOP(),
 };
+
+
+const BehaviorScript bhvComitCoin[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    BILLBOARD(),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    CALL_NATIVE(bhv_comit_coin_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_yellow_coin_loop),
+    END_LOOP(),
+};

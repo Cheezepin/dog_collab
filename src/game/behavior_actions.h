@@ -651,6 +651,7 @@ void bhv_center_platform_loop(void);
 void bhv_lightning_button_loop(void);
 void bhv_bonus_lightning_cloud_loop(void);
 void bhv_bonus_lightning_cloud_init(void);
+void bhv_comit_coin_init(void);
 
 
 
