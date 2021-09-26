@@ -548,6 +548,7 @@ void lightning_cloud_bolt_loop(void) {
         o->oAction = 0;
         o->os16102 = 0;
         o->os16104 = 4;
+
         if (o->os16106 == 0) {
             spawn_object(o, MODEL_LIGHTNING_CLOUD, bhvBonusLightningCloud);
             o->os16106 = 1;
@@ -557,6 +558,8 @@ void lightning_cloud_bolt_loop(void) {
             obj->oBehParams2ndByte = 1;
         } else {
             o->os16106 = 3;
+            spawn_default_star(0.0f, 10000.0f, 0.0f);
+            o->os16104 = 5;
         }
     }
 }
@@ -705,6 +708,18 @@ void bhv_lightning_cloud_loop(void) {
             }
             if (o->oTimer > 120) {
                 o->os16104 = 1;
+            }
+            break;
+        case 5:
+            o->oFaceAngleYaw = approach_s16_symmetric(o->oFaceAngleYaw, 0, 0x400);
+            o->oPosX = approach_f32(o->oPosX, 0, 50.0f, 50.0f);
+            o->oPosY = approach_f32(o->oPosY, 9700.0f, 50.0f, 50.0f);
+            o->oPosZ = approach_f32(o->oPosZ, -3500.0f, 50.0f, 50.0f);
+
+            if (o->oPosX == 0 && o->oPosY == 9700.0f && o->oPosZ == -3500.0f) {
+                obj = spawn_object(o, MODEL_RAINBOW_CLOUD, bhvRainbowCloud);
+                obj_scale(obj, 3.0f);
+                o->activeFlags = 0;
             }
             break;
     }
@@ -909,10 +924,15 @@ void bonus_lightning_cloud_get_action(s32 type) {
             }
             break;
     }
+    if (o->parentObj->activeFlags == 0 || o->parentObj->os16104 == 5) {
+        o->o110 = 5;
+    }
+
 }
 
 void bhv_bonus_lightning_cloud_loop(void) {
     struct Object *obj;
+    f32 xPos;
     bonus_lightning_cloud_get_action(o->oBehParams2ndByte);
     switch (o->o110) {
         case 0:
@@ -932,6 +952,23 @@ void bhv_bonus_lightning_cloud_loop(void) {
                 o->oPosY = approach_f32(o->oPosY, obj->oHomeY + 400.0f, 75.0f, 75.0f);
                 o->oPosX = approach_f32(o->oPosX, 500, 20.0f, 20.0f);
                 o->oPosZ = approach_f32(o->oPosZ, 0.0f, 20.0f, 20.0f);
+            }
+            break;
+        case 5:
+            o->oFaceAngleYaw = approach_s16_symmetric(o->oFaceAngleYaw, 0, 0x400);
+            if (o->oBehParams2ndByte) {
+                xPos = -1500.0f;
+            } else {
+                xPos = 1500.0f;
+            }
+            o->oPosX = approach_f32(o->oPosX, xPos, 50.0f, 50.0f);
+            o->oPosY = approach_f32(o->oPosY, 9400.0f, 50.0f, 50.0f);
+            o->oPosZ = approach_f32(o->oPosZ, -3500.0f, 50.0f, 50.0f);
+
+            if (o->oPosX == xPos && o->oPosY == 9400.0f && o->oPosZ == -3500.0f) {
+                obj = spawn_object(o, MODEL_RAINBOW_CLOUD, bhvRainbowCloud);
+                obj_scale(obj, 3.0f);
+                o->activeFlags = 0;
             }
             break;
     }
