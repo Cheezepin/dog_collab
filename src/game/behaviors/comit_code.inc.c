@@ -47,7 +47,7 @@ static struct ObjectHitbox sComitCoinHitbox = {
     /* health: */ 0,
     /* numLootCoins: */ 0,
     /* radius: */ 150,
-    /* height: */ 64,
+    /* height: */ 90,
     /* hurtboxRadius: */ 0,
     /* hurtboxHeight: */ 0,
 };
@@ -339,6 +339,11 @@ void bhv_floor_door_loop(void) {
 
 
 //BOSS CODE START
+Vec3f sLightningButtonPos[2] = {
+{-6599.0f, 9527.0f, -5759.0f},
+{-4997.0f, 10547.0f, 3506.0f},
+};
+
 void bhv_comit_coin_init(void) {
     cur_obj_set_behavior(bhvYellowCoin);
     obj_set_hitbox(o, &sComitCoinHitbox);
@@ -365,6 +370,12 @@ void bhv_lightning_button_loop(void) {
             cur_obj_scale_over_time(2, 3, 0.2f, 1.0f);
             if (o->oTimer == 3) {
                 o->oAction = 0;
+                if (o->oF4 == 0) {
+                    vec3f_copy(&o->oPosX, sLightningButtonPos[0]);
+                    o->oF4 = 1;
+                } else {
+                    vec3f_copy(&o->oPosX, sLightningButtonPos[1]);
+                }
             }
             break;
         case 3:
@@ -395,7 +406,7 @@ void bhv_center_platform_loop(void) {
             break;
         case 1:
             center_platform_restrict_mario();
-            o->oOpacity = approach_s16_symmetric(o->oOpacity, 20, 2);
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, o->o10C, 2);
             cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
             o->oPosY = approach_f32(o->oPosY, o->oHomeY + 9000.0f, 15.0f, 15.0f);
             if (o->oPosY == o->oHomeY + 9000.0f) {
@@ -415,10 +426,14 @@ void bhv_center_platform_loop(void) {
             obj = cur_obj_nearest_object_with_behavior(bhvLightningCloud);
             if (obj != NULL && obj->os16104 == 4) {
                 o->oAction = 3;
+                gMarioState->faceAngle[1] = o->oAngleToMario - 0x8000;
+                set_mario_action(gMarioState, ACT_TRIPLE_JUMP, 0);
+                gMarioState->vel[1] = 150.0f;
+                gMarioState->forwardVel = 60.0f;
             }
             break;
         case 3:
-            o->oOpacity = approach_s16_symmetric(o->oOpacity, 20, 2);
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, o->o10C, 2);
             cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
             o->oPosY = approach_f32(o->oPosY, o->oHomeY, 60.0f, 60.0f);
 
@@ -453,6 +468,9 @@ void bhv_center_platform_loop(void) {
             }
             break;
     }
+
+    o->o110 += 0x400;
+    o->o10C = 20 + (sins(o->o110) * 10);
 }
 
 
@@ -594,7 +612,7 @@ void lightning_cloud_bolt_loop(void) {
                 o->oAnimState = 1;
                 o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_BOLT, bhvLightningBolt);
                 o->oObjF4->oPosY -= 170.0f;
-                cur_obj_play_sound_1(SOUND_OBJ_MONTY_MOLE_ATTACK);
+                cur_obj_play_sound_1(SOUND_OBJ_MRI_SHOOT);
             } else if (cur_obj_check_if_at_animation_end()) {
                 o->oAction = 2;
                 o->oAnimState = 0;
@@ -610,8 +628,9 @@ void lightning_cloud_bolt_loop(void) {
     }
     if (o->oAction) {
         o->os16102 += 0xC0;
-        o->oPosX = sins(o->os16102) * 1500.0f;
+        o->oPosX = gMarioState->pos[0] + (sins(o->os16102) * 1500.0f);
         o->oPosZ = gMarioState->pos[2] - 4500.0f;
+        o->oPosY = approach_f32(o->oPosY, gMarioState->pos[1] + 250.0f, 20.0f, 20.0f);
         o->oMoveAngleYaw = o->oFaceAngleYaw = approach_s16_symmetric(o->oFaceAngleYaw, o->oAngleToMario, 0x400);
     }
     obj = cur_obj_nearest_object_with_behavior(bhvLightningButton);
@@ -675,7 +694,9 @@ void lightning_cloud_strike_loop(void) {
                     o->oFloatFC = -2500.0f - o->oPosZ;
                 }*/
 
-                o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC, o->oFloatF8);
+                o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC - o->oPosZ, o->oFloatF8 - o->oPosX);
+                o->oForwardVel = 60.0f;
+                cur_obj_compute_vel_xz();
                 if (o->oObjF4 == NULL) {
                     o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_STRIKE, bhvLightningStrike);
                 }
@@ -684,10 +705,10 @@ void lightning_cloud_strike_loop(void) {
             }
             break;
         case 1:
-            //dist = 60.0f * (o->oFloatF8 / o->oFloatFC);
-            //dist2 = 60.0f * (o->oFloatFC / o->oFloatF8);
-            o->oPosX = approach_f32(o->oPosX, o->oFloatF8, 60.0f, 60.0f);
-            o->oPosZ = approach_f32(o->oPosZ, o->oFloatFC, 60.0f, 60.0f);
+            dist = absf(o->oVelX);
+            dist2 = absf(o->oVelZ);
+            o->oPosX = approach_f32(o->oPosX, o->oFloatF8, dist, dist);
+            o->oPosZ = approach_f32(o->oPosZ, o->oFloatFC, dist2, dist2);
 
             if (o->oPosX == o->oFloatF8 && o->oPosZ == o->oFloatFC) {
                 o->oAction = 2;
@@ -783,8 +804,8 @@ void bhv_lightning_cloud_loop(void) {
             obj = cur_obj_nearest_object_with_behavior(bhvCenterPlatform);
             if (obj != NULL) {
                 o->oPosY = approach_f32(o->oPosY, obj->oHomeY + 400.0f, 75.0f, 75.0f);
-                o->oPosX = approach_f32(o->oPosX, 0, 20.0f, 20.0f);
-                o->oPosZ = approach_f32(o->oPosZ, -1000.0f, 20.0f, 20.0f);
+                o->oPosX = approach_f32(o->oPosX, 0, 50.0f, 50.0f);
+                o->oPosZ = approach_f32(o->oPosZ, -1000.0f, 50.0f, 50.0f);
             }
             if (o->oTimer > 120 && obj->oAction == 4) {
                 o->os16104 = 1;
@@ -848,7 +869,11 @@ void bonus_lightning_cloud_bolt_loop(void) {
     if (o->oAction) {
         o->os16102 += 0xC0;
         o->oPosZ = (gMarioState->pos[2] - 4500.0f) + sins(o->os16102) * 1500.0f;
-        //o->oPosZ = gMarioState->pos[2] - 4500.0f;
+        o->oPosY = approach_f32(o->oPosY, gMarioState->pos[1] + 250.0f, 20.0f, 20.0f);
+        if (o->oBehParams2ndByte)
+            o->oPosX = gMarioState->pos[0] + 1500.0f;
+        else
+            o->oPosX = gMarioState->pos[0] - 1500.0f;
         o->oMoveAngleYaw = o->oFaceAngleYaw = approach_s16_symmetric(o->oFaceAngleYaw, o->oAngleToMario, 0x400);
     }
     obj = cur_obj_nearest_object_with_behavior(bhvLightningButton);
@@ -863,60 +888,40 @@ void bonus_lightning_cloud_bolt_loop(void) {
 
 void bonus_lightning_cloud_strike_loop(void) {
     f32 dist, dist2;
+    s16 angle;
     struct Object *obj;
     obj = cur_obj_nearest_object_with_behavior(bhvCenterPlatform);
     o->oPosY = obj->oPosY + 1067.0f;
     switch (o->oAction) {
         case 0:
             o->oAction = 1;
-            //cur_obj_init_animation_with_sound(0);
-
-            /* RANDOM LOCATION
-            o->os16100 = cur_obj_angle_to_home() + (s32)((random_float() - 0.5f) * 0x1000);
-            o->oFloatF8 = sins(o->os16100) * 1000.0f;
-            if (o->oFloatF8 + o->oPosX > 1000.0f) {
-                o->oFloatF8 = 1000.0f - o->oPosX;
-            }
-            o->oFloatFC = coss(o->os16100) * 1000.0f;
-            if (o->oFloatFC + o->oPosZ > 1000.0f) {
-                o->oFloatFC = 1000.0f - o->oPosZ;
-            }
-            o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC, o->oFloatF8);*/
-
-            //o->os16100 = o->oAngleToMario + (s32)((random_float() - 0.5f) * 0x200);
-            //dist = o->oDistanceToMario;
-            if (lateral_dist_between_objects(o, gMarioObject) > 500.0f) {
-                o->oFloatF8 = gMarioState->pos[0] + ((random_float() - 0.5f) * 50.0f);
-                o->oFloatFC = gMarioState->pos[2] + ((random_float() - 0.5f) * 50.0f);
+            angle = atan2s(gMarioState->pos[2], gMarioState->pos[0]);
+            if (absi((u16)(angle) - (u16)(angle & 0xF000)) < 0x800) {
+                angle &= 0xF000;
             } else {
-                o->oFloatF8 = -gMarioState->pos[0];
-                o->oFloatFC = -gMarioState->pos[2];
+                angle = (angle & 0xF000) + 0x1000;
             }
 
+            if (atan2s(o->oPosZ, o->oPosX) == angle) 
+                angle += 0x1000;
 
-            //dist2 = dist + ((random_float() - 0.5f) * 50.0f);
-            //dist += ((random_float() - 0.5f) * 50.0f);
-            //o->oFloatF8 = sins(o->os16100) * dist;
-            /*if (o->oFloatF8 + o->oPosX > 2500.0f) {
-                o->oFloatF8 = 2500.0f - o->oPosX;
-            } else if (o->oFloatF8 + o->oPosX < -2500.0f) {
-                o->oFloatF8 = -2500.0f - o->oPosX;
-            }*/
-            //o->oFloatFC = coss(o->os16100) * dist2;
-            /*if (o->oFloatFC + o->oPosZ > 2500.0f) {
-                o->oFloatFC = 2500.0f - o->oPosZ;
-            }  else if (o->oFloatFC + o->oPosZ < -2500.0f) {
-                o->oFloatFC = -2500.0f - o->oPosZ;
-            }*/
+            dist = sqrtf(gMarioState->pos[0] * gMarioState->pos[0] + gMarioState->pos[2] * gMarioState->pos[2]);
+            dist += (random_float() - 0.5f) * 100.0f;
+            o->oFloatF8 = sins(angle) * dist;
+            o->oFloatFC = coss(angle) * dist;
 
-            o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC, o->oFloatF8);
+            o->oMoveAngleYaw = o->oFaceAngleYaw = atan2s(o->oFloatFC - o->oPosZ, o->oFloatF8 - o->oPosX);
+            o->oForwardVel = 60.0f;
+            cur_obj_compute_vel_xz();
             if (o->oObjF4 == NULL) {
                 o->oObjF4 = spawn_object(o, MODEL_LIGHTNING_STRIKE, bhvLightningStrike);
             }
             break;
         case 1:
-            o->oPosX = approach_f32(o->oPosX, o->oFloatF8, 60.0f, 60.0f);
-            o->oPosZ = approach_f32(o->oPosZ, o->oFloatFC, 60.0f, 60.0f);
+            dist = absf(o->oVelX);
+            dist2 = absf(o->oVelZ);
+            o->oPosX = approach_f32(o->oPosX, o->oFloatF8, dist, dist);
+            o->oPosZ = approach_f32(o->oPosZ, o->oFloatFC, dist2, dist2);
 
             if (o->oPosX == o->oFloatF8 && o->oPosZ == o->oFloatFC) {
                 o->oAction = 2;
@@ -1048,8 +1053,8 @@ void bhv_bonus_lightning_cloud_loop(void) {
             obj = cur_obj_nearest_object_with_behavior(bhvCenterPlatform);
             if (obj != NULL) {
                 o->oPosY = approach_f32(o->oPosY, obj->oHomeY + 400.0f, 75.0f, 75.0f);
-                o->oPosX = approach_f32(o->oPosX, 500, 20.0f, 20.0f);
-                o->oPosZ = approach_f32(o->oPosZ, 0.0f, 20.0f, 20.0f);
+                o->oPosX = approach_f32(o->oPosX, 500, 50.0f, 50.0f);
+                o->oPosZ = approach_f32(o->oPosZ, 0.0f, 50.0f, 50.0f);
             }
             break;
         case 5:
