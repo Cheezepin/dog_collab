@@ -460,9 +460,6 @@ void seq_channel_layer_process_script(struct SequenceChannelLayer *layer) {
 void seq_channel_layer_process_script(struct SequenceChannelLayer *layer) {
     struct SequencePlayer *seqPlayer;
     struct SequenceChannel *seqChannel;
-#ifdef VERSION_EU
-    UNUSED u32 pad0;
-#endif
     struct M64ScriptState *state;
     struct Portamento *portamento;
     struct AudioBankSound *sound;
@@ -472,9 +469,7 @@ void seq_channel_layer_process_script(struct SequenceChannelLayer *layer) {
 #ifdef VERSION_EU
     u16 sp3A;
     s32 sameSound;
-#endif
-    UNUSED u32 pad1;
-#ifndef VERSION_EU
+#else
     u8 sameSound;
 #endif
     u8 cmd;
@@ -628,9 +623,6 @@ void seq_channel_layer_process_script(struct SequenceChannelLayer *layer) {
                     } else {
                         layer->instOrWave = cmd;
                         layer->instrument = NULL;
-                    }
-
-                    if (1) {
                     }
 
                     if (cmd == 0xff) {
@@ -956,10 +948,6 @@ void seq_channel_layer_process_script(struct SequenceChannelLayer *layer) {
     if (layer->note != NULL && layer->note->parentLayer == layer) {
         note_vibrato_init(layer->note);
     }
-#if defined(VERSION_EU) || defined(VERSION_SH)
-    if (seqChannel) {
-    }
-#endif
 }
 
 #ifdef VERSION_EU
@@ -1118,9 +1106,6 @@ s32 seq_channel_layer_process_script_part2(struct SequenceChannelLayer *layer) {
                         layer->instrument = NULL;
                     }
 
-                    if (1) {
-                    }
-
                     if (cmd == 0xff) {
                         layer->adsr.releaseRate = 0;
                     }
@@ -1209,7 +1194,6 @@ s32 seq_channel_layer_process_script_part4(struct SequenceChannelLayer *layer, s
     f32 freqScale;
     f32 sp24;
     f32 temp_f12;
-    UNUSED s32 pad[2];
     struct SequencePlayer *seqPlayer = seqChannel->seqPlayer;
     u8 cmd = cmd1;
     f32 temp_f2;
@@ -1404,8 +1388,7 @@ u8 get_instrument(struct SequenceChannel *seqChannel, u8 instId, struct Instrume
     struct Instrument *inst;
 #if defined(VERSION_EU) || defined(VERSION_SH)
     inst = get_instrument_inner(seqChannel->bankId, instId);
-    if (inst == NULL)
-    {
+    if (inst == NULL) {
         *instOut = NULL;
         return 0;
     }
@@ -1415,8 +1398,6 @@ u8 get_instrument(struct SequenceChannel *seqChannel, u8 instId, struct Instrume
     instId++;
     return instId;
 #else
-    UNUSED u32 pad;
-
     if (instId >= gCtlEntries[seqChannel->bankId].numInstruments) {
         instId = gCtlEntries[seqChannel->bankId].numInstruments;
         if (instId == 0) {
@@ -2083,7 +2064,6 @@ void sequence_channel_process_script(struct SequenceChannel *seqChannel) {
                         case 0x88:
                             sp5A = m64_read_s16(state);
                             if (seq_channel_set_layer(seqChannel, loBits) == 0) {
-                                if (1) {}
                                 seqChannel->layers[loBits]->scriptState.pc = seqPlayer->seqData + sp5A;
                             }
                             break;
@@ -2160,9 +2140,6 @@ void sequence_channel_process_script(struct SequenceChannel *seqChannel) {
                     case 0x90: // chan_setlayer
                         sp5A = m64_read_s16(state);
                         if (seq_channel_set_layer(seqChannel, loBits) == 0) {
-#ifdef VERSION_EU
-                            if (1) {}
-#endif
                             seqChannel->layers[loBits]->scriptState.pc = seqPlayer->seqData + sp5A;
                         }
                         break;
@@ -2230,9 +2207,6 @@ void sequence_channel_process_script(struct SequenceChannel *seqChannel) {
 
 void sequence_player_process_sequence(struct SequencePlayer *seqPlayer) {
     u8 cmd;
-#ifdef VERSION_SH
-    UNUSED u32 pad;
-#endif
     u8 loBits;
     u8 temp;
     s32 value = 0;
@@ -2298,10 +2272,6 @@ void sequence_player_process_sequence(struct SequencePlayer *seqPlayer) {
         if (osRecvMesg(&seqPlayer->seqDmaMesgQueue, NULL, 0) == -1) {
             return;
         }
-#ifndef AVOID_UB
-        if (temp) {
-        }
-#endif
 #else
         if (seqPlayer->seqDmaMesg == NULL) {
             return;
@@ -2351,10 +2321,6 @@ void sequence_player_process_sequence(struct SequencePlayer *seqPlayer) {
 
     state = &seqPlayer->scriptState;
     if (seqPlayer->delay > 1) {
-#ifndef AVOID_UB
-        if (temp) {
-        }
-#endif
         seqPlayer->delay--;
     } else {
 #if defined(VERSION_EU) || defined(VERSION_SH)
@@ -2504,8 +2470,8 @@ void sequence_player_process_sequence(struct SequencePlayer *seqPlayer) {
 
                         //if (cmd){}
 
-                        if ((s16) seqPlayer->tempo <= 0) {
-                            seqPlayer->tempo = 1;
+                        if ((s16) seqPlayer->tempo < 0) {
+                            seqPlayer->tempo = 0;
                         }
                         break;
 
@@ -2809,15 +2775,7 @@ void init_sequence_players(void) {
 
     for (i = 0; i < ARRAY_COUNT(gSequenceChannels); i++) {
 #endif
-        // @bug Size of wrong array. Zeroes out second half of gSequenceChannels[0],
-        // all of gSequenceChannels[1..31], and part of gSequenceLayers[0].
-        // However, this is only called at startup, so it's harmless.
-#ifdef AVOID_UB
-#define LAYERS_SIZE LAYERS_MAX
-#else
-#define LAYERS_SIZE ARRAY_COUNT(gSequenceLayers)
-#endif
-        for (j = 0; j < LAYERS_SIZE; j++) {
+        for (j = 0; j < LAYERS_MAX; j++) {
             gSequenceChannels[i].layers[j] = NULL;
         }
     }

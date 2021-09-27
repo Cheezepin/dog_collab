@@ -54,7 +54,6 @@ Vtx *vertex_transition_color(struct WarpTransitionData *transData, u8 alpha) {
         make_vertex(verts, 1, GFX_DIMENSIONS_FROM_RIGHT_EDGE(0), 0, -1, 0, 0, r, g, b, alpha);
         make_vertex(verts, 2, GFX_DIMENSIONS_FROM_RIGHT_EDGE(0), SCREEN_HEIGHT, -1, 0, 0, r, g, b, alpha);
         make_vertex(verts, 3, GFX_DIMENSIONS_FROM_LEFT_EDGE(0), SCREEN_HEIGHT, -1, 0, 0, r, g, b, alpha);
-    } else {
     }
     return verts;
 }
@@ -201,7 +200,6 @@ s32 render_textured_transition(s8 fadeTimer, s8 transTime, struct WarpTransition
         gSPTexture(gDisplayListHead++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_OFF);
         gSPDisplayList(gDisplayListHead++, dl_screen_transition_end);
         sTransitionTextureFadeCount[fadeTimer] += transData->texTimer;
-    } else {
     }
     return set_and_reset_transition_fade_timer(fadeTimer, transTime);
 }
@@ -239,9 +237,7 @@ s32 render_screen_transition(s8 fadeTimer, s8 transType, u8 transTime, struct Wa
             return render_textured_transition(fadeTimer, transTime, transData, TEX_TRANS_BOWSER, TRANS_TYPE_MIRROR);
             break;
     }
-#ifdef AVOID_UB
     return 0;
-#endif
 }
 
 Gfx *render_cannon_circle_base(void) {
@@ -297,8 +293,10 @@ Gfx *geo_cannon_circle_base(s32 callContext, struct GraphNode *node, UNUSED Mat4
 
     if (callContext == GEO_CONTEXT_RENDER && gCurrentArea != NULL
         && gCurrentArea->camera->mode == CAMERA_MODE_INSIDE_CANNON) {
-        graphNode->fnNode.node.flags = (graphNode->fnNode.node.flags & 0xFF) | 0x500;
+        SET_GRAPH_NODE_LAYER(graphNode->fnNode.node.flags, LAYER_TRANSPARENT);
+#ifndef L3DEX2_ALONE
         dlist = render_cannon_circle_base();
+#endif
     }
     return dlist;
 }

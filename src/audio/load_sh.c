@@ -26,8 +26,6 @@ void *func_802f3f08(s32 poolIdx, s32 idx, s32 numChunks, s32 arg3, OSMesgQueue *
 
 struct Note *gNotes;
 
-UNUSED static u32 pad;
-
 struct SequencePlayer gSequencePlayers[SEQUENCE_PLAYERS];
 struct SequenceChannel gSequenceChannels[SEQUENCE_CHANNELS];
 struct SequenceChannelLayer gSequenceLayers[SEQUENCE_LAYERS];
@@ -74,7 +72,6 @@ OSIoMesg gAudioDmaIoMesg;
 struct SharedDma *sSampleDmas;
 u32 gSampleDmaNumListItems;
 u32 sSampleDmaListSize1;
-u32 sUnused80226B40; // set to 0, never read
 
 // Circular buffer of DMAs with ttl = 0. tail <= head, wrapping around mod 256.
 u8 sSampleDmaReuseQueue1[256];
@@ -127,7 +124,7 @@ void func_sh_802f4dcc(s32 audioResetStatus);
 void func_sh_802f4e50(struct PendingDmaAudioBank *audioBank, s32 audioResetStatus);
 void func_sh_802f50ec(struct PendingDmaAudioBank *arg0, size_t len);
 void func_sh_802f517c(uintptr_t devAddr, void *vAddr, size_t nbytes, s32 arg3);
-BAD_RETURN(s32) func_sh_802f5310(s32 bankId, struct AudioBank *mem, struct PatchStruct *patchInfo, s32 arg3);
+void func_sh_802f5310(s32 bankId, struct AudioBank *mem, struct PatchStruct *patchInfo, s32 arg3);
 s32 func_sh_802f573c(s32 audioResetStatus);
 void *func_sh_802f3564(s32 seqId);
 s32 func_sh_802f3ec4(s32 arg0, uintptr_t *arg1);
@@ -159,17 +156,13 @@ void decrease_sample_dma_ttls() {
             }
         }
     }
-
-    sUnused80226B40 = 0;
 }
 
 extern char shindouDebugPrint62[]; // "SUPERDMA"
 void *dma_sample_data(uintptr_t devAddr, u32 size, s32 arg2, u8 *dmaIndexRef, s32 medium) {
-    UNUSED s32 sp60;
     struct SharedDma *dma;
     s32 hasDma = FALSE;
     uintptr_t dmaDevAddr;
-    UNUSED u32 pad;
     u32 dmaIndex;
     u32 transfer;
     ssize_t bufferPos;
@@ -228,7 +221,6 @@ void *dma_sample_data(uintptr_t devAddr, u32 size, s32 arg2, u8 *dmaIndexRef, s3
     }
 
     if (!hasDma) {
-        if (1) {}
         // Allocate a DMA from reuse queue 1. This queue will hopefully never
         // be empty, since TTL 2 is so small.
         dmaIndex = sSampleDmaReuseQueue1[sSampleDmaReuseQueueTail1++];
@@ -337,7 +329,6 @@ struct AudioBank *load_banks_immediate(s32 seqId, s32 *outDefaultBank) {
 }
 
 void preload_sequence(u32 seqId, s32 preloadMask) {
-    UNUSED s32 pad;
     s32 temp;
 
     seqId = canonicalize_index(0, seqId);
@@ -365,9 +356,7 @@ s32 func_sh_802f2f38(struct AudioBankSample *sample, s32 bankId) {
         sample->medium = 0;
         sample->sampleAddr = sp24;
     }
-#ifdef AVOID_UB
     return 0;
-#endif
 }
 
 s32 func_sh_802f3024(s32 bankId, s32 instId, s32 arg2) {
@@ -395,9 +384,7 @@ s32 func_sh_802f3024(s32 bankId, s32 instId, s32 arg2) {
         func_sh_802f2f38(drum->sound.sample, bankId);
         return 0;
     }
-#ifdef AVOID_UB
     return 0;
-#endif
 }
 
 void func_sh_802f30f4(s32 arg0, s32 arg1, s32 arg2, OSMesgQueue *arg3) {
@@ -452,7 +439,7 @@ void func_sh_802f3288(s32 idx) {
     }
 }
 
-BAD_RETURN(s32) func_sh_802f3368(s32 bankId) {
+void func_sh_802f3368(s32 bankId) {
     struct SoundMultiPool *pool = &gBankLoadedPool;
     struct TemporaryPool *temporary = &pool->temporary;
     struct PersistentPool *persistent;
@@ -514,9 +501,6 @@ void load_sequence_internal(s32 player, s32 seqId, UNUSED s32 loadAsync) {
     seqPlayer->scriptState.depth = 0;
     seqPlayer->delay = 0;
     seqPlayer->finished = 0;
-
-    for (i = 0; i < 0x10; i++) {
-    }
 }
 
 void *func_sh_802f3564(s32 seqId) {
@@ -604,7 +588,6 @@ void *func_sh_802f3764(s32 poolIdx, s32 idx, s32 *arg2) {
     ALSeqFile *f;
     void *vAddr;
     s32 medium;
-    UNUSED u32 pad2;
     u8 *devAddr;
     s8 loadStatus;
     s32 sp18;
@@ -753,12 +736,8 @@ void patch_audio_bank(s32 bankId, struct AudioBank *mem, struct PatchStruct *pat
     numDrums = gCtlEntries[bankId].numDrums;
     numInstruments = gCtlEntries[bankId].numInstruments;
     itInstrs = (void **) mem->drums;
-    if (mem->drums) {
-    }
     if (itInstrs != NULL && numDrums != 0) {
-        if (1) {
-            mem->drums = PATCH(itInstrs, mem);
-        }
+        mem->drums = PATCH(itInstrs, mem);
         for (i = 0; i < numDrums; i++) {
             patched = mem->drums[i];
             if (patched != NULL) {
@@ -1002,12 +981,10 @@ u8 gShindouSequencesHeader[] = {
 
 // (void) must be omitted from parameters
 void audio_init() {
-    UNUSED s8 pad[0x34];
     s32 i, j, k;
     s32 lim;
     u64 *ptr64;
     void *data;
-    UNUSED u8 pad2[4];
     s32 seqCount;
 
     gAudioLoadLockSH = 0;
@@ -1159,9 +1136,6 @@ struct AudioBankSample *func_sh_802f4978(s32 bankId, s32 idx) {
         ret = drum->sound.sample;
     }
     return ret;
-}
-
-void stub_sh_802f49dc(void) {
 }
 
 void func_sh_802f49e4(struct PendingDmaSample *arg0) {
@@ -1428,10 +1402,8 @@ void patch_sound(struct AudioBankSound *sound, struct AudioBank *memBase, struct
 #undef PATCH
 }
 
-BAD_RETURN(s32) func_sh_802f5310(s32 bankId, struct AudioBank *mem, struct PatchStruct *patchInfo, s32 arg3) {
-    UNUSED u32 pad[2];
+void func_sh_802f5310(s32 bankId, struct AudioBank *mem, struct PatchStruct *patchInfo, s32 arg3) {
     u8 *addr;
-    UNUSED u32 pad1[3];
     s32 sp4C;
     struct AudioBankSample *temp_s0;
     s32 i;
@@ -1459,8 +1431,6 @@ BAD_RETURN(s32) func_sh_802f5310(s32 bankId, struct AudioBank *mem, struct Patch
                 case 0:
                     temp = temp_s0->medium = patchInfo->medium1;
                     if (temp != 0) {
-                        if (temp_s0->size) {
-                        }
                         addr = func_sh_802f1d90(temp_s0->size, patchInfo->bankId1, temp_s0->sampleAddr, temp_s0->medium);
                     } else {
                         temp = temp_s0->medium = patchInfo->medium2;

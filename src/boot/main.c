@@ -5,19 +5,21 @@
 
 #include "sm64.h"
 #include "audio/external.h"
-#include "game_init.h"
-#include "memory.h"
-#include "sound_init.h"
-#include "profiler.h"
+#include "game/game_init.h"
+#include "game/memory.h"
+#include "game/sound_init.h"
+#include "game/profiler.h"
 #include "buffers/buffers.h"
 #include "segments.h"
-#include "main.h"
-#include "rumble_init.h"
-#include "version.h"
+#include "game/main.h"
+#include "game/rumble_init.h"
+#include "game/version.h"
 #ifdef UNF
 #include "usb/usb.h"
 #include "usb/debug.h"
 #endif
+#include "game/puppyprint.h"
+#include "game/puppylights.h"
 
 // Message IDs
 #define MESG_SP_COMPLETE 100
@@ -26,7 +28,7 @@
 #define MESG_START_GFX_SPTASK 103
 #define MESG_NMI_REQUEST 104
 
-OSThread D_80339210; // unused?
+OSThread gUnkThread; // unused?
 OSThread gIdleThread;
 OSThread gMainThread;
 OSThread gGameLoopThread;
@@ -48,6 +50,8 @@ OSMesg gIntrMesgBuf[16];
 OSMesg gUnknownMesgBuf[16];
 
 OSViMode VI;
+
+struct Config gConfig;
 
 struct VblankHandler *gVblankHandler1 = NULL;
 struct VblankHandler *gVblankHandler2 = NULL;
@@ -114,6 +118,9 @@ void alloc_pool(void) {
 
     main_pool_init(start, end);
     gEffectsMemoryPool = mem_pool_init(0x4000, MEMORY_POOL_LEFT);
+    #ifdef PUPPYLIGHTS
+    gLightsPool = mem_pool_init(PUPPYLIGHTS_POOL, MEMORY_POOL_LEFT);
+    #endif
 }
 
 void create_thread(OSThread *thread, OSId id, void (*entry)(void *), void *arg, void *sp, OSPri pri) {
@@ -188,6 +195,9 @@ void start_gfx_sptask(void) {
     if (gActiveSPTask == NULL && sCurrentDisplaySPTask != NULL
         && sCurrentDisplaySPTask->state == SPTASK_STATE_NOT_STARTED) {
         profiler_log_gfx_time(TASKS_QUEUED);
+        #if PUPPYPRINT_DEBUG
+        rspDelta = osGetTime();
+        #endif
         start_sptask(M_GFXTASK);
     }
 }
@@ -201,15 +211,9 @@ void pretend_audio_sptask_done(void) {
 void handle_vblank(void) {
 
     gNumVblanks++;
-#ifdef VERSION_SH
     if (gResetTimer > 0 && gResetTimer < 100) {
         gResetTimer++;
     }
-#else
-    if (gResetTimer > 0) {
-        gResetTimer++;
-    }
-#endif
 
     receive_new_tasks();
 
@@ -233,6 +237,9 @@ void handle_vblank(void) {
         if (gActiveSPTask == NULL && sCurrentDisplaySPTask != NULL
             && sCurrentDisplaySPTask->state != SPTASK_STATE_FINISHED) {
             profiler_log_gfx_time(TASKS_QUEUED);
+            #if PUPPYPRINT_DEBUG
+            rspDelta = osGetTime();
+            #endif
             start_sptask(M_GFXTASK);
         }
     }
@@ -265,6 +272,9 @@ void handle_sp_complete(void) {
             // The gfx task completed before we had time to interrupt it.
             // Mark it finished, just like below.
             curSPTask->state = SPTASK_STATE_FINISHED;
+            #if PUPPYPRINT_DEBUG
+            profiler_update(rspGenTime, rspDelta);
+            #endif
             profiler_log_gfx_time(RSP_COMPLETE);
         }
 
@@ -295,6 +305,9 @@ void handle_sp_complete(void) {
             // The SP process is done, but there is still a Display Processor notification
             // that needs to arrive before we can consider the task completely finished and
             // null out sCurrentDisplaySPTask. That happens in handle_dp_complete.
+            #if PUPPYPRINT_DEBUG
+            profiler_update(rspGenTime, rspDelta);
+            #endif
             profiler_log_gfx_time(RSP_COMPLETE);
         }
     }
@@ -319,6 +332,10 @@ void thread3_main(UNUSED void *arg) {
     crash_screen_init();
 #endif
 
+#ifdef UNF
+    debug_initialize();
+#endif
+
 #ifdef DEBUG
     osSyncPrintf("Super Mario 64\n");
     osSyncPrintf("Built by: %s\n", __username__);
@@ -335,6 +352,9 @@ void thread3_main(UNUSED void *arg) {
 
     while (TRUE) {
         OSMesg msg;
+#if PUPPYPRINT_DEBUG
+        OSTime first = osGetTime();
+#endif
 
         osRecvMesg(&gIntrMesgQueue, &msg, OS_MESG_BLOCK);
         switch ((uintptr_t) msg) {
@@ -354,6 +374,9 @@ void thread3_main(UNUSED void *arg) {
                 handle_nmi_request();
                 break;
         }
+#if PUPPYPRINT_DEBUG
+        profiler_update(taskTime, first);
+#endif
     }
 }
 
@@ -433,38 +456,67 @@ void change_vi(OSViMode *mode, int width, int height){
     }
 }
 
+void get_audio_frequency(void)
+{
+    switch (gConfig.tvType)
+    {
+    #if defined(VERSION_JP) || defined(VERSION_US)
+    case MODE_NTSC:
+        gConfig.audioFrequency = 1.0f;
+        break;
+    case MODE_MPAL:
+        gConfig.audioFrequency = 0.9915f;
+        break;
+    case MODE_PAL:
+        gConfig.audioFrequency = 0.9876f;
+        break;
+    #else
+    case MODE_NTSC:
+        gConfig.audioFrequency = 1.0126f;
+        break;
+    case MODE_MPAL:
+        gConfig.audioFrequency = 1.0086f;
+        break;
+    case MODE_PAL:
+        gConfig.audioFrequency = 1.0f;
+        break;
+    #endif
+    }
+}
+
 /**
  * Initialize hardware, start main thread, then idle.
  */
 void thread1_idle(UNUSED void *arg) {
 
     osCreateViManager(OS_PRIORITY_VIMGR);
-	switch ( osTvType ) {
-	case OS_TV_NTSC:
-		// NTSC
+    switch ( osTvType ) {
+    case OS_TV_NTSC:
+        // NTSC
         //osViSetMode(&osViModeTable[OS_VI_NTSC_LAN1]);
         VI = osViModeTable[OS_VI_NTSC_LAN1];
-		break;
-	case OS_TV_MPAL:
-		// MPAL
+        gConfig.tvType = MODE_NTSC;
+        break;
+    case OS_TV_MPAL:
+        // MPAL
         //osViSetMode(&osViModeTable[OS_VI_MPAL_LAN1]);
-        VI = osViModeTable[OS_VI_MPAL_LAN1];
-		break;
-	case OS_TV_PAL:
-		// PAL
-		//osViSetMode(&osViModeTable[OS_VI_PAL_LAN1]);
-        VI = osViModeTable[OS_VI_PAL_LAN1];
-		break;
-	}
+        VI = osViModeTable[OS_VI_NTSC_LAN1];
+        gConfig.tvType = MODE_MPAL;
+        break;
+    case OS_TV_PAL:
+        // PAL
+        //osViSetMode(&osViModeTable[OS_VI_PAL_LAN1]);
+        VI = osViModeTable[OS_VI_NTSC_LAN1];
+        gConfig.tvType = MODE_PAL;
+        break;
+    }
+    get_audio_frequency();
     change_vi(&VI, SCREEN_WIDTH, SCREEN_HEIGHT);
     osViSetMode(&VI);
     osViBlack(TRUE);
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
     osViSetSpecialFeatures(OS_VI_GAMMA_OFF);
     osCreatePiManager(OS_PRIORITY_PIMGR, &gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
-#ifdef UNF
-    debug_initialize();
-#endif
     create_thread(&gMainThread, 3, thread3_main, NULL, gThread3Stack + 0x2000, 100);
     osStartThread(&gMainThread);
 
@@ -490,10 +542,10 @@ extern u32 gISVFlag;
 void osInitialize_fakeisv() {
     /* global flag to skip `__checkHardware_isv` from being called. */
     gISVFlag = 0x49533634;  // 'IS64'
- 
+
     /* printf writes go to this address, cen64(1) has this hardcoded. */
     gISVDbgPrnAdrs = 0x13FF0000;
- 
+
     /* `__printfunc`, used by `osSyncPrintf` will be set. */
     __osInitialize_isv();
 }

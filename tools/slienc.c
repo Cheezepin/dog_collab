@@ -38,24 +38,24 @@ int main(int argc, const char **argv, const char **envp)
 		fprintf(stderr, "slienc [infile] [outfile]\n");
 		return 1;
 	}
-	
+
 	strcpy(src, argv[1]);
     strcpy(dest, argv[2]);
-	
+
 	if ((fp = fopen(src, "rb")) == NULL)
 	{
 		fprintf(stderr, "FILE OPEN ERROR![%s]\n", src);
 		return 1;
 	}
-	
+
 	fseek(fp, 0, SEEK_END);
 	insize = ftell(fp);
 	fseek(fp, 0, SEEK_SET);
-	
+
 	bz = malloc(insize);
 	size_t fread_result = fread(bz, 1, insize, fp);
 	fclose(fp);
-	
+
 	for (int i = 0; src[i]; i++)
 	{
 		if (src[i] == '.')
@@ -64,31 +64,31 @@ int main(int argc, const char **argv, const char **envp)
 			break;
 		}
 	}
-    
+
 	if ((fp = fopen(dest, "wb")) == NULL)
 	{
 		fprintf(stderr, "FILE CREATE ERROR![%s]\n", dest);
 		exit(1);
 	}
-	
+
 	encode();
-	
+
 	fprintf(fp, "Yay0");
-	
+
 	writeint4(insize);
-	
+
 	writeint4(4 * cp + 16);
 	writeint4(2 * pp + 4 * cp + 16);
-	
+
 	for (int i = 0; i < cp; i++)
 		writeint4(cmd[i]);
-	
+
 	for (int i = 0; i < pp; i++)
 		writeshort(pol[i]);
-	
+
 	fwrite(def, 1u, dp, fp);
 	fclose(fp);
-	
+
 	return 0;
 }
 
@@ -199,7 +199,7 @@ void encode()
 	}
 	if ( v1 != 0x80000000 )
 		++cp;
-	fprintf(stderr, "IN=%d OUT=%d\n", insize, dp + 2 * pp + 4 * cp + 16);
+	//fprintf(stderr, "IN=%d OUT=%d\n", insize, dp + 2 * pp + 4 * cp + 16);
 }
 
 void search(unsigned int a1, int a2, int *a3, unsigned int *a4)
@@ -299,7 +299,7 @@ void initskip(unsigned char *pattern, int len)
 {
 	for (int i = 0; i < 256; i++)
 		skip[i] = len;
-	
+
 	for (int i = 0; i < len; i++)
 		skip[pattern[i]] = len - i - 1;
 }

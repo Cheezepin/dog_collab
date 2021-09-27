@@ -4,6 +4,7 @@
 #include "load.h"
 #include "data.h"
 #include "seqplayer.h"
+#include "game/main.h"
 
 #ifdef VERSION_JP
 #define US_FLOAT2(x) x##.0
@@ -73,7 +74,7 @@ static void sequence_channel_process_sound(struct SequenceChannel *seqChannel) {
     for (i = 0; i < 4; i++) {
         struct SequenceChannelLayer *layer = seqChannel->layers[i];
         if (layer != NULL && layer->enabled && layer->note != NULL) {
-            layer->noteFreqScale = layer->freqScale * seqChannel->freqScale;
+            layer->noteFreqScale = layer->freqScale * seqChannel->freqScale * gConfig.audioFrequency;
             layer->noteVelocity = layer->velocitySquare * channelVolume;
             layer->notePan = (layer->pan * panLayerWeight) + panFromChannel;
         }
@@ -292,6 +293,7 @@ void note_vibrato_init(struct Note *note) {
 
     vib = &note->vibratoState;
 
+/* This code was probably removed from EU and SH for a reason; probably because it's dumb and makes vibrato harder to use well.
 #if defined(VERSION_JP) || defined(VERSION_US)
     if (note->parentLayer->seqChannel->vibratoExtentStart == 0
         && note->parentLayer->seqChannel->vibratoExtentTarget == 0
@@ -300,6 +302,7 @@ void note_vibrato_init(struct Note *note) {
         return;
     }
 #endif
+*/
 
     vib->active = TRUE;
     vib->time = 0;
@@ -400,7 +403,7 @@ s32 adsr_update(struct AdsrState *adsr) {
             restart:
 #endif
             // fall through
-            
+
         case ADSR_STATE_LOOP:
             adsr->delay = BSWAP16(adsr->envelope[adsr->envIndex].delay);
             switch (adsr->delay) {

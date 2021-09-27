@@ -79,14 +79,14 @@ static void cleft_act_ram(void) {
 
 void cleft_act_trip(void) {
     o->oAnimState = 0;
-        if(o->oScuttlebugUnkFC == 0 && o->header.gfx.animInfo.animFrame > 10)
-            o->oScuttlebugUnkFC = 1;
-        else if (o->oScuttlebugUnkFC >= 1) {
+        if(o->oScuttlebugTimer == 0 && o->header.gfx.animInfo.animFrame > 10)
+            o->oScuttlebugTimer = 1;
+        else if (o->oScuttlebugTimer >= 1) {
             if (o->oTimer == 120)
                 cur_obj_init_animation_with_accel_and_sound(4, 1.0f);
             else if (o->oTimer > 120 && o->header.gfx.animInfo.animFrame > 7) {
                 o->oAction = CLEFT_ACT_CHARGE;
-                o->oScuttlebugUnkFC = 0;
+                o->oScuttlebugTimer = 0;
             }
             else if (o->oTimer < 120)
                 cur_obj_init_animation_with_accel_and_sound(3, 1.0f);
@@ -143,7 +143,7 @@ if (o->oAction != CLEFT_ACT_TRIP) {
                     o->oAction = CLEFT_ACT_TRIP;
                     o->oForwardVel = 0;
                     cur_obj_init_animation_with_accel_and_sound(1, 1.0f);
-                    o->oScuttlebugUnkFC = 0;
+                    o->oScuttlebugTimer = 0;
                     //obj_set_knockback_action(attackType);
                     break;
             }

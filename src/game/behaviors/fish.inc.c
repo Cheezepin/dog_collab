@@ -84,7 +84,7 @@ void bhv_fish_spawner_loop(void) {
 static void fish_vertical_roam(s32 speed) {
     f32 parentY = o->parentObj->oPosY;
 
-    // If the stage is Secret Aquarium, the fish can 
+    // If the stage is Secret Aquarium, the fish can
     // travel as far vertically as they wish.
     if (gCurrLevelNum == LEVEL_SA) {
         if (500.0f < absf(o->oPosY - o->oFishGoalY)) {
@@ -125,7 +125,7 @@ static void fish_act_roam(void) {
     }
 
     o->oFishGoalY = gMarioObject->oPosY + o->oFishHeightOffset;
-    
+
     // Rotate the fish towards Mario.
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x400);
 
@@ -158,7 +158,6 @@ static void fish_act_roam(void) {
  */
 static void fish_act_flee(void) {
     f32 fishY = o->oPosY - gMarioObject->oPosY;
-    UNUSED s32 distance;
     o->oFishGoalY = gMarioObject->oPosY + o->oFishHeightOffset;
 
     // Initialize some variables when the flee action first starts.
@@ -166,12 +165,6 @@ static void fish_act_flee(void) {
         o->oFishActiveDistance = random_float() * 300.0f;
         o->oFishYawVel = random_float() * 1024.0f + 1024.0f;
         o->oFishGoalVel = random_float() * 4.0f + 8.0f + 5.0f;
-        if (o->oDistanceToMario < 600.0f) {
-            distance = 1;
-        } else {
-            distance = (s32)(1.0 / (o->oDistanceToMario / 600.0));
-        }
-        distance *= 127;
         cur_obj_play_sound_2(SOUND_GENERAL_MOVING_WATER);
     }
 
@@ -201,7 +194,7 @@ static void fish_act_flee(void) {
         } else {
             fish_vertical_roam(4);
         }
-        
+
     // Don't let the fish leave the water vertically.
     } else {
         o->oPosY = o->oFishWaterLevel - 50.0f;
@@ -234,9 +227,7 @@ static void (*sFishActions[])(void) = {
 /**
  * Main loop for fish
  */
-void bhv_fish_loop(void)
-{
-    UNUSED s32 unused[4];
+void bhv_fish_loop(void) {
     cur_obj_scale(1.0f);
 
     // oFishWaterLevel tracks if a fish has roamed out of water.

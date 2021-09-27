@@ -187,11 +187,6 @@ f32 get_water_level_below_shadow(struct Shadow *s, struct Surface **waterFloor) 
         return waterLevel;
     }
     return waterLevel;
-    //! @bug Missing return statement. This compiles to return `waterLevel`
-    //! incidentally.
-#ifdef AVOID_UB
-    return waterLevel;
-#endif
 }
 
 /**
@@ -203,16 +198,16 @@ f32 get_water_level_below_shadow(struct Shadow *s, struct Surface **waterFloor) 
  *                          be dimmed based on its distance to the floor
  */
 s8 init_shadow(struct Shadow *s, f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, u8 overwriteSolidity) {
-    f32 waterLevel;
+    f32 waterLevel = FLOOR_LOWER_LIMIT_SHADOW;
     f32 floorSteepness;
-    struct FloorGeometry *floorGeometry;
+    struct Surface *floor;
     struct Surface *waterFloor = NULL;
 
     s->parentX = xPos;
     s->parentY = yPos;
     s->parentZ = zPos;
 
-    s->floorHeight = find_floor_height_and_data(s->parentX, s->parentY, s->parentZ, &floorGeometry);
+    s->floorHeight = find_floor(s->parentX, s->parentY, s->parentZ, &floor);
 
     waterLevel = get_water_level_below_shadow(s, &waterFloor);
 
@@ -221,7 +216,6 @@ s8 init_shadow(struct Shadow *s, f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, 
     // }
 
     if (gShadowAboveWaterOrLava) {
-        //! @bug Use of potentially undefined variable `waterLevel`
         s->floorHeight = waterLevel;
 
         if (waterFloor != NULL) {
@@ -244,14 +238,14 @@ s8 init_shadow(struct Shadow *s, f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, 
     } else {
         // Don't draw a shadow if the floor is lower than expected possible,
         // or if the y-normal is negative (an unexpected result).
-        if (s->floorHeight < FLOOR_LOWER_LIMIT_SHADOW || floorGeometry->normalY <= 0.0) {
+        if (s->floorHeight < FLOOR_LOWER_LIMIT_SHADOW || floor->normal.y <= 0.0) {
             return 1;
         }
 
-        s->floorNormalX = floorGeometry->normalX;
-        s->floorNormalY = floorGeometry->normalY;
-        s->floorNormalZ = floorGeometry->normalZ;
-        s->floorOriginOffset = floorGeometry->originOffset;
+        s->floorNormalX = floor->normal.x;
+        s->floorNormalY = floor->normal.y;
+        s->floorNormalZ = floor->normal.z;
+        s->floorOriginOffset = floor->originOffset;
     }
 
     if (overwriteSolidity) {
@@ -383,7 +377,6 @@ void calculate_vertex_xyz(s8 index, struct Shadow s, f32 *xPosVtx, f32 *yPosVtx,
     f32 halfTiltedScale;
     s8 xCoordUnit;
     s8 zCoordUnit;
-    struct FloorGeometry *dummy;
 
     // This makes xCoordUnit and yCoordUnit each one of -1, 0, or 1.
     get_vertex_coords(index, shadowVertexType, &xCoordUnit, &zCoordUnit);
@@ -406,7 +399,7 @@ void calculate_vertex_xyz(s8 index, struct Shadow s, f32 *xPosVtx, f32 *yPosVtx,
                 // Clamp this vertex's y-position to that of the floor directly
                 // below it, which may differ from the floor below the center
                 // vertex.
-                *yPosVtx = find_floor_height_and_data(*xPosVtx, s.parentY, *zPosVtx, &dummy);
+                *yPosVtx = find_floor_height(*xPosVtx, s.parentY, *zPosVtx);
                 break;
             case SHADOW_WITH_4_VERTS:
                 // Do not clamp. Instead, extrapolate the y-position of this
@@ -426,8 +419,7 @@ void calculate_vertex_xyz(s8 index, struct Shadow s, f32 *xPosVtx, f32 *yPosVtx,
  * perpendicular, meaning the ground is locally flat. It returns nonzero
  * in most cases where `vtxY` is on a different floor triangle from the
  * center vertex, as in the case with SHADOW_WITH_9_VERTS, which sets
- * the y-value from `find_floor_height_and_data`. (See the bottom of
- * `calculate_vertex_xyz`.)
+ * the y-value from `find_floor`. (See the bottom of `calculate_vertex_xyz`.)
  */
 s16 floor_local_tilt(struct Shadow s, f32 vtxX, f32 vtxY, f32 vtxZ) {
     f32 relX = vtxX - s.parentX;
@@ -458,9 +450,8 @@ void make_shadow_vertex(Vtx *vertices, s8 index, struct Shadow s, s8 shadowVerte
      * GameShark code in this video: https://youtu.be/MSIh4rtNGF0. The code in
      * the video makes `extrapolate_vertex_y_position` return the same value as
      * the last-called function that returns a float; in this case, that's
-     * `find_floor_height_and_data`, which this if-statement was designed to
-     * overwrite in the first place. Thus, this if-statement is disabled by that
-     * code.
+     * `find_floor`, which this if-statement was designed to overwrite in the
+     * first place. Thus, this if-statement is disabled by that code.
      *
      * The last condition here means the y-position calculated previously
      * was probably on a different floor triangle from the center vertex.
@@ -631,9 +622,7 @@ Gfx *create_shadow_player(f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, u8 soli
     }
 
     switch (correct_shadow_solidity_for_animations(isLuigi, solidity, &shadow)) {
-        case SHADOW_SOLIDITY_NO_SHADOW:
-            return NULL;
-            break;
+        case SHADOW_SOLIDITY_NO_SHADOW: return NULL; break;
         case SHADOW_SOILDITY_ALREADY_SET:
             ret = init_shadow(&shadow, xPos, yPos, zPos, shadowScale, /* overwriteSolidity */ 0);
             break;
@@ -721,9 +710,8 @@ Gfx *create_shadow_circle_assuming_flat_ground(f32 xPos, f32 yPos, f32 zPos, s16
                                                u8 solidity) {
     Vtx *verts;
     Gfx *displayList;
-    struct FloorGeometry *dummy; // only for calling find_floor_height_and_data
     f32 distBelowFloor;
-    f32 floorHeight = find_floor_height_and_data(xPos, yPos, zPos, &dummy);
+    f32 floorHeight = find_floor_height(xPos, yPos, zPos);
     f32 radius = shadowScale / 2;
 
     if (floorHeight < FLOOR_LOWER_LIMIT_SHADOW) {
@@ -781,9 +769,8 @@ Gfx *create_shadow_rectangle(f32 halfWidth, f32 halfLength, f32 relY, u8 solidit
  * value is 200. Return 0 if a shadow should be drawn, 1 if not.
  */
 s32 get_shadow_height_solidity(f32 xPos, f32 yPos, f32 zPos, f32 *shadowHeight, u8 *solidity) {
-    struct FloorGeometry *dummy;
     f32 waterLevel;
-    *shadowHeight = find_floor_height_and_data(xPos, yPos, zPos, &dummy);
+    *shadowHeight = find_floor_height(xPos, yPos, zPos);
 
     if (*shadowHeight < FLOOR_LOWER_LIMIT_SHADOW) {
         return 1;
@@ -815,17 +802,10 @@ Gfx *create_shadow_square(f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, u8 soli
 
     distFromShadow = yPos - shadowHeight;
     switch (shadowType) {
-        case SHADOW_SQUARE_PERMANENT:
-            shadowRadius = shadowScale / 2;
-            break;
-        case SHADOW_SQUARE_SCALABLE:
-            shadowRadius = scale_shadow_with_distance(shadowScale, distFromShadow) / 2.0;
-            break;
-        case SHADOW_SQUARE_TOGGLABLE:
-            shadowRadius = disable_shadow_with_distance(shadowScale, distFromShadow) / 2.0;
-            break;
-        default:
-            return NULL;
+        case SHADOW_SQUARE_PERMANENT: shadowRadius = shadowScale / 2; break;
+        case SHADOW_SQUARE_SCALABLE:  shadowRadius =   scale_shadow_with_distance(shadowScale, distFromShadow) / 2.0; break;
+        case SHADOW_SQUARE_TOGGLABLE: shadowRadius = disable_shadow_with_distance(shadowScale, distFromShadow) / 2.0; break;
+        default: return NULL;
     }
 
     return create_shadow_rectangle(shadowRadius, shadowRadius, -distFromShadow, solidity);
@@ -886,36 +866,14 @@ Gfx *create_shadow_below_xyz(f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, u8 s
         sSurfaceTypeBelowShadow = pfloor->type;
     }
     switch (shadowType) {
-        case SHADOW_CIRCLE_9_VERTS:
-            displayList = create_shadow_circle_9_verts(xPos, yPos, zPos, shadowScale, shadowSolidity);
-            break;
-        case SHADOW_CIRCLE_4_VERTS:
-            displayList = create_shadow_circle_4_verts(xPos, yPos, zPos, shadowScale, shadowSolidity);
-            break;
-        case SHADOW_CIRCLE_4_VERTS_FLAT_UNUSED: // unused shadow type
-            displayList = create_shadow_circle_assuming_flat_ground(xPos, yPos, zPos, shadowScale,
-                                                                    shadowSolidity);
-            break;
-        case SHADOW_SQUARE_PERMANENT:
-            displayList =
-                create_shadow_square(xPos, yPos, zPos, shadowScale, shadowSolidity, shadowType);
-            break;
-        case SHADOW_SQUARE_SCALABLE:
-            displayList =
-                create_shadow_square(xPos, yPos, zPos, shadowScale, shadowSolidity, shadowType);
-            break;
-        case SHADOW_SQUARE_TOGGLABLE:
-            displayList =
-                create_shadow_square(xPos, yPos, zPos, shadowScale, shadowSolidity, shadowType);
-            break;
-        case SHADOW_CIRCLE_PLAYER:
-            displayList = create_shadow_player(xPos, yPos, zPos, shadowScale, shadowSolidity,
-                                               /* isLuigi */ FALSE);
-            break;
-        default:
-            displayList = create_shadow_hardcoded_rectangle(xPos, yPos, zPos, shadowScale,
-                                                            shadowSolidity, shadowType);
-            break;
+        case SHADOW_CIRCLE_9_VERTS:             displayList = create_shadow_circle_9_verts             (xPos, yPos, zPos, shadowScale, shadowSolidity                     ); break;
+        case SHADOW_CIRCLE_4_VERTS:             displayList = create_shadow_circle_4_verts             (xPos, yPos, zPos, shadowScale, shadowSolidity                     ); break;
+        case SHADOW_CIRCLE_4_VERTS_FLAT_UNUSED: displayList = create_shadow_circle_assuming_flat_ground(xPos, yPos, zPos, shadowScale, shadowSolidity                     ); break; // unused shadow type
+        case SHADOW_SQUARE_PERMANENT:           displayList = create_shadow_square                     (xPos, yPos, zPos, shadowScale, shadowSolidity, shadowType         ); break;
+        case SHADOW_SQUARE_SCALABLE:            displayList = create_shadow_square                     (xPos, yPos, zPos, shadowScale, shadowSolidity, shadowType         ); break;
+        case SHADOW_SQUARE_TOGGLABLE:           displayList = create_shadow_square                     (xPos, yPos, zPos, shadowScale, shadowSolidity, shadowType         ); break;
+        case SHADOW_CIRCLE_PLAYER:              displayList = create_shadow_player                     (xPos, yPos, zPos, shadowScale, shadowSolidity, /* isLuigi */ FALSE); break;
+        default:                                displayList = create_shadow_hardcoded_rectangle        (xPos, yPos, zPos, shadowScale, shadowSolidity, shadowType         ); break;
     }
     return displayList;
 }

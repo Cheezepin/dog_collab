@@ -5,6 +5,7 @@
 
 #include "types.h"
 #include "area.h"
+#include "puppycam2.h"
 
 #include "course_table.h"
 
@@ -73,10 +74,14 @@ struct MainMenuSaveData
 #else
 #define SUBTRAHEND 6
 #endif
+    u8 firstBoot;
 
     // Pad to match the EEPROM size of 0x200 (10 bytes on JP/US, 8 bytes on EU)
     //u8 filler[EEPROM_SIZE / 2 - SUBTRAHEND - NUM_SAVE_FILES * (4 + sizeof(struct SaveFile))];
 
+    #ifdef PUPPYCAM
+    struct gPuppyOptions saveOptions;
+    #endif
     struct SaveBlockSignature signature;
 };
 
@@ -85,8 +90,14 @@ struct SaveBuffer
     // Each of the four save files has two copies. If one is bad, the other is used as a backup.
     struct SaveFile files[NUM_SAVE_FILES];
     // The main menu data has two copies. If one is bad, the other is used as a backup.
-    struct MainMenuSaveData menuData;
+    struct MainMenuSaveData menuData[1];
 };
+
+#ifdef PUPPYCAM
+extern void puppycam_set_save(void);
+extern void puppycam_get_save(void);
+extern void puppycam_check_save(void);
+#endif
 
 STATIC_ASSERT(sizeof(struct SaveBuffer) <= EEPROM_SIZE, "ERROR: Save struct too big for specified save type");
 
@@ -147,7 +158,7 @@ extern s8 gSaveFileModified;
 
 void save_file_do_save(s32 fileIndex);
 void save_file_erase(s32 fileIndex);
-BAD_RETURN(s32) save_file_copy(s32 srcFileIndex, s32 destFileIndex);
+void save_file_copy(s32 srcFileIndex, s32 destFileIndex);
 void save_file_load_all(void);
 void save_file_reload(void);
 void save_file_collect_star_or_key(s16 coinScore, s16 starIndex);

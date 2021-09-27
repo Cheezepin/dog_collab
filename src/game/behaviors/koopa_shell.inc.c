@@ -12,8 +12,11 @@ struct ObjectHitbox sKoopaShellHitbox = {
     /* hurtboxHeight: */ 50,
 };
 
+void shell_despawn(void) {
+    if (o->oTimer > 300) obj_flicker_and_disappear(o, 300);
+}
+
 void koopa_shell_spawn_water_drop(void) {
-    UNUSED s32 unused;
     struct Object *drop;
     spawn_object(o, MODEL_WAVE_TRAIL, bhvObjectWaveTrail);
     if (gMarioStates[0].forwardVel > 10.0f) {
@@ -30,14 +33,14 @@ void bhv_koopa_shell_flame_loop(void) {
         o->oGravity = -4.0f;
         o->oAnimState = random_float() * 10.0f;
         obj_translate_xz_random(o, 110.0f);
-        o->oKoopaShellFlameUnkF8 = 4.0f;
+        o->oKoopaShellFlameScale = 4.0f;
     }
     cur_obj_update_floor_height();
     cur_obj_move_using_fvel_and_gravity();
     if (o->oFloorHeight > o->oPosY || o->oTimer > 10)
         obj_mark_for_deletion(o);
-    o->oKoopaShellFlameUnkF8 += -0.3;
-    cur_obj_scale(o->oKoopaShellFlameUnkF8);
+    o->oKoopaShellFlameScale += -0.3;
+    cur_obj_scale(o->oKoopaShellFlameScale);
 }
 
 void bhv_koopa_shell_flame_spawn(void) {
@@ -47,12 +50,12 @@ void bhv_koopa_shell_flame_spawn(void) {
 }
 
 void koopa_shell_spawn_sparkles(f32 a) {
-    struct Object *sp1C = spawn_object(o, MODEL_NONE, bhvSparkleSpawn);
-    sp1C->oPosY += a;
+    struct Object *sparkleObj = spawn_object(o, MODEL_NONE, bhvSparkleSpawn);
+    sparkleObj->oPosY += a;
 }
 
 void bhv_koopa_shell_loop(void) {
-    struct Surface *sp34;
+    struct Surface *floor;
     obj_set_hitbox(o, &sKoopaShellHitbox);
     cur_obj_scale(1.0f);
     switch (o->oAction) {
@@ -64,14 +67,15 @@ void bhv_koopa_shell_loop(void) {
             o->oFaceAngleYaw += 0x1000;
             cur_obj_move_standard(-20);
             koopa_shell_spawn_sparkles(10.0f);
+            shell_despawn();
             break;
         case 1:
             obj_copy_pos(o, gMarioObject);
-            sp34 = cur_obj_update_floor_height_and_get_floor();
+            floor = cur_obj_update_floor_height_and_get_floor();
             if (absf(find_water_level(o->oPosX, o->oPosZ) - o->oPosY) < 10.0f)
                 koopa_shell_spawn_water_drop();
             else if (5.0f > absf(o->oPosY - o->oFloorHeight)) {
-                if (sp34 != NULL && sp34->type == 1)
+                if (floor != NULL && floor->type == 1)
                     bhv_koopa_shell_flame_spawn();
                 else
                     koopa_shell_spawn_sparkles(10.0f);

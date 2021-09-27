@@ -19,6 +19,8 @@
 #include "platform_displacement.h"
 #include "profiler.h"
 #include "spawn_object.h"
+#include "puppyprint.h"
+#include "puppylights.h"
 
 
 /**
@@ -31,8 +33,6 @@ s32 gDebugInfoFlags;
  * object, and therefore either returned a dynamic floor or NULL.
  */
 s32 gNumFindFloorMisses;
-
-UNUSED s32 unused_8033BEF8;
 
 /**
  * An unused debug counter with the label "WALL".
@@ -146,12 +146,11 @@ struct MemoryPool *gObjectMemoryPool;
 
 s16 gCheckingSurfaceCollisionsForCamera;
 s16 gFindFloorIncludeSurfaceIntangible;
-s16 *gEnvironmentRegions;
+TerrainData *gEnvironmentRegions;
 s32 gEnvironmentLevels[20];
-s8 gDoorAdjacentRooms[60][2];
+RoomData gDoorAdjacentRooms[60][2];
 s16 gMarioCurrentRoom;
-s16 D_8035FEE2;
-s16 D_8035FEE4;
+s16 gDoorRenderingTimer;
 s16 gTHIWaterDrained;
 s16 gTTCSpeedSetting;
 s16 gMarioShotFromCannon;
@@ -385,6 +384,10 @@ s32 unload_deactivated_objects_in_list(struct ObjectNode *objList) {
         obj = obj->next;
 
         if ((gCurrentObject->activeFlags & ACTIVE_FLAG_ACTIVE) != ACTIVE_FLAG_ACTIVE) {
+#ifdef PUPPYLIGHTS
+            if (gCurrentObject->oLightID != 0xFFFF)
+                obj_disable_light(gCurrentObject);
+#endif
             // Prevent object from respawning after exiting and re-entering the
             // area
             if (!(gCurrentObject->oFlags & OBJ_FLAG_PERSISTENT_RESPAWN)) {
@@ -457,12 +460,7 @@ void spawn_objects_from_info(UNUSED s32 unused, struct SpawnInfo *spawnInfo) {
     gWDWWaterLevelChanging = FALSE;
     gMarioOnMerryGoRound = FALSE;
 
-    //! (Spawning Displacement) On the Japanese version, Mario's platform object
-    //  isn't cleared when transitioning between areas. This can cause Mario to
-    //  receive displacement after spawning.
-#ifndef VERSION_JP
     clear_mario_platform();
-#endif
 
     if (gCurrAreaIndex == 2) {
         gCCMEnteredSlide |= 1;
@@ -470,9 +468,7 @@ void spawn_objects_from_info(UNUSED s32 unused, struct SpawnInfo *spawnInfo) {
 
     while (spawnInfo != NULL) {
         struct Object *object;
-        UNUSED s32 unused;
         const BehaviorScript *script;
-        UNUSED s16 arg16 = (s16)(spawnInfo->behaviorArg & 0xFFFF);
 
         script = segmented_to_virtual(spawnInfo->behaviorScript);
 
@@ -519,9 +515,6 @@ void spawn_objects_from_info(UNUSED s32 unused, struct SpawnInfo *spawnInfo) {
     }
 }
 
-void stub_obj_list_processor_1(void) {
-}
-
 /**
  * Clear objects, dynamic surfaces, and some miscellaneous level data used by objects.
  */
@@ -543,9 +536,6 @@ void clear_objects(void) {
     init_free_object_list();
     clear_object_lists(gObjectListArray);
 
-    stub_behavior_script_2();
-    stub_obj_list_processor_1();
-
     for (i = 0; i < OBJECT_POOL_CAPACITY; i++) {
         gObjectPool[i].activeFlags = ACTIVE_FLAG_DEACTIVATED;
         geo_reset_object_node(&gObjectPool[i].header.gfx);
@@ -561,9 +551,8 @@ void clear_objects(void) {
  * Update spawner and surface objects.
  */
 void update_terrain_objects(void) {
-    gObjectCounter = update_objects_in_list(&gObjectLists[OBJ_LIST_SPAWNER]);
-    //! This was meant to be +=
-    gObjectCounter = update_objects_in_list(&gObjectLists[OBJ_LIST_SURFACE]);
+    gObjectCounter  = update_objects_in_list(&gObjectLists[OBJ_LIST_SPAWNER]);
+    gObjectCounter += update_objects_in_list(&gObjectLists[OBJ_LIST_SURFACE]);
 }
 
 /**
@@ -571,7 +560,6 @@ void update_terrain_objects(void) {
  * the order specified by sObjectListUpdateOrder.
  */
 void update_non_terrain_objects(void) {
-    UNUSED s32 unused;
     s32 listIndex;
 
     s32 i = 2;
@@ -585,7 +573,6 @@ void update_non_terrain_objects(void) {
  * Unload deactivated objects in any object list.
  */
 void unload_deactivated_objects(void) {
-    UNUSED s32 unused;
     s32 listIndex;
 
     s32 i = 0;
@@ -625,6 +612,10 @@ UNUSED static u16 unused_get_elapsed_time(u64 *cycleCounts, s32 index) {
  */
 void update_objects(UNUSED s32 unused) {
     s64 cycleCounts[30];
+    #if PUPPYPRINT_DEBUG
+    OSTime first = osGetTime();
+    OSTime colTime = collisionTime[perfIteration];
+    #endif
 
     cycleCounts[0] = get_current_clock();
 
@@ -647,10 +638,8 @@ void update_objects(UNUSED s32 unused) {
     cycleCounts[2] = get_clock_difference(cycleCounts[0]);
     update_terrain_objects();
 
-    // If Mario was touching a moving platform at the end of last frame, apply
-    // displacement now
-    //! If the platform object unloaded and a different object took its place,
-    //  displacement could be applied incorrectly
+    // If Mario was touching a moving platform at the end of last frame, apply displacement now
+    //! If the platform object unloaded and a different object took its place, displacement could be applied incorrectly
     apply_mario_platform_displacement();
 
     // Detect which objects are intersecting
@@ -683,4 +672,8 @@ void update_objects(UNUSED s32 unused) {
     }
 
     gPrevFrameObjectCount = gObjectCounter;
+    #if PUPPYPRINT_DEBUG
+    profiler_update(behaviourTime, first);
+    behaviourTime[perfIteration] -= collisionTime[perfIteration]+colTime;
+    #endif
 }
