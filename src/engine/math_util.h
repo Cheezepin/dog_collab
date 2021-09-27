@@ -419,5 +419,6 @@ void anim_spline_init(Vec4s *keyFrames);
 s32 anim_spline_poll(Vec3f result);
 f32 get_relative_position_between_ranges(f32 x, f32 fromA, f32 toA, f32 fromB, f32 toB);
 s16 approach_yaw(s16 curYaw, s16 target, f32 speed);
+void mtxf_rot_trans_mul(Vec3s rot, Vec3f trans, Mat4 dest, Mat4 src);
 
 #endif // MATH_UTIL_H
