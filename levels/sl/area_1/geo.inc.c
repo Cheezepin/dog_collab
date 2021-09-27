@@ -5,6 +5,7 @@ const GeoLayout sl_area_1_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -6500, 0, sl_dl_Board_Rounds_mesh),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -6500, 0, sl_dl_Boards_mesh),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 1200, -6500, 2500, sl_dl_House_mesh),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 0, -5500, 0, sl_dl_Water_Bottom_Visual_mesh_layer_5),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
