@@ -390,6 +390,7 @@ void render_debug_mode(void) {
     print_text_fmt_int(5, 60, "X %d", gMarioState->pos[0]);
     print_text_fmt_int(10, 100, "SPD %d", (s32) gMarioState->forwardVel);
     print_text_fmt_int(10, 120, "ANG 0*%04x", (u16) gMarioState->faceAngle[1]);
+    print_text_fmt_int(5, 140, "W %d", gMarioState->waterLevel);
     print_fps(10,80);
 }
 #endif

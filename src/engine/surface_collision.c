@@ -690,13 +690,13 @@ struct Surface *find_water_floor_from_list(struct SurfaceNode *surfaceNode, s32 
 /**
  * Find the highest water floor under a given position and return the height.
  */
-s32 find_water_floor(s32 xPos, s32 yPos, s32 zPos, struct Surface **pfloor) {
+f32 find_water_floor(s32 xPos, s32 yPos, s32 zPos, struct Surface **pfloor) {
     s32 cellZ, cellX;
 
     struct Surface *floor = NULL;
     struct SurfaceNode *surfaceList;
 
-    s32 height = FLOOR_LOWER_LIMIT;
+    f32 height = FLOOR_LOWER_LIMIT;
 
     s32 x = xPos;
     s32 y = yPos;
