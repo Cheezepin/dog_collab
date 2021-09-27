@@ -15,7 +15,7 @@ extern Vtx sl_dl_House_mesh_vtx_cull[8];
 extern Vtx sl_dl_House_mesh_vtx_0[187];
 extern Gfx sl_dl_House_mesh_tri_0[];
 extern Vtx sl_dl_Water_Bottom_Visual_mesh_layer_5_vtx_cull[8];
-extern Vtx sl_dl_Water_Bottom_Visual_mesh_layer_5_vtx_0[4];
+extern Vtx sl_dl_Water_Bottom_Visual_mesh_layer_5_vtx_0[25];
 extern Gfx sl_dl_Water_Bottom_Visual_mesh_layer_5_tri_0[];
 extern Gfx mat_sl_dl_Logs_layer1[];
 extern Gfx mat_revert_sl_dl_Logs_layer1[];
