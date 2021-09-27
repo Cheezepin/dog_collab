@@ -432,28 +432,33 @@ void geo_process_perspective(struct GraphNodePerspective *node) {
         sAspectRatio = (4.0f / 3.0f); // 1.33333f
         #endif
 
-        if (heatValue > 0)
-        {
-            heatWave = sins((gGlobalTimer*7000)*(heatValue*0.004)) * heatValue*0.0002f;
-        }
-        else
-        {
-            heatWave = approach_f32_asymptotic(heatWave, 0, 0.2f);
-        }
+        // if (heatValue > 0)
+        // {
+        //     heatWave = sins((gGlobalTimer*7000)*(heatValue*0.004)) * heatValue*0.0002f;
+        // }
+        // else
+        // {
+        //     heatWave = approach_f32_asymptotic(heatWave, 0, 0.2f);
+        // }
 
-        guPerspective(mtx, &perspNorm, node->fov+heatWave*10, sAspectRatio+(heatWave/2), node->near / gWorldScale, node->far / gWorldScale, 1.0f);
-        if (gCamera) {
-            // gWorldScale = ((sqr(gCamera->pos[0]) + sqr(gCamera->pos[1]) + sqr(gCamera->pos[2])) / sqr(0x2000));
-            gWorldScale = (max_3f(ABS(gCamera->pos[0]), ABS(gCamera->pos[1]), ABS(gCamera->pos[2])) / (f32)0x2000);
-            gWorldScale = MAX(gWorldScale, 1.0f);
-        } else {
-            gWorldScale = 1.0f;
+        // guPerspective(mtx, &perspNorm, node->fov+heatWave*10, sAspectRatio+(heatWave/2), node->near / gWorldScale, node->far / gWorldScale, 1.0f);
+        if (gCurrLevelNum == LEVEL_SL) {
+            gWorldScale = 4.0;
         }
-        farClip = CLAMP(farClip / gWorldScale, 4096, 61440);
-        if (farClip / farClipDelta != 1)
-        {
-            farClipDelta /= farClip;
-            gWorldScale *= farClipDelta;
+        else {
+            if (gCamera) {
+                // gWorldScale = ((sqr(gCamera->pos[0]) + sqr(gCamera->pos[1]) + sqr(gCamera->pos[2])) / sqr(0x2000));
+                gWorldScale = (max_3f(ABS(gCamera->pos[0]), ABS(gCamera->pos[1]), ABS(gCamera->pos[2])) / (f32)0x2000);
+                gWorldScale = MAX(gWorldScale, 1.0f);
+            } else {
+                gWorldScale = 1.0f;
+            }
+            farClip = CLAMP(farClip / gWorldScale, 4096, 61440);
+            if (farClip / farClipDelta != 1)
+            {
+                farClipDelta /= farClip;
+                gWorldScale *= farClipDelta;
+            }
         }
 
         guPerspective(mtx, &perspNorm, node->fov, sAspectRatio, ((farClip / 300) / gWorldScale), (farClip / gWorldScale), 1.0f);
