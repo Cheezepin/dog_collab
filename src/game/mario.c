@@ -1132,14 +1132,17 @@ s32 check_common_hold_action_exits(struct MarioState *m) {
  * Transitions Mario from a submerged action to a walking action.
  */
 s32 transition_submerged_to_walking(struct MarioState *m) {
-    set_camera_mode(m->area->camera, m->area->camera->defMode, 1);
+    if (m->input & INPUT_OFF_FLOOR) return transition_submerged_to_airborne(m);
+    else {
+        set_camera_mode(m->area->camera, m->area->camera->defMode, 1);
 
-    vec3s_set(m->angleVel, 0, 0, 0);
+        vec3s_set(m->angleVel, 0, 0, 0);
 
-    if (m->heldObj == NULL) {
-        return set_mario_action(m, ACT_WALKING, 0);
-    } else {
-        return set_mario_action(m, ACT_HOLD_WALKING, 0);
+        if (m->heldObj == NULL) {
+            return set_mario_action(m, ACT_WALKING, 0);
+        } else {
+            return set_mario_action(m, ACT_HOLD_WALKING, 0);
+        }
     }
 }
 
@@ -1152,12 +1155,19 @@ s32 transition_submerged_to_airborne(struct MarioState *m) {
 
     vec3s_set(m->angleVel, 0, 0, 0);
 
-    if (m->heldObj == NULL) {
-        if (m->input & INPUT_A_DOWN) return set_mario_action(m, ACT_DIVE, 0);
-        else return set_mario_action(m, ACT_FREEFALL, 0);
-    } else {
-        if (m->input & INPUT_A_DOWN) return set_mario_action(m, ACT_HOLD_JUMP, 0);
-        else return set_mario_action(m, ACT_HOLD_FREEFALL, 0);
+    if (m->action == ACT_WATER_GROUND_POUND) {
+        u32 action = set_mario_action(m, ACT_GROUND_POUND, 0);
+        m->actionState = 1;
+        return action;
+    }
+    else {
+        if (m->heldObj == NULL) {
+            if (m->input & INPUT_A_DOWN) return set_mario_action(m, ACT_DIVE, 0);
+            else return set_mario_action(m, ACT_FREEFALL, 0);
+        } else {
+            if (m->input & INPUT_A_DOWN) return set_mario_action(m, ACT_HOLD_JUMP, 0);
+            else return set_mario_action(m, ACT_HOLD_FREEFALL, 0);
+        }
     }
 }
 
