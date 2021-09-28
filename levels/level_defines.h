@@ -1,9 +1,3 @@
-#ifdef VERSION_JP
-#define VAL_DIFF 25000
-#else
-#define VAL_DIFF 60000
-#endif
-
 // Define lists for list of level for macros. Each of the following fields are described:
 // Argument 1: Internal ROM name of the level.
 // Argument 2: Level enumerator for enum used to identify the level ID.
@@ -28,7 +22,7 @@ DEFINE_LEVEL("OW2 IN CASTLE", LEVEL_CASTLE, COURSE_NONE, castle_inside, inside, 
 DEFINE_LEVEL("COURSE 6 HMC", LEVEL_HMC, COURSE_HMC, hmc, cave, 16000, 0x28, 0x28, 0x28, sDynHmc, sCamHMC) 
 DEFINE_LEVEL("COURSE 8 SSL", LEVEL_SSL, COURSE_SSL, ssl, generic, 15000, 0x08, 0x30, 0x30, _, sCamSSL) 
 DEFINE_LEVEL("COURSE 1 BOB", LEVEL_BOB, COURSE_BOB, bob, generic, 15000, 0x08, 0x08, 0x08, _, _) 
-DEFINE_LEVEL("COURSE 10 SL", LEVEL_SL, COURSE_SL, sl, snow, 14000, 0x10, 0x28, 0x28, _, sCamSL) 
+DEFINE_LEVEL("COURSE 10 SL", LEVEL_SL, COURSE_SL, sl, snow, 20000, 0x00, 0x00, 0x00, _, sCamSL) 
 DEFINE_LEVEL("COURSE 11 WDW", LEVEL_WDW, COURSE_WDW, wdw, grass, 17000, 0x10, 0x18, 0x18, sDynWdw, _) 
 DEFINE_LEVEL("COURSE 3 JRB", LEVEL_JRB, COURSE_JRB, jrb, water, 20000, 0x10, 0x18, 0x18, sDynJrb, _) 
 DEFINE_LEVEL("COURSE 13 THI", LEVEL_THI, COURSE_THI, thi, grass, 20000, 0x0c, 0x0c, 0x20, _, sCamTHI) 
@@ -48,11 +42,11 @@ DEFINE_LEVEL("OW3 C COURTYD", LEVEL_CASTLE_COURTYARD, COURSE_NONE, castle_courty
 DEFINE_LEVEL("SIC P SEC SLID", LEVEL_PSS, COURSE_PSS, pss, mountain, 20000, 0x28, 0x28, 0x28, _, _) 
 DEFINE_LEVEL("MCL COTMC", LEVEL_COTMC, COURSE_COTMC, cotmc, cave, 18000, 0x28, 0x28, 0x28, _, sCamCotMC) 
 DEFINE_LEVEL("WCL TOTWC", LEVEL_TOTWC, COURSE_TOTWC, totwc, sky, 20000, 0x20, 0x20, 0x20, _, _) 
-DEFINE_LEVEL("B BATTLE1", LEVEL_BOWSER_1, COURSE_BITDW, bowser_1, generic, VAL_DIFF, 0x40, 0x40, 0x40, _, _) 
+DEFINE_LEVEL("B BATTLE1", LEVEL_BOWSER_1, COURSE_BITDW, bowser_1, generic, 60000, 0x40, 0x40, 0x40, _, _) 
 DEFINE_LEVEL("SC2 WMOTR", LEVEL_WMOTR, COURSE_WMOTR, wmotr, generic, 20000, 0x28, 0x28, 0x28, _, _) 
 STUB_LEVEL("", LEVEL_UNKNOWN_32, COURSE_NONE, 20000, 0x70, 0x00, 0x00, _, _) 
-DEFINE_LEVEL("B BATTLE2", LEVEL_BOWSER_2, COURSE_BITFS, bowser_2, fire, VAL_DIFF, 0x40, 0x40, 0x40, _, _) 
-DEFINE_LEVEL("B BATTLE3", LEVEL_BOWSER_3, COURSE_BITS, bowser_3, generic, VAL_DIFF, 0x40, 0x40, 0x40, _, _) 
+DEFINE_LEVEL("B BATTLE2", LEVEL_BOWSER_2, COURSE_BITFS, bowser_2, fire, 60000, 0x40, 0x40, 0x40, _, _) 
+DEFINE_LEVEL("B BATTLE3", LEVEL_BOWSER_3, COURSE_BITS, bowser_3, generic, 60000, 0x40, 0x40, 0x40, _, _) 
 STUB_LEVEL("", LEVEL_UNKNOWN_35, COURSE_NONE, 20000, 0x00, 0x00, 0x00, _, _) 
 DEFINE_LEVEL("COURSE 12 TTM", LEVEL_TTM, COURSE_TTM, ttm, mountain, 15000, 0x08, 0x08, 0x08, _, _) 
 STUB_LEVEL("", LEVEL_UNKNOWN_37, COURSE_NONE, 20000, 0x00, 0x00, 0x00, _, _) 
