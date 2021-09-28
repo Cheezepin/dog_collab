@@ -634,6 +634,7 @@
 #define MODEL_LIGHTNING_STRIKE            0x10F
 #define MODEL_LIGHTNING_BLAST             0x110
 #define MODEL_CENTER_PLATFORM             0x111
+#define MODEL_DARK_SKY                    0x112
 
 #undef MODEL_
 

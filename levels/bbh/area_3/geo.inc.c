@@ -8,9 +8,6 @@ const GeoLayout bbh_area_3_geo[] = {
 			GEO_BRANCH(1, bbh_dl_31__Boss_geo),
 		GEO_CLOSE_NODE(),
 		GEO_TRANSLATE_NODE(LAYER_OPAQUE, -65534, 0, 0),
-		GEO_OPEN_NODE(),
-			GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 65538, 0, -3469, bbh_dl_Skybox_mesh_layer_1),
-		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

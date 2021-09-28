@@ -6719,3 +6719,14 @@ const BehaviorScript bhvComitCoin[] = {
         CALL_NATIVE(bhv_yellow_coin_loop),
     END_LOOP(),
 };
+
+
+const BehaviorScript bhvDarkSky[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_FLOAT(oDrawingDistance, 0x7FFF),
+    SET_INT(oOpacity, 0x58),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_dark_sky_loop),
+    END_LOOP(),
+};

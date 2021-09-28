@@ -60,6 +60,7 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_STRIKE, lightning_strike_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_BLAST, lightning_blast_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CENTER_PLATFORM, center_platform_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_DARK_SKY, dark_sky_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -238,6 +239,7 @@ const LevelScript level_bbh_entry[] = {
 		WARP_NODE(0x0B, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_NONE, 6769, -32, 6552, 0, -95, 0, 0x000B0000, bhvAirborneDeathWarp),
 		OBJECT(MODEL_CENTER_PLATFORM, 0, 0, 0, 0, 0, 0, 0x00000000, bhvCenterPlatform),
+		OBJECT(MODEL_DARK_SKY, 4, 0, -3469, 0, 0, 0, 0x00000000, bhvDarkSky),
 		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, 7165, -350, 6623, 0, -90, 0, 0x000A0000, bhvDoorWarp),
 		OBJECT(MODEL_FWOOSH_BUTTON, 593, 9003, -9146, 0, 0, 0, 0x00000000, bhvLightningButton),
 		OBJECT(MODEL_LIGHTNING_CLOUD, 0, 867, 0, 0, 0, 0, 0x00000000, bhvLightningCloud),

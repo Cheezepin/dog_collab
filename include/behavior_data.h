@@ -595,6 +595,7 @@ extern const BehaviorScript bhvCenterPlatform[];
 extern const BehaviorScript bhvLightningButton[];
 extern const BehaviorScript bhvBonusLightningCloud[];
 extern const BehaviorScript bhvComitCoin[];
+extern const BehaviorScript bhvDarkSky[];
 
 
 

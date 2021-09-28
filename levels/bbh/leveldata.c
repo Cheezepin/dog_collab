@@ -104,3 +104,4 @@
 #include "levels/bbh/lightning_blast/model.inc.c"
 #include "levels/bbh/center_platform/model.inc.c"
 #include "levels/bbh/center_platform/collision.inc.c"
+#include "levels/bbh/dark_sky/model.inc.c"
