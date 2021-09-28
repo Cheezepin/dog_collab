@@ -944,6 +944,7 @@ static void treat_far_home_as_mario(f32 threshold) {
 #include "behaviors/laser_ring.inc.c"
 #include "behaviors/spike.inc.c"
 #include "behaviors/podoboo.inc.c"
+#include "behaviors/dog.inc.c"
 
 /**
  * Used by bowser, fly guy, piranha plant, and fire spitters.
