@@ -17,7 +17,6 @@ const GeoLayout sl_dl_Room_2___Outdoors_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -6500, 0, sl_dl_Board_Rounds_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -6500, 0, sl_dl_Boards_mesh_layer_1),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 1200, -6500, 2500, sl_dl_House_1_Indoors_Visual_Copy_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 1200, -6500, 2500, sl_dl_House_1_Outdoors_Visual_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
