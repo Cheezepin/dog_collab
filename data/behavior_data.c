@@ -1000,7 +1000,7 @@ const BehaviorScript bhvCoinSparklesSpawner[] = {
 
 const BehaviorScript bhvWallTinyStarParticle[] = {
     BEGIN(OBJ_LIST_UNIMPORTANT),
-    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SILHOUETTE)),
     BILLBOARD(),
     BEGIN_REPEAT(10),
         CALL_NATIVE(bhv_wall_tiny_star_particle_loop),
@@ -1020,7 +1020,7 @@ const BehaviorScript bhvVertStarParticleSpawner[] = {
 
 const BehaviorScript bhvPoundTinyStarParticle[] = {
     BEGIN(OBJ_LIST_UNIMPORTANT),
-    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SILHOUETTE)),
     BILLBOARD(),
     BEGIN_REPEAT(10),
         CALL_NATIVE(bhv_pound_tiny_star_particle_loop),

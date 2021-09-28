@@ -54,6 +54,7 @@ const LevelScript level_sl_entry[] = {
 		OBJECT(MODEL_NONE, 0, -6500, 3500, 0, -180, 0, 0x000A0000, bhvSpinAirborneWarp),
 		MARIO_POS(0x01, -180, 0, -6500, 3500),
 		TERRAIN(sl_area_1_collision),
+		ROOMS(sl_area_1_collision_rooms),
 		MACRO_OBJECTS(sl_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_WATER),
 		TERRAIN_TYPE(TERRAIN_GRASS),

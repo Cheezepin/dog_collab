@@ -109,12 +109,14 @@ static const Vtx dirt_seg3_vertex_0302C198[] = {
 // 0x0302C238 - 0x0302C298
 const Gfx dirt_seg3_dl_0302C238[] = {
     gsSPClearGeometryMode(G_CULL_BACK),
+    gsDPSetCombineMode(G_CC_SHADEFADEA, G_CC_SHADEFADEA),
     gsSPVertex(dirt_seg3_vertex_0302C0F8, 10, 0),
     gsSP2Triangles( 0,  1,  2, 0x0,  3,  4,  1, 0x0),
     gsSP2Triangles( 0,  5,  3, 0x0,  6,  7,  0, 0x0),
     gsSP2Triangles( 2,  8,  6, 0x0,  1,  9,  2, 0x0),
     gsSP2Triangles( 0,  3,  1, 0x0,  2,  6,  0, 0x0),
     gsSPSetGeometryMode(G_CULL_BACK),
+    gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
     gsSPEndDisplayList(),
 };
 
@@ -153,12 +155,14 @@ const Gfx dirt_seg3_dl_0302C2F8[] = {
 // 0x0302C318 - 0x0302C378
 const Gfx dirt_seg3_dl_0302C318[] = {
     gsSPClearGeometryMode(G_LIGHTING | G_CULL_BACK),
+    gsDPSetCombineMode(G_CC_SHADEFADEA, G_CC_SHADEFADEA),
     gsSPVertex(dirt_seg3_vertex_0302C198, 10, 0),
     gsSP2Triangles( 0,  1,  2, 0x0,  3,  4,  1, 0x0),
     gsSP2Triangles( 0,  5,  3, 0x0,  6,  7,  0, 0x0),
     gsSP2Triangles( 2,  8,  6, 0x0,  1,  9,  2, 0x0),
     gsSP2Triangles( 0,  3,  1, 0x0,  2,  6,  0, 0x0),
     gsSPSetGeometryMode(G_LIGHTING | G_CULL_BACK),
+    gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
     gsSPEndDisplayList(),
 };
 
