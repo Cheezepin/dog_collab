@@ -33,7 +33,7 @@ extern Gfx sl_dl_House_1_Outdoors_Visual_mesh_layer_1_tri_2[];
 extern Vtx sl_dl_House_1_Outdoors_Visual_mesh_layer_1_vtx_3[13];
 extern Gfx sl_dl_House_1_Outdoors_Visual_mesh_layer_1_tri_3[];
 extern Vtx sl_dl_House_1_Indoors_Visual_mesh_layer_1_vtx_cull[8];
-extern Vtx sl_dl_House_1_Indoors_Visual_mesh_layer_1_vtx_0[139];
+extern Vtx sl_dl_House_1_Indoors_Visual_mesh_layer_1_vtx_0[141];
 extern Gfx sl_dl_House_1_Indoors_Visual_mesh_layer_1_tri_0[];
 extern Vtx sl_dl_House_1_Indoors_Visual_mesh_layer_1_vtx_1[16];
 extern Gfx sl_dl_House_1_Indoors_Visual_mesh_layer_1_tri_1[];
