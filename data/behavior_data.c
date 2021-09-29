@@ -6730,3 +6730,11 @@ const BehaviorScript bhvDarkSky[] = {
         CALL_NATIVE(bhv_dark_sky_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvHiddenBounceCloud[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_PERSISTENT_RESPAWN | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_hidden_cloud_loop),
+    END_LOOP(),
+};

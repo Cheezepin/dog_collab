@@ -1121,31 +1121,39 @@ void bhv_bonus_lightning_cloud_loop(void) {
 
 
 
-
-
-
-
-
-
-void bhv_mist_trigger_loop(void) {
-    struct Object *hiddenStar;
-    o->oF4 += 0x400;
-    o->oGraphYOffset = 30.0f * sins(o->oF4);
-    o->oFaceAngleYaw += 0xC0;
-    if (obj_check_if_collided_with_object(o, gMarioObject) == 1) {
-        hiddenStar = cur_obj_nearest_object_with_behavior(bhvHiddenStar);
-        if (hiddenStar != NULL) {
-            hiddenStar->oHiddenStarTriggerCounter++;
-            if (hiddenStar->oHiddenStarTriggerCounter != 5) {
-                spawn_orange_number(hiddenStar->oHiddenStarTriggerCounter, 0, 0, 0);
+void bhv_hidden_cloud_loop(void) {
+    Vec3f pos;
+    switch (o->oAction) {
+        case 0:
+            if (o->oHiddenStarTriggerCounter == 5) {
+                o->oAction = 1;
+                vec3f_copy(gComitCamPos[1], &o->oPosX);
+                pos[1] = o->oPosY + 600.0f;
+                pos[0] = o->oPosX - 1700.0f;
+                pos[2] = o->oPosZ - 2500.0f;
+                vec3f_copy(gComitCamPos[0], pos);
             }
+            break;
 
-            play_sound(SOUND_MENU_COLLECT_SECRET
-                           + (((u8) hiddenStar->oHiddenStarTriggerCounter - 1) << 16),
-                       gGlobalSoundSource);
-        }
-
-        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+        case 1:
+            if (o->oTimer > 2) {
+                gComitCam = 1;
+                set_mario_npc_dialog(1);
+            }
+            if (o->oTimer > 20) {
+                spawn_object(o, MODEL_BOUNCE_CLOUD, bhvBounceCloud);
+                spawn_mist_particles();
+                play_puzzle_jingle();
+                o->oAction = 2;
+            }
+            break;
+        case 2:
+            gComitCam = 1;
+            if (o->oTimer > 45) {
+                o->activeFlags = 0;
+                set_mario_npc_dialog(0);
+            }
+            break;
     }
 }
 
@@ -1153,9 +1161,27 @@ void bhv_mist_trigger_loop(void) {
 
 
 
+void bhv_mist_trigger_loop(void) {
+    struct Object *hiddenCloud;
+    o->oF4 += 0x400;
+    o->oGraphYOffset = 30.0f * sins(o->oF4);
+    o->oFaceAngleYaw += 0xC0;
+    if (obj_check_if_collided_with_object(o, gMarioObject) == 1) {
+        hiddenCloud = cur_obj_nearest_object_with_behavior(bhvHiddenBounceCloud);
+        if (hiddenCloud != NULL) {
+            hiddenCloud->oHiddenStarTriggerCounter++;
+            if (hiddenCloud->oHiddenStarTriggerCounter != 5) {
+                spawn_orange_number(hiddenCloud->oHiddenStarTriggerCounter, 0, 0, 0);
+            }
 
+            play_sound(SOUND_MENU_COLLECT_SECRET
+                           + (((u8) hiddenCloud->oHiddenStarTriggerCounter - 1) << 16),
+                       gGlobalSoundSource);
+        }
 
-
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }
+}
 
 
 
