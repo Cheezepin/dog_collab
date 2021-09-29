@@ -27,3 +27,11 @@
 #include "metal_box/geo.inc.c"
 #include "exclamation_box_outline/geo.inc.c"
 #include "koopa_shell/geo.inc.c"
+
+#include "carousel/geo.inc.c"
+#include "circus_pole/geo.inc.c"
+#include "clown_clock/geo.inc.c"
+#include "clown_door_top/geo.inc.c"
+#include "clown_door_bottom/geo.inc.c"
+#include "circus_wheel/geo.inc.c"
+#include "cable_car/geo.inc.c"

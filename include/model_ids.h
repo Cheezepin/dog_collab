@@ -603,4 +603,12 @@
 #define MODEL_SPIKE_BALL                  0x1F3
 #define MODEL_PODOBOO                     0x1F2
 
+#define MODEL_CAROUSEL                    0x130
+#define MODEL_CIRCUS_POLE                    0x131
+#define MODEL_CLOWN_CLOCK                    0x132
+#define MODEL_CLOWN_DOOR_TOP                   0x133
+#define MODEL_CLOWN_DOOR_BOTTOM                   0x134
+#define MODEL_CIRCUS_WHEEL                   0x135
+#define MODEL_CABLE_CAR                   0x136
+
 #endif // MODEL_IDS_H

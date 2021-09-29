@@ -208,6 +208,13 @@ const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_FLYGUY,                  flyguy_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CHUCKYA,                 chuckya_geo),
     LOAD_MODEL_FROM_GEO(MODEL_TRAJECTORY_MARKER_BALL,      bowling_ball_track_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CAROUSEL,                  carousel_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CIRCUS_POLE,                  circus_pole_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CLOWN_CLOCK,                  clown_clock_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CLOWN_DOOR_BOTTOM,                  clown_door_bottom_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CLOWN_DOOR_TOP,                  clown_door_top_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CIRCUS_WHEEL,                  circus_wheel_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_CABLE_CAR,                  cable_car_geo),
     RETURN(),
 };
 

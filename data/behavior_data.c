@@ -6320,4 +6320,85 @@ const BehaviorScript bhvDogNPC[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvCarousel[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_ANIMATIONS(oAnimations, carousel_anims),
+    LOAD_COLLISION_DATA(carousel_collision),
+    ANIMATE(0),
+    CALL_NATIVE(bhv_carousel_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_carousel_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
 
+const BehaviorScript bhvClownClock[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(clown_clock_collision),
+    CALL_NATIVE(bhv_clown_clock_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_clown_clock_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvClownDoorSpawner[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
+    CALL_NATIVE(bhv_clown_door_spawner_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_clown_door_spawner_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvClownDoorSegmentTop[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    SET_INT(oInteractType, INTERACT_DOOR),
+    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(clown_door_top_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_clown_door_segment_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvClownDoorSegmentBottom[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    SET_INT(oInteractType, INTERACT_DOOR),
+    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(clown_door_bottom_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_clown_door_segment_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvCircusWheel[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    ADD_INT(oMoveAngleYaw, 0x4000),
+    CALL_NATIVE(bhv_circus_wheel_init),
+    BEGIN_LOOP(),
+        ADD_INT(oFaceAngleRoll, 50),
+        CALL_NATIVE(bhv_circus_wheel_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvCircusWheelPlatform[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(cable_car_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_circus_wheel_platform_update),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvWheelWind[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_wheel_wind_loop),
+    END_LOOP(),
+};

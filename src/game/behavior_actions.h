@@ -580,7 +580,24 @@ void bhv_spike_ball_init(void);
 void bhv_spike_ball_loop(void);
 void bhv_podoboo_loop(void);
 
+void bhv_carousel_init(void);
+void bhv_carousel_loop(void);
+
+void bhv_clown_clock_init(void);
+void bhv_clown_clock_loop(void);
+
+void bhv_clown_door_spawner_init(void);
+void bhv_clown_door_spawner_loop(void);
+void bhv_clown_door_segment_loop(void);
+
+void bhv_circus_wheel_init(void);
+void bhv_circus_wheel_loop(void);
+void bhv_circus_wheel_platform_update(void);
+void bhv_wheel_wind_loop(void);
+
 Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
+
+Gfx *geo_carousel_billboard(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 // Bowser
 Gfx *geo_bits_bowser_coloring(s32 run, struct GraphNode *node, UNUSED s32 a2);

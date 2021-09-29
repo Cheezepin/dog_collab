@@ -561,5 +561,15 @@ extern const BehaviorScript bhvSpikeBall[];
 extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
+extern const BehaviorScript bhvCarousel[];
+extern const BehaviorScript bhvClownClock[];
+
+extern const BehaviorScript bhvClownDoorSpawner[];
+extern const BehaviorScript bhvClownDoorSegmentTop[];
+extern const BehaviorScript bhvClownDoorSegmentBottom[];
+
+extern const BehaviorScript bhvCircusWheel[];
+extern const BehaviorScript bhvCircusWheelPlatform[];
+extern const BehaviorScript bhvWheelWind[];
 
 #endif // BEHAVIOR_DATA_H

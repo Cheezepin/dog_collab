@@ -79,3 +79,18 @@ UNUSED static const u64 binid_17 = 17;
 
 #include "koopa_shell/model.inc.c"
 UNUSED static const u64 binid_18 = 18;
+
+#include "carousel/model.inc.c"
+#include "carousel/collision.inc.c"
+#include "carousel/anims/data.inc.c"
+#include "carousel/anims/table.inc.c"
+#include "circus_pole/model.inc.c"
+#include "clown_clock/model.inc.c"
+#include "clown_clock/collision.inc.c"
+#include "clown_door_top/model.inc.c"
+#include "clown_door_bottom/model.inc.c"
+#include "clown_door_top/collision.inc.c"
+#include "clown_door_bottom/collision.inc.c"
+#include "circus_wheel/model.inc.c"
+#include "cable_car/model.inc.c"
+#include "cable_car/collision.inc.c"
