@@ -12,11 +12,10 @@ void play_penguin_walking_sound(s32 walk) {
 }
 
 void tuxies_mother_act_2(void) {
-    f32 sp24;
-    UNUSED s32 unused;
-    struct Object *sp1C = cur_obj_find_nearest_object_with_behavior(bhvSmallPenguin, &sp24);
+    f32 dist;
+    struct Object *smallPenguinObj = cur_obj_find_nearest_object_with_behavior(bhvSmallPenguin, &dist);
 
-    if (cur_obj_find_nearby_held_actor(bhvUnused20E0, 1000.0f) != NULL) {
+    if (cur_obj_find_nearby_held_actor(bhvSmallPenguinReturned, 1000.0f) != NULL) {
         if (o->oSubAction == 0) {
             cur_obj_init_animation_with_sound(0);
             o->oForwardVel = 10.0f;
@@ -33,28 +32,27 @@ void tuxies_mother_act_2(void) {
         o->oForwardVel = 0.0f;
         cur_obj_init_animation_with_sound(3);
     }
-    if (sp1C != NULL && sp24 < 300.0f && sp1C->oHeldState != HELD_FREE) {
+    if (smallPenguinObj != NULL && dist < 300.0f && smallPenguinObj->oHeldState != HELD_FREE) {
         o->oAction = 1;
-        sp1C->oSmallPenguinUnk88 = 1;
-        o->prevObj = sp1C;
+        smallPenguinObj->oSmallPenguinReturnedToMother = 1;
+        o->prevObj = smallPenguinObj;
     }
 }
 
 void tuxies_mother_act_1(void) {
-    s32 sp2C;
-    s32 sp28;
+    s32 motherParam, babyParam;
     s32 dialogID;
     switch (o->oSubAction) {
         case 0:
             cur_obj_init_animation_with_sound(3);
             if (!cur_obj_is_mario_on_platform()) {
-                sp2C = (o->oBehParams >> 0x10) & 0xFF;
-                sp28 = (o->prevObj->oBehParams >> 0x10) & 0xFF;
-                if (sp2C == sp28)
+                motherParam = (o->oBehParams >> 0x10) & 0xFF;
+                babyParam = (o->prevObj->oBehParams >> 0x10) & 0xFF;
+                if (motherParam == babyParam)
                     dialogID = DIALOG_058;
                 else
                     dialogID = DIALOG_059;
-                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, 
+                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP,
                         DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, dialogID)) {
                     if (dialogID == DIALOG_058)
                         o->oSubAction = 1;
@@ -76,12 +74,8 @@ void tuxies_mother_act_1(void) {
                 // which has no effect as o->prevObj->oUnknownUnk88 is always 0
                 // or 1, which is not affected by the bitwise AND.
                 o->prevObj->OBJECT_FIELD_S32(o->oInteractionSubtype) &= ~INT_SUBTYPE_DROP_IMMEDIATELY;
-                obj_set_behavior(o->prevObj, bhvUnused20E0);
-#ifndef VERSION_JP
+                obj_set_behavior(o->prevObj, bhvSmallPenguinReturned);
                 cur_obj_spawn_star_at_y_offset(3167.0f, -4300.0f, 5108.0f, 200.0f);
-#else
-                spawn_default_star(3500.0f, -4300.0f, 4650.0f);
-#endif
                 o->oAction = 2;
             }
             break;
@@ -97,28 +91,27 @@ void tuxies_mother_act_1(void) {
 }
 
 void tuxies_mother_act_0(void) {
-    s32 sp2C;
-    f32 sp28;
-    struct Object *sp24;
-    sp2C = 0;
-    sp24 = cur_obj_find_nearest_object_with_behavior(bhvSmallPenguin, &sp28);
+    struct Object *smallPenguinObj;
+    s32 nearBaby = FALSE;
+    f32 dist;
+    smallPenguinObj = cur_obj_find_nearest_object_with_behavior(bhvSmallPenguin, &dist);
     cur_obj_scale(4.0f);
     cur_obj_init_animation_with_sound(3);
-    if (sp28 < 500.0f)
-        sp2C = 1;
-    if (sp24 != NULL && sp28 < 300.0f && sp24->oHeldState != HELD_FREE) {
+    if (dist < 500.0f)
+        nearBaby = TRUE;
+    if (smallPenguinObj != NULL && dist < 300.0f && smallPenguinObj->oHeldState != HELD_FREE) {
         o->oAction = 1;
-        sp24->oSmallPenguinUnk88 = 1;
-        o->prevObj = sp24;
+        smallPenguinObj->oSmallPenguinReturnedToMother = 1;
+        o->prevObj = smallPenguinObj;
     } else {
         switch (o->oSubAction) {
             case 0:
                 if (cur_obj_can_mario_activate_textbox_2(300.0f, 100.0f))
-                    if (sp2C == 0)
+                    if (!nearBaby)
                         o->oSubAction++;
                 break;
             case 1:
-                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, 
+                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP,
                     DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, DIALOG_057))
                     o->oSubAction++;
                 break;
@@ -136,7 +129,7 @@ void (*sTuxiesMotherActions[])(void) = { tuxies_mother_act_0, tuxies_mother_act_
                                          tuxies_mother_act_2 };
 
 void bhv_tuxies_mother_loop(void) {
-    o->activeFlags |= ACTIVE_FLAG_UNK10;
+    o->activeFlags |= ACTIVE_FLAG_IGNORE_ENV_BOXES;
     cur_obj_update_floor_and_walls();
     cur_obj_call_action_function(sTuxiesMotherActions);
     cur_obj_move_standard(-78);
@@ -146,31 +139,31 @@ void bhv_tuxies_mother_loop(void) {
 
 void small_penguin_dive_with_mario(void) {
     if (mario_is_dive_sliding()) {
-        o->oSmallPenguinUnk100 = o->oAction;
+        o->oSmallPenguinStoredAction = o->oAction;
         o->oAction = 3;
     }
 }
 
 void small_penguin_act_2(void) {
-    s32 sp1C = 0;
+    s32 nearMother = FALSE;
     if (o->oTimer == 0)
         if (cur_obj_dist_to_nearest_object_with_behavior(bhvTuxiesMother) < 1000.0f)
-            sp1C = 1;
+            nearMother = TRUE;
     cur_obj_init_animation_with_sound(0);
-    o->oForwardVel = o->oSmallPenguinUnk104 + 3.0f;
-    cur_obj_rotate_yaw_toward(o->oAngleToMario + 0x8000, o->oSmallPenguinUnk110 + 0x600);
-    if (o->oDistanceToMario > o->oSmallPenguinUnk108 + 500.0f)
+    o->oForwardVel = o->oSmallPenguinNextForwardVel + 3.0f;
+    cur_obj_rotate_yaw_toward(o->oAngleToMario + 0x8000, o->oSmallPenguinYawIncrement + 0x600);
+    if (o->oDistanceToMario > o->oSmallPenguinRandomDistanceCheck + 500.0f)
         o->oAction = 0;
     small_penguin_dive_with_mario();
-    if (sp1C)
+    if (nearMother)
         o->oAction = 5;
 }
 
 void small_penguin_act_1(void) {
     cur_obj_init_animation_with_sound(0);
-    o->oForwardVel = o->oSmallPenguinUnk104 + 3.0f;
-    cur_obj_rotate_yaw_toward(o->oAngleToMario, o->oSmallPenguinUnk110 + 0x600);
-    if (o->oDistanceToMario < o->oSmallPenguinUnk108 + 300.0f)
+    o->oForwardVel = o->oSmallPenguinNextForwardVel + 3.0f;
+    cur_obj_rotate_yaw_toward(o->oAngleToMario, o->oSmallPenguinYawIncrement + 0x600);
+    if (o->oDistanceToMario < o->oSmallPenguinRandomDistanceCheck + 300.0f)
         o->oAction = 0;
     if (o->oDistanceToMario > 1100.0f)
         o->oAction = 0;
@@ -193,48 +186,46 @@ void small_penguin_act_4(void) {
         o->oForwardVel = 0.0f;
         cur_obj_init_animation_with_sound(2);
         if (o->oTimer > 40)
-            o->oAction = o->oSmallPenguinUnk100;
+            o->oAction = o->oSmallPenguinStoredAction;
     }
 }
 
 void small_penguin_act_0(void) {
-    s32 sp1C;
-
-    sp1C = 0;
+    s32 nearMother = FALSE;
     cur_obj_init_animation_with_sound(3);
     if (o->oTimer == 0) {
-        o->oSmallPenguinUnk110 = (s32)(random_float() * 0x400);
-        o->oSmallPenguinUnk108 = random_float() * 100.0f;
-        o->oSmallPenguinUnk104 = random_float();
+        o->oSmallPenguinYawIncrement = (s32)(random_float() * 0x400);
+        o->oSmallPenguinRandomDistanceCheck = random_float() * 100.0f;
+        o->oSmallPenguinNextForwardVel = random_float();
         o->oForwardVel = 0.0f;
         if (cur_obj_dist_to_nearest_object_with_behavior(bhvTuxiesMother) < 1000.0f)
-            sp1C = 1;
+            nearMother = TRUE;
     }
-    if (o->oDistanceToMario < 1000.0f && o->oSmallPenguinUnk108 + 600.0f < o->oDistanceToMario)
+    if (o->oDistanceToMario < 1000.0f && o->oSmallPenguinRandomDistanceCheck + 600.0f < o->oDistanceToMario)
         o->oAction = 1;
-    else if (o->oDistanceToMario < o->oSmallPenguinUnk108 + 300.0f)
+    else if (o->oDistanceToMario < o->oSmallPenguinRandomDistanceCheck + 300.0f)
         o->oAction = 2;
-    if (sp1C)
+    if (nearMother)
         o->oAction = 5;
     if (cur_obj_mario_far_away())
         cur_obj_set_pos_to_home();
 }
 
 void small_penguin_act_5(void) {
-    f32 sp24;
-    s16 sp22;
-    struct Object *sp1C = cur_obj_nearest_object_with_behavior(bhvTuxiesMother);
-    if (sp1C != NULL) {
+    f32 distToMother;
+    s16 angleToMother;
+    struct Object *motherPenguinObj = cur_obj_nearest_object_with_behavior(bhvTuxiesMother);
+    if (motherPenguinObj != NULL) {
         if (o->oDistanceToMario < 1000.0f)
             o->oForwardVel = 2.0f;
         else
             o->oForwardVel = 0.0f;
-        sp24 = dist_between_objects(o, sp1C);
-        sp22 = obj_angle_to_object(o, sp1C);
-        if (sp24 > 200.0f)
-            cur_obj_rotate_yaw_toward(sp22, 0x400);
+        distToMother = dist_between_objects(o, motherPenguinObj);
+        angleToMother = obj_angle_to_object(o, motherPenguinObj);
+        if (distToMother > 200.0f)
+            cur_obj_rotate_yaw_toward(angleToMother, 0x400);
         else
-            cur_obj_rotate_yaw_toward(sp22 + 0x8000, 0x400);
+            cur_obj_rotate_yaw_toward(angleToMother + 0x8000, 0x400);
         cur_obj_init_animation_with_sound(0);
     }
     small_penguin_dive_with_mario();
@@ -246,9 +237,9 @@ void (*sSmallPenguinActions[])(void) = {
 };
 
 void small_penguin_free_actions(void) {
-    if (o->oSmallPenguinUnk88 != 0) {
+    if (o->oSmallPenguinReturnedToMother != 0) {
         o->oAction = 5;
-        o->oSmallPenguinUnk88 = 0;
+        o->oSmallPenguinReturnedToMother = 0;
     }
     cur_obj_update_floor_and_walls();
     cur_obj_call_action_function(sSmallPenguinActions);

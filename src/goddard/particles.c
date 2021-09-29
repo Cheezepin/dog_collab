@@ -27,7 +27,6 @@ struct Connection {
 };
 
 // data
-UNUSED static void *sUnused801A81D0 = NULL;
 static s32 D_801A81D4[25] = {
     /*  ID?    X    Y    Z */
     9,  3,  12,  -14, 25, 5,  16,  -25, 42, 4,  15, -39, 55,
@@ -42,15 +41,14 @@ static s32 D_801A8238[5] = {
 static struct ObjFace *D_801B9EF0;
 
 // fn declarations
-struct Connection *make_connection(struct ObjVertex *, struct ObjVertex *);
-void Unknown80181D14(struct ObjFace *);
-void func_80181EB0(struct Connection *);
-void func_80182088(struct Connection *);
-void move_particle(struct ObjParticle *);
-struct Connection *make_connection(struct ObjVertex *, struct ObjVertex *);
-int func_80182778(struct ObjParticle *);
-void func_80182A08(struct ObjParticle *, struct GdVec3f *b);
-void func_801838D0(struct ObjParticle *);
+struct Connection *make_connection(struct ObjVertex *vtx1, struct ObjVertex *vtx2);
+void Unknown80181D14(struct ObjFace *face);
+void func_80181EB0(struct Connection *cxn);
+void func_80182088(struct Connection *cxn);
+void move_particle(struct ObjParticle *ptc);
+int func_80182778(struct ObjParticle *ptc);
+void func_80182A08(struct ObjParticle *ptc, struct GdVec3f *b);
+void func_801838D0(struct ObjParticle *ptc);
 void Unknown801835C8(struct ObjParticle *ptc);
 
 static void connect_vertices(struct ObjVertex *vtx1, struct ObjVertex *vtx2) {
@@ -105,7 +103,6 @@ void Unknown80181D14(struct ObjFace *face) {
 /* 230680 -> 230858 */
 void func_80181EB0(struct Connection *cxn) {
     struct GdVec3f sp34;
-    UNUSED u8 unused[0x2C];
     struct ObjParticle *sp4 = cxn->node1.ptc;
     struct ObjParticle *sp0 = cxn->node2.ptc;
 
@@ -133,10 +130,9 @@ void func_80181EB0(struct Connection *cxn) {
 
 /* @ 230858 -> 230B70 */
 void func_80182088(struct Connection *cxn) {
-    struct GdVec3f sp4C;
-    UNUSED u8 unused[0x24];
+    struct GdVec3f vec;
     f32 sp24;
-    f32 sp20;
+    f32 mag;
     struct ObjParticle *sp1C;
     struct ObjParticle *sp18;
 
@@ -146,32 +142,32 @@ void func_80182088(struct Connection *cxn) {
     }
     sp1C = cxn->node1.ptc;
     sp18 = cxn->node2.ptc;
-    sp4C.x = sp1C->pos.x - sp18->pos.x;
-    sp4C.y = sp1C->pos.y - sp18->pos.y;
-    sp4C.z = sp1C->pos.z - sp18->pos.z;
-    sp20 = gd_vec3f_magnitude(&sp4C);
-    sp24 = sp20 - cxn->unk24;
-    sp4C.x /= sp20;
-    sp4C.y /= sp20;
-    sp4C.z /= sp20;
-    sp4C.x *= sp24 * 0.1;
-    sp4C.y *= sp24 * 0.1;
-    sp4C.z *= sp24 * 0.1;
-    sp1C->unk38.x -= sp4C.x;
-    sp1C->unk38.y -= sp4C.y;
-    sp1C->unk38.z -= sp4C.z;
-    sp18->unk38.x += sp4C.x;
-    sp18->unk38.y += sp4C.y;
-    sp18->unk38.z += sp4C.z;
+    vec.x = sp1C->pos.x - sp18->pos.x;
+    vec.y = sp1C->pos.y - sp18->pos.y;
+    vec.z = sp1C->pos.z - sp18->pos.z;
+    mag = gd_vec3f_magnitude(&vec);
+    sp24 = mag - cxn->unk24;
+    vec.x /= mag;
+    vec.y /= mag;
+    vec.z /= mag;
+    vec.x *= sp24 * 0.1;
+    vec.y *= sp24 * 0.1;
+    vec.z *= sp24 * 0.1;
+    sp1C->unk38.x -= vec.x;
+    sp1C->unk38.y -= vec.y;
+    sp1C->unk38.z -= vec.z;
+    sp18->unk38.x += vec.x;
+    sp18->unk38.y += vec.y;
+    sp18->unk38.z += vec.z;
     if (!(sp1C->flags & 2)) {
-        sp1C->pos.x -= sp4C.x;
-        sp1C->pos.y -= sp4C.y;
-        sp1C->pos.z -= sp4C.z;
+        sp1C->pos.x -= vec.x;
+        sp1C->pos.y -= vec.y;
+        sp1C->pos.z -= vec.z;
     }
     if (!(sp18->flags & 2)) {
-        sp18->pos.x += sp4C.x;
-        sp18->pos.y += sp4C.y;
-        sp18->pos.z += sp4C.z;
+        sp18->pos.x += vec.x;
+        sp18->pos.y += vec.y;
+        sp18->pos.z += vec.z;
     }
 }
 
@@ -208,7 +204,6 @@ void func_801823A0(struct ObjNet *net) {
 /* 230CC0 -> 230DCC */
 struct ObjParticle *make_particle(u32 flags, s32 colourNum, f32 x, f32 y, f32 z) {
     struct ObjParticle *particle = (struct ObjParticle *) make_object(OBJ_TYPE_PARTICLES);
-    UNUSED u8 unused[8];
 
     particle->pos.x = x;
     particle->pos.y = y;
@@ -317,13 +312,9 @@ void func_80182A08(struct ObjParticle *ptc, struct GdVec3f *b) {
 /* 231454 -> 231D40; orig name: Unknown80182C84 */
 void move_particle(struct ObjParticle *ptc) {
     f32 sp7C;
-    UNUSED u8 unused2[12];
     struct GdVec3f sp64;
     struct ObjParticle *sp60;
-    UNUSED u8 unused1[4];
     s32 i;
-    UNUSED u8 unused4[4];
-    UNUSED u8 unused5[4];
     struct ObjCamera *sp4C;
     struct GdVec3f sp40;
     struct GdVec3f sp34;
@@ -497,6 +488,4 @@ void Unknown801835C8(struct ObjParticle *ptc) {
 /* 2320A0 -> 2320D4; pad to 2320E0 */
 void func_801838D0(struct ObjParticle *ptc) {
     D_801B9E3C = ptc;
-    if (ptc->pos.y < -15.0f) {
-    }
 }

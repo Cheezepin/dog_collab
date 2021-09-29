@@ -89,7 +89,7 @@ chan_dyncall
 .poll_023589:
 chan_delay1
 chan_ioreadval 0
-chan_bltz .skip_023589 // if we have a signal: 
+chan_bltz .skip_023589 // if we have a signal:
   chan_beqz .force_stop_023589 // told to stop
   chan_jump .start_playing_023589 // told to play something else
 .skip_023589:
@@ -2113,9 +2113,6 @@ chan_setlayer 0, .layer_C6C
 chan_end
 
 .layer_C6C:
-#if defined(VERSION_EU) || defined(VERSION_SH)
-  layer_transpose 1
-#endif
 layer_portamento 0x82, 44, 200
 layer_note1 39, 0x30, 127
 layer_end
@@ -2699,7 +2696,7 @@ layer_jump .layer_C4E
   chan_setinstr 0
   chan_setlayer 0, .layer_FA2_eu
   chan_end
-  
+
   .layer_FA2_eu:
   layer_delay 0x5
   layer_end

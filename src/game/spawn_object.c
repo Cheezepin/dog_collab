@@ -12,6 +12,7 @@
 #include "object_list_processor.h"
 #include "spawn_object.h"
 #include "types.h"
+#include "puppylights.h"
 
 /**
  * An unused linked list struct that seems to have been replaced by ObjectNode.
@@ -172,7 +173,7 @@ UNUSED static void unused_delete_leaf_nodes(struct Object *obj) {
         unused_delete_leaf_nodes(children);
     } else {
         // No children
-        mark_obj_for_deletion(obj);
+        obj_mark_for_deletion(obj);
     }
 
     // Probably meant to be !=
@@ -236,7 +237,7 @@ struct Object *allocate_object(struct ObjectNode *objList) {
 
     // Initialize object fields
 
-    obj->activeFlags = ACTIVE_FLAG_ACTIVE | ACTIVE_FLAG_UNK8;
+    obj->activeFlags = ACTIVE_FLAG_ACTIVE | ACTIVE_FLAG_ALLOCATED;
     obj->parentObj = obj;
     obj->prevObj = NULL;
     obj->collidedObjInteractTypes = 0;
@@ -270,11 +271,7 @@ struct Object *allocate_object(struct ObjectNode *objList) {
     obj->oHealth = 2048;
 
     obj->oCollisionDistance = 1000.0f;
-    if (gCurrLevelNum == LEVEL_TTC) {
-        obj->oDrawingDistance = 2000.0f;
-    } else {
-        obj->oDrawingDistance = 4000.0f;
-    }
+    obj->oDrawingDistance = 4500.0f;
 
     mtxf_identity(obj->transform);
 
@@ -285,10 +282,14 @@ struct Object *allocate_object(struct ObjectNode *objList) {
     obj->oRoom = -1;
 
     obj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+    obj->header.gfx.node.flags |=  GRAPH_RENDER_UCODE_REJ;
     obj->header.gfx.pos[0] = -10000.0f;
     obj->header.gfx.pos[1] = -10000.0f;
     obj->header.gfx.pos[2] = -10000.0f;
     obj->header.gfx.throwMatrix = NULL;
+#ifdef PUPPYLIGHTS
+    obj->oLightID = 0xFFFF;
+#endif
 
     return obj;
 }

@@ -1,7 +1,5 @@
 // coin.c.inc
 
-// sp18 = collisionFlagsPtr
-
 static struct ObjectHitbox sMovingYellowCoinHitbox = {
     /* interactType:      */ INTERACT_COIN,
     /* downOffset:        */ 0,
@@ -31,7 +29,7 @@ s32 coin_step(s16 *collisionFlagsPtr) {
 
     obj_check_floor_death(*collisionFlagsPtr, sObjFloor);
 
-    if ((*collisionFlagsPtr & 0x1) != 0 && (*collisionFlagsPtr & 0x8) == 0) /* bit 0, bit 3 */
+    if ((*collisionFlagsPtr & OBJ_COL_FLAG_GROUNDED) && !(*collisionFlagsPtr & OBJ_COL_FLAG_NO_Y_VEL)) /* bit 0, bit 3 */
     {
         cur_obj_play_sound_2(SOUND_GENERAL_COIN_DROP);
         return 1;
@@ -48,7 +46,7 @@ void moving_coin_flicker(void) {
 }
 
 void coin_collected(void) {
-    spawn_object(o, MODEL_SPARKLES, bhvGoldenCoinSparkles);
+    spawn_object(o, MODEL_SPARKLES, bhvCoinSparklesSpawner);
     o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
 }
 
@@ -79,11 +77,11 @@ void bhv_moving_yellow_coin_loop(void) {
             moving_coin_flicker();
             break;
 
-        case MOV_YCOIN_ACT_LAVA_DEATH:
+        case OBJ_ACT_LAVA_DEATH:
             o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
             break;
 
-        case MOV_YCOIN_ACT_DEATH_PLANE_DEATH:
+        case OBJ_ACT_DEATH_PLANE_DEATH:
             o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
             break;
     }
@@ -152,7 +150,7 @@ void blue_coin_sliding_away_from_mario(void) {
 
     if (coin_step(&collisionFlags) != 0)
         o->oVelY += 18.0f;
-    if ((collisionFlags & 0x2) != 0)
+    if (collisionFlags & OBJ_COL_FLAG_HIT_WALL)
         o->oAction = 3; /* bit 1 */
 
     if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 1000) == 0)

@@ -52,8 +52,6 @@ void moneybag_check_mario_collision(void) {
     }
 }
 
-// sp20 = collisionFlags
-
 void moneybag_jump(s8 collisionFlags) {
     s16 animFrame = o->header.gfx.animInfo.animFrame;
 
@@ -74,7 +72,7 @@ void moneybag_jump(s8 collisionFlags) {
         case MONEYBAG_JUMP_JUMP:
             cur_obj_init_animation(2);
 
-            if ((collisionFlags & 1) == 1) /* bit 0 */
+            if ((collisionFlags & OBJ_COL_FLAG_GROUNDED) == OBJ_COL_FLAG_GROUNDED) /* bit 0 */
             {
                 o->oForwardVel = 0;
                 o->oVelY = 0;
@@ -133,10 +131,10 @@ void moneybag_act_move_around(void) {
 
 void moneybag_act_return_home(void) {
     s16 collisionFlags;
-    f32 sp28 = o->oHomeX - o->oPosX;
-    f32 sp24 = o->oHomeZ - o->oPosZ;
-    s16 sp22 = atan2s(sp24, sp28);
-    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, sp22, 0x800);
+    f32 dx = o->oHomeX - o->oPosX;
+    f32 dz = o->oHomeZ - o->oPosZ;
+    s16 yawToHome = atan2s(dz, dx);
+    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, yawToHome, 0x800);
 
     collisionFlags = object_step();
     if (((collisionFlags & OBJ_COL_FLAGS_LANDED) == OBJ_COL_FLAGS_LANDED)

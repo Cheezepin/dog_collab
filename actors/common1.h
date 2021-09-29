@@ -113,6 +113,7 @@ extern const Gfx door_seg3_dl_03015078[];
 extern const Gfx door_seg3_dl_030150E8[];
 extern const Gfx door_seg3_dl_03015158[];
 extern const struct Animation *const door_seg3_anims_030156C0[];
+extern const Collision door_seg3_collision_door[];
 
 // explosion
 extern const GeoLayout explosion_geo[];
@@ -195,6 +196,14 @@ extern const Gfx dl_power_meter_base[];
 extern const Gfx dl_power_meter_health_segments_begin[];
 extern const Gfx dl_power_meter_health_segments_end[];
 
+#ifdef BREATH_METER
+// breath_meter
+extern const Texture *const breath_meter_segments_lut[];
+extern const Gfx dl_breath_meter_base[];
+extern const Gfx dl_breath_meter_health_segments_begin[];
+extern const Gfx dl_breath_meter_health_segments_end[];
+#endif
+
 // sand
 extern const Gfx sand_seg3_dl_0302BCD0[];
 
@@ -214,19 +223,13 @@ extern const Gfx transparent_star_seg3_dl_0302C620[];
 extern const GeoLayout bubbly_tree_geo[];
 extern const GeoLayout spiky_tree_geo[];
 extern const GeoLayout snow_tree_geo[];
-extern const GeoLayout spiky_tree1_geo[];
 extern const GeoLayout palm_tree_geo[];
-extern const Gfx tree_seg3_dl_0302FE88[];
-extern const Gfx tree_seg3_dl_0302FEB8[];
-extern const Gfx tree_seg3_dl_0302FEE8[];
-extern const Gfx tree_seg3_dl_03030FA0[];
-extern const Gfx tree_seg3_dl_03032088[];
-extern const Gfx tree_seg3_dl_03032170[];
-extern const Gfx tree_seg3_dl_03033258[];
-
-// warp_collision
-extern const Collision door_seg3_collision_0301CE78[];
-extern const Collision lll_hexagonal_mesh_seg3_collision_0301CECC[];
+extern const Gfx tree_seg3_sub_dl_bubbly_left_side[];
+extern const Gfx tree_seg3_sub_dl_bubbly_right_side[];
+extern const Gfx tree_seg3_dl_bubbly[];
+extern const Gfx tree_seg3_dl_spiky[];
+extern const Gfx tree_seg3_dl_snowy_pine[];
+extern const Gfx tree_seg3_dl_palm[];
 
 // warp_pipe
 extern const GeoLayout warp_pipe_geo[];
@@ -249,5 +252,8 @@ extern const Gfx wooden_signpost_seg3_dl_0302DC40[];
 extern const Gfx wooden_signpost_seg3_dl_0302DCD0[];
 extern const Gfx wooden_signpost_seg3_dl_0302DD08[];
 extern const Collision wooden_signpost_seg3_collision_0302DD80[];
+
+// Mario_Plane
+extern const Collision mario_plane_collision[];
 
 #endif
