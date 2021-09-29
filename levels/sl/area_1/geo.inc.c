@@ -26,6 +26,7 @@ const GeoLayout sl_dl_Room_3___House_1_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE(LAYER_OPAQUE, 1200, -6500, 2500),
 		GEO_OPEN_NODE(),
+			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, sl_dl_House_1_Indoors_Visual_mesh_layer_7),
 			GEO_DISPLAY_LIST(LAYER_OPAQUE, sl_dl_House_1_Indoors_Visual_mesh_layer_1),
 		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
@@ -58,6 +59,7 @@ const GeoLayout sl_area_1[] = {
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, sl_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, sl_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, sl_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };
