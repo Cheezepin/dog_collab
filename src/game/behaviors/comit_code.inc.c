@@ -1524,21 +1524,112 @@ void bhv_mg_fwoosh_update(void) {
 
 
 
+Vec3f sGuideLakituPos[] = {
+{-12479.0f, 1369.0f, -6128.0f},
+{-9550.0f, 2632.0f, -12147.0f},
+{4795.0f, 3078.0f, -18501.0f},
+{12894.0f, 3371.0f, -16986.0f},
+};
 
 
+void bhv_guide_lakitu_init(void) {
+    o->oGraphYOffset = -40.0f;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+void bhv_guide_lakitu_loop(void) {
+    switch (o->oF4) {
+        case 0:
+            if(gMarioState->pos[0] > -14800.0f) {
+                o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
+                if (Set_NPC_Dialog(0)) {
+                    o->oF4 = 1;
+                    o->oBehParams2ndByte = 0;
+                }
+            }
+            break;
+        case 1:
+            if (gMarioState->pos[2] < 1000.0f) {
+                vec3f_copy(&o->oPosX, sGuideLakituPos[0]);
+                o->oMoveAngleYaw = 0x4000;
+                o->oF4 = 2;
+                o->oAction = 0;
+            } else {
+                bhv_body_lakitu_loop();
+            }
+            break;
+        case 2:
+            if(gMarioState->pos[0] < -11200.0f && gMarioState->pos[2] < -4868.0f) {
+                o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
+                if (Set_NPC_Dialog(1)) {
+                    o->oF4 = 3;
+                    o->oBehParams2ndByte = 1;
+                }
+            }
+            break;
+        case 3:
+            if (gMarioState->pos[1] > 2500.0f) {
+                vec3f_copy(&o->oPosX, sGuideLakituPos[1]);
+                o->oMoveAngleYaw = 0xC000;
+                o->oF4 = 4;
+                o->oAction = 0;
+            } else {
+                bhv_body_lakitu_loop();
+            }
+            break;
+        case 4:
+            if(gMarioState->pos[0] > -11007.0f && gMarioState->pos[2] < -10964.0f) {
+                o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
+                if (Set_NPC_Dialog(2)) {
+                    o->oF4 = 5;
+                    o->oBehParams2ndByte = 2;
+                }
+            }
+            break;
+        case 5:
+            if (gMarioState->pos[0] > -7108.0f) {
+                vec3f_copy(&o->oPosX, sGuideLakituPos[2]);
+                o->oMoveAngleYaw = 0;
+                o->oF4 = 6;
+                o->oAction = 0;
+            } else {
+                bhv_body_lakitu_loop();
+            }
+            break;
+        case 6:
+            if(gMarioState->pos[0] > 3917.0f && gMarioState->pos[2] < -17376.0f) {
+                o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
+                if (Set_NPC_Dialog(3)) {
+                    o->oF4 = 7;
+                    o->oBehParams2ndByte = 3;
+                }
+            }
+            break;
+        case 7:
+            if (gMarioState->pos[0] > 9000.0f) {
+                vec3f_copy(&o->oPosX, sGuideLakituPos[3]);
+                o->oMoveAngleYaw = 0xA000;
+                o->oF4 = 8;
+                o->oAction = 0;
+            } else {
+                bhv_body_lakitu_loop();
+            }
+            break;
+        case 8:
+            if(gMarioState->pos[0] > 12099.0f) {
+                o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
+                if (Set_NPC_Dialog(4)) {
+                    o->oF4 = 9;
+                    o->oBehParams2ndByte = 4;
+                }
+            }
+            break;
+        case 9:
+            bhv_body_lakitu_loop();
+            break;
+    }
+    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x1C0);
+    o->oInteractStatus = 0;
+}
 
 void bhv_body_lakitu_init(void) {
     o->oGraphYOffset = -22.0f;

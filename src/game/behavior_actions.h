@@ -654,6 +654,8 @@ void bhv_bonus_lightning_cloud_init(void);
 void bhv_comit_coin_init(void);
 void bhv_dark_sky_loop(void);
 void bhv_hidden_cloud_loop(void);
+void bhv_guide_lakitu_loop(void);
+void bhv_guide_lakitu_init(void);
 
 
 
