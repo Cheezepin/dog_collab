@@ -217,4 +217,10 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 #include "cable_car/collision_header.h"
 
+#include "circus_balloon/collision_header.h"
+
+#include "circus_balloon/geo_header.h"
+
+#include "pinwheel/geo_header.h"
+
 #endif

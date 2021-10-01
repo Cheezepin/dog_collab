@@ -286,6 +286,7 @@ extern const BehaviorScript bhvObjectWaveTrail[];
 extern const BehaviorScript bhvWaveTrail[];
 extern const BehaviorScript bhvTinyStrongWindParticle[];
 extern const BehaviorScript bhvStrongWindParticle[];
+extern const BehaviorScript bhvWeakWindParticle[];
 extern const BehaviorScript bhvSLSnowmanWind[];
 extern const BehaviorScript bhvSLWalkingPenguin[];
 extern const BehaviorScript bhvYellowBall[];
@@ -548,16 +549,18 @@ extern const BehaviorScript bhvSpikeBall[];
 extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
+
 extern const BehaviorScript bhvCarousel[];
 extern const BehaviorScript bhvClownClock[];
-
 extern const BehaviorScript bhvClownDoorSpawner[];
 extern const BehaviorScript bhvClownDoorSegmentTop[];
 extern const BehaviorScript bhvClownDoorSegmentBottom[];
-
 extern const BehaviorScript bhvCircusWheel[];
 extern const BehaviorScript bhvCircusWheelPlatform[];
 extern const BehaviorScript bhvWheelWind[];
+extern const BehaviorScript bhvCircusBalloon[];
+extern const BehaviorScript bhvPinwheel[];
+
 extern const BehaviorScript bhvRotatingTorus[];
 extern const BehaviorScript bhvElectricSpinner[];
 extern const BehaviorScript bhvSimpleSpinner[];

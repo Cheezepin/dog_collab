@@ -612,5 +612,7 @@
 #define MODEL_CLOWN_DOOR_BOTTOM                   0x134
 #define MODEL_CIRCUS_WHEEL                   0x135
 #define MODEL_CABLE_CAR                   0x136
+#define MODEL_CIRCUS_BALLOON                   0x137
+#define MODEL_PINWHEEL                   0x138
 
 #endif // MODEL_IDS_H

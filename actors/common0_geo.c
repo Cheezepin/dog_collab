@@ -35,3 +35,5 @@
 #include "clown_door_bottom/geo.inc.c"
 #include "circus_wheel/geo.inc.c"
 #include "cable_car/geo.inc.c"
+#include "circus_balloon/geo.inc.c"
+#include "pinwheel/geo.inc.c"

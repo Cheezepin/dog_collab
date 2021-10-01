@@ -1267,9 +1267,15 @@
 #define /*0x0BC*/ oMaxShotDelay               OBJECT_FIELD_S32(0x0D)    // overwrites oUnkBC
 #define /*0x1A8*/ oShotSpeed                  OBJECT_FIELD_F32(0x48)    // overwrites oUnk1A8
 
+//Clown door
 #define /*0x0F4*/ oObjClownDoorTop           OBJECT_FIELD_OBJ(0x1B)
 #define /*0x0F4*/ oObjClownDoorBottom           OBJECT_FIELD_OBJ(0x1C)
 #define /*0x0F4*/ oDoorState OBJECT_FIELD_S32(0x1D)
+
+//pinwheel
+#define /*0x0F4*/ oObjBalloon           OBJECT_FIELD_OBJ(0x1B)
+#define /*0x0FC*/ oBalloonInitY         OBJECT_FIELD_F32(0x1C)
+#define /*0x0F4*/ oPinwheelTimer        OBJECT_FIELD_S32(0x1D)
 
 
 /*Custom general defines:

@@ -720,7 +720,7 @@ void push_or_sidle_wall(struct MarioState *m, Vec3f startPos) {
         dWallAngle = wallAngle - m->faceAngle[1];
     }
 
-    if (m->wall->type == SURFACE_SHOCK_WALL) {
+    if (m->wall != NULL && m->wall->type == SURFACE_SHOCK_WALL) {
         return m->action = ACT_SHOCKED;
     }
 

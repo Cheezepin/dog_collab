@@ -3378,6 +3378,15 @@ const BehaviorScript bhvStrongWindParticle[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvWeakWindParticle[] = {
+    BEGIN(OBJ_LIST_POLELIKE), //?
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_weak_wind_particle_loop),
+    END_LOOP(),
+};
+
 // The handler for the strong wind blown by the Snowman in SL. Triggers dialog and then aims towards Mario.
 const BehaviorScript bhvSLSnowmanWind[] = {
     BEGIN(OBJ_LIST_DEFAULT),
@@ -6214,7 +6223,7 @@ const BehaviorScript bhvDogNPC[] = {
 
 const BehaviorScript bhvCarousel[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
     LOAD_ANIMATIONS(oAnimations, carousel_anims),
     LOAD_COLLISION_DATA(carousel_collision),
     ANIMATE(0),
@@ -6241,7 +6250,7 @@ const BehaviorScript bhvRotatingTorus[] = {
 
 const BehaviorScript bhvClownClock[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
     LOAD_COLLISION_DATA(clown_clock_collision),
     CALL_NATIVE(bhv_clown_clock_init),
     BEGIN_LOOP(),
@@ -6283,7 +6292,7 @@ const BehaviorScript bhvClownDoorSegmentBottom[] = {
 
 const BehaviorScript bhvCircusWheel[] = {
     BEGIN(OBJ_LIST_GENACTOR),
-    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
     ADD_INT(oMoveAngleYaw, 0x4000),
     CALL_NATIVE(bhv_circus_wheel_init),
     BEGIN_LOOP(),
@@ -6298,6 +6307,25 @@ const BehaviorScript bhvCircusWheelPlatform[] = {
     LOAD_COLLISION_DATA(cable_car_collision),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_circus_wheel_platform_update),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvPinwheel[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE(bhv_pinwheel_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_pinwheel_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvCircusBalloon[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(circus_balloon_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_balloon_loop),
+        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
