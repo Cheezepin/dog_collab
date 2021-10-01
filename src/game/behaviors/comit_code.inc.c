@@ -1789,6 +1789,12 @@ void bhv_rain_cloud_loop(void) {
             }
             break;
     }
+
+    o->o100++;
+    if (o->o100 > 25) {
+        o->oAnimState ^= 1;
+        o->o100 = 0;
+    }
 }
 
 
