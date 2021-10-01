@@ -726,7 +726,7 @@ static void boo_with_cage_act_3(void) {
 void bhv_boo_with_cage_init(void) {
     struct Object* cage;
 
-    if (gHudDisplay.stars < 12) {
+    if (gHudDisplay.stars < 0) { //changed from 12 to 0 by comit for testing
         obj_mark_for_deletion(o);
     } else {
         cage = spawn_object(o, MODEL_HAUNTED_CAGE, bhvBooCage);

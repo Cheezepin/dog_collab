@@ -1737,6 +1737,10 @@ void bhv_fade_cloud_loop(void) {
     if (o->oOpacity > 20) {
         load_object_collision_model();
     }
+    if (gRedCoinsCollected == 8) {
+        o->oAction = 3;
+        o->oOpacity = 255;
+    }
 }
 
 

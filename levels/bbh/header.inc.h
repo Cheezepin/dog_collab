@@ -146,7 +146,7 @@ extern Vtx bbh_dl_RCloudFenceSet_mesh_layer_4_vtx_cull[8];
 extern Vtx bbh_dl_RCloudFenceSet_mesh_layer_4_vtx_0[88];
 extern Gfx bbh_dl_RCloudFenceSet_mesh_layer_4_tri_0[];
 extern Vtx bbh_dl_Scaffolding_mesh_layer_1_vtx_cull[8];
-extern Vtx bbh_dl_Scaffolding_mesh_layer_1_vtx_0[274];
+extern Vtx bbh_dl_Scaffolding_mesh_layer_1_vtx_0[276];
 extern Gfx bbh_dl_Scaffolding_mesh_layer_1_tri_0[];
 extern Vtx bbh_dl_Scaffolding2_mesh_layer_1_vtx_cull[8];
 extern Vtx bbh_dl_Scaffolding2_mesh_layer_1_vtx_0[110];
