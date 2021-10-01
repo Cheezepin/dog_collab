@@ -14,8 +14,6 @@
 #include "actors/common1.h"
 
 /* Fast64 begin persistent block [includes] */
-#define MODEL_ MODEL_COMIT_
-#undef MODEL_
 /* Fast64 end persistent block [includes] */
 
 #include "make_const_nonconst.h"
@@ -61,6 +59,7 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING_BLAST, lightning_blast_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CENTER_PLATFORM, center_platform_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_DARK_SKY, dark_sky_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ENTRANCE_GATE, entrance_gate_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -76,9 +75,9 @@ const LevelScript level_bbh_entry[] = {
 		WARP_NODE(0x1D, LEVEL_BBH, 0x02, 0x1A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x55, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x1F, LEVEL_BBH, 0x03, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_NONE, -16859, 395, 10166, 0, 168, 0, 0x000B0000, bhvAirborneDeathWarp),
-		MARIO_POS(0x01, 168, -16859, 395, 10166),
-		OBJECT(MODEL_NONE, -16859, 395, 10166, 0, 168, 0, 0x000A0000, bhvFlyingWarp),
+		OBJECT(MODEL_NONE, -9046, 395, 8063, 0, 168, 0, 0x000B0000, bhvAirborneDeathWarp),
+		MARIO_POS(0x01, 168, -9046, 395, 8063),
+		OBJECT(MODEL_NONE, -9046, 395, 8063, 0, 168, 0, 0x000A0000, bhvFlyingWarp),
 		OBJECT(MODEL_BLUE_COIN, -4487, 3783, 13326, 0, 0, 0, 0x00000000, bhvHiddenBlueCoin),
 		OBJECT(MODEL_BLUE_COIN, -5010, 3596, 12604, 0, 0, 0, 0x00000000, bhvHiddenBlueCoin),
 		OBJECT(MODEL_BLUE_COIN, -6031, 4254, 14158, 0, 0, 0, 0x00000000, bhvHiddenBlueCoin),
@@ -132,11 +131,14 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_NONE, 6229, 3213, -17537, 0, 0, 0, 0x00120000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 8722, -705, 14681, 0, 90, 0, 0x00100000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 16737, 3768, -17415, 0, 0, 0, 0x00120000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, 18037, 1698, -8436, 0, 7, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, 16677, 1698, -9802, 0, 98, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, 11334, -705, 15077, 0, -90, 0, 0x000C0000, bhvDoorWarp),
 		OBJECT(MODEL_NONE, 10821, 90, 9194, 0, 0, 0, 0x00140000, bhvFadingWarp),
 		OBJECT(MODEL_NONE, 9036, 256, 8071, 0, -136, 0, 0x00150000, bhvFadingWarp),
 		OBJECT(MODEL_FLOOR_DOOR, 3477, 1376, 3679, 0, 0, 0, 0x00000000, bhvFloorDoor),
 		OBJECT(MODEL_FWOOSH_BUTTON, 10221, 50, 8727, 0, 45, 0, 0x00000000, bhvFloorDoorButton),
+		OBJECT_WITH_ACTS(MODEL_ENTRANCE_GATE, -10364, 0, 9293, 0, 0, 0, 0x00000000, bhvEntranceGate, ACT_1 | ACT_2),
 		OBJECT(MODEL_NONE, 3310, -728, 12482, 0, 0, 0, 0x00040000, bhvGoombaTripletSpawner),
 		OBJECT(MODEL_NONE, 8921, 50, 7066, 0, 0, 0, 0x00000000, bhvGoombaTripletSpawner),
 		OBJECT(MODEL_NONE, 3156, 1356, 6120, 0, 0, 0, 0x00010000, bhvGoombaTripletSpawner),
@@ -144,14 +146,14 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_NONE, -11589, 2710, -9989, 0, 0, 0, 0x00000000, bhvGoombaTripletSpawner),
 		OBJECT(MODEL_NONE, -969, 2875, -14809, 0, 0, 0, 0x00010000, bhvGoombaTripletSpawner),
 		OBJECT(MODEL_BODY_LAKITU, -8684, 14, 8849, 0, -90, 0, 0x00000000, bhvBodyLakitu),
-		OBJECT(MODEL_BODY_LAKITU, -13094, 14, 8175, 0, -90, 0, 0x00000000, bhvGuideLakitu),
+		OBJECT_WITH_ACTS(MODEL_BODY_LAKITU, -13094, 14, 8175, 0, -90, 0, 0x00000000, bhvGuideLakitu, ACT_1),
+		OBJECT_WITH_ACTS(MODEL_BODY_LAKITU, -11598, 14, 8238, 0, -47, 0, 0x00000000, bhvGateLakitu, ACT_2),
 		OBJECT(MODEL_NONE, 3477, 1587, 4601, 0, 0, 0, 0x00550000, bhvFlyingWarp),
 		OBJECT(MODEL_MIST_SECRET, 7534, 1753, 8627, 0, 0, 0, 0x00000000, bhvMistTrigger),
 		OBJECT(MODEL_MIST_SECRET, -5978, 340, 8491, 0, 0, 0, 0x00000000, bhvMistTrigger),
 		OBJECT(MODEL_MIST_SECRET, -918, 2374, 2007, 0, 0, 0, 0x00000000, bhvMistTrigger),
 		OBJECT(MODEL_MIST_SECRET, 2694, -528, 4582, 0, 0, 0, 0x00000000, bhvMistTrigger),
 		OBJECT(MODEL_MIST_SECRET, -7082, 2952, 10951, 0, 0, 0, 0x00000000, bhvMistTrigger),
-		OBJECT(MODEL_CASTLE_GROUNDS_WARP_PIPE, 2730, 1356, 4714, 0, 0, 0, 0x001F0000, bhvWarpPipe),
 		OBJECT(MODEL_RAINBOW_CLOUD, 9861, 145, 5607, 0, 177, 0, 0x00000000, bhvRainbowCloud),
 		OBJECT(MODEL_RAINBOW_CLOUD, 15216, 572, -7039, 0, 98, 0, 0x00010000, bhvRainbowCloud),
 		OBJECT(MODEL_RAINBOW_CLOUD, 17726, 572, -7880, 0, -82, 0, 0x00010000, bhvRainbowCloud),
@@ -294,7 +296,7 @@ const LevelScript level_bbh_entry[] = {
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 168, -16859, 395, 10166),
+	MARIO_POS(0x01, 168, -9046, 395, 8063),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),

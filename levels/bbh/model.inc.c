@@ -8471,30 +8471,6 @@ Gfx bbh_dl_Flower_002_mesh_layer_4_tri_0[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx bbh_dl_Gate_mesh_layer_4_vtx_cull[8] = {
-	{{{-2, -325, 498},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-2, 325, 498},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-2, 325, -498},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-2, -325, -498},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{2, -325, 498},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{2, 325, 498},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{2, 325, -498},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{2, -325, -498},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-};
-
-Vtx bbh_dl_Gate_mesh_layer_4_vtx_0[4] = {
-	{{{2, 325, 498},0, {2048, -1024},{0x81, 0x0, 0x0, 0xFF}}},
-	{{{-2, 325, -498},0, {-2048, -1024},{0x81, 0x0, 0x0, 0xFF}}},
-	{{{-2, -325, -498},0, {-2048, 1024},{0x81, 0x0, 0x0, 0xFF}}},
-	{{{2, -325, 498},0, {2048, 1024},{0x81, 0x0, 0x0, 0xFF}}},
-};
-
-Gfx bbh_dl_Gate_mesh_layer_4_tri_0[] = {
-	gsSPVertex(bbh_dl_Gate_mesh_layer_4_vtx_0 + 0, 4, 0),
-	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
-	gsSPEndDisplayList(),
-};
-
 Vtx bbh_dl_GenericCloudPlats_mesh_layer_1_vtx_cull[8] = {
 	{{{-6105, -1967, 15284},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
 	{{{-6105, 1916, 15284},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
@@ -17243,17 +17219,6 @@ Gfx bbh_dl_Flower_002_mesh_layer_4[] = {
 	gsSPDisplayList(mat_bbh_dl_Flower),
 	gsSPDisplayList(bbh_dl_Flower_002_mesh_layer_4_tri_0),
 	gsSPDisplayList(mat_revert_bbh_dl_Flower),
-	gsSPEndDisplayList(),
-};
-
-Gfx bbh_dl_Gate_mesh_layer_4[] = {
-	gsSPClearGeometryMode(G_LIGHTING),
-	gsSPVertex(bbh_dl_Gate_mesh_layer_4_vtx_cull + 0, 8, 0),
-	gsSPSetGeometryMode(G_LIGHTING),
-	gsSPCullDisplayList(0, 7),
-	gsSPDisplayList(mat_bbh_dl_PrisonFence),
-	gsSPDisplayList(bbh_dl_Gate_mesh_layer_4_tri_0),
-	gsSPDisplayList(mat_revert_bbh_dl_PrisonFence),
 	gsSPEndDisplayList(),
 };
 

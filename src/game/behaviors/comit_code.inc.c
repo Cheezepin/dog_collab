@@ -1522,6 +1522,53 @@ void bhv_mg_fwoosh_update(void) {
 
 //FWOOSH END
 
+void bhv_entrance_gate_loop(void) {
+    struct Object *obj = cur_obj_nearest_object_with_behavior(bhvGateLakitu);
+    switch (o->oAction) {
+        case 0:
+            if (obj != NULL && obj->oF4 == 1) {
+                o->oAction = 1;
+                vec3f_copy(gComitCamPos[1], &o->oPosX);
+                vec3f_set(gComitCamPos[0], o->oPosX - 2000.0f, o->oPosY + 1400.0f, o->oPosZ);
+            }
+            break;
+        case 1:
+            gComitCam = 1;
+            o->oPosY = approach_f32(o->oPosY, o->oHomeY - 700.0f, 12.0f, 12.0f);
+
+            cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
+            if (o->oPosY == o->oHomeY - 700.0f) {
+                o->oAction = 2;
+                cur_obj_shake_screen(1);
+                play_puzzle_jingle();
+            }
+            break;
+        case 2:
+            gComitCam = 1;
+            if (o->oTimer > 20) {
+                o->activeFlags = 0;
+            }
+            break;
+    }
+}
+
+void bhv_gate_lakitu_loop(void) {
+    switch (o->oF4) {
+        case 0:
+            if (o->oDistanceToMario < 600.0f) {
+                o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
+                if (Set_NPC_Dialog(5)) {
+                    o->oF4 = 1;
+                    o->oBehParams2ndByte = 6;
+                }
+            }
+            break;
+        case 1:
+            bhv_body_lakitu_loop();
+            break;
+    }
+    o->oInteractStatus = 0;
+}
 
 
 Vec3f sGuideLakituPos[] = {

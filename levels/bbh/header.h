@@ -175,4 +175,8 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/dark_sky/geo_header.h"
 
+#include "levels/bbh/entrance_gate/geo_header.h"
+
+#include "levels/bbh/entrance_gate/collision_header.h"
+
 #endif

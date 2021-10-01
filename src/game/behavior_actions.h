@@ -656,6 +656,8 @@ void bhv_dark_sky_loop(void);
 void bhv_hidden_cloud_loop(void);
 void bhv_guide_lakitu_loop(void);
 void bhv_guide_lakitu_init(void);
+void bhv_gate_lakitu_loop(void);
+void bhv_entrance_gate_loop(void);
 
 
 

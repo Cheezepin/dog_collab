@@ -613,9 +613,7 @@
 
 
 
-//comits models
-#define MODEL_ MODEL_COMIT_
-
+//comit models
 #define MODEL_BOUNCE_CLOUD                0x100
 #define MODEL_STRETCH_CLOUD               0x101
 #define MODEL_RAINBOW_CLOUD               0x102
@@ -635,7 +633,6 @@
 #define MODEL_LIGHTNING_BLAST             0x110
 #define MODEL_CENTER_PLATFORM             0x111
 #define MODEL_DARK_SKY                    0x112
-
-#undef MODEL_
+#define MODEL_ENTRANCE_GATE               0x113
 
 #endif // MODEL_IDS_H

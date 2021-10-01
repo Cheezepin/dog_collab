@@ -105,3 +105,5 @@
 #include "levels/bbh/center_platform/model.inc.c"
 #include "levels/bbh/center_platform/collision.inc.c"
 #include "levels/bbh/dark_sky/model.inc.c"
+#include "levels/bbh/entrance_gate/model.inc.c"
+#include "levels/bbh/entrance_gate/collision.inc.c"

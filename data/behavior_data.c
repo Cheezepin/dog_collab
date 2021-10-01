@@ -6758,3 +6758,36 @@ const BehaviorScript bhvGuideLakitu[] = {
         CALL_NATIVE(bhv_guide_lakitu_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvGateLakitu[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_ACTIVE_FROM_AFAR)),
+    LOAD_ANIMATIONS(oAnimations, body_lakitu_anims),
+    SET_FLOAT(oDrawingDistance, 0x5000),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    SET_INT(oInteractionSubtype, INT_SUBTYPE_NPC),
+    DROP_TO_FLOOR(),
+    SET_HITBOX(/*Radius*/ 60, /*Height*/ 60),
+    ANIMATE(0),
+    SET_HOME(),
+    SCALE(0, 150),
+    CALL_NATIVE(bhv_body_lakitu_init),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_gate_lakitu_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvEntranceGate[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(entrance_gate_collision),
+    SET_FLOAT(oDrawingDistance, 0x4000),
+    SET_FLOAT(oCollisionDistance, 0x500),
+    SET_HOME(),
+    CALL_NATIVE(bhv_init_room),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_entrance_gate_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
