@@ -15,9 +15,11 @@ const GeoLayout bbh_dl_21__RedCoins_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -5328, -322, -2764, 0, 7, 0, bbh_dl_BigCloud_001_mesh_layer_1),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -7085, -717, 623, 0, 7, 0, bbh_dl_BigCloud_005_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -8373, -914, 3447, 0, 7, 0, bbh_dl_BigCloud_002_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 6639, 218, 6309, 0, 87, 0, bbh_dl_GenericCloudPlat_003_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -5692, 177, 3744, 0, -156, 0, bbh_dl_Inside_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -11841, -905, 3911, 0, -156, 0, bbh_dl_Inside_002_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -5423, -76, -6798, 0, -156, 0, bbh_dl_Inside_004_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
