@@ -5,7 +5,7 @@ const GeoLayout water_top_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, NULL),
 		GEO_OPEN_NODE(),
-			GEO_ASM(5, geo_set_water_lights),
+			GEO_ASM(LAYER_TRANSPARENT, geo_set_water_lights),
 			GEO_ANIMATED_PART(LAYER_OPAQUE, 5700, 0, 0, NULL),
 			GEO_OPEN_NODE(),
 				GEO_ASM(5, move_water_top),

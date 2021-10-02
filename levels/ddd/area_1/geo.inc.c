@@ -4,7 +4,7 @@ const GeoLayout ddd_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_Cube_mesh_layer_1),
-		GEO_ASM(6, geo_set_water_lights),
+		GEO_ASM(LAYER_TRANSPARENT_DECAL, geo_set_water_lights),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, ddd_dl_WaterSideDecal_mesh_layer_6),
 		GEO_ASM(0, geo_backdrop_move_cozies),
 		GEO_TRANSLATE_ROTATE(LAYER_OPAQUE_INTER, 0, 0, 0, 0, 0, 0),
