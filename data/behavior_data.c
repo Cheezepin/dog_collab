@@ -6334,7 +6334,7 @@ const BehaviorScript bhvRotatingTorus[] = {
     END_LOOP(),
 };
 
-const BehaviorScript bhvElectricSpinner[] = {
+/*const BehaviorScript bhvElectricSpinner[] = {
    BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     ADD_FLOAT(oPosY, 1),
@@ -6382,7 +6382,7 @@ const BehaviorScript bhvSimpleSpinnerShock[] = {
         CALL_NATIVE(bhv_emu_simple_spinner),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
-};
+};*/
 
 const BehaviorScript bhvSphere[] = {
      BEGIN(OBJ_LIST_SURFACE),

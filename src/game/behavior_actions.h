@@ -579,9 +579,6 @@ void bhv_spike_update(void);
 void bhv_spike_ball_init(void);
 void bhv_spike_ball_loop(void);
 void bhv_podoboo_loop(void);
-void bhv_emu_electric_spinner(void);
-void bhv_shock_texture_loop(void);
-void bhv_emu_simple_spinner(void);
 void bhv_emu_sphere(void);
 void palette_swap(void);
 
