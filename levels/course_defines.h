@@ -19,7 +19,7 @@ DEFINE_COURSE(COURSE_BBH, 0x22222240) // (5)  Big Boo's Haunt (MrComit, Cumulus 
 DEFINE_COURSE(COURSE_HMC, 0x22222240) // (6)  Hazy Maze Cave (Fazana, Factory)
 DEFINE_COURSE(COURSE_LLL, 0x21212140) // (7)  Lethal Lava Land (Yoshi Milkman, Feudal Fortress)
 DEFINE_COURSE(COURSE_SSL, 0x20222240) // (8)  Shifting Sand Land (Reonu, Floating Lava Lands)
-DEFINE_COURSE(COURSE_DDD, 0x22222240) // (9)  Dire Dire Docks (thecozies, Bowser's Scuba Tower)
+DEFINE_COURSE(COURSE_DDD, 0x44444440) // (9)  Dire Dire Docks (thecozies, Bowser's Scuba Tower)
 DEFINE_COURSE(COURSE_SL, 0x44444440) // (10) Snowman's Land (axollyon, Upside-Down Ocean)
 DEFINE_COURSE(COURSE_WDW, 0x22102240) // (11) Wet Dry World (ashley, Mapel Markindon)
 DEFINE_COURSE(COURSE_TTM, 0x00000040) // (12) Tall Tall Mountain
