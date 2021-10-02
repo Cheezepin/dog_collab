@@ -2175,14 +2175,15 @@ You won't be doing any\n\
 labor, that's all for the\n\
 clouds, hah!"))
 
-DEFINE_DIALOG(COMIT_DIALOG_8, 1, 4, 30, 200, _("\
-testest\n\
-test\n\
-\n\
-test"))
+DEFINE_DIALOG(COMIT_DIALOG_8, 1, 3, 30, 200, _("\
+A strong gust of wind\n\
+came by and blew apart\n\
+one of my clouds!\n\
+Pieces of him are now\n\
+scattered all around\n\
+the camp..."))
 
-DEFINE_DIALOG(COMIT_DIALOG_9, 1, 4, 30, 200, _("\
-testest\n\
-test\n\
-\n\
-test"))
+DEFINE_DIALOG(COMIT_DIALOG_9, 1, 3, 30, 200, _("\
+Thank you so much Mario!\n\
+Now my little friend is\n\
+back to his old self!"))

@@ -1123,6 +1123,7 @@ void bhv_bonus_lightning_cloud_loop(void) {
 
 void bhv_hidden_cloud_loop(void) {
     Vec3f pos;
+    struct Object *obj;
     switch (o->oAction) {
         case 0:
             if (o->oHiddenStarTriggerCounter == 5) {
@@ -1152,6 +1153,11 @@ void bhv_hidden_cloud_loop(void) {
             if (o->oTimer > 45) {
                 o->activeFlags = 0;
                 set_mario_npc_dialog(0);
+                spawn_default_star(2021.0f, -446.0f, 21741.0f);
+                obj = cur_obj_nearest_object_with_behavior(bhvBodyLakitu);
+                if (obj != NULL) {
+                    obj->oBehParams2ndByte = COMIT_DIALOG_9;
+                }
             }
             break;
     }
@@ -1884,6 +1890,7 @@ void bhv_stretch_cloud_loop(void) {
             }
             if (o->oTimer > 55) {
                 o->oAction = 1;
+                o->oAnimState = 0;
             }
             break;
         case 1:
@@ -1894,6 +1901,7 @@ void bhv_stretch_cloud_loop(void) {
             }
             if (o->oTimer > 55) {
                 o->oAction = 0;
+                o->oAnimState = 1;
             }
             break;
     }
