@@ -1342,6 +1342,7 @@ void update_mario_geometry_inputs(struct MarioState *m) {
     m->ceilHeight = find_ceil(m->pos[0], m->pos[1] + 3.0f, m->pos[2], &m->ceil);
     gasLevel = find_poison_gas_level(m->pos[0], m->pos[2]);
     gCheckingWaterForMario = TRUE;
+    m->prevWaterLevel = m->waterLevel;
     m->waterLevel = find_water_level(m->pos[0], m->pos[2]);
     gCheckingWaterForMario = FALSE;
 
@@ -1879,7 +1880,9 @@ void init_mario(void) {
     gMarioState->usedObj = NULL;
 
     gCheckingWaterForMario = TRUE;
-    gMarioState->waterLevel = find_water_level(gMarioSpawnInfo->startPos[0], gMarioSpawnInfo->startPos[2]);
+    gMarioState->waterLevel =
+        find_water_level(gMarioSpawnInfo->startPos[0], gMarioSpawnInfo->startPos[2]);
+    gMarioState->prevWaterLevel = gMarioState->waterLevel;
     gCheckingWaterForMario = FALSE;
 
     gMarioState->area = gCurrentArea;

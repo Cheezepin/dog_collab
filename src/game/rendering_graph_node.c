@@ -51,6 +51,7 @@ u8 heatValue = 0; //Controls the intensity of the heatwave. Goes up to 255.
 f32 sAspectRatio;
 f32 gWorldScale = 1.0f;
 
+
 /**
  * Animation nodes have state in global variables, so this struct captures
  * the animation state so a 'context switch' can be made when rendering the
@@ -196,6 +197,11 @@ void reset_clipping(void)
     else
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH, SCREEN_HEIGHT - gBorderHeight);
 }
+
+// thecozies start
+Mat4 *viewMat;
+s32 gReadyForLookAt = FALSE;
+// thecozies end
 
 /**
  * Process a master list node. This has been modified, so now it runs twice, for each microcode.
@@ -538,6 +544,12 @@ void geo_process_camera(struct GraphNodeCamera *node) {
     mtxf_lookat(cameraTransform, node->pos, node->focus, node->roll);
     mtxf_mul(gMatStack[gMatStackIndex + 1], cameraTransform, gMatStack[gMatStackIndex]);
     incrementMatStack();
+
+    // thecozies start
+    viewMat = &gMatStack[gMatStackIndex];
+    gReadyForLookAt = TRUE;
+    // thecozies end
+
     if (node->fnNode.node.children != 0) {
         gCurGraphNodeCamera = node;
         node->matrixPtr = &gMatStack[gMatStackIndex];

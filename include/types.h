@@ -382,6 +382,9 @@ struct MarioState
              s16 breath;
              u8  breathCounter;
 #endif
+    /*0xC4*/ f32 unkC4;
+    f32 waterForce;
+    s16 prevWaterLevel;
 };
 
 #endif // TYPES_H

@@ -36,8 +36,20 @@ extern const Collision ddd_seg7_collision_submarine[];
 extern const Collision ddd_seg7_collision_bowser_sub_door[];
 extern const struct MovtexQuadCollection ddd_movtex_area1_water[];
 extern const struct MovtexQuadCollection ddd_movtex_area2_water[];
+#include "levels/ddd/frames/frames.h"
 
 // script
 extern const LevelScript level_ddd_entry[];
+
+
+#include "levels/ddd/header.inc.h"
+
+#include "levels/ddd/cloud/geo_header.h"
+
+#include "levels/ddd/cloud/collision_header.h"
+
+#include "levels/ddd/water_top/collision_header.h"
+
+#include "levels/ddd/water_top/geo_header.h"
 
 #endif

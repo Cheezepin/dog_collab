@@ -556,4 +556,9 @@ extern const BehaviorScript bhvShockTexture[];
 extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
 
+// thecozies bhvs start
+extern const BehaviorScript bhvRainCloud[];
+extern const BehaviorScript bhvWaterTop[];
+// thecozies bhvs end
+
 #endif // BEHAVIOR_DATA_H

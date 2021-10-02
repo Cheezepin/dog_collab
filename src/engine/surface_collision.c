@@ -694,9 +694,11 @@ f32 find_water_floor(s32 xPos, s32 yPos, s32 zPos, struct Surface **pfloor) {
     s32 cellZ, cellX;
 
     struct Surface *floor = NULL;
+    struct Surface *dynamicFloor = NULL;
     struct SurfaceNode *surfaceList;
 
     f32 height = FLOOR_LOWER_LIMIT;
+    f32 dynamicHeight = FLOOR_LOWER_LIMIT;
 
     s32 x = xPos;
     s32 y = yPos;
@@ -710,9 +712,18 @@ f32 find_water_floor(s32 xPos, s32 yPos, s32 zPos, struct Surface **pfloor) {
     cellX = ((x + LEVEL_BOUNDARY_MAX) / CELL_SIZE) & NUM_CELLS_INDEX;
     cellZ = ((z + LEVEL_BOUNDARY_MAX) / CELL_SIZE) & NUM_CELLS_INDEX;
 
+    // Check for surfaces belonging to objects.
+    surfaceList = gDynamicSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
+    dynamicFloor = find_water_floor_from_list(surfaceList, x, y, z, &dynamicHeight);
+
     // Check for surfaces that are a part of level geometry.
     surfaceList = gStaticSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
     floor = find_water_floor_from_list(surfaceList, x, y, z, &height);
+
+    if (dynamicHeight > height) {
+        floor = dynamicFloor;
+        height = dynamicHeight;
+    }
 
     if (floor == NULL) {
         height = FLOOR_LOWER_LIMIT;

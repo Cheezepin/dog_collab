@@ -6295,3 +6295,7 @@ const BehaviorScript bhvPaletteSwap[] = {
     CALL_NATIVE(palette_swap),
     END_LOOP(),
 };
+
+// thecozies bhvs start
+#include "data/thecozies_behavior_data.inc.c"
+// thecozies bhvs end
