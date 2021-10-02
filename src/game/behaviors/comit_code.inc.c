@@ -1523,10 +1523,10 @@ void bhv_mg_fwoosh_update(void) {
 //FWOOSH END
 
 void bhv_entrance_gate_loop(void) {
-    struct Object *obj = cur_obj_nearest_object_with_behavior(bhvGateLakitu);
+    o->oObj10C = cur_obj_nearest_object_with_behavior(bhvGateLakitu);
     switch (o->oAction) {
         case 0:
-            if (obj != NULL && obj->oF4 == 1) {
+            if (o->oObj10C != NULL && o->oObj10C->oF4 == 1) {
                 o->oAction = 1;
                 vec3f_copy(gComitCamPos[1], &o->oPosX);
                 vec3f_set(gComitCamPos[0], o->oPosX - 2000.0f, o->oPosY + 1400.0f, o->oPosZ);
@@ -1547,6 +1547,7 @@ void bhv_entrance_gate_loop(void) {
             gComitCam = 1;
             if (o->oTimer > 20) {
                 o->activeFlags = 0;
+                o->oObj10C->oF4 = 2;
             }
             break;
     }
@@ -1557,13 +1558,20 @@ void bhv_gate_lakitu_loop(void) {
         case 0:
             if (o->oDistanceToMario < 600.0f) {
                 o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
-                if (Set_NPC_Dialog(5)) {
+                if (Set_NPC_Dialog(COMIT_DIALOG_6)) {
                     o->oF4 = 1;
-                    o->oBehParams2ndByte = 6;
+                    o->oBehParams2ndByte = COMIT_DIALOG_7;
                 }
             }
             break;
-        case 1:
+        case 2:
+            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
+            if (Set_NPC_Dialog(COMIT_DIALOG_7)) {
+                o->oF4 = 3;
+                o->oBehParams2ndByte = COMIT_DIALOG_7;
+            }
+            break;
+        case 3:
             bhv_body_lakitu_loop();
             break;
     }
@@ -1588,9 +1596,9 @@ void bhv_guide_lakitu_loop(void) {
         case 0:
             if(gMarioState->pos[0] > -14800.0f) {
                 o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
-                if (Set_NPC_Dialog(0)) {
+                if (Set_NPC_Dialog(COMIT_DIALOG_1)) {
                     o->oF4 = 1;
-                    o->oBehParams2ndByte = 0;
+                    o->oBehParams2ndByte = COMIT_DIALOG_1;
                 }
             }
             break;
@@ -1607,9 +1615,9 @@ void bhv_guide_lakitu_loop(void) {
         case 2:
             if(gMarioState->pos[0] < -11200.0f && gMarioState->pos[2] < -4868.0f) {
                 o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
-                if (Set_NPC_Dialog(1)) {
+                if (Set_NPC_Dialog(COMIT_DIALOG_2)) {
                     o->oF4 = 3;
-                    o->oBehParams2ndByte = 1;
+                    o->oBehParams2ndByte = COMIT_DIALOG_2;
                 }
             }
             break;
@@ -1626,9 +1634,9 @@ void bhv_guide_lakitu_loop(void) {
         case 4:
             if(gMarioState->pos[0] > -11007.0f && gMarioState->pos[2] < -10964.0f) {
                 o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
-                if (Set_NPC_Dialog(2)) {
+                if (Set_NPC_Dialog(COMIT_DIALOG_3)) {
                     o->oF4 = 5;
-                    o->oBehParams2ndByte = 2;
+                    o->oBehParams2ndByte = COMIT_DIALOG_3;
                 }
             }
             break;
@@ -1645,9 +1653,9 @@ void bhv_guide_lakitu_loop(void) {
         case 6:
             if(gMarioState->pos[0] > 3917.0f && gMarioState->pos[2] < -17376.0f) {
                 o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
-                if (Set_NPC_Dialog(3)) {
+                if (Set_NPC_Dialog(COMIT_DIALOG_4)) {
                     o->oF4 = 7;
-                    o->oBehParams2ndByte = 3;
+                    o->oBehParams2ndByte = COMIT_DIALOG_4;
                 }
             }
             break;
@@ -1664,9 +1672,9 @@ void bhv_guide_lakitu_loop(void) {
         case 8:
             if(gMarioState->pos[0] > 12099.0f) {
                 o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
-                if (Set_NPC_Dialog(4)) {
+                if (Set_NPC_Dialog(COMIT_DIALOG_5)) {
                     o->oF4 = 9;
-                    o->oBehParams2ndByte = 4;
+                    o->oBehParams2ndByte = COMIT_DIALOG_5;
                 }
             }
             break;

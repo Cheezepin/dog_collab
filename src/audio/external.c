@@ -113,7 +113,8 @@ u8 sDialogSpeaker[] = {
     /*13*/ _,     _,     TUXIE, _,     _,     _,     _,     _,     _,     _,
     /*14*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
     /*15*/ WIGLR, WIGLR, WIGLR, _,     _,     _,     _,     _,     _,     _,
-    /*16*/ _,     YOSHI, _,     _,     _,     _,     _,     _,     WIGLR, _
+    /*16*/ _,     YOSHI, _,     _,     _,     _,     _,     _,     WIGLR, _,
+    /*17*/ _,     _,     _,     _,     _,     _,     _,     _,     _,
 };
 #undef _
 STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
@@ -2335,6 +2336,9 @@ void play_dialog_sound(u8 dialogID) {
     }
 
     speaker = sDialogSpeaker[dialogID];
+    if (gCurrLevelNum == LEVEL_BBH) { // comit code
+        speaker = 0xFF;
+    }
     if (speaker != 0xff) {
         play_sound(sDialogSpeakerVoice[speaker], gGlobalSoundSource);
 

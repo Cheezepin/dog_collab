@@ -2100,3 +2100,89 @@ Arrgghh!\n\
 Anyone entering this cave\n\
 without permission will\n\
 meet certain disaster."))
+
+
+//COMIT DIALOG
+DEFINE_DIALOG(COMIT_DIALOG_1, 1, 4, 30, 200, _("\
+Welcome to the Cumulus\n\
+Correctional Camp!\n\
+You must be Mario - We\n\
+hope you enjoy your stay,\n\
+but first you must go\n\
+through the mandatory\n\
+introductory tour.\n\
+\n\
+The tour starts on your\n\
+left, now please, right\n\
+this way!"))
+
+DEFINE_DIALOG(COMIT_DIALOG_2, 1, 3, 30, 200, _("\
+Oh, this cloud right here.\n\
+He's crying.\n\
+\n\
+Crying TEARS OF JOY!!!!!!\n\
+Hop onto his back and\n\
+he'll give you a lift!"))
+
+DEFINE_DIALOG(COMIT_DIALOG_3, 1, 4, 30, 200, _("\
+Look at the smile on that\n\
+face! The only thing these\n\
+guys love more than\n\
+floating in place for 12\n\
+hours a day, is getting\n\
+jumped on!\n\
+Don't be shy, Mario!"))
+
+DEFINE_DIALOG(COMIT_DIALOG_4, 1, 5, 30, 200, _("\
+These deep breathing\n\
+exercises help the clouds\n\
+relax, and remove\n\
+unwanted stress from\n\
+their minds.\n\
+It also expands their\n\
+size, perfect for crossing\n\
+those large gaps you're\n\
+faced with~"))
+
+DEFINE_DIALOG(COMIT_DIALOG_5, 1, 5, 30, 200, _("\
+Thank you for completing\n\
+the tour, Mario!\n\
+\n\
+\n\
+\n\
+We here at Cirrus\n\
+Solutions Inc. hope you\n\
+find your stay at Cumulus\n\
+Correctional Camp both\n\
+relaxing and enlightening!"))
+
+DEFINE_DIALOG(COMIT_DIALOG_6, 1, 4, 30, 200, _("\
+Welcome back!\n\
+Now that you've completed\n\
+the tour, you can now\n\
+enter, drum roll please...\n\
+...\n\
+\n\
+...\n\
+\n\
+CUMULUS\n\
+CORRECTIONAL\n\
+CAMP!"))
+
+DEFINE_DIALOG(COMIT_DIALOG_7, 1, 4, 30, 200, _("\
+Have fun and relax Mario.\n\
+You won't be doing any\n\
+labor, that's all for the\n\
+clouds, hah!"))
+
+DEFINE_DIALOG(COMIT_DIALOG_8, 1, 4, 30, 200, _("\
+testest\n\
+test\n\
+\n\
+test"))
+
+DEFINE_DIALOG(COMIT_DIALOG_9, 1, 4, 30, 200, _("\
+testest\n\
+test\n\
+\n\
+test"))
