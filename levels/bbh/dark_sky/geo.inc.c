@@ -1,7 +1,7 @@
 #include "src/game/envfx_snow.h"
 
 const GeoLayout dark_sky_geo[] = {
-	GEO_CULLING_RADIUS(8192),
+	GEO_CULLING_RADIUS(16384),
 	GEO_OPEN_NODE(),
 		GEO_NODE_START(),
 		GEO_OPEN_NODE(),
