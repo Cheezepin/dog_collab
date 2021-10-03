@@ -5,20 +5,31 @@
 #include <PR/gbi.h>
 
 #include "types.h"
+#include "sm64.h"
+#include "geo_commands.h"
 #include "game/memory.h"
 
-#define GRAPH_RENDER_ACTIVE         (1 << 0)
-#define GRAPH_RENDER_CHILDREN_FIRST (1 << 1)
-#define GRAPH_RENDER_BILLBOARD      (1 << 2)
-#define GRAPH_RENDER_Z_BUFFER       (1 << 3)
-#define GRAPH_RENDER_INVISIBLE      (1 << 4)
-#define GRAPH_RENDER_HAS_ANIMATION  (1 << 5)
+#define GRAPH_RENDER_ACTIVE                 (1 << 0) // 0x0001
+#define GRAPH_RENDER_CHILDREN_FIRST         (1 << 1) // 0x0002
+#define GRAPH_RENDER_BILLBOARD              (1 << 2) // 0x0004
+#define GRAPH_RENDER_Z_BUFFER               (1 << 3) // 0x0008
+#define GRAPH_RENDER_INVISIBLE              (1 << 4) // 0x0010
+#define GRAPH_RENDER_HAS_ANIMATION          (1 << 5) // 0x0020
+#define GRAPH_RENDER_UCODE_REJ              (1 << 6) // 0x0040
+#define GRAPH_RENDER_SILHOUETTE             (1 << 7) // 0x0080
+
+// The amount of bits to use for the above flags out of a s16 variable.
+// The remaining bits to the left are used for the render layers.
+// The vanilla value is 8, allowing for 8 flags and 255 layers.
+#define GRAPH_RENDER_FLAGS_SIZE             8
+
+#define GRAPH_RENDER_LAYERS_MASK            (BITMASK(16 - GRAPH_RENDER_FLAGS_SIZE) << GRAPH_RENDER_FLAGS_SIZE)
+#define GRAPH_RENDER_FLAGS_MASK             BITMASK(GRAPH_RENDER_FLAGS_SIZE)
+#define SET_GRAPH_NODE_LAYER(flags, layer)  ((flags) = ((flags) & GRAPH_RENDER_FLAGS_MASK) | (((layer) << GRAPH_RENDER_FLAGS_SIZE) & GRAPH_RENDER_LAYERS_MASK))
+#define GET_GRAPH_NODE_LAYER(flags       )  ((flags & GRAPH_RENDER_LAYERS_MASK) >> GRAPH_RENDER_FLAGS_SIZE)
 
 // Whether the node type has a function pointer of type GraphNodeFunc
 #define GRAPH_NODE_TYPE_FUNCTIONAL            0x100
-
-// Type used for Bowser and an unused geo function in obj_behaviors.c
-#define GRAPH_NODE_TYPE_400                   0x400
 
 // The discriminant for different types of geo nodes
 #define GRAPH_NODE_TYPE_ROOT                  0x001
@@ -34,6 +45,7 @@
 #define GRAPH_NODE_TYPE_ROTATION              0x017
 #define GRAPH_NODE_TYPE_OBJECT                0x018
 #define GRAPH_NODE_TYPE_ANIMATED_PART         0x019
+#define GRAPH_NODE_TYPE_BONE                  GEO_BONE_ID
 #define GRAPH_NODE_TYPE_BILLBOARD             0x01A
 #define GRAPH_NODE_TYPE_DISPLAY_LIST          0x01B
 #define GRAPH_NODE_TYPE_SCALE                 0x01C
@@ -44,9 +56,7 @@
 #define GRAPH_NODE_TYPE_HELD_OBJ             (0x02E | GRAPH_NODE_TYPE_FUNCTIONAL)
 #define GRAPH_NODE_TYPE_CULLING_RADIUS        0x02F
 
-// The number of master lists. A master list determines the order and render
-// mode with which display lists are drawn.
-#define GFX_NUM_MASTER_LISTS 8
+#define GRAPH_NODE_TYPES_MASK                 0x0FF
 
 // Passed as first argument to a GraphNodeFunc to give information about in
 // which context it was called and what it is expected to do.
@@ -129,8 +139,8 @@ struct DisplayListNode
 struct GraphNodeMasterList
 {
     /*0x00*/ struct GraphNode node;
-    /*0x14*/ struct DisplayListNode *listHeads[GFX_NUM_MASTER_LISTS];
-    /*0x34*/ struct DisplayListNode *listTails[GFX_NUM_MASTER_LISTS];
+    /*0x14*/ struct DisplayListNode *listHeads[2][LAYER_COUNT];
+    /*0x34*/ struct DisplayListNode *listTails[2][LAYER_COUNT];
 };
 
 /** Simply used as a parent to group multiple children.
@@ -241,6 +251,15 @@ struct GraphNodeAnimatedPart
     /*0x14*/ void *displayList;
     /*0x18*/ Vec3s translation;
 };
+
+struct GraphNodeBone
+{
+    struct GraphNode node;
+    void *displayList;
+    Vec3s translation;
+    Vec3s rotation;
+};
+
 
 /** A GraphNode that draws a display list rotated in a way to always face the
  *  camera. Note that if the entire object is a billboard (like a coin or 1-up)
@@ -390,19 +409,21 @@ struct GraphNodeObject *init_graph_node_object(struct AllocOnlyPool *pool, struc
 struct GraphNodeCullingRadius *init_graph_node_culling_radius(struct AllocOnlyPool *pool, struct GraphNodeCullingRadius *graphNode, s16 radius);
 struct GraphNodeAnimatedPart *init_graph_node_animated_part(struct AllocOnlyPool *pool, struct GraphNodeAnimatedPart *graphNode,
                                                             s32 drawingLayer, void *displayList, Vec3s translation);
+struct GraphNodeBone *init_graph_node_bone(struct AllocOnlyPool *pool, struct GraphNodeBone *graphNode,
+                                           s32 drawingLayer, void *displayList, Vec3s translation, Vec3s rotation);
 struct GraphNodeBillboard *init_graph_node_billboard(struct AllocOnlyPool *pool, struct GraphNodeBillboard *graphNode,
                                                      s32 drawingLayer, void *displayList, Vec3s translation);
 struct GraphNodeDisplayList *init_graph_node_display_list(struct AllocOnlyPool *pool, struct GraphNodeDisplayList *graphNode,
                                                           s32 drawingLayer, void *displayList);
 struct GraphNodeShadow *init_graph_node_shadow(struct AllocOnlyPool *pool, struct GraphNodeShadow *graphNode,
                                                s16 shadowScale, u8 shadowSolidity, u8 shadowType);
-struct GraphNodeObjectParent *init_graph_node_object_parent(struct AllocOnlyPool *pool, struct GraphNodeObjectParent *sp1c,
+struct GraphNodeObjectParent *init_graph_node_object_parent(struct AllocOnlyPool *pool, struct GraphNodeObjectParent *graphNode,
                                                             struct GraphNode *sharedChild);
-struct GraphNodeGenerated *init_graph_node_generated(struct AllocOnlyPool *pool, struct GraphNodeGenerated *sp1c,
+struct GraphNodeGenerated *init_graph_node_generated(struct AllocOnlyPool *pool, struct GraphNodeGenerated *graphNode,
                                                      GraphNodeFunc gfxFunc, s32 parameter);
-struct GraphNodeBackground *init_graph_node_background(struct AllocOnlyPool *pool, struct GraphNodeBackground *sp1c,
+struct GraphNodeBackground *init_graph_node_background(struct AllocOnlyPool *pool, struct GraphNodeBackground *graphNode,
                                                        u16 background, GraphNodeFunc backgroundFunc, s32 zero);
-struct GraphNodeHeldObject *init_graph_node_held_object(struct AllocOnlyPool *pool, struct GraphNodeHeldObject *sp1c,
+struct GraphNodeHeldObject *init_graph_node_held_object(struct AllocOnlyPool *pool, struct GraphNodeHeldObject *graphNode,
                                                         struct Object *objNode, Vec3s translation,
                                                         GraphNodeFunc nodeFunc, s32 playerIndex);
 struct GraphNode *geo_add_child(struct GraphNode *parent, struct GraphNode *childNode);

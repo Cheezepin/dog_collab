@@ -5,7 +5,7 @@
 #include "levels/lll/header.h"
 #include "levels/bitfs/header.h"
 
-struct Struct8032F34C sTumblingBridgeParams[] = {
+struct TumblingBridgeParams sTumblingBridgeParams[] = {
     { 9, -512, 0x80, MODEL_WF_TUMBLING_BRIDGE_PART, wf_seg7_collision_tumbling_bridge },
     { 9, -412, 103, MODEL_BBH_TUMBLING_PLATFORM_PART, bbh_seg7_collision_07026B1C },
     { 9, -512, 0x80, MODEL_LLL_FALLING_PLATFORM, lll_seg7_collision_0701D21C },
@@ -17,7 +17,7 @@ void bhv_tumbling_bridge_platform_loop(void) {
         case 0:
             if (gMarioObject->platform == o) {
                 o->oAction++;
-                o->oTumblingBridgeUnkF4 = random_sign() * 0x80;
+                o->oTumblingBridgeRollAccel = random_sign() * 0x80;
             }
             break;
         case 1:
@@ -31,7 +31,7 @@ void bhv_tumbling_bridge_platform_loop(void) {
             if (o->oAngleVelPitch < 0x400)
                 o->oAngleVelPitch += 0x80;
             if (o->oAngleVelRoll > -0x400 && o->oAngleVelRoll < 0x400)
-                o->oAngleVelRoll += o->oTumblingBridgeUnkF4; // acceleration?
+                o->oAngleVelRoll += o->oTumblingBridgeRollAccel; // acceleration?
             o->oGravity = -3.0f;
             cur_obj_rotate_face_angle_using_vel();
             cur_obj_move_using_fvel_and_gravity();

@@ -44,6 +44,7 @@
 #include "spawn_object.h"
 #include "spawn_sound.h"
 #include "rumble_init.h"
+#include "puppylights.h"
 
 #define o gCurrentObject
 
@@ -54,7 +55,7 @@ struct WFRotatingPlatformData {
     s16 collisionDistance;
 };
 
-struct Struct8032F34C {
+struct TumblingBridgeParams {
     s16 numBridgeSections;
     s16 bridgeRelativeStartingXorZ;
     s16 platformWidth;
@@ -62,18 +63,18 @@ struct Struct8032F34C {
     const void *segAddr;
 };
 
-struct Struct802C0DF0 {
-    u8 unk0;
+struct ExclamationBoxContents {
+    u8 id;
     u8 unk1;
-    u8 unk2;
+    u8 behParams;
     ModelID model;
     const BehaviorScript *behavior;
 };
 
-struct Struct8032F754 {
-    s32 unk0;
-    Vec3f unk1;
-    f32 unk2;
+struct CheckerBoardPlatformInitPosition {
+    s32 relPosZ;
+    Vec3f scale;
+    f32 radius;
 };
 
 struct OpenableGrill {
@@ -158,15 +159,15 @@ void spawn_mist_particles_variable(s32 count, s32 offsetY, f32 size) {
 
 // not sure what this is doing here. not in a behavior file.
 Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx) {
-    Mat4 sp20;
-    struct Object *sp1C;
+    Mat4 mtx2;
+    struct Object *obj;
 
     if (run == TRUE) {
-        sp1C = (struct Object *) gCurGraphNodeObject;
-        if (sp1C == gMarioObject && sp1C->prevObj != NULL) {
-            create_transformation_from_matrices(sp20, mtx, *gCurGraphNodeCamera->matrixPtr);
-            obj_update_pos_from_parent_transformation(sp20, sp1C->prevObj);
-            obj_set_gfx_pos_from_pos(sp1C->prevObj);
+        obj = (struct Object *) gCurGraphNodeObject;
+        if (obj == gMarioObject && obj->prevObj != NULL) {
+            create_transformation_from_matrices(mtx2, mtx, *gCurGraphNodeCamera->matrixPtr);
+            obj_update_pos_from_parent_transformation(mtx2, obj->prevObj);
+            obj_set_gfx_pos_from_pos(obj->prevObj);
         }
     }
     return NULL;
@@ -179,18 +180,19 @@ Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat
 #include "behaviors/jumping_box.inc.c"
 #include "behaviors/boo_cage.inc.c"
 
+static s16 sSpawnSparkleParticleAngle = 0x0;
+
 // not in behavior file
 // n is the number of objects to spawn, r if the rate of change of phase (frequency?)
-void spawn_sparkle_particles(s32 n, s32 a1, s32 a2, s32 r) {
-    static s16 D_8035FF10;
+void spawn_sparkle_particles(s32 n, s32 radius, s32 height, s32 r) {
     s32 i;
     s16 separation = 0x10000 / n; // Evenly spread around a circle
     for (i = 0; i < n; i++) {
-        spawn_object_relative(0, sins(D_8035FF10 + i * separation) * a1, (i + 1) * a2,
-                              coss(D_8035FF10 + i * separation) * a1, o, MODEL_NONE, bhvSparkleSpawn);
+        spawn_object_relative(0, sins(sSpawnSparkleParticleAngle + i * separation) * radius, (i + 1) * height,
+                              coss(sSpawnSparkleParticleAngle + i * separation) * radius, o, MODEL_NONE, bhvSparkleSpawn);
     }
 
-    D_8035FF10 += r * 0x100;
+    sSpawnSparkleParticleAngle += r * 0x100;
 }
 
 #include "behaviors/beta_boo_key.inc.c"
@@ -201,15 +203,6 @@ void spawn_sparkle_particles(s32 n, s32 a1, s32 a2, s32 r) {
 #include "behaviors/bowser_falling_platform.inc.c"
 #include "behaviors/bowser_flame.inc.c"
 #include "behaviors/blue_fish.inc.c"
-
-// Not in behavior file, duplicate of vec3f_copy except without bad return.
-// Used in a few behavior files.
-void vec3f_copy_2(Vec3f dest, Vec3f src) {
-    dest[0] = src[0];
-    dest[1] = src[1];
-    dest[2] = src[2];
-}
-
 #include "behaviors/checkerboard_platform.inc.c"
 #include "behaviors/ddd_warp.inc.c"
 #include "behaviors/water_pillar.inc.c"
@@ -226,20 +219,19 @@ void vec3f_copy_2(Vec3f dest, Vec3f src) {
 #include "behaviors/lll_hexagonal_ring.inc.c"
 #include "behaviors/lll_sinking_rectangle.inc.c"
 #include "behaviors/tilting_inverted_pyramid.inc.c"
-#include "behaviors/koopa_shell.inc.c"
 #include "behaviors/tox_box.inc.c"
 #include "behaviors/piranha_plant.inc.c"
 #include "behaviors/bowser_puzzle_piece.inc.c"
 
-s32 set_obj_anim_with_accel_and_sound(s16 a0, s16 a1, s32 a2) {
-    f32 sp1C;
-    if ((sp1C = o->header.gfx.animInfo.animAccel / (f32) 0x10000) == 0)
-        sp1C = 1.0f;
-    if (cur_obj_check_anim_frame_in_range(a0, sp1C) || cur_obj_check_anim_frame_in_range(a1, sp1C)) {
-        cur_obj_play_sound_2(a2);
-        return 1;
+s32 set_obj_anim_with_accel_and_sound(s16 frame1, s16 frame2, s32 sound) {
+    f32 range;
+    if ((range = o->header.gfx.animInfo.animAccel / (f32) 0x10000) == 0)
+        range = 1.0f;
+    if (cur_obj_check_anim_frame_in_range(frame1, range) || cur_obj_check_anim_frame_in_range(frame2, range)) {
+        cur_obj_play_sound_2(sound);
+        return TRUE;
     }
-    return 0;
+    return FALSE;
 }
 
 #include "behaviors/tuxie.inc.c"
@@ -262,9 +254,7 @@ s32 set_obj_anim_with_accel_and_sound(s16 a0, s16 a1, s32 a2) {
 #include "behaviors/bbh_merry_go_round.inc.c"
 #include "behaviors/static_checkered_platform.inc.c"
 #include "behaviors/beta_bowser_anchor.inc.c"
-#ifndef VERSION_JP
 #include "behaviors/music_touch.inc.c"
-#endif
 #include "behaviors/castle_floor_trap.inc.c"
 #include "behaviors/pole_base.inc.c"
 #include "behaviors/sparkle_spawn.inc.c"
@@ -276,3 +266,4 @@ s32 set_obj_anim_with_accel_and_sound(s16 a0, s16 a1, s32 a2) {
 #include "behaviors/sl_walking_penguin.inc.c"
 #include "behaviors/motos.inc.c"
 #include "behaviors/rovert.inc.c"
+#include "behaviors/emu.inc.c"

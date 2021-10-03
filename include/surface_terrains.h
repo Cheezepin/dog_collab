@@ -1,6 +1,8 @@
 #ifndef SURFACE_TERRAINS_H
 #define SURFACE_TERRAINS_H
 
+#include "config.h"
+
 // Surface Types
 #define SURFACE_DEFAULT                      0x0000 // Environment default
 #define SURFACE_BURNING                      0x0001 // Lava / Frostbite (in SL), but is used mostly for Lava
@@ -11,6 +13,7 @@
 #define SURFACE_SLOW                         0x0009 // Slow down Mario, unused
 #define SURFACE_DEATH_PLANE                  0x000A // Death floor
 #define SURFACE_CLOSE_CAMERA                 0x000B // Close camera
+#define SURFACE_INTERACT_SHOCK               0x000C // Surface with INTERACT_SHOCK incomplete rn
 #define SURFACE_WATER                        0x000D // Water, has no action, used on some waterboxes below
 #define SURFACE_FLOWING_WATER                0x000E // Water (flowing), has parameters
 #define SURFACE_INTANGIBLE                   0x0012 // Intangible (Separates BBH mansion from merry-go-round, for room usage)
@@ -164,7 +167,6 @@
 
 #define SURFACE_FLAG_DYNAMIC          (1 << 0)
 #define SURFACE_FLAG_NO_CAM_COLLISION (1 << 1)
-#define SURFACE_FLAG_X_PROJECTION     (1 << 3)
 
 // These are effectively unique "surface" types like those defined higher
 // And they are used as collision commands to load certain functions
@@ -202,7 +204,11 @@
 #define COL_TRI_INIT(surfType, triNum) surfType, triNum
 
 // Collision Tri
+#ifdef ALL_SURFACES_HAVE_FORCE
+#define COL_TRI(v1, v2, v3) v1, v2, v3, 0
+#else
 #define COL_TRI(v1, v2, v3) v1, v2, v3
+#endif
 
 // Collision Tri With Special Params
 #define COL_TRI_SPECIAL(v1, v2, v3, param) v1, v2, v3, param

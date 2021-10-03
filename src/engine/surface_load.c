@@ -11,11 +11,13 @@
 #include "game/object_helpers.h"
 #include "game/macro_special_objects.h"
 #include "surface_collision.h"
+#include "math_util.h"
 #include "game/mario.h"
 #include "game/object_list_processor.h"
 #include "surface_load.h"
+#include "game/puppyprint.h"
 
-s32 unused8038BE90;
+#include "config.h"
 
 /**
  * Partitions for course and object surfaces. The arrays represent
@@ -35,8 +37,6 @@ struct Surface *sSurfacePool;
  */
 s16 sSurfacePoolSize;
 
-u8 unused8038EEA8[0x30];
-
 u8 gSurfacePoolError = 0;
 
 /**
@@ -48,9 +48,6 @@ static struct SurfaceNode *alloc_surface_node(void) {
 
     node->next = NULL;
 
-    //! A bounds check! If there's more surface nodes than 7000 allowed,
-    //  we, um...
-    // Perhaps originally just debug feedback?
     if (gSurfaceNodesAllocated >= SURFACE_NODE_POOL_SIZE) {
         gSurfacePoolError |= NOT_ENOUGH_ROOM_FOR_NODES;
     }
@@ -67,9 +64,6 @@ static struct Surface *alloc_surface(void) {
     struct Surface *surface = &sSurfacePool[gSurfacesAllocated];
     gSurfacesAllocated++;
 
-    //! A bounds check! If there's more surfaces than the 2300 allowed,
-    //  we, um...
-    // Perhaps originally just debug feedback?
     if (gSurfacesAllocated >= sSurfacePoolSize) {
         gSurfacePoolError |= NOT_ENOUGH_ROOM_FOR_SURFACES;
     }
@@ -113,14 +107,14 @@ static void clear_static_surfaces(void) {
  * @param cellZ The Z position of the cell in which the surface resides
  * @param surface The surface to add
  */
-static void add_surface_to_cell(s16 dynamic, s16 cellX, s16 cellZ, struct Surface *surface) {
+static void add_surface_to_cell(s32 dynamic, s32 cellX, s32 cellZ, struct Surface *surface) {
     struct SurfaceNode *newNode = alloc_surface_node();
     struct SurfaceNode *list;
-    s16 surfacePriority;
-    s16 priority;
-    s16 sortDir;
-    s16 listIndex;
-    s16 isWater = surface->type == SURFACE_NEW_WATER || surface->type == SURFACE_NEW_WATER_BOTTOM;
+    s32 surfacePriority;
+    s32 priority;
+    s32 sortDir;
+    s32 listIndex;
+    s32 isWater = surface->type == SURFACE_NEW_WATER || surface->type == SURFACE_NEW_WATER_BOTTOM;
 
     if (surface->normal.y > 0.01) {
         listIndex = isWater ? SPATIAL_PARTITION_WATER : SPATIAL_PARTITION_FLOORS;
@@ -131,19 +125,9 @@ static void add_surface_to_cell(s16 dynamic, s16 cellX, s16 cellZ, struct Surfac
     } else {
         listIndex = SPATIAL_PARTITION_WALLS;
         sortDir = 0; // insertion order
-
-        if (surface->normal.x < -0.707 || surface->normal.x > 0.707) {
-            surface->flags |= SURFACE_FLAG_X_PROJECTION;
-        }
     }
 
-    //! (Surface Cucking) Surfaces are sorted by the height of their first
-    //  vertex. Since vertices aren't ordered by height, this causes many
-    //  lower triangles to be sorted higher. This worsens surface cucking since
-    //  many functions only use the first triangle in surface order that fits,
-    //  missing higher surfaces.
-    //  upperY would be a better sort method.
-    surfacePriority = surface->vertex1[1] * sortDir;
+    surfacePriority = surface->upperY * sortDir;
 
     newNode->surface = surface;
 
@@ -155,7 +139,7 @@ static void add_surface_to_cell(s16 dynamic, s16 cellX, s16 cellZ, struct Surfac
 
     // Loop until we find the appropriate place for the surface in the list.
     while (list->next != NULL) {
-        priority = list->next->surface->vertex1[1] * sortDir;
+        priority = list->next->surface->upperY * sortDir;
 
         if (surfacePriority > priority) {
             break;
@@ -169,42 +153,12 @@ static void add_surface_to_cell(s16 dynamic, s16 cellX, s16 cellZ, struct Surfac
 }
 
 /**
- * Returns the lowest of three values.
- */
-static s16 min_3(s16 a0, s16 a1, s16 a2) {
-    if (a1 < a0) {
-        a0 = a1;
-    }
-
-    if (a2 < a0) {
-        a0 = a2;
-    }
-
-    return a0;
-}
-
-/**
- * Returns the highest of three values.
- */
-static s16 max_3(s16 a0, s16 a1, s16 a2) {
-    if (a1 > a0) {
-        a0 = a1;
-    }
-
-    if (a2 > a0) {
-        a0 = a2;
-    }
-
-    return a0;
-}
-
-/**
  * Every level is split into 16 * 16 cells of surfaces (to limit computing
  * time). This function determines the lower cell for a given x/z position.
  * @param coord The coordinate to test
  */
-static s16 lower_cell_index(s32 coord) {
-    s16 index;
+static s32 lower_cell_index(s32 coord) {
+    s32 index;
 
     // Move from range [-0x2000, 0x2000) to [0, 0x4000)
     coord += LEVEL_BOUNDARY_MAX;
@@ -235,8 +189,8 @@ static s16 lower_cell_index(s32 coord) {
  * time). This function determines the upper cell for a given x/z position.
  * @param coord The coordinate to test
  */
-static s16 upper_cell_index(s32 coord) {
-    s16 index;
+static s32 upper_cell_index(s32 coord) {
+    s32 index;
 
     // Move from range [-0x2000, 0x2000) to [0, 0x4000)
     coord += LEVEL_BOUNDARY_MAX;
@@ -270,20 +224,16 @@ static s16 upper_cell_index(s32 coord) {
  * @param dynamic Boolean determining whether the surface is static or dynamic
  */
 static void add_surface(struct Surface *surface, s32 dynamic) {
-    // minY/maxY maybe? s32 instead of s16, though.
-    UNUSED s32 unused1, unused2;
-    s16 minX, minZ, maxX, maxZ;
+    s32 minX, minZ, maxX, maxZ;
 
-    s16 minCellX, minCellZ, maxCellX, maxCellZ;
+    s32 minCellX, minCellZ, maxCellX, maxCellZ;
 
-    s16 cellZ, cellX;
-    // cellY maybe? s32 instead of s16, though.
-    UNUSED s32 unused3 = 0;
+    s32 cellZ, cellX;
 
-    minX = min_3(surface->vertex1[0], surface->vertex2[0], surface->vertex3[0]);
-    minZ = min_3(surface->vertex1[2], surface->vertex2[2], surface->vertex3[2]);
-    maxX = max_3(surface->vertex1[0], surface->vertex2[0], surface->vertex3[0]);
-    maxZ = max_3(surface->vertex1[2], surface->vertex2[2], surface->vertex3[2]);
+    minX = min_3i(surface->vertex1[0], surface->vertex2[0], surface->vertex3[0]);
+    minZ = min_3i(surface->vertex1[2], surface->vertex2[2], surface->vertex3[2]);
+    maxX = max_3i(surface->vertex1[0], surface->vertex2[0], surface->vertex3[0]);
+    maxZ = max_3i(surface->vertex1[2], surface->vertex2[2], surface->vertex3[2]);
 
     minCellX = lower_cell_index(minX);
     maxCellX = upper_cell_index(maxX);
@@ -297,27 +247,22 @@ static void add_surface(struct Surface *surface, s32 dynamic) {
     }
 }
 
-UNUSED static void stub_surface_load_1(void) {
-}
-
 /**
  * Initializes a Surface struct using the given vertex data
  * @param vertexData The raw data containing vertex positions
  * @param vertexIndices Helper which tells positions in vertexData to start reading vertices
  */
-static struct Surface *read_surface_data(s16 *vertexData, s16 **vertexIndices) {
+static struct Surface *read_surface_data(TerrainData *vertexData, TerrainData **vertexIndices) {
     struct Surface *surface;
     register s32 x1, y1, z1;
     register s32 x2, y2, z2;
     register s32 x3, y3, z3;
-    s32 maxY, minY;
-    f32 nx, ny, nz;
-    f32 mag;
-    s16 offset1, offset2, offset3;
+    Vec3f n;
+    s32 offset1, offset2, offset3;
 
-    offset1 = 3 * (*vertexIndices)[0];
-    offset2 = 3 * (*vertexIndices)[1];
-    offset3 = 3 * (*vertexIndices)[2];
+    offset1 = (3 * (*vertexIndices)[0]);
+    offset2 = (3 * (*vertexIndices)[1]);
+    offset3 = (3 * (*vertexIndices)[2]);
 
     x1 = *(vertexData + offset1 + 0);
     y1 = *(vertexData + offset1 + 1);
@@ -332,36 +277,11 @@ static struct Surface *read_surface_data(s16 *vertexData, s16 **vertexIndices) {
     z3 = *(vertexData + offset3 + 2);
 
     // (v2 - v1) x (v3 - v2)
-    nx = (y2 - y1) * (z3 - z2) - (z2 - z1) * (y3 - y2);
-    ny = (z2 - z1) * (x3 - x2) - (x2 - x1) * (z3 - z2);
-    nz = (x2 - x1) * (y3 - y2) - (y2 - y1) * (x3 - x2);
-    mag = sqrtf(nx * nx + ny * ny + nz * nz);
+    n[0] = ((y2 - y1) * (z3 - z2) - (z2 - z1) * (y3 - y2));
+    n[1] = ((z2 - z1) * (x3 - x2) - (x2 - x1) * (z3 - z2));
+    n[2] = ((x2 - x1) * (y3 - y2) - (y2 - y1) * (x3 - x2));
 
-    // Could have used min_3 and max_3 for this...
-    minY = y1;
-    if (y2 < minY) {
-        minY = y2;
-    }
-    if (y3 < minY) {
-        minY = y3;
-    }
-
-    maxY = y1;
-    if (y2 > maxY) {
-        maxY = y2;
-    }
-    if (y3 > maxY) {
-        maxY = y3;
-    }
-
-    // Checking to make sure no DIV/0
-    if (mag < 0.0001) {
-        return NULL;
-    }
-    mag = (f32)(1.0 / mag);
-    nx *= mag;
-    ny *= mag;
-    nz *= mag;
+    vec3f_normalize(n);
 
     surface = alloc_surface();
 
@@ -377,23 +297,24 @@ static struct Surface *read_surface_data(s16 *vertexData, s16 **vertexIndices) {
     surface->vertex2[2] = z2;
     surface->vertex3[2] = z3;
 
-    surface->normal.x = nx;
-    surface->normal.y = ny;
-    surface->normal.z = nz;
+    surface->normal.x = n[0];
+    surface->normal.y = n[1];
+    surface->normal.z = n[2];
 
-    surface->originOffset = -(nx * x1 + ny * y1 + nz * z1);
+    surface->originOffset = -(n[0] * x1 + n[1] * y1 + n[2] * z1);
 
-    surface->lowerY = minY - 5;
-    surface->upperY = maxY + 5;
+    surface->lowerY = (min_3i(y1, y2, y3) - 5);
+    surface->upperY = (max_3i(y1, y2, y3) + 5);
 
     return surface;
 }
 
+#ifndef ALL_SURFACES_HAVE_FORCE
 /**
  * Returns whether a surface has exertion/moves Mario
  * based on the surface type.
  */
-static s32 surface_has_force(s16 surfaceType) {
+static s32 surface_has_force(s32 surfaceType) {
     s32 hasForce = FALSE;
 
     switch (surfaceType) {
@@ -412,12 +333,13 @@ static s32 surface_has_force(s16 surfaceType) {
     }
     return hasForce;
 }
+#endif
 
 /**
  * Returns whether a surface should have the
  * SURFACE_FLAG_NO_CAM_COLLISION flag.
  */
-static s32 surf_has_no_cam_collision(s16 surfaceType) {
+static s32 surf_has_no_cam_collision(s32 surfaceType) {
     s32 flags = 0;
 
     switch (surfaceType) {
@@ -439,13 +361,15 @@ static s32 surf_has_no_cam_collision(s16 surfaceType) {
  * Load in the surfaces for a given surface type. This includes setting the flags,
  * exertion, and room.
  */
-static void load_static_surfaces(s16 **data, s16 *vertexData, s16 surfaceType, s8 **surfaceRooms) {
+static void load_static_surfaces(TerrainData **data, TerrainData *vertexData, s32 surfaceType, RoomData **surfaceRooms) {
     s32 i;
     s32 numSurfaces;
     struct Surface *surface;
-    s8 room = 0;
+    s32 room = 0;
+#ifndef ALL_SURFACES_HAVE_FORCE
     s16 hasForce = surface_has_force(surfaceType);
-    s16 flags = surf_has_no_cam_collision(surfaceType);
+#endif
+    s32 flags = surf_has_no_cam_collision(surfaceType);
 
     numSurfaces = *(*data);
     *data += 1;
@@ -462,30 +386,36 @@ static void load_static_surfaces(s16 **data, s16 *vertexData, s16 surfaceType, s
             surface->type = surfaceType;
             surface->flags = (s8) flags;
 
+#ifdef ALL_SURFACES_HAVE_FORCE
+            surface->force = *(*data + 3);
+#else
             if (hasForce) {
                 surface->force = *(*data + 3);
             } else {
                 surface->force = 0;
             }
+#endif
 
             add_surface(surface, FALSE);
         }
 
+#ifdef ALL_SURFACES_HAVE_FORCE
+        *data += 4;
+#else
         *data += 3;
         if (hasForce) {
             *data += 1;
         }
+#endif
     }
 }
 
 /**
  * Read the data for vertices for reference by triangles.
  */
-static s16 *read_vertex_data(s16 **data) {
+static TerrainData *read_vertex_data(TerrainData **data) {
     s32 numVertices;
-    UNUSED s16 unused1[3];
-    UNUSED s16 unused2[3];
-    s16 *vertexData;
+    TerrainData *vertexData;
 
     numVertices = *(*data);
     (*data)++;
@@ -499,30 +429,16 @@ static s16 *read_vertex_data(s16 **data) {
 /**
  * Loads in special environmental regions, such as water, poison gas, and JRB fog.
  */
-static void load_environmental_regions(s16 **data) {
+static void load_environmental_regions(TerrainData **data) {
     s32 numRegions;
     s32 i;
 
     gEnvironmentRegions = *data;
     numRegions = *(*data)++;
 
-    if (numRegions > 20) {
-    }
-
     for (i = 0; i < numRegions; i++) {
-        UNUSED s16 val, loX, loZ, hiX, hiZ;
-        s16 height;
-
-        val = *(*data)++;
-
-        loX = *(*data)++;
-        hiX = *(*data)++;
-        loZ = *(*data)++;
-        hiZ = *(*data)++;
-
-        height = *(*data)++;
-
-        gEnvironmentLevels[i] = height;
+        *data += 5;
+        gEnvironmentLevels[i] = *(*data)++;
     }
 }
 
@@ -542,14 +458,16 @@ void alloc_surface_pools(void) {
 /**
  * Get the size of the terrain data, to get the correct size when copying later.
  */
-u32 get_area_terrain_size(s16 *data) {
-    s16 *startPos = data;
+u32 get_area_terrain_size(TerrainData *data) {
+    TerrainData *startPos = data;
     s32 end = FALSE;
-    s16 terrainLoadType;
+    TerrainData terrainLoadType;
     s32 numVertices;
     s32 numRegions;
     s32 numSurfaces;
-    s16 hasForce;
+#ifndef ALL_SURFACES_HAVE_FORCE
+    TerrainData hasForce;
+#endif
 
     while (!end) {
         terrainLoadType = *data++;
@@ -578,8 +496,12 @@ u32 get_area_terrain_size(s16 *data) {
 
             default:
                 numSurfaces = *data++;
+#ifdef ALL_SURFACES_HAVE_FORCE
+                data += 4 * numSurfaces;
+#else
                 hasForce = surface_has_force(terrainLoadType);
                 data += (3 + hasForce) * numSurfaces;
+#endif
                 break;
         }
     }
@@ -593,14 +515,15 @@ u32 get_area_terrain_size(s16 *data) {
  * Process the level file, loading in vertices, surfaces, some objects, and environmental
  * boxes (water, gas, JRB fog).
  */
-void load_area_terrain(s16 index, s16 *data, s8 *surfaceRooms, s16 *macroObjects) {
-    s16 terrainLoadType;
-    s16 *vertexData = NULL;
-    UNUSED s32 unused;
+void load_area_terrain(s32 index, TerrainData *data, RoomData *surfaceRooms, s16 *macroObjects) {
+    s32 terrainLoadType;
+    TerrainData *vertexData = NULL;
+    #if PUPPYPRINT_DEBUG
+    OSTime first = osGetTime();
+    #endif
 
     // Initialize the data for this.
     gEnvironmentRegions = NULL;
-    unused8038BE90 = 0;
     gSurfaceNodesAllocated = 0;
     gSurfacesAllocated = 0;
 
@@ -645,6 +568,9 @@ void load_area_terrain(s16 index, s16 *data, s8 *surfaceRooms, s16 *macroObjects
 
     gNumStaticSurfaceNodes = gSurfaceNodesAllocated;
     gNumStaticSurfaces = gSurfacesAllocated;
+    #if PUPPYPRINT_DEBUG
+    collisionTime[perfIteration] += osGetTime()-first;
+    #endif
 }
 
 /**
@@ -659,14 +585,11 @@ void clear_dynamic_surfaces(void) {
     }
 }
 
-UNUSED static void unused_80383604(void) {
-}
-
 /**
  * Applies an object's transformation to the object's vertices.
  */
-void transform_object_vertices(s16 **data, s16 *vertexData) {
-    register s16 *vertices;
+void transform_object_vertices(TerrainData **data, TerrainData *vertexData) {
+    register TerrainData *vertices;
     register f32 vx, vy, vz;
     register s32 numVertices;
 
@@ -694,9 +617,9 @@ void transform_object_vertices(s16 **data, s16 *vertexData) {
         vz = *(vertices++);
 
         //! No bounds check on vertex data
-        *vertexData++ = (s16)(vx * m[0][0] + vy * m[1][0] + vz * m[2][0] + m[3][0]);
-        *vertexData++ = (s16)(vx * m[0][1] + vy * m[1][1] + vz * m[2][1] + m[3][1]);
-        *vertexData++ = (s16)(vx * m[0][2] + vy * m[1][2] + vz * m[2][2] + m[3][2]);
+        *vertexData++ = (TerrainData)(vx * m[0][0] + vy * m[1][0] + vz * m[2][0] + m[3][0]);
+        *vertexData++ = (TerrainData)(vx * m[0][1] + vy * m[1][1] + vz * m[2][1] + m[3][1]);
+        *vertexData++ = (TerrainData)(vx * m[0][2] + vy * m[1][2] + vz * m[2][2] + m[3][2]);
     }
 
     *data = vertices;
@@ -705,13 +628,11 @@ void transform_object_vertices(s16 **data, s16 *vertexData) {
 /**
  * Load in the surfaces for the gCurrentObject. This includes setting the flags, exertion, and room.
  */
-void load_object_surfaces(s16 **data, s16 *vertexData) {
+void load_object_surfaces(TerrainData **data, TerrainData *vertexData) {
     s32 surfaceType;
     s32 i;
     s32 numSurfaces;
-    s16 hasForce;
-    s16 flags;
-    s16 room;
+    s32 room;
 
     surfaceType = *(*data);
     (*data)++;
@@ -719,10 +640,11 @@ void load_object_surfaces(s16 **data, s16 *vertexData) {
     numSurfaces = *(*data);
     (*data)++;
 
-    hasForce = surface_has_force(surfaceType);
+#ifndef ALL_SURFACES_HAVE_FORCE
+    TerrainData hasForce = surface_has_force(surfaceType);
+#endif
 
-    flags = surf_has_no_cam_collision(surfaceType);
-    flags |= SURFACE_FLAG_DYNAMIC;
+    s32 flags = surf_has_no_cam_collision(surfaceType) | SURFACE_FLAG_DYNAMIC;
 
     // The DDD warp is initially loaded at the origin and moved to the proper
     // position in paintings.c and doesn't update its room, so set it here.
@@ -739,35 +661,68 @@ void load_object_surfaces(s16 **data, s16 *vertexData) {
             surface->object = gCurrentObject;
             surface->type = surfaceType;
 
+#ifdef ALL_SURFACES_HAVE_FORCE
+            surface->force = *(*data + 3);
+#else
             if (hasForce) {
                 surface->force = *(*data + 3);
             } else {
                 surface->force = 0;
             }
+#endif
 
             surface->flags |= flags;
             surface->room = (s8) room;
             add_surface(surface, TRUE);
         }
 
+#ifdef ALL_SURFACES_HAVE_FORCE
+        *data += 4;
+#else
         if (hasForce) {
             *data += 4;
         } else {
             *data += 3;
         }
+#endif
     }
 }
+
+#ifdef AUTO_COLLISION_DISTANCE
+// From Kaze
+static void get_optimal_coll_dist(struct Object *o) {
+    register f32 thisVertDist, maxDist = 0.0f;
+    Vec3f v;
+    TerrainData *collisionData = gCurrentObject->collisionData;
+    o->oFlags |= OBJ_FLAG_DONT_CALC_COLL_DIST;
+    collisionData++;
+    register u32 vertsLeft = *(collisionData);
+    collisionData++;
+    // vertices = *data;
+    while (vertsLeft) {
+        v[0] = *(collisionData + 0) * o->header.gfx.scale[0];
+        v[1] = *(collisionData + 1) * o->header.gfx.scale[1];
+        v[2] = *(collisionData + 2) * o->header.gfx.scale[2];
+        thisVertDist = (sqr(v[0]) + sqr(v[1]) + sqr(v[2]));
+        if (thisVertDist > maxDist) maxDist = thisVertDist;
+        collisionData += 3;
+        vertsLeft--;
+    }
+    o->oCollisionDistance = (sqrtf(maxDist) + 100.0f);
+}
+#endif
 
 /**
  * Transform an object's vertices, reload them, and render the object.
  */
 void load_object_collision_model(void) {
-    UNUSED s32 unused;
-    s16 vertexData[600];
+    TerrainData vertexData[600];
+    #if PUPPYPRINT_DEBUG
+    OSTime first = osGetTime();
+    #endif
 
-    s16 *collisionData = gCurrentObject->collisionData;
+    TerrainData *collisionData = gCurrentObject->collisionData;
     f32 marioDist = gCurrentObject->oDistanceToMario;
-    f32 tangibleDist = gCurrentObject->oCollisionDistance;
 
     // On an object's first frame, the distance is set to 19000.0f.
     // If the distance hasn't been updated, update it now.
@@ -775,14 +730,20 @@ void load_object_collision_model(void) {
         marioDist = dist_between_objects(gCurrentObject, gMarioObject);
     }
 
+#ifdef AUTO_COLLISION_DISTANCE
+    if (!(gCurrentObject->oFlags & OBJ_FLAG_DONT_CALC_COLL_DIST)) {
+        get_optimal_coll_dist(gCurrentObject);
+    }
+#endif
+
     // If the object collision is supposed to be loaded more than the
-    // drawing distance of 4000, extend the drawing range.
-    if (gCurrentObject->oCollisionDistance > 4000.0f) {
+    // drawing distance, extend the drawing range.
+    if (gCurrentObject->oCollisionDistance > gCurrentObject->oDrawingDistance) {
         gCurrentObject->oDrawingDistance = gCurrentObject->oCollisionDistance;
     }
 
     // Update if no Time Stop, in range, and in the current room.
-    if (!(gTimeStopState & TIME_STOP_ACTIVE) && marioDist < tangibleDist
+    if (!(gTimeStopState & TIME_STOP_ACTIVE) && (marioDist < gCurrentObject->oCollisionDistance)
         && !(gCurrentObject->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
         collisionData++;
         transform_object_vertices(&collisionData, vertexData);
@@ -798,4 +759,7 @@ void load_object_collision_model(void) {
     } else {
         gCurrentObject->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
     }
+    #if PUPPYPRINT_DEBUG
+    collisionTime[perfIteration] += osGetTime()-first;
+    #endif
 }

@@ -65,11 +65,8 @@ void bobomb_check_interactions(void) {
 }
 
 void bobomb_act_patrol(void) {
-    UNUSED s8 filler[4];
-    UNUSED s16 sp22;
     s16 collisionFlags;
 
-    sp22 = o->header.gfx.animInfo.animFrame;
     o->oForwardVel = 5.0;
 
     collisionFlags = object_step();
@@ -82,15 +79,14 @@ void bobomb_act_patrol(void) {
 }
 
 void bobomb_act_chase_mario(void) {
-    UNUSED u8 filler[4];
-    s16 sp1a, collisionFlags;
+    s16 animFrame, collisionFlags;
 
-    sp1a = ++o->header.gfx.animInfo.animFrame;
+    animFrame = ++o->header.gfx.animInfo.animFrame;
     o->oForwardVel = 20.0;
 
     collisionFlags = object_step();
 
-    if (sp1a == 5 || sp1a == 16)
+    if (animFrame == 5 || animFrame == 16)
         cur_obj_play_sound_2(SOUND_OBJ_BOBOMB_WALK);
 
     obj_turn_toward_object(o, gMarioObject, 16, 0x800);
@@ -98,8 +94,7 @@ void bobomb_act_chase_mario(void) {
 }
 
 void bobomb_act_launched(void) {
-    s16 collisionFlags = 0;
-    collisionFlags = object_step();
+    s16 collisionFlags = object_step();
     if ((collisionFlags & OBJ_COL_FLAG_GROUNDED) == OBJ_COL_FLAG_GROUNDED)
         o->oAction = BOBOMB_ACT_EXPLODE; /* bit 0 */
 }
@@ -122,12 +117,12 @@ void generic_bobomb_free_loop(void) {
             bobomb_act_explode();
             break;
 
-        case BOBOMB_ACT_LAVA_DEATH:
+        case OBJ_ACT_LAVA_DEATH:
             if (obj_lava_death() == 1)
                 create_respawner(MODEL_BLACK_BOBOMB, bhvBobomb, 3000);
             break;
 
-        case BOBOMB_ACT_DEATH_PLANE_DEATH:
+        case OBJ_ACT_DEATH_PLANE_DEATH:
             o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
             create_respawner(MODEL_BLACK_BOBOMB, bhvBobomb, 3000);
             break;
@@ -149,12 +144,12 @@ void stationary_bobomb_free_loop(void) {
             bobomb_act_explode();
             break;
 
-        case BOBOMB_ACT_LAVA_DEATH:
+        case OBJ_ACT_LAVA_DEATH:
             if (obj_lava_death() == 1)
                 create_respawner(MODEL_BLACK_BOBOMB, bhvBobomb, 3000);
             break;
 
-        case BOBOMB_ACT_DEATH_PLANE_DEATH:
+        case OBJ_ACT_DEATH_PLANE_DEATH:
             o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
             create_respawner(MODEL_BLACK_BOBOMB, bhvBobomb, 3000);
             break;
@@ -203,7 +198,7 @@ void bobomb_thrown_loop(void) {
 
     o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
     o->oHeldState = 0;
-    o->oFlags &= ~0x8; /* bit 3 */
+    o->oFlags &= ~OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW; /* bit 3 */
     o->oForwardVel = 25.0;
     o->oVelY = 20.0;
     o->oAction = BOBOMB_ACT_LAUNCHED;
@@ -285,17 +280,15 @@ void bhv_bobomb_buddy_init(void) {
 }
 
 void bobomb_buddy_act_idle(void) {
-    UNUSED u8 filler[4];
-    s16 sp1a = o->header.gfx.animInfo.animFrame;
-    UNUSED s16 collisionFlags = 0;
+    s16 animFrame = o->header.gfx.animInfo.animFrame;
 
     o->oBobombBuddyPosXCopy = o->oPosX;
     o->oBobombBuddyPosYCopy = o->oPosY;
     o->oBobombBuddyPosZCopy = o->oPosZ;
 
-    collisionFlags = object_step();
+    object_step();
 
-    if ((sp1a == 5) || (sp1a == 16))
+    if ((animFrame == 5) || (animFrame == 16))
         cur_obj_play_sound_2(SOUND_OBJ_BOBOMB_WALK);
 
     if (o->oDistanceToMario < 1000.0f)
@@ -383,8 +376,8 @@ void bobomb_buddy_act_talk(void) {
 }
 
 void bobomb_buddy_act_turn_to_talk(void) {
-    s16 sp1e = o->header.gfx.animInfo.animFrame;
-    if ((sp1e == 5) || (sp1e == 16))
+    s16 animFrame = o->header.gfx.animInfo.animFrame;
+    if ((animFrame == 5) || (animFrame == 16))
         cur_obj_play_sound_2(SOUND_OBJ_BOBOMB_WALK);
 
     o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x1000);

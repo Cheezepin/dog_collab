@@ -8,17 +8,17 @@
 #include "macros.h"
 #include "config.h"
 
+#define BIT(i)  (1 << (i))
+#define BITMASK(size) ((BIT(size)) - 1)
 
-// Certain functions are marked as having return values, but do not
-// actually return a value. This causes undefined behavior, which we'd rather
-// avoid on modern GCC. This only impacts -O2 and can matter for both the function
-// itself and functions that call it.
-#ifdef AVOID_UB
-    #define BAD_RETURN(cmd) void
-#else
-    #define BAD_RETURN(cmd) cmd
+struct Config
+{
+    f32 audioFrequency;
+#ifdef WIDE
+    s16 widescreen;
 #endif
-
+    u8 tvType;
+};
 
 struct Controller
 {
@@ -36,25 +36,59 @@ struct Controller
 #endif
 };
 
+// -- Booleans --
+
+typedef u8  Bool8;
+typedef u16 Bool16;
+typedef u32 Bool32;
+
+// -- Vectors --
+
+typedef u8 Vec2uc[2];
+typedef s8  Vec2c[2];
+typedef s16 Vec2s[2];
+typedef s32 Vec2i[2];
 typedef f32 Vec2f[2];
-typedef f32 Vec3f[3]; // X, Y, Z, where Y is up
+typedef f64 Vec2d[2];
+
+typedef u8 Vec3uc[3];
+typedef s8  Vec3c[3];
 typedef s16 Vec3s[3];
 typedef s32 Vec3i[3];
-typedef f32 Vec4f[4];
-typedef s16 Vec4s[4];
+typedef f32 Vec3f[3]; // X, Y, Z, where Y is up
+typedef f64 Vec3d[3];
 
+typedef u8 Vec4uc[4];
+typedef s8  Vec4c[4];
+typedef s16 Vec4s[4];
+typedef s32 Vec4i[4];
+typedef f32 Vec4f[4];
+typedef f64 Vec4d[4];
+
+typedef f32 Mat2[2][2];
+typedef f32 Mat3[3][3];
 typedef f32 Mat4[4][4];
 
 typedef uintptr_t GeoLayout;
 typedef uintptr_t LevelScript;
 typedef s16 Movtex;
 typedef s16 MacroObject;
-typedef s16 Collision;
+typedef COLLISION_DATA_TYPE Collision; //Collision is by default an s16, but it's best to have it match the type of COLLISION_DATA_TYPE
 typedef s16 Trajectory;
 typedef s16 PaintingData;
 typedef uintptr_t BehaviorScript;
 typedef u8 Texture;
 typedef u16 ModelID;
+typedef COLLISION_DATA_TYPE TerrainData;
+typedef ROOM_DATA_TYPE RoomData;
+typedef TerrainData Vec3t[3];
+
+// -- Angle --
+
+typedef s16 Angle;
+typedef u16 UAngle;
+typedef s32 Angle32;
+typedef Angle Vec3a[3];
 
 enum SpTaskState {
     SPTASK_STATE_NOT_STARTED,
@@ -80,12 +114,12 @@ struct VblankHandler
 
 #define ANIM_FLAG_NOLOOP     (1 << 0) // 0x01
 #define ANIM_FLAG_FORWARD    (1 << 1) // 0x02
-#define ANIM_FLAG_2          (1 << 2) // 0x04
+#define ANIM_FLAG_NO_ACCEL   (1 << 2) // 0x04
 #define ANIM_FLAG_HOR_TRANS  (1 << 3) // 0x08
 #define ANIM_FLAG_VERT_TRANS (1 << 4) // 0x10
-#define ANIM_FLAG_5          (1 << 5) // 0x20
-#define ANIM_FLAG_6          (1 << 6) // 0x40
-#define ANIM_FLAG_7          (1 << 7) // 0x80
+#define ANIM_FLAG_DISABLED   (1 << 5) // 0x20
+#define ANIM_FLAG_NO_TRANS   (1 << 6) // 0x40
+#define ANIM_FLAG_UNUSED     (1 << 7) // 0x80
 
 struct Animation {
     /*0x00*/ s16 flags;
@@ -132,7 +166,7 @@ struct GraphNodeObject
     /*0x20*/ Vec3f pos;
     /*0x2C*/ Vec3f scale;
     /*0x38*/ struct AnimInfo animInfo;
-    /*0x4C*/ struct SpawnInfo *unk4C;
+    /*0x4C*/ struct SpawnInfo *spawnInfo;
     /*0x50*/ Mat4 *throwMatrix; // matrix ptr
     /*0x54*/ Vec3f cameraToObject;
 };
@@ -144,8 +178,23 @@ struct ObjectNode
     struct ObjectNode *prev;
 };
 
+#ifdef PUPPYLIGHTS
+struct PuppyLight {
+    Vec3t pos[2]; //The location of the light. First index is the absolute position, second index are offsets.
+    s16 yaw; //Used by cubes. Allows epic rotating of the volume.
+    s16 room; //Which room to use. -1 is visible from all rooms.
+    s8 epicentre; //What percentage inside the volume you'll be before maximum light strength is applied. (E.g: 100 will be full strength always, and 0 will be full strength at the centre.)
+    u8 flags; //Some stuff to define how the volume is used. Mostly just shape stuff, but can potentially have other uses.
+    u8 rgba[4]; //Colour. Go on, take even the tiniest guess as to what this entails.
+    u8 area; //Which section of the level this light is stored in.
+    u8 active:1; //Whether the light will actually work. Mostly intended to be used for objects.
+};
+#endif
+
 // NOTE: Since ObjectNode is the first member of Object, it is difficult to determine
 // whether some of these pointers point to ObjectNode or Object.
+
+#define MAX_OBJECT_FIELDS 0x51
 
 struct Object
 {
@@ -160,33 +209,33 @@ struct Object
     union
     {
         // Object fields. See object_fields.h.
-        u32 asU32[0x50];
-        s32 asS32[0x50];
-        s16 asS16[0x50][2];
-        f32 asF32[0x50];
+        u32 asU32[MAX_OBJECT_FIELDS];
+        s32 asS32[MAX_OBJECT_FIELDS];
+        s16 asS16[MAX_OBJECT_FIELDS][2];
+        f32 asF32[MAX_OBJECT_FIELDS];
 #if !IS_64_BIT
-        s16 *asS16P[0x50];
-        s32 *asS32P[0x50];
-        struct Animation **asAnims[0x50];
-        struct Waypoint *asWaypoint[0x50];
-        struct ChainSegment *asChainSegment[0x50];
-        struct Object *asObject[0x50];
-        struct Surface *asSurface[0x50];
-        void *asVoidPtr[0x50];
-        const void *asConstVoidPtr[0x50];
+        s16 *asS16P[MAX_OBJECT_FIELDS];
+        s32 *asS32P[MAX_OBJECT_FIELDS];
+        struct Animation **asAnims[MAX_OBJECT_FIELDS];
+        struct Waypoint *asWaypoint[MAX_OBJECT_FIELDS];
+        struct ChainSegment *asChainSegment[MAX_OBJECT_FIELDS];
+        struct Object *asObject[MAX_OBJECT_FIELDS];
+        struct Surface *asSurface[MAX_OBJECT_FIELDS];
+        void *asVoidPtr[MAX_OBJECT_FIELDS];
+        const void *asConstVoidPtr[MAX_OBJECT_FIELDS];
 #endif
     } rawData;
 #if IS_64_BIT
     union {
-        s16 *asS16P[0x50];
-        s32 *asS32P[0x50];
-        struct Animation **asAnims[0x50];
-        struct Waypoint *asWaypoint[0x50];
-        struct ChainSegment *asChainSegment[0x50];
-        struct Object *asObject[0x50];
-        struct Surface *asSurface[0x50];
-        void *asVoidPtr[0x50];
-        const void *asConstVoidPtr[0x50];
+        s16 *asS16P[MAX_OBJECT_FIELDS];
+        s32 *asS32P[MAX_OBJECT_FIELDS];
+        struct Animation **asAnims[MAX_OBJECT_FIELDS];
+        struct Waypoint *asWaypoint[MAX_OBJECT_FIELDS];
+        struct ChainSegment *asChainSegment[MAX_OBJECT_FIELDS];
+        struct Object *asObject[MAX_OBJECT_FIELDS];
+        struct Surface *asSurface[MAX_OBJECT_FIELDS];
+        void *asVoidPtr[MAX_OBJECT_FIELDS];
+        const void *asConstVoidPtr[MAX_OBJECT_FIELDS];
     } ptrData;
 #endif
     /*0x1C8*/ u32 unused1;
@@ -206,6 +255,9 @@ struct Object
     /*0x218*/ void *collisionData;
     /*0x21C*/ Mat4 transform;
     /*0x25C*/ void *respawnInfo;
+#ifdef PUPPYLIGHTS
+    struct PuppyLight puppylight;
+#endif
 };
 
 struct ObjectHitbox
@@ -229,15 +281,15 @@ struct Waypoint
 
 struct Surface
 {
-    /*0x00*/ s16 type;
-    /*0x02*/ s16 force;
+    /*0x00*/ TerrainData type;
+    /*0x02*/ TerrainData force;
     /*0x04*/ s8 flags;
-    /*0x05*/ s8 room;
+    /*0x05*/ RoomData room;
     /*0x06*/ s16 lowerY;
     /*0x08*/ s16 upperY;
-    /*0x0A*/ Vec3s vertex1;
-    /*0x10*/ Vec3s vertex2;
-    /*0x16*/ Vec3s vertex3;
+    /*0x0A*/ Vec3t vertex1;
+    /*0x10*/ Vec3t vertex2;
+    /*0x16*/ Vec3t vertex3;
     /*0x1C*/ struct {
         f32 x;
         f32 y;
@@ -265,7 +317,7 @@ struct MarioBodyState
 
 struct MarioState
 {
-    /*0x00*/ u16 unk00;
+    /*0x00*/ u16 playerID;
     /*0x02*/ u16 input;
     /*0x04*/ u32 flags;
     /*0x08*/ u32 particleFlags;
@@ -315,7 +367,7 @@ struct MarioState
     /*0xAC*/ s8 numKeys; // Unused key mechanic
     /*0xAD*/ s8 numLives;
     /*0xAE*/ s16 health;
-    /*0xB0*/ s16 unkB0;
+    /*0xB0*/ s16 animYTrans;
     /*0xB2*/ u8 hurtCounter;
     /*0xB3*/ u8 healCounter;
     /*0xB4*/ u8 squishTimer;
@@ -324,8 +376,12 @@ struct MarioState
     /*0xB8*/ s16 prevNumStarsForDialog;
     /*0xBC*/ f32 peakHeight;
     /*0xC0*/ f32 quicksandDepth;
-    /*0xC4*/ f32 unkC4;
-    f32 waterBottomHeight;
+    /*0xC4*/ f32 windGravity;
+             f32 waterBottomHeight;
+#ifdef BREATH_METER
+             s16 breath;
+             u8  breathCounter;
+#endif
 };
 
 #endif // TYPES_H

@@ -56,7 +56,7 @@ void bhv_nipper_update(void) {
         o->oSubAction = 3;
 
     if (o->oSubAction != 1)
-        o->oScuttlebugUnkF8 = 0;
+        o->oScuttlebugIsAtttacking = 0;
     switch (o->oSubAction) {
         case 0:
             if (o->oMoveFlags & OBJ_MOVE_LANDED)
@@ -73,22 +73,22 @@ void bhv_nipper_update(void) {
             if (lateral_dist_between_objects(o, gMarioObject) > 1000.0f) {
                 o->oAngleToMario = cur_obj_angle_to_home();
                 cur_obj_init_animation(0);
-                o->oSkeeterUnk1AC = 0;
+                o->oSkeeterAngleVel = 0;
             }
             else {
                 o->oAngleToMario = obj_angle_to_object(o, gMarioObject);
-                if (o->oScuttlebugUnkF8 == 0) {
+                if (o->oScuttlebugIsAtttacking == 0) {
                     cur_obj_init_animation(0);
-                    o->oScuttlebugUnkFC = 0;
+                    o->oScuttlebugTimer = 0;
                     if (abs_angle_diff(o->oAngleToMario, o->oMoveAngleYaw) < 0x800) {
-                        o->oScuttlebugUnkF8 = 1;
+                        o->oScuttlebugIsAtttacking = 1;
                         o->oVelY = 20.0f;
                         cur_obj_play_sound_2(SOUND_OBJ2_SCUTTLEBUG_ALERT);
                     }
-                } else if (o->oScuttlebugUnkF8 == 1) {
+                } else if (o->oScuttlebugIsAtttacking == 1) {
                     if(o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND && (gMarioState->action == ACT_JUMP || gMarioState->action == ACT_DOUBLE_JUMP || gMarioState->action == ACT_TRIPLE_JUMP || gMarioState->action == ACT_LONG_JUMP || gMarioState->action == ACT_SIDE_FLIP || gMarioState->action == ACT_BACKFLIP) && gMarioObject->header.gfx.animInfo.animFrame < 2) {
                         o->oVelY = gMarioState->vel[1];
-                        o->oSkeeterUnk1AC = 2;
+                        o->oSkeeterAngleVel = 2;
                         o->oForwardVel = 0;
                         cur_obj_init_animation(1);
                         cur_obj_play_sound_2(SOUND_OBJ2_SCUTTLEBUG_ALERT);
@@ -96,18 +96,18 @@ void bhv_nipper_update(void) {
                     else {
                         if(o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) {
                             o->oForwardVel = 15.0f;
-                            if (o->oSkeeterUnk1AC > 0)
-                                o->oSkeeterUnk1AC--;
+                            if (o->oSkeeterAngleVel > 0)
+                                o->oSkeeterAngleVel--;
                             else {
-                                o->oSkeeterUnk1AC = 0;
+                                o->oSkeeterAngleVel = 0;
                                 cur_obj_init_animation(0);
-                                o->oScuttlebugUnkFC++;
+                                o->oScuttlebugTimer++;
                             }
                         }
                     }
-                    if (o->oScuttlebugUnkFC > 90) {
-                        o->oScuttlebugUnkF8 = 0;
-                        o->oSkeeterUnk1AC = 0;
+                    if (o->oScuttlebugTimer > 90) {
+                        o->oScuttlebugIsAtttacking = 0;
+                        o->oSkeeterAngleVel = 0;
                         cur_obj_init_animation(0);
                         o->oSubAction = 0;
                     }
@@ -138,15 +138,15 @@ void bhv_nipper_update(void) {
             if (o->oMoveFlags & OBJ_MOVE_LANDED) {
                 o->oSubAction++;
                 o->oVelY = 0.0f;
-                o->oScuttlebugUnkFC = 0;
+                o->oScuttlebugTimer = 0;
                 o->oFlags |= 8;
                 o->oInteractStatus = 0;
             }
             break;
         case 5:
             o->oForwardVel = 2.0f;
-            o->oScuttlebugUnkFC++;
-            if (o->oScuttlebugUnkFC > 30)
+            o->oScuttlebugTimer++;
+            if (o->oScuttlebugTimer > 30)
                 o->oSubAction = 0;
             break;
     }
@@ -161,7 +161,7 @@ void bhv_nipper_update(void) {
         if (obj_is_hidden(o))
             obj_mark_for_deletion(o);
         if (o->activeFlags == ACTIVE_FLAG_DEACTIVATED)
-            o->parentObj->oScuttlebugSpawnerUnk88 = 1;
+            o->parentObj->oScuttlebugSpawnerIsDeactivated = 1;
     }
     cur_obj_move_standard(-50);
     }

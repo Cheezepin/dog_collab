@@ -92,15 +92,17 @@ static f32 get_buoyancy(struct MarioState *m) {
 }
 
 static u32 perform_water_full_step(struct MarioState *m, Vec3f nextPos) {
+    struct WallCollisionData wallData;
     struct Surface *wall;
     struct Surface *ceil;
     struct Surface *floor;
     f32 ceilHeight;
     f32 floorHeight;
 
-    wall = resolve_and_return_wall_collisions(nextPos, 10.0f, 110.0f);
+    resolve_and_return_wall_collisions(nextPos, 10.0f, 110.0f, &wallData);
+    wall = wallData.numWalls == 0 ? NULL : wallData.walls[0];
     floorHeight = find_floor(nextPos[0], nextPos[1], nextPos[2], &floor);
-    ceilHeight = vec3f_find_ceil(nextPos, nextPos[1], &ceil);
+    ceilHeight = find_ceil(nextPos[0], nextPos[1] + 3.0f, nextPos[2], &ceil);
 
     if (floor == NULL) {
         return WATER_STEP_CANCELLED;
@@ -161,8 +163,8 @@ static void apply_water_current(struct MarioState *m, Vec3f step) {
             f32 dy = whirlpool->pos[1] - m->pos[1];
             f32 dz = whirlpool->pos[2] - m->pos[2];
 
-            f32 lateralDist = sqrtf(dx * dx + dz * dz);
-            f32 distance = sqrtf(lateralDist * lateralDist + dy * dy);
+            f32 lateralDist = sqrtf(sqr(dx) + sqr(dz));
+            f32 distance = sqrtf(lateralDist * lateralDist + sqr(dy));
 
             s16 pitchToWhirlpool = atan2s(lateralDist, dy);
             s16 yawToWhirlpool = atan2s(dz, dx);
@@ -189,7 +191,6 @@ static void apply_water_current(struct MarioState *m, Vec3f step) {
 }
 
 static u32 perform_water_step(struct MarioState *m) {
-    UNUSED u32 unused;
     u32 stepResult;
     Vec3f nextPos;
     Vec3f step;
@@ -224,7 +225,7 @@ static u32 perform_water_step(struct MarioState *m) {
     return stepResult;
 }
 
-static BAD_RETURN(u32) update_water_pitch(struct MarioState *m) {
+static void update_water_pitch(struct MarioState *m) {
     struct Object *marioObj = m->marioObj;
 
     if (marioObj->header.gfx.angle[0] > 0) {
@@ -558,7 +559,7 @@ static s32 act_breaststroke(struct MarioState *m) {
 
 #if ENABLE_RUMBLE
     if (m->actionTimer < 6) {
-        func_sh_8024CA04();
+        queue_rumble_submerged();
     }
 #endif
     set_mario_animation(m, MARIO_ANIM_SWIM_PART1);
@@ -814,23 +815,15 @@ static s32 act_water_throw(struct MarioState *m) {
 
 s32 act_water_ground_pound(struct MarioState *m) {
     u32 stepResult;
-    f32 yOffset;
 
     play_sound_if_no_flag(m, SOUND_ACTION_THROW, MARIO_ACTION_SOUND_PLAYED);
 
-    if (m->input & INPUT_A_PRESSED) {
-        return set_mario_action(m, ACT_BREASTSTROKE, 0);
+    if ((m->input & INPUT_A_PRESSED) || (m->input & INPUT_B_PRESSED) || (m->actionState == 2)) {
+        if (m->actionTimer > 0) return set_mario_action(m, ACT_WATER_IDLE, 0);
+        else m->actionState = 2;
     }
 
     if (m->actionState == 0) {
-        if (m->actionTimer < 16) {
-            yOffset = 10 - m->actionTimer;
-            if (m->pos[1] + yOffset + 160.0f < m->waterLevel) {
-                m->pos[1] += yOffset;
-                vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
-            }
-        }
-
         m->vel[1] = -35.0f;
         mario_set_forward_vel(m, 0.0f);
 
@@ -845,26 +838,34 @@ s32 act_water_ground_pound(struct MarioState *m) {
             play_sound(SOUND_MARIO_GROUND_POUND_WAH, m->marioObj->header.gfx.cameraToObject);
             m->actionState = 1;
         }
-    } else {
+    } else if (m->actionState == 1) {
         m->faceAngle[0] = approach_yaw(m->faceAngle[0], 0, 0.08f);
         set_mario_animation(m, MARIO_ANIM_GROUND_POUND);
 
         stepResult = perform_water_step(m);
         if (stepResult == WATER_STEP_HIT_FLOOR) {
             play_mario_heavy_landing_sound(m, SOUND_ACTION_TERRAIN_HEAVY_LANDING);
-            if (!check_fall_damage(m, ACT_HARD_BACKWARD_GROUND_KB)) {
-                m->particleFlags |= PARTICLE_MIST_CIRCLE;
-                set_mario_action(m, ACT_WATER_IDLE, 0);
-            }
+            m->particleFlags |= PARTICLE_MIST_CIRCLE;
+            set_mario_action(m, ACT_WATER_IDLE, 0);
             set_camera_shake_from_hit(SHAKE_GROUND_POUND);
         } else if (stepResult == WATER_STEP_HIT_WALL) {
-            // mario_set_forward_vel(m, -16.0f);
             if (m->vel[1] > 0.0f) {
                 m->vel[1] = 0.0f;
             }
+        }
+    } else {
+        m->actionTimer++;
 
-            // m->particleFlags |= PARTICLE_VERTICAL_STAR;
-            // set_mario_action(m, ACT_BACKWARD_WATER_KB, 0);
+        stepResult = perform_water_step(m);
+        if (stepResult == WATER_STEP_HIT_FLOOR) {
+            play_mario_heavy_landing_sound(m, SOUND_ACTION_TERRAIN_HEAVY_LANDING);
+            m->particleFlags |= PARTICLE_MIST_CIRCLE;
+            set_mario_action(m, ACT_WATER_IDLE, 0);
+            set_camera_shake_from_hit(SHAKE_GROUND_POUND);
+        } else if (stepResult == WATER_STEP_HIT_WALL) {
+            if (m->vel[1] > 0.0f) {
+                m->vel[1] = 0.0f;
+            }
         }
     }
 
@@ -1102,7 +1103,7 @@ static s32 act_caught_in_whirlpool(struct MarioState *m) {
 
     f32 dx = m->pos[0] - whirlpool->oPosX;
     f32 dz = m->pos[2] - whirlpool->oPosZ;
-    f32 distance = sqrtf(dx * dx + dz * dz);
+    f32 distance = sqrtf(sqr(dx) + sqr(dz));
 
     if ((marioObj->oMarioWhirlpoolPosY += m->vel[1]) < 0.0f) {
         marioObj->oMarioWhirlpoolPosY = 0.0f;
@@ -1145,7 +1146,7 @@ static s32 act_caught_in_whirlpool(struct MarioState *m) {
     vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
     vec3s_set(m->marioObj->header.gfx.angle, 0, m->faceAngle[1], 0);
 #if ENABLE_RUMBLE
-    reset_rumble_timers();
+    reset_rumble_timers_slip();
 #endif
 
     return FALSE;
@@ -1182,8 +1183,7 @@ static void update_metal_water_walking_speed(struct MarioState *m) {
         m->forwardVel = 32.0f;
     }
 
-    m->faceAngle[1] =
-        m->intendedYaw - approach_s32((s16)(m->intendedYaw - m->faceAngle[1]), 0, 0x800, 0x800);
+    m->faceAngle[1] = approach_angle(m->faceAngle[1], m->intendedYaw, 0x800);
 
     m->slideVelX = m->forwardVel * sins(m->faceAngle[1]);
     m->slideVelZ = m->forwardVel * coss(m->faceAngle[1]);
@@ -1282,7 +1282,7 @@ static s32 act_hold_metal_water_standing(struct MarioState *m) {
 }
 
 static s32 act_metal_water_walking(struct MarioState *m) {
-    s32 val04;
+    s32 animSpeed;
 
     if (!(m->flags & MARIO_METAL_CAP)) {
         return set_mario_action(m, ACT_WATER_IDLE, 0);
@@ -1296,15 +1296,15 @@ static s32 act_metal_water_walking(struct MarioState *m) {
         return set_mario_action(m, ACT_METAL_WATER_JUMP, 0);
     }
 
-    if (m->input & INPUT_UNKNOWN_5) {
+    if (m->input & INPUT_IDLE) {
         return set_mario_action(m, ACT_METAL_WATER_STANDING, 0);
     }
 
-    if ((val04 = (s32)(m->forwardVel / 4.0f * 0x10000)) < 0x1000) {
-        val04 = 0x1000;
+    if ((animSpeed = (s32)(m->forwardVel / 4.0f * 0x10000)) < 0x1000) {
+        animSpeed = 0x1000;
     }
 
-    set_mario_anim_with_accel(m, MARIO_ANIM_WALKING, val04);
+    set_mario_anim_with_accel(m, MARIO_ANIM_WALKING, animSpeed);
     play_metal_water_walking_sound(m);
     update_metal_water_walking_speed(m);
 
@@ -1322,7 +1322,7 @@ static s32 act_metal_water_walking(struct MarioState *m) {
 }
 
 static s32 act_hold_metal_water_walking(struct MarioState *m) {
-    s32 val04;
+    s32 animSpeed;
 
     if (m->marioObj->oInteractStatus & INT_STATUS_MARIO_DROP_OBJECT) {
         return drop_and_set_mario_action(m, ACT_METAL_WATER_WALKING, 0);
@@ -1336,17 +1336,17 @@ static s32 act_hold_metal_water_walking(struct MarioState *m) {
         return set_mario_action(m, ACT_HOLD_METAL_WATER_JUMP, 0);
     }
 
-    if (m->input & INPUT_UNKNOWN_5) {
+    if (m->input & INPUT_IDLE) {
         return set_mario_action(m, ACT_HOLD_METAL_WATER_STANDING, 0);
     }
 
     m->intendedMag *= 0.4f;
 
-    if ((val04 = (s32)(m->forwardVel / 2.0f * 0x10000)) < 0x1000) {
-        val04 = 0x1000;
+    if ((animSpeed = (s32)(m->forwardVel / 2.0f * 0x10000)) < 0x1000) {
+        animSpeed = 0x1000;
     }
 
-    set_mario_anim_with_accel(m, MARIO_ANIM_RUN_WITH_LIGHT_OBJ, val04);
+    set_mario_anim_with_accel(m, MARIO_ANIM_RUN_WITH_LIGHT_OBJ, animSpeed);
     play_metal_water_walking_sound(m);
     update_metal_water_walking_speed(m);
 

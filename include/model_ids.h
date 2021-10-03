@@ -110,13 +110,13 @@
 #define MODEL_CASTLE_CLOCK_PENDULUM            0x39        // castle_geo_001518
 
 // hmc
-#define MODEL_HMC_METAL_PLATFORM               0x36        // hmc_geo_0005A0
-#define MODEL_HMC_METAL_ARROW_PLATFORM         0x37        // hmc_geo_0005B8
-#define MODEL_HMC_ELEVATOR_PLATFORM            0x38        // hmc_geo_0005D0
-#define MODEL_HMC_ROLLING_ROCK                 0x39        // hmc_geo_000548
-#define MODEL_HMC_ROCK_PIECE                   0x3A        // hmc_geo_000570 - unused
-#define MODEL_HMC_ROCK_SMALL_PIECE             0x3B        // hmc_geo_000588 - unused
-#define MODEL_HMC_RED_GRILLS                   0x3C        // hmc_geo_000530
+#define MODEL_HMC_METAL_PLATFORM               0x36        // hmc_geo_controllable_arrow_platform
+#define MODEL_HMC_METAL_ARROW_PLATFORM         0x37        // hmc_geo_controllable_arrow_platform_button
+#define MODEL_HMC_ELEVATOR_PLATFORM            0x38        // hmc_geo_elevator_platform
+#define MODEL_HMC_ROLLING_ROCK                 0x39        // hmc_geo_rolling_rock
+#define MODEL_HMC_ROCK_PIECE                   0x3A        // hmc_geo_rolling_rock_fragment_large - unused
+#define MODEL_HMC_ROCK_SMALL_PIECE             0x3B        // hmc_geo_rolling_rock_fragment_small - unused
+#define MODEL_HMC_RED_GRILLS                   0x3C        // hmc_geo_grill_door
 
 // ssl
 #define MODEL_SSL_PYRAMID_TOP                  0x3A        // ssl_geo_000618
@@ -209,12 +209,13 @@
 #define MODEL_BITDW_STAIRCASE_FRAME2              0x3D        // geo_bitdw_0005D0
 #define MODEL_BITDW_STAIRCASE_FRAME1              0x3E        // geo_bitdw_0005E8
 #define MODEL_BITDW_STAIRCASE                     0x3F        // geo_bitdw_000600
+#define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA      
+#define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB 
+#define MODEL_BITDW_SIMPLE_SPINNER                0x1AC
+#define MODEL_BITDW_SPHERE                        0x1AD
 
 // vcutm
 #define MODEL_VCUTM_SEESAW_PLATFORM               0x36        // vcutm_geo_0001F0
-#define MODEL_VCUTM_CHECKERBOARD_PLATFORM_SPAWNER 0x37        //! @bug this object doesn't have a geo associated with it, yet is placed in vcutm.
-                                                              //  This causes a crash when the player quickly looks towards the
-                                                              //  checkerboard platforms after spawning but before it is unloaded.
 
 // bitfs
 #define MODEL_BITFS_PLATFORM_ON_TRACK             0x36        // bitfs_geo_000758
@@ -462,6 +463,7 @@
 #define MODEL_TTM_SLIDE_EXIT_PODIUM       0x7B        // ttm_geo_000DF4
 #define MODEL_WOODEN_SIGNPOST             0x7C        // wooden_signpost_geo
 #define MODEL_UNKNOWN_7D                  0x7D        // referenced in macro presets. Unknown usage
+
 // find me
 #define MODEL_CANNON_BARREL               0x7F        // cannon_barrel_geo
 #define MODEL_CANNON_BASE                 0x80        // cannon_base_geo

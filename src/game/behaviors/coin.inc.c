@@ -17,7 +17,7 @@ s16 sCoinArrowPositions[][2] = { { 0, -150 },  { 0, -50 },   { 0, 50 },   { 0, 1
 
 s32 bhv_coin_sparkles_init(void) {
     if (o->oInteractStatus & INT_STATUS_INTERACTED && !(o->oInteractStatus & INT_STATUS_TOUCHED_BOB_OMB)) {
-        spawn_object(o, MODEL_SPARKLES, bhvGoldenCoinSparkles);
+        spawn_object(o, MODEL_SPARKLES, bhvCoinSparklesSpawner);
         obj_mark_for_deletion(o);
         return 1;
     }
@@ -49,7 +49,7 @@ void bhv_temp_coin_loop(void) {
 }
 
 void bhv_coin_init(void) {
-    o->oVelY = random_float() * 10.0f + 30 + o->oCoinUnk110;
+    o->oVelY = random_float() * 10.0f + 30 + o->oCoinBaseYVel;
     o->oForwardVel = random_float() * 10.0f;
     o->oMoveAngleYaw = random_u16();
     cur_obj_set_behavior(bhvYellowCoin);
@@ -58,19 +58,19 @@ void bhv_coin_init(void) {
 }
 
 void bhv_coin_loop(void) {
-    struct Surface *sp1C;
-    s16 sp1A;
+    struct Surface *floor;
+    s16 targetYaw;
     cur_obj_update_floor_and_walls();
     cur_obj_if_hit_wall_bounce_away();
     cur_obj_move_standard(-62);
-    if ((sp1C = o->oFloor) != NULL) {
+    if ((floor = o->oFloor) != NULL) {
         if (o->oMoveFlags & OBJ_MOVE_ON_GROUND)
             o->oSubAction = 1;
         if (o->oSubAction == 1) {
             o->oBounciness = 0;
-            if (sp1C->normal.y < 0.9) {
-                sp1A = atan2s(sp1C->normal.z, sp1C->normal.x);
-                cur_obj_rotate_yaw_toward(sp1A, 0x400);
+            if (floor->normal.y < 0.9) {
+                targetYaw = atan2s(floor->normal.z, floor->normal.x);
+                cur_obj_rotate_yaw_toward(targetYaw, 0x400);
             }
         }
     }
@@ -85,23 +85,14 @@ void bhv_coin_loop(void) {
     if (o->oVelY < 0)
         cur_obj_become_tangible();
     if (o->oMoveFlags & OBJ_MOVE_LANDED) {
-#ifndef VERSION_JP
         if (o->oMoveFlags & (OBJ_MOVE_ABOVE_DEATH_BARRIER | OBJ_MOVE_ABOVE_LAVA))
-#else
-        if (o->oMoveFlags & OBJ_MOVE_ABOVE_LAVA)
-#endif
             obj_mark_for_deletion(o);
     }
-#ifndef VERSION_JP
     if (o->oMoveFlags & OBJ_MOVE_BOUNCE) {
-        if (o->oCoinUnk1B0 < 5)
+        if (o->oCoinBounceTimer < 5)
             cur_obj_play_sound_2(SOUND_GENERAL_COIN_DROP);
-        o->oCoinUnk1B0++;
+        o->oCoinBounceTimer++;
     }
-#else
-    if (o->oMoveFlags & OBJ_MOVE_BOUNCE)
-        cur_obj_play_sound_2(SOUND_GENERAL_COIN_DROP);
-#endif
     if (cur_obj_wait_then_blink(400, 20))
         obj_mark_for_deletion(o);
     bhv_coin_sparkles_init();
@@ -112,7 +103,7 @@ void bhv_coin_formation_spawn_loop(void) {
         cur_obj_set_behavior(bhvYellowCoin);
         obj_set_hitbox(o, &sYellowCoinHitbox);
         bhv_init_room();
-        if (o->oCoinUnkF8) {
+        if (o->oCoinSnapToGround) {
             o->oPosY += 300.0f;
             cur_obj_update_floor_height();
             if (o->oPosY < o->oFloorHeight || o->oFloorHeight < FLOOR_LOWER_LIMIT_MISC)
@@ -126,56 +117,56 @@ void bhv_coin_formation_spawn_loop(void) {
         }
     } else {
         if (bhv_coin_sparkles_init())
-            o->parentObj->oCoinUnkF4 |= bit_shift_left(o->oBehParams2ndByte);
+            o->parentObj->oCoinRespawnBits |= (1 << o->oBehParams2ndByte);
         o->oAnimState++;
     }
     if (o->parentObj->oAction == 2)
         obj_mark_for_deletion(o);
 }
 
-void spawn_coin_in_formation(s32 sp50, s32 sp54) {
-    struct Object *sp4C;
-    Vec3i sp40;
-    s32 sp3C = 1;
-    s32 sp38 = 1;
-    sp40[0] = sp40[1] = sp40[2] = 0;
-    switch (sp54 & 7) {
+void spawn_coin_in_formation(s32 index, s32 shape) {
+    struct Object *newCoin;
+    Vec3i pos;
+    s32 spawnCoin = TRUE;
+    s32 snapToGround = TRUE;
+    pos[0] = pos[1] = pos[2] = 0;
+    switch (shape & 7) {
         case 0:
-            sp40[2] = 160 * (sp50 - 2);
-            if (sp50 > 4)
-                sp3C = 0;
+            pos[2] = 160 * (index - 2);
+            if (index > 4)
+                spawnCoin = FALSE;
             break;
         case 1:
-            sp38 = 0;
-            sp40[1] = 160 * sp50 * 0.8; // 128 * sp50
-            if (sp50 > 4)
-                sp3C = 0;
+            snapToGround = FALSE;
+            pos[1] = 160 * index * 0.8; // 128 * index
+            if (index > 4)
+                spawnCoin = FALSE;
             break;
         case 2:
-            sp40[0] = sins(sp50 << 13) * 300.0f;
-            sp40[2] = coss(sp50 << 13) * 300.0f;
+            pos[0] = sins(index << 13) * 300.0f;
+            pos[2] = coss(index << 13) * 300.0f;
             break;
         case 3:
-            sp38 = 0;
-            sp40[0] = coss(sp50 << 13) * 200.0f;
-            sp40[1] = sins(sp50 << 13) * 200.0f + 200.0f;
+            snapToGround = FALSE;
+            pos[0] = coss(index << 13) * 200.0f;
+            pos[1] = sins(index << 13) * 200.0f + 200.0f;
             break;
         case 4:
-            sp40[0] = sCoinArrowPositions[sp50][0];
-            sp40[2] = sCoinArrowPositions[sp50][1];
+            pos[0] = sCoinArrowPositions[index][0];
+            pos[2] = sCoinArrowPositions[index][1];
             break;
     }
-    if (sp54 & 0x10)
-        sp38 = 0;
-    if (sp3C) {
-        sp4C = spawn_object_relative(sp50, sp40[0], sp40[1], sp40[2], o, MODEL_YELLOW_COIN,
+    if (shape & 0x10)
+        snapToGround = FALSE;
+    if (spawnCoin) {
+        newCoin = spawn_object_relative(index, pos[0], pos[1], pos[2], o, MODEL_YELLOW_COIN,
                                      bhvCoinFormationSpawn);
-        sp4C->oCoinUnkF8 = sp38;
+        newCoin->oCoinSnapToGround = snapToGround;
     }
 }
 
 void bhv_coin_formation_init(void) {
-    o->oCoinUnkF4 = (o->oBehParams >> 8) & 0xFF;
+    o->oCoinRespawnBits = (o->oBehParams >> 8) & 0xFF;
 }
 
 void bhv_coin_formation_loop(void) {
@@ -184,7 +175,7 @@ void bhv_coin_formation_loop(void) {
         case 0:
             if (o->oDistanceToMario < 2000.0f) {
                 for (bitIndex = 0; bitIndex < 8; bitIndex++) {
-                    if (!(o->oCoinUnkF4 & (1 << bitIndex)))
+                    if (!(o->oCoinRespawnBits & (1 << bitIndex)))
                         spawn_coin_in_formation(bitIndex, o->oBehParams2ndByte);
                 }
                 o->oAction++;
@@ -200,7 +191,7 @@ void bhv_coin_formation_loop(void) {
     }
 
     // Casting to u8 doesn't seem to match
-    set_object_respawn_info_bits(o, o->oCoinUnkF4 & 0xFF);
+    set_object_respawn_info_bits(o, o->oCoinRespawnBits & 0xFF);
 }
 
 void coin_inside_boo_act_1(void) {
@@ -222,8 +213,7 @@ void coin_inside_boo_act_1(void) {
 }
 
 void coin_inside_boo_act_0(void) {
-    s16 sp26;
-    f32 sp20;
+    s16 marioMoveYaw;
     struct Object *parent = o->parentObj;
     cur_obj_become_intangible();
     if (o->oTimer == 0 && gCurrLevelNum == LEVEL_BBH) {
@@ -233,10 +223,9 @@ void coin_inside_boo_act_0(void) {
     obj_copy_pos(o, parent);
     if (parent->oBooDeathStatus == BOO_DEATH_STATUS_DYING) {
         o->oAction = 1;
-        sp26 = gMarioObject->oMoveAngleYaw;
-        sp20 = 3.0f;
-        o->oVelX = sins(sp26) * sp20;
-        o->oVelZ = coss(sp26) * sp20;
+        marioMoveYaw = gMarioObject->oMoveAngleYaw;
+        o->oVelX = sins(marioMoveYaw) * 3.0f;
+        o->oVelZ = coss(marioMoveYaw) * 3.0f;
         o->oVelY = 35.0f;
     }
 }
@@ -252,10 +241,8 @@ void bhv_coin_sparkles_loop(void) {
 }
 
 void bhv_golden_coin_sparkles_loop(void) {
-    struct Object *sp2C;
-    UNUSED s32 unused;
-    f32 sp24 = 30.0f;
-    sp2C = spawn_object(o, MODEL_SPARKLES, bhvCoinSparkles);
-    sp2C->oPosX += random_float() * sp24 - sp24 / 2;
-    sp2C->oPosZ += random_float() * sp24 - sp24 / 2;
+    struct Object *sparkleObj;
+    sparkleObj = spawn_object(o, MODEL_SPARKLES, bhvCoinSparkles);
+    sparkleObj->oPosX += random_float() * 30.0f - 15.0f;
+    sparkleObj->oPosZ += random_float() * 30.0f - 15.0f;
 }

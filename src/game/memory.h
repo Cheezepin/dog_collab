@@ -60,7 +60,7 @@ u32 main_pool_push_state(void);
 u32 main_pool_pop_state(void);
 
 #ifndef NO_SEGMENTED_MEMORY
-void *load_segment(s32 segment, u8 *srcStart, u8 *srcEnd, u32 side);
+void *load_segment(s32 segment, u8 *srcStart, u8 *srcEnd, u32 side, u8 *bssStart, u8 *bssEnd);
 void *load_to_fixed_pool_addr(u8 *destAddr, u8 *srcStart, u8 *srcEnd);
 void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd);
 void *load_segment_decompress_heap(u32 segment, u8 *srcStart, u8 *srcEnd);
@@ -84,6 +84,7 @@ void mem_pool_free(struct MemoryPool *pool, void *addr);
 void *alloc_display_list(u32 size);
 void setup_dma_table_list(struct DmaHandlerList *list, void *srcAddr, void *buffer);
 s32 load_patchable_table(struct DmaHandlerList *list, s32 index);
+void dma_read(u8 *dest, u8 *srcStart, u8 *srcEnd);
 
 
 extern uintptr_t sSegmentROMTable[32];
