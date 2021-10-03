@@ -11,8 +11,10 @@
 #include "game/obj_behaviors_2.h"
 #include "game/object_helpers.h"
 #include "game/object_list_processor.h"
+#include "math_util.h"
 #include "graph_node.h"
 #include "surface_collision.h"
+#include "game/puppylights.h"
 
 // Macros for retrieving arguments from behavior scripts.
 #define BHV_CMD_GET_1ST_U8(index)  (u8)((gCurBhvCommand[index] >> 24) & 0xFF) // unused
@@ -105,12 +107,6 @@ static uintptr_t cur_obj_bhv_stack_pop(void) {
     bhvAddr = gCurrentObject->bhvStack[gCurrentObject->bhvStackIndex];
 
     return bhvAddr;
-}
-
-UNUSED static void stub_behavior_script_1(void) {
-    for (;;) {
-        ;
-    }
 }
 
 // Command 0x22: Hides the current object.
@@ -783,8 +779,6 @@ static s32 bhv_cmd_scale(void) {
 // Command 0x30: Sets various parameters that the object uses for calculating physics.
 // Usage: SET_OBJ_PHYSICS(wallHitboxRadius, gravity, bounciness, dragStrength, friction, buoyancy, unused1, unused2)
 static s32 bhv_cmd_set_obj_physics(void) {
-    UNUSED f32 unused1, unused2;
-
     gCurrentObject->oWallHitboxRadius = BHV_CMD_GET_1ST_S16(1);
     gCurrentObject->oGravity = BHV_CMD_GET_2ND_S16(1) / 100.0f;
     gCurrentObject->oBounciness = BHV_CMD_GET_1ST_S16(2) / 100.0f;
@@ -792,8 +786,8 @@ static s32 bhv_cmd_set_obj_physics(void) {
     gCurrentObject->oFriction = BHV_CMD_GET_1ST_S16(3) / 100.0f;
     gCurrentObject->oBuoyancy = BHV_CMD_GET_2ND_S16(3) / 100.0f;
 
-    unused1 = BHV_CMD_GET_1ST_S16(4) / 100.0f;
-    unused2 = BHV_CMD_GET_2ND_S16(4) / 100.0f;
+    UNUSED f32 unused1 = BHV_CMD_GET_1ST_S16(4) / 100.0f;
+    UNUSED f32 unused2 = BHV_CMD_GET_2ND_S16(4) / 100.0f;
 
     gCurBhvCommand += 5;
     return BHV_PROC_CONTINUE;
@@ -837,9 +831,6 @@ static s32 bhv_cmd_animate_texture(void) {
 
     gCurBhvCommand++;
     return BHV_PROC_CONTINUE;
-}
-
-void stub_behavior_script_2(void) {
 }
 
 typedef s32 (*BhvCommandProc)(void);
@@ -904,9 +895,7 @@ static BhvCommandProc BehaviorCmdTable[] = {
 
 // Execute the behavior script of the current object, process the object flags, and other miscellaneous code for updating objects.
 void cur_obj_update(void) {
-    UNUSED u32 unused;
-
-    s16 objFlags = gCurrentObject->oFlags;
+    u32 objFlags = gCurrentObject->oFlags;
     f32 distanceFromMario;
     BhvCommandProc bhvCmdProc;
     s32 bhvProcResult;
@@ -952,7 +941,7 @@ void cur_obj_update(void) {
     }
 
     // Execute various code based on object flags.
-    objFlags = (s16) gCurrentObject->oFlags;
+    objFlags = gCurrentObject->oFlags;
 
     if (objFlags & OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE) {
         obj_set_face_angle_to_move_angle(gCurrentObject);
@@ -981,6 +970,46 @@ void cur_obj_update(void) {
     if (objFlags & OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE) {
         obj_update_gfx_pos_and_angle(gCurrentObject);
     }
+
+    if (objFlags & OBJ_FLAG_UCODE_LARGE) {
+        gCurrentObject->header.gfx.node.flags &= ~GRAPH_RENDER_UCODE_REJ;
+    } else {
+        gCurrentObject->header.gfx.node.flags |=  GRAPH_RENDER_UCODE_REJ;
+    }
+
+    if (objFlags & OBJ_FLAG_SILHOUETTE) {
+        gCurrentObject->header.gfx.node.flags |=  GRAPH_RENDER_SILHOUETTE;
+    } else {
+        gCurrentObject->header.gfx.node.flags &= ~GRAPH_RENDER_SILHOUETTE;
+    }
+
+#ifdef OBJ_OPACITY_BY_CAM_DIST
+    if (objFlags & OBJ_FLAG_OPACITY_FROM_CAMERA_DIST) {
+        f32 dist;
+        Vec3f d;
+        if (gCurrentObject->header.gfx.node.flags & GRAPH_RENDER_BILLBOARD) {
+            d[0] = (gCurrentObject->oPosX - gCamera->pos[0]);
+            d[2] = (gCurrentObject->oPosZ - gCamera->pos[2]);
+            dist = (sqr(d[0]) + sqr(d[2]));
+        } else {
+            vec3_diff(d, &gCurrentObject->oPosVec, gCamera->pos);
+            dist = (sqr(d[0]) + sqr(d[1]) + sqr(d[2]));
+        }
+        if (dist > 0.0f) {
+            gCurrentObject->header.gfx.node.flags &= ~GRAPH_RENDER_UCODE_REJ;
+        }
+#ifdef PUPPYCAM
+        s32 opacityDist = ((gPuppyCam.zoom > 0) ? ((dist / sqr(gPuppyCam.zoom)) * 255.0f) : 255);
+#else
+        s32 opacityDist = (dist * (255.0f / sqr(1024.0f)));
+#endif
+        gCurrentObject->oOpacity = CLAMP(opacityDist, 0x00, 0xFF);
+    }
+#endif
+
+#ifdef PUPPYLIGHTS
+    puppylights_object_emit(gCurrentObject);
+#endif
 
     // Handle visibility of object
     if (gCurrentObject->oRoom != -1) {

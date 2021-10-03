@@ -52,11 +52,7 @@ void bhv_big_bully_init(void) {
 }
 
 void bully_check_mario_collision(void) {
-    if (
-#ifdef VERSION_SH
-    o->oAction != BULLY_ACT_LAVA_DEATH && o->oAction != BULLY_ACT_DEATH_PLANE_DEATH &&
-#endif
-    o->oInteractStatus & INT_STATUS_INTERACTED) {
+    if (o->oAction != OBJ_ACT_LAVA_DEATH && o->oAction != OBJ_ACT_DEATH_PLANE_DEATH && o->oInteractStatus & INT_STATUS_INTERACTED) {
         if (o->oBehParams2ndByte == BULLY_BP_SIZE_SMALL)
             cur_obj_play_sound_2(SOUND_OBJ2_BULLY_ATTACKED);
         else
@@ -64,7 +60,7 @@ void bully_check_mario_collision(void) {
 
         o->oInteractStatus &= ~INT_STATUS_INTERACTED;
         o->oAction = BULLY_ACT_KNOCKBACK;
-        o->oFlags &= ~0x8; /* bit 3 */
+        o->oFlags &= ~OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW; /* bit 3 */
         cur_obj_init_animation(3);
         o->oBullyMarioCollisionAngle = o->oMoveAngleYaw;
     }
@@ -98,7 +94,7 @@ void bully_act_knockback(void) {
     if (o->oForwardVel < 10.0 && (s32) o->oVelY == 0) {
         o->oForwardVel = 1.0;
         o->oBullyKBTimerAndMinionKOCounter++;
-        o->oFlags |= 0x8; /* bit 3 */
+        o->oFlags |= OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW; /* bit 3 */
         o->oMoveAngleYaw = o->oFaceAngleYaw;
         obj_turn_toward_object(o, gMarioObject, 16, 1280);
     } else
@@ -113,7 +109,7 @@ void bully_act_knockback(void) {
 
 void bully_act_back_up(void) {
     if (o->oTimer == 0) {
-        o->oFlags &= ~0x8; /* bit 3 */
+        o->oFlags &= ~OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW; /* bit 3 */
         o->oMoveAngleYaw += 0x8000;
     }
 
@@ -128,13 +124,13 @@ void bully_act_back_up(void) {
 
     if (o->oTimer == 15) {
         o->oMoveAngleYaw = o->oFaceAngleYaw;
-        o->oFlags |= 0x8; /* bit 3 */
+        o->oFlags |= OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW; /* bit 3 */
         o->oAction = BULLY_ACT_PATROL;
     }
 }
 
 void bully_backup_check(s16 collisionFlags) {
-    if (!(collisionFlags & 0x8) && o->oAction != BULLY_ACT_KNOCKBACK) /* bit 3 */
+    if (!(collisionFlags & OBJ_COL_FLAG_NO_Y_VEL) && o->oAction != BULLY_ACT_KNOCKBACK) /* bit 3 */
     {
         o->oPosX = o->oBullyPrevX;
         o->oPosZ = o->oBullyPrevZ;
@@ -143,10 +139,10 @@ void bully_backup_check(s16 collisionFlags) {
 }
 
 void bully_play_stomping_sound(void) {
-    s16 sp26 = o->header.gfx.animInfo.animFrame;
+    s16 animFrame = o->header.gfx.animInfo.animFrame;
     switch (o->oAction) {
         case BULLY_ACT_PATROL:
-            if (sp26 == 0 || sp26 == 12) {
+            if (animFrame == 0 || animFrame == 12) {
                 if (o->oBehParams2ndByte == BULLY_BP_SIZE_SMALL)
                     cur_obj_play_sound_2(SOUND_OBJ_BULLY_WALK);
                 else
@@ -156,7 +152,7 @@ void bully_play_stomping_sound(void) {
 
         case BULLY_ACT_CHASE_MARIO:
         case BULLY_ACT_BACK_UP:
-            if (sp26 == 0 || sp26 == 5) {
+            if (animFrame == 0 || animFrame == 5) {
                 if (o->oBehParams2ndByte == BULLY_BP_SIZE_SMALL)
                     cur_obj_play_sound_2(SOUND_OBJ_BULLY_WALK);
                 else
@@ -175,7 +171,7 @@ void bully_step(void) {
 
     if (o->oBullySubtype & BULLY_STYPE_CHILL) {
         if (o->oPosY < 1030.0f)
-            o->oAction = BULLY_ACT_LAVA_DEATH;
+            o->oAction = OBJ_ACT_LAVA_DEATH;
     }
 }
 
@@ -252,11 +248,11 @@ void bhv_bully_loop(void) {
             bully_step();
             break;
 
-        case BULLY_ACT_LAVA_DEATH:
+        case OBJ_ACT_LAVA_DEATH:
             bully_act_level_death();
             break;
 
-        case BULLY_ACT_DEATH_PLANE_DEATH:
+        case OBJ_ACT_DEATH_PLANE_DEATH:
             o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
             break;
     }
@@ -264,14 +260,9 @@ void bhv_bully_loop(void) {
     set_object_visibility(o, 3000);
 }
 
-// sp38 = arg0
-// sp3c = arg1
-// sp40 = arg2
-// sp44 = arg3
-
-void big_bully_spawn_minion(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {
+void big_bully_spawn_minion(s32 x, s32 y, s32 z, s16 ry) {
     struct Object *bully =
-        spawn_object_abs_with_rot(o, 0, MODEL_BULLY, bhvSmallBully, arg0, arg1, arg2, 0, arg3, 00);
+        spawn_object_abs_with_rot(o, 0, MODEL_BULLY, bhvSmallBully, x, y, z, 0, ry, 0);
     bully->oBullySubtype = BULLY_STYPE_MINION;
     bully->oBehParams2ndByte = BULLY_BP_SIZE_SMALL;
 }
@@ -346,10 +337,10 @@ void bhv_big_bully_with_minions_loop(void) {
 
         case BULLY_ACT_ACTIVATE_AND_FALL:
             collisionFlags = object_step();
-            if ((collisionFlags & 0x9) == 0x9) /* bits 0 and 3 */
+            if ((collisionFlags & OBJ_COL_FLAGS_LANDED) == OBJ_COL_FLAGS_LANDED) /* bits 0 and 3 */
                 o->oAction = BULLY_ACT_PATROL;
 
-            if (collisionFlags == 1) {
+            if (collisionFlags == OBJ_COL_FLAG_GROUNDED) {
                 cur_obj_play_sound_2(SOUND_OBJ_THWOMP);
                 set_camera_shake_from_point(SHAKE_POS_SMALL, o->oPosX, o->oPosY, o->oPosZ);
                 spawn_mist_particles();
@@ -359,11 +350,11 @@ void bhv_big_bully_with_minions_loop(void) {
             cur_obj_become_tangible();
             break;
 
-        case BULLY_ACT_LAVA_DEATH:
+        case OBJ_ACT_LAVA_DEATH:
             big_bully_spawn_star();
             break;
 
-        case BULLY_ACT_DEATH_PLANE_DEATH:
+        case OBJ_ACT_DEATH_PLANE_DEATH:
             o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
             break;
     }

@@ -23,6 +23,8 @@
 #include "save_file.h"
 #include "level_table.h"
 #include "dialog_ids.h"
+#include "puppyprint.h"
+#include "debug_box.h"
 
 struct SpawnInfo gPlayerSpawnInfos[1];
 struct GraphNode *gGraphNodePointers[MODEL_ID_COUNT];
@@ -42,8 +44,8 @@ struct GraphNode **gLoadedGraphNodes = gGraphNodePointers;
 struct Area *gAreas = gAreaData;
 struct Area *gCurrentArea = NULL;
 struct CreditsEntry *gCurrCreditsEntry = NULL;
-Vp *D_8032CE74 = NULL;
-Vp *D_8032CE78 = NULL;
+Vp *gViewportOverride = NULL;
+Vp *gViewportClip = NULL;
 s16 gWarpTransDelay = 0;
 u32 gFBSetColor = 0;
 u32 gWarpTransFBSetColor = 0;
@@ -76,7 +78,7 @@ u8 sSpawnTypeFromWarpBhv[] = {
     MARIO_SPAWN_AIRBORNE_STAR_COLLECT, MARIO_SPAWN_AIRBORNE_DEATH,       MARIO_SPAWN_LAUNCH_STAR_COLLECT,   MARIO_SPAWN_LAUNCH_DEATH,
 };
 
-Vp D_8032CF00 = { {
+Vp gViewport = { {
     { 640, 480, 511, 0 },
     { 640, 480, 511, 0 },
 } };
@@ -89,12 +91,12 @@ const char *gNoControllerMsg[] = {
 };
 #endif
 
-void override_viewport_and_clip(Vp *a, Vp *b, u8 c, u8 d, u8 e) {
-    u16 sp6 = ((c >> 3) << 11) | ((d >> 3) << 6) | ((e >> 3) << 1) | 1;
+void override_viewport_and_clip(Vp *vpOverride, Vp *vpClip, u8 red, u8 green, u8 blue) {
+    u16 color = ((red >> 3) << 11) | ((green >> 3) << 6) | ((blue >> 3) << 1) | 1;
 
-    gFBSetColor = (sp6 << 16) | sp6;
-    D_8032CE74 = a;
-    D_8032CE78 = b;
+    gFBSetColor = (color << 16) | color;
+    gViewportOverride = vpOverride;
+    gViewportClip = vpClip;
 }
 
 void set_warp_transition_rgb(u8 red, u8 green, u8 blue) {
@@ -152,25 +154,25 @@ struct ObjectWarpNode *area_get_warp_node(u8 id) {
 }
 
 struct ObjectWarpNode *area_get_warp_node_from_params(struct Object *o) {
-    u8 sp1F = (o->oBehParams & 0x00FF0000) >> 16;
+    u8 id = (o->oBehParams & 0x00FF0000) >> 16;
 
-    return area_get_warp_node(sp1F);
+    return area_get_warp_node(id);
 }
 
 void load_obj_warp_nodes(void) {
-    struct ObjectWarpNode *sp24;
-    struct Object *sp20 = (struct Object *) gObjParentGraphNode.children;
+    struct ObjectWarpNode *warpNode;
+    struct Object *children = (struct Object *) gObjParentGraphNode.children;
 
     do {
-        struct Object *sp1C = sp20;
+        struct Object *obj = children;
 
-        if (sp1C->activeFlags != ACTIVE_FLAG_DEACTIVATED && get_mario_spawn_type(sp1C) != 0) {
-            sp24 = area_get_warp_node_from_params(sp1C);
-            if (sp24 != NULL) {
-                sp24->object = sp1C;
+        if (obj->activeFlags != ACTIVE_FLAG_DEACTIVATED && get_mario_spawn_type(obj) != 0) {
+            warpNode = area_get_warp_node_from_params(obj);
+            if (warpNode != NULL) {
+                warpNode->object = obj;
             }
         }
-    } while ((sp20 = (struct Object *) sp20->header.gfx.node.next)
+    } while ((children = (struct Object *) children->header.gfx.node.next)
              != (struct Object *) gObjParentGraphNode.children);
 }
 
@@ -186,7 +188,7 @@ void clear_areas(void) {
         gAreaData[i].index = i;
         gAreaData[i].flags = 0;
         gAreaData[i].terrainType = 0;
-        gAreaData[i].unk04 = NULL;
+        gAreaData[i].graphNode = NULL;
         gAreaData[i].terrainData = NULL;
         gAreaData[i].surfaceRooms = NULL;
         gAreaData[i].macroObjects = NULL;
@@ -209,21 +211,21 @@ void clear_area_graph_nodes(void) {
     s32 i;
 
     if (gCurrentArea != NULL) {
-        geo_call_global_function_nodes(&gCurrentArea->unk04->node, GEO_CONTEXT_AREA_UNLOAD);
+        geo_call_global_function_nodes(&gCurrentArea->graphNode->node, GEO_CONTEXT_AREA_UNLOAD);
         gCurrentArea = NULL;
         gWarpTransition.isActive = FALSE;
     }
 
     for (i = 0; i < 8; i++) {
-        if (gAreaData[i].unk04 != NULL) {
-            geo_call_global_function_nodes(&gAreaData[i].unk04->node, GEO_CONTEXT_AREA_INIT);
-            gAreaData[i].unk04 = NULL;
+        if (gAreaData[i].graphNode != NULL) {
+            geo_call_global_function_nodes(&gAreaData[i].graphNode->node, GEO_CONTEXT_AREA_INIT);
+            gAreaData[i].graphNode = NULL;
         }
     }
 }
 
 void load_area(s32 index) {
-    if (gCurrentArea == NULL && gAreaData[index].unk04 != NULL) {
+    if (gCurrentArea == NULL && gAreaData[index].graphNode != NULL) {
         gCurrentArea = &gAreaData[index];
         gCurrAreaIndex = gCurrentArea->index;
 
@@ -237,14 +239,14 @@ void load_area(s32 index) {
         }
 
         load_obj_warp_nodes();
-        geo_call_global_function_nodes(&gCurrentArea->unk04->node, GEO_CONTEXT_AREA_LOAD);
+        geo_call_global_function_nodes(&gCurrentArea->graphNode->node, GEO_CONTEXT_AREA_LOAD);
     }
 }
 
 void unload_area(void) {
     if (gCurrentArea != NULL) {
         unload_objects_from_area(0, gCurrentArea->index);
-        geo_call_global_function_nodes(&gCurrentArea->unk04->node, GEO_CONTEXT_AREA_UNLOAD);
+        geo_call_global_function_nodes(&gCurrentArea->graphNode->node, GEO_CONTEXT_AREA_UNLOAD);
 
         gCurrentArea->flags = 0;
         gCurrentArea = NULL;
@@ -259,6 +261,9 @@ void load_mario_area(void) {
     if (gCurrentArea->index == gMarioSpawnInfo->areaIndex) {
         gCurrentArea->flags |= 0x01;
         spawn_objects_from_info(0, gMarioSpawnInfo);
+    }
+    if (gAreaSkyboxStart[gCurrAreaIndex-1]) {
+        load_segment_decompress(0x0A, gAreaSkyboxStart[gCurrAreaIndex-1], gAreaSkyboxEnd[gCurrAreaIndex-1]);
     }
 }
 
@@ -299,6 +304,7 @@ void area_update_objects(void) {
  * transition type, time in frames, and the RGB color that will fill the screen.
  */
 void play_transition(s16 transType, s16 time, u8 red, u8 green, u8 blue) {
+#ifndef L3DEX2_ALONE
     gWarpTransition.isActive = TRUE;
     gWarpTransition.type = transType;
     gWarpTransition.time = time;
@@ -349,6 +355,7 @@ void play_transition(s16 transType, s16 time, u8 red, u8 green, u8 blue) {
             gWarpTransition.data.endTexRadius = GFX_DIMENSIONS_FULL_RADIUS;
         }
     }
+#endif
 }
 
 /*
@@ -363,9 +370,9 @@ void play_transition_after_delay(s16 transType, s16 time, u8 red, u8 green, u8 b
 
 void render_game(void) {
     if (gCurrentArea != NULL && !gWarpTransition.pauseRendering) {
-        geo_process_root(gCurrentArea->unk04, D_8032CE74, D_8032CE78, gFBSetColor);
+        geo_process_root(gCurrentArea->graphNode, gViewportOverride, gViewportClip, gFBSetColor);
 
-        gSPViewport(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(&D_8032CF00));
+        gSPViewport(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(&gViewport));
 
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
                       SCREEN_HEIGHT - gBorderHeight);
@@ -383,8 +390,8 @@ void render_game(void) {
             gSaveOptSelectIndex = gMenuOptSelectIndex;
         }
 
-        if (D_8032CE78 != NULL) {
-            make_viewport_clip_rect(D_8032CE78);
+        if (gViewportClip != NULL) {
+            make_viewport_clip_rect(gViewportClip);
         } else
             gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
                           SCREEN_HEIGHT - gBorderHeight);
@@ -406,13 +413,18 @@ void render_game(void) {
         }
     } else {
         render_text_labels();
-        if (D_8032CE78 != NULL) {
-            clear_viewport(D_8032CE78, gWarpTransFBSetColor);
+        if (gViewportClip != NULL) {
+            clear_viewport(gViewportClip, gWarpTransFBSetColor);
         } else {
             clear_frame_buffer(gWarpTransFBSetColor);
         }
     }
 
-    D_8032CE74 = NULL;
-    D_8032CE78 = NULL;
+
+    #if PUPPYPRINT_DEBUG
+    puppyprint_render_profiler();
+    #endif
+
+    gViewportOverride = NULL;
+    gViewportClip = NULL;
 }

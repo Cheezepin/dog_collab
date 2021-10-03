@@ -38,7 +38,7 @@ void bhv_collect_star_loop(void) {
     o->oFaceAngleYaw += 0x800;
 
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
-        mark_obj_for_deletion(o);
+        obj_mark_for_deletion(o);
         o->oInteractStatus = 0;
     }
 }
@@ -48,7 +48,7 @@ void bhv_star_spawn_init(void) {
     o->oStarSpawnDisFromHome = sqrtf(sqr(o->oHomeX - o->oPosX) + sqr(o->oHomeZ - o->oPosZ));
     o->oVelY = (o->oHomeY - o->oPosY) / 30.0f;
     o->oForwardVel = o->oStarSpawnDisFromHome / 30.0f;
-    o->oStarSpawnUnkFC = o->oPosY;
+    o->oStarSpawnVelY = o->oPosY;
     if (o->oBehParams2ndByte == 0 || gCurrCourseNum == COURSE_BBH)
         cutscene_object(CUTSCENE_STAR_SPAWN, o);
     else
@@ -69,8 +69,8 @@ void bhv_star_spawn_loop(void) {
 
         case 1:
             obj_move_xyz_using_fvel_and_yaw(o);
-            o->oStarSpawnUnkFC += o->oVelY;
-            o->oPosY = o->oStarSpawnUnkFC + sins((o->oTimer * 0x8000) / 30) * 400.0f;
+            o->oStarSpawnVelY += o->oVelY;
+            o->oPosY = o->oStarSpawnVelY + sins((o->oTimer * 0x8000) / 30) * 400.0f;
             o->oFaceAngleYaw += 0x1000;
             spawn_object(o, MODEL_NONE, bhvSparkleSpawn);
             cur_obj_play_sound_1(SOUND_ENV_STAR);
@@ -109,69 +109,59 @@ void bhv_star_spawn_loop(void) {
             }
 
             if (o->oInteractStatus & INT_STATUS_INTERACTED) {
-                mark_obj_for_deletion(o);
+                obj_mark_for_deletion(o);
                 o->oInteractStatus = 0;
             }
             break;
     }
 }
 
-struct Object *spawn_star(struct Object *sp30, f32 sp34, f32 sp38, f32 sp3C) {
-    sp30 = spawn_object_abs_with_rot(o, 0, MODEL_STAR, bhvStarSpawnCoordinates, o->oPosX, o->oPosY,
+struct Object *spawn_star(struct Object *starObj, f32 x, f32 y, f32 z) {
+    starObj = spawn_object_abs_with_rot(o, 0, MODEL_STAR, bhvStarSpawnCoordinates, o->oPosX, o->oPosY,
                                      o->oPosZ, 0, 0, 0);
-    sp30->oBehParams = o->oBehParams;
-    sp30->oHomeX = sp34;
-    sp30->oHomeY = sp38;
-    sp30->oHomeZ = sp3C;
-    sp30->oFaceAnglePitch = 0;
-    sp30->oFaceAngleRoll = 0;
-    return sp30;
+    starObj->oBehParams = o->oBehParams;
+    starObj->oHomeX = x;
+    starObj->oHomeY = y;
+    starObj->oHomeZ = z;
+    starObj->oFaceAnglePitch = 0;
+    starObj->oFaceAngleRoll = 0;
+    return starObj;
 }
 
-void spawn_default_star(f32 sp20, f32 sp24, f32 sp28) {
-    struct Object *sp1C;
-#ifdef AVOID_UB
-    sp1C = 0;
-#endif
-    sp1C = spawn_star(sp1C, sp20, sp24, sp28);
-    sp1C->oBehParams2ndByte = 0;
+void spawn_default_star(f32 x, f32 y, f32 z) {
+    struct Object *starObj = NULL;
+    starObj = spawn_star(starObj, x, y, z);
+    starObj->oBehParams2ndByte = 0;
 }
 
-void spawn_red_coin_cutscene_star(f32 sp20, f32 sp24, f32 sp28) {
-    struct Object *sp1C;
-#ifdef AVOID_UB
-    sp1C = 0;
-#endif
-    sp1C = spawn_star(sp1C, sp20, sp24, sp28);
-    sp1C->oBehParams2ndByte = 1;
+void spawn_red_coin_cutscene_star(f32 x, f32 y, f32 z) {
+    struct Object *starObj = NULL;
+    starObj = spawn_star(starObj, x, y, z);
+    starObj->oBehParams2ndByte = 1;
 }
 
-void spawn_no_exit_star(f32 sp20, f32 sp24, f32 sp28) {
-    struct Object *sp1C;
-#ifdef AVOID_UB
-    sp1C = 0;
-#endif
-    sp1C = spawn_star(sp1C, sp20, sp24, sp28);
-    sp1C->oBehParams2ndByte = 1;
-    sp1C->oInteractionSubtype |= INT_SUBTYPE_NO_EXIT;
+void spawn_no_exit_star(f32 x, f32 y, f32 z) {
+    struct Object *starObj = NULL;
+    starObj = spawn_star(starObj, x, y, z);
+    starObj->oBehParams2ndByte = 1;
+    starObj->oInteractionSubtype |= INT_SUBTYPE_NO_EXIT;
 }
 
 void bhv_hidden_red_coin_star_init(void) {
-    s16 sp36;
-    struct Object *sp30;
+    s16 numRedCoinsRemaining;
+    struct Object *starObj = NULL;
 
-    if (gCurrCourseNum != COURSE_JRB)
+    if (gCurrCourseNum != COURSE_JRB) {
         spawn_object(o, MODEL_TRANSPARENT_STAR, bhvRedCoinStarMarker);
-
-    sp36 = count_objects_with_behavior(bhvRedCoin);
-    if (sp36 == 0) {
-        sp30 =
-            spawn_object_abs_with_rot(o, 0, MODEL_STAR, bhvStar, o->oPosX, o->oPosY, o->oPosZ, 0, 0, 0);
-        sp30->oBehParams = o->oBehParams;
+    }
+    numRedCoinsRemaining = count_objects_with_behavior(bhvRedCoin);
+    if (numRedCoinsRemaining == 0) {
+        starObj = spawn_object_abs_with_rot(o, 0, MODEL_STAR, bhvStar, o->oPosX, o->oPosY, o->oPosZ, 0, 0, 0);
+        starObj->oBehParams = o->oBehParams;
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
 
-    o->oHiddenStarTriggerCounter = 8 - sp36;
+    o->oHiddenStarTriggerCounter = 8 - numRedCoinsRemaining;
 }
 
 void bhv_hidden_red_coin_star_loop(void) {

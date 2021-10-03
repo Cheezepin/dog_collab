@@ -14,17 +14,12 @@ void bhv_mips_init(void) {
     if (save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 15
         && !(starFlags & SAVE_FLAG_TO_STAR_FLAG(SAVE_FLAG_COLLECTED_MIPS_STAR_1))) {
         o->oBehParams2ndByte = 0;
-#ifndef VERSION_JP
         o->oMipsForwardVelocity = 40.0f;
-#endif
-    }
     // If the player has >= 50 stars and hasn't collected second MIPS star...
-    else if (save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 50
+    } else if (save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 50
              && !(starFlags & SAVE_FLAG_TO_STAR_FLAG(SAVE_FLAG_COLLECTED_MIPS_STAR_2))) {
         o->oBehParams2ndByte = 1;
-#ifndef VERSION_JP
         o->oMipsForwardVelocity = 45.0f;
-#endif
     } else {
         // No MIPS stars are available, hide MIPS.
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
@@ -32,11 +27,7 @@ void bhv_mips_init(void) {
 
     o->oInteractionSubtype = INT_SUBTYPE_HOLDABLE_NPC;
 
-#ifndef VERSION_JP
     o->oGravity = 15.0f;
-#else
-    o->oGravity = 2.5f;
-#endif
     o->oFriction = 0.89f;
     o->oBuoyancy = 1.2f;
 
@@ -86,10 +77,8 @@ s16 bhv_mips_find_furthest_waypoint_to_mario(void) {
  * Wait until Mario comes close, then resume following our path.
  */
 void bhv_mips_act_wait_for_nearby_mario(void) {
-    UNUSED s16 collisionFlags = 0;
-
     o->oForwardVel = 0.0f;
-    collisionFlags = object_step();
+    object_step();
 
     // If Mario is within 500 units...
     if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 500)) {
@@ -110,12 +99,9 @@ void bhv_mips_act_wait_for_nearby_mario(void) {
  */
 void bhv_mips_act_follow_path(void) {
     s16 collisionFlags = 0;
-    s32 followStatus;
+    s32 followStatus = 0;
     struct Waypoint **pathBase;
     struct Waypoint *waypoint;
-#ifdef AVOID_UB
-    followStatus = 0;
-#endif
 
     // Retrieve current waypoint.
     pathBase = segmented_to_virtual(&inside_castle_seg7_trajectory_mips);
@@ -126,11 +112,7 @@ void bhv_mips_act_follow_path(void) {
     followStatus = cur_obj_follow_path(followStatus);
 
     // Update velocity and angle and do movement.
-#ifndef VERSION_JP
     o->oForwardVel = o->oMipsForwardVelocity;
-#else
-    o->oForwardVel = 45.0f;
-#endif
     o->oMoveAngleYaw = o->oPathedTargetYaw;
     collisionFlags = object_step();
 
@@ -163,13 +145,10 @@ void bhv_mips_act_wait_for_animation_done(void) {
  * Handles MIPS falling down after being thrown.
  */
 void bhv_mips_act_fall_down(void) {
-
-    s16 collisionFlags = 0;
-
-    collisionFlags = object_step();
+    s16 collisionFlags = object_step();
     o->header.gfx.animInfo.animFrame = 0;
 
-    if ((collisionFlags & OBJ_COL_FLAG_GROUNDED) == 1) {
+    if (collisionFlags & OBJ_COL_FLAG_GROUNDED) {
         o->oAction = MIPS_ACT_WAIT_FOR_ANIMATION_DONE;
 
         o->oFlags |= OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW;
@@ -184,10 +163,8 @@ void bhv_mips_act_fall_down(void) {
  * Idle loop, after you catch MIPS and put him down.
  */
 void bhv_mips_act_idle(void) {
-    UNUSED s16 collisionFlags = 0;
-
     o->oForwardVel = 0;
-    collisionFlags = object_step();
+    object_step();
 
     // Spawn a star if he was just picked up for the first time.
     if (o->oMipsStarStatus == MIPS_STAR_STATUS_SHOULD_SPAWN_STAR) {
