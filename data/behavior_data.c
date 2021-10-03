@@ -6600,7 +6600,7 @@ const BehaviorScript bhvLightningCloud[] = {
     LOAD_ANIMATIONS(oAnimations, lightning_cloud_anims),
     ANIMATE(2),
     SET_FLOAT(oDrawingDistance, 0x4000),
-    //SET_HOME(),
+    SET_HOME(),
     CALL_NATIVE(bhv_rainbow_cloud_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_lightning_cloud_loop),
@@ -6717,6 +6717,7 @@ const BehaviorScript bhvComitCoin[] = {
     CALL_NATIVE(bhv_comit_coin_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_yellow_coin_loop),
+        ADD_FLOAT(oPosY, 8),
     END_LOOP(),
 };
 
