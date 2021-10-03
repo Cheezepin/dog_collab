@@ -125,7 +125,6 @@ void bhv_bowser_body_anchor_loop(void) {
     // If Bowser is dead, set interaction type to text
     // so that he can be ready to speak his dialog
     if (o->parentObj->oAction == BOWSER_ACT_DEAD) {
-#if BUGFIX_BOWSER_COLLIDE_BITS_DEAD
         // Clear interaction type at the last sub action in BITS
         // Fixes collision coliding after defeating him
         if (o->parentObj->oSubAction == BOWSER_SUB_ACT_DEAD_FINAL_END_OVER) {
@@ -133,9 +132,6 @@ void bhv_bowser_body_anchor_loop(void) {
         } else {
             o->oInteractType = INTERACT_TEXT;
         }
-#else
-        o->oInteractType = INTERACT_TEXT;
-#endif
     } else {
         // Do damage if Mario touches Bowser
         o->oInteractType = INTERACT_DAMAGE;
@@ -428,7 +424,7 @@ void bowser_set_act_big_jump(void) {
 void bowser_bits_actions(void) {
     switch (o->oBowserIsReacting) {
         case FALSE:
-            // oBowserBitsJustJump never changes value, 
+            // oBowserBitsJustJump never changes value,
             // so its always FALSE, maybe a debug define
             if (o->oBowserBitsJustJump == FALSE) {
                 bowser_bits_action_list();
@@ -447,7 +443,6 @@ void bowser_bits_actions(void) {
 /**
  * Reset Bowser position and speed if he wasn't able to land properly on stage
  */
-#if BUGFIX_BOWSER_FALLEN_OFF_STAGE
 void bowser_reset_fallen_off_stage(void) {
     if (o->oVelY < 0 && o->oPosY < (o->oHomeY - 300.0f)) {
         o->oPosX = o->oPosZ = 0;
@@ -456,7 +451,6 @@ void bowser_reset_fallen_off_stage(void) {
         o->oForwardVel = 0;
     }
 }
-#endif
 
 /**
  * Unused, makes Bowser be in idle and after it returns to default action
@@ -667,7 +661,6 @@ void bowser_act_hit_mine(void) {
             }
             o->oBowserEyesShut = FALSE; // open eyes
         }
-    } else {
     }
 }
 
@@ -726,7 +719,6 @@ void bowser_short_second_hop(void) {
  * Makes Bowser do a big jump
  */
 void bowser_act_big_jump(void) {
-    UNUSED s32 unused;
     if (o->oSubAction == 0) {
         // Set jump animation
         if (bowser_set_anim_jump()) {
@@ -741,12 +733,10 @@ void bowser_act_big_jump(void) {
             o->oSubAction++;
         }
     } else if (o->oSubAction == 1) {
-#if BUGFIX_BOWSER_FALLEN_OFF_STAGE
         // Reset Bowser back on stage in BITS if he doesn't land properly
         if (o->oBehParams2ndByte == BOWSER_BP_BITS && o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
             bowser_reset_fallen_off_stage();
         }
-#endif
         // Land on stage, reset status jump and velocity
         if (bowser_land()) {
             o->oBowserStatus &= ~BOWSER_STATUS_BIG_JUMP;
@@ -758,7 +748,6 @@ void bowser_act_big_jump(void) {
             if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
                 o->oAction = BOWSER_ACT_TILT_LAVA_PLATFORM;
             }
-        } else {
         }
     // Set to default action when the animation is over
     } else if (cur_obj_check_if_near_animation_end()) {
@@ -982,7 +971,6 @@ s32 bowser_check_hit_mine(void) {
  * Bowser's thrown act that gets called after Mario releases him
  */
 void bowser_act_thrown(void) {
-    UNUSED s32 unused;
     // Keep Bowser's timer at 0 unless he lands
     if (o->oTimer < 2)
         o->oBowserTimer = 0;
@@ -1026,7 +1014,6 @@ void bowser_set_goal_invisible(void) {
  */
 void bowser_act_jump_onto_stage(void) {
     s32 onDynamicFloor;
-    UNUSED s32 unused;
     struct Surface *floor = o->oFloor;
 
     // Set dynamic floor check (Object platforms)
@@ -1097,15 +1084,7 @@ void bowser_act_jump_onto_stage(void) {
             }
             // Reset him back on stage if he still didn't landed yet
             // Post-JP made this check as a separate function
-#if BUGFIX_BOWSER_FALLEN_OFF_STAGE
             bowser_reset_fallen_off_stage();
-#else
-            if (o->oVelY < 0.0f && o->oPosY < o->oHomeY - 300.0f) {
-                o->oPosZ = 0.0f, o->oPosX = o->oPosZ;
-                o->oPosY = o->oHomeY + 2000.0f;
-                o->oVelY = 0.0f;
-            }
-#endif
             break;
         // Bowser landed, so reset action after he's done jumping
         case BOWSER_SUB_ACT_JUMP_ON_STAGE_STOP:
@@ -1286,7 +1265,6 @@ s32 bowser_dead_default_stage_ending(void) {
  * Returns TRUE once done
  */
 s32 bowser_dead_final_stage_ending(void) {
-    UNUSED s32 unused;
     s32 ret = FALSE;
     s32 dialogID;
     if (o->oBowserTimer < 2) {
@@ -1383,11 +1361,11 @@ struct BowserTiltPlatformInfo {
     //  0 = Don't move
     //  1 = Move angle behind Bowser
     // -1 = Move angle in front of Bowser
-	s16	flag;
+    s16 flag;
     // Sets platform's tilt angle speed (pattern: positive then negative)
-	s16	angSpeed;
+    s16 angSpeed;
     // Sets how much time the platform can tilt, increases each move
- 	s16	time;
+    s16 time;
 };
 
 /**
@@ -1414,9 +1392,7 @@ struct BowserTiltPlatformInfo sBowsertiltPlatformData[] = {
 void bowser_act_tilt_lava_platform(void) {
     // Set platform object
     struct Object *platform = cur_obj_nearest_object_with_behavior(bhvTiltingBowserLavaPlatform);
-    UNUSED s16 angle = o->oBowserAngleToCentre + 0x8000;
     s16 angSpeed;
-    UNUSED s32 unused;
     s32 i;
     s32 isNotTilting;
     // If there's not platform, return to default action
@@ -1875,14 +1851,12 @@ void bowser_open_eye_switch(struct Object *obj, struct GraphNodeSwitchCase *swit
  * direction otherwise.
  */
 Gfx *geo_switch_bowser_eyes(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
-    UNUSED s16 eyeShut;
-    UNUSED s32 unused;
     struct Object *obj = (struct Object *) gCurGraphNodeObject;
     struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
     if (callContext == GEO_CONTEXT_RENDER) {
         if (gCurGraphNodeHeldObject != NULL)
             obj = gCurGraphNodeHeldObject->objNode;
-        switch (eyeShut = obj->oBowserEyesShut) {
+        switch (obj->oBowserEyesShut) {
             case FALSE: // eyes open, handle eye looking direction
                 bowser_open_eye_switch(obj, switchCase);
                 break;
@@ -1912,9 +1886,9 @@ Gfx *geo_bits_bowser_coloring(s32 callContext, struct GraphNode *node, UNUSED s3
         }
         // Set layers if object is transparent or not
         if (obj->oOpacity == 0xFF) {
-            graphNode->fnNode.node.flags = (graphNode->fnNode.node.flags & 0xFF) | (LAYER_OPAQUE << 8);
+            SET_GRAPH_NODE_LAYER(graphNode->fnNode.node.flags, LAYER_OPAQUE);
         } else {
-            graphNode->fnNode.node.flags = (graphNode->fnNode.node.flags & 0xFF) | (LAYER_TRANSPARENT << 8);
+            SET_GRAPH_NODE_LAYER(graphNode->fnNode.node.flags, LAYER_TRANSPARENT);
         }
         gfx = gfxHead = alloc_display_list(2 * sizeof(Gfx));
         // If TRUE, clear lighting to give rainbow color

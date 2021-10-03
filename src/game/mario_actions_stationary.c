@@ -179,9 +179,7 @@ void play_anim_sound(struct MarioState *m, u32 actionState, s32 animFrame, u32 s
 }
 
 s32 act_start_sleeping(struct MarioState *m) {
-#ifndef VERSION_JP
     s32 animFrame = 0;
-#endif
 
     if (check_common_idle_cancels(m)) {
         return TRUE;
@@ -197,32 +195,20 @@ s32 act_start_sleeping(struct MarioState *m) {
 
     switch (m->actionState) {
         case 0:
-#ifndef VERSION_JP
-            animFrame =
-#endif
-            set_mario_animation(m, MARIO_ANIM_START_SLEEP_IDLE);
+            animFrame = set_mario_animation(m, MARIO_ANIM_START_SLEEP_IDLE);
             break;
 
         case 1:
-#ifndef VERSION_JP
-            animFrame =
-#endif
-            set_mario_animation(m, MARIO_ANIM_START_SLEEP_SCRATCH);
+            animFrame = set_mario_animation(m, MARIO_ANIM_START_SLEEP_SCRATCH);
             break;
 
         case 2:
-#ifndef VERSION_JP
-            animFrame =
-#endif
-            set_mario_animation(m, MARIO_ANIM_START_SLEEP_YAWN);
+            animFrame = set_mario_animation(m, MARIO_ANIM_START_SLEEP_YAWN);
             m->marioBodyState->eyeState = MARIO_EYES_HALF_CLOSED;
             break;
 
         case 3:
-#ifndef VERSION_JP
-            animFrame =
-#endif
-            set_mario_animation(m, MARIO_ANIM_START_SLEEP_SITTING);
+            animFrame = set_mario_animation(m, MARIO_ANIM_START_SLEEP_SITTING);
             m->marioBodyState->eyeState = MARIO_EYES_HALF_CLOSED;
             break;
     }
@@ -788,8 +774,8 @@ s32 act_stop_crawling(struct MarioState *m) {
 }
 
 s32 act_shockwave_bounce(struct MarioState *m) {
-    s16 sp1E;
-    f32 sp18;
+    s16 bounceTimer;
+    f32 bounceAmt;
 
     if (m->marioObj->oInteractStatus & INT_STATUS_MARIO_SHOCKWAVE) {
 #if ENABLE_RUMBLE
@@ -811,14 +797,14 @@ s32 act_shockwave_bounce(struct MarioState *m) {
         return set_mario_action(m, ACT_IDLE, 0);
     }
 
-    sp1E = (m->actionTimer % 16) << 12;
-    sp18 = (f32)(((f32)(6 - m->actionTimer / 8) * 8.0f) + 4.0f);
+    bounceTimer = (m->actionTimer % 16) << 12;
+    bounceAmt = (f32)(((f32)(6 - m->actionTimer / 8) * 8.0f) + 4.0f);
     mario_set_forward_vel(m, 0);
     vec3f_set(m->vel, 0.0f, 0.0f, 0.0f);
-    if (sins(sp1E) >= 0.0f) {
-        m->pos[1] = sins(sp1E) * sp18 + m->floorHeight;
+    if (sins(bounceTimer) >= 0.0f) {
+        m->pos[1] = sins(bounceTimer) * bounceAmt + m->floorHeight;
     } else {
-        m->pos[1] = m->floorHeight - sins(sp1E) * sp18;
+        m->pos[1] = m->floorHeight - sins(bounceTimer) * bounceAmt;
     }
 
     vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
@@ -1053,13 +1039,13 @@ s32 act_ground_pound_land(struct MarioState *m) {
 }
 
 s32 act_first_person(struct MarioState *m) {
-    s32 sp1C = (m->input & (INPUT_OFF_FLOOR | INPUT_ABOVE_SLIDE | INPUT_STOMPED)) != 0;
+    s32 exit = (m->input & (INPUT_OFF_FLOOR | INPUT_ABOVE_SLIDE | INPUT_STOMPED)) != 0;
 
     if (m->actionState == 0) {
         lower_background_noise(2);
         set_camera_mode(m->area->camera, CAMERA_MODE_C_UP, 0x10);
         m->actionState = 1;
-    } else if (!(m->input & INPUT_FIRST_PERSON) || sp1C) {
+    } else if (!(m->input & INPUT_FIRST_PERSON) || exit) {
         raise_background_noise(2);
         // Go back to the last camera mode
         set_camera_mode(m->area->camera, -1, 1);
@@ -1068,10 +1054,10 @@ s32 act_first_person(struct MarioState *m) {
 
     if (m->floor->type == SURFACE_LOOK_UP_WARP
         && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 10) {
-        s16 sp1A = m->statusForCamera->headRotation[0];
-        s16 sp18 = ((m->statusForCamera->headRotation[1] * 4) / 3) + m->faceAngle[1];
-        if (sp1A == -0x1800 && (sp18 < -0x6FFF || sp18 >= 0x7000)) {
-            level_trigger_warp(m, WARP_OP_UNKNOWN_01);
+        s16 headRX = m->statusForCamera->headRotation[0];
+        s16 totalRY = ((m->statusForCamera->headRotation[1] * 4) / 3) + m->faceAngle[1];
+        if (headRX == -0x1800 && (totalRY < -0x6FFF || totalRY >= 0x7000)) {
+            level_trigger_warp(m, WARP_OP_LOOK_UP);
         }
     }
 
@@ -1094,7 +1080,7 @@ s32 check_common_stationary_cancels(struct MarioState *m) {
         return drop_and_set_mario_action(m, ACT_SQUISHED, 0);
     }
 
-    if (m->action != ACT_UNKNOWN_0002020E) {
+    if (m->action != ACT_NO_STANDING_DEATH) {
         if (m->health < 0x100) {
             update_mario_sound_and_camera(m);
             return drop_and_set_mario_action(m, ACT_STANDING_DEATH, 0);

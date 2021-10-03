@@ -39,7 +39,7 @@ void bhv_motos_hand_loop(void) {
 
     common_anchor_mario_behavior(50.0f, 30.0f, 64); // Used common func instead of repeating code
     // Also vert speed increased from 0 to 50
-    if (o->oChuckyaUnk88 == 1)
+    if (o->oCommonAnchorAction == 1)
         vec3f_copy(gMarioState->pos, gMarioObject->header.gfx.pos); // Added to fix camera
 }
 
@@ -61,7 +61,7 @@ void bhv_motos_player_search(void) {
     
     if (o->oInteractStatus & INT_STATUS_GRABBED_MARIO) {
         o->oAction = MOTOS_ACT_PLAYER_CARRY;
-        o->oChuckyaUnk88 = 1;
+        o->oCommonAnchorAction = 1;
     }
 }
 
@@ -82,7 +82,7 @@ void bhv_motos_player_pitch(void) {
     cur_obj_init_animation_with_sound(MOTOS_ANIM_PITCH);
     
     if (cur_obj_check_anim_frame(14)) {
-        o->oChuckyaUnk88 = 2;
+        o->oCommonAnchorAction = 2;
         o->numCollidedObjs = 10;
     }
     

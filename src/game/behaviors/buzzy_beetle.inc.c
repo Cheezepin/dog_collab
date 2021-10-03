@@ -203,7 +203,7 @@ void buzzy_beetle_act_in_shell(void) {
                 o->oMoveAngleYaw = obj_angle_to_object(gMarioObject, o);
                 gMarioState->pos[1] = o->oPosY + o->hitboxHeight;
                 gMarioState->vel[1] = 30.0f;
-                gMarioState->flags &= ~MARIO_UNKNOWN_08;
+                gMarioState->flags &= ~MARIO_JUMPING;
                 play_sound(SOUND_ACTION_BOUNCE_OFF_OBJECT, gMarioState->marioObj->header.gfx.cameraToObject);
             }
     }

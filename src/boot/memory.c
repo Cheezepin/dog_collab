@@ -6,9 +6,9 @@
 
 #include "buffers/buffers.h"
 #include "slidec.h"
-#include "game_init.h"
-#include "main.h"
-#include "memory.h"
+#include "game/game_init.h"
+#include "game/main.h"
+#include "game/memory.h"
 #include "segment_symbols.h"
 #include "segments.h"
 #ifdef GZIP
@@ -21,6 +21,7 @@
 #include "usb/usb.h"
 #include "usb/debug.h"
 #endif
+#include "game/puppyprint.h"
 
 
 // round up to the next multiple
@@ -78,7 +79,7 @@ struct MainPoolBlock *sPoolListHeadR;
 static struct MainPoolState *gMainPoolState = NULL;
 
 uintptr_t set_segment_base_addr(s32 segment, void *addr) {
-    sSegmentTable[segment] = (uintptr_t) addr & 0x1FFFFFFF;
+    sSegmentTable[segment] = ((uintptr_t) addr & 0x1FFFFFFF);
     return sSegmentTable[segment];
 }
 
@@ -88,15 +89,14 @@ void *get_segment_base_addr(s32 segment) {
 
 #ifndef NO_SEGMENTED_MEMORY
 void *segmented_to_virtual(const void *addr) {
-    size_t segment = (uintptr_t) addr >> 24;
-    size_t offset = (uintptr_t) addr & 0x00FFFFFF;
+    size_t segment = ((uintptr_t) addr >> 24);
+    size_t offset  = ((uintptr_t) addr & 0x00FFFFFF);
 
     return (void *) ((sSegmentTable[segment] + offset) | 0x80000000);
 }
 
 void *virtual_to_segmented(u32 segment, const void *addr) {
     size_t offset = ((uintptr_t) addr & 0x1FFFFFFF) - sSegmentTable[segment];
-
     return (void *) ((segment << 24) + offset);
 }
 
@@ -126,8 +126,8 @@ void move_segment_table_to_dmem(void) {
  * freeing the object that was most recently allocated from a side.
  */
 void main_pool_init(void *start, void *end) {
-    sPoolStart = (u8 *) ALIGN16((uintptr_t) start) + 16;
-    sPoolEnd = (u8 *) ALIGN16((uintptr_t) end - 15) - 16;
+    sPoolStart = ((u8 *) ALIGN16((uintptr_t) start) + 16);
+    sPoolEnd   = ((u8 *) ALIGN16((uintptr_t) end - 15) - 16);
     sPoolFreeSpace = sPoolEnd - sPoolStart;
 
     sPoolListHeadL = (struct MainPoolBlock *) (sPoolStart - 16);
@@ -136,6 +136,9 @@ void main_pool_init(void *start, void *end) {
     sPoolListHeadL->next = NULL;
     sPoolListHeadR->prev = NULL;
     sPoolListHeadR->next = NULL;
+    #if PUPPYPRINT_DEBUG
+    mempool = sPoolFreeSpace;
+    #endif
 }
 
 /**
@@ -147,23 +150,23 @@ void *main_pool_alloc(u32 size, u32 side) {
     struct MainPoolBlock *newListHead;
     void *addr = NULL;
 
-    size = ALIGN16(size) + 16;
+    size = (ALIGN16(size) + 16);
     if (size != 0 && sPoolFreeSpace >= size) {
         sPoolFreeSpace -= size;
         if (side == MEMORY_POOL_LEFT) {
             newListHead = (struct MainPoolBlock *) ((u8 *) sPoolListHeadL + size);
             sPoolListHeadL->next = newListHead;
-            newListHead->prev = sPoolListHeadL;
-            newListHead->next = NULL;
-            addr = (u8 *) sPoolListHeadL + 16;
-            sPoolListHeadL = newListHead;
+            newListHead->prev    = sPoolListHeadL;
+            newListHead->next    = NULL;
+            addr                 = ((u8 *) sPoolListHeadL + 16);
+            sPoolListHeadL       = newListHead;
         } else {
             newListHead = (struct MainPoolBlock *) ((u8 *) sPoolListHeadR - size);
             sPoolListHeadR->prev = newListHead;
-            newListHead->next = sPoolListHeadR;
-            newListHead->prev = NULL;
-            sPoolListHeadR = newListHead;
-            addr = (u8 *) sPoolListHeadR + 16;
+            newListHead->next    = sPoolListHeadR;
+            newListHead->prev    = NULL;
+            sPoolListHeadR       = newListHead;
+            addr                 = ((u8 *) sPoolListHeadR + 16);
         }
     }
     return addr;
@@ -176,7 +179,7 @@ void *main_pool_alloc(u32 size, u32 side) {
  * Return the amount of free space left in the pool.
  */
 u32 main_pool_free(void *addr) {
-    struct MainPoolBlock *block = (struct MainPoolBlock *) ((u8 *) addr - 16);
+    struct MainPoolBlock *block       = (struct MainPoolBlock *) ((u8 *) addr - 16);
     struct MainPoolBlock *oldListHead = (struct MainPoolBlock *) ((u8 *) addr - 16);
 
     if (oldListHead < sPoolListHeadL) {
@@ -258,6 +261,9 @@ u32 main_pool_pop_state(void) {
  */
 void dma_read(u8 *dest, u8 *srcStart, u8 *srcEnd) {
     u32 size = ALIGN16(srcEnd - srcStart);
+    #if PUPPYPRINT_DEBUG
+    OSTime first = osGetTime();
+    #endif
 
     osInvalDCache(dest, size);
     while (size != 0) {
@@ -271,21 +277,54 @@ void dma_read(u8 *dest, u8 *srcStart, u8 *srcEnd) {
         srcStart += copySize;
         size -= copySize;
     }
+    #if PUPPYPRINT_DEBUG
+    dmaTime[perfIteration] += osGetTime()-first;
+    #endif
 }
 
 /**
  * Perform a DMA read from ROM, allocating space in the memory pool to write to.
  * Return the destination address.
  */
-static void *dynamic_dma_read(u8 *srcStart, u8 *srcEnd, u32 side) {
+void *dynamic_dma_read(u8 *srcStart, u8 *srcEnd, u32 side, u32 alignment, u32 bssLength) {
     void *dest;
     u32 size = ALIGN16(srcEnd - srcStart);
+    u32 offset = 0;
 
-    dest = main_pool_alloc(size, side);
+    if (alignment && side == MEMORY_POOL_LEFT) {
+        offset = ALIGN((uintptr_t)sPoolListHeadL + 16, alignment) - ((uintptr_t)sPoolListHeadL + 16);
+    }
+
+    dest = main_pool_alloc(offset + size + bssLength, side);
     if (dest != NULL) {
-        dma_read(dest, srcStart, srcEnd);
+        dma_read((u8 *)dest + offset, srcStart, srcEnd);
+        if (bssLength) {
+            bzero((u8 *)dest + offset + size, bssLength);
+        }
     }
     return dest;
+}
+
+#define TLB_PAGE_SIZE 4096 //Blocksize of TLB transfers. Larger values can be faster to transfer, but more wasteful of RAM.
+s32 gTlbEntries = 0;
+u8 gTlbSegments[32] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+void mapTLBPages(uintptr_t virtualAddress, uintptr_t physicalAddress, s32 length, s32 segment) {
+    while (length > 0) {
+        if (length > TLB_PAGE_SIZE) {
+            osMapTLB(gTlbEntries++, OS_PM_4K, (void *)virtualAddress, physicalAddress, physicalAddress + TLB_PAGE_SIZE, -1);
+            virtualAddress += TLB_PAGE_SIZE;
+            physicalAddress += TLB_PAGE_SIZE;
+            length -= TLB_PAGE_SIZE;
+            gTlbSegments[segment]++;
+        } else {
+            osMapTLB(gTlbEntries++, OS_PM_4K, (void *)virtualAddress, physicalAddress, -1, -1);
+            gTlbSegments[segment]++;
+        }
+        virtualAddress += TLB_PAGE_SIZE;
+        physicalAddress += TLB_PAGE_SIZE;
+        length -= TLB_PAGE_SIZE;
+    }
 }
 
 #ifndef NO_SEGMENTED_MEMORY
@@ -293,12 +332,25 @@ static void *dynamic_dma_read(u8 *srcStart, u8 *srcEnd, u32 side) {
  * Load data from ROM into a newly allocated block, and set the segment base
  * address to this block.
  */
-void *load_segment(s32 segment, u8 *srcStart, u8 *srcEnd, u32 side) {
-    void *addr = dynamic_dma_read(srcStart, srcEnd, side);
+void *load_segment(s32 segment, u8 *srcStart, u8 *srcEnd, u32 side, u8 *bssStart, u8 *bssEnd) {
+    void *addr;
 
-    if (addr != NULL) {
-        set_segment_base_addr(segment, addr); sSegmentROMTable[segment] = (uintptr_t) srcStart;
+    if (bssStart != NULL && side == MEMORY_POOL_LEFT) {
+        addr = dynamic_dma_read(srcStart, srcEnd, side, TLB_PAGE_SIZE, (uintptr_t)bssEnd - (uintptr_t)bssStart);
+        if (addr != NULL) {
+            u8 *realAddr = (u8 *)ALIGN((uintptr_t)addr, TLB_PAGE_SIZE);
+            set_segment_base_addr(segment, realAddr); sSegmentROMTable[segment] = (uintptr_t) srcStart;
+            mapTLBPages(segment << 24, VIRTUAL_TO_PHYSICAL(realAddr), (srcEnd - srcStart) + ((uintptr_t)bssEnd - (uintptr_t)bssStart), segment);
+        }
+    } else {
+        addr = dynamic_dma_read(srcStart, srcEnd, side, 0, 0);
+        if (addr != NULL) {
+            set_segment_base_addr(segment, addr);
+        }
     }
+    #if PUPPYPRINT_DEBUG
+    ramsizeSegment[segment+nameTable-2] = (s32)srcEnd- (s32)srcStart;
+    #endif
     return addr;
 }
 
@@ -322,7 +374,6 @@ void *load_to_fixed_pool_addr(u8 *destAddr, u8 *srcStart, u8 *srcEnd) {
             osInvalICache(dest, destSize);
             osInvalDCache(dest, destSize);
         }
-    } else {
     }
     return dest;
 }
@@ -334,7 +385,6 @@ void *load_to_fixed_pool_addr(u8 *destAddr, u8 *srcStart, u8 *srcEnd) {
  */
 void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd) {
     void *dest = NULL;
-
 #ifdef GZIP
     u32 compSize = (srcEnd - 4 - srcStart);
 #else
@@ -357,7 +407,7 @@ void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd) {
         dest = main_pool_alloc(*size, MEMORY_POOL_LEFT);
 #endif
         if (dest != NULL) {
-			osSyncPrintf("start decompress\n");
+            osSyncPrintf("start decompress\n");
 #ifdef GZIP
             expand_gzip(compressed, dest, compSize, (u32)size);
 #elif RNC1
@@ -369,19 +419,19 @@ void *load_segment_decompress(s32 segment, u8 *srcStart, u8 *srcEnd) {
 #elif MIO0
             decompress(compressed, dest);
 #endif
-			osSyncPrintf("end decompress\n");
+            osSyncPrintf("end decompress\n");
             set_segment_base_addr(segment, dest); sSegmentROMTable[segment] = (uintptr_t) srcStart;
             main_pool_free(compressed);
-        } else {
         }
-    } else {
     }
+    #if PUPPYPRINT_DEBUG
+    ramsizeSegment[segment+nameTable-2] = (s32)srcEnd - (s32)srcStart;
+    #endif
     return dest;
 }
 
 void *load_segment_decompress_heap(u32 segment, u8 *srcStart, u8 *srcEnd) {
-    UNUSED void *dest = NULL;
-
+    // UNUSED void *dest = NULL;
 #ifdef GZIP
     u32 compSize = (srcEnd - 4 - srcStart);
 #else
@@ -411,7 +461,6 @@ void *load_segment_decompress_heap(u32 segment, u8 *srcStart, u8 *srcEnd) {
 #endif
         set_segment_base_addr(segment, gDecompressionHeap); sSegmentROMTable[segment] = (uintptr_t) srcStart;
         main_pool_free(compressed);
-    } else {
     }
     return gDecompressionHeap;
 }
@@ -582,22 +631,21 @@ void *alloc_display_list(u32 size) {
     void *ptr = NULL;
 
     size = ALIGN8(size);
-    if (gGfxPoolEnd - size >= (u8 *) gDisplayListHead) {
+    if ((gGfxPoolEnd - size) >= (u8 *) gDisplayListHead) {
         gGfxPoolEnd -= size;
         ptr = gGfxPoolEnd;
-    } else {
     }
     return ptr;
 }
 
 static struct DmaTable *load_dma_table_address(u8 *srcAddr) {
     struct DmaTable *table = dynamic_dma_read(srcAddr, srcAddr + sizeof(u32),
-                                                             MEMORY_POOL_LEFT);
-    u32 size = table->count * sizeof(struct OffsetSizePair) + 
+                                                             MEMORY_POOL_LEFT, 0, 0);
+    u32 size = table->count * sizeof(struct OffsetSizePair) +
         sizeof(struct DmaTable) - sizeof(struct OffsetSizePair);
     main_pool_free(table);
 
-    table = dynamic_dma_read(srcAddr, srcAddr + size, MEMORY_POOL_LEFT);
+    table = dynamic_dma_read(srcAddr, srcAddr + size, MEMORY_POOL_LEFT, 0, 0);
     table->srcAddr = srcAddr;
     return table;
 }

@@ -37,4 +37,9 @@ extern const struct MovtexQuadCollection sl_movtex_water[];
 // script
 extern const LevelScript level_sl_entry[];
 
+
+#include "levels/sl/header.inc.h"
+
+#include "levels/sl/sl_backdrop/header.h"
+
 #endif
