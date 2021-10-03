@@ -1124,6 +1124,7 @@ void bhv_bonus_lightning_cloud_loop(void) {
 void bhv_hidden_cloud_loop(void) {
     Vec3f pos;
     struct Object *obj;
+    struct Animation **anims;
     switch (o->oAction) {
         case 0:
             if (o->oHiddenStarTriggerCounter == 5) {
@@ -1157,6 +1158,9 @@ void bhv_hidden_cloud_loop(void) {
                 obj = cur_obj_nearest_object_with_behavior(bhvBodyLakitu);
                 if (obj != NULL) {
                     obj->oBehParams2ndByte = COMIT_DIALOG_9;
+                    anims = obj->oAnimations;
+                    geo_obj_init_animation(&obj->header.gfx, &anims[2]);
+                    obj->oAnimState = 1;
                 }
             }
             break;

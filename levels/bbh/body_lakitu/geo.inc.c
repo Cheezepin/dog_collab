@@ -1,5 +1,12 @@
 #include "src/game/envfx_snow.h"
 
+const GeoLayout body_lakitu_armature_001_switch_option[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_DISPLAY_LIST(LAYER_ALPHA, body_lakitu_001_switch_option_001_displaylist_mesh_layer_4),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
 const GeoLayout body_lakitu_geo[] = {
 	GEO_CULLING_RADIUS(4096),
 	GEO_OPEN_NODE(),
@@ -7,7 +14,7 @@ const GeoLayout body_lakitu_geo[] = {
 		GEO_OPEN_NODE(),
 			GEO_SCALE(LAYER_FORCE, 16384),
 			GEO_OPEN_NODE(),
-				GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 33, -62, NULL),
+				GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 33, 62, NULL),
 				GEO_OPEN_NODE(),
 					GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, body_lakitu_000_offset_001_mesh_layer_1),
 					GEO_OPEN_NODE(),
@@ -19,6 +26,7 @@ const GeoLayout body_lakitu_geo[] = {
 								GEO_OPEN_NODE(),
 									GEO_DISPLAY_LIST(LAYER_ALPHA, body_lakitu_000_displaylist_mesh_layer_4),
 								GEO_CLOSE_NODE(),
+								GEO_BRANCH(1, body_lakitu_armature_001_switch_option),
 							GEO_CLOSE_NODE(),
 						GEO_CLOSE_NODE(),
 						GEO_ANIMATED_PART(LAYER_OPAQUE, 87, 18, 72, NULL),
