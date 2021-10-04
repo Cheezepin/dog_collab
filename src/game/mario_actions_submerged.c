@@ -190,12 +190,22 @@ static void apply_water_current(struct MarioState *m, Vec3f step) {
     }
 }
 
+#define EXIT_VEL 60.0f
+
 static u32 perform_water_step(struct MarioState *m) {
     u32 stepResult;
     Vec3f nextPos;
     Vec3f step;
     s32 canExitWaterWithMomentum = m->action == ACT_WATER_GROUND_POUND;
     struct Object *marioObj = m->marioObj;
+
+    if (gCurrLevelNum == LEVEL_DDD) {
+        if (ABS(m->waterForce) > 0.1f) {
+            m->vel[1] += m->waterForce;
+            m->vel[1] = MAX(m->vel[1], -75.0f);
+            if (m->waterForce > EXIT_VEL) canExitWaterWithMomentum = TRUE;
+        }
+    }
 
     vec3f_copy(step, m->vel);
 
@@ -207,9 +217,11 @@ static u32 perform_water_step(struct MarioState *m) {
     nextPos[1] = m->pos[1] + step[1];
     nextPos[2] = m->pos[2] + step[2];
 
-    if (nextPos[1] > m->waterLevel - 80 && !canExitWaterWithMomentum) {
-        nextPos[1] = m->waterLevel - 80;
-        m->vel[1] = 0.0f;
+    if (nextPos[1] > m->waterLevel - 80) {
+        if (!canExitWaterWithMomentum) {
+            nextPos[1] = m->waterLevel - 80.0f;
+            m->vel[1] = 0.0f;
+        }
     }
 
     if (nextPos[1] < m->waterBottomHeight + 25.0f && !canExitWaterWithMomentum) {

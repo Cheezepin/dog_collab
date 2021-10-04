@@ -39,7 +39,7 @@ s32 bowser_flame_should_despawn(s32 maxTime) {
     if (o->oFloorType == SURFACE_BURNING) {
         return TRUE;
     }
-    if (o->oFloorType == SURFACE_DEATH_PLANE) {
+    if (SURFACE_IS_WARP_PLANE(o->oFloorType)) {
         return TRUE;
     }
 
