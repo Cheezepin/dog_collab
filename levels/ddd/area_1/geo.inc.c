@@ -9,8 +9,8 @@ const GeoLayout ddd_area_1_geo[] = {
 		GEO_ASM(0, geo_backdrop_move_cozies),
 		GEO_TRANSLATE_ROTATE(LAYER_OPAQUE_INTER, 0, 0, 0, 0, 0, 0),
 		GEO_OPEN_NODE(),
-			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, ddd_dl_Cube_001_mesh_layer_7),
 			GEO_DISPLAY_LIST(LAYER_OPAQUE_INTER, ddd_dl_ZPlane_mesh_layer_3),
+			GEO_DISPLAY_LIST(LAYER_OPAQUE_INTER, ddd_dl_ZZCube_001_mesh_layer_3),
 		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
@@ -40,7 +40,6 @@ const GeoLayout ddd_area_1[] = {
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE_INTER, ddd_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, ddd_dl_material_revert_render_settings),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, ddd_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };
