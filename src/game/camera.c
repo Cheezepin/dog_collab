@@ -3231,9 +3231,13 @@ void update_camera(struct Camera *c) {
         vec3f_copy(&c->focus, gComitCamPos[1]);
         gCamera->yaw = gCamera->nextYaw = 0;
         gComitCam = 2;
+        s8DirModeBaseYaw = 0;
+        s8DirModeYawOffset = atan2s(c->focus[2] - c->pos[2], c->focus[0] - c->pos[0]);
     } else if (gComitCam == 2) {
         c->pos[1] = gMarioState->pos[1] + 160.0f;
         gComitCam = 0;
+        s8DirModeBaseYaw = 0;
+        s8DirModeYawOffset = atan2s(c->focus[2] - c->pos[2], c->focus[0] - c->pos[0]);
     }
     //mrcomit code end
 

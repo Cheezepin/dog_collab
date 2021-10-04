@@ -60,7 +60,7 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_CENTER_PLATFORM, center_platform_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_DARK_SKY, dark_sky_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ENTRANCE_GATE, entrance_gate_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_CENTER_LIGHT, center_light_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_CENTER_LIGHT, center_light_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -220,8 +220,8 @@ const LevelScript level_bbh_entry[] = {
 		WARP_NODE(0x55, LEVEL_BBH, 0x01, 0x55, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x4A, LEVEL_BBH, 0x03, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_NONE, -12259, -505, 3936, 0, 90, 0, 0x000B0000, bhvAirborneDeathWarp),
-		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, -12618, -705, 3969, 0, -90, 0, 0x000A0000, bhvDoorWarp),
-		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, -5482, 124, -7575, 0, -180, 0, 0x004A0000, bhvDoorWarp),
+		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, -12632, -705, 3928, 0, -90, 0, 0x000A0000, bhvDoorWarp),
+		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, -5439, 124, -7580, 0, -180, 0, 0x004A0000, bhvDoorWarp),
 		OBJECT(MODEL_FADE_CLOUD, -6200, -735, 5098, 0, 0, 0, 0x00000000, bhvFadeCloud),
 		OBJECT(MODEL_FADE_CLOUD, -5320, -591, 4123, 0, 0, 0, 0x001E0000, bhvFadeCloud),
 		OBJECT(MODEL_FADE_CLOUD, -4498, -358, 5275, 0, 0, 0, 0x003C0000, bhvFadeCloud),
