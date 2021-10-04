@@ -24,4 +24,8 @@ void scroll_textures() {
 		scroll_textures_sl();
 	}
 
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_bitdw_segment_7SegmentRomStart)) {
+		scroll_textures_bitdw();
+	}
+
 }

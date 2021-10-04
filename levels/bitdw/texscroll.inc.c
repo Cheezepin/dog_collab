@@ -286,7 +286,7 @@ void scroll_bitdw_dl_second_torus_001_mesh_layer_1_vtx_0() {
 
 void scroll_bitdw_dl_Torus_023_mesh_layer_1_vtx_0() {
 	int i = 0;
-	int count = 768;
+	int count = 451;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
