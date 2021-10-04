@@ -315,6 +315,15 @@ struct MarioBodyState
     u8 padding[4];
 };
 
+struct FloorCheckpoint
+{
+    Vec3f pos;
+    s16 yaw;
+    s16 level;
+    u8 area;
+    struct Surface *floor;
+};
+
 struct MarioState
 {
     /*0x00*/ u16 playerID;
@@ -384,6 +393,7 @@ struct MarioState
 #endif
     f32 waterForce;
     s16 prevWaterLevel;
+    struct FloorCheckpoint floorCheckpoint;
 };
 
 #endif // TYPES_H

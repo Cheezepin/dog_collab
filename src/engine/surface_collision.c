@@ -618,7 +618,7 @@ f32 find_water_bottom_from_list(struct SurfaceNode *surfaceNode, s32 x, s32 y, s
     f32 topBottomHeight = FLOOR_LOWER_LIMIT;
 #ifdef WATER_BOTTOM_FORCE
     s32 bottomForce = 0;
-#endif WATER_BOTTOM_FORCE
+#endif
 
     // Iterate through the list of water floors until there are no more water floors.
     while (bottomSurfaceNode != NULL) {

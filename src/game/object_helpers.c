@@ -1608,7 +1608,7 @@ static void cur_obj_update_floor(void) {
         if (floor->type == SURFACE_BURNING) {
             o->oMoveFlags |= OBJ_MOVE_ABOVE_LAVA;
         }
-        else if (floor->type == SURFACE_DEATH_PLANE) {
+        else if (SURFACE_IS_WARP_PLANE(floor->type)) {
             //! This misses SURFACE_VERTICAL_WIND (and maybe SURFACE_WARP)
             o->oMoveFlags |= OBJ_MOVE_ABOVE_DEATH_BARRIER;
         }

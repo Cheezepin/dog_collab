@@ -1451,7 +1451,7 @@ s32 bowser_check_fallen_off_stage(void) {
                 return TRUE;
             }
             // Check for Dark World - Sky
-            if (o->oFloorType == SURFACE_DEATH_PLANE) {
+            if (SURFACE_IS_WARP_PLANE(o->oFloorType)) {
                 return TRUE;
             }
         }
