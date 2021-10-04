@@ -60,6 +60,7 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_CENTER_PLATFORM, center_platform_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_DARK_SKY, dark_sky_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ENTRANCE_GATE, entrance_gate_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_CENTER_LIGHT, center_light_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */

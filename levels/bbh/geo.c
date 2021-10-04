@@ -44,3 +44,4 @@
 #include "levels/bbh/center_platform/geo.inc.c"
 #include "levels/bbh/dark_sky/geo.inc.c"
 #include "levels/bbh/entrance_gate/geo.inc.c"
+#include "levels/bbh/center_light/geo.inc.c"

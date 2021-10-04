@@ -634,5 +634,6 @@
 #define MODEL_CENTER_PLATFORM             0x111
 #define MODEL_DARK_SKY                    0x112
 #define MODEL_ENTRANCE_GATE               0x113
+#define MODEL_CENTER_LIGHT                0x114
 
 #endif // MODEL_IDS_H
