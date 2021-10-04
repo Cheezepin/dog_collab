@@ -33,3 +33,4 @@
 #include "spike/geo.inc.c"
 #include "spike_ball/geo.inc.c"
 #include "podoboo/geo.inc.c"
+#include "cephie/geo.inc.c"

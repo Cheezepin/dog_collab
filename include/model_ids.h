@@ -590,6 +590,8 @@
 
 #define MODEL_DOG                         0xFF
 
+#define MODEL_CEPHIE                      0x100
+
 #define MODEL_REX                         0x1FF
 #define MODEL_GALOOMBA                    0x1FE
 #define MODEL_BLOOPER                     0x1FD

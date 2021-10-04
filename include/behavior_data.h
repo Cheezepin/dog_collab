@@ -556,4 +556,6 @@ extern const BehaviorScript bhvShockTexture[];
 extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
 
+extern const BehaviorScript bhvCephie[];
+
 #endif // BEHAVIOR_DATA_H
