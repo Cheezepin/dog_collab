@@ -6298,15 +6298,15 @@ const BehaviorScript bhvPaletteSwap[] = {
 
 const BehaviorScript bhvCephie[] = {
     BEGIN(OBJ_LIST_GENACTOR),
-    OR_INT(oFlags, (OBJ_FLAG_PERSISTENT_RESPAWN | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_ANIMATIONS(oAnimations, cephie_anims),
     ANIMATE(0),
     SET_INTERACT_TYPE(INTERACT_TEXT),
     SET_HITBOX(/*Radius*/ 80, /*Height*/ 100),
-    SET_INT(oIntangibleTimer, 0),
-    CALL_NATIVE(bhv_init_room),
-    CALL_NATIVE(bhv_toad_message_init),
+    CALL_NATIVE(bhv_cephie_init),
+    SET_HOME(),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_toad_message_loop),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_cephie_loop),
     END_LOOP(),
 };

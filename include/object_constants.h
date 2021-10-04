@@ -1141,4 +1141,11 @@
     #define MR_BLIZZARD_STYPE_NO_CAP 0
     #define MR_BLIZZARD_STYPE_JUMPING 1
 
+/* Cephie */
+    /* oAction */
+    #define CEPHIE_ACT_IDLE 0
+    #define CEPHIE_ACT_TURN_TO_TALK 1
+    #define CEPHIE_ACT_TALK 2
+    #define CEPHIE_ACT_TURN_FROM_TALK 3
+
 #endif // OBJECT_CONSTANTS_H

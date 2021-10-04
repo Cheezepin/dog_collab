@@ -849,3 +849,5 @@ s8 UNUSED debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/mips.inc.c"
 #include "behaviors/yoshi.inc.c"
 #include "behaviors/motos.inc.c"
+
+#include "behaviors/cephie.inc.c"
