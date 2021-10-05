@@ -18,6 +18,7 @@ void scroll_textures() {
 		scroll_textures_ccm();
 #include "src/game/texscroll/bitdw_texscroll.inc.c"
 #include "src/game/texscroll/sl_texscroll.inc.c"
+#include "src/game/texscroll/ddd_texscroll.inc.c"
 void scroll_textures() {
 	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_bitdw_segment_7SegmentRomStart)) {
 		scroll_textures_bitdw();
@@ -25,6 +26,10 @@ void scroll_textures() {
 
 	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_sl_segment_7SegmentRomStart)) {
 		scroll_textures_sl();
+	}
+
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_ddd_segment_7SegmentRomStart)) {
+		scroll_textures_ddd();
 	}
 
 }

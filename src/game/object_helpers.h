@@ -285,4 +285,10 @@ u32 obj_get_model_id(struct Object *obj);
 // End of HackerSM64 stuff
 Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED void *context);
 
+// thecozies start
+Gfx *move_water_top(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
+Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
+Gfx *geo_backdrop_move_cozies(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+// thecozies end
+
 #endif // OBJECT_HELPERS_H

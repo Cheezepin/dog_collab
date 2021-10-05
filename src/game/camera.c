@@ -1409,7 +1409,8 @@ s32 update_fixed_camera(struct Camera *c, Vec3f focus, UNUSED Vec3f pos) {
     vec3f_copy(basePos, sFixedModeBasePosition);
     vec3f_add(basePos, sCastleEntranceOffset);
 
-    if (sMarioGeometry.currFloorType != SURFACE_DEATH_PLANE
+    if (
+        !SURFACE_IS_WARP_PLANE(sMarioGeometry.currFloorType)
         && sMarioGeometry.currFloorHeight != FLOOR_LOWER_LIMIT) {
         goalHeight = sMarioGeometry.currFloorHeight + basePos[1] + heightOffset;
     } else {
@@ -1845,7 +1846,7 @@ s16 update_slide_camera(struct Camera *c) {
     camera_approach_s16_symmetric_bool(&camPitch, goalPitch, 0x100);
 
     // Hoot mode
-    if (sMarioCamState->action != ACT_RIDING_HOOT && sMarioGeometry.currFloorType == SURFACE_DEATH_PLANE) {
+    if (sMarioCamState->action != ACT_RIDING_HOOT && SURFACE_IS_WARP_PLANE(sMarioGeometry.currFloorType)) {
         vec3f_set_dist_and_angle(c->focus, pos, maxCamDist + sLakituDist, camPitch, camYaw);
         c->pos[0] = pos[0];
         c->pos[2] = pos[2];
@@ -2199,7 +2200,7 @@ s16 update_default_camera(struct Camera *c) {
         dist = 50.f;
         vec3f_set_dist_and_angle(cPos, c->pos, dist, tempPitch, tempYaw);
     }
-    if (sMarioGeometry.currFloorType != SURFACE_DEATH_PLANE) {
+    if (!SURFACE_IS_WARP_PLANE(sMarioGeometry.currFloorType)) {
         vec3f_get_dist_and_angle(c->focus, c->pos, &dist, &tempPitch, &tempYaw);
         if (dist > zoomDist) {
             dist = zoomDist;
@@ -5808,6 +5809,10 @@ struct CameraTrigger sCamBitFS[] = {
 };
 
 struct CameraTrigger sCamBitDW[] = {
+	NULL_TRIGGER
+};
+
+struct CameraTrigger sCamDDD[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
@@ -10029,7 +10034,7 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 1, 0, 0), // CASTLE_GROUNDS | BITDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // SA             | BITS
-	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // LLL            | DDD
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // WF             | ENDING
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // COURTYARD      | PSS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // COTMC          | TOTWC

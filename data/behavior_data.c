@@ -6401,3 +6401,26 @@ const BehaviorScript bhvPaletteSwap[] = {
     CALL_NATIVE(palette_swap),
     END_LOOP(),
 };
+
+
+// thecozies bhvs start
+const BehaviorScript bhvRainCloud[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(cloud_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvWaterTop[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(water_top_collision),
+    SET_FLOAT(oCollisionDistance, 30000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(water_top_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+// thecozies bhvs end
