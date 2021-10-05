@@ -205,7 +205,7 @@ void bhv_motos_loop(void) {
     
     if (o->oInteractStatus & INT_STATUS_GRABBED_MARIO) {
         o->oAction = MOTOS_ACT_PLAYER_CARRY;
-        o->oChuckyaUnk88 = 1;
+        o->oCommonAnchorAction = 1;
     }
 
     switch (o->oHeldState) {
