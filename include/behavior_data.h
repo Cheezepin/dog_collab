@@ -600,6 +600,7 @@ extern const BehaviorScript bhvHiddenBounceCloud[];
 extern const BehaviorScript bhvGuideLakitu[];
 extern const BehaviorScript bhvGateLakitu[];
 extern const BehaviorScript bhvEntranceGate[];
+extern const BehaviorScript bhvSpectatorLakitu[];
 
 
 

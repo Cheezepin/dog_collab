@@ -6792,3 +6792,15 @@ const BehaviorScript bhvEntranceGate[] = {
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvSpectatorLakitu[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_ACTIVE_FROM_AFAR)),
+    LOAD_ANIMATIONS(oAnimations, body_lakitu_anims),
+    SET_FLOAT(oDrawingDistance, 0x5000),
+    DROP_TO_FLOOR(),
+    ANIMATE(1),
+    SET_HOME(),
+    SCALE(0, 500),
+    BREAK(),
+};
