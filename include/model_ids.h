@@ -605,4 +605,13 @@
 #define MODEL_SPIKE_BALL                  0x1F3
 #define MODEL_PODOBOO                     0x1F2
 
+//START ROVERT MODEL IDS
+
+#define MODEL_MAGMA_THWOMP 0x100
+#define MODEL_SWING_BOARD 0x101
+#define MODEL_PROPANE_THROWER 0x102
+#define MODEL_LAVA_GRATE 0x103
+
+//END ROVERT MODEL IDS
+
 #endif // MODEL_IDS_H
