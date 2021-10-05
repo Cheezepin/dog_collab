@@ -556,4 +556,17 @@ extern const BehaviorScript bhvShockTexture[];
 extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
 
+//START ROVERT BEHAVIOR
+
+extern const BehaviorScript bhvMagmaThwomp[];
+extern const BehaviorScript bhvSwingBoard[];
+extern const BehaviorScript bhvMotos[];
+extern const BehaviorScript bhvMotosHand[];
+extern const BehaviorScript bhvBlueCoinMotos[];
+extern const BehaviorScript bhvPropaneThrower[];
+extern const BehaviorScript bhvPropane[];
+extern const BehaviorScript bhvLavaGrate[];
+
+//END ROVERT BEHAVIOR
+
 #endif // BEHAVIOR_DATA_H

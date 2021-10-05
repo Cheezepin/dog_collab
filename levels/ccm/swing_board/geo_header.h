@@ -1,0 +1,11 @@
+extern const GeoLayout swing_board_geo[];
+extern Lights1 swing_board_wood_lights;
+extern u8 swing_board_burned_wood_ci8[];
+extern u8 swing_board_burned_wood_ci8_pal_rgba16[];
+extern Vtx swing_board_object_board_mesh_layer_1_vtx_cull[8];
+extern Vtx swing_board_object_board_mesh_layer_1_vtx_0[24];
+extern Gfx swing_board_object_board_mesh_layer_1_tri_0[];
+extern Gfx mat_swing_board_wood[];
+extern Gfx mat_revert_swing_board_wood[];
+extern Gfx swing_board_object_board_mesh_layer_1[];
+extern Gfx swing_board_material_revert_render_settings[];
