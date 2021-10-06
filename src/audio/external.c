@@ -57,11 +57,6 @@ struct SoundCharacteristics {
 // Also the number of frames a discrete sound can be in the WAITING state before being deleted
 #define SOUND_MAX_FRESHNESS 10
 
-struct SequenceQueueItem {
-    u8 seqId;
-    u8 priority;
-}; // size = 0x2
-
 // data
 #if defined(VERSION_EU) || defined(VERSION_SH)
 // moved to bss in data.c
@@ -328,17 +323,6 @@ u8 sSoundBankFreeListFront[SOUND_BANK_COUNT] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 u8 sNumSoundsInBank[SOUND_BANK_COUNT] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // only used for debugging
 u8 sMaxChannelsForSoundBank[SOUND_BANK_COUNT] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
-// Banks 2 and 7 both grew from 0x30 sounds to 0x40 in size in US.
-#ifdef VERSION_JP
-#define BANK27_SIZE 0x30
-#else
-#define BANK27_SIZE 0x40
-#endif
-u8 sNumSoundsPerBank[SOUND_BANK_COUNT] = {
-    0x70, 0x30, BANK27_SIZE, 0x80, 0x20, 0x80, 0x20, BANK27_SIZE, 0x80, 0x80,
-};
-#undef BANK27_SIZE
-
 // sBackgroundMusicMaxTargetVolume and sBackgroundMusicTargetVolume use the 0x80
 // bit to indicate that they are set, and the rest of the bits for the actual value
 #define TARGET_VOLUME_IS_PRESENT_FLAG 0x80
@@ -346,13 +330,10 @@ u8 sNumSoundsPerBank[SOUND_BANK_COUNT] = {
 #define TARGET_VOLUME_UNSET 0x00
 
 f32 gGlobalSoundSource[3] = { 0.0f, 0.0f, 0.0f };
-f32 sUnusedSoundArgs[3] = { 1.0f, 1.0f, 1.0f };
 u8 sSoundBankDisabled[16] = { 0 };
 u8 D_80332108 = 0;
 u8 sHasStartedFadeOut = FALSE;
 u16 sSoundBanksThatLowerBackgroundMusic = 0;
-u8 sUnused80332114 = 0;  // never read, set to 0
-u16 sUnused80332118 = 0; // never read, set to 0
 u8 sBackgroundMusicMaxTargetVolume = TARGET_VOLUME_UNSET;
 u8 D_80332120 = 0;
 u8 D_80332124 = 0;
@@ -362,11 +343,6 @@ u8 D_EU_80300558 = 0;
 #endif
 
 u8 sBackgroundMusicQueueSize = 0;
-
-#ifndef VERSION_JP
-u8 sUnused8033323C = 0; // never read, set to 0
-#endif
-
 
 // bss
 #if defined(VERSION_JP) || defined(VERSION_US)
@@ -414,9 +390,7 @@ extern OSMesgQueue *OSMesgQueues[];
 struct EuAudioCmd sAudioCmd[0x100];
 
 OSMesg OSMesg0;
-s32 pad1; // why is there 1 s32 here
 OSMesg OSMesg1;
-s32 pad2[2];    // it's not just that the struct is bigger than we think, because there are 2 here
 OSMesg OSMesg2; // and none here. wth nintendo
 OSMesg OSMesg3;
 #else // VERSION_SH
@@ -818,17 +792,15 @@ void play_sound(s32 soundBits, f32 *pos) {
  * Called from threads: thread4_sound, thread5_game_loop (EU only)
  */
 static void process_sound_request(u32 bits, f32 *pos) {
-    u8 bank;
-    u8 soundIndex;
-    u8 counter = 0;
-    u8 soundId;
+    s32 bank;
+    s32 soundIndex;
+    s32 counter = 0;
     f32 dist;
     const f32 one = 1.0f;
 
     bank = (bits & SOUNDARGS_MASK_BANK) >> SOUNDARGS_SHIFT_BANK;
-    soundId = (bits & SOUNDARGS_MASK_SOUNDID) >> SOUNDARGS_SHIFT_SOUNDID;
 
-    if (soundId >= sNumSoundsPerBank[bank] || sSoundBankDisabled[bank]) {
+    if (sSoundBankDisabled[bank]) {
         return;
     }
 
@@ -1848,15 +1820,12 @@ static void func_8031F96C(u8 player) {
 void process_level_music_dynamics(void) {
     u32 conditionBits;
     u16 tempBits;
-    UNUSED u16 pad;
     u8 musicDynIndex;
     u8 condIndex;
-    u8 i;
-    u8 j;
+    u8 i, j;
     s16 conditionValues[8];
     u8 conditionTypes[8];
-    s16 dur1;
-    s16 dur2;
+    s16 dur1, dur2;
     u16 bit;
 
     func_8031F96C(0);
@@ -2164,11 +2133,9 @@ void sound_init(void) {
 
     sound_banks_enable(SEQ_PLAYER_SFX, SOUND_BANKS_ALL_BITS);
 
-    sUnused80332118 = 0;
     sBackgroundMusicTargetVolume = TARGET_VOLUME_UNSET;
     sLowerBackgroundMusicVolume = FALSE;
     sSoundBanksThatLowerBackgroundMusic = 0;
-    sUnused80332114 = 0;
     sCurrentBackgroundMusicSeqId = 0xff;
     gSoundMode = SOUND_MODE_STEREO;
     sBackgroundMusicQueueSize = 0;
@@ -2375,7 +2342,10 @@ void play_music(u8 player, u16 seqArgs, u16 fadeTimer) {
     }
 
     // Abort if the queue is already full.
-    if (sBackgroundMusicQueueSize == MAX_BACKGROUND_MUSIC_QUEUE_SIZE) {
+    if (sBackgroundMusicQueueSize >= MAX_BACKGROUND_MUSIC_QUEUE_SIZE) {
+#if PUPPYPRINT_DEBUG
+        append_puppyprint_log("Sequence queue full, aborting.");
+#endif
         return;
     }
 
@@ -2526,9 +2496,6 @@ void func_80320ED8(void) {
  * Called from threads: thread5_game_loop
  */
 void play_secondary_music(u8 seqId, u8 bgMusicVolume, u8 volume, u16 fadeTimer) {
-    UNUSED u32 dummy;
-
-    sUnused80332118 = 0;
     if (sCurrentBackgroundMusicSeqId == 0xff || sCurrentBackgroundMusicSeqId == SEQ_MENU_TITLE_SCREEN) {
         return;
     }
@@ -2552,6 +2519,7 @@ void play_secondary_music(u8 seqId, u8 bgMusicVolume, u8 volume, u16 fadeTimer) 
 
 /**
  * Called from threads: thread5_game_loop
+ * Seems to be related to music fading based on position, such as sleeping Piranha Plants, BBH Merry-Go-Round, and Endless Stairs
  */
 void func_80321080(u16 fadeTimer) {
     if (sBackgroundMusicTargetVolume != TARGET_VOLUME_UNSET) {
@@ -2696,7 +2664,6 @@ void sound_reset(u8 presetId) {
 #ifndef VERSION_JP
     if (presetId >= 8) {
         presetId = 0;
-        sUnused8033323C = 0;
     }
 #endif
     sGameLoopTicked = 0;
@@ -2706,7 +2673,7 @@ void sound_reset(u8 presetId) {
     func_802ad74c(0xF2000000, 0);
 #endif
 #if defined(VERSION_JP) || defined(VERSION_US)
-    audio_reset_session(&gAudioSessionPresets[presetId]);
+    audio_reset_session(&gAudioSessionPresets[0], presetId);
 #else
     audio_reset_session_eu(presetId);
 #endif
@@ -2729,11 +2696,3 @@ void audio_set_sound_mode(u8 soundMode) {
     D_80332108 = (D_80332108 & 0xf) + (soundMode << 4);
     gSoundMode = soundMode;
 }
-
-#if defined(VERSION_JP) || defined(VERSION_US)
-void unused_80321460(UNUSED s32 arg0, UNUSED s32 arg1, UNUSED s32 arg2, UNUSED s32 arg3) {
-}
-
-void unused_80321474(UNUSED s32 arg0) {
-}
-#endif

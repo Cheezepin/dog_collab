@@ -7,6 +7,7 @@
 #include "area.h"
 #include "engine/geo_layout.h"
 #include "engine/graph_node.h"
+#include "puppycam2.h"
 
 #include "level_table.h"
 
@@ -16,7 +17,6 @@
  * @see camera.c
  */
 
-#define ABS(x) ((x) > 0.f ? (x) : -(x))
 #define ABS2(x) ((x) >= 0.f ? (x) : -(x))
 
 /**
@@ -346,7 +346,7 @@ struct HandheldShakePoint
  * A function that is called by CameraTriggers and cutscene shots.
  * These are concurrent: multiple CameraEvents can occur on the same frame.
  */
-typedef BAD_RETURN(s32) (*CameraEvent)(struct Camera *c);
+typedef void (*CameraEvent)(struct Camera *c);
 /**
  * The same type as a CameraEvent, but because these are generally longer, and happen in sequential
  * order, they're are called "shots," a term taken from cinematography.
@@ -686,9 +686,6 @@ void reset_camera(struct Camera *c);
 void init_camera(struct Camera *c);
 void select_mario_cam_mode(void);
 Gfx *geo_camera_main(s32 callContext, struct GraphNode *g, void *context);
-void stub_camera_2(UNUSED struct Camera *c);
-void stub_camera_3(UNUSED struct Camera *c);
-void vec3f_sub(Vec3f dst, Vec3f src);
 void object_pos_to_vec3f(Vec3f dst, struct Object *o);
 void vec3f_to_object_pos(struct Object *o, Vec3f src);
 s32 move_point_along_spline(Vec3f p, struct CutsceneSplinePoint spline[], s16 *splineSegment, f32 *progress);
@@ -699,13 +696,9 @@ void shake_camera_handheld(Vec3f pos, Vec3f focus);
 s32 find_c_buttons_pressed(u16 currentState, u16 buttonsPressed, u16 buttonsDown);
 s32 update_camera_hud_status(struct Camera *c);
 s32 collide_with_walls(Vec3f pos, f32 offsetY, f32 radius);
-s32 clamp_pitch(Vec3f from, Vec3f to, s16 maxPitch, s16 minPitch);
+void clamp_pitch(Vec3f from, Vec3f to, s16 maxPitch, s16 minPitch);
 s32 is_within_100_units_of_mario(f32 posX, f32 posY, f32 posZ);
 s32 set_or_approach_f32_asymptotic(f32 *dst, f32 goal, f32 scale);
-s32 approach_f32_asymptotic_bool(f32 *current, f32 target, f32 multiplier);
-f32 approach_f32_asymptotic(f32 current, f32 target, f32 multiplier);
-s32 approach_s16_asymptotic_bool(s16 *current, s16 target, s16 divisor);
-s32 approach_s16_asymptotic(s16 current, s16 target, s16 divisor);
 void approach_vec3f_asymptotic(Vec3f current, Vec3f target, f32 xMul, f32 yMul, f32 zMul);
 void set_or_approach_vec3f_asymptotic(Vec3f dst, Vec3f goal, f32 xMul, f32 yMul, f32 zMul);
 s32 camera_approach_s16_symmetric_bool(s16 *current, s16 target, s16 increment);
@@ -720,6 +713,7 @@ s16 calculate_pitch(Vec3f from, Vec3f to);
 s16 calculate_yaw(Vec3f from, Vec3f to);
 void calculate_angles(Vec3f from, Vec3f to, s16 *pitch, s16 *yaw);
 f32 calc_abs_dist(Vec3f a, Vec3f b);
+f32 calc_abs_dist_squared(Vec3f a, Vec3f b);
 f32 calc_hor_dist(Vec3f a, Vec3f b);
 void rotate_in_xz(Vec3f dst, Vec3f src, s16 yaw);
 void rotate_in_yz(Vec3f dst, Vec3f src, s16 pitch);
@@ -740,8 +734,8 @@ void play_sound_cbutton_side(void);
 void play_sound_button_change_blocked(void);
 void play_sound_rbutton_changed(void);
 void play_sound_if_cam_switched_to_lakitu_or_mario(void);
-s32 radial_camera_input(struct Camera *c, UNUSED f32 unused);
-s32 trigger_cutscene_dialog(s32 trigger);
+void radial_camera_input(struct Camera *c);
+void trigger_cutscene_dialog(s32 trigger);
 void handle_c_button_movement(struct Camera *c);
 void start_cutscene(struct Camera *c, u8 cutscene);
 u8 get_cutscene_from_mario_status(struct Camera *c);
@@ -751,7 +745,7 @@ void offset_rotated(Vec3f dst, Vec3f from, Vec3f to, Vec3s rotation);
 s16 next_lakitu_state(Vec3f newPos, Vec3f newFoc, Vec3f curPos, Vec3f curFoc, Vec3f oldPos, Vec3f oldFoc, s16 yaw);
 void set_fixed_cam_axis_sa_lobby(UNUSED s16 preset);
 s16 camera_course_processing(struct Camera *c);
-void resolve_geometry_collisions(Vec3f pos, UNUSED Vec3f lastGood);
+void resolve_geometry_collisions(Vec3f pos);
 s32 rotate_camera_around_walls(struct Camera *c, Vec3f cPos, s16 *avoidYaw, s16 yawRange);
 void find_mario_floor_and_ceil(struct PlayerGeometry *pg);
 u8 start_object_cutscene_without_focus(u8 cutscene);

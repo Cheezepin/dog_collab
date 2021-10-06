@@ -45,6 +45,7 @@
 #include "save_file.h"
 #include "seq_ids.h"
 #include "spawn_sound.h"
+#include "puppylights.h"
 
 #define POS_OP_SAVE_POSITION 0
 #define POS_OP_COMPUTE_VELOCITY 1
@@ -125,7 +126,7 @@ static s32 obj_is_near_to_and_facing_mario(f32 maxDist, s16 maxAngleDiff) {
 
 //! Although having no return value, this function
 //! must be u32 to match other functions on -O2.
-static BAD_RETURN(u32) obj_perform_position_op(s32 op) {
+static void obj_perform_position_op(s32 op) {
     switch (op) {
         case POS_OP_SAVE_POSITION:
             sObjSavedPosX = o->oPosX;
@@ -152,7 +153,6 @@ static void platform_on_track_update_pos_or_spawn_ball(s32 ballIndex, f32 x, f32
     struct Waypoint *initialPrevWaypoint;
     struct Waypoint *nextWaypoint;
     struct Waypoint *prevWaypoint;
-    UNUSED s32 unused;
     f32 amountToMove;
     f32 dx;
     f32 dy;
@@ -191,7 +191,7 @@ static void platform_on_track_update_pos_or_spawn_ball(s32 ballIndex, f32 x, f32
             dy = nextWaypoint->pos[1] - y;
             dz = nextWaypoint->pos[2] - z;
 
-            distToNextWaypoint = sqrtf(dx * dx + dy * dy + dz * dz);
+            distToNextWaypoint = sqrtf(sqr(dx) + sqr(dy) + sqr(dz));
 
             // Move directly to the next waypoint, even if it's farther away
             // than amountToMove
@@ -243,58 +243,51 @@ static void platform_on_track_update_pos_or_spawn_ball(s32 ballIndex, f32 x, f32
     }
 }
 
-static void cur_obj_spin_all_dimensions(f32 arg0, f32 arg1) {
-    f32 val24;
-    f32 val20;
-    f32 val1C;
-    f32 c;
-    f32 s;
-    f32 val10;
-    f32 val0C;
-    f32 val08;
-    f32 val04;
-    f32 val00;
+static void cur_obj_spin_all_dimensions(f32 pitchSpeed, f32 rollSpeed) {
+    f32 pitch, yaw, roll;
+    f32 c, s;
+    f32 px, pz, ny, nz, nx;
 
     if (o->oForwardVel == 0.0f) {
-        val24 = val20 = val1C = 0.0f;
+        roll = yaw = pitch = 0.0f;
 
         if (o->oMoveFlags & OBJ_MOVE_IN_AIR) {
-            val20 = 50.0f;
+            yaw = 50.0f;
         } else {
             if (o->oFaceAnglePitch < 0) {
-                val1C = -arg0;
+                pitch = -pitchSpeed;
             } else if (o->oFaceAnglePitch > 0) {
-                val1C = arg0;
+                pitch = pitchSpeed;
             }
 
             if (o->oFaceAngleRoll < 0) {
-                val24 = -arg1;
+                roll = -rollSpeed;
             } else if (o->oFaceAngleRoll > 0) {
-                val24 = arg1;
+                roll = rollSpeed;
             }
         }
 
         c = coss(o->oFaceAnglePitch);
         s = sins(o->oFaceAnglePitch);
-        val08 = val1C * c + val20 * s;
-        val0C = val20 * c - val1C * s;
+        nz = pitch * c + yaw * s;
+        ny = yaw * c - pitch * s;
 
         c = coss(o->oFaceAngleRoll);
         s = sins(o->oFaceAngleRoll);
-        val04 = val24 * c + val0C * s;
-        val0C = val0C * c - val24 * s;
+        nx = roll * c + ny * s;
+        ny = ny * c - roll * s;
 
         c = coss(o->oFaceAngleYaw);
         s = sins(o->oFaceAngleYaw);
-        val10 = val04 * c - val08 * s;
-        val08 = val08 * c + val04 * s;
+        px = nx * c - nz * s;
+        nz = nz * c + nx * s;
 
-        val04 = val24 * c - val1C * s;
-        val00 = val1C * c + val24 * s;
+        nx = roll * c - pitch * s;
+        pz = pitch * c + roll * s;
 
-        o->oPosX = o->oHomeX - val04 + val10;
-        o->oGraphYOffset = val20 - val0C;
-        o->oPosZ = o->oHomeZ + val00 - val08;
+        o->oPosX = o->oHomeX - nx + px;
+        o->oGraphYOffset = yaw - ny;
+        o->oPosZ = o->oHomeZ + pz - nz;
     }
 }
 
@@ -361,14 +354,14 @@ static s32 cur_obj_set_anim_if_at_end(s32 arg0) {
     return FALSE;
 }
 
-static s32 cur_obj_play_sound_at_anim_range(s8 arg0, s8 arg1, u32 sound) {
-    s32 val04;
+static s32 cur_obj_play_sound_at_anim_range(s8 startFrame1, s8 startFrame2, u32 sound) {
+    s32 rangeLength;
 
-    if ((val04 = o->header.gfx.animInfo.animAccel / 0x10000) <= 0) {
-        val04 = 1;
+    if ((rangeLength = o->header.gfx.animInfo.animAccel / 0x10000) <= 0) {
+        rangeLength = 1;
     }
 
-    if (cur_obj_check_anim_frame_in_range(arg0, val04) || cur_obj_check_anim_frame_in_range(arg1, val04)) {
+    if (cur_obj_check_anim_frame_in_range(startFrame1, rangeLength) || cur_obj_check_anim_frame_in_range(startFrame2, rangeLength)) {
         cur_obj_play_sound_2(sound);
         return TRUE;
     }
@@ -459,7 +452,7 @@ static s32 obj_smooth_turn(s16 *angleVel, s32 *angle, s16 targetAngle, f32 targe
     currentSpeed = absi(*angleVel);
     clamp_s16(&currentSpeed, minSpeed, maxSpeed);
 
-    *angle = approach_s16_symmetric(*angle, targetAngle, currentSpeed);
+    *angle = approach_angle(*angle, targetAngle, currentSpeed);
     return (s16)(*angle) == targetAngle;
 }
 
@@ -549,42 +542,27 @@ void obj_update_blinking(s32 *blinkTimer, s16 baseCycleLength, s16 cycleLengthRa
 
 static s32 obj_resolve_object_collisions(s32 *targetYaw) {
     struct Object *otherObject;
-    f32 dx;
-    f32 dz;
+    f32 dx, dz;
     s16 angle;
-    f32 radius;
-    f32 otherRadius;
-    f32 relativeRadius;
-    f32 newCenterX;
-    f32 newCenterZ;
+    f32 radius, otherRadius, relativeRadius;
 
     if (o->numCollidedObjs != 0) {
-        otherObject = o->collidedObjs[0];
-        if (otherObject != gMarioObject) {
-            //! If one object moves after collisions are detected and this code
-            //  runs, the objects can move toward each other (transport cloning)
-
-            dx = otherObject->oPosX - o->oPosX;
-            dz = otherObject->oPosZ - o->oPosZ;
-            angle = atan2s(dx, dz); //! This should be atan2s(dz, dx)
-
-            radius = o->hitboxRadius;
-            otherRadius = otherObject->hitboxRadius;
-            relativeRadius = radius / (radius + otherRadius);
-
-            newCenterX = o->oPosX + dx * relativeRadius;
-            newCenterZ = o->oPosZ + dz * relativeRadius;
-
-            o->oPosX = newCenterX - radius * coss(angle);
-            o->oPosZ = newCenterZ - radius * sins(angle);
-
-            otherObject->oPosX = newCenterX + otherRadius * coss(angle);
-            otherObject->oPosZ = newCenterZ + otherRadius * sins(angle);
-
-            if (targetYaw != NULL && abs_angle_diff(o->oMoveAngleYaw, angle) < 0x4000) {
-                // Bounce off object (or it would, if the above atan2s bug
-                // were fixed)
-                *targetYaw = (s16)(angle - o->oMoveAngleYaw + angle + 0x8000);
+        s32 i;
+        for ((i = 0); (i < o->numCollidedObjs); (i++)) {
+            otherObject = o->collidedObjs[i];
+            if (otherObject == gMarioObject) continue;
+            if (otherObject->oInteractType & INTERACT_MASK_NO_OBJ_COLLISIONS) continue;
+            dx             = (o->oPosX - otherObject->oPosX);
+            dz             = (o->oPosZ - otherObject->oPosZ);
+            radius         = ((          o->hurtboxRadius > 0) ?           o->hurtboxRadius :           o->hitboxRadius);
+            otherRadius    = ((otherObject->hurtboxRadius > 0) ? otherObject->hurtboxRadius : otherObject->hitboxRadius);
+            relativeRadius = (radius + otherRadius);
+            if ((sqr(dx) + sqr(dz)) > sqr(relativeRadius)) continue;
+            angle    = atan2s(dz, dx);
+            o->oPosX = (otherObject->oPosX + (relativeRadius * sins(angle)));
+            o->oPosZ = (otherObject->oPosZ + (relativeRadius * coss(angle)));
+            if ((targetYaw != NULL) && (abs_angle_diff(o->oMoveAngleYaw, angle) < 0x4000)) {
+                *targetYaw = (s16)((angle - o->oMoveAngleYaw) + angle + 0x8000);
                 return TRUE;
             }
         }
@@ -878,7 +856,7 @@ static void treat_far_home_as_mario(f32 threshold) {
     f32 dx = o->oHomeX - o->oPosX;
     f32 dy = o->oHomeY - o->oPosY;
     f32 dz = o->oHomeZ - o->oPosZ;
-    f32 distance = sqrtf(dx * dx + dy * dy + dz * dz);
+    f32 distance = sqrtf(sqr(dx) + sqr(dy) + sqr(dz));
 
     if (distance > threshold) {
         o->oAngleToMario = atan2s(dz, dx);
@@ -887,7 +865,7 @@ static void treat_far_home_as_mario(f32 threshold) {
         dx = o->oHomeX - gMarioObject->oPosX;
         dy = o->oHomeY - gMarioObject->oPosY;
         dz = o->oHomeZ - gMarioObject->oPosZ;
-        distance = sqrtf(dx * dx + dy * dy + dz * dz);
+        distance = sqrtf(sqr(dx) + sqr(dy) + sqr(dz));
 
         if (distance > threshold) {
             o->oDistanceToMario = 20000.0f;
@@ -944,6 +922,7 @@ static void treat_far_home_as_mario(f32 threshold) {
 #include "behaviors/laser_ring.inc.c"
 #include "behaviors/spike.inc.c"
 #include "behaviors/podoboo.inc.c"
+#include "behaviors/dog.inc.c"
 
 /**
  * Used by bowser, fly guy, piranha plant, and fire spitters.

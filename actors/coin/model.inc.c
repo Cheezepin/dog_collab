@@ -27,25 +27,25 @@ static const Vtx coin_seg3_vertex_03005740[] = {
 };
 #else
 static const Vtx coin_seg3_vertex_030056C0[] = {
-    {{{   -32,      0,      0}, 0, {     0,   1984 }, {0xff, 0xff, 0x00, 0xff}}},
-    {{{    32,      0,      0}, 0, {  1984 ,   1984 }, {0xff, 0xff, 0x00, 0xff}}},
-    {{{    32,     64,      0}, 0, {  1984 ,      0}, {0xff, 0xff, 0x00, 0xff}}},
+    {{{   -32,      0,      0}, 0, {     0,   1984}, {0xff, 0xff, 0x00, 0xff}}},
+    {{{    32,      0,      0}, 0, {  1984,   1984}, {0xff, 0xff, 0x00, 0xff}}},
+    {{{    32,     64,      0}, 0, {  1984,      0}, {0xff, 0xff, 0x00, 0xff}}},
     {{{   -32,     64,      0}, 0, {     0,      0}, {0xff, 0xff, 0x00, 0xff}}},
 };
 
 // 0x03005700
 static const Vtx coin_seg3_vertex_03005700[] = {
-    {{{   -50,      0,      0}, 0, {     0,   1984 }, {0x78, 0x78, 0xff, 0xff}}},
-    {{{    50,      0,      0}, 0, {  1984 ,   1984 }, {0x78, 0x78, 0xff, 0xff}}},
-    {{{    50,    100,      0}, 0, {  1984 ,      0}, {0x78, 0x78, 0xff, 0xff}}},
+    {{{   -50,      0,      0}, 0, {     0,   1984}, {0x78, 0x78, 0xff, 0xff}}},
+    {{{    50,      0,      0}, 0, {  1984,   1984}, {0x78, 0x78, 0xff, 0xff}}},
+    {{{    50,    100,      0}, 0, {  1984,      0}, {0x78, 0x78, 0xff, 0xff}}},
     {{{   -50,    100,      0}, 0, {     0,      0}, {0x78, 0x78, 0xff, 0xff}}},
 };
 
 // 0x03005740
 static const Vtx coin_seg3_vertex_03005740[] = {
-    {{{   -35,      0,      0}, 0, {     0,   1984 }, {0xff, 0x00, 0x00, 0xff}}},
-    {{{    35,      0,      0}, 0, {  1984 ,   1984 }, {0xff, 0x00, 0x00, 0xff}}},
-    {{{    35,     70,      0}, 0, {  1984 ,      0}, {0xff, 0x00, 0x00, 0xff}}},
+    {{{   -35,      0,      0}, 0, {     0,   1984}, {0xff, 0x00, 0x00, 0xff}}},
+    {{{    35,      0,      0}, 0, {  1984,   1984}, {0xff, 0x00, 0x00, 0xff}}},
+    {{{    35,     70,      0}, 0, {  1984,      0}, {0xff, 0x00, 0x00, 0xff}}},
     {{{   -35,     70,      0}, 0, {     0,      0}, {0xff, 0x00, 0x00, 0xff}}},
 };
 #endif
@@ -106,7 +106,7 @@ const Gfx coin_seg3_dl_03007780[] = {
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, 32 * 32 - 1, CALC_DXT(32, G_IM_SIZ_16b_BYTES)),
     gsDPSetTile(G_IM_FMT_IA, G_IM_SIZ_16b, 8, 0, G_TX_RENDERTILE, 0, G_TX_CLAMP, 5, G_TX_NOLOD, G_TX_CLAMP, 5, G_TX_NOLOD),
     gsDPSetTileSize(0, 0, 0, (32 - 1) << G_TEXTURE_IMAGE_FRAC, (32 - 1) << G_TEXTURE_IMAGE_FRAC),
-#endif    
+#endif
     gsSPEndDisplayList(),
 };
 

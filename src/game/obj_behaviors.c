@@ -32,6 +32,7 @@
 #include "spawn_object.h"
 #include "spawn_sound.h"
 #include "rumble_init.h"
+#include "puppylights.h"
 
 /**
  * @file obj_behaviors.c
@@ -91,7 +92,6 @@ Gfx UNUSED *geo_obj_transparency_something(s32 callContext, struct GraphNode *no
     struct Object *heldObject;
     struct Object *obj;
     UNUSED struct Object *unusedObject;
-    UNUSED s32 pad;
 
     gfxHead = NULL;
 
@@ -107,8 +107,7 @@ Gfx UNUSED *geo_obj_transparency_something(s32 callContext, struct GraphNode *no
 
         gfxHead = alloc_display_list(3 * sizeof(Gfx));
         gfx = gfxHead;
-        obj->header.gfx.node.flags =
-            (obj->header.gfx.node.flags & 0xFF) | (GRAPH_NODE_TYPE_FUNCTIONAL | GRAPH_NODE_TYPE_400);
+        SET_GRAPH_NODE_LAYER(obj->header.gfx.node.flags, LAYER_TRANSPARENT);
 
         gDPSetEnvColor(gfx++, 255, 255, 255, heldObject->oOpacity);
 
@@ -182,8 +181,7 @@ s8 turn_obj_away_from_steep_floor(struct Surface *objFloor, f32 floorY, f32 objV
     f32 floor_nX, floor_nY, floor_nZ, objVelXCopy, objVelZCopy, objYawX, objYawZ;
 
     if (objFloor == NULL) {
-        //! (OOB Object Crash) TRUNC overflow exception after 36 minutes
-        o->oMoveAngleYaw += 32767.999200000002; /* ¯\_(ツ)_/¯ */
+        o->oMoveAngleYaw += 0x8000;
         return FALSE;
     }
 
@@ -195,8 +193,7 @@ s8 turn_obj_away_from_steep_floor(struct Surface *objFloor, f32 floorY, f32 objV
     if (floor_nY < 0.5 && floorY > o->oPosY) {
         objVelXCopy = objVelX;
         objVelZCopy = objVelZ;
-        turn_obj_away_from_surface(objVelXCopy, objVelZCopy, floor_nX, floor_nY, floor_nZ, &objYawX,
-                               &objYawZ);
+        turn_obj_away_from_surface(objVelXCopy, objVelZCopy, floor_nX, floor_nY, floor_nZ, &objYawX, &objYawZ);
         o->oMoveAngleYaw = atan2s(objYawZ, objYawX);
         return FALSE;
     }
@@ -593,8 +590,6 @@ s8 obj_check_if_facing_toward_angle(u32 base, u32 goal, s16 range) {
  */
 s8 obj_find_wall_displacement(Vec3f dist, f32 x, f32 y, f32 z, f32 radius) {
     struct WallCollisionData hitbox;
-    UNUSED u8 filler[0x20];
-
     hitbox.x = x;
     hitbox.y = y;
     hitbox.z = z;
@@ -717,6 +712,7 @@ void obj_check_floor_death(s16 collisionFlags, struct Surface *floor) {
                 break;
             //! @BUG Doesn't check for the vertical wind death floor.
             case SURFACE_DEATH_PLANE:
+            case SURFACE_HURT_FLOOR:
                 o->oAction = OBJ_ACT_DEATH_PLANE_DEATH;
                 break;
             default:
@@ -834,6 +830,7 @@ s8 UNUSED debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/snowman.inc.c"
 #include "behaviors/boulder.inc.c"
 #include "behaviors/cap.inc.c"
+#include "behaviors/koopa_shell.inc.c"
 #include "behaviors/spawn_star.inc.c"
 #include "behaviors/red_coin.inc.c"
 #include "behaviors/hidden_star.inc.c"
@@ -852,4 +849,4 @@ s8 UNUSED debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/treasure_chest.inc.c"
 #include "behaviors/mips.inc.c"
 #include "behaviors/yoshi.inc.c"
-#include "behaviors/motos.inc.c"
+// #include "behaviors/motos.inc.c"

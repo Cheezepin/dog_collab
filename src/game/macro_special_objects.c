@@ -68,8 +68,7 @@ void spawn_macro_abs_yrot_param1(s32 model, const BehaviorScript *behavior, s16 
  * Spawns an object at an absolute location with currently 3 unknown variables that get converted to
  * floats. Oddly enough, this function doesn't care if 'behavior' is NULL or not.
  */
-void spawn_macro_abs_special(s32 model, const BehaviorScript *behavior, s16 x, s16 y, s16 z, s16 unkA, s16 unkB,
-                             s16 unkC) {
+void spawn_macro_abs_special(s32 model, const BehaviorScript *behavior, s16 x, s16 y, s16 z, s16 unkA, s16 unkB, s16 unkC) {
     struct Object *newObj =
         spawn_object_abs_with_rot(&gMacroObjectDefaultParent, 0, model, behavior, x, y, z, 0, 0, 0);
 
@@ -80,16 +79,14 @@ void spawn_macro_abs_special(s32 model, const BehaviorScript *behavior, s16 x, s
 }
 
 UNUSED static void spawn_macro_coin_unknown(const BehaviorScript *behavior, s16 a1[]) {
-    struct Object *sp3C;
-    s16 model;
+    struct Object *obj;
+    ModelID model = bhvYellowCoin == behavior ? MODEL_YELLOW_COIN : MODEL_NONE;
 
-    model = bhvYellowCoin == behavior ? MODEL_YELLOW_COIN : MODEL_NONE;
+    obj = spawn_object_abs_with_rot(&gMacroObjectDefaultParent, 0, model, behavior,
+                                    a1[1], a1[2], a1[3], 0, convert_rotation(a1[0]), 0);
 
-    sp3C = spawn_object_abs_with_rot(&gMacroObjectDefaultParent, 0, model, behavior,
-                                     a1[1], a1[2], a1[3], 0, convert_rotation(a1[0]), 0);
-
-    sp3C->oUnk1A8 = a1[4];
-    sp3C->oBehParams = (a1[4] & 0xFF) >> 16;
+    obj->oUnk1A8 = a1[4];
+    obj->oBehParams = (a1[4] & 0xFF) >> 16;
 }
 
 struct LoadedPreset {
@@ -104,8 +101,7 @@ struct LoadedPreset {
 #define MACRO_OBJ_Z 3
 #define MACRO_OBJ_PARAMS 4
 
-void spawn_macro_objects(s16 areaIndex, s16 *macroObjList) {
-    UNUSED u32 pad5C;
+void spawn_macro_objects(s32 areaIndex, s16 *macroObjList) {
     s32 presetID;
 
     s16 macroObject[5]; // see the 5 #define statements above
@@ -171,9 +167,7 @@ void spawn_macro_objects(s16 areaIndex, s16 *macroObjList) {
     }
 }
 
-void spawn_macro_objects_hardcoded(s16 areaIndex, s16 *macroObjList) {
-    UNUSED u8 pad[8];
-
+void spawn_macro_objects_hardcoded(s32 areaIndex, s16 *macroObjList) {
     // This version of macroObjList has the preset and Y-Rotation separated,
     // and lacks behavior params. Might be an early version of the macro object list?
     s16 macroObjX;
@@ -181,8 +175,6 @@ void spawn_macro_objects_hardcoded(s16 areaIndex, s16 *macroObjList) {
     s16 macroObjZ;
     s16 macroObjPreset;
     s16 macroObjRY; // Y Rotation
-
-    UNUSED u8 pad2[10];
 
     gMacroObjectDefaultParent.header.gfx.areaIndex = areaIndex;
     gMacroObjectDefaultParent.header.gfx.activeAreaIndex = areaIndex;
@@ -237,7 +229,7 @@ void spawn_macro_objects_hardcoded(s16 areaIndex, s16 *macroObjList) {
     }
 }
 
-void spawn_special_objects(s16 areaIndex, s16 **specialObjList) {
+void spawn_special_objects(s32 areaIndex, TerrainData **specialObjList) {
     s32 numOfSpecialObjects;
     s32 i;
     s32 offset;
@@ -272,10 +264,6 @@ void spawn_special_objects(s16 areaIndex, s16 **specialObjList) {
             if (SpecialObjectPresets[offset].preset_id == presetID) {
                 break;
             }
-
-            if (SpecialObjectPresets[offset].preset_id == 0xFF) {
-            }
-
             offset++;
         }
 

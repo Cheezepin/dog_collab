@@ -85,10 +85,12 @@ static s32 boo_should_be_active(void) {
 void bhv_courtyard_boo_triplet_init(void) {
     s32 i;
     struct Object *boo;
-
+#ifndef UNLOCK_ALL
     if (gHudDisplay.stars < 12) {
         obj_mark_for_deletion(o);
-    } else {
+    } else
+#endif
+    {
         for (i = 0; i < 3; i++) {
             boo = spawn_object_relative(
                 0x01,
@@ -280,13 +282,9 @@ static s32 boo_update_during_death(void) {
             if (o->oBooParentBigBoo != NULL) {
                 parentBigBoo = o->oBooParentBigBoo;
 
-#ifndef VERSION_JP
                 if (!cur_obj_has_behavior(bhvBoo)) {
                     parentBigBoo->oBigBooNumMinionBoosKilled++;
                 }
-#else
-                parentBigBoo->oBigBooNumMinionBoosKilled++;
-#endif
             }
 
             return TRUE;
@@ -333,40 +331,37 @@ static s32 boo_get_attack_status(void) {
 }
 
 // boo idle/chasing movement?
-static void boo_chase_mario(f32 a0, s16 a1, f32 a2) {
-    f32 sp1C;
-    s16 sp1A;
+static void boo_chase_mario(f32 minDY, s16 yawIncrement, f32 mul) {
+    f32 dy;
+    s16 targetYaw;
 
     if (boo_vanish_or_appear()) {
         o->oInteractType = 0x8000;
 
         if (cur_obj_lateral_dist_from_mario_to_home() > 1500.0f) {
-            sp1A = cur_obj_angle_to_home();
+            targetYaw = cur_obj_angle_to_home();
         } else {
-            sp1A = o->oAngleToMario;
+            targetYaw = o->oAngleToMario;
         }
 
-        cur_obj_rotate_yaw_toward(sp1A, a1);
+        cur_obj_rotate_yaw_toward(targetYaw, yawIncrement);
         o->oVelY = 0.0f;
 
         if (mario_is_in_air_action() == 0) {
-            sp1C = o->oPosY - gMarioObject->oPosY;
-            if (a0 < sp1C && sp1C < 500.0f) {
+            dy = o->oPosY - gMarioObject->oPosY;
+            if (minDY < dy && dy < 500.0f) {
                 o->oVelY = increment_velocity_toward_range(o->oPosY, gMarioObject->oPosY + 50.0f, 10.f, 2.0f);
             }
         }
 
-        cur_obj_set_vel_from_mario_vel(10.0f - o->oBooNegatedAggressiveness, a2);
+        cur_obj_set_vel_from_mario_vel(10.0f - o->oBooNegatedAggressiveness, mul);
 
         if (o->oForwardVel != 0.0f) {
             boo_oscillate(FALSE);
         }
     } else {
         o->oInteractType = 0;
-        // why is boo_stop not used here
-        o->oForwardVel = 0.0f;
-        o->oVelY = 0.0f;
-        o->oGravity = 0.0f;
+        boo_stop();
     }
 }
 
@@ -510,11 +505,7 @@ static void big_boo_act_0(void) {
 
     o->oBooParentBigBoo = NULL;
 
-#ifndef VERSION_JP
     if (boo_should_be_active() && gDebugInfo[5][0] + 5 <= o->oBigBooNumMinionBoosKilled) {
-#else
-    if (boo_should_be_active() && o->oBigBooNumMinionBoosKilled >= 5) {
-#endif
         o->oAction = 1;
 
         cur_obj_set_pos_to_home();
@@ -537,18 +528,18 @@ static void big_boo_act_0(void) {
 
 static void big_boo_act_1(void) {
     s32 attackStatus;
-    s16 sp22;
-    f32 sp1C;
+    s16 yawIncrement;
+    f32 mul;
 
     if (o->oHealth == 3) {
-        sp22 = 0x180; sp1C = 0.5f;
+        yawIncrement = 0x180; mul = 0.5f;
     } else if (o->oHealth == 2) {
-        sp22 = 0x240; sp1C = 0.6f;
+        yawIncrement = 0x240; mul = 0.6f;
     } else {
-        sp22 = 0x300; sp1C = 0.8f;
+        yawIncrement = 0x300; mul = 0.8f;
     }
 
-    boo_chase_mario(-100.0f, sp22, sp1C);
+    boo_chase_mario(-100.0f, yawIncrement, mul);
 
     attackStatus = boo_get_attack_status();
 
@@ -634,9 +625,7 @@ static void big_boo_act_3(void) {
 }
 
 static void big_boo_act_4(void) {
-#ifndef VERSION_JP
     boo_stop();
-#endif
 
     if (o->oBehParams2ndByte == 0) {
         obj_set_pos(o, 973, 0, 626);
@@ -725,10 +714,12 @@ static void boo_with_cage_act_3(void) {
 
 void bhv_boo_with_cage_init(void) {
     struct Object* cage;
-
+#ifndef UNLOCK_ALL
     if (gHudDisplay.stars < 0) { //changed from 12 to 0 by comit for testing
         obj_mark_for_deletion(o);
-    } else {
+    } else
+#endif
+    {
         cage = spawn_object(o, MODEL_HAUNTED_CAGE, bhvBooCage);
         cage->oBehParams = o->oBehParams;
     }
@@ -809,11 +800,11 @@ void bhv_boo_in_castle_loop(void) {
 
     if (o->oAction == 0) {
         cur_obj_hide();
-
+#ifndef UNLOCK_ALL
         if (gHudDisplay.stars < 12) {
             obj_mark_for_deletion(o);
         }
-
+#endif
         if (gMarioCurrentRoom == 1) {
             o->oAction++;
         }

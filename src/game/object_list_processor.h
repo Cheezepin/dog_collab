@@ -63,7 +63,6 @@ extern struct ObjectNode gObjectListArray[];
 
 extern s32 gDebugInfoFlags;
 extern s32 gNumFindFloorMisses;
-extern UNUSED s32 unused_8033BEF8;
 extern s32 gUnknownWallCount;
 extern u32 gObjectCounter;
 
@@ -100,12 +99,11 @@ extern struct MemoryPool *gObjectMemoryPool;
 
 extern s16 gCheckingSurfaceCollisionsForCamera;
 extern s16 gFindFloorIncludeSurfaceIntangible;
-extern s16 *gEnvironmentRegions;
+extern TerrainData *gEnvironmentRegions;
 extern s32 gEnvironmentLevels[20];
-extern s8 gDoorAdjacentRooms[60][2];
+extern RoomData gDoorAdjacentRooms[60][2];
 extern s16 gMarioCurrentRoom;
-extern s16 D_8035FEE2;
-extern s16 D_8035FEE4;
+extern s16 gDoorRenderingTimer;
 extern s16 gTHIWaterDrained;
 extern s16 gTTCSpeedSetting;
 extern s16 gMarioShotFromCannon;
