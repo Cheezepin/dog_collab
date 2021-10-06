@@ -29,7 +29,7 @@
 #include "puppylights.h"
 
 static s8 sBbhStairJiggleOffsets[] = { -8, 8, -4, 4 };
-static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, -1 };
+static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, LEVEL_SL, -1 };
 
 static s32 clear_move_flag(u32 * bitSet, s32 flag);
 

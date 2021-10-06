@@ -27,6 +27,7 @@
 #include "config.h"
 #include "puppycam2.h"
 #include "main.h"
+#include "puppyprint.h"
 
 u16 gDialogColorFadeTimer;
 s8 gLastDialogLineNum;

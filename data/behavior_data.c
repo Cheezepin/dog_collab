@@ -6303,6 +6303,7 @@ const BehaviorScript bhvCephie[] = {
     ANIMATE(0),
     SET_INTERACT_TYPE(INTERACT_TEXT),
     SET_HITBOX(/*Radius*/ 80, /*Height*/ 100),
+    CALL_NATIVE(bhv_init_room),
     CALL_NATIVE(bhv_cephie_init),
     SET_HOME(),
     BEGIN_LOOP(),

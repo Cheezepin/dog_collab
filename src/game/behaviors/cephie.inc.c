@@ -31,14 +31,14 @@ void cephie_act_talk(void) {
 }
 
 void cephie_act_turn_to_talk(void) {
-    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x1000);
+    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0xC00);
     if ((s16) o->oMoveAngleYaw == (s16) o->oAngleToMario) {
         o->oAction = CEPHIE_ACT_TALK;
     }
 }
 
 void cephie_act_turn_from_talk(void) {
-    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oCephieStartYaw, 0x1000);
+    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oCephieStartYaw, 0xC00);
     if ((s16) o->oMoveAngleYaw == (s16) o->oCephieStartYaw) {
         o->oAction = CEPHIE_ACT_IDLE;
     }
