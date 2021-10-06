@@ -6467,7 +6467,7 @@ const BehaviorScript bhvBodyLakitu[] = {
     SET_INTERACT_TYPE(INTERACT_TEXT),
     SET_INT(oInteractionSubtype, INT_SUBTYPE_NPC),
     DROP_TO_FLOOR(),
-    SET_HITBOX(/*Radius*/ 90, /*Height*/ 60),
+    SET_HITBOX(/*Radius*/ 110, /*Height*/ 60),
     ANIMATE(1),
     SET_HOME(),
     SCALE(0, 150),

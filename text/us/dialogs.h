@@ -2187,3 +2187,26 @@ DEFINE_DIALOG(COMIT_DIALOG_9, 1, 3, 30, 200, _("\
 Thank you so much Mario!\n\
 Now my little friend is\n\
 back to his old self!"))
+
+DEFINE_DIALOG(COMIT_DIALOG_10, 1, 3, 30, 200, _("\
+Up ahead is one of our\n\
+research facilities.\n\
+\n\
+This one's currently\n\
+empty, but we'll be\n\
+examing some rather...\n\
+'shocking' behavior\n\
+from a few of our\n\
+inmates soon."))
+
+DEFINE_DIALOG(COMIT_DIALOG_11, 1, 4, 30, 200, _("\
+CUMULUS RESEARCH\n\
+FACILITY ROOM 29B\n\
+------------------\n\
+CURRENT STATUS: EMPTY"))
+
+DEFINE_DIALOG(COMIT_DIALOG_12, 1, 4, 30, 200, _("\
+CUMULUS RESEARCH\n\
+FACILITY ROOM 29B\n\
+------------------\n\
+CURRENT STATUS: ACTIVE"))

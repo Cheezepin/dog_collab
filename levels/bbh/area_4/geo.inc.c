@@ -15,7 +15,7 @@ const GeoLayout bbh_dl_41__Land_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 8770, 1940, 6809, 0, -19, 0, bbh_dl_Building_003_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 10522, -550, 5435, 0, 7, 0, bbh_dl_CloudIsland3_002_mesh_layer_1),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 1300, -233, 5457, 0, 97, 0, bbh_dl_GenericCloudPlat_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 1300, -233, 5457, 0, 97, 0, bbh_dl_GenericCloudPlat_001_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
