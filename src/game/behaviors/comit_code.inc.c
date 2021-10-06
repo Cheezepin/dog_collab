@@ -282,7 +282,7 @@ s32 Set_NPC_Dialog(s32 dialogId) {
 void bhv_floor_door_button_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_UNKNOWN_13)) {
+            if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_NO_PURPLE_SWITCH)) {
                 o->oAction = 1;
             }
             break;
@@ -369,7 +369,7 @@ void bhv_comit_coin_init(void) {
 void bhv_lightning_button_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_UNKNOWN_13)) {
+            if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_NO_PURPLE_SWITCH)) {
                 o->oAction = 1;
             }
             break;
@@ -1519,7 +1519,7 @@ void bhv_metal_crate_loop(void) {
 void bhv_fwoosh_button_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_UNKNOWN_13)) {
+            if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_NO_PURPLE_SWITCH)) {
                 o->oAction = 1;
             }
             break;
@@ -2035,7 +2035,7 @@ void bhv_bounce_cloud_loop(void) {
                 play_sound(SOUND_ACTION_BOUNCE_OFF_OBJECT, m->marioObj->header.gfx.cameraToObject);
                 m->pos[1] = m->floorHeight + 20.0f;
                 m->vel[1] = 80.0f;
-                m->flags & MARIO_UNKNOWN_08;
+                m->flags & MARIO_JUMPING;
                 reset_mario_pitch(m);
                 play_sound(SOUND_MARIO_TWIRL_BOUNCE, m->marioObj->header.gfx.cameraToObject);
                 drop_and_set_mario_action(m, ACT_TWIRLING, 0);

@@ -450,6 +450,8 @@ void geo_process_perspective(struct GraphNodePerspective *node) {
         // guPerspective(mtx, &perspNorm, node->fov+heatWave*10, sAspectRatio+(heatWave/2), node->near / gWorldScale, node->far / gWorldScale, 1.0f);
         if (gCurrLevelNum == LEVEL_SL) {
             gWorldScale = 4.0;
+        } else if (gCurrLevelNum == LEVEL_BBH) {
+            gWorldScale = 4.0;
         }
         else {
             if (gCamera) {
