@@ -442,6 +442,10 @@ void bhv_center_platform_loop(void) {
                 o->oAction = 3;
                 set_mario_npc_dialog(0);
             }
+
+            if (gMarioState->pos[1] - o->oPosY < -1000.0f) {
+                warp_to_checkpoint(gMarioState, 0x100);
+            }
             break;
         case 3:
             o->oOpacity = approach_s16_symmetric(o->oOpacity, o->o10C, 2);

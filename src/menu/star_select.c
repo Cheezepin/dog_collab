@@ -122,6 +122,7 @@ void bhv_act_selector_init(void) {
     s16 i = 0;
     s32 selectorModelIDs[10];
     u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, gCurrCourseNum - 1);
+    stars = 0x7F;
 
     sVisibleStars = 0;
     while (i != sObtainedStars) {
@@ -421,6 +422,7 @@ s32 lvl_init_act_selector_values_and_stars(UNUSED s32 arg, UNUSED s32 unused) {
     if (stars & (1 << 6)) {
         sObtainedStars--;
     }
+    sObtainedStars = 6;
 
     return 0;
 }
