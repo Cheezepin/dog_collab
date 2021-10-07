@@ -6212,6 +6212,8 @@ const BehaviorScript bhvDogNPC[] = {
     END_LOOP(),
 };
 
+// emu's bhvs start
+
 const BehaviorScript bhvRotatingTorus[] = {
    BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -6221,7 +6223,7 @@ const BehaviorScript bhvRotatingTorus[] = {
     SET_FLOAT(oDrawingDistance, 8000),
     SET_HOME(),
     BEGIN_LOOP(),
-        ADD_INT(oFaceAngleRoll, 300),
+        ADD_INT(oFaceAnglePitch, -150),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
@@ -6245,7 +6247,7 @@ const BehaviorScript bhvPaletteSwap[] = {
     CALL_NATIVE(palette_swap),
     END_LOOP(),
 };
-
+// emu's bhvs end
 
 // thecozies bhvs start
 const BehaviorScript bhvRainCloud[] = {

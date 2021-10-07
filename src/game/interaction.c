@@ -1868,15 +1868,19 @@ void mario_handle_special_floors(struct MarioState *m) {
                     break;
             }
         }
-        //u32 interact_shock(struct MarioState *m, UNUSED u32 interactType, struct Object *o);
         if (!(m->action & ACT_FLAG_AIR) && !(m->action & ACT_FLAG_SWIMMING)) {
             switch (floorType) {
                 case SURFACE_INTERACT_SHOCK:
-                m->health -= 10;
+                if (m->health < 0x0100) {
+                    set_mario_action(m, ACT_ELECTROCUTION, 0);
+                 } else {
                 interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
-                
+                if(gCurrentObject->oTimer > 6){
+                set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x0200);
+                }
                 break;
             }
         }
+    }
     }
 }

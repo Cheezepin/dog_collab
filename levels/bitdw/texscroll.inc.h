@@ -1,6 +1,7 @@
 extern void scroll_bitdw_dl_area_2_torus_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_area_2_torus_001_mesh_layer_1_vtx_0();
 extern void scroll_bitdw_dl_Cube_004_mesh_layer_5_vtx_0();
+extern void scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0();
 extern void scroll_bitdw_dl_first_torus_mesh_layer_1_vtx_0();
 extern void scroll_bitdw_dl_first_torus_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_first_torus_001_mesh_layer_1_vtx_0();
@@ -16,5 +17,4 @@ extern void scroll_bitdw_dl_TOWER_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_TOWER_002_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_walljumps_mesh_layer_5_vtx_0();
 extern void scroll_sts_mat_bitdw_dl_cozieswater_top_emu__layer5();
-extern void scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0();
 extern void scroll_bitdw();

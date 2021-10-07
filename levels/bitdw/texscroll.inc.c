@@ -75,6 +75,28 @@ void scroll_bitdw_dl_Cube_004_mesh_layer_5_vtx_0() {
 	currentX += deltaX;
 }
 
+void scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0() {
+	int i = 0;
+	int count = 630;
+	int width = 32 * 0x20;
+	int height = 32 * 0x20;
+
+	static int currentY = 0;
+	int deltaY;
+	Vtx *vertices = segmented_to_virtual(bitdw_dl_final_warp_mesh_layer_1_vtx_0);
+
+	deltaY = (int)(0.1899999976158142 * 0x20) % height;
+
+	if (absi(currentY) > height) {
+		deltaY -= (int)(absi(currentY) / height) * height * signum_positive(deltaY);
+	}
+
+	for (i = 0; i < count; i++) {
+		vertices[i].n.tc[1] += deltaY;
+	}
+	currentY += deltaY;
+}
+
 void scroll_bitdw_dl_first_torus_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 443;
@@ -431,32 +453,11 @@ void scroll_sts_mat_bitdw_dl_cozieswater_top_emu__layer5() {
 	shift_t(mat, 22, PACK_TILESIZE(0, 2));
 };
 
-void scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0() {
-	int i = 0;
-	int count = 630;
-	int width = 32 * 0x20;
-	int height = 32 * 0x20;
-
-	static int currentY = 0;
-	int deltaY;
-	Vtx *vertices = segmented_to_virtual(bitdw_dl_final_warp_mesh_layer_1_vtx_0);
-
-	deltaY = (int)(0.1899999976158142 * 0x20) % height;
-
-	if (absi(currentY) > height) {
-		deltaY -= (int)(absi(currentY) / height) * height * signum_positive(deltaY);
-	}
-
-	for (i = 0; i < count; i++) {
-		vertices[i].n.tc[1] += deltaY;
-	}
-	currentY += deltaY;
-}
-
 void scroll_bitdw() {
 	scroll_bitdw_dl_area_2_torus_mesh_layer_5_vtx_0();
 	scroll_bitdw_dl_area_2_torus_001_mesh_layer_1_vtx_0();
 	scroll_bitdw_dl_Cube_004_mesh_layer_5_vtx_0();
+	scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0();
 	scroll_bitdw_dl_first_torus_mesh_layer_1_vtx_0();
 	scroll_bitdw_dl_first_torus_mesh_layer_5_vtx_0();
 	scroll_bitdw_dl_first_torus_001_mesh_layer_1_vtx_0();
@@ -472,5 +473,4 @@ void scroll_bitdw() {
 	scroll_bitdw_dl_TOWER_002_mesh_layer_5_vtx_0();
 	scroll_bitdw_dl_walljumps_mesh_layer_5_vtx_0();
 	scroll_sts_mat_bitdw_dl_cozieswater_top_emu__layer5();
-	scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0();
 }
