@@ -151,7 +151,7 @@
 // When this option is enabled, LODs will ONLY work on console.
 // When this option is disabled, LODs will work regardless of whether console or emulator is used.
 // Regardless of whether this setting is enabled or not, you can use gIsConsole to wrap your own code in a console check.
-#define AUTO_LOD
+//#define AUTO_LOD
 // Disable AA (Recommended: it changes nothing on emulator, and it makes console run better)
 #define DISABLE_AA
 // Makes the coins ia8 64x64 instead of ia16 32x32. Uses new ia8 textures so that vanilla coins look better.
