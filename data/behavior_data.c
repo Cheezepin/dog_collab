@@ -6212,11 +6212,6 @@ const BehaviorScript bhvDogNPC[] = {
         CALL_NATIVE(bhv_bobomb_buddy_loop),
     END_LOOP(),
 };
-
-<<<<<<< HEAD
-// emu's bhvs start
-
-=======
 //START ROVERT BEHAVIOR
 
 const BehaviorScript bhvMagmaThwomp[] = {
@@ -6292,7 +6287,8 @@ const BehaviorScript bhvLavaGrate[] = {
 }; 
 
 //END ROVERT BEHAVIOR
->>>>>>> dbea880ff9f249c8fdc02ae7724fd9c2dc05f007
+
+//START EMU BEHAVIOR
 const BehaviorScript bhvRotatingTorus[] = {
    BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -6326,7 +6322,7 @@ const BehaviorScript bhvPaletteSwap[] = {
     CALL_NATIVE(palette_swap),
     END_LOOP(),
 };
-// emu's bhvs end
+// END EMU BEHAVIOR
 
 // thecozies bhvs start
 const BehaviorScript bhvRainCloud[] = {
