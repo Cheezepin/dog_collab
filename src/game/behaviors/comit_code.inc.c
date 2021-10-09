@@ -1655,6 +1655,7 @@ void bhv_entrance_gate_loop(void) {
             }
             break;
         case 1:
+            set_mario_npc_dialog(1);
             gComitCam = 1;
             o->oPosY = approach_f32(o->oPosY, o->oHomeY - 700.0f, 12.0f, 12.0f);
 
@@ -1670,6 +1671,7 @@ void bhv_entrance_gate_loop(void) {
             if (o->oTimer > 20) {
                 o->activeFlags = 0;
                 o->oObj10C->oF4 = 2;
+                set_mario_npc_dialog(0);
             }
             break;
     }

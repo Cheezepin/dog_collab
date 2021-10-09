@@ -5983,12 +5983,12 @@ s16 camera_course_processing(struct Camera *c) {
 
             case AREA_BBH:
                 // if camera is fixed at bbh_room_13_balcony_camera (but as floats)
-                if (vec3f_compare(sFixedModeBasePosition, 210.f, 420.f, 3109.f) == 1)
+                /*if (vec3f_compare(sFixedModeBasePosition, 210.f, 420.f, 3109.f) == 1)
                 {
                     if (sMarioCamState->pos[1] < 1800.f) {
                         transition_to_camera_mode(c, CAMERA_MODE_CLOSE, 30);
                     }
-                }
+                }*/
                 break;
 
             case AREA_SSL_PYRAMID:

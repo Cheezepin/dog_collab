@@ -6340,7 +6340,7 @@ const BehaviorScript bhvSimpleSpinner[] = {
 
 const BehaviorScript bhvBounceCloud[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(bounce_cloud_collision),
     SET_FLOAT(oDrawingDistance, 0x4000),
     SET_FLOAT(oCollisionDistance, 0x300),
@@ -6355,7 +6355,7 @@ const BehaviorScript bhvBounceCloud[] = {
 
 const BehaviorScript bhvStretchCloud[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(stretch_cloud_collision),
     SET_FLOAT(oDrawingDistance, 0x4000),
     SET_FLOAT(oCollisionDistance, 0x600),
@@ -6382,7 +6382,7 @@ const BehaviorScript bhvRainbowCloud[] = {
 
 const BehaviorScript bhvCloudRainbow[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(cloud_rainbow_collision),
     SET_FLOAT(oDrawingDistance, 0x4000),
     SET_FLOAT(oCollisionDistance, 0x1400),
@@ -6413,7 +6413,7 @@ const BehaviorScript bhvCRainCloud[] = {
 
 const BehaviorScript bhvFadeCloud[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(fade_cloud_collision),
     SET_FLOAT(oDrawingDistance, 0x4000),
     SET_FLOAT(oCollisionDistance, 0x600),
@@ -6642,7 +6642,7 @@ const BehaviorScript bhvLightningStrike[] = {
 
 const BehaviorScript bhvLightningBlast[] = {
     BEGIN(OBJ_LIST_DESTRUCTIVE),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     SET_FLOAT(oDrawingDistance, 0x4000),
     SET_HOME(),
     BEGIN_LOOP(),
@@ -6653,7 +6653,7 @@ const BehaviorScript bhvLightningBlast[] = {
 
 const BehaviorScript bhvCenterPlatform[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
     LOAD_COLLISION_DATA(center_platform_collision),
     SET_FLOAT(oDrawingDistance, 0x7FFF),
     SET_FLOAT(oCollisionDistance, 0x4000),
@@ -6722,7 +6722,7 @@ const BehaviorScript bhvComitCoin[] = {
 
 const BehaviorScript bhvDarkSky[] = {
     BEGIN(OBJ_LIST_LEVEL),
-    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
     SET_FLOAT(oDrawingDistance, 0x7FFF),
     SET_INT(oOpacity, 0x58),
     BEGIN_LOOP(),
@@ -6779,7 +6779,7 @@ const BehaviorScript bhvGateLakitu[] = {
 
 const BehaviorScript bhvEntranceGate[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
     LOAD_COLLISION_DATA(entrance_gate_collision),
     SET_FLOAT(oDrawingDistance, 0x4000),
     SET_FLOAT(oCollisionDistance, 0x500),
