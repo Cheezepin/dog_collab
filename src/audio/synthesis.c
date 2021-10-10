@@ -8,6 +8,7 @@
 #include "seqplayer.h"
 #include "internal.h"
 #include "external.h"
+#include "game/game_init.h"
 
 
 #define DMEM_ADDR_TEMP 0x0
@@ -36,6 +37,137 @@
     aSaveBuffer(pkt, VIRTUAL_TO_PHYSICAL2(gSynthesisReverb.ringBuffer.right + (off)));
 
 #define AUDIO_ALIGN(val, amnt) (((val) + (1 << amnt) - 1) & ~((1 << amnt) - 1))
+
+#if defined(BETTER_REVERB) && (defined(VERSION_US) || defined(VERSION_JP))
+/* ----------------------------------------------------------------------BEGIN REVERB PARAMETERS---------------------------------------------------------------------- */
+
+
+/**
+ * This reverb is a much more natural, ambient implementation over vanilla's, though at the cost of some memory and performance.
+ * These parameters are here to provide maximum control over the usage of the reverb effect, as well as with game performance.
+ *
+ * To take advantage of the reverb effect, you can change the echo parameters set in levels/level_defines.h to tailor the reverb to each specific level area.
+ * To adjust reverb presence with individual sound effects, apply the .set_reverb command within sound/sequences/00_sound_player.s (see examples of other sounds that use it).
+ * To use with M64 sequences, set the Effect parameter for each channel accordingly (CC 91 for MIDI files).
+ *
+ * Most parameter configuration is to be done here, though BETTER_REVERB_SIZE can be adjusted in audio/synthesis.h.
+ *
+ * If after changing the parameters, you hear increasing noise followed by a sudden disappearance of reverb and/or scratchy audio, this indicates an s16 overflow.
+ * If this happens, stop immediately and reduce the parameters at fault. This becomes a ticking time bomb, and may eventually result in very loud noise if it reaches the point of s32 overflow.
+ * Depending on the violating parameters chosen, you probably won't ever experience s32 overflow, but s16 overflow still isn't a pleasant experience.
+ * Checks to prevent this have not been implemented to maximize performance potential, so choose your parameters wisely. The current defaults are unlikely to have this problem.
+ * Generally speaking, a sound that doesn't seem to be fading at a natural rate is a parameter red flag (also known as feedback).
+ */
+
+
+// Setting this to 4 corrupts the game, so set this value to -1 to use vanilla reverb if this is too slow, or if it just doesn't fit the desired aesthetic of a level.
+// You can change this value before audio_reset_session gets called if different levels can tolerate the demand better than others or just have different reverb goals.
+// A higher downsample value hits the game's frequency limit sooner, which can cause the reverb sometimes to be off pitch. This is a vanilla level issue (and also counter intuitive).
+// Higher downsample values also result in slightly shorter reverb decay times.
+s8 betterReverbDownsampleConsole = 3;
+
+// Most emulators can handle a default value of 2, but 3 may be advisable in some cases if targeting older emulators (e.g. PJ64 1.6). Setting this to -1 also uses vanilla reverb.
+// Using a value of 1 is not recommended except in very specific situations. If you do decide to use 1 here, you must adjust BETTER_REVERB_SIZE appropriately.
+// You can change this value before audio_reset_session gets called if different levels can tolerate the demand better than others or just have different reverb goals.
+// A higher downsample value hits the game's frequency limit sooner, which can cause the reverb sometimes to be off pitch. This is a vanilla level issue (and also counter intuitive).
+// Higher downsample values also result in slightly shorter reverb decay times.
+s8 betterReverbDownsampleEmulator = 2;
+
+// This value represents the number of filters to use with the reverb. This can be decreased to improve performance, but at the cost of a lesser presence of reverb in the final audio.
+// Filter count should always be a multiple of 3. Never ever set this value to be greater than NUM_ALLPASS.
+// Setting it to anything less than 3 will disable reverb outright.
+// This can be changed at any time, but is best set when calling audio_reset_session.
+u32 reverbFilterCountConsole = NUM_ALLPASS - 6;
+
+// This value represents the number of filters to use with the reverb. This can be decreased to improve performance, but at the cost of a lesser presence of reverb in the final audio.
+// Filter count should always be a multiple of 3. Never ever set this value to be greater than NUM_ALLPASS.
+// Setting it to anything less than 3 will disable reverb outright.
+// This can be changed at any time, but is best set when calling audio_reset_session.
+u32 reverbFilterCountEmulator = NUM_ALLPASS;
+
+// Set this to TRUE to use mono over stereo for reverb. This should increase performance, but at the cost of a less fullfilling reverb experience.
+// If performance is desirable, it is recommended to change reverbFilterCountConsole or betterReverbDownsampleConsole first.
+// This can be changed at any time, but is best set when calling audio_reset_session.
+u8 monoReverbConsole = FALSE;
+
+// Set this to TRUE to use mono over stereo for reverb. This should increase performance, but at the cost of a less fullfilling reverb experience.
+// If performance is desirable, it is recommended to change reverbFilterCountEmulator or betterReverbDownsampleEmulator first.
+// This can be changed at any time, but is best set when calling audio_reset_session.
+u8 monoReverbEmulator = FALSE;
+
+// This value controls the size of the reverb buffer. It affects the global reverb delay time. This variable is one of the easiest to control.
+// It is not recommended setting this to values greater than 0x1000 * 2^(downsample factor - 1), as you run the risk of running into a memory issue (though this is far from a guarantee).
+// Setting the value lower than the downsample buffer size will destroy the game audio. This is taken into account automatically, but also means the value set here isn't what always gets used.
+// If this value is changed, it will go into effect the next time audio_reset_session is called.
+// Set to -1 to use a default preset instead. Higher values represent more audio delay (usually better for echoey spaces).
+s32 betterReverbWindowsSize = -1;
+
+// These are set to defines rather than variables to increase performance. Change these to s32 if you want them to be configurable in-game. (Maybe extern them in synthesis.h)
+// Setting these to values larger than 0xFF (255) or less than 0 may cause issues and is not recommended.
+#define REVERB_REV_INDEX 0x60 // Affects decay time mostly (large values can cause terrible feedback!); can be messed with at any time
+#define REVERB_GAIN_INDEX 0xA0 // Affects signal immediately retransmitted back into buffers (mid-high values yield the strongest effect); can be messed with at any time
+#define REVERB_WET_SIGNAL 0xE8 // Amount of reverb specific output in final signal (also affects decay); can be messed with at any time, also very easy to control
+
+// #define REVERB_DRY_SIGNAL = 0x00; // Amount of original input in final signal (large values can cause terrible feedback!); declaration and uses commented out by default to improve compiler optimization
+
+
+/* ---------------------------------------------------------------------ADVANCED REVERB PARAMETERS-------------------------------------------------------------------- */
+
+
+// These values affect filter delays. Bigger values will result in fatter echo (and more memory); must be cumulatively smaller than BETTER_REVERB_SIZE/2.
+// If setting a reverb downsample value to 1, these must be cumulatively smaller than BETTER_REVERB_SIZE/4.
+// These values should never be changed unless in this declaration or during a call to audio_reset_session, as it could otherwise lead to a major memory leak or garbage audio.
+// None of the delay values should ever be smaller than 1 either; these are s32s purely to avoid typecasts.
+// These values are currently set by using delaysBaseline in the audio_reset_session function, so its behavior must be overridden to use dynamically (or at all).
+s32 delaysL[NUM_ALLPASS] = {
+    1080, 1352, 1200,
+    1200, 1232, 1432,
+    1384, 1048, 1352,
+    928, 1504, 1512
+};
+s32 delaysR[NUM_ALLPASS] = {
+    1384, 1352, 1048,
+    928, 1512, 1504,
+    1080, 1200, 1352,
+    1200, 1432, 1232
+};
+
+// Like the delays array, but represents default max values that don't change (also probably somewhat redundant)
+// Change this array rather than the delays array to customize reverb delay times globally.
+// Similarly to delaysL/R, these should be kept within the memory constraints defined by BETTER_REVERB_SIZE.
+const s32 delaysBaselineL[NUM_ALLPASS] = {
+    1080, 1352, 1200,
+    1200, 1232, 1432,
+    1384, 1048, 1352,
+    928, 1504, 1512
+};
+const s32 delaysBaselineR[NUM_ALLPASS] = {
+    1384, 1352, 1048,
+    928, 1512, 1504,
+    1080, 1200, 1352,
+    1200, 1432, 1232
+};
+
+// These values affect reverb decay depending on the filter index; can be messed with at any time
+s32 reverbMultsL[NUM_ALLPASS / 3] = {0xD7, 0x6F, 0x36, 0x22};
+s32 reverbMultsR[NUM_ALLPASS / 3] = {0xCF, 0x73, 0x38, 0x1F};
+
+
+/* -----------------------------------------------------------------------END REVERB PARAMETERS----------------------------------------------------------------------- */
+
+// Do not touch these values manually, unless you want potential for problems.
+s32 reverbFilterCount = NUM_ALLPASS;
+s32 reverbFilterCountm1 = NUM_ALLPASS - 1;
+u8 monoReverb = FALSE;
+u8 toggleBetterReverb = TRUE;
+s32 allpassIdxL[NUM_ALLPASS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+s32 allpassIdxR[NUM_ALLPASS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+s32 tmpBufL[NUM_ALLPASS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+s32 tmpBufR[NUM_ALLPASS] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+s32 **delayBufsL;
+s32 **delayBufsR;
+#endif
+
 
 struct VolumeChange {
     u16 sourceLeft;
@@ -70,6 +202,87 @@ struct SynthesisReverb gSynthesisReverb;
 u8 sAudioSynthesisPad[0x20];
 #endif
 
+#if defined(BETTER_REVERB) && (defined(VERSION_US) || defined(VERSION_JP))
+static inline s16 clamp16(s32 x) {
+    if (x >= 32767)
+        return 32767;
+    if (x <= -32768)
+        return -32768;
+
+    return (s16) x;
+}
+
+static inline void reverb_samples(s16 *outSampleL, s16 *outSampleR, s32 inSampleL, s32 inSampleR) {
+    s32 i = 0;
+    s32 j = 0;
+    s32 k = 0;
+    s32 outTmpL = 0;
+    s32 outTmpR = 0;
+    s32 tmpCarryoverL = ((tmpBufL[reverbFilterCountm1] * REVERB_REV_INDEX) / 256) + inSampleL;
+    s32 tmpCarryoverR = ((tmpBufR[reverbFilterCountm1] * REVERB_REV_INDEX) / 256) + inSampleR;
+
+    for (; i != reverbFilterCount; ++i, ++j) {
+        tmpBufL[i] = delayBufsL[i][allpassIdxL[i]];
+        tmpBufR[i] = delayBufsR[i][allpassIdxR[i]];
+
+        if (j == 2) {
+            j = -1;
+            outTmpL += (tmpBufL[i] * reverbMultsL[k]) / 256;
+            outTmpR += (tmpBufR[i] * reverbMultsR[k++]) / 256;
+            delayBufsL[i][allpassIdxL[i]] = tmpCarryoverL;
+            delayBufsR[i][allpassIdxR[i]] = tmpCarryoverR;
+            if (i != reverbFilterCountm1) {
+                tmpCarryoverL = (tmpBufL[i] * REVERB_REV_INDEX) / 256;
+                tmpCarryoverR = (tmpBufR[i] * REVERB_REV_INDEX) / 256;
+            }
+        }
+        else {
+            delayBufsL[i][allpassIdxL[i]] = (tmpBufL[i] * (-REVERB_GAIN_INDEX)) / 256 + tmpCarryoverL;
+            delayBufsR[i][allpassIdxR[i]] = (tmpBufR[i] * (-REVERB_GAIN_INDEX)) / 256 + tmpCarryoverR;
+            tmpCarryoverL = (delayBufsL[i][allpassIdxL[i]] * REVERB_GAIN_INDEX) / 256 + tmpBufL[i];
+            tmpCarryoverR = (delayBufsR[i][allpassIdxR[i]] * REVERB_GAIN_INDEX) / 256 + tmpBufR[i];
+        }
+
+        if (++allpassIdxL[i] == delaysL[i])
+            allpassIdxL[i] = 0;
+        if (++allpassIdxR[i] == delaysR[i])
+            allpassIdxR[i] = 0;
+    }
+
+    *outSampleL = clamp16((outTmpL * REVERB_WET_SIGNAL/* + inSampleL * REVERB_DRY_SIGNAL*/) / 256);
+    *outSampleR = clamp16((outTmpR * REVERB_WET_SIGNAL/* + inSampleR * REVERB_DRY_SIGNAL*/) / 256);
+}
+
+static inline void reverb_mono_sample(s16 *outSample, s32 inSample) {
+    s32 i = 0;
+    s32 j = 0;
+    s32 k = 0;
+    s32 outTmp = 0;
+    s32 tmpCarryover = ((tmpBufL[reverbFilterCountm1] * REVERB_REV_INDEX) / 256) + inSample;
+
+    for (; i != reverbFilterCount; ++i, ++j) {
+        tmpBufL[i] = delayBufsL[i][allpassIdxL[i]];
+
+        if (j == 2) {
+            j = -1;
+            outTmp += (tmpBufL[i] * reverbMultsL[k++]) / 256;
+            delayBufsL[i][allpassIdxL[i]] = tmpCarryover;
+            if (i != reverbFilterCountm1)
+                tmpCarryover = (tmpBufL[i] * REVERB_REV_INDEX) / 256;
+        }
+        else {
+            delayBufsL[i][allpassIdxL[i]] = (tmpBufL[i] * (-REVERB_GAIN_INDEX)) / 256 + tmpCarryover;
+            tmpCarryover = (delayBufsL[i][allpassIdxL[i]] * REVERB_GAIN_INDEX) / 256 + tmpBufL[i];
+        }
+
+        if (++allpassIdxL[i] == delaysL[i])
+            allpassIdxL[i] = 0;
+    }
+
+    *outSample = clamp16((outTmp * REVERB_WET_SIGNAL/* + inSample * REVERB_DRY_SIGNAL*/) / 256);
+}
+#endif
+
 #ifdef VERSION_EU
 s16 gVolume;
 s8 gUseReverb;
@@ -97,7 +310,6 @@ void prepare_reverb_ring_buffer(s32 chunkLen, u32 updateIndex, s32 reverbIndex) 
     s32 dstPos;
     s32 nSamples;
     s32 excessiveSamples;
-    s32 UNUSED pad[3];
     if (reverb->downsampleRate != 1) {
         if (reverb->framesLeftToIgnore == 0) {
             // Now that the RSP has finished, downsample the samples produced two frames ago by skipping
@@ -149,7 +361,12 @@ void prepare_reverb_ring_buffer(s32 chunkLen, u32 updateIndex) {
     s32 nSamples;
     s32 numSamplesAfterDownsampling;
     s32 excessiveSamples;
+
+#ifdef BETTER_REVERB
+    if (!toggleBetterReverb && gReverbDownsampleRate != 1) {
+#else
     if (gReverbDownsampleRate != 1) {
+#endif
         if (gSynthesisReverb.framesLeftToIgnore == 0) {
             // Now that the RSP has finished, downsample the samples produced two frames ago by skipping
             // samples.
@@ -171,6 +388,49 @@ void prepare_reverb_ring_buffer(s32 chunkLen, u32 updateIndex) {
             }
         }
     }
+#ifdef BETTER_REVERB
+    else if (toggleBetterReverb) {
+        item = &gSynthesisReverb.items[gSynthesisReverb.curFrame][updateIndex];
+        if (gSoundMode == SOUND_MODE_MONO || monoReverb) {
+            if (gReverbDownsampleRate != 1) {
+                osInvalDCache(item->toDownsampleLeft, DEFAULT_LEN_2CH);
+                for (srcPos = 0, dstPos = item->startPos; dstPos < item->lengthA / 2 + item->startPos; srcPos += gReverbDownsampleRate, dstPos++) {
+                    reverb_mono_sample(&gSynthesisReverb.ringBuffer.left[dstPos], ((s32) item->toDownsampleLeft[srcPos] + (s32) item->toDownsampleRight[srcPos]) / 2);
+                    gSynthesisReverb.ringBuffer.right[dstPos] = gSynthesisReverb.ringBuffer.left[dstPos];
+                }
+                for (dstPos = 0; dstPos < item->lengthB / 2; srcPos += gReverbDownsampleRate, dstPos++) {
+                    reverb_mono_sample(&gSynthesisReverb.ringBuffer.left[dstPos], ((s32) item->toDownsampleLeft[srcPos] + (s32) item->toDownsampleRight[srcPos]) / 2);
+                    gSynthesisReverb.ringBuffer.right[dstPos] = gSynthesisReverb.ringBuffer.left[dstPos];
+                }
+            }
+            else { // Too slow for practical use, not recommended most of the time.
+                for (dstPos = item->startPos; dstPos < item->lengthA / 2 + item->startPos; dstPos++) {
+                    reverb_mono_sample(&gSynthesisReverb.ringBuffer.left[dstPos], ((s32) gSynthesisReverb.ringBuffer.left[dstPos] + (s32) gSynthesisReverb.ringBuffer.right[dstPos]) / 2);
+                    gSynthesisReverb.ringBuffer.right[dstPos] = gSynthesisReverb.ringBuffer.left[dstPos];
+                }
+                for (dstPos = 0; dstPos < item->lengthB / 2; dstPos++) {
+                    reverb_mono_sample(&gSynthesisReverb.ringBuffer.left[dstPos], ((s32) gSynthesisReverb.ringBuffer.left[dstPos] + (s32) gSynthesisReverb.ringBuffer.right[dstPos]) / 2);
+                    gSynthesisReverb.ringBuffer.right[dstPos] = gSynthesisReverb.ringBuffer.left[dstPos];
+                }
+            }
+        }
+        else {
+            if (gReverbDownsampleRate != 1) {
+                osInvalDCache(item->toDownsampleLeft, DEFAULT_LEN_2CH);
+                for (srcPos = 0, dstPos = item->startPos; dstPos < item->lengthA / 2 + item->startPos; srcPos += gReverbDownsampleRate, dstPos++)
+                    reverb_samples(&gSynthesisReverb.ringBuffer.left[dstPos], &gSynthesisReverb.ringBuffer.right[dstPos], item->toDownsampleLeft[srcPos], item->toDownsampleRight[srcPos]);
+                for (dstPos = 0; dstPos < item->lengthB / 2; srcPos += gReverbDownsampleRate, dstPos++)
+                    reverb_samples(&gSynthesisReverb.ringBuffer.left[dstPos], &gSynthesisReverb.ringBuffer.right[dstPos], item->toDownsampleLeft[srcPos], item->toDownsampleRight[srcPos]);
+            }
+            else { // Too slow for practical use, not recommended most of the time.
+                for (dstPos = item->startPos; dstPos < item->lengthA / 2 + item->startPos; dstPos++)
+                    reverb_samples(&gSynthesisReverb.ringBuffer.left[dstPos], &gSynthesisReverb.ringBuffer.right[dstPos], gSynthesisReverb.ringBuffer.left[dstPos], gSynthesisReverb.ringBuffer.right[dstPos]);
+                for (dstPos = 0; dstPos < item->lengthB / 2; dstPos++)
+                    reverb_samples(&gSynthesisReverb.ringBuffer.left[dstPos], &gSynthesisReverb.ringBuffer.right[dstPos], gSynthesisReverb.ringBuffer.left[dstPos], gSynthesisReverb.ringBuffer.right[dstPos]);
+            }
+        }
+    }
+#endif
     item = &gSynthesisReverb.items[gSynthesisReverb.curFrame][updateIndex];
 
     numSamplesAfterDownsampling = chunkLen / gReverbDownsampleRate;
@@ -328,6 +588,22 @@ u64 *synthesis_execute(u64 *cmdBuf, s32 *writtenCmds, s16 *aiBuf, s32 bufLen) {
     s32 v0;
 
     aSegment(cmdBuf, 0, 0);
+
+#ifdef BETTER_REVERB
+    if (gIsConsole) {
+        reverbFilterCount = (s32) reverbFilterCountConsole;
+        monoReverb = monoReverbConsole;
+    }
+    else {
+        reverbFilterCount = (s32) reverbFilterCountEmulator;
+        monoReverb = monoReverbEmulator;
+    }
+    if (reverbFilterCount > NUM_ALLPASS)
+        reverbFilterCount = NUM_ALLPASS;
+    reverbFilterCountm1 = reverbFilterCount - 1;
+    if (reverbFilterCount < 3)
+        reverbFilterCountm1 = 0;
+#endif
 
     for (i = gAudioUpdatesPerFrame; i > 0; i--) {
         if (i == 1) {
@@ -503,13 +779,9 @@ u64 *synthesis_do_one_audio_update(s16 *aiBuf, s32 bufLen, u64 *cmd, s32 updateI
 }
 #else
 u64 *synthesis_do_one_audio_update(s16 *aiBuf, s32 bufLen, u64 *cmd, s32 updateIndex) {
-    UNUSED s32 pad1[1];
     s16 ra;
     s16 t4;
-    UNUSED s32 pad[2];
     struct ReverbRingBufferItem *v1;
-    UNUSED s32 pad2[1];
-    s16 temp;
 
     v1 = &gSynthesisReverb.items[gSynthesisReverb.curFrame][updateIndex];
 
@@ -523,7 +795,6 @@ u64 *synthesis_do_one_audio_update(s16 *aiBuf, s32 bufLen, u64 *cmd, s32 updateI
             if (v1->lengthB != 0) {
                 // Ring buffer wrapped
                 aSetLoadBufferPair(cmd++, v1->lengthA, 0);
-                temp = 0;
             }
 
             // Use the reverb sound as initial sound for this audio update
@@ -537,18 +808,12 @@ u64 *synthesis_do_one_audio_update(s16 *aiBuf, s32 bufLen, u64 *cmd, s32 updateI
                  /*out*/ DMEM_ADDR_WET_LEFT_CH);
         } else {
             // Same as above but upsample the previously downsampled samples used for reverb first
-            temp = 0; //! jesus christ
             t4 = (v1->startPos & 7) * 2;
             ra = AUDIO_ALIGN(v1->lengthA + t4, 4);
             aSetLoadBufferPair(cmd++, 0, v1->startPos - t4 / 2);
             if (v1->lengthB != 0) {
                 // Ring buffer wrapped
                 aSetLoadBufferPair(cmd++, ra, 0);
-                //! We need an empty statement (even an empty ';') here to make the function match (because IDO).
-                //! However, copt removes extraneous statements and dead code. So we need to trick copt
-                //! into thinking 'temp' could be undefined, and luckily the compiler optimizes out the
-                //! useless assignment.
-                ra = ra + temp;
             }
             aSetBuffer(cmd++, 0, t4 + DMEM_ADDR_WET_LEFT_CH, DMEM_ADDR_LEFT_CH, bufLen << 1);
             aResample(cmd++, gSynthesisReverb.resampleFlags, (u16) gSynthesisReverb.resampleRate, VIRTUAL_TO_PHYSICAL2(gSynthesisReverb.resampleStateLeft));
@@ -580,20 +845,14 @@ u64 *synthesis_do_one_audio_update(s16 *aiBuf, s32 bufLen, u64 *cmd, s32 updateI
 #ifdef VERSION_EU
 // Processes just one note, not all
 u64 *synthesis_process_note(struct Note *note, struct NoteSubEu *noteSubEu, struct NoteSynthesisState *synthesisState, UNUSED s16 *aiBuf, s32 bufLen, u64 *cmd) {
-    UNUSED s32 pad0[3];
 #else
 u64 *synthesis_process_notes(s16 *aiBuf, s32 bufLen, u64 *cmd) {
     s32 noteIndex;                           // sp174
     struct Note *note;                       // s7
-    UNUSED u8 pad0[0x08];
 #endif
     struct AudioBankSample *audioBookSample; // sp164, sp138
     struct AdpcmLoop *loopInfo;              // sp160, sp134
     s16 *curLoadedBook = NULL;               // sp154, sp130
-#ifdef VERSION_EU
-    UNUSED u8 padEU[0x04];
-#endif
-    UNUSED u8 pad8[0x04];
 #ifndef VERSION_EU
     u16 resamplingRateFixedPoint;            // sp5c, sp11A
 #endif
@@ -603,15 +862,8 @@ u64 *synthesis_process_notes(s16 *aiBuf, s32 bufLen, u64 *cmd) {
 #ifdef VERSION_EU
     u16 resamplingRateFixedPoint;            // sp5c, sp11A
 #endif
-    UNUSED u8 pad7[0x0c];                    // sp100
     UNUSED s32 tempBufLen;
-#ifdef VERSION_EU
     s32 sp130 = 0;  //sp128, sp104
-    UNUSED u32 pad9;
-#else
-    UNUSED u32 pad9;
-    s32 sp130 = 0;  //sp128, sp104
-#endif
     s32 nAdpcmSamplesProcessed; // signed required for US
     s32 t0;
 #ifdef VERSION_EU
@@ -1138,9 +1390,7 @@ u64 *final_resample(u64 *cmd, struct Note *note, s32 count, u16 pitch, u16 dmemI
 #endif
 
 #ifndef VERSION_EU
-u64 *process_envelope(u64 *cmd, struct Note *note, s32 nSamples, u16 inBuf, s32 headsetPanSettings,
-                      UNUSED u32 flags) {
-    UNUSED u8 pad[16];
+u64 *process_envelope(u64 *cmd, struct Note *note, s32 nSamples, u16 inBuf, s32 headsetPanSettings, UNUSED u32 flags) {
     struct VolumeChange vol;
     vol.sourceLeft = note->curVolLeft;
     vol.sourceRight = note->curVolRight;
@@ -1153,16 +1403,12 @@ u64 *process_envelope(u64 *cmd, struct Note *note, s32 nSamples, u16 inBuf, s32 
 
 u64 *process_envelope_inner(u64 *cmd, struct Note *note, s32 nSamples, u16 inBuf,
                             s32 headsetPanSettings, struct VolumeChange *vol) {
-    UNUSED u8 pad[3];
     u8 mixerFlags;
-    UNUSED u8 pad2[8];
     s32 rampLeft, rampRight;
 #elif defined(VERSION_EU)
 u64 *process_envelope(u64 *cmd, struct NoteSubEu *note, struct NoteSynthesisState *synthesisState, s32 nSamples, u16 inBuf, s32 headsetPanSettings, UNUSED u32 flags) {
-    UNUSED u8 pad1[20];
     u16 sourceRight;
     u16 sourceLeft;
-    UNUSED u8 pad2[4];
     u16 targetLeft;
     u16 targetRight;
     s32 mixerFlags;
@@ -1361,8 +1607,6 @@ u64 *note_apply_headset_pan_effects(u64 *cmd, struct Note *note, s32 bufLen, s32
 
 #ifdef VERSION_EU
             pitch = (bufLen << 0xf) / (bufLen + panShift - prevPanShift + 8);
-            if (pitch) {
-            }
 #else
             pitch = (bufLen << 0xf) / (panShift + bufLen - prevPanShift + 8);
 #endif
@@ -1375,10 +1619,6 @@ u64 *note_apply_headset_pan_effects(u64 *cmd, struct Note *note, s32 bufLen, s32
                 pitch = (bufLen << 0xf) / (bufLen + panShift - prevPanShift);
             }
 
-#if defined(VERSION_EU) && !defined(AVOID_UB)
-            if (unkDebug) { // UB
-            }
-#endif
             aSetBuffer(cmd++, 0, DMEM_ADDR_NOTE_PAN_TEMP, DMEM_ADDR_TEMP, panShift + bufLen - prevPanShift);
             aResample(cmd++, 0, pitch, VIRTUAL_TO_PHYSICAL2(note->synthesisBuffers->panResampleState));
         }

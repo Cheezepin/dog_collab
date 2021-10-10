@@ -7,9 +7,9 @@
 // a rolling log of another variation.
 
 void bhv_ttm_rolling_log_init(void) {
-    o->oPitouneUnkF8 = 3970.0f;
-    o->oPitouneUnkFC = 3654.0f;
-    o->oPitouneUnkF4 = 271037.0f;
+    o->oRollingLogX = 3970.0f;
+    o->oRollingLogZ = 3654.0f;
+    o->oRollingLogMaxDist = 271037.0f;
     o->oMoveAngleYaw = 8810;
     o->oForwardVel = 0;
     o->oVelX = 0;
@@ -19,12 +19,12 @@ void bhv_ttm_rolling_log_init(void) {
 }
 
 void rolling_log_roll_log(void) {
-    f32 sp24;
+    f32 rollAmount;
 
     if (gMarioObject->platform == o) {
-        sp24 = (gMarioObject->header.gfx.pos[2] - o->oPosZ) * coss(-1*o->oMoveAngleYaw)
-               - (gMarioObject->header.gfx.pos[0] - o->oPosX) * sins(-1*o->oMoveAngleYaw);
-        if (sp24 > 0)
+        rollAmount = (gMarioObject->header.gfx.pos[2] - o->oPosZ) * coss(-o->oMoveAngleYaw)
+                   - (gMarioObject->header.gfx.pos[0] - o->oPosX) * sins(-o->oMoveAngleYaw);
+        if (rollAmount > 0)
             o->oAngleVelPitch += 0x10;
         else
             o->oAngleVelPitch -= 0x10;
@@ -72,7 +72,7 @@ void bhv_rolling_log_loop(void) {
     o->oPosX += o->oVelX;
     o->oPosZ += o->oVelZ;
 
-    if (o->oPitouneUnkF4 < sqr(o->oPosX - o->oPitouneUnkF8) + sqr(o->oPosZ - o->oPitouneUnkFC)) {
+    if (o->oRollingLogMaxDist < sqr(o->oPosX - o->oRollingLogX) + sqr(o->oPosZ - o->oRollingLogZ)) {
         o->oForwardVel = 0;
         o->oPosX = prevX;
         o->oPosZ = prevZ;
@@ -87,14 +87,14 @@ void bhv_rolling_log_loop(void) {
 }
 
 void volcano_act_1(void) {
-    o->oRollingLogUnkF4 += 4.0f;
-    o->oAngleVelPitch += o->oRollingLogUnkF4;
+    o->oVolcanoTrapPitchVel += 4.0f;
+    o->oAngleVelPitch += o->oVolcanoTrapPitchVel;
     o->oFaceAnglePitch -= o->oAngleVelPitch;
 
     if (o->oFaceAnglePitch < -0x4000) {
         o->oFaceAnglePitch = -0x4000;
         o->oAngleVelPitch = 0;
-        o->oRollingLogUnkF4 = 0;
+        o->oVolcanoTrapPitchVel = 0;
         o->oAction = 2;
         cur_obj_play_sound_2(SOUND_GENERAL_BIG_POUND);
         set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
@@ -141,9 +141,9 @@ void bhv_volcano_trap_loop(void) {
 }
 
 void bhv_lll_rolling_log_init(void) {
-    o->oPitouneUnkF8 = 5120.0f;
-    o->oPitouneUnkFC = 6016.0f;
-    o->oPitouneUnkF4 = 1048576.0f;
+    o->oRollingLogX = 5120.0f;
+    o->oRollingLogZ = 6016.0f;
+    o->oRollingLogMaxDist = 1048576.0f;
 
     o->oMoveAngleYaw = 0x3FFF;
     o->oForwardVel = 0;

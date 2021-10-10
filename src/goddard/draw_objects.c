@@ -21,10 +21,10 @@
  */
 
 // forward declarations
-void func_80179B64(struct ObjGroup *);
-void update_shaders(struct ObjShape *, struct GdVec3f *);
-void draw_shape_faces(struct ObjShape *);
-void register_light(struct ObjLight *);
+void func_80179B64(struct ObjGroup *group);
+void update_shaders(struct ObjShape *shape, struct GdVec3f *offset);
+void draw_shape_faces(struct ObjShape *shape);
+void register_light(struct ObjLight *light);
 
 // types
 /**
@@ -32,7 +32,7 @@ void register_light(struct ObjLight *);
  */
 enum SceneType {
     RENDER_SCENE = 26, ///< render the primitives to screen
-    FIND_PICKS = 27    ///< only check position of primitives relative to cursor click
+    FIND_PICKS   = 27  ///< only check position of primitives relative to cursor click
 };
 
 /**
@@ -59,7 +59,6 @@ static struct GdColour sClrYellow = { 1.0, 1.0, 0.0 };           // @ 801A80DC
 static struct GdColour sLightColours[1] = { { 1.0, 1.0, 0.0 } }; // @ 801A80E8
 static struct GdColour *sSelectedColour = &sClrRed;              // @ 801A80F4
 struct ObjCamera *gViewUpdateCamera = NULL;                      // @ 801A80F8
-UNUSED static void *sUnref801A80FC = NULL;
 static s32 sUnreadShapeFlag = 0;       // @ 801A8100
 struct GdColour *sColourPalette[5] = { // @ 801A8104
     &sClrWhite, &sClrYellow, &sClrRed, &sClrBlack, &sClrBlack
@@ -69,20 +68,12 @@ struct GdColour *sWhiteBlack[2] = {
     &sClrWhite,
     &sClrBlack,
 };
-UNUSED static Mat4f sUnref801A8120 = {
-    { 1.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 }
-};
-UNUSED static Mat4f sUnrefIden801A8160 = {
-    { 1.0, 0.0, 0.0, 0.0 }, { 0.0, 1.0, 0.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 }
-};
+
 static s32 sLightDlCounter = 1; // @ 801A81A0
-UNUSED static s32 sUnref801A81A4[4] = { 0 };
 
 // bss
-u8 gUnref_801B9B30[0x88];
 struct ObjGroup *gGdLightGroup; // @ 801B9BB8; is this the main light group? only light group?
 
-UNUSED static u8 sUnref_801B9BBC[0x40];
 static enum SceneType sSceneProcessType; // @ 801B9C00
 static s32 sUseSelectedColor;            // @ 801B9C04
 static s16 sPickBuffer[100];             ///< buffer of objects near click
@@ -113,12 +104,6 @@ void setup_lights(void) {
     set_light_num(NUMLIGHTS_2);
     gd_setproperty(GD_PROP_AMB_COLOUR, 0.5f, 0.5f, 0.5f);
     gd_setproperty(GD_PROP_CULLING, 1.0f, 0.0f, 0.0f); // set G_CULL_BACK
-    return;
-
-    // dead code
-    gd_setproperty(GD_PROP_STUB17, 2.0f, 0.0f, 0.0f);
-    gd_setproperty(GD_PROP_ZBUF_FN, 24.0f, 0.0f, 0.0f);
-    gd_setproperty(GD_PROP_CULLING, 1.0f, 0.0f, 0.0f);
     return;
 }
 
@@ -168,7 +153,6 @@ void draw_shape(struct ObjShape *shape, s32 flag, f32 c, f32 d, f32 e, // "sweep
                 f32 i, f32 j, f32 k, // translate shape
                 f32 l, f32 m, f32 n, // rotate x, y, z
                 s32 colorIdx, Mat4f *rotMtx) {
-    UNUSED u8 unused[8];
     struct GdVec3f sp1C;
 
     restart_timer("drawshape");
@@ -245,7 +229,6 @@ void draw_shape(struct ObjShape *shape, s32 flag, f32 c, f32 d, f32 e, // "sweep
 void draw_shape_2d(struct ObjShape *shape, s32 flag, UNUSED f32 c, UNUSED f32 d, UNUSED f32 e, f32 f,
                    f32 g, f32 h, UNUSED f32 i, UNUSED f32 j, UNUSED f32 k, UNUSED f32 l, UNUSED f32 m,
                    UNUSED f32 n, UNUSED s32 color, UNUSED s32 p) {
-    UNUSED u8 unused[8];
     struct GdVec3f sp1C;
 
     restart_timer("drawshape2d");
@@ -271,8 +254,6 @@ void draw_shape_2d(struct ObjShape *shape, s32 flag, UNUSED f32 c, UNUSED f32 d,
 void draw_light(struct ObjLight *light) {
     struct GdVec3f sp94;
     Mat4f sp54;
-    UNUSED Mat4f *uMatPtr;
-    UNUSED f32 uMultiplier;
     struct ObjShape *shape;
 
     if (sSceneProcessType == FIND_PICKS) {
@@ -289,13 +270,9 @@ void draw_light(struct ObjLight *light) {
         sp94.y = -light->unk80.y;
         sp94.z = -light->unk80.z;
         gd_create_origin_lookat(&sp54, &sp94, 0.0f);
-        uMultiplier = light->unk38 / 45.0;
         shape = gSpotShape;
-        uMatPtr = &sp54;
     } else {
-        uMultiplier = 1.0f;
         shape = light->unk9C;
-        uMatPtr = NULL;
         if (++sLightDlCounter >= 17) {
             sLightDlCounter = 1;
         }
@@ -434,10 +411,7 @@ void Unknown80178ECC(f32 v0X, f32 v0Y, f32 v0Z, f32 v1X, f32 v1Y, f32 v1Z) {
  */
 void draw_face(struct ObjFace *face) {
     struct ObjVertex *vtx; // 3c
-    f32 z;                 // 38
-    f32 y;                 // 34
-    f32 x;                 // 30
-    UNUSED u8 pad[12];
+    f32 x, y, z;           // 30, 34, 38
     s32 i;             // 20; also used to store mtl's gddl number
     s32 hasTextCoords; // 1c
     Vtx *gbiVtx;       // 18
@@ -454,9 +428,6 @@ void draw_face(struct ObjFace *face) {
                     sUpdateViewState.mtlDlNum = i;
                 }
             }
-        }
-
-        if (FALSE) {
         }
     }
 
@@ -527,7 +498,6 @@ void Unknown801792F0(struct GdObj *obj) {
     set_cur_dynobj(obj);
     d_get_world_pos(&objPos);
     func_801A4438(objPos.x, objPos.y, objPos.z);
-    stub_draw_label_text(objId);
 }
 
 /**
@@ -536,7 +506,6 @@ void Unknown801792F0(struct GdObj *obj) {
 void draw_label(struct ObjLabel *label) {
     struct GdVec3f position;
     char strbuf[0x100];
-    UNUSED u8 unused[16];
     struct ObjValPtr *valptr;
     union ObjVarVal varval;
     valptrproc_t valfn = label->valfn;
@@ -586,14 +555,12 @@ void draw_label(struct ObjLabel *label) {
     position.y += label->position.y;
     position.z += label->position.z;
     func_801A4438(position.x, position.y, position.z);
-    stub_draw_label_text(strbuf);
 }
 
 /* 227DF8 -> 227F3C; orig name: Proc80179628 */
 void draw_net(struct ObjNet *self) {
     struct ObjNet *net = self;
     s32 netColor;
-    UNUSED u8 unused[80];
 
     if (sSceneProcessType == FIND_PICKS) {
         return;
@@ -662,11 +629,6 @@ void draw_camera(struct ObjCamera *cam) {
         sp44.z = cam->lookAt.z;
     }
 
-    if (0) {
-        // dead code
-        gd_printf("%f,%f,%f\n", cam->worldPos.x, cam->worldPos.y, cam->worldPos.z);
-    }
-
     if (ABS(cam->worldPos.x - sp44.x) + ABS(cam->worldPos.z - sp44.z) == 0.0f) {
         gd_printf("Draw_Camera(): Zero view distance\n");
         return;
@@ -729,7 +691,6 @@ void world_pos_to_screen_coords(struct GdVec3f *pos, struct ObjCamera *cam, stru
  */
 void check_grabable_click(struct GdObj *input) {
     struct GdVec3f objPos;
-    UNUSED u8 unused[12];
     struct GdObj *obj;
     Mat4f *mtx;
 
@@ -772,8 +733,6 @@ void check_grabable_click(struct GdObj *input) {
  * @param lightgrp lights of `ObjView
  */
 void drawscene(enum SceneType process, struct ObjGroup *interactables, struct ObjGroup *lightgrp) {
-    UNUSED u8 unused[16];
-
     restart_timer("drawscene");
     imin("draw_scene()");
     sUnreadShapeFlag = 0;
@@ -851,7 +810,6 @@ void draw_nothing(UNUSED struct GdObj *nop) {
 void draw_shape_faces(struct ObjShape *shape) {
     sUpdateViewState.mtlDlNum = 0;
     sUpdateViewState.unreadCounter = 0;
-    gddl_is_loading_stub_dl(FALSE);
     sUnreadShapeFlag = (s32) shape->flag & 1;
     set_render_alpha(shape->alpha);
     if (shape->dlNums[gGdFrameBufNum] != 0) {
@@ -868,11 +826,9 @@ void draw_shape_faces(struct ObjShape *shape) {
  */
 void draw_particle(struct GdObj *obj) {
     struct ObjParticle *ptc = (struct ObjParticle *) obj;
-    UNUSED u8 unused1[16];
     struct GdColour *white;
     struct GdColour *black;
     f32 brightness;
-    UNUSED u8 unused2[16];
 
     if (ptc->timeout > 0) {
         white = sColourPalette[0];
@@ -906,32 +862,8 @@ void draw_particle(struct GdObj *obj) {
  * @note This function returns before doing any work. It seems
  *       that Goddard moved away from using bones in the final code
  */
-void draw_bone(struct GdObj *obj) {
-    struct ObjBone *bone = (struct ObjBone *) obj;
-    UNUSED u8 unused1[4];
-    s32 colour;
-    UNUSED u8 unused2[4];
-    struct GdVec3f scale; // guess
-
+void draw_bone(UNUSED struct GdObj *obj) {
     return;
-
-    // dead code
-    scale.x = 1.0f;
-    scale.y = 1.0f;
-    scale.z = bone->unkF8 / 50.0f;
-
-    if (bone->header.drawFlags & OBJ_HIGHLIGHTED) {
-        colour = COLOUR_YELLOW;
-    } else {
-        colour = bone->colourNum;
-    }
-    bone->header.drawFlags &= ~OBJ_HIGHLIGHTED;
-
-    if (sSceneProcessType != FIND_PICKS) {
-        draw_shape(bone->shapePtr, 0x1B, scale.x, scale.y, scale.z, bone->worldPos.x, bone->worldPos.y,
-                   bone->worldPos.z, 0.0f, 0.0f, 0.0f, bone->unk28.x, bone->unk28.y, bone->unk28.z, colour,
-                   &bone->mat70);
-    }
 }
 
 /**
@@ -939,14 +871,8 @@ void draw_bone(struct GdObj *obj) {
  */
 void draw_joint(struct GdObj *obj) {
     struct ObjJoint *joint = (struct ObjJoint *) obj;
-    UNUSED u8 unused1[4];
-    UNUSED f32 sp7C = 70.0f;
-    UNUSED u8 unused2[4];
-    UNUSED s32 sp74 = 1;
     s32 colour;
-    UNUSED u8 unused[8];
     struct ObjShape *boneShape;
-    UNUSED u8 unused3[28];
 
     if ((boneShape = joint->shapePtr) == NULL) {
         return;
@@ -1097,25 +1023,6 @@ void create_shape_mtl_gddls(struct ObjShape *shape) {
 }
 
 /**
- * Uncalled function that calls a stubbed function (`stub_objects_1()`) for all
- * `GdObj`s in @p grp
- *
- * @param grp Unknown group of objects
- * @return void
- * @note Not called
- */
-void unref_8017AEDC(struct ObjGroup *grp) {
-    register struct ListNode *link = grp->firstMember;
-
-    while (link != NULL) {
-        struct GdObj *obj = link->obj;
-
-        stub_objects_1(grp, obj);
-        link = link->next;
-    }
-}
-
-/**
  * Start a new `GdDisplayList` struct and store its reference index
  * in the input `ObjShape`.
  *
@@ -1125,12 +1032,7 @@ void unref_8017AEDC(struct ObjGroup *grp) {
  * @bug Nothing is returned if the DL is created
  * @note Contains string literals that suggest a removed `printf` call
  */
-#ifdef AVOID_UB
-void
-#else
-s32
-#endif
-create_shape_gddl(struct ObjShape *s) {
+void create_shape_gddl(struct ObjShape *s) {
     struct ObjShape *shape = s; // 24
     s32 shapedl;                // 20
     UNUSED s32 enddl;           // 1C
@@ -1138,11 +1040,7 @@ create_shape_gddl(struct ObjShape *s) {
     create_shape_mtl_gddls(shape);
     shapedl = gd_startdisplist(7);
     if (shapedl == 0) {
-#ifdef AVOID_UB
         return;
-#else
-        return -1;
-#endif
     }
 
     setup_lights();
@@ -1269,7 +1167,7 @@ static void find_thisface_verts(struct ObjFace *face, struct ObjGroup *vertexGrp
     struct ListNode *node;
 
     for (i = 0; i < face->vtxCount; i++) {
-        // find the vertex or particle whose index in vertexGrp equals face->vertices[i] 
+        // find the vertex or particle whose index in vertexGrp equals face->vertices[i]
         node = vertexGrp->firstMember;
         currIndex = 0;
         while (node != NULL) {
@@ -1356,7 +1254,6 @@ void unpick_obj(struct GdObj *obj) {
  */
 void find_closest_pickable_obj(struct GdObj *input) {
     struct GdObj *obj = input;
-    UNUSED u8 unused[12];
     f32 distance;
 
     if (obj->drawFlags & OBJ_IS_GRABBALE) {
@@ -1532,10 +1429,4 @@ void update_view(struct ObjView *view) {
     gd_enddlsplist_parent();
     imout();
     return;
-}
-/**
- * Stub function.
- * @note Not Called
- */
-void stub_draw_objects_1(void) {
 }

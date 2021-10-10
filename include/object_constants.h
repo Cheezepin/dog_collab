@@ -5,84 +5,88 @@
 // field-specific and object-specific constants, e.g. actions.
 
 /* activeFlags */
-#define ACTIVE_FLAG_DEACTIVATED            0         // 0x0000
-#define ACTIVE_FLAG_ACTIVE                 (1 <<  0) // 0x0001
-#define ACTIVE_FLAG_FAR_AWAY               (1 <<  1) // 0x0002
-#define ACTIVE_FLAG_UNK2                   (1 <<  2) // 0x0004
-#define ACTIVE_FLAG_IN_DIFFERENT_ROOM      (1 <<  3) // 0x0008
-#define ACTIVE_FLAG_UNIMPORTANT            (1 <<  4) // 0x0010
-#define ACTIVE_FLAG_INITIATED_TIME_STOP    (1 <<  5) // 0x0020
-#define ACTIVE_FLAG_MOVE_THROUGH_GRATE     (1 <<  6) // 0x0040
-#define ACTIVE_FLAG_DITHERED_ALPHA         (1 <<  7) // 0x0080
-#define ACTIVE_FLAG_UNK8                   (1 <<  8) // 0x0100
-#define ACTIVE_FLAG_UNK9                   (1 <<  9) // 0x0200
-#define ACTIVE_FLAG_UNK10                  (1 << 10) // 0x0400
-
+#define ACTIVE_FLAG_DEACTIVATED                     (0 <<  0) // 0x0000
+#define ACTIVE_FLAG_ACTIVE                          (1 <<  0) // 0x0001
+#define ACTIVE_FLAG_FAR_AWAY                        (1 <<  1) // 0x0002
+#define ACTIVE_FLAG_UNUSED                          (1 <<  2) // 0x0004
+#define ACTIVE_FLAG_IN_DIFFERENT_ROOM               (1 <<  3) // 0x0008
+#define ACTIVE_FLAG_UNIMPORTANT                     (1 <<  4) // 0x0010
+#define ACTIVE_FLAG_INITIATED_TIME_STOP             (1 <<  5) // 0x0020
+#define ACTIVE_FLAG_MOVE_THROUGH_GRATE              (1 <<  6) // 0x0040
+#define ACTIVE_FLAG_DITHERED_ALPHA                  (1 <<  7) // 0x0080
+#define ACTIVE_FLAG_ALLOCATED                       (1 <<  8) // 0x0100
+#define ACTIVE_FLAG_DESTRUCTIVE_OBJ_DONT_DESTROY    (1 <<  9) // 0x0200
+#define ACTIVE_FLAG_IGNORE_ENV_BOXES                (1 << 10) // 0x0400
 
 /* respawnInfoType */
-#define RESPAWN_INFO_TYPE_NULL 0
-#define RESPAWN_INFO_TYPE_32   1
-#define RESPAWN_INFO_TYPE_16   2
+#define RESPAWN_INFO_TYPE_NULL                      0x00
+#define RESPAWN_INFO_TYPE_32                        0x01
+#define RESPAWN_INFO_TYPE_16                        0x02
 
 /* respawnInfo */
-#define RESPAWN_INFO_DONT_RESPAWN 0xFF
+#define RESPAWN_INFO_DONT_RESPAWN                   0xFF
 
 /* oFlags */
-#define OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE         (1 <<  0) // 0x00000001
-#define OBJ_FLAG_MOVE_XZ_USING_FVEL               (1 <<  1) // 0x00000002
-#define OBJ_FLAG_MOVE_Y_WITH_TERMINAL_VEL         (1 <<  2) // 0x00000004
-#define OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW         (1 <<  3) // 0x00000008
-#define OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE     (1 <<  4) // 0x00000010
-#define OBJ_FLAG_0020                             (1 <<  5) // 0x00000020
-#define OBJ_FLAG_COMPUTE_DIST_TO_MARIO            (1 <<  6) // 0x00000040
-#define OBJ_FLAG_ACTIVE_FROM_AFAR                 (1 <<  7) // 0x00000080
-#define OBJ_FLAG_0100                             (1 <<  8) // 0x00000100
-#define OBJ_FLAG_TRANSFORM_RELATIVE_TO_PARENT     (1 <<  9) // 0x00000200
-#define OBJ_FLAG_HOLDABLE                         (1 << 10) // 0x00000400
-#define OBJ_FLAG_SET_THROW_MATRIX_FROM_TRANSFORM  (1 << 11) // 0x00000800
-#define OBJ_FLAG_1000                             (1 << 12) // 0x00001000
-#define OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO           (1 << 13) // 0x00002000
-#define OBJ_FLAG_PERSISTENT_RESPAWN               (1 << 14) // 0x00004000
-#define OBJ_FLAG_8000                             (1 << 15) // 0x00008000
-#define OBJ_FLAG_30                               (1 << 30) // 0x40000000
+#define OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE           (1 <<  0) // 0x00000001
+#define OBJ_FLAG_MOVE_XZ_USING_FVEL                 (1 <<  1) // 0x00000002
+#define OBJ_FLAG_MOVE_Y_WITH_TERMINAL_VEL           (1 <<  2) // 0x00000004
+#define OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW           (1 <<  3) // 0x00000008
+#define OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE       (1 <<  4) // 0x00000010
+#define OBJ_FLAG_UPDATE_TRANSFORM_FOR_THROW_MATRIX  (1 <<  5) // 0x00000020
+#define OBJ_FLAG_COMPUTE_DIST_TO_MARIO              (1 <<  6) // 0x00000040
+#define OBJ_FLAG_ACTIVE_FROM_AFAR                   (1 <<  7) // 0x00000080
+#define OBJ_FLAG_PLAYER                             (1 <<  8) // 0x00000100
+#define OBJ_FLAG_TRANSFORM_RELATIVE_TO_PARENT       (1 <<  9) // 0x00000200
+#define OBJ_FLAG_HOLDABLE                           (1 << 10) // 0x00000400
+#define OBJ_FLAG_SET_THROW_MATRIX_FROM_TRANSFORM    (1 << 11) // 0x00000800
+#define OBJ_FLAG_1000                               (1 << 12) // 0x00001000
+#define OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO             (1 << 13) // 0x00002000
+#define OBJ_FLAG_PERSISTENT_RESPAWN                 (1 << 14) // 0x00004000
+#define OBJ_FLAG_VELOCITY_PLATFORM                  (1 << 15) // 0x00008000
+#define OBJ_FLAG_DONT_CALC_COLL_DIST                (1 << 16) // 0x00010000
+#define OBJ_FLAG_EMIT_LIGHT                         (1 << 17) // 0x00020000
+#define OBJ_FLAG_UCODE_LARGE                        (1 << 18) // 0x00040000
+#define OBJ_FLAG_SILHOUETTE                         (1 << 19) // 0x00080000
+#define OBJ_FLAG_OPACITY_FROM_CAMERA_DIST           (1 << 20) // 0x00100000
+#define OBJ_FLAG_HITBOX_WAS_SET                     (1 << 30) // 0x40000000
 
 /* oHeldState */
-#define HELD_FREE 0
-#define HELD_HELD 1
-#define HELD_THROWN 2
-#define HELD_DROPPED 3
+#define HELD_FREE                                   0x00
+#define HELD_HELD                                   0x01
+#define HELD_THROWN                                 0x02
+#define HELD_DROPPED                                0x03
 
 /* oDialogState */
-#define DIALOG_STATUS_ENABLE_TIME_STOP  0
-#define DIALOG_STATUS_INTERRUPT         1
-#define DIALOG_STATUS_START_DIALOG      2
-#define DIALOG_STATUS_STOP_DIALOG       3
-#define DIALOG_STATUS_DISABLE_TIME_STOP 4
+#define DIALOG_STATUS_ENABLE_TIME_STOP              0x00
+#define DIALOG_STATUS_INTERRUPT                     0x01
+#define DIALOG_STATUS_START_DIALOG                  0x02
+#define DIALOG_STATUS_STOP_DIALOG                   0x03
+#define DIALOG_STATUS_DISABLE_TIME_STOP             0x04
 
-#define DIALOG_FLAG_NONE                0
-#define DIALOG_FLAG_TURN_TO_MARIO       (1 << 0) // 0x01 // cutscene only
-#define DIALOG_FLAG_TEXT_DEFAULT        (1 << 1) // 0x02
-#define DIALOG_FLAG_TEXT_RESPONSE       (1 << 2) // 0x04 // non-cutscene only
-#define DIALOG_FLAG_UNK_CAPSWITCH       (1 << 3) // 0x08 // not defined
-#define DIALOG_FLAG_TIME_STOP_ENABLED   (1 << 4) // 0x10
+#define DIALOG_FLAG_NONE                            (0 << 0) // 0x00
+#define DIALOG_FLAG_TURN_TO_MARIO                   (1 << 0) // 0x01 // cutscene only
+#define DIALOG_FLAG_TEXT_DEFAULT                    (1 << 1) // 0x02
+#define DIALOG_FLAG_TEXT_RESPONSE                   (1 << 2) // 0x04 // non-cutscene only
+#define DIALOG_FLAG_UNK_CAPSWITCH                   (1 << 3) // 0x08 // not defined
+#define DIALOG_FLAG_TIME_STOP_ENABLED               (1 << 4) // 0x10
 
 /* oMoveFlags */
-#define OBJ_MOVE_LANDED                (1 <<  0) // 0x0001
-#define OBJ_MOVE_ON_GROUND             (1 <<  1) // 0x0002  // mutually exclusive to OBJ_MOVE_LANDED
-#define OBJ_MOVE_LEFT_GROUND           (1 <<  2) // 0x0004
-#define OBJ_MOVE_ENTERED_WATER         (1 <<  3) // 0x0008
-#define OBJ_MOVE_AT_WATER_SURFACE      (1 <<  4) // 0x0010
-#define OBJ_MOVE_UNDERWATER_OFF_GROUND (1 <<  5) // 0x0020
-#define OBJ_MOVE_UNDERWATER_ON_GROUND  (1 <<  6) // 0x0040
-#define OBJ_MOVE_IN_AIR                (1 <<  7) // 0x0080
-#define OBJ_MOVE_OUT_SCOPE             (1 <<  8) // 0x0100
-#define OBJ_MOVE_HIT_WALL              (1 <<  9) // 0x0200
-#define OBJ_MOVE_HIT_EDGE              (1 << 10) // 0x0400
-#define OBJ_MOVE_ABOVE_LAVA            (1 << 11) // 0x0800
-#define OBJ_MOVE_LEAVING_WATER         (1 << 12) // 0x1000
-#define OBJ_MOVE_BOUNCE                (1 << 13) // 0x2000
+#define OBJ_MOVE_LANDED                             (1 <<  0) // 0x0001
+#define OBJ_MOVE_ON_GROUND                          (1 <<  1) // 0x0002  // mutually exclusive to OBJ_MOVE_LANDED
+#define OBJ_MOVE_LEFT_GROUND                        (1 <<  2) // 0x0004
+#define OBJ_MOVE_ENTERED_WATER                      (1 <<  3) // 0x0008
+#define OBJ_MOVE_AT_WATER_SURFACE                   (1 <<  4) // 0x0010
+#define OBJ_MOVE_UNDERWATER_OFF_GROUND              (1 <<  5) // 0x0020
+#define OBJ_MOVE_UNDERWATER_ON_GROUND               (1 <<  6) // 0x0040
+#define OBJ_MOVE_IN_AIR                             (1 <<  7) // 0x0080
+#define OBJ_MOVE_OUT_SCOPE                          (1 <<  8) // 0x0100
+#define OBJ_MOVE_HIT_WALL                           (1 <<  9) // 0x0200
+#define OBJ_MOVE_HIT_EDGE                           (1 << 10) // 0x0400
+#define OBJ_MOVE_ABOVE_LAVA                         (1 << 11) // 0x0800
+#define OBJ_MOVE_LEAVING_WATER                      (1 << 12) // 0x1000
+#define OBJ_MOVE_BOUNCE                             (1 << 13) // 0x2000
 #ifndef VERSION_JP
-#define OBJ_MOVE_ABOVE_DEATH_BARRIER   (1 << 14) // 0x4000
+#define OBJ_MOVE_ABOVE_DEATH_BARRIER                (1 << 14) // 0x4000
 #endif
 
 #define OBJ_MOVE_MASK_ON_GROUND (OBJ_MOVE_LANDED | OBJ_MOVE_ON_GROUND)
@@ -93,76 +97,121 @@
     OBJ_MOVE_UNDERWATER_ON_GROUND)
 
 /* oActiveParticleFlags */
-#define ACTIVE_PARTICLE_DUST                 (1 <<  0) // 0x00000001
-#define ACTIVE_PARTICLE_UNUSED_1             (1 <<  1) // 0x00000002
-#define ACTIVE_PARTICLE_UNUSED_2             (1 <<  2) // 0x00000004
-#define ACTIVE_PARTICLE_SPARKLES             (1 <<  3) // 0x00000008
-#define ACTIVE_PARTICLE_H_STAR               (1 <<  4) // 0x00000010
-#define ACTIVE_PARTICLE_BUBBLE               (1 <<  5) // 0x00000020
-#define ACTIVE_PARTICLE_WATER_SPLASH         (1 <<  6) // 0x00000040
-#define ACTIVE_PARTICLE_IDLE_WATER_WAVE      (1 <<  7) // 0x00000080
-#define ACTIVE_PARTICLE_SHALLOW_WATER_WAVE   (1 <<  8) // 0x00000100
-#define ACTIVE_PARTICLE_PLUNGE_BUBBLE        (1 <<  9) // 0x00000200
-#define ACTIVE_PARTICLE_WAVE_TRAIL           (1 << 10) // 0x00000400
-#define ACTIVE_PARTICLE_FIRE                 (1 << 11) // 0x00000800
-#define ACTIVE_PARTICLE_SHALLOW_WATER_SPLASH (1 << 12) // 0x00001000
-#define ACTIVE_PARTICLE_LEAF                 (1 << 13) // 0x00002000
-#define ACTIVE_PARTICLE_DIRT                 (1 << 14) // 0x00004000
-#define ACTIVE_PARTICLE_MIST_CIRCLE          (1 << 15) // 0x00008000
-#define ACTIVE_PARTICLE_SNOW                 (1 << 16) // 0x00010000
-#define ACTIVE_PARTICLE_BREATH               (1 << 17) // 0x00020000
-#define ACTIVE_PARTICLE_V_STAR               (1 << 18) // 0x00040000
-#define ACTIVE_PARTICLE_TRIANGLE             (1 << 19) // 0x00080000
+#define ACTIVE_PARTICLE_DUST                        (1 <<  0) // 0x00000001
+#define ACTIVE_PARTICLE_UNUSED_1                    (1 <<  1) // 0x00000002
+#define ACTIVE_PARTICLE_UNUSED_2                    (1 <<  2) // 0x00000004
+#define ACTIVE_PARTICLE_SPARKLES                    (1 <<  3) // 0x00000008
+#define ACTIVE_PARTICLE_H_STAR                      (1 <<  4) // 0x00000010
+#define ACTIVE_PARTICLE_BUBBLE                      (1 <<  5) // 0x00000020
+#define ACTIVE_PARTICLE_WATER_SPLASH                (1 <<  6) // 0x00000040
+#define ACTIVE_PARTICLE_IDLE_WATER_WAVE             (1 <<  7) // 0x00000080
+#define ACTIVE_PARTICLE_SHALLOW_WATER_WAVE          (1 <<  8) // 0x00000100
+#define ACTIVE_PARTICLE_PLUNGE_BUBBLE               (1 <<  9) // 0x00000200
+#define ACTIVE_PARTICLE_WAVE_TRAIL                  (1 << 10) // 0x00000400
+#define ACTIVE_PARTICLE_FIRE                        (1 << 11) // 0x00000800
+#define ACTIVE_PARTICLE_SHALLOW_WATER_SPLASH        (1 << 12) // 0x00001000
+#define ACTIVE_PARTICLE_LEAF                        (1 << 13) // 0x00002000
+#define ACTIVE_PARTICLE_DIRT                        (1 << 14) // 0x00004000
+#define ACTIVE_PARTICLE_MIST_CIRCLE                 (1 << 15) // 0x00008000
+#define ACTIVE_PARTICLE_SNOW                        (1 << 16) // 0x00010000
+#define ACTIVE_PARTICLE_BREATH                      (1 << 17) // 0x00020000
+#define ACTIVE_PARTICLE_V_STAR                      (1 << 18) // 0x00040000
+#define ACTIVE_PARTICLE_TRIANGLE                    (1 << 19) // 0x00080000
+
+/* oBehParams2ndByte */
+#define OBJ_BP_NONE                                         0x0
 
 /* oAction */
-#define OBJ_ACT_LAVA_DEATH 100
-#define OBJ_ACT_DEATH_PLANE_DEATH 101
+#define OBJ_ACT_PROJECTILE_HIT_MARIO                       -0x1
 
-#define OBJ_ACT_HORIZONTAL_KNOCKBACK 100
-#define OBJ_ACT_VERTICAL_KNOCKBACK 101
-#define OBJ_ACT_SQUISHED 102
+/* oAction */
+#define OBJ_ACT_LAVA_DEATH                                  100
+#define OBJ_ACT_DEATH_PLANE_DEATH                           101
+
+#define OBJ_ACT_HORIZONTAL_KNOCKBACK                        100
+#define OBJ_ACT_VERTICAL_KNOCKBACK                          101
+#define OBJ_ACT_SQUISHED                                    102
+
+/* oAnimState */
+#define OBJ_ANIM_STATE_INIT_ANIM                           -0x1
+#define OBJ_ANIM_STATE_DEFAULT                              0x0
+    /* cur_obj_update_blinking */
+#define OBJ_BLINKING_ANIM_STATE_EYES_OPEN                   0x0
+#define OBJ_BLINKING_ANIM_STATE_EYES_CLOSED                 0x1
+
+/* Animations */
+#define OBJ_ANIM_NONE                                      -0x1
 
 /* gTTCSpeedSetting */
-#define TTC_SPEED_SLOW    0
-#define TTC_SPEED_FAST    1
-#define TTC_SPEED_RANDOM  2
-#define TTC_SPEED_STOPPED 3
+#define TTC_SPEED_SLOW                                      0x0
+#define TTC_SPEED_FAST                                      0x1
+#define TTC_SPEED_RANDOM                                    0x2
+#define TTC_SPEED_STOPPED                                   0x3
 
-/* Bob-omb */
-    /* oBehParams2ndByte */
-    #define BOBOMB_BP_STYPE_GENERIC 0
-    #define BOBOMB_BP_STYPE_STATIONARY 1
-    /* oAction */
-    #define BOBOMB_ACT_PATROL 0
-    #define BOBOMB_ACT_LAUNCHED 1
-    #define BOBOMB_ACT_CHASE_MARIO 2
-    #define BOBOMB_ACT_EXPLODE 3
-    #define BOBOMB_ACT_LAVA_DEATH 100
-    #define BOBOMB_ACT_DEATH_PLANE_DEATH 101
+/* geo_update_layer_transparency */
+#define TRANSPARENCY_ANIM_STATE_OPAQUE                      0x0
+#define TRANSPARENCY_ANIM_STATE_TRANSPARENT                 0x1
+
+/* Orange Number */
+    /* oBehParams2ndByte, oAnimState */
+    #define ORANGE_NUMBER_0                                 0x0
+    #define ORANGE_NUMBER_1                                 0x1
+    #define ORANGE_NUMBER_2                                 0x2
+    #define ORANGE_NUMBER_3                                 0x3
+    #define ORANGE_NUMBER_4                                 0x4
+    #define ORANGE_NUMBER_5                                 0x5
+    #define ORANGE_NUMBER_6                                 0x6
+    #define ORANGE_NUMBER_7                                 0x7
+    #define ORANGE_NUMBER_8                                 0x8
+    #define ORANGE_NUMBER_9                                 0x9
+    #define ORANGE_NUMBER_A                                 0xA
+    #define ORANGE_NUMBER_B                                 0xB
+    #define ORANGE_NUMBER_C                                 0xC
+    #define ORANGE_NUMBER_D                                 0xD
+    #define ORANGE_NUMBER_E                                 0xE
+    #define ORANGE_NUMBER_F                                 0xF
+
+/* Coin Type */
+    /* coinType */
+    #define COIN_TYPE_NONE                                  0x0
+    #define COIN_TYPE_YELLOW                                0x1
+    #define COIN_TYPE_BLUE                                  0x2
 
 /* Hidden Blue Coin */
     /* oAction */
-    #define HIDDEN_BLUE_COIN_ACT_INACTIVE 0
-    #define HIDDEN_BLUE_COIN_ACT_WAITING 1
-    #define HIDDEN_BLUE_COIN_ACT_ACTIVE 2
+    #define HIDDEN_BLUE_COIN_ACT_INACTIVE                   0x0
+    #define HIDDEN_BLUE_COIN_ACT_WAITING                    0x1
+    #define HIDDEN_BLUE_COIN_ACT_ACTIVE                     0x2
 
 /* Blue Coin Switch */
     /* oAction */
-    #define BLUE_COIN_SWITCH_ACT_IDLE 0
-    #define BLUE_COIN_SWITCH_ACT_RECEDING 1
-    #define BLUE_COIN_SWITCH_ACT_TICKING 2
+    #define BLUE_COIN_SWITCH_ACT_IDLE                       0x0
+    #define BLUE_COIN_SWITCH_ACT_RECEDING                   0x1
+    #define BLUE_COIN_SWITCH_ACT_TICKING                    0x2
+    #define BLUE_COIN_SWITCH_ACT_EXTENDING                  0x3
 
 /* Moving Blue Coin */
     /* oAction */
-    #define MOV_BCOIN_ACT_STILL 0
-    #define MOV_BCOIN_ACT_MOVING 1
+    #define MOV_BCOIN_ACT_STILL                             0x0
+    #define MOV_BCOIN_ACT_MOVING                            0x1
+    #define MOV_BCOIN_ACT_SLOWING_DOWN                      0x2
+    #define MOV_BCOIN_ACT_STOPPED                           0x3
+    #define MOV_BCOIN_ACT_FLICKERING                        0x4
+
+/* Bob-omb */
+    /* oBehParams2ndByte */
+    #define BOBOMB_BP_STYPE_GENERIC    0x0
+    #define BOBOMB_BP_STYPE_STATIONARY 0x1
+    /* oAction */
+    #define BOBOMB_ACT_PATROL      0x0
+    #define BOBOMB_ACT_LAUNCHED    0x1
+    #define BOBOMB_ACT_CHASE_MARIO 0x2
+    #define BOBOMB_ACT_EXPLODE     0x3
 
 /* Moving Yellow Coin */
     /* oAction */
     #define MOV_YCOIN_ACT_IDLE 0
     #define MOV_YCOIN_ACT_BLINKING 1
-    #define MOV_YCOIN_ACT_LAVA_DEATH 100
-    #define MOV_YCOIN_ACT_DEATH_PLANE_DEATH 101
 
 /* Bob-omb Buddy */
     /* oBehParams2ndByte */
@@ -280,7 +329,7 @@
     #define BOWSER_SUB_ACT_HIT_MINE_START           0
     #define BOWSER_SUB_ACT_HIT_MINE_FALL            1
     #define BOWSER_SUB_ACT_HIT_MINE_STOP            2
-    
+
     #define BOWSER_SUB_ACT_JUMP_ON_STAGE_IDLE        0
     #define BOWSER_SUB_ACT_JUMP_ON_STAGE_START       1
     #define BOWSER_SUB_ACT_JUMP_ON_STAGE_LAND        2
@@ -296,7 +345,7 @@
     /* oAction */
     #define FISH_SPAWNER_ACT_SPAWN   0
     #define FISH_SPAWNER_ACT_IDLE    1
-    #define FISH_SPAWNER_ACT_RESPAWN 2    
+    #define FISH_SPAWNER_ACT_RESPAWN 2
     /* oBehParams2ndByte */
     #define FISH_SPAWNER_BP_MANY_BLUE 0
     #define FISH_SPAWNER_BP_FEW_BLUE  1
@@ -374,8 +423,6 @@
     #define BULLY_ACT_BACK_UP 3
     #define BULLY_ACT_INACTIVE 4
     #define BULLY_ACT_ACTIVATE_AND_FALL 5
-    #define BULLY_ACT_LAVA_DEATH 100
-    #define BULLY_ACT_DEATH_PLANE_DEATH 101
     /* oBullySubtype */
     #define BULLY_STYPE_GENERIC 0
     #define BULLY_STYPE_MINION 1

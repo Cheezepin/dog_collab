@@ -13,7 +13,6 @@ void clear_particle_flags(u32 flags);
 void spawn_wind_particles(s16 pitch, s16 yaw);
 s32 check_if_moving_over_floor(f32 a0, f32 a1);
 s32 arc_to_goal_pos(Vec3f a0, Vec3f a1, f32 yVel, f32 gravity);
-void vec3f_copy_2(Vec3f dest, Vec3f src);
 void tox_box_move(f32 forwardVel, f32 a1, s16 deltaPitch, s16 deltaRoll);
 void play_penguin_walking_sound(s32 walk);
 s32 update_angle_from_move_flags(s32 *angle);
@@ -53,7 +52,7 @@ void bhv_fish_group_loop(void);
 void bhv_cannon_base_loop(void);
 void bhv_cannon_barrel_loop(void);
 void bhv_cannon_base_unused_loop(void);
-void common_anchor_mario_behavior(f32 sp28, f32 sp2C, s32 sp30);
+void common_anchor_mario_behavior(f32 forwardVel, f32 yVel, s32 flag);
 void bhv_chuckya_loop(void);
 void bhv_chuckya_anchor_mario_loop(void);
 void bhv_rotating_platform_loop(void);
@@ -106,7 +105,7 @@ void bhv_beta_moving_flames_loop(void);
 void bhv_rr_rotating_bridge_platform_loop(void);
 void bhv_flamethrower_loop(void);
 void bhv_flamethrower_flame_loop(void);
-void bhv_bouncing_fireball_loop(void);
+void bhv_bouncing_fireball_spawner_loop(void);
 void bhv_bouncing_fireball_flame_loop(void);
 void bhv_bowser_shock_wave_loop(void);
 void bhv_flame_mario_loop(void);
@@ -581,6 +580,23 @@ void bhv_spike_update(void);
 void bhv_spike_ball_init(void);
 void bhv_spike_ball_loop(void);
 void bhv_podoboo_loop(void);
+void bhv_emu_electric_spinner(void);
+void bhv_shock_texture_loop(void);
+void bhv_emu_simple_spinner(void);
+void bhv_emu_sphere(void);
+void palette_swap(void);
+
+// thecozies start
+void water_top_loop(void);
+// thecozies end
+
+//ROVERT BEHAVIOR ACTIONS START
+void bhv_Magma_Thwomp(void);
+void bhv_swing_Board(void);
+void bhv_Propane_Shooter(void);
+void bhv_Propane_Flame(void);
+void bhv_lava_grate_loop();
+//ROVERT BEHAVIOR ACTIONS END
 
 Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
 

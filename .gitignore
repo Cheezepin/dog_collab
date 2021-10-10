@@ -71,6 +71,7 @@ build/*
 !/assets/**/*custom*.bin
 !/assets/**/*custom*/**/*.bin
 !/textures/crash_custom/*.png
+!/actors/breath_meter/breath_meter_*.png
 # libultra
 
 !/lib/*.a
@@ -84,3 +85,5 @@ lib/libs2d_engine.a
 
 !/lib/PR/hvqm/*.o
 
+# .orig files
+*.orig

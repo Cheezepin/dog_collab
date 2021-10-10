@@ -12,7 +12,7 @@ struct ObjectHitbox sExclamationBoxHitbox = {
     /* hurtboxHeight: */ 30,
 };
 
-struct Struct802C0DF0 sExclamationBoxContents[] = { { 0, 0, 0, MODEL_MARIOS_WING_CAP, bhvWingCap },
+struct ExclamationBoxContents sExclamationBoxContents[] = { { 0, 0, 0, MODEL_MARIOS_WING_CAP, bhvWingCap },
                                                     { 1, 0, 0, MODEL_MARIOS_METAL_CAP, bhvMetalCap },
                                                     { 2, 0, 0, MODEL_MARIOS_CAP, bhvVanishCap },
                                                     { 3, 0, 0, MODEL_KOOPA_SHELL, bhvKoopaShell },
@@ -73,7 +73,7 @@ void exclamation_box_act_2(void) {
     }
     if (cur_obj_was_attacked_or_ground_pounded()) {
         cur_obj_become_intangible();
-        o->oExclamationBoxUnkFC = 0x4000;
+        o->oExclamationBoxScaleAngle = 0x4000;
         o->oVelY = 30.0f;
         o->oGravity = -8.0f;
         o->oFloorHeight = o->oPosY;
@@ -86,38 +86,37 @@ void exclamation_box_act_2(void) {
 }
 
 void exclamation_box_act_3(void) {
-    UNUSED s32 unused;
     cur_obj_move_using_fvel_and_gravity();
     if (o->oVelY < 0.0f) {
         o->oVelY = 0.0f;
         o->oGravity = 0.0f;
     }
-    o->oExclamationBoxUnkF8 = (sins(o->oExclamationBoxUnkFC) + 1.0) * 0.3 + 0.0;
-    o->oExclamationBoxUnkF4 = (-sins(o->oExclamationBoxUnkFC) + 1.0) * 0.5 + 1.0;
-    o->oGraphYOffset = (-sins(o->oExclamationBoxUnkFC) + 1.0) * 26.0;
-    o->oExclamationBoxUnkFC += 0x1000;
-    o->header.gfx.scale[0] = o->oExclamationBoxUnkF4 * 2.0f;
-    o->header.gfx.scale[1] = o->oExclamationBoxUnkF8 * 2.0f;
-    o->header.gfx.scale[2] = o->oExclamationBoxUnkF4 * 2.0f;
+    o->oExclamationBoxVerticalScale = (sins(o->oExclamationBoxScaleAngle) + 1.0) * 0.3 + 0.0;
+    o->oExclamationBoxHorizontalScale = (-sins(o->oExclamationBoxScaleAngle) + 1.0) * 0.5 + 1.0;
+    o->oGraphYOffset = (-sins(o->oExclamationBoxScaleAngle) + 1.0) * 26.0;
+    o->oExclamationBoxScaleAngle += 0x1000;
+    o->header.gfx.scale[0] = o->oExclamationBoxHorizontalScale * 2.0f;
+    o->header.gfx.scale[1] = o->oExclamationBoxVerticalScale * 2.0f;
+    o->header.gfx.scale[2] = o->oExclamationBoxHorizontalScale * 2.0f;
     if (o->oTimer == 7)
         o->oAction = 4;
 }
 
-void exclamation_box_spawn_contents(struct Struct802C0DF0 *a0, u8 a1) {
-    struct Object *sp1C = NULL;
+void exclamation_box_spawn_contents(struct ExclamationBoxContents *contentsList, u8 boxType) {
+    struct Object *contentsObj = NULL;
 
-    while (a0->unk0 != 99) {
-        if (a1 == a0->unk0) {
-            sp1C = spawn_object(o, a0->model, a0->behavior);
-            sp1C->oVelY = 20.0f;
-            sp1C->oForwardVel = 3.0f;
-            sp1C->oMoveAngleYaw = gMarioObject->oMoveAngleYaw;
-            o->oBehParams |= a0->unk2 << 24;
-            if (a0->model == 122)
-                o->oFlags |= 0x4000;
+    while (contentsList->id != 99) {
+        if (boxType == contentsList->id) {
+            contentsObj = spawn_object(o, contentsList->model, contentsList->behavior);
+            contentsObj->oVelY = 20.0f;
+            contentsObj->oForwardVel = 3.0f;
+            contentsObj->oMoveAngleYaw = gMarioObject->oMoveAngleYaw;
+            o->oBehParams |= contentsList->behParams << 24;
+            if (contentsList->model == MODEL_STAR)
+                o->oFlags |= OBJ_FLAG_PERSISTENT_RESPAWN;
             break;
         }
-        a0++;
+        contentsList++;
     }
 }
 
@@ -126,7 +125,7 @@ void exclamation_box_act_4(void) {
     spawn_mist_particles_variable(0, 0, 46.0f);
     spawn_triangle_break_particles(20, MODEL_CARTOON_STAR, 0.3f, o->oAnimState);
     create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
-    if (o->oBehParams2ndByte < 3) {
+    if (o->oBehParams2ndByte < 4) {
         o->oAction = 5;
         cur_obj_hide();
     } else

@@ -1,9 +1,12 @@
 #ifndef PUPPYPRINT_H
 #define PUPPYPRINT_H
 
+#ifdef PUPPYPRINT
+
 //This is how many indexes of timers are saved at once. higher creates a smoother average, but naturally uses more RAM. 15's fine.
 #define NUM_PERF_ITERATIONS 15
 #define NUM_BENCH_ITERATIONS 150
+#define LOG_BUFFER_SIZE 16
 
 #define BENCHMARK_GAME 1
 #define BENCHMARK_AUDIO 2
@@ -23,6 +26,7 @@ extern s32 ramsizeSegment[33];
 extern s32 audioPool[12];
 extern s8 nameTable;
 extern s32 mempool;
+extern u8 benchOption;
 
 //General
 extern OSTime cpuTime;
@@ -41,6 +45,9 @@ extern OSTime graphTime[NUM_PERF_ITERATIONS+1];
 extern OSTime audioTime[NUM_PERF_ITERATIONS+1];
 extern OSTime dmaTime[NUM_PERF_ITERATIONS+1];
 extern OSTime dmaAudioTime[NUM_PERF_ITERATIONS+1];
+extern OSTime faultTime[NUM_PERF_ITERATIONS+1];
+extern OSTime taskTime[NUM_PERF_ITERATIONS+1];
+extern OSTime profilerTime[NUM_PERF_ITERATIONS+1];
 //RSP
 extern OSTime rspGenTime[NUM_PERF_ITERATIONS+1];
 //RDP
@@ -63,5 +70,9 @@ extern s32 get_text_width(const char *str);
 extern void prepare_blank_box(void);
 extern void finish_blank_box(void);
 extern void render_blank_box(s16 x1, s16 y1, s16 x2, s16 y2, u8 r, u8 g, u8 b, u8 a);
+extern void append_puppyprint_log(const char *str, ...);
+extern char consoleLogTable[LOG_BUFFER_SIZE][255];
+
+#endif
 
 #endif // PUPPYPRINT_H

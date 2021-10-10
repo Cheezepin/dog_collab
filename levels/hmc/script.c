@@ -13,8 +13,14 @@
 
 #include "actors/common1.h"
 
+/* Fast64 begin persistent block [includes] */
+/* Fast64 end persistent block [includes] */
+
 #include "make_const_nonconst.h"
 #include "levels/hmc/header.h"
+
+/* Fast64 begin persistent block [scripts] */
+/* Fast64 end persistent block [scripts] */
 
 const LevelScript level_hmc_entry[] = {
 	INIT_LEVEL(),
@@ -27,6 +33,9 @@ const LevelScript level_hmc_entry[] = {
 	JUMP_LINK(script_func_global_1), 
 	LOAD_MODEL_FROM_GEO(MODEL_HMC_WOODEN_DOOR, wooden_door_geo), 
 
+	/* Fast64 begin persistent block [level commands] */
+	/* Fast64 end persistent block [level commands] */
+
 	AREA(1, hmc_area_1),
 		OBJECT(MODEL_HMC_WOODEN_DOOR, 341, 1491, -732, 0, 0, 0, 0x00000000, bhvDoor),
 		OBJECT(MODEL_NONE, 583, -85, -859, 0, 0, 0, 0x00000000, bhvFazAmbient),
@@ -35,10 +44,34 @@ const LevelScript level_hmc_entry[] = {
 		MACRO_OBJECTS(hmc_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_SNOW),
 		TERRAIN_TYPE(TERRAIN_SNOW),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
 	AREA(2, hmc_area_2),
+		WARP_NODE(0x10, LEVEL_HMC, 0x02, 0x10, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x11, LEVEL_HMC, 0x02, 0x11, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x12, LEVEL_HMC, 0x02, 0x10, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x13, LEVEL_HMC, 0x02, 0x11, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_1UP, 906, 10061, -5211, 0, 0, 0, 0x00000000, bhv1Up),
+		OBJECT(MODEL_EXCLAMATION_BOX, 1822, 7404, -5973, 0, 0, 0, 0x00060000, bhvExclamationBox),
+		OBJECT(MODEL_EXCLAMATION_BOX, 3048, 4518, -536, 0, 0, 0, 0x00050000, bhvExclamationBox),
+		OBJECT(MODEL_NONE, -44, 7050, -6497, 0, 0, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, 841, 4501, -5781, 0, 0, 0, 0x00020000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, -491, 4215, -1029, 0, 0, 0, 0x00020000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, -2303, 4215, -1205, 0, 56, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, -5338, 4215, -976, 0, 105, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, -5759, 5889, -2212, 0, 0, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, -1530, 5889, -1545, 0, -16, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, -9549, 4369, -4623, 0, 0, 0, 0x00100000, bhvInstantActiveWarp),
+		OBJECT(MODEL_NONE, -8635, 3457, -3889, 0, 90, 0, 0x18120000, bhvWarp),
+		OBJECT(MODEL_NONE, -8643, 4130, -6845, 0, -90, 0, 0x00110000, bhvInstantActiveWarp),
+		OBJECT(MODEL_NONE, -9625, 3185, -10410, 0, 90, 0, 0x18130000, bhvWarp),
 		OBJECT(MODEL_HMC_METAL_DOOR, -1031, 5889, -3768, 0, 0, 0, 0x00000000, bhvDoor),
+		OBJECT(MODEL_HMC_METAL_DOOR, 10746, 4318, -8053, 0, 0, 0, 0x00000000, bhvDoor),
+		OBJECT(MODEL_HMC_METAL_DOOR, -276, 5264, -8945, 0, 90, 0, 0x00000000, bhvDoor),
+		OBJECT(MODEL_HMC_METAL_DOOR, 2100, 4390, -8945, 0, 90, 0, 0x00000000, bhvDoor),
+		OBJECT(MODEL_HMC_METAL_DOOR, 3963, 5576, -4187, 0, -180, 0, 0x00000000, bhvDoor),
 		MARIO_POS(0x02, 0, -179, 4215, -946),
 		OBJECT(MODEL_RED_COIN, -3238, 4730, -1577, 0, 0, 0, 0x00000000, bhvRedCoin),
 		OBJECT(MODEL_TRANSPARENT_STAR, -4315, 4208, -2658, 0, 0, 0, 0x00000000, bhvRedCoinStarMarker),
@@ -49,12 +82,24 @@ const LevelScript level_hmc_entry[] = {
 		OBJECT(MODEL_RED_COIN, -3685, 4683, -3357, 0, 0, 0, 0x00000000, bhvRedCoin),
 		OBJECT(MODEL_RED_COIN, -2390, 5889, 1113, 0, 0, 0, 0x00000000, bhvRedCoin),
 		OBJECT(MODEL_RED_COIN, -3763, 5819, -2304, 0, 0, 0, 0x00000000, bhvRedCoin),
+		OBJECT(MODEL_NONE, 32, 5741, -6433, 0, 0, 0, 0x00780000, bhvPoleGrabbing),
+		OBJECT(MODEL_NONE, -51, 6477, -5851, 0, 0, 0, 0x00300000, bhvPoleGrabbing),
+		OBJECT(MODEL_WDW_SQUARE_FLOATING_PLATFORM, 1727, 6797, -7715, 0, 0, 0, 0x00000000, bhvWdwSquareFloatingPlatform2),
+		OBJECT(MODEL_WDW_SQUARE_FLOATING_PLATFORM, 588, 6797, -7851, 0, 0, 0, 0x00000000, bhvWdwSquareFloatingPlatform2),
+		OBJECT(MODEL_NONE, 1762, 8538, -7649, 0, 0, 0, 0x00D00000, bhvPoleGrabbing),
+		OBJECT(MODEL_NONE, 1762, 7287, -7649, 0, 0, 0, 0x00300000, bhvPoleGrabbing),
+		OBJECT(MODEL_NONE, 3459, 4485, -10554, 0, 0, 0, 0x00700000, bhvPoleGrabbing),
+		OBJECT(MODEL_STAR, 827, 8702, -6554, 0, 0, 0, 0x00000000, bhvStar),
+		OBJECT(MODEL_STAR, 5093, 5877, -3585, 0, 0, 0, 0x00010000, bhvStar),
 		OBJECT(MODEL_NONE, -4315, 4543, -2658, 0, 0, 0, 0x02000000, bhvHiddenRedCoinStar),
+		OBJECT(MODEL_STAR, 10768, 6579, -5364, 0, 0, 0, 0x00030000, bhvStar),
 		TERRAIN(hmc_area_2_collision),
 		ROOMS(hmc_area_2_collision_rooms),
 		MACRO_OBJECTS(hmc_area_2_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_UNDERGROUND),
 		TERRAIN_TYPE(TERRAIN_STONE),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
