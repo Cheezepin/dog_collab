@@ -94,7 +94,7 @@
 // The last frame that will be considered a firsty when wallkicking
 #define FIRSTY_LAST_FRAME 1
 // 46 degree walkicks
-#define WALLKICKS_46_DEGREES
+#define WALL_KICK_DEGREES 46
 // Disable BLJs and crush SimpleFlips's dreams
 //#define DISABLE_BLJ
 

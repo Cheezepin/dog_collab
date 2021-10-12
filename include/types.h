@@ -391,6 +391,14 @@ struct MarioState
              s16 breath;
              u8  breathCounter;
 #endif
+    Vec3f lastSafePos;
+           Vec3f prevPos;
+             f32 lateralSpeed;
+             f32 moveSpeed;
+           Angle movePitch;
+           Angle moveYaw;
+           Angle ceilYaw;
+           Angle wallYaw;
     f32 waterForce;
     s16 prevWaterLevel;
     struct FloorCheckpoint floorCheckpoint;
