@@ -3,9 +3,8 @@
 #include "memory.h"
 #include "engine/math_util.h"
 #include "src/engine/behavior_script.h"
-//#include "tile_scroll.h"
+#include "tile_scroll.h"
 #include "texscroll.h"
-#include "src/game/tile_scroll.h"
 
 #ifdef TARGET_N64
 #define SCROLL_CONDITION(condition) condition

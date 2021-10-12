@@ -35,6 +35,12 @@ extern f32 gSineTable[];
 #define degrees_to_radians(x) (f32)(   (f32)(x) * RAD_PER_DEG       )
 #define radians_to_degrees(x) (f32)(   (f32)(x) * DEG_PER_RAD       )
 
+/**
+ * Converts an angle in degrees to sm64's s16 angle units. For example, DEGREES(90) == 0x4000
+ * This should be used mainly to make camera code clearer at first glance.
+ */
+#define DEGREES(x) ((x) * 0x10000 / 360)
+
 #define ABSF(x) ((x) > 0.0f ? (x) : -(x))
 #define ABSI(x) ((x) > 0    ? (x) : -(x))
 #define ABS(x)  ABSF((x))

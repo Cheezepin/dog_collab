@@ -1826,7 +1826,7 @@ void check_hurt_floor(struct MarioState *m) {
         set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, m->floor->force);
     }
 }
-
+s8 shockTimer;
 void mario_handle_special_floors(struct MarioState *m) {
     if ((m->action & ACT_GROUP_MASK) == ACT_GROUP_CUTSCENE) {
         return;
@@ -1871,14 +1871,20 @@ void mario_handle_special_floors(struct MarioState *m) {
         if (!(m->action & ACT_FLAG_AIR) && !(m->action & ACT_FLAG_SWIMMING)) {
             switch (floorType) {
                 case SURFACE_INTERACT_SHOCK:
-                if (m->health < 0x0100) {
-                    set_mario_action(m, ACT_ELECTROCUTION, 0);
-                 } else {
+                shockTimer += 1;
+                if (m->health < 0x0300) {
+                    m->health = 0x0000;
+                    interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
+                    if(shockTimer > 1){
+                 set_mario_action(m, ACT_ELECTROCUTION, 0);
+                 shockTimer = 0;
+                 } 
+             } else {
                 interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
-                if(gCurrentObject->oTimer > 6){
+                if(shockTimer > 1){
                 set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x0200);
+                shockTimer = 0;
                 }
-                break;
             }
         }
     }
