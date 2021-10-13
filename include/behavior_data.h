@@ -4,6 +4,8 @@
 #include "types.h"
 
 extern const BehaviorScript bhvFazAmbient[];
+extern const BehaviorScript bhvKoopaDialog[];
+extern const BehaviorScript bhvGoombaDialog[];
 
 extern const BehaviorScript bhvStarDoor[];
 extern const BehaviorScript bhvMrI[];
@@ -427,6 +429,7 @@ extern const BehaviorScript bhvBreakableBoxSmall[];
 extern const BehaviorScript bhvSlidingSnowMound[];
 extern const BehaviorScript bhvSnowMoundSpawn[];
 extern const BehaviorScript bhvWdwSquareFloatingPlatform[];
+extern const BehaviorScript bhvWdwSquareFloatingPlatform2[];
 extern const BehaviorScript bhvWdwRectangularFloatingPlatform[];
 extern const BehaviorScript bhvJrbFloatingPlatform[];
 extern const BehaviorScript bhvArrowLift[];

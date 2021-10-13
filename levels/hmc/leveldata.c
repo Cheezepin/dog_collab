@@ -42,6 +42,7 @@
 #include "levels/hmc/areas/1/30/model.inc.c"
 #include "levels/hmc/areas/1/31/model.inc.c"
 #include "levels/hmc/areas/1/32/model.inc.c"
+#include "levels/hmc/square_floating_platform/model.inc.c"
 #include "levels/hmc/elevator_platform/model.inc.c"
 #include "levels/hmc/arrow_platform/model.inc.c"
 #include "levels/hmc/arrow_platform_button/model.inc.c"
@@ -52,6 +53,7 @@
 #include "levels/hmc/areas/1/collision.inc.c"
 #include "levels/hmc/areas/1/macro.inc.c"
 #include "levels/hmc/areas/1/room.inc.c"
+#include "levels/hmc/square_floating_platform/collision.inc.c"
 #include "levels/hmc/elevator_platform/collision.inc.c"
 #include "levels/hmc/grill_door/model.inc.c"
 #include "levels/hmc/grill_door/collision.inc.c" // This is odd, but the model data for this is in the middle of area 1. I have to conclude it is an area local object, despite the fact it has collision. Let's hope this is the only oddity...
@@ -60,3 +62,7 @@
 #include "levels/hmc/areas/1/trajectory.inc.c"
 #include "levels/hmc/areas/1/movtext.inc.c"
 #include "levels/hmc/leveldata.inc.c"
+
+#include "levels/hmc/koopa_npc/anims/data.inc.c"
+#include "levels/hmc/koopa_npc/anims/table.inc.c"
+#include "levels/hmc/koopa_npc/model.inc.c"

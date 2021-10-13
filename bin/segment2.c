@@ -15,10 +15,6 @@ ALIGNED8 const Texture small_font[] = {
 };
 #endif
 
-ALIGNED8 const Texture small_font[] = {
-#include "textures/segment2/text.i4.inc.c"
-};
-
 ALIGNED8 static const Texture texture_hud_char_0[] = {
 #include "textures/segment2/segment2.00000.rgba16.inc.c"
 };

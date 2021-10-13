@@ -12,6 +12,7 @@
 #include "levels/scripts.h"
 
 #include "actors/common1.h"
+#include "actors/group14.h"
 
 /* Fast64 begin persistent block [includes] */
 /* Fast64 end persistent block [includes] */
@@ -24,14 +25,17 @@
 
 const LevelScript level_hmc_entry[] = {
 	INIT_LEVEL(),
-	LOAD_YAY0(0x07, _hmc_segment_7SegmentRomStart, _hmc_segment_7SegmentRomEnd), 
-	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0F, _common0_geoSegmentRomStart, _common0_geoSegmentRomEnd), 
-	LOAD_YAY0(0xb, _effect_yay0SegmentRomStart, _effect_yay0SegmentRomEnd), 
+	LOAD_YAY0(0x07, _hmc_segment_7SegmentRomStart, _hmc_segment_7SegmentRomEnd),
+	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd),
+	LOAD_RAW(0x0F, _common0_geoSegmentRomStart, _common0_geoSegmentRomEnd),
+	LOAD_YAY0(0xb, _effect_yay0SegmentRomStart, _effect_yay0SegmentRomEnd),
 	ALLOC_LEVEL_POOL(),
-	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
-	JUMP_LINK(script_func_global_1), 
-	LOAD_MODEL_FROM_GEO(MODEL_HMC_WOODEN_DOOR, wooden_door_geo), 
+	MARIO(MODEL_MARIO, 0x00000001, bhvMario),
+	JUMP_LINK(script_func_global_1),
+	LOAD_MODEL_FROM_GEO(MODEL_HMC_WOODEN_DOOR, wooden_door_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_HMC_METAL_DOOR, metal_door_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_WDW_SQUARE_FLOATING_PLATFORM, wdw_geo_0005802),
+	LOAD_MODEL_FROM_GEO(MODEL_KOOPA_NPC, koopa_npc_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -54,13 +58,21 @@ const LevelScript level_hmc_entry[] = {
 		WARP_NODE(0x12, LEVEL_HMC, 0x02, 0x10, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x13, LEVEL_HMC, 0x02, 0x11, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_1UP, 906, 10061, -5211, 0, 0, 0, 0x00000000, bhv1Up),
+		OBJECT(MODEL_BLACK_BOBOMB, -2285, 4215, -6054, 0, 0, 0, 0x00000000, bhvBobombBuddy),
+		OBJECT(MODEL_BLACK_BOBOMB, 1301, 4215, -3520, 0, 0, 0, 0x00000000, bhvBobombBuddy),
+		OBJECT(MODEL_BOBOMB_BUDDY, 535, 4273, -2255, 0, 0, 0, 0x00000000, bhvBobombBuddy),
+		OBJECT(MODEL_BOBOMB_BUDDY, -5829, 4215, -1128, 0, 0, 0, 0x00000000, bhvBobombBuddy),
+		OBJECT(MODEL_KOOPA_WITH_SHELL, 4357, 5576, -3617, 0, 0, 0, 0x00000000, bhvBobombBuddy),
+		OBJECT(MODEL_BLACK_BOBOMB, 11008, 6156, -9548, 0, 0, 0, 0x00000000, bhvBobombBuddy),
+		OBJECT(MODEL_BOBOMB_BUDDY, 6139, 5575, -9562, 0, 0, 0, 0x00000000, bhvBobombBuddy),
+		OBJECT(MODEL_BLACK_BOBOMB, 5971, 5575, -9591, 0, 0, 0, 0x00000000, bhvBobombBuddy),
 		OBJECT(MODEL_EXCLAMATION_BOX, 1822, 7404, -5973, 0, 0, 0, 0x00060000, bhvExclamationBox),
 		OBJECT(MODEL_EXCLAMATION_BOX, 3048, 4518, -536, 0, 0, 0, 0x00050000, bhvExclamationBox),
 		OBJECT(MODEL_NONE, -44, 7050, -6497, 0, 0, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 841, 4501, -5781, 0, 0, 0, 0x00020000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -491, 4215, -1029, 0, 0, 0, 0x00020000, bhvCoinFormation),
-		OBJECT(MODEL_NONE, -2303, 4215, -1205, 0, 56, 0, 0x00000000, bhvCoinFormation),
-		OBJECT(MODEL_NONE, -5338, 4215, -976, 0, 105, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, -2303, 4215, -1205, 0, 146, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, -5338, 4215, -976, 0, -165, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -5759, 5889, -2212, 0, 0, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -1530, 5889, -1545, 0, -16, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -9549, 4369, -4623, 0, 0, 0, 0x00100000, bhvInstantActiveWarp),
@@ -72,6 +84,26 @@ const LevelScript level_hmc_entry[] = {
 		OBJECT(MODEL_HMC_METAL_DOOR, -276, 5264, -8945, 0, 90, 0, 0x00000000, bhvDoor),
 		OBJECT(MODEL_HMC_METAL_DOOR, 2100, 4390, -8945, 0, 90, 0, 0x00000000, bhvDoor),
 		OBJECT(MODEL_HMC_METAL_DOOR, 3963, 5576, -4187, 0, -180, 0, 0x00000000, bhvDoor),
+		OBJECT(MODEL_GOOMBA, 189, 4215, -710, 0, 0, 0, 0x00000000, bhvGoombaDialog),
+		OBJECT(MODEL_GOOMBA, 536, 4273, -1500, 0, 0, 0, 0x00000000, bhvGoombaDialog),
+		OBJECT(MODEL_GOOMBA, -1619, 4215, -1473, 0, 0, 0, 0x00000000, bhvGoombaDialog),
+		OBJECT(MODEL_GOOMBA, -3153, 5672, -1312, 0, 0, 0, 0x00000000, bhvGoombaDialog),
+		OBJECT(MODEL_GOOMBA, -3, 4215, -707, 0, 0, 0, 0x00000000, bhvGoombaDialog),
+		OBJECT(MODEL_GOOMBA, 1782, 8317, -6346, 0, 0, 0, 0x00000000, bhvGoombaDialog),
+		OBJECT(MODEL_GOOMBA, 3020, 4448, -9942, 0, 0, 0, 0x00000000, bhvGoombaDialog),
+		OBJECT(MODEL_GOOMBA, 9255, 6156, -8259, 0, 0, 0, 0x00000000, bhvGoombaDialog),
+		OBJECT(MODEL_KOOPA_WITH_SHELL, 3105, 4215, -379, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, 3171, 4215, -806, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, 764, 4215, -1584, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, 1056, 4215, -1583, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, -4795, 4215, -3039, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, 195, 4501, -5567, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, 5361, 4215, -7555, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, 5531, 4215, -7523, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, 764, 5264, -9307, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, 1274, 5652, -8858, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, -6250, 6652, -4237, 0, 0, 0, 0x00000000, bhvKoopaDialog),
+		OBJECT(MODEL_KOOPA_NPC, -2469, 4215, -5984, 0, 0, 0, 0x00000000, bhvKoopaDialog),
 		MARIO_POS(0x02, 0, -179, 4215, -946),
 		OBJECT(MODEL_RED_COIN, -3238, 4730, -1577, 0, 0, 0, 0x00000000, bhvRedCoin),
 		OBJECT(MODEL_TRANSPARENT_STAR, -4315, 4208, -2658, 0, 0, 0, 0x00000000, bhvRedCoinStarMarker),

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "types.h"
 
 #define PACK_TILESIZE(w, d) ((w << 2) + d)

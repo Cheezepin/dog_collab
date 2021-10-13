@@ -3692,6 +3692,44 @@ const BehaviorScript bhvBobombBuddy[] = {
     ANIMATE(0),
     SET_INT(oBobombBuddyRole, 0),
     SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 2500),
+    CALL_NATIVE(bhv_bobomb_buddy_init),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_bobomb_buddy_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvGoombaDialog[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, goomba_seg8_anims_0801DA4C),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    DROP_TO_FLOOR(),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 60),
+    ANIMATE(0),
+    SET_INT(oBobombBuddyRole, 0),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 2500),
+    CALL_NATIVE(bhv_bobomb_buddy_init),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_bobomb_buddy_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvKoopaDialog[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, koopa_npc_anims),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    DROP_TO_FLOOR(),
+    SET_HITBOX(/*Radius*/ 150, /*Height*/ 60),
+    ANIMATE(0),
+    SET_FLOAT(oDrawingDistance, 2500),
+    SET_INT(oBobombBuddyRole, 0),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 2500),
     CALL_NATIVE(bhv_bobomb_buddy_init),
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
@@ -4813,6 +4851,18 @@ const BehaviorScript bhvWdwSquareFloatingPlatform[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_LONG(oFlags, (OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
     LOAD_COLLISION_DATA(wdw_seg7_collision_square_floating_platform),
+    SET_FLOAT(oFloatingPlatformHeightOffset, 64),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_floating_platform_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvWdwSquareFloatingPlatform2[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(wdw_seg7_collision_square_floating_platform2),
     SET_FLOAT(oFloatingPlatformHeightOffset, 64),
     SET_HOME(),
     BEGIN_LOOP(),
@@ -6236,7 +6286,7 @@ const BehaviorScript bhvMagmaThwomp[] = {
         CALL_NATIVE(bhv_Magma_Thwomp),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
-}; 
+};
 
 const BehaviorScript bhvSwingBoard[] = {
     BEGIN(OBJ_LIST_SURFACE),
@@ -6248,7 +6298,7 @@ const BehaviorScript bhvSwingBoard[] = {
         CALL_NATIVE(bhv_swing_Board),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
-}; 
+};
 
 const BehaviorScript bhvPropaneThrower[] = {
     BEGIN(OBJ_LIST_LEVEL),
@@ -6293,7 +6343,7 @@ const BehaviorScript bhvLavaGrate[] = {
         CALL_NATIVE(bhv_lava_grate_loop),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
-}; 
+};
 
 //END ROVERT BEHAVIOR
 const BehaviorScript bhvRotatingTorus[] = {

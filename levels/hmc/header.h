@@ -86,10 +86,18 @@ extern const Collision hmc_seg7_collision_controllable_platform_sub[];
 extern const Trajectory hmc_seg7_trajectory_0702B86C[];
 extern const struct MovtexQuadCollection hmc_movtex_dorrie_pool_water[];
 extern const struct MovtexQuadCollection hmc_movtex_toxic_maze_mist[];
+extern const Texture floating_platform_tex[];
+extern const GeoLayout wdw_geo_0005802[];
+extern const Gfx wdw_seg7_dl_07012B902[];
+extern const Collision wdw_seg7_collision_square_floating_platform2[];
 
 // script
 extern const LevelScript level_hmc_entry[];
 
 #include "levels/hmc/header.inc.h"
+
+#include "levels/hmc/koopa_npc/anim_header.h"
+
+#include "levels/hmc/koopa_npc/geo_header.h"
 
 #endif

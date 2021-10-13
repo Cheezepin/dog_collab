@@ -280,16 +280,10 @@ void bhv_bobomb_buddy_init(void) {
 }
 
 void bobomb_buddy_act_idle(void) {
-    s16 animFrame = o->header.gfx.animInfo.animFrame;
 
     o->oBobombBuddyPosXCopy = o->oPosX;
     o->oBobombBuddyPosYCopy = o->oPosY;
     o->oBobombBuddyPosZCopy = o->oPosZ;
-
-    object_step();
-
-    if ((animFrame == 5) || (animFrame == 16))
-        cur_obj_play_sound_2(SOUND_OBJ_BOBOMB_WALK);
 
     if (o->oDistanceToMario < 1000.0f)
         o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x140);
@@ -377,8 +371,6 @@ void bobomb_buddy_act_talk(void) {
 
 void bobomb_buddy_act_turn_to_talk(void) {
     s16 animFrame = o->header.gfx.animInfo.animFrame;
-    if ((animFrame == 5) || (animFrame == 16))
-        cur_obj_play_sound_2(SOUND_OBJ_BOBOMB_WALK);
 
     o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x1000);
     if ((s16) o->oMoveAngleYaw == (s16) o->oAngleToMario)
