@@ -1821,6 +1821,12 @@ void pss_end_slide(struct MarioState *m) {
     }
 }
 
+void check_hurt_floor(struct MarioState *m) {
+    if (m->pos[1] < m->floorHeight + 2048.0f) {
+        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, m->floor->force);
+    }
+}
+
 void mario_handle_special_floors(struct MarioState *m) {
     if ((m->action & ACT_GROUP_MASK) == ACT_GROUP_CUTSCENE) {
         return;
@@ -1846,7 +1852,14 @@ void mario_handle_special_floors(struct MarioState *m) {
             case SURFACE_TIMER_END:
                 pss_end_slide(m);
                 break;
+            
+            case SURFACE_HURT_FLOOR:
+                check_hurt_floor(m);
+                break;
         }
+        
+        // Only check for checkpoint if mario is moving or stationary
+        if ((m->action & ACT_GROUP_MASK) <= ACT_GROUP_MOVING) check_mario_floor_checkpoint(m);
 
         if (!(m->action & ACT_FLAG_AIR) && !(m->action & ACT_FLAG_SWIMMING)) {
             switch (floorType) {

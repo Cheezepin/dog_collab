@@ -1502,6 +1502,13 @@ s32 act_shocked(struct MarioState *m) {
         if (m->actionTimer >= 6) {
             m->invincTimer = 30;
             set_mario_action(m, m->health < 0x0100 ? ACT_ELECTROCUTION : ACT_IDLE, 0);
+            // TODO: Busted checkpoint logic needs to be moved to separate function
+            // if (m->health < 0x0100) {
+            //     set_mario_action(m, ACT_ELECTROCUTION, 0);
+            // } else {
+            //     set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            //     return FALSE;
+            // }
         }
         stop_and_set_height_to_floor(m);
     }
@@ -2685,6 +2692,61 @@ static s32 check_for_instant_quicksand(struct MarioState *m) {
     return FALSE;
 }
 
+s32 act_floor_checkpoint_warp_out(struct MarioState *m) {
+    if (m->actionTimer == 0) play_transition(WARP_TRANSITION_FADE_INTO_COLOR, SLOW_WARP_LEN, 0, 0, 0);
+    if (++m->actionTimer <= SLOW_WARP_LEN) {
+        m->forwardVel = 0.0f;
+        m->flags |= MARIO_TELEPORTING;
+        m->fadeWarpOpacity = (u8)MIN_MAX(get_relative_position_between_ranges(m->actionTimer, 1.0f, SLOW_WARP_LEN, 255.0f, 0.0f), 0, 255);
+        m->vel[0] *= 0.8f; 
+        m->vel[1] *= 0.8f; 
+        m->vel[2] *= 0.8f;
+        vec3f_add(m->pos, m->vel);
+        vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+        // TODO: Fade out audio or something?
+        return FALSE;
+    }
+
+    return warp_to_checkpoint(m, m->actionArg);
+}
+
+// NOTE: Should be initiated from warp_to_checkpoint
+s32 act_floor_checkpoint_warp_in(struct MarioState *m) {
+    if (++m->actionTimer <= SLOW_WARP_LEN) {
+        m->flags |= MARIO_TELEPORTING;
+        m->fadeWarpOpacity = (u8)MIN_MAX(get_relative_position_between_ranges(m->actionTimer, 0, SLOW_WARP_LEN, 0.0f, 255.0f), 0, 255);
+
+        switch(get_checkpoint_action(m)) {
+            case CHECKPOINT_ENDS_IN_WATER:
+                set_mario_animation(m, MARIO_ANIM_WATER_IDLE);
+                break;
+            case CHECKPOINT_ENDS_ON_GROUND:
+                set_mario_animation(m, MARIO_ANIM_IDLE_HEAD_CENTER);
+                break;
+            case CHECKPOINT_ENDS_IN_AIR:
+            default:
+                set_mario_animation(m, MARIO_ANIM_GENERAL_FALL);
+                break;
+        }
+    } else {
+        m->flags &= ~MARIO_TELEPORTING;
+        m->fadeWarpOpacity = 255;
+        vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+        vec3s_copy(m->marioObj->header.gfx.angle, m->faceAngle);
+        switch(get_checkpoint_action(m)) {
+            case CHECKPOINT_ENDS_IN_WATER:
+                return set_mario_action(gMarioState, ACT_WATER_IDLE, 0);
+            case CHECKPOINT_ENDS_ON_GROUND:
+                return set_mario_action(gMarioState, ACT_IDLE, 0);
+            case CHECKPOINT_ENDS_IN_AIR:
+            default:
+                return set_mario_action(gMarioState, ACT_FREEFALL, 0);
+        }
+    }
+
+    return FALSE;
+}
+
 s32 mario_execute_cutscene_action(struct MarioState *m) {
     s32 cancel;
 
@@ -2745,6 +2807,8 @@ s32 mario_execute_cutscene_action(struct MarioState *m) {
         case ACT_BUTT_STUCK_IN_GROUND:       cancel = act_butt_stuck_in_ground(m);       break;
         case ACT_FEET_STUCK_IN_GROUND:       cancel = act_feet_stuck_in_ground(m);       break;
         case ACT_PUTTING_ON_CAP:             cancel = act_putting_on_cap(m);             break;
+        case ACT_FLOOR_CHECKPOINT_WARP_OUT:  cancel = act_floor_checkpoint_warp_out(m);  break;
+        case ACT_FLOOR_CHECKPOINT_WARP_IN:   cancel = act_floor_checkpoint_warp_in(m);   break;
     }
     /* clang-format on */
 

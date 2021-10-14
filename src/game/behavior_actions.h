@@ -584,8 +584,22 @@ void bhv_emu_simple_spinner(void);
 void bhv_emu_sphere(void);
 void palette_swap(void);
 
+// axo start
 void bhv_cephie_init(void);
 void bhv_cephie_loop(void);
+// axo end
+
+// thecozies start
+void water_top_loop(void);
+// thecozies end
+
+//ROVERT BEHAVIOR ACTIONS START
+void bhv_Magma_Thwomp(void);
+void bhv_swing_Board(void);
+void bhv_Propane_Shooter(void);
+void bhv_Propane_Flame(void);
+void bhv_lava_grate_loop();
+//ROVERT BEHAVIOR ACTIONS END
 
 Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
 

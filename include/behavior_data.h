@@ -556,6 +556,24 @@ extern const BehaviorScript bhvShockTexture[];
 extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
 
+// axo start
 extern const BehaviorScript bhvCephie[];
+// axo end
+
+// thecozies bhvs start
+extern const BehaviorScript bhvRainCloud[];
+extern const BehaviorScript bhvWaterTop[];
+// thecozies bhvs end
+
+//START ROVERT BEHAVIOR
+
+extern const BehaviorScript bhvMagmaThwomp[];
+extern const BehaviorScript bhvSwingBoard[];
+extern const BehaviorScript bhvPropaneThrower[];
+extern const BehaviorScript bhvPropane[];
+extern const BehaviorScript bhvLavaGrate[];
+
+//END ROVERT BEHAVIOR
+
 
 #endif // BEHAVIOR_DATA_H

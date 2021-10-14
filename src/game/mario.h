@@ -52,4 +52,16 @@ s32 execute_mario_action(UNUSED struct Object *o);
 void init_mario(void);
 void init_mario_from_save_file(void);
 
+
+enum CHECKPOINT_END {
+    CHECKPOINT_ENDS_IN_WATER,
+    CHECKPOINT_ENDS_ON_GROUND,
+    CHECKPOINT_ENDS_IN_AIR
+};
+
+#define SLOW_WARP_LEN 20
+s32 get_checkpoint_action(struct MarioState *m);
+void check_mario_floor_checkpoint(struct MarioState *m);
+s32 warp_to_checkpoint(struct MarioState *m, s32 damage);
+
 #endif // MARIO_H
