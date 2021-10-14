@@ -16,6 +16,11 @@ extern u16 gAreaUpdateCounter;
 extern u8 heatValue;
 extern f32 gWorldScale;
 
+// thecozies start
+extern Mat4 *viewMat;
+extern s32 gReadyForLookAt;
+// thecozies end
+
 // after processing an object, the type is reset to this
 #define ANIM_TYPE_NONE                  0
 

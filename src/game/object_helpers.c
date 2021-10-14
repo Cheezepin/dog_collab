@@ -27,6 +27,7 @@
 #include "spawn_object.h"
 #include "spawn_sound.h"
 #include "puppylights.h"
+#include "levels/ddd/header.h"
 
 static s8 sBbhStairJiggleOffsets[] = { -8, 8, -4, 4 };
 static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, LEVEL_SL, -1 };
@@ -1607,7 +1608,7 @@ static void cur_obj_update_floor(void) {
         if (floor->type == SURFACE_BURNING) {
             o->oMoveFlags |= OBJ_MOVE_ABOVE_LAVA;
         }
-        else if (floor->type == SURFACE_DEATH_PLANE) {
+        else if (SURFACE_IS_WARP_PLANE(floor->type)) {
             //! This misses SURFACE_VERTICAL_WIND (and maybe SURFACE_WARP)
             o->oMoveFlags |= OBJ_MOVE_ABOVE_DEATH_BARRIER;
         }
@@ -2757,3 +2758,123 @@ Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED v
     return NULL;
 }
 
+
+// thecozies start
+// 102b29
+// #define WATER_BASE_R 0x41
+// #define WATER_BASE_G 0x5E
+// #define WATER_BASE_B 0x6F
+#define WATER_BASE_R 0x10
+#define WATER_BASE_G 0x2B
+#define WATER_BASE_B 0x29
+#define WATER_BASE_RA (WATER_BASE_R * 2)
+#define WATER_BASE_GA (WATER_BASE_G * 2)
+#define WATER_BASE_BA (WATER_BASE_B * 2)
+#define WATER_BASE_STRENGTH 2.f
+#define WATER_BASE_R1 (WATER_BASE_R * WATER_BASE_STRENGTH)
+#define WATER_BASE_G1 (WATER_BASE_G * WATER_BASE_STRENGTH)
+#define WATER_BASE_B1 (WATER_BASE_B * WATER_BASE_STRENGTH)
+#define SUNSET_STRENGTH 1.2f
+#define WATER_BASE_R2 (0x90 * SUNSET_STRENGTH) // WATER_BASE_R 907447
+#define WATER_BASE_G2 (0x74 * SUNSET_STRENGTH) // WATER_BASE_G
+#define WATER_BASE_B2 (0x47 * SUNSET_STRENGTH) // WATER_BASE_B
+
+Lights2 water_lights = gdSPDefLights2(
+    WATER_BASE_RA, WATER_BASE_GA, WATER_BASE_BA,
+    WATER_BASE_R1, WATER_BASE_G1, WATER_BASE_B1, 0x25, 0x25, 0x25,
+    WATER_BASE_R2, WATER_BASE_G2, WATER_BASE_B2, 0x41, 0x41, 0x41
+    // 0xAA, 0, 0, -dir1, -dir2, -dir3
+);
+
+Vec3f lightDir = {
+    37.0f,
+    80.0f,
+    10.0f
+};
+// Vec3f lightDir = {
+//     50.0f,
+//     100.0f,
+//     10.0f
+// };
+Vec3f lightDir2 = {
+    114.0f,
+    13.0f,
+    0.0f
+};
+// Vec3f lightDir2 = {
+//     40.0f,
+//     13.0f,
+//     0.0f
+// };
+
+Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    struct GraphNodeGenerated *currentGraphNode;
+    static int i = 0;
+    Gfx *dlStart, *dlHead;
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+        if (currentGraphNode->parameter != 0) {
+            currentGraphNode->fnNode.node.flags =
+                (currentGraphNode->parameter << 8) | (currentGraphNode->fnNode.node.flags & 0xFF);
+        }
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 5);
+        dlHead = dlStart;
+
+        if (gReadyForLookAt) {
+            if (gMarioState->controller->buttonDown & L_TRIG) {
+                f32 amt = 0.0f;
+                if (gMarioState->controller->buttonDown & R_JPAD) amt++;
+                if (gMarioState->controller->buttonDown & L_JPAD) amt--;
+                if (gMarioState->controller->buttonPressed & U_JPAD) i = MAX(0, i - 1);
+                if (gMarioState->controller->buttonPressed & D_JPAD) i = MIN(2, i + 1);
+                lightDir2[i] += amt;
+            }
+
+            water_lights.l[0].l.dir[0] = ((s8)(lightDir[0] * (*viewMat)[0][0] + lightDir[1] * (*viewMat)[1][0] + lightDir[2] * (*viewMat)[2][0]));
+            water_lights.l[0].l.dir[1] = ((s8)(lightDir[0] * (*viewMat)[0][1] + lightDir[1] * (*viewMat)[1][1] + lightDir[2] * (*viewMat)[2][1]));
+            water_lights.l[0].l.dir[2] = ((s8)(lightDir[0] * (*viewMat)[0][2] + lightDir[1] * (*viewMat)[1][2] + lightDir[2] * (*viewMat)[2][2]));
+
+            water_lights.l[1].l.dir[0] = ((s8)(lightDir2[0] * (*viewMat)[0][0] + lightDir2[1] * (*viewMat)[1][0] + lightDir2[2] * (*viewMat)[2][0]));
+            water_lights.l[1].l.dir[1] = ((s8)(lightDir2[0] * (*viewMat)[0][1] + lightDir2[1] * (*viewMat)[1][1] + lightDir2[2] * (*viewMat)[2][1]));
+            water_lights.l[1].l.dir[2] = ((s8)(lightDir2[0] * (*viewMat)[0][2] + lightDir2[1] * (*viewMat)[1][2] + lightDir2[2] * (*viewMat)[2][2]));
+
+            gSPSetLights2(dlHead++, water_lights);
+        }
+        // gDPSetFogColor(dlHead++, ((0x90 + 0xFF) / 2), ((0x74 + 0xFF) / 2), ((0x47 + 0xFF) / 2), 0xFF);
+        // gDPSetEnvColor(dlHead++, 0, 0, 0, 0);
+        // gDPPipeSync(dlHead++);
+        // gSPFogPosition(dlHead++, 980, 1050);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}
+
+Gfx *move_water_top(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    struct GraphNodeGenerated *currentGraphNode;
+    struct Object *objectGraphNode;
+    Waters *frames = segmented_to_virtual(water_top_frames);
+    if (callContext == GEO_CONTEXT_RENDER) {
+        objectGraphNode = (struct Object *) gCurGraphNodeObject;
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+        u32 distFromCenter = currentGraphNode->parameter;
+        int frame = objectGraphNode->oAction;
+
+        ((struct GraphNodeAnimatedPart *) node->next->next)->translation[1] = frames[frame][distFromCenter];
+    }
+
+    return NULL;
+}
+
+Gfx *geo_backdrop_move_cozies(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        ((struct GraphNodeTranslationRotation *) node->next)->translation[0] = gLakituState.pos[0] * 0.95;
+        ((struct GraphNodeTranslationRotation *) node->next)->translation[1] = gLakituState.pos[1] * 0.95;
+        ((struct GraphNodeTranslationRotation *) node->next)->translation[2] = gLakituState.pos[2] * 0.95;
+    }
+    return 0;
+}
+// thecozies end

@@ -16,6 +16,7 @@
 #define SURFACE_INTERACT_SHOCK               0x000C // Surface with INTERACT_SHOCK incomplete rn
 #define SURFACE_WATER                        0x000D // Water, has no action, used on some waterboxes below
 #define SURFACE_FLOWING_WATER                0x000E // Water (flowing), has parameters
+#define SURFACE_HURT_FLOOR                   0x000F // Force controls the amount of damage it gives
 #define SURFACE_INTANGIBLE                   0x0012 // Intangible (Separates BBH mansion from merry-go-round, for room usage)
 #define SURFACE_VERY_SLIPPERY                0x0013 // Very slippery, mostly used for slides
 #define SURFACE_SLIPPERY                     0x0014 // Slippery
@@ -227,5 +228,9 @@
 
 // Water Box
 #define COL_WATER_BOX(id, x1, z1, x2, z2, y) id, x1, z1, x2, z2, y
+
+// Floor Checkpoint
+#define FLOOR_CHECKPOINT_FORCE 0xFCE
+#define SURFACE_IS_WARP_PLANE(surfType) (surfType == SURFACE_DEATH_PLANE || surfType == SURFACE_HURT_FLOOR || surfType == SURFACE_VERTICAL_WIND)
 
 #endif // SURFACE_TERRAINS_H
