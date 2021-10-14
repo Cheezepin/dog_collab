@@ -1065,6 +1065,8 @@ s32 play_mode_normal(void) {
         }
     }
 
+    gDirectionsHeld = determine_joystick_movement();
+
     return FALSE;
 }
 
