@@ -67,7 +67,6 @@ extern f32 gPaintingMarioYEntry;
 #define HMC_MOVTEX_TOXIC_MAZE_MIST                  (   2 | MOVTEX_AREA_HMC)
 #define SSL_MOVTEX_PUDDLE_WATER                     (   1 | MOVTEX_AREA_SSL)
 #define SSL_MOVTEX_TOXBOX_QUICKSAND_MIST            (0x51 | MOVTEX_AREA_SSL)
-#define SL_MOVTEX_WATER                             (   1 | MOVTEX_AREA_SL)
 #define WDW_MOVTEX_AREA1_WATER                      (   1 | MOVTEX_AREA_WDW)
 #define WDW_MOVTEX_AREA2_WATER                      (   2 | MOVTEX_AREA_WDW)
 #define JRB_MOVTEX_WATER                            (   1 | MOVTEX_AREA_JRB)

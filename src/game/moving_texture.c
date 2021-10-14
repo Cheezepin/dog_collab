@@ -518,7 +518,6 @@ extern Movtex hmc_movtex_dorrie_pool_water[];
 extern Movtex hmc_movtex_toxic_maze_mist[];
 extern Movtex ssl_movtex_puddle_water[];
 extern Movtex ssl_movtex_toxbox_quicksand_mist[];
-extern Movtex sl_movtex_water[];
 extern Movtex wdw_movtex_area1_water[];
 extern Movtex wdw_movtex_area2_water[];
 extern Movtex jrb_movtex_water[];
@@ -557,8 +556,6 @@ void *get_quad_collection_from_id(u32 id) {
             return ssl_movtex_puddle_water;
         case SSL_MOVTEX_TOXBOX_QUICKSAND_MIST:
             return ssl_movtex_toxbox_quicksand_mist;
-        case SL_MOVTEX_WATER:
-            return sl_movtex_water;
         case WDW_MOVTEX_AREA1_WATER:
             return wdw_movtex_area1_water;
         case WDW_MOVTEX_AREA2_WATER:
