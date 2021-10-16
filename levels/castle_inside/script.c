@@ -173,7 +173,7 @@ static const LevelScript script_func_local_hmc_dorrie_and_spawners[] = {
     PAINTING_WARP_NODE(/*id*/ 0x0F, /*destLevel*/ LEVEL_SSL, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),
     PAINTING_WARP_NODE(/*id*/ 0x10, /*destLevel*/ LEVEL_SSL, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),
     PAINTING_WARP_NODE(/*id*/ 0x11, /*destLevel*/ LEVEL_SSL, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),
-    PAINTING_WARP_NODE(/*id*/ 0x2A, /*destLevel*/ LEVEL_HMC, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),
+    PAINTING_WARP_NODE(/*id*/ 0x2A, /*destLevel*/ LEVEL_HMC, /*destArea*/ 0x02, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),
     PAINTING_WARP_NODE(/*id*/ 0x15, /*destLevel*/ LEVEL_DDD, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),
     PAINTING_WARP_NODE(/*id*/ 0x16, /*destLevel*/ LEVEL_DDD, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),
     PAINTING_WARP_NODE(/*id*/ 0x17, /*destLevel*/ LEVEL_DDD, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),

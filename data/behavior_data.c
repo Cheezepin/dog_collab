@@ -343,13 +343,22 @@ const BehaviorScript bhvFazAmbient[] = {
 
 const BehaviorScript bhvHMCDoors[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UCODE_LARGE)),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UCODE_LARGE)),
     LOAD_COLLISION_DATA(doors_collision),
-    SET_HITBOX(/*Radius*/ 5000, /*Height*/ 1000),
     SET_FLOAT(oCollisionDistance, 6000),
     SET_FLOAT(oDrawingDistance, 6000),
     BEGIN_LOOP(),
-        SET_INT(oIntangibleTimer, 1),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvHMCElevator[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(hmcelevator_collision),
+    SET_FLOAT(oCollisionDistance, 1000),
+    SET_FLOAT(oDrawingDistance, 1000),
+    BEGIN_LOOP(),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };

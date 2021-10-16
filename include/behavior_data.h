@@ -8,6 +8,7 @@ extern const BehaviorScript bhvKoopaDialog[];
 extern const BehaviorScript bhvGoombaDialog[];
 extern const BehaviorScript bhvGoddardHMC[];
 extern const BehaviorScript bhvHMCDoors[];
+extern const BehaviorScript bhvHMCElevator[];
 
 extern const BehaviorScript bhvStarDoor[];
 extern const BehaviorScript bhvMrI[];

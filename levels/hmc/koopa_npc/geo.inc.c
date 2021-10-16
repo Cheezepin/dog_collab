@@ -3,9 +3,9 @@
 const GeoLayout koopa_npc_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_BONE(LAYER_OPAQUE, 0, -15, 0, 0, 16384, 0, NULL),
+		GEO_BONE(LAYER_TRANSPARENT_DECAL, 0, -1, 0, 0, 16384, 0, koopa_npc_Root_Bone_mesh_layer_6),
 		GEO_OPEN_NODE(),
-			GEO_BONE(LAYER_OPAQUE, 2, 63, 0, 0, 16384, 0, koopa_npc_Torso_mesh_layer_1),
+			GEO_BONE(LAYER_OPAQUE, 2, 49, 0, 0, 16384, 0, koopa_npc_Torso_mesh_layer_1),
 			GEO_OPEN_NODE(),
 				GEO_BONE(LAYER_OPAQUE, 0, 49, -5, 0, 0, 0, koopa_npc_Head_mesh_layer_1),
 				GEO_DISPLAY_LIST(LAYER_OPAQUE, koopa_npc_Left_Forarm_skinned_mesh_layer_1),
@@ -27,6 +27,7 @@ const GeoLayout koopa_npc_geo[] = {
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, koopa_npc_material_revert_render_settings),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, koopa_npc_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

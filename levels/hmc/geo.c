@@ -25,3 +25,4 @@
 
 #include "levels/hmc/koopa_npc/geo.inc.c"
 #include "levels/hmc/doors/geo.inc.c"
+#include "levels/hmc/hmcelevator/geo.inc.c"

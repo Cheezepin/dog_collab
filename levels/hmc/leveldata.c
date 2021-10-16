@@ -68,3 +68,5 @@
 #include "levels/hmc/koopa_npc/model.inc.c"
 #include "levels/hmc/doors/collision.inc.c"
 #include "levels/hmc/doors/model.inc.c"
+#include "levels/hmc/hmcelevator/collision.inc.c"
+#include "levels/hmc/hmcelevator/model.inc.c"
