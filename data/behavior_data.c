@@ -358,8 +358,10 @@ const BehaviorScript bhvHMCElevator[] = {
     LOAD_COLLISION_DATA(hmcelevator_collision),
     SET_FLOAT(oCollisionDistance, 1000),
     SET_FLOAT(oDrawingDistance, 1000),
+        CALL_NATIVE(hmcelevator_init),
     BEGIN_LOOP(),
         CALL_NATIVE(load_object_collision_model),
+        CALL_NATIVE(hmcelevator_loop),
     END_LOOP(),
 };
 

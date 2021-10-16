@@ -112,3 +112,50 @@ void goddard_hmc_loop(void)
 #undef GODDARD_ACT_IDLE
 #undef GODDARD_MODE_FLEE
 #undef GODDARD_MODE_STAY
+
+#define oMode oF4
+#define oMoving oF8
+#define oOff oFC
+
+void hmcelevator_init(void)
+{
+    o->oMode = o->oBehParams2ndByte;
+    o->oMoving = 0;
+    o->oOff = 0;
+}
+
+void hmcelevator_loop(void)
+{
+    if (gMarioObject->platform == o && !o->oMoving && o->oOff == 0)
+    {
+        o->oMoving = 1;
+        o->oOff = 1;
+    }
+    else
+    {
+        if (!o->oMoving)
+            o->oOff = 0;
+    }
+
+    if (o->oMoving)
+    {
+        if (o->oMode)
+        {
+            o->oPosY -= 25;
+        }
+        else
+            o->oPosY += 25;
+        cur_obj_play_sound_2(SOUND_ENV_ELEVATOR1);
+        if (gCurrAreaIndex == 2 && o->oPosY > 6000 && gMarioState->pos[1] > o->oPosY)
+            initiate_warp(LEVEL_HMC, 1, 0x0C, 0);
+        if (gCurrAreaIndex == 1 && o->oPosY < 1000 && gMarioState->pos[1] > o->oPosY)
+            initiate_warp(LEVEL_HMC, 2, 0x0C, 0);
+        o->oFloorHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, &o->oFloor);
+        if (o->oFloorHeight - 20 < o->oPosY)
+        {
+            o->oMode ^= 1;
+            o->oMoving = 0;
+            cur_obj_play_sound_2(SOUND_GENERAL_METAL_POUND);
+        }
+    }
+}
