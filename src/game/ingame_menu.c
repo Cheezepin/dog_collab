@@ -1114,13 +1114,13 @@ void render_dialog_string_color(s8 linesPerBox) {
 
 void handle_special_dialog_text(s16 dialogID) { // dialog ID tables, in order
     // King Bob-omb (Start), Whomp (Start), King Bob-omb (throw him out), Eyerock (Start), Wiggler (Start)
-    s16 dialogBossStart[] = { DIALOG_017, DIALOG_114, DIALOG_128, DIALOG_117, DIALOG_150 };
+    s16 dialogBossStart[] = { DIALOG_017, DIALOG_114, DIALOG_128, DIALOG_117 };
     // Koopa the Quick (BOB), Koopa the Quick (THI), Penguin Race, Fat Penguin Race (120 stars)
     s16 dialogRaceSound[] = { DIALOG_005, DIALOG_009, DIALOG_055, DIALOG_164 };
     // Red Switch, Green Switch, Blue Switch, 100 coins star, Bowser Red Coin Star
     s16 dialogStarSound[] = { DIALOG_010, DIALOG_011, DIALOG_012, DIALOG_013, DIALOG_014 };
     // King Bob-omb (Start), Whomp (Defeated), King Bob-omb (Defeated, missing in JP), Eyerock (Defeated), Wiggler (Defeated)
-    s16 dialogBossStop[] = { DIALOG_017, DIALOG_115, DIALOG_116, DIALOG_118, DIALOG_152 };
+    s16 dialogBossStop[] = { DIALOG_017, DIALOG_115, DIALOG_116, DIALOG_118 };
     s16 i;
 
     for (i = 0; i < (s16) ARRAY_COUNT(dialogBossStart); i++) {
@@ -2286,7 +2286,7 @@ u8 textEnterDogName[] = { TEXT_ENTER_DOG_NAME };
 u8 textKeyboardDefines[] = { TEXT_KEYBOARD_DEFINES };
 u8 dogStringTemp[DOG_STRING_LENGTH + 1] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF };
 u8 topBarMap[2][10] = {
-{ 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 }, 
+{ 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 },
 { 0xFA, 0xFD, 0xF9, 0xE5, 0xE6, 0xFB, 0xF2, 0xF3, 0xF4, 0xF7 }, };
 
 s32 gKeyboardShifted;
@@ -2340,8 +2340,8 @@ void render_dog_keyboard(void) {
             length = i;
         }
     }
-    
-    
+
+
     create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
     create_dl_translation_matrix(MENU_MTX_NOPUSH, 10.0f, 64.0f, 0.0f);
     // for(i = 0; i < 0x40; i++) {

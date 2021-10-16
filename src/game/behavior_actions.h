@@ -2,6 +2,8 @@
 #define BEHAVIOR_ACTIONS_H
 
 extern void faz_ambient_loop(void);
+extern void goddard_hmc_init(void);
+extern void goddard_hmc_loop(void);
 
 void spawn_mist_particles_variable(s32 count, s32 offsetY, f32 size);
 void bhv_spawn_star_no_level_exit(u32);

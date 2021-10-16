@@ -20,6 +20,13 @@ void scroll_hmc_dl_Lobby_002_mesh_layer_1_vtx_6() {
 	currentY += deltaY;
 }
 
+void scroll_sts_mat_hmc_dl_Water() {
+	Gfx *mat = segmented_to_virtual(mat_hmc_dl_Water);
+	shift_s(mat, 12, PACK_TILESIZE(0, 1));
+	shift_t(mat, 12, PACK_TILESIZE(0, 1));
+	shift_s(mat, 20, PACK_TILESIZE(0, 1));
+};
+
 void scroll_hmc_dl_Lobby_003_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 134;
@@ -66,6 +73,7 @@ void scroll_hmc_dl_Lobby_004_mesh_layer_1_vtx_0() {
 
 void scroll_hmc() {
 	scroll_hmc_dl_Lobby_002_mesh_layer_1_vtx_6();
+	scroll_sts_mat_hmc_dl_Water();
 	scroll_hmc_dl_Lobby_003_mesh_layer_1_vtx_0();
 	scroll_hmc_dl_Lobby_004_mesh_layer_1_vtx_0();
 }

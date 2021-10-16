@@ -66,3 +66,5 @@
 #include "levels/hmc/koopa_npc/anims/data.inc.c"
 #include "levels/hmc/koopa_npc/anims/table.inc.c"
 #include "levels/hmc/koopa_npc/model.inc.c"
+#include "levels/hmc/doors/collision.inc.c"
+#include "levels/hmc/doors/model.inc.c"

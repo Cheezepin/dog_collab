@@ -100,4 +100,8 @@ extern const LevelScript level_hmc_entry[];
 
 #include "levels/hmc/koopa_npc/geo_header.h"
 
+#include "levels/hmc/doors/collision_header.h"
+
+#include "levels/hmc/doors/geo_header.h"
+
 #endif

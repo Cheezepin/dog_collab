@@ -24,3 +24,4 @@
 #include "levels/hmc/geo.inc.c"
 
 #include "levels/hmc/koopa_npc/geo.inc.c"
+#include "levels/hmc/doors/geo.inc.c"
