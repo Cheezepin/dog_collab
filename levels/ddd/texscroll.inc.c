@@ -26,7 +26,14 @@ void scroll_sts_mat_ddd_dl_waterdecal_layer6() {
 	shift_t(mat, 21, PACK_TILESIZE(0, 4));
 };
 
+void scroll_sts_mat_ddd_dl_rains_layer7() {
+	Gfx *mat = segmented_to_virtual(mat_ddd_dl_rains_layer7);
+	shift_t(mat, 15, PACK_TILESIZE(0, 5));
+	shift_t(mat, 23, PACK_TILESIZE(0, 9));
+};
+
 void scroll_ddd() {
 	scroll_ddd_dl_WaterSideDecal_mesh_layer_6_vtx_0();
 	scroll_sts_mat_ddd_dl_waterdecal_layer6();
+	scroll_sts_mat_ddd_dl_rains_layer7();
 }
