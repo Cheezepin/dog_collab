@@ -151,7 +151,7 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_NONE, 2427, 1654, 6197, 0, 0, 0, 0x006A0000, bhvFadingWarp),
 		OBJECT(MODEL_FLOOR_DOOR, 3477, 1426, 3679, 0, 0, 0, 0x00000000, bhvFloorDoor),
 		OBJECT(MODEL_FWOOSH_BUTTON, 10221, 50, 8727, 0, 45, 0, 0x00000000, bhvFloorDoorButton),
-		OBJECT_WITH_ACTS(MODEL_ENTRANCE_GATE, -10364, 0, 9293, 0, 0, 0, 0x00000000, bhvEntranceGate, ACT_1 | ACT_2),
+		OBJECT_WITH_ACTS(MODEL_DOG, -8688, 9, 7214, 0, 0, 0, 0x00000000, bhvComitDog, ACT_1 | ACT_2),
 		OBJECT(MODEL_NONE, 3310, -728, 12482, 0, 0, 0, 0x00040000, bhvGoombaTripletSpawner),
 		OBJECT(MODEL_NONE, 8921, 50, 7066, 0, 0, 0, 0x00000000, bhvGoombaTripletSpawner),
 		OBJECT(MODEL_NONE, 4239, 1356, 5460, 0, 0, 0, 0x00010000, bhvGoombaTripletSpawner),

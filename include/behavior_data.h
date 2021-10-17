@@ -555,7 +555,7 @@ extern const BehaviorScript bhvMarioPlane[];
 //extern const BehaviorScript bhvSimpleSpinner[];
 extern const BehaviorScript bhvRotatingTorus[];
 
-
+//comit behaviors
 extern const BehaviorScript bhvBounceCloud[];
 extern const BehaviorScript bhvStretchCloud[];
 extern const BehaviorScript bhvRainbowCloud[];
@@ -587,12 +587,10 @@ extern const BehaviorScript bhvGuideLakitu[];
 extern const BehaviorScript bhvGateLakitu[];
 extern const BehaviorScript bhvEntranceGate[];
 extern const BehaviorScript bhvSpectatorLakitu[];
+extern const BehaviorScript bhvComitDog[];
+//comit behaviors end
 
 
-
-extern const BehaviorScript bhvSimpleSpinner[];
-extern const BehaviorScript bhvSimpleSpinnerShock[];
-extern const BehaviorScript bhvShockTexture[];
 extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
 

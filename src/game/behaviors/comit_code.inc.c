@@ -278,6 +278,44 @@ s32 Set_NPC_Dialog(s32 dialogId) {
 
 
 
+void bhv_comit_dog_loop(void) {
+    switch (o->oAction) {
+        case 0:
+            cur_obj_init_animation_with_sound(0);
+            if (gMarioState->pos[0] > -10000.0f && gMarioState->pos[0] < -1500.0f) {
+                o->oAction = 1;
+            } else {
+                o->oForwardVel = approach_f32(o->oForwardVel, 0, 1.0f, 1.0f);
+            }
+            break;
+        case 1:
+            cur_obj_update_floor_and_walls();
+            cur_obj_move_standard(-78);
+            if (o->oDistanceToMario > 1000.0f) {
+                o->oForwardVel = approach_f32(o->oForwardVel, 25.0f, 1.5f, 1.5f);
+            } else if (o->oDistanceToMario > 200.0f) {
+                o->oForwardVel = approach_f32(o->oForwardVel, 10.0f, 1.0f, 1.0f);
+            } else {
+                o->oForwardVel = approach_f32(o->oForwardVel, 0, 0.5f, 0.5f);
+            }
+
+            if (o->oForwardVel > 15.0f) {
+                cur_obj_init_animation_with_sound(2);
+            } else if (o->oForwardVel > 2.0f) {
+                cur_obj_init_animation_with_sound(3);
+            } else {
+                cur_obj_init_animation_with_sound(0);
+            }
+            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x300);
+
+            if (gMarioState->pos[0] < -10000.0f || gMarioState->pos[0] > -1500.0f) {
+                o->oAction = 0;
+            }
+            break;
+    }
+}
+
+
 
 void bhv_floor_door_button_loop(void) {
     switch (o->oAction) {
