@@ -93,19 +93,6 @@ static s32 find_wall_collisions_from_list(struct SurfaceNode *surfaceNode, struc
                     continue;
                 }
             }
-            if (surf->type == SURFACE_INTERACT_SHOCK) {
-                if (gCurrentObject != NULL && gCurrentObject == gMarioObject) {
-                    if(gMarioState->action & (ACT_FLAG_INTANGIBLE | ACT_FLAG_INVULNERABLE)) {
-                        print_fps(1,99);
-                     continue;
-                    }
-               
-                    else {
-                     spawn_object(o, MODEL_NONE, bhvShockTexture); 
-                    //continue;
-                    }
-               }
-            }
         }
         if (pos[1] < surf->lowerY || pos[1] > surf->upperY) {
             continue;

@@ -404,38 +404,32 @@ s32 bonk_or_hit_lava_wall(struct MarioState *m, struct WallCollisionData *wallDa
     s16 i;
     s16 wallDYaw;
     s32 oldWallDYaw;
-    s32 absWallDYaw;
-    s32 result;
-    result = AIR_STEP_NONE;
+    s32 result = AIR_STEP_NONE;
 
     if (m->wall != NULL) {
         oldWallDYaw = atan2s(m->wall->normal.z, m->wall->normal.x) - m->faceAngle[1];
-        oldWallDYaw = oldWallDYaw < 0 ? -oldWallDYaw : oldWallDYaw;
+        oldWallDYaw = ABSI(oldWallDYaw);
+    } else {
+        oldWallDYaw = 0x0;
     }
-    else
-        oldWallDYaw = 0;
-
     for (i = 0; i < wallData->numWalls; i++) {
         if (wallData->walls[i] != NULL) {
-            wallDYaw = atan2s(wallData->walls[i]->normal.z, wallData->walls[i]->normal.x) - m->faceAngle[1];
             if (wallData->walls[i]->type == SURFACE_BURNING) {
-                m->wall = wallData->walls[i];
+                set_mario_wall(m, wallData->walls[i]);
                 return AIR_STEP_HIT_LAVA_WALL;
             }
 
             // Update wall reference (bonked wall) only if the new wall has a better facing angle
-            absWallDYaw = wallDYaw < 0 ? -wallDYaw : wallDYaw;
-            if (absWallDYaw > oldWallDYaw) {
-                oldWallDYaw = absWallDYaw;
-                m->wall = wallData->walls[i];
+            wallDYaw = abs_angle_diff(atan2s(wallData->walls[i]->normal.z, wallData->walls[i]->normal.x), m->faceAngle[1]);
+            if (wallDYaw > oldWallDYaw) {
+                oldWallDYaw = wallDYaw;
+                set_mario_wall(m, wallData->walls[i]);
 
-                if (wallDYaw < -0x6000 || wallDYaw > 0x6000) {
+                if (wallDYaw > DEGREES(180 - WALL_KICK_DEGREES)) {
                     m->flags |= MARIO_AIR_HIT_WALL;
                     result = AIR_STEP_HIT_WALL;
                 }
             }
-
-
         }
     }
     return result;

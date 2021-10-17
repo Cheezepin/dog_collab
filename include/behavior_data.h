@@ -549,10 +549,10 @@ extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
 extern const BehaviorScript bhvRotatingTorus[];
-extern const BehaviorScript bhvElectricSpinner[];
-extern const BehaviorScript bhvSimpleSpinner[];
-extern const BehaviorScript bhvSimpleSpinnerShock[];
-extern const BehaviorScript bhvShockTexture[];
+//extern const BehaviorScript bhvElectricSpinner[];
+//extern const BehaviorScript bhvSimpleSpinner[];
+//extern const BehaviorScript bhvSimpleSpinnerShock[];
+//extern const BehaviorScript bhvShockTexture[];
 extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
 

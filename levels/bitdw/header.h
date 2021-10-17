@@ -33,6 +33,7 @@ extern const GeoLayout geo_bitdw_000618[];
 extern const GeoLayout rainbow_chain_geo[];
 extern const GeoLayout electric_spinner_geo[];
 extern const GeoLayout simple_spinner_geo[];
+extern const GeoLayout simple_spinner_shock_geo[];
 extern const GeoLayout sphere_geo[];
 
 // leveldata

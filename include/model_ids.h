@@ -212,6 +212,7 @@
 #define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA      
 #define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB 
 #define MODEL_BITDW_SIMPLE_SPINNER                0x1AC
+#define MODEL_BITDW_SIMPLE_SPINNER_SHOCK          0x1AE       // I was to lazy to change all the model numbers so its out of order here
 #define MODEL_BITDW_SPHERE                        0x1AD
 
 // vcutm
