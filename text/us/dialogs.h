@@ -1789,11 +1789,10 @@ inside as soon as someone\n\
 enters, but it's not\n\
 their voice..."))
 
-DEFINE_DIALOG(DIALOG_160, 1, 4, 30, 200, _("\
-Press [B] while running\n\
-fast to do a Body Slide\n\
-attack. To stand while\n\
-sliding, press [A] or [B]."))
+DEFINE_DIALOG(DIALOG_160, 1, 3, 30, 200, _("\
+Shoutouts to Fazana\n\
+for making the deadline\n\
+without need for extension."))
 
 #ifdef VERSION_EU
 #define KEEP_ON_PLAYING ".."

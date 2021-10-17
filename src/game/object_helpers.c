@@ -2256,6 +2256,27 @@ void bhv_init_room(void) {
     }
 }
 
+void obj_init_room(struct Object *obj) {
+    struct Surface *floor;
+    f32 floorHeight;
+
+        floorHeight = find_floor(obj->oPosX, obj->oPosY, obj->oPosZ, &floor);
+
+        if (floor != NULL) {
+            if (floor->room != 0) {
+                obj->oRoom = floor->room;
+            } else {
+                // Floor probably belongs to a platform object. Try looking
+                // underneath it
+                find_floor(obj->oPosX, floorHeight - 100.0f, obj->oPosZ, &floor);
+                if (floor != NULL) {
+                    //! Technically possible that the room could still be 0 here
+                    obj->oRoom = floor->room;
+                }
+            }
+        }
+}
+
 void cur_obj_enable_rendering_if_mario_in_room(void) {
     register s32 marioInRoom;
 

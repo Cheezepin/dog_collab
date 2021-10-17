@@ -58,8 +58,39 @@ void goddard_flee(void)
     }
 }
 
+void goddard_unlock_door(struct Object *door)
+{
+    Vec3f targetPos = {door->oPosX, door->oPosY, door->oPosZ};
+
+    if (door != NULL && lateral_dist_between_objects(o, door) < 450)
+    {
+        o->oHeldState = HELD_FREE;
+        drop_and_set_mario_action(gMarioState, ACT_IDLE, 0);
+
+        o->oPosX = approach_s32(o->oPosX, targetPos[0], 25, 25);
+        o->oPosZ = approach_s32(o->oPosZ, targetPos[2], 25, 25);
+
+        if (lateral_dist_between_objects(o, door) < 50)
+        {
+            struct Object *obj = create_object(bhvExplosion);
+            obj->oPosX = o->oPosX;
+            obj->oPosY = o->oPosY;
+            obj->oPosZ = o->oPosZ;
+            obj_set_model(obj, MODEL_EXPLOSION);
+            obj_mark_for_deletion(door);
+            obj_mark_for_deletion(o);
+        }
+    }
+}
+
 void goddard_hmc_loop(void)
 {
+    struct Object *door = cur_obj_nearest_object_with_behavior(bhvDoorDog);
+    if (door != NULL && lateral_dist_between_objects(o, door) < 500)
+    {
+        goddard_unlock_door(door);
+        return;
+    }
     if (o->oHeldState == HELD_FREE && !o->oPicked)
         goddard_flee();
     else
@@ -117,45 +148,95 @@ void goddard_hmc_loop(void)
 #define oMoving oF8
 #define oOff oFC
 
+u8 elevatorCD = 0;
+
 void hmcelevator_init(void)
 {
     o->oMode = o->oBehParams2ndByte;
     o->oMoving = 0;
     o->oOff = 0;
+    if (gCurrAreaIndex == 2 && gMarioState->pos[1] > 5000)
+    {
+        stop_background_music(SEQ_LEVEL_UNDERGROUND);
+        o->oPosY = gMarioState->pos[1]-100;
+        o->oMode = 1;
+        o->oMoving = 1;
+        elevatorCD = 1;
+    }
+    if (gCurrAreaIndex == 1 && gMarioState->pos[1] < 1000 && gMarioState->pos[1] > 100)
+    {
+        stop_background_music(SEQ_LEVEL_SNOW);
+        o->oPosY = gMarioState->pos[1]-100;
+        o->oMode = 0;
+        o->oMoving = 1;
+        elevatorCD = 1;
+        gMarioCurrentRoom = 2;
+    }
+
 }
+
+Vec3s warpRelPos = {32000, 32000, 32000};
 
 void hmcelevator_loop(void)
 {
-    if (gMarioObject->platform == o && !o->oMoving && o->oOff == 0)
+    if (gMarioObject->platform == o && !o->oMoving && o->oOff == 0 && !elevatorCD)
     {
         o->oMoving = 1;
         o->oOff = 1;
+        //play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 60, 0, 0, 0);
     }
     else
     {
-        if (!o->oMoving)
+        if (!o->oMoving && o->oDistanceToMario > 250)
+        {
             o->oOff = 0;
+            if ((gCurrAreaIndex == 1 || gMarioState->pos[1] < 5000) && (gCurrAreaIndex == 2 || gMarioState->pos[1] > 1100))
+                elevatorCD = 0;
+        }
     }
 
     if (o->oMoving)
     {
         if (o->oMode)
-        {
             o->oPosY -= 25;
-        }
         else
             o->oPosY += 25;
-        cur_obj_play_sound_2(SOUND_ENV_ELEVATOR1);
-        if (gCurrAreaIndex == 2 && o->oPosY > 6000 && gMarioState->pos[1] > o->oPosY)
-            initiate_warp(LEVEL_HMC, 1, 0x0C, 0);
-        if (gCurrAreaIndex == 1 && o->oPosY < 1000 && gMarioState->pos[1] > o->oPosY)
-            initiate_warp(LEVEL_HMC, 2, 0x0C, 0);
-        o->oFloorHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, &o->oFloor);
-        if (o->oFloorHeight - 20 < o->oPosY)
+
+
+        if (o->oPosY < 4219 && gCurrAreaIndex == 2)
         {
             o->oMode ^= 1;
             o->oMoving = 0;
+            o->oOff = 1;
             cur_obj_play_sound_2(SOUND_GENERAL_METAL_POUND);
+            set_background_music(SEQ_LEVEL_UNDERGROUND, SEQUENCE_ARGS(4, SEQ_LEVEL_UNDERGROUND), 30);
+        }
+        if (o->oPosY > 1421 && gCurrAreaIndex == 1)
+        {
+            o->oMode ^= 1;
+            o->oMoving = 0;
+            o->oOff = 1;
+            cur_obj_play_sound_2(SOUND_GENERAL_METAL_POUND);
+            set_background_music(SEQ_LEVEL_SNOW, SEQUENCE_ARGS(4, SEQ_LEVEL_SNOW), 30);
+        }
+
+
+        cur_obj_play_sound_2(SOUND_ENV_ELEVATOR1);
+        if (gCurrAreaIndex == 2 && o->oPosY > 8000 && gMarioState->pos[1] > o->oPosY-100 && !elevatorCD)
+        {
+            warpRelPos[0] = o->oPosX - gMarioState->pos[0];
+            warpRelPos[1] = o->oPosZ - gMarioState->pos[2];
+            warpRelPos[2] = gMarioState->faceAngle[1];
+            elevatorCD = 1;
+            initiate_warp(LEVEL_HMC, 1, 0x0C, 0);
+        }
+        if (gCurrAreaIndex == 1 && o->oPosY < 0 && gMarioState->pos[1] > o->oPosY-100 && !elevatorCD)
+        {
+            warpRelPos[0] = o->oPosX - gMarioState->pos[0];
+            warpRelPos[1] = o->oPosZ - gMarioState->pos[2];
+            warpRelPos[2] = gMarioState->faceAngle[1];
+            elevatorCD = 1;
+            initiate_warp(LEVEL_HMC, 2, 0x0B, 0);
         }
     }
 }

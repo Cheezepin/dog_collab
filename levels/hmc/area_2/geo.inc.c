@@ -24,6 +24,7 @@ const GeoLayout hmc_dl_Area_2_Room_1_geo[] = {
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 850, 4560, -1697, hmc_dl_Lobby_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 2277, 4217, -1836, hmc_dl_Lobby_Boss_Mat_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -1087, 4329, -692, 0, -6, 0, hmc_dl_Lobby_Crates_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 850, 4560, -1697, hmc_dl_Lobby_006_mesh_layer_5),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_ALPHA, -728, 4251, -469, 0, 72, 0, hmc_dl_Plane_003_mesh_layer_4),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

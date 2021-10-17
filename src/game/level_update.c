@@ -363,10 +363,15 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
         case MARIO_SPAWN_LAUNCH_DEATH:
             set_mario_action(m, ACT_SPECIAL_DEATH_EXIT, 0);
             break;
+        case MARIO_SPAWN_PRESERVE_POS:
+            set_mario_action(m, ACT_IDLE, 0);
+            break;
     }
 
     set_mario_initial_cap_powerup(m);
 }
+
+extern Vec3s warpRelPos;
 
 void init_mario_after_warp(void) {
     struct ObjectWarpNode *spawnNode = area_get_warp_node(sWarpDest.nodeId);
@@ -380,6 +385,14 @@ void init_mario_after_warp(void) {
         gPlayerSpawnInfos[0].startAngle[0] = 0;
         gPlayerSpawnInfos[0].startAngle[1] = spawnNode->object->oMoveAngleYaw;
         gPlayerSpawnInfos[0].startAngle[2] = 0;
+
+        if (warpRelPos[0] != 32000)
+        {
+            gPlayerSpawnInfos[0].startPos[0] -= warpRelPos[0];
+            gPlayerSpawnInfos[0].startPos[2] -= warpRelPos[1];
+            gPlayerSpawnInfos[0].startAngle[1] = warpRelPos[2];
+            warpRelPos[0] = 32000;
+        }
 
         if (marioSpawnType == MARIO_SPAWN_DOOR_WARP) {
             init_door_warp(&gPlayerSpawnInfos[0], sWarpDest.arg);
@@ -419,6 +432,8 @@ void init_mario_after_warp(void) {
             break;
         case MARIO_SPAWN_FADE_FROM_BLACK:
             play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x10, 0x00, 0x00, 0x00);
+            break;
+        case MARIO_SPAWN_PRESERVE_POS:
             break;
         default:
             play_transition(WARP_TRANSITION_FADE_FROM_STAR, 0x10, 0x00, 0x00, 0x00);

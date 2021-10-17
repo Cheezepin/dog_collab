@@ -13,6 +13,7 @@
 #include "spawn_object.h"
 #include "types.h"
 #include "puppylights.h"
+#include "level_update.h"
 
 /**
  * An unused linked list struct that seems to have been replaced by ObjectNode.
@@ -349,6 +350,9 @@ struct Object *create_object(const BehaviorScript *bhvScript) {
         default:
             break;
     }
+
+    if (gCurrLevelNum == LEVEL_HMC && gCurrAreaIndex == 2 && gMarioState->marioObj)
+        obj_init_room(obj);
 
     return obj;
 }
