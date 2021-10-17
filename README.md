@@ -1,4 +1,7 @@
 # SM64 Dog Collab
+
+**[Thank you to Kaze Emanuar for these major optimizations!](https://www.youtube.com/watch?v=uYPH-NH3B6k)
+
 **AFTER CLONING THE REPO, CHECK OUT THE `include/config.h` FILE BEFORE ANYTHING ELSE! IT THERE'S A LOT OF STUFF IN THIS REPO THAT CAN BE TOGGLED THERE.**
 
 HackerSM64 now has a discord server! https://discord.gg/brETAakcXr
