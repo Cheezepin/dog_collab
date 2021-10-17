@@ -110,13 +110,13 @@
 #define MODEL_CASTLE_CLOCK_PENDULUM            0x39        // castle_geo_001518
 
 // hmc
-#define MODEL_HMC_METAL_PLATFORM               0x36        // hmc_geo_controllable_arrow_platform
-#define MODEL_HMC_METAL_ARROW_PLATFORM         0x37        // hmc_geo_controllable_arrow_platform_button
-#define MODEL_HMC_ELEVATOR_PLATFORM            0x38        // hmc_geo_elevator_platform
-#define MODEL_HMC_ROLLING_ROCK                 0x39        // hmc_geo_rolling_rock
-#define MODEL_HMC_ROCK_PIECE                   0x3A        // hmc_geo_rolling_rock_fragment_large - unused
-#define MODEL_HMC_ROCK_SMALL_PIECE             0x3B        // hmc_geo_rolling_rock_fragment_small - unused
-#define MODEL_HMC_RED_GRILLS                   0x3C        // hmc_geo_grill_door
+#define MODEL_HMC_METAL_PLATFORM               0x36        // hmc_geo_0005A0
+#define MODEL_HMC_METAL_ARROW_PLATFORM         0x37        // hmc_geo_0005B8
+#define MODEL_HMC_ELEVATOR_PLATFORM            0x38        // hmc_geo_0005D0
+#define MODEL_HMC_ROLLING_ROCK                 0x39        // hmc_geo_000548
+#define MODEL_HMC_ROCK_PIECE                   0x3A        // hmc_geo_000570 - unused
+#define MODEL_HMC_ROCK_SMALL_PIECE             0x3B        // hmc_geo_000588 - unused
+#define MODEL_HMC_RED_GRILLS                   0x3C        // hmc_geo_000530
 
 // ssl
 #define MODEL_SSL_PYRAMID_TOP                  0x3A        // ssl_geo_000618
@@ -212,6 +212,7 @@
 #define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA      
 #define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB 
 #define MODEL_BITDW_SIMPLE_SPINNER                0x1AC
+#define MODEL_BITDW_SIMPLE_SPINNER_SHOCK          0x1AE       // I was to lazy to change all the model numbers so its out of order here
 #define MODEL_BITDW_SPHERE                        0x1AD
 
 // vcutm
@@ -590,6 +591,8 @@
 
 #define MODEL_DOG                         0xFF
 
+#define MODEL_CEPHIE                      0x100
+
 #define MODEL_REX                         0x1FF
 #define MODEL_GALOOMBA                    0x1FE
 #define MODEL_BLOOPER                     0x1FD
@@ -604,5 +607,14 @@
 #define MODEL_SPIKE                       0x1F4
 #define MODEL_SPIKE_BALL                  0x1F3
 #define MODEL_PODOBOO                     0x1F2
+
+//START ROVERT MODEL IDS
+
+#define MODEL_MAGMA_THWOMP 0x100
+#define MODEL_SWING_BOARD 0x101
+#define MODEL_PROPANE_THROWER 0x102
+#define MODEL_LAVA_GRATE 0x103
+
+//END ROVERT MODEL IDS
 
 #endif // MODEL_IDS_H
