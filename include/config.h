@@ -106,6 +106,7 @@
 // The last frame that will be considered a firsty when wallkicking
 #define FIRSTY_LAST_FRAME 1
 // The maximum angle the player can wall kick, in degrees. 0..90. To allow 45 degree wall kicks, you must supply `46` to allow 45 and under.
+// 46 degree walkicks
 #define WALL_KICK_DEGREES 46
 // Disable BLJs and crush SimpleFlips's dreams
 //#define DISABLE_BLJ
@@ -204,7 +205,7 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
-// #define TEST_LEVEL LEVEL_SL
+ #define TEST_LEVEL LEVEL_BITDW
 // Enable debug level select
 //#define DEBUG_LEVEL_SELECT
 // Enable debug free move (DPad up to enter, A to exit)

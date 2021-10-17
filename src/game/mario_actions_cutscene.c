@@ -686,6 +686,7 @@ s32 act_standing_death(struct MarioState *m) {
 s32 act_electrocution(struct MarioState *m) {
     play_sound_if_no_flag(m, SOUND_MARIO_DYING, MARIO_ACTION_SOUND_PLAYED);
     common_death_handler(m, MARIO_ANIM_ELECTROCUTION, 43);
+    
     return FALSE;
 }
 
