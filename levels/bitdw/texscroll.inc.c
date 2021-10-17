@@ -1,6 +1,6 @@
 void scroll_bitdw_dl_area_2_torus_mesh_layer_5_vtx_0() {
 	int i = 0;
-	int count = 281;
+	int count = 202;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
@@ -132,7 +132,7 @@ void scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0() {
 
 void scroll_bitdw_dl_first_torus_mesh_layer_1_vtx_0() {
 	int i = 0;
-	int count = 443;
+	int count = 438;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
@@ -342,14 +342,14 @@ void scroll_bitdw_dl_Torus_023_mesh_layer_1_vtx_0() {
 void scroll_sts_mat_bitdw_dl_electricity_layer5() {
 	Gfx *mat = segmented_to_virtual(mat_bitdw_dl_electricity_layer5);
 	shift_s(mat, 13, PACK_TILESIZE(0, 5));
-	shift_t(mat, 13, PACK_TILESIZE(0, 4));
+	shift_t_down(mat, 13, PACK_TILESIZE(0, 4));
 	shift_s_down(mat, 21, PACK_TILESIZE(0, 3));
 	shift_t(mat, 21, PACK_TILESIZE(0, 8));
 };
 
 void scroll_bitdw_dl_TOWER_mesh_layer_5_vtx_0() {
 	int i = 0;
-	int count = 209;
+	int count = 210;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
@@ -380,28 +380,6 @@ void scroll_bitdw_dl_TOWER_mesh_layer_5_vtx_0() {
 	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
 
-void scroll_bitdw_dl_TOWER_mesh_layer_5_vtx_1() {
-	int i = 0;
-	int count = 46;
-	int width = 32 * 0x20;
-	int height = 32 * 0x20;
-
-	static int currentY = 0;
-	int deltaY;
-	Vtx *vertices = segmented_to_virtual(bitdw_dl_TOWER_mesh_layer_5_vtx_1);
-
-	deltaY = (int)(0.9400004148483276 * 0x20) % height;
-
-	if (absi(currentY) > height) {
-		deltaY -= (int)(absi(currentY) / height) * height * signum_positive(deltaY);
-	}
-
-	for (i = 0; i < count; i++) {
-		vertices[i].n.tc[1] += deltaY;
-	}
-	currentY += deltaY;
-}
-
 void scroll_bitdw_dl_tower_jumps_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 24;
@@ -410,40 +388,29 @@ void scroll_bitdw_dl_tower_jumps_mesh_layer_5_vtx_0() {
 
 	static int currentX = 0;
 	int deltaX;
+	static int currentY = 0;
+	int deltaY;
+	static int timeY;
+	float amplitudeY = 0.46000003814697266;
+	float frequencyY = 0.1899999976158142;
+	float offsetY = 0.0;
 	Vtx *vertices = segmented_to_virtual(bitdw_dl_tower_jumps_mesh_layer_5_vtx_0);
 
-	deltaX = (int)(0.4300000071525574 * 0x20) % width;
+	deltaX = (int)(0.12999999523162842 * 0x20) % width;
+	deltaY = (int)(amplitudeY * frequencyY * coss((frequencyY * timeY + offsetY) * (1024 * 16 - 1) / 6.28318530718) * 0x20);
 
 	if (absi(currentX) > width) {
 		deltaX -= (int)(absi(currentX) / width) * width * signum_positive(deltaX);
 	}
-
-	for (i = 0; i < count; i++) {
-		vertices[i].n.tc[0] += deltaX;
-	}
-	currentX += deltaX;
-}
-
-void scroll_bitdw_dl_TOWER_panel_mesh_layer_5_vtx_0() {
-	int i = 0;
-	int count = 4;
-	int width = 32 * 0x20;
-	int height = 32 * 0x20;
-
-	static int currentY = 0;
-	int deltaY;
-	Vtx *vertices = segmented_to_virtual(bitdw_dl_TOWER_panel_mesh_layer_5_vtx_0);
-
-	deltaY = (int)(0.9400004148483276 * 0x20) % height;
-
 	if (absi(currentY) > height) {
 		deltaY -= (int)(absi(currentY) / height) * height * signum_positive(deltaY);
 	}
 
 	for (i = 0; i < count; i++) {
+		vertices[i].n.tc[0] += deltaX;
 		vertices[i].n.tc[1] += deltaY;
 	}
-	currentY += deltaY;
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
 
 void scroll_bitdw_dl_TOWER_002_mesh_layer_5_vtx_0() {
@@ -476,18 +443,29 @@ void scroll_bitdw_dl_TOWER_003_mesh_layer_5_vtx_0() {
 
 	static int currentX = 0;
 	int deltaX;
+	static int currentY = 0;
+	int deltaY;
+	static int timeY;
+	float amplitudeY = 0.46000003814697266;
+	float frequencyY = 0.1899999976158142;
+	float offsetY = 0.0;
 	Vtx *vertices = segmented_to_virtual(bitdw_dl_TOWER_003_mesh_layer_5_vtx_0);
 
-	deltaX = (int)(0.4300000071525574 * 0x20) % width;
+	deltaX = (int)(0.12999999523162842 * 0x20) % width;
+	deltaY = (int)(amplitudeY * frequencyY * coss((frequencyY * timeY + offsetY) * (1024 * 16 - 1) / 6.28318530718) * 0x20);
 
 	if (absi(currentX) > width) {
 		deltaX -= (int)(absi(currentX) / width) * width * signum_positive(deltaX);
 	}
+	if (absi(currentY) > height) {
+		deltaY -= (int)(absi(currentY) / height) * height * signum_positive(deltaY);
+	}
 
 	for (i = 0; i < count; i++) {
 		vertices[i].n.tc[0] += deltaX;
+		vertices[i].n.tc[1] += deltaY;
 	}
-	currentX += deltaX;
+	currentX += deltaX;	currentY += deltaY;	timeY += 1;
 }
 
 void scroll_bitdw_dl_walljumps_mesh_layer_5_vtx_0() {
@@ -559,9 +537,7 @@ void scroll_bitdw() {
 	scroll_bitdw_dl_Torus_023_mesh_layer_1_vtx_0();
 	scroll_sts_mat_bitdw_dl_electricity_layer5();
 	scroll_bitdw_dl_TOWER_mesh_layer_5_vtx_0();
-	scroll_bitdw_dl_TOWER_mesh_layer_5_vtx_1();
 	scroll_bitdw_dl_tower_jumps_mesh_layer_5_vtx_0();
-	scroll_bitdw_dl_TOWER_panel_mesh_layer_5_vtx_0();
 	scroll_bitdw_dl_TOWER_002_mesh_layer_5_vtx_0();
 	scroll_bitdw_dl_TOWER_003_mesh_layer_5_vtx_0();
 	scroll_bitdw_dl_walljumps_mesh_layer_5_vtx_0();
