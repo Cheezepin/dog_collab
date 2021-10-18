@@ -611,14 +611,6 @@ f32 find_floor_height_relative_polar(struct MarioState *m, s16 angleFromMario, f
     return find_floor(m->pos[0] + y, m->pos[1] + 100.0f, m->pos[2] + x, &floor);
 }
 
-Bool32 set_mario_wall(struct MarioState *m, struct Surface *wall) {
-    if (m->wall != wall) {
-        m->wall  = wall;
-        if (m->wall != NULL) m->wallYaw = SURFACE_YAW(wall);
-    }
-    return (m->wall != NULL);
-}
-
 /**
  * Returns the slope of the floor based off points around Mario.
  */
@@ -776,8 +768,16 @@ static u32 set_mario_action_airborne(struct MarioState *m, u32 action, u32 actio
         case ACT_WATER_JUMP:
         case ACT_HOLD_WATER_JUMP:
             if (actionArg == 0) {
-                set_mario_y_vel_based_on_fspeed(m, 42.0f, 0.0f);
+                set_mario_y_vel_based_on_fspeed(
+                    m,
+                    42.0f,
+                    m->waterForce > 0.0f ? 0.0f : 0.25f
+                );
+                m->vel[1] += MAX(0, m->waterForce * 0.5f);
             }
+            // ACT_JUMP has replaced ACT_WATER_JUMP
+            action = action == ACT_WATER_JUMP ? ACT_JUMP : ACT_HOLD_JUMP;
+            set_camera_mode(m->area->camera, m->area->camera->defMode, 1);
             break;
 
         case ACT_BURNING_JUMP:
@@ -1318,9 +1318,15 @@ void update_mario_geometry_inputs(struct MarioState *m) {
 
     m->ceilHeight = find_ceil(m->pos[0], m->pos[1] + 3.0f, m->pos[2], &m->ceil);
     gasLevel = find_poison_gas_level(m->pos[0], m->pos[2]);
+
     gCheckingWaterForMario = TRUE;
     m->prevWaterLevel = m->waterLevel;
-    m->waterLevel = find_water_level(m->pos[0], m->pos[2]);
+    struct Surface *water = NULL;
+    m->waterLevel = find_water_level_and_floor(m->pos[0], m->pos[2], &water);
+    if (!water || (water && !water->object) || !(m->action & ACT_FLAG_SWIMMING)) {
+        m->waterForce = 0.0f;
+    }
+    m->water = water;
     gCheckingWaterForMario = FALSE;
 
     if (m->floor != NULL) {

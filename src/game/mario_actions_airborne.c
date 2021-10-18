@@ -824,6 +824,7 @@ s32 act_air_throw(struct MarioState *m) {
     return FALSE;
 }
 
+// UNUSED
 s32 act_water_jump(struct MarioState *m) {
     set_camera_mode(m->area->camera, m->area->camera->defMode, 1);
     set_mario_action(m, ACT_JUMP, 0);
