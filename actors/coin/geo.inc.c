@@ -52,7 +52,7 @@ const GeoLayout blue_coin_alpha_geo[] = {
          GEO_DISPLAY_LIST(LAYER_OCCLUDE_SILHOUETTE_ALPHA, coin_seg3_dl_03007918),
       GEO_CLOSE_NODE(),
    GEO_CLOSE_NODE(),
-   GEO_END(),
+   GEO_RETURN(),
 };
 
 const GeoLayout blue_coin_trans_geo[] = {
@@ -70,7 +70,7 @@ const GeoLayout blue_coin_trans_geo[] = {
          GEO_DISPLAY_LIST(LAYER_TRANSPARENT, coin_seg3_dl_03007918),
       GEO_CLOSE_NODE(),
    GEO_CLOSE_NODE(),
-   GEO_END(),
+   GEO_RETURN(),
 };
 
 
