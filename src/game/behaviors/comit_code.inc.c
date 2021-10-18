@@ -277,13 +277,61 @@ s32 Set_NPC_Dialog(s32 dialogId) {
 }
 
 
-
-void bhv_comit_dog_loop(void) {
+void comit_dog_dialog_loop(void) {
     switch (o->oAction) {
         case 0:
-            cur_obj_init_animation_with_sound(0);
-            if (gMarioState->pos[0] > -10000.0f && gMarioState->pos[0] < -1500.0f) {
+            if(o->oInteractStatus == INT_STATUS_INTERACTED) {
                 o->oAction = 1;
+            }
+            break;
+        case 1:
+            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
+            if (Set_NPC_Dialog(o->oBehParams2ndByte)) {
+                o->oAction = 0;
+            }
+            break;
+    }
+    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x1C0);
+    o->oInteractStatus = 0;
+}
+
+
+s32 comit_dog_in_bounds(s32 param) {
+    switch (param) {
+        case 0:
+            if (gMarioState->pos[0] > -10000.0f && gMarioState->pos[0] < -3200.0f)
+                return 1;
+            break;
+        case 1:
+            if (gMarioState->pos[0] > 1400.0f && gMarioState->pos[0] < 7000.0f) {
+                if (gMarioState->pos[2] > 10000.0f && gMarioState->pos[2] < 16220.0f)
+                    return 1;
+            }
+            break;
+        case 2:
+            if (gMarioState->pos[0] > 7000.0f && gMarioState->pos[0] < 11800.0f) {
+                if (gMarioState->pos[2] > 5000.0f && gMarioState->pos[2] < 10000.0f)
+                    return 1;
+            }
+            break;
+        case 3:
+            if (gMarioState->pos[0] > 1000.0f && gMarioState->pos[0] < 5500.0f) {
+                if (gMarioState->pos[2] > 3000.0f && gMarioState->pos[2] < 7000.0f)
+                    return 1;
+            }
+            break;
+    }
+    return 0;
+}
+
+
+
+void bhv_comit_dog_loop(void) {
+    switch (o->o110) {
+        case 0:
+            cur_obj_init_animation_with_sound(0);
+            if (comit_dog_in_bounds(o->oBehParams >> 24)) {
+                o->o110 = 1;
             } else {
                 o->oForwardVel = approach_f32(o->oForwardVel, 0, 1.0f, 1.0f);
             }
@@ -294,7 +342,7 @@ void bhv_comit_dog_loop(void) {
             if (o->oDistanceToMario > 1000.0f) {
                 o->oForwardVel = approach_f32(o->oForwardVel, 25.0f, 1.5f, 1.5f);
             } else if (o->oDistanceToMario > 200.0f) {
-                o->oForwardVel = approach_f32(o->oForwardVel, 10.0f, 1.0f, 1.0f);
+                o->oForwardVel = approach_f32(o->oForwardVel, 12.0f, 1.0f, 1.0f);
             } else {
                 o->oForwardVel = approach_f32(o->oForwardVel, 0, 0.5f, 0.5f);
             }
@@ -308,11 +356,12 @@ void bhv_comit_dog_loop(void) {
             }
             o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x300);
 
-            if (gMarioState->pos[0] < -10000.0f || gMarioState->pos[0] > -1500.0f) {
-                o->oAction = 0;
+            if (!comit_dog_in_bounds(o->oBehParams >> 24)) {
+                o->o110 = 0;
             }
             break;
     }
+    comit_dog_dialog_loop();
 }
 
 
