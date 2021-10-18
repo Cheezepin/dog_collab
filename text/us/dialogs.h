@@ -2210,3 +2210,35 @@ CUMULUS RESEARCH\n\
 FACILITY ROOM 29B\n\
 ------------------\n\
 CURRENT STATUS: ACTIVE"))
+
+DEFINE_DIALOG(COMIT_DIALOG_13, 1, 3, 30, 200, _("\
+Bark! Bark!\n\
+\n\
+Bark!\n\
+(He's looking at that\n\
+blue floating object\n\
+over there)"))
+
+DEFINE_DIALOG(COMIT_DIALOG_14, 1, 2, 30, 200, _("\
+RRRRRR... WOOF WOOF\n\
+WOOFWOOFWOOFWOOF\n\
+(He seems to be barking\n\
+at what's down there)"))
+
+DEFINE_DIALOG(COMIT_DIALOG_15, 1, 3, 30, 200, _("\
+Arf!\n\
+...\n\
+...\n\
+(His thoughts are empty\n\
+at the moment. He's\n\
+just happy to see you.)"))
+
+DEFINE_DIALOG(COMIT_DIALOG_16, 1, 4, 30, 200, _("\
+Ruff, ruff\n\
+ruff ruff ruff ruff\n\
+woof bark ruff\n\
+\n\
+(He thinks he saw a\n\
+button that could open\n\
+that tunnel. Try checking\n\
+that fenced off cage...)"))

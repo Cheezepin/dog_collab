@@ -6358,7 +6358,6 @@ const BehaviorScript bhvCRainCloud[] = {
     OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(rain_cloud_collision),
     SET_FLOAT(oDrawingDistance, 0x4000),
-    //SET_FLOAT(oCollisionDistance, 0x600),
     SET_HOME(),
     //CALL_NATIVE(bhv_rain_cloud_init),
     CALL_NATIVE(bhv_init_room),

@@ -325,8 +325,7 @@ s32 comit_dog_in_bounds(s32 param) {
 }
 
 
-
-void bhv_comit_dog_loop(void) {
+void comit_dog_follow_loop(void) {
     switch (o->o110) {
         case 0:
             cur_obj_init_animation_with_sound(0);
@@ -359,6 +358,16 @@ void bhv_comit_dog_loop(void) {
             if (!comit_dog_in_bounds(o->oBehParams >> 24)) {
                 o->o110 = 0;
             }
+            break;
+    }
+}
+
+
+void bhv_comit_dog_loop(void) {
+    switch (o->oBehParams >> 24) {
+        case 0:
+        case 2:
+            comit_dog_follow_loop();
             break;
     }
     comit_dog_dialog_loop();
@@ -1731,7 +1740,13 @@ void bhv_mg_fwoosh_update(void) {
 
 //FWOOSH END
 
+s32 sGateOpened = 0;
+
 void bhv_entrance_gate_loop(void) {
+    if (sGateOpened) {
+        o->activeFlags = 0;
+        return;
+    }
     o->oObj10C = cur_obj_nearest_object_with_behavior(bhvGateLakitu);
     switch (o->oAction) {
         case 0:
@@ -1756,6 +1771,7 @@ void bhv_entrance_gate_loop(void) {
         case 2:
             gComitCam = 1;
             if (o->oTimer > 20) {
+                sGateOpened = 1;
                 o->activeFlags = 0;
                 o->oObj10C->oF4 = 2;
                 set_mario_npc_dialog(0);
@@ -1767,6 +1783,11 @@ void bhv_entrance_gate_loop(void) {
 void bhv_gate_lakitu_loop(void) {
     switch (o->oF4) {
         case 0:
+            if (sGateOpened) {
+                o->oF4 = 3;
+                o->oBehParams2ndByte = COMIT_DIALOG_7;
+                break;
+            }
             if (o->oDistanceToMario < 600.0f) {
                 o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x640);
                 if (Set_NPC_Dialog(COMIT_DIALOG_6)) {
