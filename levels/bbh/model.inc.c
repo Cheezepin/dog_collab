@@ -18,6 +18,10 @@ Lights1 bbh_dl_Bricks_lights = gdSPDefLights1(
 	0x7F, 0x7F, 0x7F,
 	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
 
+Lights1 bbh_dl_CloudsConsole_lights = gdSPDefLights1(
+	0x7F, 0x7F, 0x7F,
+	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
+
 Lights1 bbh_dl_Flower_lights = gdSPDefLights1(
 	0x7F, 0x7F, 0x7F,
 	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
@@ -9094,6 +9098,18 @@ Gfx bbh_dl_Clouds_003_mesh_layer_1_tri_0[] = {
 	gsSP2Triangles(15, 20, 21, 0, 15, 21, 22, 0),
 	gsSP2Triangles(14, 15, 22, 0, 14, 22, 12, 0),
 	gsSP1Triangle(16, 20, 15, 0),
+	gsSPEndDisplayList(),
+};
+
+Vtx bbh_dl_Clouds_004_mesh_layer_1_vtx_0[3] = {
+	{{{894, 8, -306},0, {1581, -4024},{0xF2, 0x88, 0x1D, 0xFF}}},
+	{{{-906, 8, -405},0, {-3956, -945},{0xF2, 0x88, 0x1D, 0xFF}}},
+	{{{11, -15, 711},0, {1228, 1468},{0xF8, 0xD0, 0xA9, 0xFF}}},
+};
+
+Gfx bbh_dl_Clouds_004_mesh_layer_1_tri_0[] = {
+	gsSPVertex(bbh_dl_Clouds_004_mesh_layer_1_vtx_0 + 0, 3, 0),
+	gsSP1Triangle(0, 1, 2, 0),
 	gsSPEndDisplayList(),
 };
 
@@ -19483,6 +19499,29 @@ Gfx mat_revert_bbh_dl_Bricks[] = {
 	gsSPEndDisplayList(),
 };
 
+Gfx mat_bbh_dl_CloudsConsole[] = {
+	gsDPPipeSync(),
+	gsDPSetCombineLERP(1, TEXEL0, SHADE, TEXEL0, 0, 0, 0, 1, 1, TEXEL0, SHADE, TEXEL0, 0, 0, 0, 1),
+	gsSPClearGeometryMode(G_LIGHTING),
+	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsDPTileSync(),
+	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 1, bbh_dl_clouds9_i8_i8),
+	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 0, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0),
+	gsDPLoadSync(),
+	gsDPLoadBlock(7, 0, 0, 2047, 256),
+	gsDPPipeSync(),
+	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b, 8, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0),
+	gsDPSetTileSize(0, 0, 0, 252, 252),
+	gsSPSetLights1(bbh_dl_CloudsConsole_lights),
+	gsSPEndDisplayList(),
+};
+
+Gfx mat_revert_bbh_dl_CloudsConsole[] = {
+	gsDPPipeSync(),
+	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPEndDisplayList(),
+};
+
 Gfx mat_bbh_dl_Flower[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(1, TEXEL0, SHADE, TEXEL0, 0, 0, 0, TEXEL0, 1, TEXEL0, SHADE, TEXEL0, 0, 0, 0, TEXEL0),
@@ -20000,6 +20039,13 @@ Gfx bbh_dl_Clouds_003_mesh_layer_1[] = {
 	gsSPDisplayList(mat_bbh_dl_Clouds_layer1),
 	gsSPDisplayList(bbh_dl_Clouds_003_mesh_layer_1_tri_0),
 	gsSPDisplayList(mat_revert_bbh_dl_Clouds_layer1),
+	gsSPEndDisplayList(),
+};
+
+Gfx bbh_dl_Clouds_004_mesh_layer_1[] = {
+	gsSPDisplayList(mat_bbh_dl_CloudsConsole),
+	gsSPDisplayList(bbh_dl_Clouds_004_mesh_layer_1_tri_0),
+	gsSPDisplayList(mat_revert_bbh_dl_CloudsConsole),
 	gsSPEndDisplayList(),
 };
 

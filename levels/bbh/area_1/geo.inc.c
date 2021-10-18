@@ -31,6 +31,7 @@ const GeoLayout bbh_dl_11__Ground_geo[] = {
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -14584, -905, 13652, 0, -83, 0, bbh_dl_CloudIsland3_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -9600, -215, -15922, 0, -90, 0, bbh_dl_Clouds_001_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 1904, 245, -12784, 0, -90, 0, bbh_dl_Clouds_003_mesh_layer_1),
+			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 18198, 907, -20998, -90, 0, -45, bbh_dl_Clouds_004_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_ALPHA, -8371, 96, -6158, 0, -83, 0, bbh_dl_Fence_mesh_layer_4),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_ALPHA, -13085, -682, 2987, 0, -90, 0, bbh_dl_Flower_001_mesh_layer_4),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_ALPHA, -8665, 67, -5160, 0, -90, 0, bbh_dl_Flower_002_mesh_layer_4),
