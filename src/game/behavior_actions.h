@@ -587,7 +587,9 @@ void bhv_cephie_loop(void);
 // axo end
 
 // thecozies start
+void set_water_top_force(struct MarioState *m);
 void water_top_loop(void);
+void water_spout_loop(void);
 // thecozies end
 
 //ROVERT BEHAVIOR ACTIONS START
