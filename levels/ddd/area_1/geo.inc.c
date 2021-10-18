@@ -11,7 +11,6 @@ const GeoLayout ddd_area_1_geo[] = {
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(LAYER_OPAQUE_INTER, ddd_dl_ZPlane_mesh_layer_3),
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, ddd_dl_ZZCube_001_mesh_layer_7),
-			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, ddd_dl_ZZCube_002_mesh_layer_7),
 		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

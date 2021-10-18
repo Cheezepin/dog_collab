@@ -42,6 +42,7 @@ const LevelScript level_ddd_entry[] = {
 	JUMP_LINK(script_func_global_5), 
 	JUMP_LINK(script_func_global_14), 
 	LOAD_MODEL_FROM_GEO(MODEL_DDD_WATER_TOP, water_top_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_DDD_WATER_SPOUT, water_spout_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_RAIN_CLOUD, cloud_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
@@ -52,6 +53,8 @@ const LevelScript level_ddd_entry[] = {
 		WARP_NODE(0xF0, LEVEL_DDD, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_DDD, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_DDD_WATER_TOP, 0, 6550, 0, 0, 0, 0, 0x00000000, bhvWaterTop),
+		OBJECT(MODEL_DDD_WATER_SPOUT, 4435, 6707, -4106, 0, 0, 0, 0x000A0000, bhvWaterSpout),
+		OBJECT(MODEL_DDD_WATER_SPOUT, 3852, 6710, -4897, 0, 0, 0, 0x000A0000, bhvWaterSpout),
 		OBJECT(MODEL_NONE, 0, 6760, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		MARIO_POS(0x01, 0, 0, 6760, 0),
 		OBJECT(MODEL_RAIN_CLOUD, -460, 7042, -796, 0, 0, 0, 0x000A0000, bhvRainCloud),
@@ -59,6 +62,8 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_RAIN_CLOUD, -2451, 7106, 1263, 0, 0, 0, 0x000A0000, bhvRainCloud),
 		OBJECT(MODEL_RAIN_CLOUD, -1528, 7638, 437, 0, 0, 0, 0x000A0000, bhvRainCloud),
 		OBJECT(MODEL_RAIN_CLOUD, 2212, 7056, -1424, 0, 0, 0, 0x000A0000, bhvRainCloud),
+		OBJECT(MODEL_DDD_WATER_SPOUT, 4968, 6718, -3429, 0, 0, 0, 0x000A0000, bhvWaterSpout),
+		OBJECT(MODEL_DDD_WATER_SPOUT, 3070, 6728, -5411, 0, 0, 0, 0x000A0000, bhvWaterSpout),
 		TERRAIN(ddd_area_1_collision),
 		MACRO_OBJECTS(ddd_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
