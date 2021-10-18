@@ -546,10 +546,10 @@ void bhv_center_platform_loop(void) {
         case 3:
             o->oOpacity = approach_s16_symmetric(o->oOpacity, o->o10C, 2);
             cur_obj_play_sound_1(SOUND_ENV_ELEVATOR1);
+            gMarioState->pos[1] = o->oPosY + 67.0f;
             o->oPosY = approach_f32(o->oPosY, o->oHomeY, 60.0f, 60.0f);
 
             gMarioState->pos[0] = approach_f32(gMarioState->pos[0], o->oPosX, 50.0f, 50.0f);
-            gMarioState->pos[1] = approach_f32(gMarioState->pos[1], o->oPosY + 67.0f, 50.0f, 50.0f);
             gMarioState->pos[2] = approach_f32(gMarioState->pos[2], o->oPosZ, 50.0f, 50.0f);
 
             gComitCam = 1;
