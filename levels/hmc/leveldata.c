@@ -70,3 +70,5 @@
 #include "levels/hmc/doors/model.inc.c"
 #include "levels/hmc/hmcelevator/collision.inc.c"
 #include "levels/hmc/hmcelevator/model.inc.c"
+#include "levels/hmc/redblock/collision.inc.c"
+#include "levels/hmc/redblock/model.inc.c"

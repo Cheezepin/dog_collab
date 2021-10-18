@@ -348,7 +348,7 @@ const BehaviorScript bhvPerservePosWarp[] = {
 const BehaviorScript bhvDoorDog[] = {
     BEGIN(OBJ_LIST_SURFACE),
     // Door - common:
-    OR_INT(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_ANIMATIONS(oAnimations, door_seg3_anims_030156C0),
     ANIMATE(0),
     LOAD_COLLISION_DATA(door_seg3_collision_door),
@@ -358,6 +358,21 @@ const BehaviorScript bhvDoorDog[] = {
     SET_HOME(),
     CALL_NATIVE(bhv_door_init),
     BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvStarBlock[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_HOLDABLE)),
+    LOAD_COLLISION_DATA(redblock_collision),
+    SET_INTERACT_TYPE(INTERACT_GRABBABLE),
+    SET_HITBOX(/*Radius*/ 300, /*Height*/ 300),
+    SET_FLOAT(oCollisionDistance, 300),
+    CALL_NATIVE(starblock_init),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(starblock_loop),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };

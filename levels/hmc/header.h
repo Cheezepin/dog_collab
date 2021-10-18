@@ -108,4 +108,8 @@ extern const LevelScript level_hmc_entry[];
 
 #include "levels/hmc/hmcelevator/geo_header.h"
 
+#include "levels/hmc/redblock/collision_header.h"
+
+#include "levels/hmc/redblock/geo_header.h"
+
 #endif

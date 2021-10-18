@@ -1549,7 +1549,12 @@ all the kingdom!\n\
 \n\
 Go on, give it a whack.\n\
 Feel that quality ooze\n\
-through your hand."))
+through your hand.\n\
+I'm actually missing\n\
+a few blocks from this\n\
+shipment.\n\
+Once the power's back on,\n\
+See me if you want to help."))
 
 DEFINE_DIALOG(DIALOG_132, 1, 4, 30, 200, _("\
 Safety regulations are a bit\n\
@@ -1673,7 +1678,7 @@ And you are not helping\n\
 by jumping through it\n\
 trailing glass everywhere!"))
 
-DEFINE_DIALOG(DIALOG_147, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_147, 1, 3, 30, 200, _("\
 Cleaning up glass is\n\
 therapeutic.\n\
 \n\
@@ -1794,55 +1799,21 @@ Shoutouts to Fazana\n\
 for making the deadline\n\
 without need for extension."))
 
-#ifdef VERSION_EU
-#define KEEP_ON_PLAYING ".."
-#else
-#define KEEP_ON_PLAYING "\n\
-We want you to keep on\n\
-playing, so we have a\n\
-little something for you.\n\
-We hope that you like it!\n\
-Enjoy!!!"
-#endif
-
 DEFINE_DIALOG(DIALOG_161, 1, 4, 30, 200, _("\
-Mario!!!\n\
-It that really you???\n\
-It has been so long since\n\
-our last adventure!\n\
-They told me that I might\n\
-see you if I waited here,\n\
-but I'd just about given\n\
-up hope!\n\
-Is it true? Have you\n\
-really beaten Bowser? And\n\
-restored the Stars to the\n\
-castle?\n\
-And saved the Princess?\n\
-I knew you could do it!\n\
-Now I have a very special\n\
-message for you.\n\
-『Thanks for playing Super\n\
-Mario 64! This is the\n\
-end of the game, but not\n\
-the end of the fun." \
-KEEP_ON_PLAYING "』\n\
-\n\
-The Super Mario 64 Team"))
+My useless lackeys have\n\
+gone and lost some of\n\
+the red ! blocks around\n\
+the place.\n\
+If you can find one and\n\
+bring it to me, I will\n\
+compensate you for it."))
 
-DEFINE_DIALOG(DIALOG_162, 1, 4, 30, 200, _("\
-No, no, no! Not you\n\
-again! I'm in a great\n\
-hurry, can't you see?\n\
-\n\
-I've no time to squabble\n\
-over Stars. Here, have it.\n\
-I never meant to hide it\n\
-from you...\n\
-It's just that I'm in such\n\
-a rush. That's it, that's\n\
-all. Now, I must be off.\n\
-Owww! Let me go!"))
+DEFINE_DIALOG(DIALOG_162, 1, 3, 30, 200, _("\
+Ah, good!\n\
+Thank you for returning\n\
+some lost cargo to me.\n\
+Here, I believe you\n\
+are looking for these?"))
 
 DEFINE_DIALOG(DIALOG_163, 1, 5, 30, 200, _("\
 Noooo! You've really\n\

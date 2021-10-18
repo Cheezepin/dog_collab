@@ -11,6 +11,7 @@ extern const BehaviorScript bhvHMCDoors[];
 extern const BehaviorScript bhvHMCElevator[];
 extern const BehaviorScript bhvPerservePosWarp[];
 extern const BehaviorScript bhvDoorDog[];
+extern const BehaviorScript bhvStarBlock[];
 
 extern const BehaviorScript bhvStarDoor[];
 extern const BehaviorScript bhvMrI[];
