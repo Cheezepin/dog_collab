@@ -2242,3 +2242,9 @@ woof bark ruff\n\
 button that could open\n\
 that tunnel. Try checking\n\
 that fenced off cage...)"))
+
+
+DEFINE_DIALOG(COMIT_DIALOG_17, 1, 3, 30, 200, _("\
+Want a neat tip?\n\
+Hold A while twirling to\n\
+descend slower!"))

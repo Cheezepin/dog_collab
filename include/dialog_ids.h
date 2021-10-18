@@ -189,6 +189,7 @@ enum DialogId {
     COMIT_DIALOG_14,
     COMIT_DIALOG_15,
     COMIT_DIALOG_16,
+    COMIT_DIALOG_17,
     DIALOG_COUNT
 };
 
