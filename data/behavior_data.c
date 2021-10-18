@@ -6355,7 +6355,7 @@ const BehaviorScript bhvCloudRainbow[] = {
 
 const BehaviorScript bhvCRainCloud[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(rain_cloud_collision),
     SET_FLOAT(oDrawingDistance, 0x4000),
     SET_HOME(),
@@ -6433,9 +6433,9 @@ const BehaviorScript bhvFwooshButton[] = {
 
 const BehaviorScript bhvMetalCrate[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    OR_LONG(oFlags, (OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(metal_crate_collision),
-    SET_FLOAT(oDrawingDistance, 0x4000),
+    SET_FLOAT(oDrawingDistance, 0x7FFF),
     SET_FLOAT(oCollisionDistance, 0x7FFF),
     SET_HOME(),
     CALL_NATIVE(bhv_metal_crate_init),

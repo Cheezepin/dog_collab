@@ -219,9 +219,9 @@ Gfx *geo_comit_set_brightness(s32 callContext, struct GraphNode *node, UNUSED vo
 
         dlHead = dlStart;
         if (currentGraphNode->parameter == 0)
-            currentGraphNode->fnNode.node.flags = 0x100 | (currentGraphNode->fnNode.node.flags & 0xFF);
+            SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_OPAQUE);
         else 
-            currentGraphNode->fnNode.node.flags = (currentGraphNode->fnNode.node.flags & 0xFF);
+            SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_FORCE);
 
         gDPSetEnvColor(dlHead++, objectBrightness, objectBrightness, objectBrightness, 255);
         gSPEndDisplayList(dlHead);
