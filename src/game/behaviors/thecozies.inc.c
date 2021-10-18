@@ -87,7 +87,7 @@ void water_top_loop(void) {
 }
 
 #define WATER_SPOUT_RADIUS 210
-#define WATER_SPOUT_ACCEL 45.0f
+#define WATER_SPOUT_ACCEL 32.0f
 #define WATER_SPOUT_STEP 3.0f
 void water_spout_loop(void) {
     Bool32 marioIsInSpout =
