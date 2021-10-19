@@ -6299,10 +6299,9 @@ const BehaviorScript bhvRotatingTorus[] = {
 
 const BehaviorScript bhvBounceCloud[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
     LOAD_COLLISION_DATA(bounce_cloud_collision),
-    SET_FLOAT(oDrawingDistance, 0x4000),
-    SET_FLOAT(oCollisionDistance, 0x300),
+    SET_FLOAT(oDrawingDistance, 0x3000),
     SET_HOME(),
     CALL_NATIVE(bhv_bounce_cloud_init),
     BEGIN_LOOP(),

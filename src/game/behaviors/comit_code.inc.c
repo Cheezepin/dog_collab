@@ -2143,6 +2143,14 @@ void bhv_bounce_cloud_init(void) {
 
 void bhv_bounce_cloud_loop(void) {
     struct MarioState *m = gMarioState;
+    if (gIsConsole) {
+        if (o->oDistanceToMario > 5000.0f) {
+            cur_obj_hide();
+            return;
+        } else {
+            cur_obj_unhide();
+        }
+    }
     switch (o->oAction) {
         case 0:
             if (gMarioObject->platform == o) {
