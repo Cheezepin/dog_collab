@@ -186,7 +186,6 @@ extern const BehaviorScript bhvMoatGrills[];
 extern const BehaviorScript bhvClockMinuteHand[];
 extern const BehaviorScript bhvClockHourHand[];
 extern const BehaviorScript bhvMacroUkiki[];
-extern const BehaviorScript bhvStub1D0C[];
 extern const BehaviorScript bhvLllRotatingHexagonalPlatform[];
 extern const BehaviorScript bhvLllSinkingRockBlock[];
 extern const BehaviorScript bhvStub1D70[];
@@ -560,12 +559,16 @@ extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
 extern const BehaviorScript bhvRotatingTorus[];
-extern const BehaviorScript bhvElectricSpinner[];
-extern const BehaviorScript bhvSimpleSpinner[];
-extern const BehaviorScript bhvSimpleSpinnerShock[];
-extern const BehaviorScript bhvShockTexture[];
+//extern const BehaviorScript bhvElectricSpinner[];
+//extern const BehaviorScript bhvSimpleSpinner[];
+//extern const BehaviorScript bhvSimpleSpinnerShock[];
+//extern const BehaviorScript bhvShockTexture[];
 extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
+
+// axo start
+extern const BehaviorScript bhvCephie[];
+// axo end
 
 // thecozies bhvs start
 extern const BehaviorScript bhvRainCloud[];

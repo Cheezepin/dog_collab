@@ -427,8 +427,8 @@ Gfx *geo_mario_head_rotation(s32 callContext, struct GraphNode *node, UNUSED Mat
             rotNode->rotation[1] = bodyState->headAngle[2];
             rotNode->rotation[2] = bodyState->headAngle[0];
         } else {
-            vec3s_set(bodyState->headAngle, 0, 0, 0);
-            vec3s_set(rotNode->rotation, 0, 0, 0);
+            vec3_zero(bodyState->headAngle);
+            vec3_zero(rotNode->rotation);
         }
     }
     return NULL;
@@ -514,11 +514,7 @@ Gfx *geo_switch_mario_cap_on_off(s32 callContext, struct GraphNode *node, UNUSED
         switchCase->selectedCase = bodyState->capState & 1;
         while (next != node) {
             if (next->type == GRAPH_NODE_TYPE_TRANSLATION_ROTATION) {
-                if (bodyState->capState & 2) {
-                    next->flags |= GRAPH_RENDER_ACTIVE;
-                } else {
-                    next->flags &= ~GRAPH_RENDER_ACTIVE;
-                }
+                COND_BIT((bodyState->capState & 0x2), next->flags, GRAPH_RENDER_ACTIVE);
             }
             next = next->next;
         }

@@ -39,8 +39,6 @@
 #include "levels/bitdw/collapsing_stairs_5/model.inc.c"
 #include "levels/bitdw/areas/1/collision.inc.c"
 #include "levels/bitdw/rainbow_chain/model.inc.c"
-#include "levels/bitdw/electric_spinner/model.inc.c"
-#include "levels/bitdw/simple_spinner/model.inc.c"
 #include "levels/bitdw/sphere/model.inc.c"
 
 #include "levels/bitdw/areas/1/macro.inc.c"
@@ -57,7 +55,4 @@
 #include "levels/bitdw/collapsing_stairs_5/collision.inc.c"
 #include "levels/bitdw/leveldata.inc.c"
 #include "levels/bitdw/rainbow_chain/collision.inc.c"
-#include "levels/bitdw/electric_spinner/collision.inc.c"
-#include "levels/bitdw/simple_spinner/collision.inc.c"
-#include "levels/bitdw/simple_spinner_shock/collision.inc.c"
 #include "levels/bitdw/sphere/collision.inc.c"

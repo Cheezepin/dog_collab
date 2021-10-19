@@ -70,3 +70,6 @@
 #include "podoboo/model.inc.c"
 #include "dog/anims/data.inc.c"
 #include "dog/anims/table.inc.c"
+#include "cephie/model.inc.c"
+#include "cephie/anims/data.inc.c"
+#include "cephie/anims/table.inc.c"
