@@ -258,6 +258,7 @@ void starblock_init(void)
 {
     starBlockSpawned = 0;
     obj_set_hitbox(o, &sStarblockHitbox);
+    o->oInteractionSubtype = INT_SUBTYPE_HOLDABLE_NPC;
 }
 
 extern struct Object *spawn_star(struct Object *starObj, f32 x, f32 y, f32 z);
