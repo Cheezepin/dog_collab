@@ -338,9 +338,9 @@ void comit_dog_follow_loop(void) {
         case 1:
             cur_obj_update_floor_and_walls();
             cur_obj_move_standard(-78);
-            if (o->oDistanceToMario > 1000.0f) {
-                o->oForwardVel = approach_f32(o->oForwardVel, 25.0f, 1.5f, 1.5f);
-            } else if (o->oDistanceToMario > 200.0f) {
+            if (o->oDistanceToMario > 600.0f) {
+                o->oForwardVel = approach_f32(o->oForwardVel, 18.0f + (o->oDistanceToMario / 100.0f), 1.5f, 1.5f);
+            } else if (o->oDistanceToMario > 00.0f) {
                 o->oForwardVel = approach_f32(o->oForwardVel, 12.0f, 1.0f, 1.0f);
             } else {
                 o->oForwardVel = approach_f32(o->oForwardVel, 0, 0.5f, 0.5f);
@@ -1351,7 +1351,8 @@ void bhv_hidden_cloud_loop(void) {
                 set_mario_npc_dialog(1);
             }
             if (o->oTimer > 20) {
-                spawn_object(o, MODEL_BOUNCE_CLOUD, bhvBounceCloud);
+                obj = spawn_object(o, MODEL_BOUNCE_CLOUD, bhvBounceCloud);
+                obj->o110 = 1;
                 spawn_mist_particles();
                 play_puzzle_jingle();
                 o->oAction = 2;
@@ -2144,7 +2145,7 @@ void bhv_bounce_cloud_init(void) {
 void bhv_bounce_cloud_loop(void) {
     struct MarioState *m = gMarioState;
     if (gIsConsole) {
-        if (o->oDistanceToMario > 5000.0f) {
+        if (o->oDistanceToMario > 5000.0f && o->o110 == 0) {
             cur_obj_hide();
             return;
         } else {
