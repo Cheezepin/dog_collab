@@ -363,11 +363,12 @@ const BehaviorScript bhvDoorDog[] = {
 };
 
 const BehaviorScript bhvStarBlock[] = {
-    BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_HOLDABLE)),
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
     LOAD_COLLISION_DATA(redblock_collision),
-    SET_INTERACT_TYPE(INTERACT_GRABBABLE),
-    SET_HITBOX(/*Radius*/ 300, /*Height*/ 300),
+    SET_INT(oInteractType, INTERACT_GRABBABLE),
+    DROP_TO_FLOOR(),
+    SET_HITBOX(/*Radius*/ 125, /*Height*/ 200),
     SET_FLOAT(oCollisionDistance, 300),
     CALL_NATIVE(starblock_init),
     BEGIN_LOOP(),

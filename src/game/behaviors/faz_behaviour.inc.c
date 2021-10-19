@@ -244,7 +244,7 @@ u8 starBlockSpawned;
 
 static struct ObjectHitbox sStarblockHitbox = {
     /* interactType:      */ INTERACT_GRABBABLE,
-    /* downOffset:        */ -50,
+    /* downOffset:        */ 0,
     /* damageOrCoinValue: */ 0,
     /* health:            */ 0,
     /* numLootCoins:      */ 0,
@@ -260,17 +260,21 @@ void starblock_init(void)
     obj_set_hitbox(o, &sStarblockHitbox);
 }
 
+extern struct Object *spawn_star(struct Object *starObj, f32 x, f32 y, f32 z);
+
 void starblock_loop(void)
 {
     struct Object *npc = cur_obj_nearest_object_with_behavior(bhvKoopaDialog);
 
+    obj_set_hitbox(o, &sStarblockHitbox);
     if (npc->oBehParams2ndByte == 0xA1 && starBlockSpawned == 0)
     {
-        if (lateral_dist_between_objects(o, npc) < 200 && o->oHeldState == HELD_FREE)
+        if (lateral_dist_between_objects(o, npc) < 500 && o->oHeldState == HELD_FREE)
         {
             if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_FRONT, DIALOG_FLAG_NONE, CUTSCENE_DIALOG, DIALOG_162))
             {
-                struct Object *star = spawn_star(star, 2387, 4500, -778);
+                struct Object *star = spawn_star(star, 2387.0f, 4500.0f, -778.0f);
+                star->oBehParams = 0x04000000;
                 starBlockSpawned = 1;
             }
         }
@@ -280,5 +284,31 @@ void starblock_loop(void)
         spawn_mist_particles_variable(0, 0, 100.0f);
         spawn_triangle_break_particles(20, MODEL_DIRT_ANIMATION, 3.0f, 4);
         obj_mark_for_deletion(o);
+    }
+
+    if (o->oHeldState == HELD_HELD)
+    {
+        o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+        cur_obj_set_pos_relative(gMarioObject, 0, 60.0f, 100.0f);
+        cur_obj_become_intangible();
+    }
+    else
+    {
+        struct Surface *floor;
+        o->oFloorHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, &floor);
+
+        cur_obj_become_tangible();
+        o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+
+        if (floor != NULL && o->oFloorHeight - o->oPosY < 30)
+        {
+            o->oPosY = o->oFloorHeight;
+            o->oVelY = 0;
+        }
+        else
+        {
+            if (o->oVelY < 48)
+                o->oVelY += 8;
+        }
     }
 }
