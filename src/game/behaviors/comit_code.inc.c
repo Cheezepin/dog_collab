@@ -2146,6 +2146,14 @@ void bhv_rainbow_cloud_loop(void) {
 
 
 
+s32 comit_check_ledge_action(struct MarioState *m) {
+    if (m->action != ACT_LEDGE_GRAB && m->action != ACT_LEDGE_CLIMB_SLOW_1 && m->action != ACT_LEDGE_CLIMB_SLOW_2
+     && m->action != ACT_LEDGE_CLIMB_FAST) {
+         return 1;
+     }
+    return 0;
+}
+
 
 void bhv_stretch_cloud_init(void) {  
     o->oFloatF4 = 1.0f;
@@ -2155,25 +2163,31 @@ void bhv_stretch_cloud_init(void) {
 void bhv_stretch_cloud_loop(void) {
     switch (o->oAction) {
         case 0:
-            o->header.gfx.scale[0] = approach_f32_asymptotic(o->header.gfx.scale[0], 2.5f, 0.15f);
-            o->header.gfx.scale[2] = o->header.gfx.scale[0];
-            if (o->header.gfx.scale[0] - 2.5f < -0.1f) {
+            if (gMarioObject->platform != o || !comit_check_ledge_action(gMarioState)) {
                 o->oTimer = 0;
             }
-            if (o->oTimer > 55) {
-                o->oAction = 1;
-                o->oAnimState = 0;
-            }
-            break;
-        case 1:
             o->header.gfx.scale[0] = approach_f32_asymptotic(o->header.gfx.scale[0], 1.0f, 0.15f);
             o->header.gfx.scale[2] = o->header.gfx.scale[0];
             if (o->header.gfx.scale[0] - 1.0f > 0.1f) {
                 o->oTimer = 0;
             }
-            if (o->oTimer > 55) {
-                o->oAction = 0;
+            if (o->oTimer > 6) {
+                o->oAction = 1;
                 o->oAnimState = 1;
+            }
+            break;
+        case 1:
+            if (gMarioObject->platform == o) {
+                o->oTimer = 0;
+            }
+            o->header.gfx.scale[0] = approach_f32_asymptotic(o->header.gfx.scale[0], 2.5f, 0.15f);
+            o->header.gfx.scale[2] = o->header.gfx.scale[0];
+            if (o->header.gfx.scale[0] - 2.5f < -0.1f) {
+                o->oTimer = 0;
+            }
+            if (o->oTimer > 30) {
+                o->oAction = 0;
+                o->oAnimState = 0;
             }
             break;
     }
