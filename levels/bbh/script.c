@@ -346,7 +346,6 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_EXCLAMATION_BOX, 10698, -50, 3474, 0, 0, 0, 0x00050000, bhvExclamationBox),
 		OBJECT(MODEL_NONE, 4965, -220, 5969, 0, 0, 0, 0x00120000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 2587, -120, 5709, 0, 0, 0, 0x00120000, bhvCoinFormation),
-		OBJECT(MODEL_DARK_SKY, 4, -2000, -3469, 0, 0, 0, 0x00010000, bhvDarkSky),
 		OBJECT(MODEL_CASTLE_GROUNDS_CASTLE_DOOR, 7165, -350, 6623, 0, -90, 0, 0x000A0000, bhvDoorWarp),
 		TERRAIN(bbh_area_4_collision),
 		ROOMS(bbh_area_4_collision_rooms),
