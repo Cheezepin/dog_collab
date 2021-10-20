@@ -25,7 +25,7 @@
 const LevelScript level_bbh_entry[] = {
 	INIT_LEVEL(),
 	LOAD_YAY0(0x07, _bbh_segment_7SegmentRomStart, _bbh_segment_7SegmentRomEnd), 
-	LOAD_YAY0(0x0A, _cloud_floor_skybox_yay0SegmentRomStart, _cloud_floor_skybox_yay0SegmentRomEnd), 
+	LOAD_YAY0(0x0A, _CUSTOM_comit_clouds_skybox_yay0SegmentRomStart, _CUSTOM_comit_clouds_skybox_yay0SegmentRomEnd), 
 	LOAD_YAY0_TEXTURE(0x09, _spooky_yay0SegmentRomStart, _spooky_yay0SegmentRomEnd), 
 	LOAD_YAY0(0x05, _group6_yay0SegmentRomStart, _group6_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0C, _group6_geoSegmentRomStart, _group6_geoSegmentRomEnd), 
