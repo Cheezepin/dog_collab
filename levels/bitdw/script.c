@@ -121,7 +121,6 @@ const LevelScript level_bitdw_entry[] = {
 		OBJECT(0x1AD, 10809, -7776, 7257, 0, 0, 0, 0x00000100, bhvSphere),
 		OBJECT(0x1AD, 10556, -8142, 6159, 0, 0, 0, 0x10000100, bhvSphere),
 		TERRAIN(bitdw_area_1_collision),
-		ROOMS(bitdw_area_1_collision_rooms),
 		MACRO_OBJECTS(bitdw_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
 		TERRAIN_TYPE(TERRAIN_STONE),

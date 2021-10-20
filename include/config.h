@@ -209,17 +209,17 @@
 // Enable debug level select
 //#define DEBUG_LEVEL_SELECT
 // Enable debug free move (DPad up to enter, A to exit)
-//#define ENABLE_DEBUG_FREE_MOVE
+#define ENABLE_DEBUG_FREE_MOVE
 // Custom debug mode. Press DPAD left to show the debug UI. Press DPAD right to enter the noclip mode.
-// #define CUSTOM_DEBUG
+ #define CUSTOM_DEBUG
 // Include Puppyprint, a display library for text and large images. Also includes a custom, enhanced performance profiler.
-// #define PUPPYPRINT
-// #define PUPPYPRINT_DEBUG 1
+ #define PUPPYPRINT
+ #define PUPPYPRINT_DEBUG 1
 // Use cycles instead of microseconds
-//#define PUPPYPRINT_DEBUG_CYCLES
+#define PUPPYPRINT_DEBUG_CYCLES
 // Visual debug enables some collision visuals. Tapping Right on the dpad will cycle between visual hitboxes, visual surfaces, both, and neither.
 // If puppyprint is enabled, then this can be cycled only while the screen is active.
-//#define VISUAL_DEBUG
+#define VISUAL_DEBUG
 // Open all courses and doors. Used for debugging purposes to unlock all content.
 //#define UNLOCK_ALL
 
