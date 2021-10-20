@@ -109,7 +109,7 @@ const GeoLayout bbh_dl_11__Ground_geo[] = {
 					GEO_DISPLAY_LIST(LAYER_OPAQUE, bbh_dl_CloudIsland2Console_mesh_layer_1),
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
-			GEO_TRANSLATE_ROTATE(LAYER_OPAQUE, -14584, -905, 13652, 0, -83, 0),
+			GEO_TRANSLATE_ROTATE(LAYER_OPAQUE, -13891, -705, 11030, 0, -83, 0),
 			GEO_OPEN_NODE(),
 				GEO_ASM(1, geo_comit_cpu_fog),
 				GEO_DISPLAY_LIST(LAYER_OPAQUE, bbh_dl_CloudIsland3_mesh_layer_1),
