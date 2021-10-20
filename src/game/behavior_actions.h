@@ -674,6 +674,7 @@ void bhv_guide_lakitu_init(void);
 void bhv_gate_lakitu_loop(void);
 void bhv_entrance_gate_loop(void);
 void bhv_comit_dog_loop(void);
+void bhv_rainbow_cloud_spawner_loop(void);
 
 
 

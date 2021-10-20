@@ -2116,12 +2116,89 @@ void bhv_cloud_rainbow_loop(void) {
     }
 }
 
+#define COMIT_OBJECT(a, b, c, d, e, f, g, h) \
+    spawn_object_abs_with_rot(o, 0, a, h, b, c, d, e, f, g);
+
+
+void spawn_rainbow_clouds(s32 type) {
+    switch (type) {
+        case 0:
+            o->oObjF4 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 9354, 145, 2287, DEGREES(0), DEGREES(87), DEGREES(0), bhvRainbowCloud)
+            o->oObjF8 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 10710, 145, 1711, DEGREES(0), DEGREES(87), DEGREES(0), bhvRainbowCloud)
+            o->oObjFC = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 11634, 145, 1078, DEGREES(0), DEGREES(87), DEGREES(0), bhvRainbowCloud)
+            o->oObj100 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 14986, 145, 1527, DEGREES(0), DEGREES(177), DEGREES(0), bhvRainbowCloud)
+            break;
+        case 1:
+            o->oObjF4 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 15216, 572, -7039, DEGREES(0), DEGREES(98), DEGREES(0), bhvRainbowCloud)
+            o->oObjF8 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 17726, 572, -7880, DEGREES(0), DEGREES(-82), DEGREES(0), bhvRainbowCloud)
+            o->oObjFC = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 15082, 572, -8030, DEGREES(0), DEGREES(98), DEGREES(0), bhvRainbowCloud)
+            o->oObj100 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 17593, 572, -8872, DEGREES(0), DEGREES(-82), DEGREES(0), bhvRainbowCloud)
+            o->oObj104 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 14949, 572, -9021, DEGREES(0), DEGREES(98), DEGREES(0), bhvRainbowCloud)
+            o->oObj108 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 16322, 572, -9710, DEGREES(0), DEGREES(-82), DEGREES(0), bhvRainbowCloud)
+            break;
+    }
+}
+
+void bhv_rainbow_cloud_spawner_loop(void) {
+    switch (o->oBehParams2ndByte) {
+        case 0:
+            if (o->oAction == 0) {
+                if (gMarioState->pos[0] > o->oPosX && gMarioState->pos[2] < o->oPosZ) {
+                    spawn_rainbow_clouds(0);
+                    o->oAction = 1;
+                }
+            } else {
+                if (gMarioState->pos[0] <= o->oPosX || gMarioState->pos[2] >= o->oPosZ) {
+                    o->oObjF4->activeFlags = 0;
+                    o->oObjF4 = NULL;
+                    o->oObjF8->activeFlags = 0;
+                    o->oObjF8 = NULL;
+                    o->oObjFC->activeFlags = 0;
+                    o->oObjFC = NULL;
+                    o->oObj100->activeFlags = 0;
+                    o->oObj100 = NULL;
+                    o->oAction = 0;
+                }
+            }
+            break;
+        case 1:
+            if (o->oAction == 0) {
+                if (gMarioState->pos[0] > o->oPosX && gMarioState->pos[2] < o->oPosZ) {
+                    spawn_rainbow_clouds(1);
+                    o->oAction = 1;
+                }
+            } else {
+                if (gMarioState->pos[0] <= o->oPosX || gMarioState->pos[2] >= o->oPosZ) {
+                    o->oObjF4->activeFlags = 0;
+                    o->oObjF4 = NULL;
+                    o->oObjF8->activeFlags = 0;
+                    o->oObjF8 = NULL;
+                    o->oObjFC->activeFlags = 0;
+                    o->oObjFC = NULL;
+                    o->oObj100->activeFlags = 0;
+                    o->oObj100 = NULL;
+                    o->oObj104->activeFlags = 0;
+                    o->oObj104 = NULL;
+                    o->oObj108->activeFlags = 0;
+                    o->oObj108 = NULL;
+                    o->oAction = 0;
+                }
+            }
+            break;
+    }
+}
+
 void bhv_rainbow_cloud_init(void) {
     obj_set_hitbox(o, &sRainbowCloudHitbox);
 }
 
 
 void bhv_rainbow_cloud_loop(void) {
+    if (gIsConsole) {
+        set_object_visibility(o, 0x2000);
+        if (o->header.gfx.node.flags & GRAPH_RENDER_INVISIBLE)
+            return;
+    }
     switch (o->oAction) {
         case 0:
             if (o->oDistanceToMario < 2000.0f && absf(o->oPosY - gMarioState->pos[1]) < 1500.0f) {
@@ -2161,6 +2238,11 @@ void bhv_stretch_cloud_init(void) {
 
 
 void bhv_stretch_cloud_loop(void) {
+    if (gIsConsole) {
+        set_object_visibility(o, 0x1800);
+        if (o->header.gfx.node.flags & GRAPH_RENDER_INVISIBLE)
+            return;
+    }
     switch (o->oAction) {
         case 0:
             if (gMarioObject->platform != o || !comit_check_ledge_action(gMarioState)) {
@@ -2203,13 +2285,10 @@ void bhv_bounce_cloud_init(void) {
 
 void bhv_bounce_cloud_loop(void) {
     struct MarioState *m = gMarioState;
-    if (gIsConsole) {
-        if (o->oDistanceToMario > 5000.0f && o->o110 == 0) {
-            cur_obj_hide();
+    if (gIsConsole && o->o110 == 0) {
+        set_object_visibility(o, 0x1800);
+        if (o->header.gfx.node.flags & GRAPH_RENDER_INVISIBLE)
             return;
-        } else {
-            cur_obj_unhide();
-        }
     }
     switch (o->oAction) {
         case 0:

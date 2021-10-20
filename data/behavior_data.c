@@ -6299,7 +6299,7 @@ const BehaviorScript bhvRotatingTorus[] = {
 
 const BehaviorScript bhvBounceCloud[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(bounce_cloud_collision),
     SET_FLOAT(oDrawingDistance, 0x3000),
     SET_HOME(),
@@ -6334,6 +6334,14 @@ const BehaviorScript bhvRainbowCloud[] = {
     CALL_NATIVE(bhv_rainbow_cloud_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_rainbow_cloud_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvRainbowCloudSpawner[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_rainbow_cloud_spawner_loop),
     END_LOOP(),
 };
 

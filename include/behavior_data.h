@@ -588,6 +588,7 @@ extern const BehaviorScript bhvGateLakitu[];
 extern const BehaviorScript bhvEntranceGate[];
 extern const BehaviorScript bhvSpectatorLakitu[];
 extern const BehaviorScript bhvComitDog[];
+extern const BehaviorScript bhvRainbowCloudSpawner[];
 //comit behaviors end
 
 
