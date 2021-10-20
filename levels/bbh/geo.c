@@ -12,6 +12,8 @@
 #include "make_const_nonconst.h"
 
 #include "levels/bbh/header.h"
+Gfx *geo_comit_cpu_fog(s32 callContext, struct GraphNode *node, Mat4 mtx);
+Gfx *geo_comit_cpu_fog_big(s32 callContext, struct GraphNode *node, Mat4 mtx);
 
 #include "levels/bbh/staircase_step/geo.inc.c"
 #include "levels/bbh/tilting_trap_platform/geo.inc.c"

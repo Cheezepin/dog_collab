@@ -246,7 +246,7 @@ void spawn_particle(u32 activeParticleFlag, s16 model, const BehaviorScript *beh
     }
 }
 
-#include "levels/bbh/header.h"
+/*#include "levels/bbh/header.h"
 extern u8 gIsConsole;
 void comit_console_clouds_check(void) {
     Gfx *dl = NULL;
@@ -256,7 +256,7 @@ void comit_console_clouds_check(void) {
         gSPDisplayList(dl++, mat_bbh_dl_CloudsConsole);
         gSPEndDisplayList(dl++);
     }
-}
+}*/
 
 /**
  * Mario's primary behavior update function.
@@ -283,9 +283,9 @@ void bhv_mario_update(void) {
     }
 
     //comit code
-    if (gCurrLevelNum == LEVEL_BBH) {
+    /*if (gCurrLevelNum == LEVEL_BBH) {
         comit_console_clouds_check();
-    }
+    }*/
     //comit code end
 }
 

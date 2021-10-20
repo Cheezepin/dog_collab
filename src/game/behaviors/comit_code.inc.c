@@ -198,6 +198,51 @@ struct FwooshMG sMGSpawnersRow3[] = {
     {-1, 0,},
 };
 
+Gfx *geo_comit_cpu_fog(s32 callContext, struct GraphNode *node, Mat4 mtx) {
+    struct GraphNodeGenerated *currentGraphNode;
+    Gfx *dlStart, *dlHead;
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+        if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, currentGraphNode->parameter);
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 2);
+        dlHead = dlStart;
+        f32 distanceFromCam = ABS(mtx[3][2]);
+        s32 val = get_relative_position_between_ranges(distanceFromCam, 0.0f, 30000.0f, 255.0f, 180.0f);
+        gDPSetEnvColor(dlHead++, 255, 255, 255, val);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}
+
+
+Gfx *geo_comit_cpu_fog_big(s32 callContext, struct GraphNode *node, Mat4 mtx) {
+    struct GraphNodeGenerated *currentGraphNode;
+    Gfx *dlStart, *dlHead;
+    dlStart = NULL;
+    s32 val;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+        if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, currentGraphNode->parameter);
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 2);
+        dlHead = dlStart;
+        f32 distanceFromCam = ABS(mtx[3][2]);
+        if (distanceFromCam < 8000.0f)
+            val = 255;
+        else 
+            val = get_relative_position_between_ranges(distanceFromCam, 8000.0f, 38000.0f, 255.0f, 180.0f);
+        gDPSetEnvColor(dlHead++, 255, 255, 255, val);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}
+
 Gfx *geo_comit_set_brightness(s32 callContext, struct GraphNode *node, UNUSED void *context) {
     Gfx *dlStart, *dlHead;
     struct Object *objectGraphNode;
@@ -340,7 +385,7 @@ void comit_dog_follow_loop(void) {
             cur_obj_move_standard(-78);
             if (o->oDistanceToMario > 600.0f) {
                 o->oForwardVel = approach_f32(o->oForwardVel, 18.0f + (o->oDistanceToMario / 100.0f), 1.5f, 1.5f);
-            } else if (o->oDistanceToMario > 00.0f) {
+            } else if (o->oDistanceToMario > 250.0f) {
                 o->oForwardVel = approach_f32(o->oForwardVel, 12.0f, 1.0f, 1.0f);
             } else {
                 o->oForwardVel = approach_f32(o->oForwardVel, 0, 0.5f, 0.5f);
