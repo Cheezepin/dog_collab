@@ -576,3 +576,11 @@ extern const BehaviorScript bhvLavaGrate[];
 
 
 #endif // BEHAVIOR_DATA_H
+
+extern const BehaviorScript bhvDoginlobby[];
+extern const BehaviorScript bhvDogoutsidehotel[];
+extern const BehaviorScript bhvDogfloor1[];
+extern const BehaviorScript bhvDogfloor2[];
+extern const BehaviorScript bhvDogfloor3[];
+extern const BehaviorScript bhvDogfloor4[];
+extern const BehaviorScript bhvDogbalcony[];

@@ -10,6 +10,7 @@
 #include "game/mario_misc.h"
 #include "game/object_helpers.h"
 #include "game/debug.h"
+#include "game/obj_behaviors.h"
 #include "menu/file_select.h"
 #include "engine/surface_load.h"
 
@@ -6357,3 +6358,66 @@ const BehaviorScript bhvWaterTop[] = {
     END_LOOP(),
 };
 // thecozies bhvs end
+
+
+const BehaviorScript bhvDoginlobby[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_DogInLobby_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogInLobby_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogoutsidehotel[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_DogOutsideHotel_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogOutsideHotel_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogfloor1[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_DogFloor1_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogFloor1_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogfloor2[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_DogFloor2_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogFloor2_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogfloor3[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_DogFloor3_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogFloor3_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogfloor4[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_DogFloor4_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogFloor4_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogbalcony[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_DogBalcony_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogBalcony_loop),
+	END_LOOP(),
+};

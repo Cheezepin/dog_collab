@@ -818,3 +818,11 @@ s8 UNUSED debug_sequence_tracker(s16 debugInputSequence[]) {
 // #include "behaviors/motos.inc.c"
 
 #include "behaviors/cephie.inc.c"
+
+#include "behaviors/DogInLobby.inc.c"
+#include "behaviors/DogOutsideHotel.inc.c"
+#include "behaviors/DogFloor1.inc.c"
+#include "behaviors/DogFloor2.inc.c"
+#include "behaviors/DogFloor3.inc.c"
+#include "behaviors/DogFloor4.inc.c"
+#include "behaviors/DogBalcony.inc.c"

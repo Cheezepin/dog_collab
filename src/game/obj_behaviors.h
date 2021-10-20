@@ -163,3 +163,11 @@ void bhv_rr_cruiser_wing_loop(void);
 void spawn_default_star(f32 x, f32 y, f32 z);
 
 #endif // OBJ_BEHAVIORS_H
+
+void bhv_DogInLobby_init(void); void bhv_DogInLobby_loop(void);
+void bhv_DogOutsideHotel_init(void); void bhv_DogOutsideHotel_loop(void);
+void bhv_DogFloor1_init(void); void bhv_DogFloor1_loop(void);
+void bhv_DogFloor2_init(void); void bhv_DogFloor2_loop(void);
+void bhv_DogFloor3_init(void); void bhv_DogFloor3_loop(void);
+void bhv_DogFloor4_init(void); void bhv_DogFloor4_loop(void);
+void bhv_DogBalcony_init(void); void bhv_DogBalcony_loop(void);
