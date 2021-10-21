@@ -97,3 +97,7 @@ UNUSED static const u64 binid_18 = 18;
 #include "circus_balloon/collision.inc.c"
 #include "circus_balloon/model.inc.c"
 #include "pinwheel/model.inc.c"
+#include "trapeze/model.inc.c"
+#include "balloon_platform/model.inc.c"
+#include "balloon_platform/collision.inc.c"
+#include "clown_boss/model.inc.c"

@@ -12,6 +12,18 @@ struct ObjectHitbox sStrongWindParticleHitbox = {
     /* hurtboxHeight: */ 70,
 };
 
+struct ObjectHitbox sPinwheelWindParticleHitbox = {
+    /* interactType: */ INTERACT_PINWHEEL_WIND,
+    /* downOffset: */ 0,
+    /* damageOrCoinValue: */ 0,
+    /* health: */ 0,
+    /* numLootCoins: */ 0,
+    /* radius: */ 200,
+    /* height: */ 200,
+    /* hurtboxRadius: */ 200,
+    /* hurtboxHeight: */ 200,
+};
+
 void bhv_strong_wind_particle_loop(void) {
     struct Object *penguinObj;
     f32 distanceFromPenguin;
@@ -66,6 +78,27 @@ void bhv_weak_wind_particle_loop(void) {
     
 }
 
+void bhv_pinwheel_wind_particle_loop(void) {
+
+     obj_set_hitbox(o, &sPinwheelWindParticleHitbox);
+
+    if (o->oTimer == 0) {
+        obj_translate_xyz_random(o, 100.0f);
+
+        o->oForwardVel = coss(o->oMoveAnglePitch) * 30.0f;
+        o->oVelY = sins(o->oMoveAnglePitch) * -30.0f;
+
+        o->oMoveAngleYaw += random_f32_around_zero(o->oBehParams2ndByte * 500); // Wind spread
+        o->oOpacity = 100;
+    }
+
+    cur_obj_move_using_fvel_and_gravity();
+    if (o->oTimer > 15) // Deactivate after 15 frames
+        obj_mark_for_deletion(o);
+
+    
+}
+
 // Spawn particles that blow Mario away and knock his cap off from the current object.
 // Used for the Snowman in SL and Fwoosh.
 void cur_obj_spawn_strong_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ) {
@@ -85,10 +118,22 @@ void cur_obj_spawn_strong_wind_particles(s32 windSpread, f32 scale, f32 relPosX,
 
 void cur_obj_spawn_weak_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ) {
     // Alternate between tiny particles and regular particles each frame.
-    if ((gGlobalTimer & 1) != 0) {
+    if ((gGlobalTimer % 10) == 0) {
         // Because the tiny particles are unimportant objects, invisible wind particles are spawned to provide collision.
         // There was absolutely no reason to make the smaller particles unimportant, though...
         spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, 0.5f, o, MODEL_WHITE_PARTICLE_DL, bhvWeakWindParticle);
-    } else
+    } else if (((gGlobalTimer+5) % 10) == 0) {
         spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, scale, o, MODEL_MIST, bhvWeakWindParticle);
+    }
+}
+
+void cur_obj_spawn_pinwheel_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ) {
+    // Alternate between tiny particles and regular particles each frame.
+    if ((gGlobalTimer % 6) == 0) {
+        // Because the tiny particles are unimportant objects, invisible wind particles are spawned to provide collision.
+        // There was absolutely no reason to make the smaller particles unimportant, though...
+        spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, 0.5f, o, MODEL_SAND_DUST, bhvPinwheelWindParticle);
+    } else if (((gGlobalTimer+3) % 6) == 0) {
+        spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, scale, o, MODEL_MIST, bhvPinwheelWindParticle);
+    }
 }

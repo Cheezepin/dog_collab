@@ -60,6 +60,8 @@ u32 interact_igloo_barrier (struct MarioState *m, u32 interactType, struct Objec
 u32 interact_tornado       (struct MarioState *m, u32 interactType, struct Object *obj);
 u32 interact_whirlpool     (struct MarioState *m, u32 interactType, struct Object *obj);
 u32 interact_strong_wind   (struct MarioState *m, u32 interactType, struct Object *obj);
+u32 interact_pinwheel_wind   (struct MarioState *m, u32 interactType, struct Object *obj);
+u32 interact_trapeze   (struct MarioState *m, u32 interactType, struct Object *obj);
 u32 interact_flame         (struct MarioState *m, u32 interactType, struct Object *obj);
 u32 interact_snufit_bullet (struct MarioState *m, u32 interactType, struct Object *obj);
 u32 interact_clam_or_bubba (struct MarioState *m, u32 interactType, struct Object *obj);
@@ -96,6 +98,8 @@ static struct InteractionHandler sInteractionHandlers[] = {
     { INTERACT_TORNADO,        interact_tornado },
     { INTERACT_WHIRLPOOL,      interact_whirlpool },
     { INTERACT_STRONG_WIND,    interact_strong_wind },
+    { INTERACT_PINWHEEL_WIND,    interact_pinwheel_wind },
+    { INTERACT_TRAPEZE,    interact_trapeze },
     { INTERACT_FLAME,          interact_flame },
     { INTERACT_SNUFIT_BULLET,  interact_snufit_bullet },
     { INTERACT_CLAM_OR_BUBBA,  interact_clam_or_bubba },
@@ -1134,6 +1138,64 @@ u32 interact_strong_wind(struct MarioState *m, UNUSED u32 interactType, struct O
     }
 
     return FALSE;
+}
+
+u32 interact_pinwheel_wind(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
+    if (m->action != ACT_VERTICAL_WIND) {
+        mario_stop_riding_and_holding(m);
+        obj->oInteractStatus = INT_STATUS_INTERACTED;
+        m->interactObj = obj;
+        m->usedObj     = obj;
+
+        m->vel[1] = 30.0f;
+
+        play_sound(SOUND_MARIO_HERE_WE_GO, m->marioObj->header.gfx.cameraToObject);
+        update_mario_sound_and_camera(m);
+        return set_mario_action(m, ACT_VERTICAL_WIND, 0);
+    }
+    else {
+        if (m->vel[1] < 90.0f) {
+            if (m->vel[1] < 0.0f) {
+                m->vel[1] += 40.0f;
+            }
+        m->vel[1] += 20.0f;
+        }
+    }
+
+    return FALSE;
+}
+
+u32 interact_trapeze(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
+
+    if (gMarioState->action != ACT_TRAPEZE && obj->oIsLastTrapeze == 0) {
+        gMarioState->action = ACT_TRAPEZE;
+    obj->oTrapezeFlip = 0;
+    obj->oTrapezeFlipTimer = 0;
+    obj->oTrapezeMomentum = m->forwardVel;
+    obj->oIsLastTrapeze = 1;
+    m->vel[1] = 0;
+    m->forwardVel = 0;
+    }
+
+    
+
+    if (gMarioState->action == ACT_TRAPEZE && obj->oTrapezeGrabbing == 0) {
+        obj->oTrapezeFlipTimer += 1;
+
+        m->pos[0] += (obj->oPosX - m->pos[0])/4; 
+    m->pos[1] += (obj->oPosY - m->pos[1])/4; 
+    m->pos[2] += (obj->oPosZ - m->pos[2])/4;
+
+        if (obj->oTrapezeFlipTimer == 5) {
+            obj->oTrapezeFlipTimer = 0;
+            obj->oTrapezeGrabbing = 1;
+            set_mario_animation(m, MARIO_ANIM_HANDSTAND_IDLE);
+m->marioObj->header.gfx.animInfo.animFrame = 10;
+m->marioObj->header.gfx.animInfo.curAnim->flags |= ANIM_FLAG_NO_ACCEL;
+        }
+    }
+
+    
 }
 
 u32 interact_flame(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {

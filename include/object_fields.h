@@ -1277,6 +1277,24 @@
 #define /*0x0FC*/ oBalloonInitY         OBJECT_FIELD_F32(0x1C)
 #define /*0x0F4*/ oPinwheelTimer        OBJECT_FIELD_S32(0x1D)
 
+//balloon
+#define /*0x0F4*/ oObjBalloonCol           OBJECT_FIELD_OBJ(0x1B)
+#define /*0x0FC*/ oBalloonInitSide         OBJECT_FIELD_F32(0x1C)
+#define /*0x0F4*/ oBalloonTimer        OBJECT_FIELD_S32(0x1D)
+
+//trapeze
+#define /*0x0F4*/ oTrapezeTimer        OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oObjTrapezeHitbox           OBJECT_FIELD_OBJ(0x1C)
+
+//trapeze hitbox
+#define /*0x0F4*/ oTrapezeGrabbing       OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oTrapezeFlip       OBJECT_FIELD_S32(0x1C)
+#define /*0x0F4*/ oTrapezeFlipTimer       OBJECT_FIELD_S32(0x1D)
+#define /*0x0F4*/ oTrapezeMomentum       OBJECT_FIELD_S32(0x1E)
+#define /*0x0F4*/ oIsLastTrapeze       OBJECT_FIELD_S32(0x1F)
+
+//balloon platform
+#define /*0x0F4*/ oBalloonPlatformOscilationTimer       OBJECT_FIELD_S32(0x1B)
 
 /*Custom general defines:
 

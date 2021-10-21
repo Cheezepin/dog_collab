@@ -223,4 +223,12 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 #include "pinwheel/geo_header.h"
 
+#include "trapeze/geo_header.h"
+
+#include "balloon_platform/geo_header.h"
+
+#include "balloon_platform/collision_header.h"
+
+#include "clown_boss/geo_header.h"
+
 #endif

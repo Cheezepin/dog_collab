@@ -738,6 +738,60 @@ s32 perform_air_step(struct MarioState *m, u32 stepArg) {
     return stepResult;
 }
 
+s32 perform_trapeze_air_step(struct MarioState *m, u32 stepArg) {
+    // s16 wallDYaw;
+    Vec3f intendedPos;
+    const f32 numSteps = 4.0f; /* max(4.0f, (s32)(sqrtf(m->vel[0] * m->vel[0] + m->vel[1] * m->vel[1] + m->vel[2] * m->vel[2]) / 50.0f));*/
+    s32 i;
+    s32 quarterStepResult;
+    s32 stepResult = AIR_STEP_NONE;
+
+    m->wall = NULL;
+
+    for (i = 0; i < 4; i++) {
+        intendedPos[0] = m->pos[0] + m->vel[0] / numSteps;
+        intendedPos[1] = m->pos[1] + m->vel[1] / numSteps;
+        intendedPos[2] = m->pos[2] + m->vel[2] / numSteps;
+
+        quarterStepResult = perform_air_quarter_step(m, intendedPos, stepArg);
+
+        if (quarterStepResult != AIR_STEP_NONE) {
+            stepResult = quarterStepResult;
+        }
+
+        if (quarterStepResult == AIR_STEP_LANDED || quarterStepResult == AIR_STEP_GRABBED_LEDGE
+            || quarterStepResult == AIR_STEP_GRABBED_CEILING
+            || quarterStepResult == AIR_STEP_HIT_LAVA_WALL) {
+            break;
+        }
+    }
+
+    if (m->vel[1] >= 0.0f) {
+        m->peakHeight = m->pos[1];
+    }
+
+    m->terrainSoundAddend = mario_get_terrain_sound_addend(m);
+
+    if (m->action != ACT_FLYING) {
+        apply_gravity(m);
+    }
+    apply_vertical_wind(m);
+
+    vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+    vec3s_set(m->marioObj->header.gfx.angle, m->faceAngle[0], m->faceAngle[1], m->faceAngle[2]);
+
+    /*if (stepResult == AIR_STEP_HIT_WALL && m->wall != NULL) {
+            wallDYaw = atan2s(m->wall->normal.z, m->wall->normal.x) - m->faceAngle[1];
+            if ((stepArg & AIR_STEP_CHECK_BONK) && (wallDYaw < -0x6000 || wallDYaw > 0x6000))
+            {
+                if (m->forwardVel > 16.0f)
+                    mario_bonk_reflection(m, (stepArg & AIR_STEP_BONK_NEGATE_SPEED), m->wall);
+            }
+    }*/
+
+    return stepResult;
+}
+
 // They had these functions the whole time and never used them? Lol
 
 void set_vel_from_pitch_and_yaw(struct MarioState *m) {

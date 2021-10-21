@@ -270,5 +270,7 @@ s32 set_obj_anim_with_accel_and_sound(s16 frame1, s16 frame2, s32 sound) {
 #include "behaviors/clown_door.inc.c"
 #include "behaviors/circus_wheel.inc.c"
 #include "behaviors/pinwheel.inc.c"
+#include "behaviors/trapeze.inc.c"
+#include "behaviors/clown_boss.inc.c"
 
 #include "behaviors/emu.inc.c"

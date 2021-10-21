@@ -1,11 +1,11 @@
 void scroll_sts_mat_circus_wheel_f3d_material_036() {
 	Gfx *mat = segmented_to_virtual(mat_circus_wheel_f3d_material_036);
-	shift_t_down(mat, 18, PACK_TILESIZE(0, 16));
+	shift_t_down(mat, 19, PACK_TILESIZE(0, 16));
 };
 
 void scroll_sts_mat_circus_wheel_f3d_material_035() {
 	Gfx *mat = segmented_to_virtual(mat_circus_wheel_f3d_material_035);
-	shift_t_down(mat, 18, PACK_TILESIZE(0, 12));
+	shift_t_down(mat, 19, PACK_TILESIZE(0, 12));
 };
 
 void scroll_sts_mat_circus_wheel_f3d_material_034() {

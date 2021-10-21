@@ -216,6 +216,9 @@ const LevelScript script_func_global_1[] = {
      LOAD_MODEL_FROM_GEO(MODEL_CABLE_CAR,                  cable_car_geo),
      LOAD_MODEL_FROM_GEO(MODEL_CIRCUS_BALLOON,                  circus_balloon_geo),
      LOAD_MODEL_FROM_GEO(MODEL_PINWHEEL,                  pinwheel_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_TRAPEZE,                  trapeze_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_BALLOON_PLATFORM,                  balloon_platform_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_CLOWN_BOSS,                  clown_boss_geo),
     RETURN(),
 };
 

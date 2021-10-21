@@ -534,6 +534,25 @@ s32 act_backflip(struct MarioState *m) {
     return FALSE;
 }
 
+s32 act_trapeze(struct MarioState *m) {
+    if (m->input & INPUT_Z_PRESSED) {
+        return set_mario_action(m, ACT_GROUND_POUND, 0);
+    }
+
+        update_air_without_turn(m);
+perform_trapeze_air_step(m, 0);
+
+
+
+#if ENABLE_RUMBLE
+    if (m->action == ACT_BACKFLIP_LAND) {
+        queue_rumble_data(5, 40);
+    }
+#endif
+
+    return FALSE;
+}
+
 s32 act_freefall(struct MarioState *m) {
     s32 animation = 0;
 
@@ -2136,6 +2155,7 @@ s32 mario_execute_airborne_action(struct MarioState *m) {
         case ACT_BURNING_FALL:         cancel = act_burning_fall(m);         break;
         case ACT_TRIPLE_JUMP:          cancel = act_triple_jump(m);          break;
         case ACT_BACKFLIP:             cancel = act_backflip(m);             break;
+        case ACT_TRAPEZE:             cancel = act_trapeze(m);             break;
         case ACT_LONG_JUMP:            cancel = act_long_jump(m);            break;
         case ACT_RIDING_SHELL_JUMP:
         case ACT_RIDING_SHELL_FALL:    cancel = act_riding_shell_air(m);     break;

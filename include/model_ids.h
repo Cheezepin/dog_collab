@@ -614,5 +614,8 @@
 #define MODEL_CABLE_CAR                   0x136
 #define MODEL_CIRCUS_BALLOON                   0x137
 #define MODEL_PINWHEEL                   0x138
+#define MODEL_TRAPEZE                   0x139
+#define MODEL_BALLOON_PLATFORM                   0x13A
+#define MODEL_CLOWN_BOSS                   0x13B
 
 #endif // MODEL_IDS_H

@@ -7,6 +7,9 @@ void bhv_pinwheel_init(void) {
     }
 }
 void bhv_pinwheel_loop(void) {
+
+    if (o->oRoom == gMarioCurrentRoom) {
+
     switch (o->oBehParams2ndByte) {
             case 0:
                 o->oFaceAngleRoll += 0x200;
@@ -20,10 +23,71 @@ void bhv_pinwheel_loop(void) {
                 cur_obj_play_sound_1(SOUND_AIR_BLOW_WIND);
                 cur_obj_spawn_weak_wind_particles(12, 3.0f, 0.0f, -50.0f, 120.0f);
         break;
-        }
+        case 2:
+                o->oFaceAngleRoll += 0x800;
+                o->oMoveAngleRoll += 0x800;
+                cur_obj_play_sound_1(SOUND_AIR_BLOW_WIND);
+                cur_obj_spawn_weak_wind_particles(12, 3.0f, 0.0f, -50.0f, 120.0f);
+        break;
+        case 3:
+        o->oFaceAngleYaw += 0x800;
+         o->oMoveAngleYaw += 0x800;
+        cur_obj_play_sound_1(SOUND_AIR_BLOW_WIND);
+        cur_obj_spawn_pinwheel_wind_particles(12, 3.0f, 0.0f, -50.0f, 120.0f);
 
+        break;
+        }
+    }
+    
         
 }
-void bhv_balloon_loop(void) {
-    
+
+void bhv_balloon_init(void) {
+    //switch (o->oBehParams2ndByte) {
+            //case 0:
+            o->oObjBalloonCol = spawn_object_relative(0, 0, 0, 0, o, MODEL_NONE, bhvCircusBalloonCol);
+            o->oBalloonInitSide = o->oPosZ;
+    //break;
+
+}
+
+void bhv_balloon_loop(void) {    
+    switch (o->oBehParams2ndByte) {
+            case 0:
+            o->oFaceAngleYaw += 0x100;
+                o->oMoveAngleYaw += 0x100;
+
+            o->oObjBalloonCol->oPosX = o->oPosX;
+            o->oObjBalloonCol->oPosY = o->oPosY;
+            o->oObjBalloonCol->oPosZ = o->oPosZ;
+
+    break;
+    case 1:
+        //load_object_collision_model();
+        o->oFaceAngleYaw += 0x100;
+                o->oMoveAngleYaw += 0x100;
+        
+            o->oBalloonTimer += 1;
+            o->oPosY += 10*sins(o->oPinwheelTimer*0x300);
+            o->oPosX += 50*sins(o->oPinwheelTimer*0x170);
+
+            o->oObjBalloonCol->oPosX = o->oPosX;
+            o->oObjBalloonCol->oPosY = o->oPosY;
+            o->oObjBalloonCol->oPosZ = o->oPosZ;
+    break;
+
+    case 2:
+        //load_object_collision_model();
+        o->oFaceAngleYaw += 0x100;
+                o->oMoveAngleYaw += 0x100;
+        
+            o->oBalloonTimer += 1;
+            o->oPosY += 10*sins(o->oPinwheelTimer*0x300);
+            o->oPosZ -= 50*sins(o->oPinwheelTimer*0x170);
+
+            o->oObjBalloonCol->oPosX = o->oPosX;
+            o->oObjBalloonCol->oPosY = o->oPosY;
+            o->oObjBalloonCol->oPosZ = o->oPosZ;
+    break;
+}
 }

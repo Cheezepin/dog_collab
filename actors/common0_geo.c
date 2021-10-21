@@ -37,3 +37,6 @@
 #include "cable_car/geo.inc.c"
 #include "circus_balloon/geo.inc.c"
 #include "pinwheel/geo.inc.c"
+#include "trapeze/geo.inc.c"
+#include "balloon_platform/geo.inc.c"
+#include "clown_boss/geo.inc.c"

@@ -1079,6 +1079,7 @@ Gfx mat_circus_wheel_f3d_material_036[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, TEXEL0, 0, 0, 0, ENVIRONMENT, 0, 0, 0, TEXEL0, 0, 0, 0, ENVIRONMENT),
 	gsSPClearGeometryMode(G_CULL_BACK),
+	gsDPSetTextureFilter(G_TF_AVERAGE),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, circus_wheel_ferris_lightmove_ci8_pal_rgba16),
@@ -1101,6 +1102,7 @@ Gfx mat_circus_wheel_f3d_material_036[] = {
 Gfx mat_revert_circus_wheel_f3d_material_036[] = {
 	gsDPPipeSync(),
 	gsSPSetGeometryMode(G_CULL_BACK),
+	gsDPSetTextureFilter(G_TF_BILERP),
 	gsDPSetTextureLUT(G_TT_NONE),
 	gsSPEndDisplayList(),
 };
@@ -1109,6 +1111,7 @@ Gfx mat_circus_wheel_f3d_material_035[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, TEXEL0, 0, 0, 0, ENVIRONMENT, 0, 0, 0, TEXEL0, 0, 0, 0, ENVIRONMENT),
 	gsSPClearGeometryMode(G_CULL_BACK),
+	gsDPSetTextureFilter(G_TF_AVERAGE),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, circus_wheel_ferris_lightmove_ci8_pal_rgba16),
@@ -1131,6 +1134,7 @@ Gfx mat_circus_wheel_f3d_material_035[] = {
 Gfx mat_revert_circus_wheel_f3d_material_035[] = {
 	gsDPPipeSync(),
 	gsSPSetGeometryMode(G_CULL_BACK),
+	gsDPSetTextureFilter(G_TF_BILERP),
 	gsDPSetTextureLUT(G_TT_NONE),
 	gsSPEndDisplayList(),
 };

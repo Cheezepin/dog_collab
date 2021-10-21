@@ -285,4 +285,6 @@ u32 obj_get_model_id(struct Object *obj);
 // End of HackerSM64 stuff
 Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED void *context);
 
+Gfx *geo_clown_head_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+
 #endif // OBJECT_HELPERS_H
