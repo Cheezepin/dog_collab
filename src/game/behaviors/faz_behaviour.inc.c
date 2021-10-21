@@ -313,3 +313,21 @@ void starblock_loop(void)
         }
     }
 }
+
+void koopa_boss_spawn(void)
+{
+    if (o->oBehParams2ndByte == 0x9B)
+    {
+        struct Object *matt = cur_obj_nearest_object_with_behavior(bhvBossMatt);
+        if (matt)
+        {
+            o->oBehParams2ndByte = 0xA3;
+            struct Object *obj = create_object(bhvExplosion);
+            obj->oPosX = matt->oPosX;
+            obj->oPosY = matt->oPosY;
+            obj->oPosZ = matt->oPosZ;
+            obj_set_model(obj, MODEL_EXPLOSION);
+            obj_mark_for_deletion(matt);
+        }
+    }
+}

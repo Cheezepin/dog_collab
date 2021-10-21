@@ -356,6 +356,10 @@ void bobomb_buddy_act_talk(void) {
                     o->oBobombBuddyHasTalkedToMario = BOBOMB_BUDDY_HAS_TALKED;
                     o->oInteractStatus = 0;
                     o->oAction = BOBOMB_BUDDY_ACT_IDLE;
+                    if (o->oBehParams2ndByte == 0x9B)
+                    {
+                        koopa_boss_spawn();
+                    }
                 }
                 break;
 

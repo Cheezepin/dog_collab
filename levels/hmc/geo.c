@@ -27,3 +27,5 @@
 #include "levels/hmc/doors/geo.inc.c"
 #include "levels/hmc/hmcelevator/geo.inc.c"
 #include "levels/hmc/redblock/geo.inc.c"
+#include "levels/hmc/bossmatt/geo.inc.c"
+#include "levels/hmc/koopaboss/geo.inc.c"

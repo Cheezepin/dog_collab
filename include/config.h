@@ -221,7 +221,7 @@
 // If puppyprint is enabled, then this can be cycled only while the screen is active.
 #define VISUAL_DEBUG
 // Open all courses and doors. Used for debugging purposes to unlock all content.
-//#define UNLOCK_ALL
+#define UNLOCK_ALL
 
 // If you want to change the extended boundaries mode, go to engine/extended_bounds.h and change EXTENDED_BOUNDS_MODE
 

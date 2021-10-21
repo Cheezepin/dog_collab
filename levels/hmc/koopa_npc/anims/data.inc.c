@@ -1,1 +1,5 @@
 #include "anim_Idle.inc.c"
+#include "anim_BossIdle.inc.c"
+#include "anim_Boss_Run.inc.c"
+#include "anim_Boss_Jump.inc.c"
+#include "anim_Boss_Dead.inc.c"

@@ -1815,59 +1815,32 @@ some lost cargo to me.\n\
 Here, I believe you\n\
 are looking for these?"))
 
-DEFINE_DIALOG(DIALOG_163, 1, 5, 30, 200, _("\
-Noooo! You've really\n\
-beaten me this time,\n\
-Mario! I can't stand\n\
-losing to you!\n\
-\n\
-My troops...worthless!\n\
-They've turned over all\n\
-the Power Stars! What?!\n\
-There are 120 in all???\n\
-\n\
-Amazing! There were some\n\
-in the castle that I\n\
-missed??!!\n\
-\n\
-\n\
-Now I see peace\n\
-returning to the world...\n\
-Oooo! I really hate that!\n\
-I can't watch--\n\
-I'm outta here!\n\
-Just you wait until next\n\
-time. Until then, keep\n\
-that Control Stick\n\
-smokin'!\n\
-Buwaa ha ha!"))
+DEFINE_DIALOG(DIALOG_163, 1, 1, 30, 200, _("\
+Go get 'em, Mario!"))
 
-DEFINE_DIALOG(DIALOG_164, 1, 4, 30, 200, _("\
-Mario! What's up, pal?\n\
-I haven't been on the\n\
-slide lately, so I'm out\n\
-of shape.\n\
-Still, I'm always up for a\n\
-good race, especially\n\
-against an old sleddin'\n\
-buddy.\n\
-Whaddya say?\n\
-Ready...set...\n\
+DEFINE_DIALOG(DIALOG_164, 1, 5, 30, 200, _("\
+I'm not actually part\n\
+of the garbage gang.\n\
+I just fell down here\n\
+one day and they've\n\
+let me stay since."))
+
+DEFINE_DIALOG(DIALOG_165, 1, 4, 30, 200, _("\
+Yesterday, somebody\n\
+dropped a bar of\n\
+chocolate still in\n\
+the wrapper.\n\
+I'm so lucky."))
+
+DEFINE_DIALOG(DIALOG_166, 1, 3, 30, 200, _("\
+The big boss is waiting\n\
+for you. His name is\n\
+King Goopa Troopa.\n\
+It stands for Garbage\n\
+Koopa Trash Troopa.\n\
 \n\
-//Go//// Don't Go"))
-
-DEFINE_DIALOG(DIALOG_165, 1, 5, 30, 200, _("\
-I take no responsibility\n\
-whatsoever for those who\n\
-get dizzy and pass out\n\
-from running around\n\
-this post."))
-
-DEFINE_DIALOG(DIALOG_166, 1, 4, 30, 200, _("\
-I'll be back soon.\n\
-I'm out training now,\n\
-so come back later.\n\
-//--Koopa the Quick"))
+Unlike us, he lives\n\
+down here full time."))
 
 DEFINE_DIALOG(DIALOG_167, 1, 4, 30, 200, _("\
 Princess Toadstool's\n\

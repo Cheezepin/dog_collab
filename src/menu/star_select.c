@@ -123,6 +123,11 @@ void bhv_act_selector_init(void) {
     s32 selectorModelIDs[10];
     u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, gCurrCourseNum - 1);
 
+#ifdef UNLOCK_ALL
+    sObtainedStars = 6;
+    stars = 255;
+#endif // UNLOCK_ALL
+
     sVisibleStars = 0;
     while (i != sObtainedStars) {
         if (stars & (1 << sVisibleStars)) { // Star has been collected

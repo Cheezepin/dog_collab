@@ -112,4 +112,10 @@ extern const LevelScript level_hmc_entry[];
 
 #include "levels/hmc/redblock/geo_header.h"
 
+#include "levels/hmc/bossmatt/collision_header.h"
+
+#include "levels/hmc/bossmatt/geo_header.h"
+
+#include "levels/hmc/koopaboss/geo_header.h"
+
 #endif

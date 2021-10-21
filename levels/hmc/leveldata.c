@@ -72,3 +72,6 @@
 #include "levels/hmc/hmcelevator/model.inc.c"
 #include "levels/hmc/redblock/collision.inc.c"
 #include "levels/hmc/redblock/model.inc.c"
+#include "levels/hmc/bossmatt/collision.inc.c"
+#include "levels/hmc/bossmatt/model.inc.c"
+#include "levels/hmc/koopaboss/model.inc.c"
