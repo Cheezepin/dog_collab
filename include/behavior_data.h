@@ -15,6 +15,7 @@ extern const BehaviorScript bhvStarBlock[];
 extern const BehaviorScript bhvBossMatt[];
 extern const BehaviorScript bhvKoopaBoss[];
 extern const BehaviorScript bhvKoopaBossAnchor[];
+extern const BehaviorScript bhvBossShell[];
 
 extern const BehaviorScript bhvStarDoor[];
 extern const BehaviorScript bhvMrI[];

@@ -1843,29 +1843,46 @@ Unlike us, he lives\n\
 down here full time."))
 
 DEFINE_DIALOG(DIALOG_167, 1, 4, 30, 200, _("\
-Princess Toadstool's\n\
-castle is just ahead.\n\
-@FF0000FF🐶 is a good\n\
-boy!\n\
-Press [A] to jump, [Z] to\n\
-crouch, and [B] to punch,\n\
-read a sign, or grab\n\
-something.\n\
-Press [B] again to throw\n\
-something you're holding."))
+So you're the one they\n\
+sent to try to stop me\n\
+from opposing the\n\
+organisation.\n\
+I hope you understand\n\
+what you're doing.\n\
+I want better working\n\
+conditions!\n\
+Look what they DID to me!\n\
+I am a shell of my\n\
+former self, they've\n\
+ruined my being!\n\
+And still, you choose\n\
+to help them? Then\n\
+I must fight back\n\
+with force.\n\
+I believe I am right\n\
+and I will show you\n\
+how wrong you truly\n\
+are!"))
 
-DEFINE_DIALOG(DIALOG_168, 1, 5, 30, 200, _("\
-Hey! Knock it off! That's\n\
-the second time you've\n\
-nailed me. Now you're\n\
-asking for it, linguine\n\
-breath!"))
+DEFINE_DIALOG(DIALOG_168, 1, 3, 30, 200, _("\
+Ha ha ha ha!\n\
+Get a load of my\n\
+firepower!\n\
+Go on, tubby, just\n\
+try to dodge my shells!\n\
+\n\
+In my hands, they're\n\
+super weapons, in yours,\n\
+they're so pitiful!"))
 
 DEFINE_DIALOG(DIALOG_169, 1, 4, 30, 200, _("\
-Keep out!\n\
-That means you!\n\
-Arrgghh!\n\
-\n\
-Anyone entering this cave\n\
-without permission will\n\
-meet certain disaster."))
+Shoot...\n\
+I can't believe I\n\
+lost...\n\
+This isn't right.\n\
+Oh well, I guess\n\
+the Garbage Gang is\n\
+disbanded.\n\
+Just make sure this\n\
+doesn't fall into their\n\
+hands."))

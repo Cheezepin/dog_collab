@@ -354,21 +354,21 @@ const BehaviorScript bhvPerservePosWarp[] = {
     BREAK(),
 };
 
+const BehaviorScript bhvBossShell[] = {
+    BREAK(),
+};
+
 const BehaviorScript bhvKoopaBoss[] = {
     BEGIN(OBJ_LIST_GENACTOR),
-    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_ACTIVE_FROM_AFAR)),
     LOAD_ANIMATIONS(oAnimations, koopa_npc_anims),
-    SET_INTERACT_TYPE(INTERACT_TEXT),
     DROP_TO_FLOOR(),
-    SET_HITBOX(/*Radius*/ 200, /*Height*/ 120),
+    SET_HITBOX(/*Radius*/ 80, /*Height*/ 200),
     ANIMATE(1),
     SET_FLOAT(oDrawingDistance, 5000),
-    SET_INT(oBobombBuddyRole, 0),
-    SET_HOME(),
-    CALL_NATIVE(bhv_bobomb_buddy_init),
+    CALL_NATIVE(koopa_boss_init),
     BEGIN_LOOP(),
-        SET_INT(oIntangibleTimer, 0),
-        CALL_NATIVE(bhv_bobomb_buddy_loop),
+        CALL_NATIVE(koopa_boss_loop),
     END_LOOP(),
 };
 

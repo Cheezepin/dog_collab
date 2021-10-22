@@ -9,6 +9,10 @@ extern void hmcelevator_loop(void);
 extern void starblock_init(void);
 extern void starblock_loop(void);
 extern void koopa_boss_spawn(void);
+extern void koopa_boss_init(void);
+extern void koopa_boss_loop(void);
+extern void koopa_boss_shell_init(void);
+extern void koopa_boss_shell_loop(void);
 
 void spawn_mist_particles_variable(s32 count, s32 offsetY, f32 size);
 void bhv_spawn_star_no_level_exit(u32);
