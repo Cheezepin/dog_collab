@@ -1,6 +1,7 @@
 extern void scroll_bitdw_dl_final_ring_inner_mesh_layer_1_vtx_0();
 extern void scroll_bitdw_dl_final_ring_outer_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_final_warp_mesh_layer_1_vtx_0();
+extern void scroll_bitdw_dl_FinalTorusLowPoly_mesh_layer_1_vtx_0();
 extern void scroll_bitdw_dl_mid_platform_mesh_layer_5_vtx_0();
 extern void scroll_bitdw_dl_Torus_023_mesh_layer_1_vtx_0();
 extern void scroll_sts_mat_bitdw_dl_electricity_layer5();
