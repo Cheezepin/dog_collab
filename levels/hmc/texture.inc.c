@@ -32,3 +32,8 @@ ALIGNED8 static const Texture hmc_seg7_texture_07004000[] = {
 ALIGNED8 static const Texture hmc_seg7_texture_07004800[] = {
 #include "levels/hmc/6.rgba16.inc.c"
 };
+
+// 0x07004800 - 0x07005800
+ALIGNED8 const Texture floating_platform_tex[] = {
+#include "levels/hmc/custom_floating_platform.rgba16.inc.c"
+};

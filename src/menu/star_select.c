@@ -123,6 +123,11 @@ void bhv_act_selector_init(void) {
     s32 selectorModelIDs[10];
     u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, gCurrCourseNum - 1);
 
+#ifdef UNLOCK_ALL
+    sObtainedStars = 6;
+    stars = 255;
+#endif // UNLOCK_ALL
+
     sVisibleStars = 0;
     while (i != sObtainedStars) {
         if (stars & (1 << sVisibleStars)) { // Star has been collected
@@ -425,6 +430,8 @@ s32 lvl_init_act_selector_values_and_stars(UNUSED s32 arg, UNUSED s32 unused) {
     return 0;
 }
 
+extern struct WarpDest sWarpDest;
+
 /**
  * Loads act selector button actions with selected act value checks.
  * Also updates objects and returns act number selected after is chosen.
@@ -459,5 +466,9 @@ s32 lvl_update_obj_and_load_act_button_actions(UNUSED s32 arg, UNUSED s32 unused
 
     area_update_objects(); scroll_textures();
     sActSelectorMenuTimer++;
+    if (sLoadedActNum == 1 && gCurrLevelNum == LEVEL_HMC)
+        sWarpDest.areaIdx = 1;
+    else
+        sWarpDest.areaIdx = 2;
     return sLoadedActNum;
 }

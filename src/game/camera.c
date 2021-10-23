@@ -5565,13 +5565,7 @@ struct CameraTrigger sCamTHI[] = {
  * start the cutscene for entering the CotMC pool.
  */
 struct CameraTrigger sCamHMC[] = {
-    { 1, cam_hmc_enter_maze, 1996, 102, 0, 205, 100, 205, 0 },
-    { 1, cam_castle_hmc_start_pool_cutscene, 3350, -4689, 4800, 600, 50, 600, 0 },
-    { 1, cam_hmc_elevator_black_hole, -3278, 1236, 1379, 358, 200, 358, 0 },
-    { 1, cam_hmc_elevator_maze_emergency_exit, -2816, 2055, -2560, 358, 200, 358, 0 },
-    { 1, cam_hmc_elevator_lake, -3532, 1543, -7040, 358, 200, 358, 0 },
-    { 1, cam_hmc_elevator_maze, -972, 1543, -7347, 358, 200, 358, 0 },
-    NULL_TRIGGER
+	NULL_TRIGGER
 };
 
 /**
