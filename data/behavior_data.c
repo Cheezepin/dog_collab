@@ -6357,3 +6357,17 @@ const BehaviorScript bhvWaterTop[] = {
     END_LOOP(),
 };
 // thecozies bhvs end
+
+// reonu bhvs start
+const BehaviorScript bhvRock[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_INTERACT_TYPE(INTERACT_IGLOO_BARRIER),
+    SET_HITBOX(/*Radius*/ 450, /*Height*/ 1000),
+    SET_INT(oIntangibleTimer, 0),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        SET_INT(oInteractStatus, 0),
+    END_LOOP(),
+};
+//reonu bhvs end

@@ -574,5 +574,9 @@ extern const BehaviorScript bhvLavaGrate[];
 
 //END ROVERT BEHAVIOR
 
+// yooo reonu start
+extern const BehaviorScript bhvRock[];
+// reonu end
+
 
 #endif // BEHAVIOR_DATA_H
