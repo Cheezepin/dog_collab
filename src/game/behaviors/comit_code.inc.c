@@ -420,6 +420,12 @@ void bhv_comit_dog_loop(void) {
 
 
 
+void bhv_spectator_lakitu_init(void) {
+    if (gIsConsole && o->oBehParams2ndByte) {
+        o->activeFlags = 0;
+    }
+}
+
 void bhv_floor_door_button_loop(void) {
     switch (o->oAction) {
         case 0:
@@ -2000,7 +2006,7 @@ void bhv_fade_cloud_init(void) {
 void bhv_fade_cloud_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (gMarioObject->platform == o) {
+            if (gMarioObject->platform == o && comit_check_ledge_action(gMarioState)) {
                 o->oAction = 1;
             }
             break;

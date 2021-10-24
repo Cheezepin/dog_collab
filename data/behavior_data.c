@@ -6770,6 +6770,7 @@ const BehaviorScript bhvSpectatorLakitu[] = {
     ANIMATE(1),
     SET_HOME(),
     SCALE(0, 500),
+    CALL_NATIVE(bhv_spectator_lakitu_init),
     BREAK(),
 };
 
