@@ -611,6 +611,10 @@ void bhv_Propane_Flame(void);
 void bhv_lava_grate_loop();
 //ROVERT BEHAVIOR ACTIONS END
 
+//cheeze start
+void bhv_cheezeplat_loop(void);
+//cheeze end
+
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 
 // Bowser

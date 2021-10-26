@@ -389,8 +389,9 @@ void koopa_find_anchor(void)
     struct Object *obj;
     struct ObjectNode *listHead;
     s32 countUp = 0;
+    s32 count;
     tryAgain:
-    s32 count = random_u16() % 24;
+    count = random_u16() % 24;
 
     listHead = &gObjectLists[get_object_list_from_behavior(segmented_to_virtual(bhvKoopaBossAnchor))];
     obj = (struct Object *) listHead->next;
