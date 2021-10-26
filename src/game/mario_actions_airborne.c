@@ -824,6 +824,7 @@ s32 act_air_throw(struct MarioState *m) {
     return FALSE;
 }
 
+// UNUSED
 s32 act_water_jump(struct MarioState *m) {
     set_camera_mode(m->area->camera, m->area->camera->defMode, 1);
     set_mario_action(m, ACT_JUMP, 0);
@@ -1322,7 +1323,7 @@ s32 act_air_hit_wall(struct MarioState *m) {
 
 s32 act_forward_rollout(struct MarioState *m) {
     if (m->actionState == 0) {
-        m->vel[1] = 30.0f;
+        // m->vel[1] = 30.0f;
         m->actionState = 1;
     }
 
@@ -1363,7 +1364,7 @@ s32 act_forward_rollout(struct MarioState *m) {
 
 s32 act_backward_rollout(struct MarioState *m) {
     if (m->actionState == 0) {
-        m->vel[1] = 30.0f;
+        // m->vel[1] = 30.0f;
         m->actionState = 1;
     }
 

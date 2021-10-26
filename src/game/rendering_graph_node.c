@@ -200,8 +200,11 @@ void reset_clipping(void)
 }
 
 // thecozies start
+#include "engine/surface_collision.h"
+#include "object_list_processor.h"
 Mat4 *viewMat;
 s32 gReadyForLookAt = FALSE;
+s32 gCameraIsUnderwater = FALSE;
 // thecozies end
 
 /**
@@ -521,6 +524,12 @@ void geo_process_camera(struct GraphNodeCamera *node) {
     // thecozies start
     viewMat = &gMatStack[gMatStackIndex];
     gReadyForLookAt = TRUE;
+    if (gCurrLevelNum == LEVEL_DDD && gCamera) {
+        s16 checkingTemp = gCheckingSurfaceCollisionsForCamera;
+        gCheckingSurfaceCollisionsForCamera = TRUE;
+        gCameraIsUnderwater = find_water_level(gCamera->pos[0], gCamera->pos[2]) > gCamera->pos[1];
+        gCheckingSurfaceCollisionsForCamera = checkingTemp;
+    }
     // thecozies end
 
     if (node->fnNode.node.children != 0) {
@@ -688,7 +697,6 @@ void geo_process_animated_part(struct GraphNodeAnimatedPart *node) {
     Vec3s rotation = {0, 0, 0};
     Vec3f translation = {node->translation[0], node->translation[1], node->translation[2]};
 
-    vec3f_set(translation, node->translation[0], node->translation[1], node->translation[2]);
     if (gCurAnimType == ANIM_TYPE_TRANSLATION) {
         translation[0] += gCurAnimData[retrieve_animation_index(gCurrAnimFrame, &gCurrAnimAttribute)] * gCurAnimTranslationMultiplier;
         translation[1] += gCurAnimData[retrieve_animation_index(gCurrAnimFrame, &gCurrAnimAttribute)] * gCurAnimTranslationMultiplier;

@@ -256,7 +256,7 @@ u8 water_top_water_big_chungus_defined_intensity2_i4[] = {
 	0xe3, 0x33, 0x33, 0x33, 0x33, 0x33, 0xde, 0x33,
 	0x33, 0x33, 0x33, 0x33, 0xe3, 0x33, 0x33, 0x33,
 	0x33, 0x33, 0x33, 0x33, 0xdf, 0xf3, 0x33, 0x33,
-
+	
 };
 
 Gfx water_top_water_pls_try_sharper_intensity2_i4_aligner[] = {gsSPEndDisplayList()};
@@ -517,7 +517,6 @@ u8 water_top_water_pls_try_sharper_intensity2_i4[] = {
 	0xc4, 0xde, 0xfe, 0x34, 0x44, 0x44, 0x43, 0xfb,
 	0x44, 0x44, 0x44, 0xed, 0x44, 0x44, 0x44, 0x3f,
 	0xff, 0x34, 0x44, 0xdf, 0xb4, 0x44, 0xc3, 0x44,
-
 };
 
 Vtx water_top_zoutside_skinned_mesh_layer_5_vtx_0[10] = {
@@ -843,7 +842,7 @@ Gfx water_top_center_mesh_layer_5_tri_0[] = {
 
 Gfx mat_water_top_water_layer5[] = {
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL1, 0, TEXEL0, ENVIRONMENT, TEXEL1, 0, TEXEL0, 0, SHADE, COMBINED, PRIMITIVE, COMBINED, 1, COMBINED, PRIMITIVE, COMBINED),
+	gsDPSetCombineLERP(TEXEL1, 0, TEXEL0, 0, TEXEL1, 0, TEXEL0, 0, SHADE, COMBINED, PRIMITIVE, COMBINED, 1, COMBINED, PRIMITIVE, COMBINED),
 	gsSPSetGeometryMode(G_FOG),
 	gsSPClearGeometryMode(G_CULL_BACK),
 	gsDPSetCycleType(G_CYC_2CYCLE),
