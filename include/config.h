@@ -158,7 +158,7 @@
 // Enables "parallel lakitu camera" or "aglab cam" which lets you move the camera smoothly with the dpad
 #define PARALLEL_LAKITU_CAM
 // Enables Puppy Camera 2, a rewritten camera that can be freely configured and modified.
-//#define PUPPYCAM
+#define PUPPYCAM
 
 // -- GRAPHICS SETTINGS --
 // Enable widescreen (16:9) support
