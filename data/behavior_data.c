@@ -355,7 +355,16 @@ const BehaviorScript bhvPerservePosWarp[] = {
 };
 
 const BehaviorScript bhvBossShell[] = {
-    BREAK(),
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_ACTIVE_FROM_AFAR)),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 50),
+    SET_INT(oInteractType, INTERACT_DAMAGE),
+    SET_FLOAT(oDrawingDistance, 5000),
+    CALL_NATIVE(koopa_boss_shell_init),
+    BEGIN_LOOP(),
+    SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(koopa_boss_shell_loop),
+    END_LOOP(),
 };
 
 const BehaviorScript bhvKoopaBoss[] = {
