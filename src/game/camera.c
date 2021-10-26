@@ -2800,6 +2800,16 @@ void update_lakitu(struct Camera *c) {
     gLakituState.defMode = c->defMode;
 }
 
+void switch_puppycam_enabled(void) {
+    switch (gCurrLevelNum) {
+        // case YOUR_LEVEL:
+        case LEVEL_DDD:
+            gPuppyCam.enabled = TRUE;
+            break;
+        default:
+            gPuppyCam.enabled = FALSE;
+    }
+}
 
 /**
  * The main camera update function.
@@ -2807,6 +2817,7 @@ void update_lakitu(struct Camera *c) {
  */
 void update_camera(struct Camera *c) {
     gCamera = c;
+    switch_puppycam_enabled();
     update_camera_hud_status(c);
     if (c->cutscene == 0 &&
 #ifdef PUPPYCAM
@@ -9962,7 +9973,7 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // SA             | BITS
-	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // LLL            | DDD
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // WF             | ENDING
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // COURTYARD      | PSS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // COTMC          | TOTWC

@@ -100,6 +100,8 @@ extern s16 sSourceWarpNodeId;
 extern s32 sDelayedWarpArg;
 extern s8 sTimerRunning;
 
+extern struct Object *gInstantWarpObject;
+
 struct HudDisplay {
     /*0x00*/ s16 lives;
     /*0x02*/ s16 coins;

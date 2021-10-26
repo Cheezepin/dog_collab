@@ -2518,12 +2518,10 @@ Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED v
 
 // thecozies start
 // 102b29
-// #define WATER_BASE_R 0x41
-// #define WATER_BASE_G 0x5E
-// #define WATER_BASE_B 0x6F
 #define WATER_BASE_R 0x10
 #define WATER_BASE_G 0x2B
 #define WATER_BASE_B 0x29
+
 #define WATER_BASE_RA (WATER_BASE_R * 2)
 #define WATER_BASE_GA (WATER_BASE_G * 2)
 #define WATER_BASE_BA (WATER_BASE_B * 2)
@@ -2531,79 +2529,130 @@ Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED v
 #define WATER_BASE_R1 (WATER_BASE_R * WATER_BASE_STRENGTH)
 #define WATER_BASE_G1 (WATER_BASE_G * WATER_BASE_STRENGTH)
 #define WATER_BASE_B1 (WATER_BASE_B * WATER_BASE_STRENGTH)
-#define SUNSET_STRENGTH 1.2f
-#define WATER_BASE_R2 (0x90 * SUNSET_STRENGTH) // WATER_BASE_R 907447
-#define WATER_BASE_G2 (0x74 * SUNSET_STRENGTH) // WATER_BASE_G
-#define WATER_BASE_B2 (0x47 * SUNSET_STRENGTH) // WATER_BASE_B
 
-Lights2 water_lights = gdSPDefLights2(
+#define SUNSET_STRENGTH 0.4f
+#define WATER_BASE_R2 (0xA1 * SUNSET_STRENGTH) // WATER_BASE_R A17891
+#define WATER_BASE_G2 (0x78 * SUNSET_STRENGTH) // WATER_BASE_G
+#define WATER_BASE_B2 (0x91 * SUNSET_STRENGTH) // WATER_BASE_B
+
+struct GlobalFog gGlobalFog = {
+    0xA1,
+    0x78,
+    0x91,
+    0xFF,
+    950,
+    1010
+};
+
+struct GlobalFog sDDDWaterFog = {
+    WATER_BASE_RA,
+    WATER_BASE_GA,
+    WATER_BASE_BA,
+    0xFF,
+    920,
+    1000
+};
+struct GlobalFog sDDDFogArea1 = {
+    0xB3,
+    0xBC,
+    0xDD,
+    0xFF,
+    950,
+    1000
+};
+struct GlobalFog sDDDFogArea3 = {
+    0xB3,
+    0xBC,
+    0xCD,
+    0xFF,
+    980,
+    1050
+};
+
+Lights2 water_top_lights = gdSPDefLights2(
     WATER_BASE_RA, WATER_BASE_GA, WATER_BASE_BA,
     WATER_BASE_R1, WATER_BASE_G1, WATER_BASE_B1, 0x25, 0x25, 0x25,
     WATER_BASE_R2, WATER_BASE_G2, WATER_BASE_B2, 0x41, 0x41, 0x41
-    // 0xAA, 0, 0, -dir1, -dir2, -dir3
 );
 
-Vec3f lightDir = {
-    37.0f,
-    80.0f,
-    10.0f
-};
-// Vec3f lightDir = {
-//     50.0f,
-//     100.0f,
-//     10.0f
-// };
-Vec3f lightDir2 = {
-    114.0f,
-    13.0f,
-    0.0f
-};
-// Vec3f lightDir2 = {
-//     40.0f,
-//     13.0f,
-//     0.0f
-// };
+Vec3f lightDir  = {  37.0f, 80.0f, 10.0f };
+Vec3f lightDir2 = { -114.0f, 13.0f,  0.0f };
 
 Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
     struct GraphNodeGenerated *currentGraphNode;
-    static int i = 0;
     Gfx *dlStart, *dlHead;
     dlStart = NULL;
 
     if (callContext == GEO_CONTEXT_RENDER) {
         currentGraphNode = (struct GraphNodeGenerated *) node;
-        if (currentGraphNode->parameter != 0) {
-            currentGraphNode->fnNode.node.flags =
-                (currentGraphNode->parameter << 8) | (currentGraphNode->fnNode.node.flags & 0xFF);
-        }
+        if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, currentGraphNode->parameter);
 
         dlStart = alloc_display_list(sizeof(Gfx) * 5);
         dlHead = dlStart;
 
         if (gReadyForLookAt) {
-            if (gMarioState->controller->buttonDown & L_TRIG) {
-                f32 amt = 0.0f;
-                if (gMarioState->controller->buttonDown & R_JPAD) amt++;
-                if (gMarioState->controller->buttonDown & L_JPAD) amt--;
-                if (gMarioState->controller->buttonPressed & U_JPAD) i = MAX(0, i - 1);
-                if (gMarioState->controller->buttonPressed & D_JPAD) i = MIN(2, i + 1);
-                lightDir2[i] += amt;
-            }
+            water_top_lights.l[0].l.dir[0] = ((s8)(lightDir[0] * (*viewMat)[0][0] + lightDir[1] * (*viewMat)[1][0] + lightDir[2] * (*viewMat)[2][0]));
+            water_top_lights.l[0].l.dir[1] = ((s8)(lightDir[0] * (*viewMat)[0][1] + lightDir[1] * (*viewMat)[1][1] + lightDir[2] * (*viewMat)[2][1]));
+            water_top_lights.l[0].l.dir[2] = ((s8)(lightDir[0] * (*viewMat)[0][2] + lightDir[1] * (*viewMat)[1][2] + lightDir[2] * (*viewMat)[2][2]));
 
-            water_lights.l[0].l.dir[0] = ((s8)(lightDir[0] * (*viewMat)[0][0] + lightDir[1] * (*viewMat)[1][0] + lightDir[2] * (*viewMat)[2][0]));
-            water_lights.l[0].l.dir[1] = ((s8)(lightDir[0] * (*viewMat)[0][1] + lightDir[1] * (*viewMat)[1][1] + lightDir[2] * (*viewMat)[2][1]));
-            water_lights.l[0].l.dir[2] = ((s8)(lightDir[0] * (*viewMat)[0][2] + lightDir[1] * (*viewMat)[1][2] + lightDir[2] * (*viewMat)[2][2]));
+            water_top_lights.l[1].l.dir[0] = ((s8)(lightDir2[0] * (*viewMat)[0][0] + lightDir2[1] * (*viewMat)[1][0] + lightDir2[2] * (*viewMat)[2][0]));
+            water_top_lights.l[1].l.dir[1] = ((s8)(lightDir2[0] * (*viewMat)[0][1] + lightDir2[1] * (*viewMat)[1][1] + lightDir2[2] * (*viewMat)[2][1]));
+            water_top_lights.l[1].l.dir[2] = ((s8)(lightDir2[0] * (*viewMat)[0][2] + lightDir2[1] * (*viewMat)[1][2] + lightDir2[2] * (*viewMat)[2][2]));
 
-            water_lights.l[1].l.dir[0] = ((s8)(lightDir2[0] * (*viewMat)[0][0] + lightDir2[1] * (*viewMat)[1][0] + lightDir2[2] * (*viewMat)[2][0]));
-            water_lights.l[1].l.dir[1] = ((s8)(lightDir2[0] * (*viewMat)[0][1] + lightDir2[1] * (*viewMat)[1][1] + lightDir2[2] * (*viewMat)[2][1]));
-            water_lights.l[1].l.dir[2] = ((s8)(lightDir2[0] * (*viewMat)[0][2] + lightDir2[1] * (*viewMat)[1][2] + lightDir2[2] * (*viewMat)[2][2]));
-
-            gSPSetLights2(dlHead++, water_lights);
+            gSPSetLights2(dlHead++, water_top_lights);
         }
         // gDPSetFogColor(dlHead++, ((0x90 + 0xFF) / 2), ((0x74 + 0xFF) / 2), ((0x47 + 0xFF) / 2), 0xFF);
         // gDPSetEnvColor(dlHead++, 0, 0, 0, 0);
         // gDPPipeSync(dlHead++);
         // gSPFogPosition(dlHead++, 980, 1050);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}
+
+
+#define WATER_SPOUT_RA (WATER_BASE_R * 3)
+#define WATER_SPOUT_GA (WATER_BASE_G * 3)
+#define WATER_SPOUT_BA (WATER_BASE_B * 3)
+#define WATER_SPOUT_R1 0xAA
+#define WATER_SPOUT_G1 0xAB
+#define WATER_SPOUT_B1 0xAC
+#define STATIC_LIGHT_STRENGTH 0.5
+#define WATER_SPOUT_R2 (0xFD * STATIC_LIGHT_STRENGTH)
+#define WATER_SPOUT_G2 (0xFF * STATIC_LIGHT_STRENGTH)
+#define WATER_SPOUT_B2 (0xFA * STATIC_LIGHT_STRENGTH)
+Lights2 water_spout_lights = gdSPDefLights2(
+    WATER_SPOUT_RA, WATER_SPOUT_GA, WATER_SPOUT_BA,
+    WATER_SPOUT_R1, WATER_SPOUT_G1, WATER_SPOUT_B1, 0x25, 0x25, 0x25,
+    WATER_SPOUT_R2, WATER_SPOUT_G2, WATER_SPOUT_B2, 0x25, 0x25, 0x25
+);
+Vec3f lightDirWaterSpout1 = { 13.0f, 15.0f, 73.0f };
+Vec3f lightDirWaterSpout2 = { -13.0f, 75.0f, -73.0f };
+
+Gfx *geo_set_water_spout_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    struct GraphNodeGenerated *currentGraphNode;
+    Gfx *dlStart, *dlHead;
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+        if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_TRANSPARENT_INTER);
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 2);
+        dlHead = dlStart;
+
+        if (gReadyForLookAt) {
+            water_spout_lights.l[0].l.dir[0] = ((s8)(lightDirWaterSpout1[0] * (*viewMat)[0][0] + lightDirWaterSpout1[1] * (*viewMat)[1][0] + lightDirWaterSpout1[2] * (*viewMat)[2][0]));
+            water_spout_lights.l[0].l.dir[1] = ((s8)(lightDirWaterSpout1[0] * (*viewMat)[0][1] + lightDirWaterSpout1[1] * (*viewMat)[1][1] + lightDirWaterSpout1[2] * (*viewMat)[2][1]));
+            water_spout_lights.l[0].l.dir[2] = ((s8)(lightDirWaterSpout1[0] * (*viewMat)[0][2] + lightDirWaterSpout1[1] * (*viewMat)[1][2] + lightDirWaterSpout1[2] * (*viewMat)[2][2]));
+
+            water_spout_lights.l[1].l.dir[0] = ((s8)(lightDirWaterSpout2[0] * (*viewMat)[0][0] + lightDirWaterSpout2[1] * (*viewMat)[1][0] + lightDirWaterSpout2[2] * (*viewMat)[2][0]));
+            water_spout_lights.l[1].l.dir[1] = ((s8)(lightDirWaterSpout2[0] * (*viewMat)[0][1] + lightDirWaterSpout2[1] * (*viewMat)[1][1] + lightDirWaterSpout2[2] * (*viewMat)[2][1]));
+            water_spout_lights.l[1].l.dir[2] = ((s8)(lightDirWaterSpout2[0] * (*viewMat)[0][2] + lightDirWaterSpout2[1] * (*viewMat)[1][2] + lightDirWaterSpout2[2] * (*viewMat)[2][2]));
+
+            gSPSetLights2(dlHead++, water_spout_lights);
+        }
         gSPEndDisplayList(dlHead);
     }
 
@@ -2628,10 +2677,114 @@ Gfx *move_water_top(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
 
 Gfx *geo_backdrop_move_cozies(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
     if (callContext == GEO_CONTEXT_RENDER) {
-        ((struct GraphNodeTranslationRotation *) node->next)->translation[0] = gLakituState.pos[0] * 0.95;
-        ((struct GraphNodeTranslationRotation *) node->next)->translation[1] = gLakituState.pos[1] * 0.95;
-        ((struct GraphNodeTranslationRotation *) node->next)->translation[2] = gLakituState.pos[2] * 0.95;
+        ((struct GraphNodeTranslation *) node->next)->translation[0] = gLakituState.pos[0] * 0.95f;
+        ((struct GraphNodeTranslation *) node->next)->translation[1] = gLakituState.pos[1] * 0.95f;
+        ((struct GraphNodeTranslation *) node->next)->translation[2] = gLakituState.pos[2] * 0.95f;
     }
     return 0;
+}
+
+Gfx *geo_mountain_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    struct GraphNodeGenerated *currentGraphNode;
+    Gfx *dlStart, *dlHead;
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+        if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, currentGraphNode->parameter & 0xFF);
+
+        u8 strength = (currentGraphNode->parameter >> 8) & 0xFF;
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 2);
+        dlHead = dlStart;
+        gDPSetEnvColor(
+            dlHead++,
+            0.971f * strength,
+            0.913f * strength,
+            strength,
+            255
+        );
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}
+
+#define GLOBAL_FOG_UPDATE_RATE_DIVISOR 10
+Gfx *geo_set_global_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    static u32 curUpdateFrame = 0;
+    struct GraphNodeGenerated *currentGraphNode;
+    Gfx *dlStart, *dlHead;
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+        if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, currentGraphNode->parameter & 0xFF);
+
+        if (curUpdateFrame != gGlobalTimer) {
+            struct GlobalFog *goalFog;
+            curUpdateFrame = gGlobalTimer;
+            if (gCameraIsUnderwater) goalFog = &sDDDWaterFog;
+            else {
+                switch (gCurrAreaIndex)
+                {
+                case 3:
+                case 2:
+                    goalFog = &sDDDFogArea3;
+                    break;
+                case 1:
+                default:
+                    goalFog = &sDDDFogArea1;
+                    break;
+                }
+            }
+            gGlobalFog.r    = approach_s16_asymptotic(gGlobalFog.r,    goalFog->r,    GLOBAL_FOG_UPDATE_RATE_DIVISOR);
+            gGlobalFog.g    = approach_s16_asymptotic(gGlobalFog.g,    goalFog->g,    GLOBAL_FOG_UPDATE_RATE_DIVISOR);
+            gGlobalFog.b    = approach_s16_asymptotic(gGlobalFog.b,    goalFog->b,    GLOBAL_FOG_UPDATE_RATE_DIVISOR);
+            gGlobalFog.a    = approach_s16_asymptotic(gGlobalFog.a,    goalFog->a,    GLOBAL_FOG_UPDATE_RATE_DIVISOR);
+            gGlobalFog.low  = approach_s16_asymptotic(gGlobalFog.low,  goalFog->low,  GLOBAL_FOG_UPDATE_RATE_DIVISOR);
+            gGlobalFog.high = approach_s16_asymptotic(gGlobalFog.high, goalFog->high, GLOBAL_FOG_UPDATE_RATE_DIVISOR);
+        }
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
+        dlHead = dlStart;
+        gDPSetFogColor(dlHead++, gGlobalFog.r, gGlobalFog.g, gGlobalFog.b, gGlobalFog.a);
+        gSPFogPosition(dlHead++, gGlobalFog.low, gGlobalFog.high);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}
+
+Gfx *geo_update_rain_cloud_rain(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    Gfx *dlStart, *dlHead;
+    struct Object *objectGraphNode;
+    struct GraphNodeGenerated *currentGraphNode;
+    s32 objectOpacity;
+
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        objectGraphNode = (struct Object *) gCurGraphNodeObject;
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+
+        objectOpacity = objectGraphNode->oOpacity;
+        COND_BIT(objectOpacity > 0, ((struct GraphNodeDisplayList *) node->next)->node.flags, GRAPH_RENDER_ACTIVE);
+
+        if (objectOpacity == 0) {
+            return NULL;
+        }
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
+
+        dlHead = dlStart;
+
+        SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_TRANSPARENT);
+
+        gDPSetEnvColor(dlHead++, 255, 255, 255, objectOpacity);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
 }
 // thecozies end
