@@ -1,0 +1,18 @@
+extern const GeoLayout redblock_geo[];
+extern Lights1 redblock_Redblock_Side_lights;
+extern Lights1 redblock_Redblock_Top_lights;
+extern u8 redblock_redblock1_ci8[];
+extern u8 redblock_redblock1_ci8_pal_rgba16[];
+extern u8 redblock_redblock2_ci4[];
+extern u8 redblock_redblock2_ci4_pal_rgba16[];
+extern Vtx redblock_Block_Prop_004_mesh_layer_1_vtx_cull[8];
+extern Vtx redblock_Block_Prop_004_mesh_layer_1_vtx_0[16];
+extern Gfx redblock_Block_Prop_004_mesh_layer_1_tri_0[];
+extern Vtx redblock_Block_Prop_004_mesh_layer_1_vtx_1[8];
+extern Gfx redblock_Block_Prop_004_mesh_layer_1_tri_1[];
+extern Gfx mat_redblock_Redblock_Side[];
+extern Gfx mat_revert_redblock_Redblock_Side[];
+extern Gfx mat_redblock_Redblock_Top[];
+extern Gfx mat_revert_redblock_Redblock_Top[];
+extern Gfx redblock_Block_Prop_004_mesh_layer_1[];
+extern Gfx redblock_material_revert_render_settings[];
