@@ -19,6 +19,7 @@ extern f32 gWorldScale;
 // thecozies start
 extern Mat4 *viewMat;
 extern s32 gReadyForLookAt;
+extern s32 gCameraIsUnderwater;
 // thecozies end
 
 // after processing an object, the type is reset to this

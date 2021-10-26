@@ -1271,6 +1271,13 @@
 #define /*0x0F4*/ oCephieStartYaw                               OBJECT_FIELD_S32(0x1B)
 #define /*0x0F8*/ oCephieTalked                                 OBJECT_FIELD_S32(0x1C)
 
+// thecozies start
+#define oRainCloudScaleVel                  OBJECT_FIELD_F32(0x1B)
+#define oRainCloudMarioIsStandingOnCloud    OBJECT_FIELD_S32(0x1C)
+#define oRainCloudPreservedMomentum         OBJECT_FIELD_F32(0x1D)
+#define oRainCloudPreservedMomentumTimeout  OBJECT_FIELD_S32(0x1E)
+// thecozies end
+
 /*Custom general defines:
 
 For general s32 ints, use o->oF4, oF8, oFC, o100, o104, o108, o10C, and o110

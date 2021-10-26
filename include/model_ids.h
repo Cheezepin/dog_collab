@@ -284,6 +284,7 @@
 #define MODEL_DDD_WATER_TOP                       0x36
 #define MODEL_DDD_WATER_SPOUT                     0x37
 #define MODEL_RAIN_CLOUD                          0x38
+#define MODEL_DDD_APERATURE_DOOR                  0x39
 
 // wf
 #define MODEL_WF_BREAKABLE_WALL_RIGHT             0x36        // wf_geo_000B78

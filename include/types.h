@@ -484,4 +484,16 @@ struct MarioState
     struct FloorCheckpoint floorCheckpoint;
 };
 
+// thecozies start
+struct GlobalFog
+{
+    /*0x00*/ u8 r;
+    /*0x01*/ u8 g;
+    /*0x02*/ u8 b;
+    /*0x03*/ u8 a;
+    /*0x04*/ s16 low;
+    /*0x04*/ s16 high;
+};
+// thecozies end
+
 #endif // TYPES_H

@@ -563,6 +563,9 @@ extern const BehaviorScript bhvCephie[];
 extern const BehaviorScript bhvRainCloud[];
 extern const BehaviorScript bhvWaterTop[];
 extern const BehaviorScript bhvWaterSpout[];
+extern const BehaviorScript bhvRedCoinStarMarkerNoDrop[];
+extern const BehaviorScript bhvVerticalInstantWarp[];
+extern const BehaviorScript bhvAperatureDoor[];
 // thecozies bhvs end
 
 //START ROVERT BEHAVIOR
