@@ -45,3 +45,7 @@
 
 #include "levels/ddd/water_spout/model.inc.c"
 #include "levels/ddd/water_spout/collision.inc.c"
+#include "levels/ddd/aperature_door/model.inc.c"
+#include "levels/ddd/aperature_door/collision.inc.c"
+#include "levels/ddd/aperature_door/anims/data.inc.c"
+#include "levels/ddd/aperature_door/anims/table.inc.c"

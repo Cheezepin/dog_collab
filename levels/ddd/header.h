@@ -56,4 +56,10 @@ extern const LevelScript level_ddd_entry[];
 
 #include "levels/ddd/water_spout/collision_header.h"
 
+#include "levels/ddd/aperature_door/geo_header.h"
+
+#include "levels/ddd/aperature_door/collision_header.h"
+
+#include "levels/ddd/aperature_door/anim_header.h"
+
 #endif
