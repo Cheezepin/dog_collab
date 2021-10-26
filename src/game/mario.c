@@ -853,6 +853,11 @@ static u32 set_mario_action_airborne(struct MarioState *m, u32 action, u32 actio
         case ACT_JUMP_KICK:
             m->vel[1] = 20.0f;
             break;
+        
+        case ACT_FORWARD_ROLLOUT:
+        case ACT_BACKWARD_ROLLOUT:
+            m->vel[1] = 30.0f;
+            break;
     }
 
     m->peakHeight = m->pos[1];
@@ -1515,6 +1520,11 @@ void update_mario_health(struct MarioState *m) {
 
 #ifdef BREATH_METER
 void update_mario_breath(struct MarioState *m) {
+    if (gCurrLevelNum == LEVEL_DDD) {
+        m->breath = 0;
+        m->breathCounter = 0;
+        return;
+    }
     if (m->breath >= 0x100 && m->health >= 0x100) {
         if (m->pos[1] < (m->waterLevel - 140) && !(m->flags & MARIO_METAL_CAP) && !(m->action & ACT_FLAG_INTANGIBLE)) {
             m->breath -= 2;

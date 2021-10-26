@@ -1323,7 +1323,7 @@ s32 act_air_hit_wall(struct MarioState *m) {
 
 s32 act_forward_rollout(struct MarioState *m) {
     if (m->actionState == 0) {
-        m->vel[1] = 30.0f;
+        // m->vel[1] = 30.0f;
         m->actionState = 1;
     }
 
@@ -1364,7 +1364,7 @@ s32 act_forward_rollout(struct MarioState *m) {
 
 s32 act_backward_rollout(struct MarioState *m) {
     if (m->actionState == 0) {
-        m->vel[1] = 30.0f;
+        // m->vel[1] = 30.0f;
         m->actionState = 1;
     }
 
