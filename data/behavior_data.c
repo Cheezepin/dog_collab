@@ -6357,3 +6357,16 @@ const BehaviorScript bhvWaterTop[] = {
     END_LOOP(),
 };
 // thecozies bhvs end
+
+//cheeze bhvs start
+
+const BehaviorScript bhvCheezePlat[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(cheezeplat_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+//cheeze bhvs end

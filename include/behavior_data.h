@@ -574,5 +574,9 @@ extern const BehaviorScript bhvLavaGrate[];
 
 //END ROVERT BEHAVIOR
 
+//cheeze bhv starts
+extern const BehaviorScript bhvCheezePlat[];
+//cheeze bhv ends
+
 
 #endif // BEHAVIOR_DATA_H

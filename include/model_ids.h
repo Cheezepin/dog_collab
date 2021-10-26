@@ -617,4 +617,10 @@
 
 //END ROVERT MODEL IDS
 
+//start cheeze model ids
+
+#define MODEL_CHEEZE_PLAT 0x180
+
+//end cheeze model ids
+
 #endif // MODEL_IDS_H
