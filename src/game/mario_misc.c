@@ -590,7 +590,6 @@ Gfx *geo_switch_mario_hand_grab_pos(s32 callContext, struct GraphNode *b, Mat4 *
  * a mirror image of the player.
  */
 Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
-    f32 mirroredX;
     struct Object *mario = gMarioStates[0].marioObj;
 
     switch (callContext) {
@@ -604,7 +603,7 @@ Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat
             geo_remove_child(&gMirrorMario.node);
             break;
         case GEO_CONTEXT_RENDER:
-            if (mario->header.gfx.pos[0] > 1700.0f) {
+            if (mario->header.gfx.pos[1] >= 76.0f) {
                 // TODO: Is this a geo layout copy or a graph node copy?
                 gMirrorMario.sharedChild = mario->header.gfx.sharedChild;
                 gMirrorMario.areaIndex = mario->header.gfx.areaIndex;
@@ -613,15 +612,30 @@ Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat
                 vec3f_copy(gMirrorMario.scale, mario->header.gfx.scale);
 
                 gMirrorMario.animInfo = mario->header.gfx.animInfo;
-                mirroredX = CASTLE_MIRROR_X - gMirrorMario.pos[0];
-                gMirrorMario.pos[0] = mirroredX + CASTLE_MIRROR_X;
-                gMirrorMario.angle[1] = -gMirrorMario.angle[1];
-                gMirrorMario.scale[0] *= -1.0f;
-                ((struct GraphNode *) &gMirrorMario)->flags |= GRAPH_RENDER_ACTIVE;
+                gMirrorMario.pos[0] -= 1340;
+                gMirrorMario.pos[1] = -(mario->header.gfx.pos[1]-76);
+                gMirrorMario.pos[2] -= 2620;
+                gMirrorMario.scale[1] *= -1.0f;
+                ((struct GraphNode *) &gMirrorMario)->flags |= 1;
             } else {
                 ((struct GraphNode *) &gMirrorMario)->flags &= ~GRAPH_RENDER_ACTIVE;
             }
             break;
+    }
+    return NULL;
+}
+
+Gfx *geo_render_bell(s32 callContext, struct GraphNode *node, UNUSED Mat4 *c) {
+    struct GraphNodeGenerated *asGenerated = (struct GraphNodeGenerated *) node;
+    s16 rotX = sins(gAreaUpdateCounter * 850) * 0x3000;
+
+    if (callContext == GEO_CONTEXT_RENDER)
+    {
+        struct GraphNodeRotation *rotNode = (struct GraphNodeRotation *) node->next;
+
+        rotNode->rotation[0] = rotX;
+        //if (ABS(rotX) == 0x3000)
+       //     play_sound
     }
     return NULL;
 }

@@ -60,6 +60,7 @@
 #define MARIO_SPAWN_LAUNCH_STAR_COLLECT   0x24
 #define MARIO_SPAWN_LAUNCH_DEATH          0x25
 #define MARIO_SPAWN_FADE_FROM_BLACK       0x27
+#define MARIO_SPAWN_PRESERVE_POS          0x28
 
 
 struct CreditsEntry

@@ -8,6 +8,8 @@
 #define MEMORY_POOL_LEFT  0
 #define MEMORY_POOL_RIGHT 1
 
+extern s32 mempool;
+
 struct AllocOnlyPool
 {
     s32 totalSpace;
