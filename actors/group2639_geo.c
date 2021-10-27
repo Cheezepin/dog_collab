@@ -8,3 +8,4 @@
 #include "couch/geo.inc.c"
 
 #include "elevator/geo.inc.c"
+#include "soder/geo.inc.c"

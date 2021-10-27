@@ -1372,8 +1372,7 @@ s32 lvl_set_current_level(UNUSED s16 arg0, s32 levelNum) {
     sWarpCheckpointActive = FALSE;
     gCurrLevelNum = levelNum;
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
-	if (gCurrLevelNum == LEVEL_BOB) return 0;
-		if (gCurrLevelNum == LEVEL_BITDW) return 0;
+			if (gCurrLevelNum == LEVEL_BITDW) return 0;
 	if (gCurrLevelNum == LEVEL_BITFS) return 0;
 
     if (gCurrDemoInput != NULL || gCurrCreditsEntry != NULL || gCurrCourseNum == COURSE_NONE) {

@@ -18,4 +18,6 @@
 
 #include "elevator/collision_header.h"
 
+#include "soder/geo_header.h"
+
 #endif
