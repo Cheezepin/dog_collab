@@ -181,4 +181,8 @@ extern const LevelScript level_bbh_entry[];
 
 #include "levels/bbh/center_light/geo_header.h"
 
+#include "levels/bbh/fwoosh_step_button/geo_header.h"
+
+#include "levels/bbh/fwoosh_step_button/collision_header.h"
+
 #endif

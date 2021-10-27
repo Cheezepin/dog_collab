@@ -61,6 +61,7 @@ const LevelScript level_bbh_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_DARK_SKY, dark_sky_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ENTRANCE_GATE, entrance_gate_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CENTER_LIGHT, center_light_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_FWOOSH_STEP_BUTTON, fwoosh_step_button_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -271,9 +272,9 @@ const LevelScript level_bbh_entry[] = {
 		OBJECT(MODEL_NONE, 12899, 8225, -12472, 0, -180, 0, 0x00000000, bhvMinigameFwoosh),
 		OBJECT(MODEL_NONE, 13686, 8225, -12472, 0, -180, 0, 0x00000000, bhvMinigameFwoosh),
 		OBJECT(MODEL_NONE, 14472, 8225, -12472, 0, -180, 0, 0x00000000, bhvMinigameFwoosh),
-		OBJECT(MODEL_FWOOSH_BUTTON, 12899, 8125, -11902, 0, 0, 0, 0x00000000, bhvFwooshButton),
-		OBJECT(MODEL_FWOOSH_BUTTON, 13686, 8125, -11902, 0, 0, 0, 0x00000000, bhvFwooshButton),
-		OBJECT(MODEL_FWOOSH_BUTTON, 14472, 8125, -11902, 0, 0, 0, 0x00000000, bhvFwooshButton),
+		OBJECT(MODEL_FWOOSH_STEP_BUTTON, 12899, 8125, -11902, 0, 0, 0, 0x00000000, bhvFwooshButton),
+		OBJECT(MODEL_FWOOSH_STEP_BUTTON, 13686, 8125, -11902, 0, 0, 0, 0x00000000, bhvFwooshButton),
+		OBJECT(MODEL_FWOOSH_STEP_BUTTON, 14472, 8125, -11902, 0, 0, 0, 0x00000000, bhvFwooshButton),
 		OBJECT(MODEL_METAL_CRATE, 14472, 8125, -12772, 0, -180, 0, 0x00000000, bhvMetalCrate),
 		OBJECT(MODEL_METAL_CRATE, 13686, 8125, -12772, 0, -180, 0, 0x00000000, bhvMetalCrate),
 		OBJECT(MODEL_METAL_CRATE, 12899, 8125, -12772, 0, -180, 0, 0x00000000, bhvMetalCrate),

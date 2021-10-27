@@ -6427,9 +6427,8 @@ const BehaviorScript bhvMinigameFwoosh[] = {
 const BehaviorScript bhvFwooshButton[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    LOAD_COLLISION_DATA(fwoosh_button_collision),
+    LOAD_COLLISION_DATA(fwoosh_step_button_collision),
     SET_FLOAT(oDrawingDistance, 0x4000),
-    SET_FLOAT(oCollisionDistance, 0x500),
     CALL_NATIVE(bhv_init_room),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_fwoosh_button_loop),

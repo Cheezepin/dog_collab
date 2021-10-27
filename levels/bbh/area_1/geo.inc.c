@@ -467,6 +467,7 @@ const GeoLayout bbh_dl_11__Ground_geo[] = {
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -9081, 1117, 10104, 0, -90, 0, bbh_dl_Shack_mesh_layer_1),
 			GEO_OPEN_NODE(),
 				GEO_DISPLAY_LIST(LAYER_ALPHA, bbh_dl_Shack_mesh_layer_4),
+				GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, bbh_dl_Shack_mesh_layer_6),
 			GEO_CLOSE_NODE(),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -13915, 290, 4883, 0, -90, 0, bbh_dl_Shack_001_mesh_layer_1),
 			GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -12167, 89, 2119, 0, -90, 0, bbh_dl_Shack_002_mesh_layer_1),

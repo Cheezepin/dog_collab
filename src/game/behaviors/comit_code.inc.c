@@ -64,7 +64,7 @@ struct FwooshMG
     s16 type;
 };
 
-#define MINIGAME_SECONDS 120
+#define MINIGAME_SECONDS 110
 #define MINIGAME_GOAL 80
 
 struct FwooshMG sMGSpawnersRow1[] = {
@@ -194,7 +194,7 @@ struct FwooshMG sMGSpawnersRow3[] = {
     {2925, 2,},
 
     //LAST BIG GOOMBA AT 3150
-    {3150, 2,},
+    {3000, 2,},
     {-1, 0,},
 };
 
@@ -455,6 +455,7 @@ void bhv_floor_door_loop(void) {
                 o->oAction = 1;
                 vec3f_copy(gComitCamPos[1], &o->oPosX);
                 vec3f_set(gComitCamPos[0], o->oPosX, o->oHomeY + 500.0f, o->oPosZ + 800.0f);
+                obj->activeFlags = 0;
             }
             break;
         case 1:
@@ -1479,7 +1480,7 @@ void bhv_fwooshmg_koopa_update(void) {
     cur_obj_update_floor_and_walls();
 
     if (!(o->oMoveFlags & OBJ_MOVE_HIT_WALL)) {
-        o->oPosX += 10.0f;
+        o->oPosX += 12.0f;
     }
     cur_obj_move_standard(-78);
 
@@ -1511,9 +1512,9 @@ void bhv_fwooshmg_goomba_update(void) {
     cur_obj_init_animation_with_accel_and_sound(0, animSpeed);
 
     if (!(o->oMoveFlags & OBJ_MOVE_HIT_WALL)) {
-        o->oPosX += 5.0f;
+        o->oPosX += 6.0f;
         if (o->oBehParams2ndByte == 1) {
-            o->oPosX += 5.0f;
+            o->oPosX += 7.0f;
         }
     }
     cur_obj_move_standard(-78);
@@ -1676,14 +1677,14 @@ void bhv_fwoosh_button_loop(void) {
             }
             break;
         case 1:
-            cur_obj_scale_over_time(2, 3, 1.0f, 0.2f);
+            cur_obj_scale_over_time(2, 3, 1.0f, 0.8f);
             if (o->oTimer == 3) {
                 cur_obj_play_sound_2(SOUND_GENERAL2_PURPLE_SWITCH);
                 o->oAction = 3;
             }
             break;
         case 2:
-            cur_obj_scale_over_time(2, 3, 0.2f, 1.0f);
+            cur_obj_scale_over_time(2, 3, 0.8f, 1.0f);
             if (o->oTimer == 3) {
                 o->oAction = 0;
             }

@@ -47,3 +47,4 @@ Gfx *geo_comit_cpu_fog_big(s32 callContext, struct GraphNode *node, Mat4 mtx);
 #include "levels/bbh/dark_sky/geo.inc.c"
 #include "levels/bbh/entrance_gate/geo.inc.c"
 #include "levels/bbh/center_light/geo.inc.c"
+#include "levels/bbh/fwoosh_step_button/geo.inc.c"

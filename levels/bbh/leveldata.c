@@ -108,3 +108,5 @@
 #include "levels/bbh/entrance_gate/model.inc.c"
 #include "levels/bbh/entrance_gate/collision.inc.c"
 #include "levels/bbh/center_light/model.inc.c"
+#include "levels/bbh/fwoosh_step_button/model.inc.c"
+#include "levels/bbh/fwoosh_step_button/collision.inc.c"

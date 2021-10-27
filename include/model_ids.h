@@ -636,6 +636,7 @@
 #define MODEL_DARK_SKY                    0x112
 #define MODEL_ENTRANCE_GATE               0x113
 #define MODEL_CENTER_LIGHT                0x114
+#define MODEL_FWOOSH_STEP_BUTTON          0x115
 
 //START ROVERT MODEL IDS
 
