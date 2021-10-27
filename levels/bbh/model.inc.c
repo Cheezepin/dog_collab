@@ -26,6 +26,10 @@ Lights1 bbh_dl_Wood_lights = gdSPDefLights1(
 	0x7F, 0x7F, 0x7F,
 	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
 
+Lights1 bbh_dl_EXIT_lights = gdSPDefLights1(
+	0x7F, 0x7F, 0x7F,
+	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
+
 Lights1 bbh_dl_Red_lights = gdSPDefLights1(
 	0x7F, 0x0, 0x0,
 	0xFE, 0x0, 0x0, 0x28, 0x28, 0x28);
@@ -15432,10 +15436,10 @@ Vtx bbh_dl_Shack_mesh_layer_6_vtx_cull[8] = {
 };
 
 Vtx bbh_dl_Shack_mesh_layer_6_vtx_0[4] = {
-	{{{758, -859, -202},0, {-16, 2032},{0xA5, 0x0, 0x59, 0xFF}}},
-	{{{1038, -859, 84},0, {4080, 2032},{0xA5, 0x0, 0x59, 0xFF}}},
-	{{{1038, -659, 84},0, {4080, -16},{0xA5, 0x0, 0x59, 0xFF}}},
-	{{{758, -659, -202},0, {-16, -16},{0xA5, 0x0, 0x59, 0xFF}}},
+	{{{758, -859, -202},0, {-16, 2032},{0x33, 0x33, 0x33, 0xFF}}},
+	{{{1038, -859, 84},0, {4080, 2032},{0x33, 0x33, 0x33, 0xFF}}},
+	{{{1038, -659, 84},0, {4080, -16},{0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{758, -659, -202},0, {-16, -16},{0xFF, 0xFF, 0xFF, 0xFF}}},
 };
 
 Gfx bbh_dl_Shack_mesh_layer_6_tri_0[] = {
@@ -22354,7 +22358,8 @@ Gfx mat_revert_bbh_dl_Wood[] = {
 
 Gfx mat_bbh_dl_EXIT[] = {
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(0, 0, 0, ENVIRONMENT, 0, 0, 0, TEXEL0, 0, 0, 0, ENVIRONMENT, 0, 0, 0, TEXEL0),
+	gsDPSetCombineLERP(ENVIRONMENT, 0, SHADE, 0, 0, 0, 0, TEXEL0, ENVIRONMENT, 0, SHADE, 0, 0, 0, 0, TEXEL0),
+	gsSPClearGeometryMode(G_LIGHTING),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPTileSync(),
 	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_16b, 1, bbh_dl_EXIT_i4),
@@ -22365,6 +22370,13 @@ Gfx mat_bbh_dl_EXIT[] = {
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_4b, 8, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 7, 0),
 	gsDPSetTileSize(0, 0, 0, 508, 252),
 	gsDPSetEnvColor(223, 29, 29, 255),
+	gsSPSetLights1(bbh_dl_EXIT_lights),
+	gsSPEndDisplayList(),
+};
+
+Gfx mat_revert_bbh_dl_EXIT[] = {
+	gsDPPipeSync(),
+	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPEndDisplayList(),
 };
 
@@ -23457,6 +23469,7 @@ Gfx bbh_dl_Shack_mesh_layer_6[] = {
 	gsSPCullDisplayList(0, 7),
 	gsSPDisplayList(mat_bbh_dl_EXIT),
 	gsSPDisplayList(bbh_dl_Shack_mesh_layer_6_tri_0),
+	gsSPDisplayList(mat_revert_bbh_dl_EXIT),
 	gsSPEndDisplayList(),
 };
 
