@@ -3,6 +3,11 @@
 const GeoLayout ddd_area_3_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_TRANSLATE_NODE(LAYER_OPAQUE, -13488, -7621, -2599),
+		GEO_OPEN_NODE(),
+			GEO_ASM(LAYER_OPAQUE, geo_set_global_fog),
+			GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_spoutpillar_mesh_layer_1),
+		GEO_CLOSE_NODE(),
 		GEO_TRANSLATE_NODE(LAYER_OPAQUE, -20000, 6000, 0),
 		GEO_OPEN_NODE(),
 			GEO_ASM(LAYER_OPAQUE_INTER, geo_set_global_fog),
@@ -12,6 +17,8 @@ const GeoLayout ddd_area_3_geo[] = {
 		GEO_ASM(LAYER_OPAQUE_INTER, geo_set_global_fog),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE_INTER, ddd_dl_ZRockWalls_mesh_layer_3),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE_INTER, ddd_dl_ZZZZWaterBottom_mesh_layer_3),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT_INTER, 0, 1155, 0, ddd_dl_ZZZZWaterBottomFoggg_mesh_layer_7),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT_DECAL, 0, 1155, 0, ddd_dl_ZZZZWaterFallExtraFog_mesh_layer_6),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -30,7 +37,10 @@ const GeoLayout ddd_area_3[] = {
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE_INTER, ddd_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, ddd_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, ddd_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

@@ -109,6 +109,8 @@ const LevelScript level_ddd_entry[] = {
 	AREA(3, ddd_area_3),
 		WARP_NODE(0xF0, LEVEL_DDD, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_DDD, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		MARIO_POS(0x03, 0, -16213, -1596, -3061),
+		OBJECT(MODEL_DDD_WATER_SPOUT, -13488, -3089, -2599, 0, 0, 0, 0x01000000, bhvWaterSpout),
 		TERRAIN(ddd_area_3_collision),
 		MACRO_OBJECTS(ddd_area_3_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_WATER),
@@ -118,7 +120,7 @@ const LevelScript level_ddd_entry[] = {
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 0, 0, 2760, 0),
+	MARIO_POS(0x03, 0, -16213, -1596, -3061),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),
