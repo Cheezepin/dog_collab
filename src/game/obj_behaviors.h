@@ -171,3 +171,8 @@ void bhv_DogFloor2_init(void); void bhv_DogFloor2_loop(void);
 void bhv_DogFloor3_init(void); void bhv_DogFloor3_loop(void);
 void bhv_DogFloor4_init(void); void bhv_DogFloor4_loop(void);
 void bhv_DogBalcony_init(void); void bhv_DogBalcony_loop(void);
+void bhv_2639cane_init(void); void bhv_2639cane_loop(void);
+void bhv_2639glasses_init(void); void bhv_2639glasses_loop(void);
+void bhv_A2PushableCouch_init(void); void bhv_A2PushableCouch_loop(void);
+void bhv_2639A2HiddenStar_init(void); void bhv_2639A2HiddenStar_loop(void);
+void bhv_2639Elevator_init(void); void bhv_2639Elevator_loop(void);

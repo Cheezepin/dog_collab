@@ -2100,3 +2100,43 @@ Arrgghh!\n\
 Anyone entering this cave\n\
 without permission will\n\
 meet certain disaster."))
+
+#define C_NORMAL "@--------"
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 4, 30, 200, _("\n\
+Hey you!\n\
+No pets allowed!\n\
+"))
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, _("Mario! I was\n\
+looking for you!\n\
+I see you brought your dog,\n\
+but that angry\n\
+@FF0000FFFront Desk Toad" C_NORMAL "\n\
+isn't having any of it!\n\
+But maybe there's a\n\
+loophole in the law\n\
+you could exploit?\n\
+You're totally allowed\n\
+to bring in\n\
+service animals,\n\
+so all we need to do\n\
+is find a way to\n\
+make you look like\n\
+you're blind!\n\
+See if you can grab a\n\
+@00FF00FFCANE" C_NORMAL " and @34ebe1FFSUNGLASSES" C_NORMAL",\n\
+Then talk to the\n\
+@FF0000FFFront Desk Toad" C_NORMAL " again.\n\
+Maybe he'll budge then."))
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, _("Hey you!\n\
+You didn't tell me that was a service dog!\n\
+Now I gotta get the exemption form!\n\
+"))
+
+
+

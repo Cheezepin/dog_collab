@@ -25,6 +25,7 @@
 #include "skybox.h"
 #include "sound_init.h"
 #include "puppycam2.h"
+#include "2639_defs.h"
 
 #include "config.h"
 
@@ -105,6 +106,7 @@ Gfx *geo_draw_mario_head_goddard(s32 callContext, struct GraphNode *node, Mat4 *
 }
 #endif
 
+
 static void toad_message_faded(void) {
     if (gCurrentObject->oDistanceToMario > 700.0f) {
         gCurrentObject->oToadMessageRecentlyTalked = FALSE;
@@ -145,6 +147,17 @@ static void toad_message_talking(void) {
                 gCurrentObject->oToadMessageDialogId = TOAD_STAR_3_DIALOG_AFTER;
                 bhv_spawn_star_no_level_exit(2);
                 break;
+            // case _2639DIAG_A1LobbyToadGreeter:
+            //     o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
+            //     break;
+            case _2639DIAG_A1LobbyToadStarGranter:
+                if (_2639_BoB_A1_CaneCollected &&
+                    _2639_BoB_A1_SunglassesCollected
+                    ) {
+                    bhv_spawn_star_get_outta_here(0);
+                }
+                break;
+
         }
     }
 }
@@ -156,12 +169,25 @@ static void toad_message_opacifying(void) {
 }
 
 static void toad_message_fading(void) {
-    if ((gCurrentObject->oOpacity -= 6) == 81) {
+    if ((gCurrentObject->oOpacity -= 6) <= 81) {
         gCurrentObject->oToadMessageState = TOAD_MESSAGE_FADED;
     }
 }
 
 void bhv_toad_message_loop(void) {
+    if (gCurrLevelNum = LEVEL_BOB && _2639_BoB_A1_ToadTalkLatch == 0
+        && ((o->oBehParams) == (_2639DIAG_A1LobbyToadGreeter << 24))
+    ) {
+        gCurrentObject->oToadMessageState = TOAD_MESSAGE_TALKING;
+        _2639_BoB_A1_ToadTalkLatch = 1;
+    }
+
+    if (_2639_BoB_A1_CaneCollected &&
+                    _2639_BoB_A1_SunglassesCollected
+    ) {
+        o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
+    }
+
     if (gCurrentObject->header.gfx.node.flags & GRAPH_RENDER_ACTIVE) {
         gCurrentObject->oInteractionSubtype = 0;
         switch (gCurrentObject->oToadMessageState) {

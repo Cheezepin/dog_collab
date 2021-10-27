@@ -173,6 +173,15 @@ enum DialogId {
     DIALOG_167,
     DIALOG_168,
     DIALOG_169,
+
+    // someone2639 silly soliloquies
+    _2639DIAG_A1LobbyToadGreeter,
+    _2639DIAG_A1LobbyNPCSuggester,
+    _2639DIAG_A1LobbyToadStarGranter,
+    _2639DIAG_A2RoomPeachGreeter,
+    _2639DIAG_A2RoomPeachSuccess,
+    _2639DIAG_A2RoomPeachFailure,
+
     DIALOG_COUNT
 };
 

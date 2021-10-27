@@ -3,6 +3,7 @@
 const GeoLayout bob_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -4614, 0, bob_dl_debug_dfloor_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -4058, -4287, 0, 0, 90, 0, bob_dl_entrance_mesh),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

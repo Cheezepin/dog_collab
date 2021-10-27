@@ -205,9 +205,9 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
- #define TEST_LEVEL LEVEL_BITDW
+ #define TEST_LEVEL LEVEL_BOB
 // Enable debug level select
-//#define DEBUG_LEVEL_SELECT
+// #define DEBUG_LEVEL_SELECT
 // Enable debug free move (DPad up to enter, A to exit)
 //#define ENABLE_DEBUG_FREE_MOVE
 // Custom debug mode. Press DPAD left to show the debug UI. Press DPAD right to enter the noclip mode.
@@ -221,7 +221,7 @@
 // If puppyprint is enabled, then this can be cycled only while the screen is active.
 //#define VISUAL_DEBUG
 // Open all courses and doors. Used for debugging purposes to unlock all content.
-//#define UNLOCK_ALL
+#define UNLOCK_ALL
 
 // If you want to change the extended boundaries mode, go to engine/extended_bounds.h and change EXTENDED_BOUNDS_MODE
 

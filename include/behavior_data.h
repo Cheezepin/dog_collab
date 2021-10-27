@@ -584,3 +584,8 @@ extern const BehaviorScript bhvDogfloor2[];
 extern const BehaviorScript bhvDogfloor3[];
 extern const BehaviorScript bhvDogfloor4[];
 extern const BehaviorScript bhvDogbalcony[];
+extern const BehaviorScript bhv2639cane[];
+extern const BehaviorScript bhv2639glasses[];
+extern const BehaviorScript bhvA2pushablecouch[];
+extern const BehaviorScript bhv2639a2hiddenstar[];
+extern const BehaviorScript bhv2639elevator[];
