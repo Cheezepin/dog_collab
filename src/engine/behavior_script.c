@@ -105,11 +105,11 @@ void obj_set_opacity_from_cam_dist(struct Object *obj) {
     if (dist > 0.0f) {
         obj->header.gfx.node.flags &= ~GRAPH_RENDER_UCODE_REJ;
     }
-#ifdef PUPPYCAM
-    s32 opacityDist = ((gPuppyCam.zoom > 0) ? ((dist / sqr(gPuppyCam.zoom)) * 255.0f) : 255);
-#else
+// #ifdef PUPPYCAM
+//     s32 opacityDist = ((gPuppyCam.zoom > 0) ? ((dist / sqr(gPuppyCam.zoom)) * 255.0f) : 255);
+// #else
     s32 opacityDist = (dist * (255.0f / sqr(1024.0f)));
-#endif
+// #endif
     obj->oOpacity = CLAMP(opacityDist, 0x00, 0xFF);
 }
 #endif

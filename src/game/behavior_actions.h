@@ -1,6 +1,19 @@
 #ifndef BEHAVIOR_ACTIONS_H
 #define BEHAVIOR_ACTIONS_H
 
+extern void faz_ambient_loop(void);
+extern void goddard_hmc_init(void);
+extern void goddard_hmc_loop(void);
+extern void hmcelevator_init(void);
+extern void hmcelevator_loop(void);
+extern void starblock_init(void);
+extern void starblock_loop(void);
+extern void koopa_boss_spawn(void);
+extern void koopa_boss_init(void);
+extern void koopa_boss_loop(void);
+extern void koopa_boss_shell_init(void);
+extern void koopa_boss_shell_loop(void);
+
 void spawn_mist_particles_variable(s32 count, s32 offsetY, f32 size);
 void bhv_spawn_star_no_level_exit(u32);
 void bhv_star_door_loop_2(void);
@@ -587,7 +600,13 @@ void bhv_cephie_loop(void);
 // axo end
 
 // thecozies start
+void set_water_top_force(struct MarioState *m);
 void water_top_loop(void);
+void water_spout_loop(void);
+void rain_cloud_init(void);
+void rain_cloud_loop(void);
+void vertical_instant_warp_loop(void);
+void aperature_door_loop(void);
 // thecozies end
 
 //ROVERT BEHAVIOR ACTIONS START
@@ -597,6 +616,10 @@ void bhv_Propane_Shooter(void);
 void bhv_Propane_Flame(void);
 void bhv_lava_grate_loop();
 //ROVERT BEHAVIOR ACTIONS END
+
+//cheeze start
+void bhv_cheezeplat_loop(void);
+//cheeze end
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 

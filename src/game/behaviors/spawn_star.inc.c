@@ -154,9 +154,16 @@ void spawn_no_exit_star(f32 x, f32 y, f32 z) {
 
 void bhv_hidden_red_coin_star_init(void) {
     struct Object *starObj = NULL;
-    if (gCurrCourseNum != COURSE_JRB) {
-        spawn_object(o, MODEL_TRANSPARENT_STAR, bhvRedCoinStarMarker);
+    switch (gCurrCourseNum) {
+        case COURSE_JRB:
+            break;
+        case COURSE_DDD:
+            spawn_object(o, MODEL_TRANSPARENT_STAR, bhvRedCoinStarMarkerNoDrop);
+            break;
+        default:
+            spawn_object(o, MODEL_TRANSPARENT_STAR, bhvRedCoinStarMarker);
     }
+
     s16 numRedCoinsRemaining = count_objects_with_behavior(bhvRedCoin);
     if (numRedCoinsRemaining == 0) {
         starObj = spawn_object_abs_with_rot(o, 0, MODEL_STAR, bhvStar, o->oPosX, o->oPosY, o->oPosZ, 0, 0, 0);
