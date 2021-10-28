@@ -134,7 +134,7 @@ void puppycam_default_config(void) {
     gPuppyCam.options.sensitivityY   = 100;
     gPuppyCam.options.turnAggression = 50;
     gPuppyCam.options.analogue       = 0;
-    gPuppyCam.options.inputType      = 1;
+    gPuppyCam.options.inputType      = 2;
 }
 
 // Initial setup. Ran at the beginning of the game and never again.
@@ -149,9 +149,12 @@ void puppycam_boot(void) {
     gPuppyCam.stickN[1]     = 0;
     gPuppyMemoryPool        = mem_pool_init(MAX_PUPPYCAM_VOLUMES * sizeof(struct sPuppyVolume), MEMORY_POOL_LEFT);
     gPuppyVolumeCount       = 0;
-    gPuppyCam.enabled       = 1;
+    gPuppyCam.enabled       = FALSE;
 
     puppycam_get_save();
+
+    // DOG COLLAB TODO: REMOVE OPTION TO SWITCH THIS
+    gPuppyCam.options.inputType      = 2;
 }
 
 // Called when an instant warp is done.
@@ -1036,9 +1039,9 @@ void puppycam_projection_behaviours(void) {
 
         if (gMarioState->action == ACT_SLEEPING || gMarioState->action == ACT_START_SLEEPING) {
             gPuppyCam.zoom = approach_f32_asymptotic(gPuppyCam.zoom,gPuppyCam.zoomPoints[0],0.01f);
-        } else if (gMarioState->action & ACT_FLAG_SWIMMING && gMarioState->waterLevel-100 - gMarioState->pos[1] > 5) {
-            // When moving underwater, the camera will zoom in on Mayro.
-            gPuppyCam.zoom = approach_f32_asymptotic(gPuppyCam.zoom, MAX(gPuppyCam.zoomTarget/1.5f, gPuppyCam.zoomPoints[0]), 0.2f);
+        // } else if (gMarioState->action & ACT_FLAG_SWIMMING && gMarioState->waterLevel-100 - gMarioState->pos[1] > 5) {
+        //     // When moving underwater, the camera will zoom in on Mayro.
+        //     gPuppyCam.zoom = approach_f32_asymptotic(gPuppyCam.zoom, MAX(gPuppyCam.zoomTarget/1.5f, gPuppyCam.zoomPoints[0]), 0.2f);
         } else {
             gPuppyCam.zoom = approach_f32_asymptotic(gPuppyCam.zoom,gPuppyCam.zoomTarget,0.2f);
         }
@@ -1071,7 +1074,7 @@ void puppycam_projection_behaviours(void) {
             gPuppyCam.targetFloorHeight = gPuppyCam.targetObj->oPosY;
             gPuppyCam.lastTargetFloorHeight = gPuppyCam.targetObj->oPosY;
 
-            gPuppyCam.yawTarget = approach_angle(gPuppyCam.yawTarget, (gMarioState->faceAngle[1] + 0x8000), (1000 * (gMarioState->forwardVel / 32)));
+            // gPuppyCam.yawTarget = approach_angle(gPuppyCam.yawTarget, (gMarioState->faceAngle[1] + 0x8000), (1000 * (gMarioState->forwardVel / 32)));
             if (gMarioState->waterLevel - 100 - gMarioState->pos[1] > 5 && gPuppyCam.flags & PUPPYCAM_BEHAVIOUR_PITCH_ROTATION) {
                 gPuppyCam.swimPitch = approach_f32_asymptotic(gPuppyCam.swimPitch,gMarioState->faceAngle[0] / 10, 0.05f);
             } else {

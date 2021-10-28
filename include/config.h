@@ -158,7 +158,7 @@
 // Enables "parallel lakitu camera" or "aglab cam" which lets you move the camera smoothly with the dpad
 #define PARALLEL_LAKITU_CAM
 // Enables Puppy Camera 2, a rewritten camera that can be freely configured and modified.
-//#define PUPPYCAM
+#define PUPPYCAM
 
 // -- GRAPHICS SETTINGS --
 // Enable widescreen (16:9) support
@@ -205,7 +205,7 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
- #define TEST_LEVEL LEVEL_HMC
+ #define TEST_LEVEL LEVEL_BITDW
 // Enable debug level select
 //#define DEBUG_LEVEL_SELECT
 // Enable debug free move (DPad up to enter, A to exit)

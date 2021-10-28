@@ -66,7 +66,6 @@ const GeoLayout hmc_dl_Area_1_Room_2_geo[] = {
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -119, 1559, -248, 0, -71, 0, hmc_dl_Coffee_Table_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 341, 1619, -682, hmc_dl_God_Rays_003_mesh_layer_5),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 455, 1793, -259, hmc_dl_House_Interior_mesh_layer_1),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -3633, 4416, -16483, 0, 90, 0, hmc_dl_Shipping_Crate_002_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

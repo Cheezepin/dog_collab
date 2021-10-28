@@ -355,7 +355,16 @@ const BehaviorScript bhvPerservePosWarp[] = {
 };
 
 const BehaviorScript bhvBossShell[] = {
-    BREAK(),
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_ACTIVE_FROM_AFAR)),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 50),
+    SET_INT(oInteractType, INTERACT_DAMAGE),
+    SET_FLOAT(oDrawingDistance, 5000),
+    CALL_NATIVE(koopa_boss_shell_init),
+    BEGIN_LOOP(),
+    SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(koopa_boss_shell_loop),
+    END_LOOP(),
 };
 
 const BehaviorScript bhvKoopaBoss[] = {
@@ -6119,6 +6128,18 @@ const BehaviorScript bhvRedCoinStarMarker[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvRedCoinStarMarkerNoDrop[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SCALE(/*Unused*/ 0, /*Field*/ 150),
+    SET_INT(oFaceAnglePitch, 0x4000),
+    ADD_FLOAT(oPosY, -200),
+    CALL_NATIVE(bhv_red_coin_star_marker_init),
+    BEGIN_LOOP(),
+        ADD_INT(oFaceAngleYaw, 0x100),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvTripletButterfly[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -6507,7 +6528,13 @@ const BehaviorScript bhvRainCloud[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(cloud_collision),
+    SET_HOME(),
+    CALL_NATIVE(rain_cloud_init),
+    CALL_NATIVE(load_object_collision_model),
+    SET_FLOAT(oDrawingDistance, 1000000),
     BEGIN_LOOP(),
+        ADD_INT(oMoveAngleYaw, 0x10),
+        CALL_NATIVE(rain_cloud_loop),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
@@ -6517,9 +6544,59 @@ const BehaviorScript bhvWaterTop[] = {
     OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(water_top_collision),
     SET_FLOAT(oCollisionDistance, 30000),
+    SET_FLOAT(oDrawingDistance, 1000000),
     BEGIN_LOOP(),
         CALL_NATIVE(water_top_loop),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvWaterSpout[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(water_spout_collision),
+    SET_FLOAT(oCollisionDistance, 30000),
+    SET_FLOAT(oDrawingDistance, 30000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(water_spout_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvVerticalInstantWarp[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    BEGIN_LOOP(),
+        CALL_NATIVE(vertical_instant_warp_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvAperatureDoor[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, aperature_door_anims),
+    ANIMATE(0),
+    LOAD_COLLISION_DATA(aperature_door_collision),
+    SET_FLOAT(oCollisionDistance, 1000),
+    SET_FLOAT(oDrawingDistance, 30000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(aperature_door_loop),
+    END_LOOP(),
+};
 // thecozies bhvs end
+
+//cheeze bhvs start
+
+const BehaviorScript bhvCheezePlat[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(cheezeplat_collision),
+    SET_FLOAT(oCollisionDistance, 10000),
+    SET_FLOAT(oDrawingDistance, 10000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_cheezeplat_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+//cheeze bhvs end

@@ -281,9 +281,10 @@
 #define MODEL_LLL_VOLCANO_FALLING_TRAP            0x53        // lll_geo_000EA8
 
 // ddd
-#define MODEL_DDD_WATER_TOP                 0x36        // ddd_geo_000478
-#define MODEL_DDD_BOWSER_SUB                      0x37        // ddd_geo_0004A0
-#define MODEL_RAIN_CLOUD                            0x38        // ddd_geo_000450
+#define MODEL_DDD_WATER_TOP                       0x36
+#define MODEL_DDD_WATER_SPOUT                     0x37
+#define MODEL_RAIN_CLOUD                          0x38
+#define MODEL_DDD_APERATURE_DOOR                  0x39
 
 // wf
 #define MODEL_WF_BREAKABLE_WALL_RIGHT             0x36        // wf_geo_000B78
@@ -616,6 +617,12 @@
 #define MODEL_LAVA_GRATE 0x103
 
 //END ROVERT MODEL IDS
+
+//start cheeze model ids
+
+#define MODEL_CHEEZE_PLAT 0x180
+
+//end cheeze model ids
 
 //YO BITCHES YA BOY FAZ
 

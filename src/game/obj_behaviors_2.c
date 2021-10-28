@@ -600,7 +600,7 @@ static s32 obj_die_if_above_lava_and_health_non_positive(void) {
     return TRUE;
 }
 
-static s32 obj_handle_attacks(struct ObjectHitbox *hitbox, s32 attackedMarioAction,
+s32 obj_handle_attacks(struct ObjectHitbox *hitbox, s32 attackedMarioAction,
                               u8 *attackHandlers) {
     s32 attackType;
 
@@ -849,6 +849,7 @@ static void treat_far_home_as_mario(f32 threshold) {
 #include "behaviors/spike.inc.c"
 #include "behaviors/podoboo.inc.c"
 #include "behaviors/dog.inc.c"
+#include "behaviors/cheeze_behavs.inc.c"
 
 /**
  * Used by bowser, fly guy, piranha plant, and fire spitters.

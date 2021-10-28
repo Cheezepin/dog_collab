@@ -198,6 +198,22 @@ static u32 perform_water_step(struct MarioState *m) {
     struct Object *marioObj = m->marioObj;
 
     if (gCurrLevelNum == LEVEL_DDD) {
+        // thecozies level
+        if (m->water && m->water->object && obj_has_behavior(m->water->object, bhvWaterTop)) {
+            set_water_top_force(m);
+        }
+
+        // Reduce effect of water force while plunging
+        if (
+            m->action == ACT_WATER_PLUNGE &&
+            m->waterForce < 0.0f &&
+            m->actionTimer <= 20
+        ) {
+            m->waterForce = m->actionTimer <= 10
+                ? 0.0f
+                : get_relative_position_between_ranges(m->actionTimer, 11.0f, 20.0f, 0.0f, m->waterForce);
+        }
+
         if (ABS(m->waterForce) > 0.1f) {
             m->vel[1] += m->waterForce;
             m->vel[1] = MAX(m->vel[1], -75.0f);
@@ -217,7 +233,8 @@ static u32 perform_water_step(struct MarioState *m) {
 
     if (nextPos[1] > m->waterLevel - 80) {
         if (!canExitWaterWithMomentum) {
-            nextPos[1] = m->waterLevel - 80.0f;
+            // clamp to floor height for safety! (otherwise changed water levels can clip you through the floor)
+            nextPos[1] = MAX(m->waterLevel - 80.0f, m->floorHeight);
             m->vel[1] = 0.0f;
         }
     }
@@ -499,14 +516,16 @@ static void play_swimming_noise(struct MarioState *m) {
     }
 }
 
+#define WATER_JUMP_PROBE_AMT 40 // vanilla is 1.5f - adding more for new swimming forgiveness
 static s32 check_water_jump(struct MarioState *m) {
-    s32 probe = (s32)(m->pos[1] + 1.5f);
+    s32 probe = (s32)(m->pos[1] + WATER_JUMP_PROBE_AMT);
 
     if (m->input & INPUT_A_PRESSED) {
         if (probe >= m->waterLevel - 80) {
             vec3_zero(m->angleVel);
 
-            m->vel[1] = 62.0f;
+            // This doesn't do anything - y vel is set in set_mario_action_airborne
+            // m->vel[1] = 62.0f;
 
             if (m->heldObj == NULL) {
                 return set_mario_action(m, ACT_WATER_JUMP, 0);
@@ -833,8 +852,11 @@ s32 act_water_ground_pound(struct MarioState *m) {
         else m->actionState = 2;
     }
 
+    // cap water force at 30 (ground pounds should always go down)
+    if (m->waterForce >= 30.0f) m->waterForce = 30.0f;
+
+    m->vel[1] = -35.0f;
     if (m->actionState == 0) {
-        m->vel[1] = -35.0f;
         mario_set_forward_vel(m, 0.0f);
 
         set_mario_animation(m, m->actionArg == 0 ? MARIO_ANIM_START_GROUND_POUND

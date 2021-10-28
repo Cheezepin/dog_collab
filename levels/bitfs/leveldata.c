@@ -57,3 +57,6 @@
 #include "levels/bitfs/areas/1/trajectory.inc.c"
 #include "levels/bitfs/areas/1/movtext.inc.c"
 #include "levels/bitfs/leveldata.inc.c"
+
+#include "levels/bitfs/cheezeplat/model.inc.c"
+#include "levels/bitfs/cheezeplat/collision.inc.c"

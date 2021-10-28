@@ -28,7 +28,7 @@ DEFINE_COURSE(COURSE_TTC, 0x22222240) // (14) Tick Tock Clock
 DEFINE_COURSE(COURSE_RR, 0x00000040) // (15) Rainbow Ride
 DEFINE_COURSES_END()
 DEFINE_BONUS_COURSE(COURSE_BITDW, 0x44444440) // (16) Bowser in the Dark World (emu, Bowser's Rainbow Rings)
-DEFINE_BONUS_COURSE(COURSE_BITFS, 0x34444440) // (17) Bowser in the Fire Sea (Cheezepin, Bowser's FUCKING Flying Fortress)
+DEFINE_BONUS_COURSE(COURSE_BITFS, 0x44444440) // (17) Bowser in the Fire Sea (Cheezepin, Bowser's FUCKING Flying Fortress)
 DEFINE_BONUS_COURSE(COURSE_BITS, 0x34444440) // (18) Bowser in the Sky
 DEFINE_BONUS_COURSE(COURSE_PSS, 0x24444440) // (19) Princess's Secret Slide
 DEFINE_BONUS_COURSE(COURSE_COTMC, 0x44444440) // (20) Cavern of the Metal Cap

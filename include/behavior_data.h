@@ -577,6 +577,10 @@ extern const BehaviorScript bhvCephie[];
 // thecozies bhvs start
 extern const BehaviorScript bhvRainCloud[];
 extern const BehaviorScript bhvWaterTop[];
+extern const BehaviorScript bhvWaterSpout[];
+extern const BehaviorScript bhvRedCoinStarMarkerNoDrop[];
+extern const BehaviorScript bhvVerticalInstantWarp[];
+extern const BehaviorScript bhvAperatureDoor[];
 // thecozies bhvs end
 
 //START ROVERT BEHAVIOR
@@ -588,6 +592,10 @@ extern const BehaviorScript bhvPropane[];
 extern const BehaviorScript bhvLavaGrate[];
 
 //END ROVERT BEHAVIOR
+
+//cheeze bhv starts
+extern const BehaviorScript bhvCheezePlat[];
+//cheeze bhv ends
 
 
 #endif // BEHAVIOR_DATA_H

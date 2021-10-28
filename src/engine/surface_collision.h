@@ -7,8 +7,8 @@
 
 #include "engine/extended_bounds.h"
 
-#define CELL_HEIGHT_LIMIT           20000
-#define FLOOR_LOWER_LIMIT           -11000
+#define CELL_HEIGHT_LIMIT           32767
+#define FLOOR_LOWER_LIMIT           -32768
 #define FLOOR_LOWER_LIMIT_MISC      (FLOOR_LOWER_LIMIT + 1000)
 // same as FLOOR_LOWER_LIMIT_MISC, explicitly for shadow.c
 #define FLOOR_LOWER_LIMIT_SHADOW    (FLOOR_LOWER_LIMIT + 1000)

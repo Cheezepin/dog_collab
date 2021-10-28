@@ -42,6 +42,7 @@ const GeoLayout hmc_dl_Area_2_Room_2_geo[] = {
 		GEO_CLOSE_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_ALPHA, -5670, 4251, -106, hmc_dl_Plane_004_mesh_layer_4),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -3653, 4857, -597, 0, 9, 0, hmc_dl_Shipping_Containers_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -3633, 4416, -3338, 0, 90, 0, hmc_dl_Shipping_Crate_002_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -4436, 4567, -1744, 0, 21, 0, hmc_dl_Warehouse_Crates_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

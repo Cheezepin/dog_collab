@@ -280,7 +280,11 @@ Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED v
 // thecozies start
 Gfx *move_water_top(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
+Gfx *geo_set_water_spout_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 Gfx *geo_backdrop_move_cozies(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_mountain_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
+Gfx *geo_set_global_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
+Gfx *geo_update_rain_cloud_rain(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 // thecozies end
 
 #endif // OBJECT_HELPERS_H
