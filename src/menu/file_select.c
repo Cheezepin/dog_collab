@@ -20,7 +20,7 @@
 #include "game/spawn_object.h"
 #include "game/rumble_init.h"
 #include "sm64.h"
-#include "text_strings.h"
+#include "text_strings.h.in"
 
 #include "eu_translation.h"
 #if MULTILANG

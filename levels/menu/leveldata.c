@@ -6,7 +6,7 @@
 #include "types.h"
 
 #ifdef VERSION_EU
-#include "text_strings.h"
+#include "text_strings.h.in"
 #endif
 #include "make_const_nonconst.h"
 

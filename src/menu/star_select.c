@@ -19,7 +19,7 @@
 #include "game/rumble_init.h"
 #include "sm64.h"
 #include "star_select.h"
-#include "text_strings.h"
+#include "text_strings.h.in"
 #include "prevent_bss_reordering.h"
 #include "game/main.h"
 

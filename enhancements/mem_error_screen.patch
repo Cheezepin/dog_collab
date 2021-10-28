@@ -189,7 +189,7 @@ index 00000000..f432927c
 +
 +#include <types.h>
 +#include "segments.h"
-+#include "text_strings.h"
++#include "text_strings.h.in"
 +#include "game_init.h"
 +#include "main.h"
 +#include "print.h"

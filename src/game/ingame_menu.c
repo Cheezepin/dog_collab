@@ -22,7 +22,7 @@
 #include "segment7.h"
 #include "seq_ids.h"
 #include "sm64.h"
-#include "text_strings.h"
+#include "text_strings.h.in"
 #include "types.h"
 #include "config.h"
 #include "puppycam2.h"
