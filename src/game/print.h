@@ -3,22 +3,22 @@
 
 #include <PR/ultratypes.h>
 
-#define GLYPH_SPACE           -1
-#define GLYPH_U               30
-#define GLYPH_EXCLAMATION_PNT 36
-#define GLYPH_TWO_EXCLAMATION 37
-#define GLYPH_QUESTION_MARK   38
-#define GLYPH_AMPERSAND       39
-#define GLYPH_PERCENT         40
-#define GLYPH_MULTIPLY        50
-#define GLYPH_COIN            51
-#define GLYPH_MARIO_HEAD      52
-#define GLYPH_STAR            53
-#define GLYPH_PERIOD          54
-#define GLYPH_BETA_KEY        55
-#define GLYPH_APOSTROPHE      56
-#define GLYPH_DOUBLE_QUOTE    57
-#define GLYPH_UMLAUT          58
+#define GLYPH_SPACE           0x20
+#define GLYPH_U               0x55
+#define GLYPH_EXCLAMATION_PNT 0x21
+#define GLYPH_TWO_EXCLAMATION 0x0
+#define GLYPH_QUESTION_MARK   0x3F
+#define GLYPH_AMPERSAND       0x26
+#define GLYPH_PERCENT         0x25
+#define GLYPH_MULTIPLY        0x2A
+#define GLYPH_COIN            0x2B
+#define GLYPH_MARIO_HEAD      0x2C
+#define GLYPH_STAR            0x2D
+#define GLYPH_PERIOD          0x2E
+#define GLYPH_BETA_KEY        0x0
+#define GLYPH_APOSTROPHE      0x27
+#define GLYPH_DOUBLE_QUOTE    0x22
+#define GLYPH_UMLAUT          0x0
 
 #define PRINT_TEXT_ALIGN_LEFT 0
 #define PRINT_TEXT_ALIGN_CENTRE 1

@@ -56,8 +56,8 @@ enum HudSpecialHUDChars {
 };
 
 enum SpecialFontChars {
-    GLOBAL_CHAR_SPACE = 0x9E,
-    GLOBAR_CHAR_TERMINATOR = 0xFF
+    GLOBAL_CHAR_SPACE = 0x20,
+    GLOBAR_CHAR_TERMINATOR = 0x0
 };
 
 // definitions for some of the special characters defined in charmap.txt
