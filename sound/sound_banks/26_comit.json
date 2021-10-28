@@ -44,6 +44,12 @@
             [32700, 29430],
             "hang"
         ],
+        "envelopeCymbal": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
+        ],
         "envelopePercussion": [
             [2, 32700],
             [1, 32700],
@@ -101,6 +107,15 @@
             "release_rate": 20,
             "envelope": "envelopeFlute",
             "sound": "34_alto_flute"
+        },
+        "instCymbal": {
+            "release_rate": 10,
+            "normal_range_lo": 28,
+            "normal_range_hi": 28,
+            "envelope": "envelopeCymbal",
+            "sound_lo": "10_cymbal_bell",
+            "sound": "11_splash_cymbal",
+            "sound_hi": "10_cymbal_bell"
         },
         "percussion": [
             {"release_rate": 10, "pan": 62, "envelope": "envelopePercussion", "sound": {"sample": "06_kick_drum_1", "tuning": 0.210224}},
@@ -177,6 +192,7 @@
         "instCelesta",
         "instPizzicato",
         "instTrumpet",
-        "instFlute2"
+        "instFlute2",
+        "instCymbal"
     ]
 }
