@@ -209,8 +209,8 @@
 #define MODEL_BITDW_STAIRCASE_FRAME2              0x3D        // geo_bitdw_0005D0
 #define MODEL_BITDW_STAIRCASE_FRAME1              0x3E        // geo_bitdw_0005E8
 #define MODEL_BITDW_STAIRCASE                     0x3F        // geo_bitdw_000600
-#define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA      
-#define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB 
+#define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA
+#define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB
 #define MODEL_BITDW_SIMPLE_SPINNER                0x1AC
 #define MODEL_BITDW_SIMPLE_SPINNER_SHOCK          0x1AE       // I was to lazy to change all the model numbers so its out of order here
 #define MODEL_BITDW_SPHERE                        0x1AD
@@ -616,5 +616,16 @@
 #define MODEL_LAVA_GRATE 0x103
 
 //END ROVERT MODEL IDS
+
+//YO BITCHES YA BOY FAZ
+
+#define MODEL_KOOPA_NPC 0x140
+#define MODEL_HMC_DOORS 0x141
+#define MODEL_HMCELEVATOR 0x142
+#define MODEL_REDBLOCK 0x143
+#define MODEL_BOSSMATT 0x144
+#define MODEL_KOOPABOSS 0x145
+
+//CIAO BITCHES
 
 #endif // MODEL_IDS_H

@@ -499,8 +499,9 @@ s32 should_begin_sliding(struct MarioState *m) {
     if (m->input & INPUT_ABOVE_SLIDE) {
         s32 slideLevel = (m->area->terrainType & TERRAIN_MASK) == TERRAIN_SLIDE;
         s32 movingBackward = m->forwardVel <= -1.0f;
+        s32 superSlippery = m->floor != NULL && m->floor->type == SURFACE_SUPER_SLIPPERY;
 
-        if (slideLevel || movingBackward || mario_facing_downhill(m, FALSE)) {
+        if (slideLevel || movingBackward || superSlippery || mario_facing_downhill(m, FALSE)) {
             return TRUE;
         }
     }
@@ -1430,7 +1431,7 @@ void common_slide_action(struct MarioState *m, u32 endAction, u32 airAction, s32
 s32 common_slide_action_with_jump(struct MarioState *m, u32 stopAction, u32 jumpAction, u32 airAction,
                                   s32 animation) {
     if (m->actionTimer == 5) {
-        if (m->input & INPUT_A_PRESSED) {
+        if (m->input & INPUT_A_PRESSED && (m->floor == NULL || m->floor->type != SURFACE_SUPER_SLIPPERY)) {
             return set_jumping_action(m, jumpAction, 0);
         }
     } else {

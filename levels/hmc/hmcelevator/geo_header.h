@@ -1,0 +1,10 @@
+extern const GeoLayout hmcelevator_geo[];
+extern Lights1 hmcelevator_House_Floor_lights;
+extern u8 hmcelevator_planks_i8[];
+extern Vtx hmcelevator_Elevator_001_mesh_layer_1_vtx_cull[8];
+extern Vtx hmcelevator_Elevator_001_mesh_layer_1_vtx_0[8];
+extern Gfx hmcelevator_Elevator_001_mesh_layer_1_tri_0[];
+extern Gfx mat_hmcelevator_House_Floor[];
+extern Gfx mat_revert_hmcelevator_House_Floor[];
+extern Gfx hmcelevator_Elevator_001_mesh_layer_1[];
+extern Gfx hmcelevator_material_revert_render_settings[];
