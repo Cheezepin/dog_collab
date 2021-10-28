@@ -466,9 +466,11 @@ s32 lvl_update_obj_and_load_act_button_actions(UNUSED s32 arg, UNUSED s32 unused
 
     area_update_objects(); scroll_textures();
     sActSelectorMenuTimer++;
-    if (sLoadedActNum == 1 && gCurrLevelNum == LEVEL_HMC)
-        sWarpDest.areaIdx = 1;
-    else
-        sWarpDest.areaIdx = 2;
+    if (gCurrLevelNum == LEVEL_HMC) {
+        if (sLoadedActNum == 1)
+            sWarpDest.areaIdx = 1;
+        else
+            sWarpDest.areaIdx = 2;
+    }
     return sLoadedActNum;
 }
