@@ -133,8 +133,8 @@ unsigned char textMarioC[] = { TEXT_FILE_MARIO_C };
 unsigned char textMarioD[] = { TEXT_FILE_MARIO_D };
 
 unsigned char textNew[] = { TEXT_NEW };
-unsigned char starIcon[] = { GLYPH_STAR, GLYPH_SPACE };
-unsigned char xIcon[] = { GLYPH_MULTIPLY, GLYPH_SPACE };
+unsigned char starIcon[] = "- ";
+unsigned char xIcon[] = "* ";
 
 unsigned char textSelectFile[] = { TEXT_SELECT_FILE };
 
