@@ -2024,7 +2024,7 @@ const Texture *const main_font_lut[] = {
     0x0, 0x0, 0x0, 0x0,
     0x0, 0x0, 0x0, 0x0,
     0x0, 0x0, 0x0, 0x0,
-    0x0, 0x0, texture_font_char_us_double_quote_close, 0x0,
+    0x0, texture_font_char_us_double_quote_open, texture_font_char_us_double_quote_close, 0x0,
     0x0, texture_font_char_us_coin, texture_font_char_us_star_filled, 0x0,
     texture_font_char_us_interpunct, texture_font_char_us_star_hollow, 0x0, 0x0,
 // #elif defined(VERSION_JP) || defined(VERSION_SH)

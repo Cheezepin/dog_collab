@@ -24,17 +24,17 @@ Stars that Bowser stole\n\
 inside the painting\n\
 worlds.\n\
 First, talk to the\n\
-Bob-omb Buddy. (Press [B]\n\
+Bob-omb Buddy. (Press " TEXT_BBUTTON "\n\
 to talk.) He'll certainly\n\
 help you out, and so will\n\
 his " COMRADES " in other\n\
 areas.\n\
 To read signs, stop, face\n\
-them and press [B]. Press [A]\n\
-or [B] to scroll ahead. You\n\
+them and press " TEXT_BBUTTON ". Press " TEXT_ABUTTON "\n\
+or " TEXT_BBUTTON " to scroll ahead. You\n\
 can talk to some other\n\
 characters by facing them\n\
-and pressing [B].")
+and pressing " TEXT_BBUTTON ".")
 
 DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 200, "\
 Watch out! If you wander\n\
@@ -116,7 +116,7 @@ How about a race to the\n\
 mountaintop, where the\n\
 Big Bob-omb was?\n\
 Whaddya say? When I say\n\
-『Go,』 let the race begin!\n\
+" TEXT_QUOTE_OPEN "Go," TEXT_QUOTE_CLOSE " let the race begin!\n\
 \n\
 Ready....\n\
 \n\
@@ -140,7 +140,7 @@ it, fair and square!")
 DEFINE_DIALOG(DIALOG_008, 1, 4, 30, 200, "\
 BEWARE OF CHAIN CHOMP\n\
 Extreme Danger!\n\
-Get close and press [C]^\n\
+Get close and press " TEXT_CBUTTON TEXT_CUP "\n\
 for a better look.\n\
 Scary, huh?\n\
 See the Red Coin on top\n\
@@ -225,13 +225,13 @@ Do you want to Save?\n\
 
 DEFINE_DIALOG(DIALOG_015, 1, 4, 30, 200, "\
 You can punch enemies to\n\
-knock them down. Press [A]\n\
-to jump, [B] to punch.\n\
-Press [A] then [B] to Kick.\n\
+knock them down. Press " TEXT_ABUTTON "\n\
+to jump, " TEXT_BBUTTON " to punch.\n\
+Press " TEXT_ABUTTON " then " TEXT_BBUTTON " to Kick.\n\
 To pick something up,\n\
-press [B], too. To throw\n\
+press " TEXT_BBUTTON ", too. To throw\n\
 something you're holding,\n\
-press [B] again.")
+press " TEXT_BBUTTON " again.")
 
 DEFINE_DIALOG(DIALOG_016, 1, 3, 30, 200, "\
 Hop on the shiny shell and\n\
@@ -331,7 +331,7 @@ Stars.")
 
 DEFINE_DIALOG(DIALOG_029, 1, 5, 95, 200, "\
 To open the door that\n\
-leads to the 『endless』\n\
+leads to the " TEXT_QUOTE_OPEN "endless" TEXT_QUOTE_CLOSE "\n\
 stairs, you need 70\n\
 Stars.\n\
 Bwa ha ha!")
@@ -352,8 +352,8 @@ order to walk quietly.\n\
 And wrapping up filming\n\
 techniques reported on\n\
 earlier, you can take a\n\
-look around using [C]> and\n\
-[C]<. Press [C]| to view the\n\
+look around using " TEXT_CBUTTON TEXT_CRIGHT " and\n\
+" TEXT_CBUTTON TEXT_CLEFT ". Press " TEXT_CBUTTON TEXT_CDOWN " to view the\n\
 action from a distance.\n\
 When you can't move the\n\
 camera any farther, the\n\
@@ -383,18 +383,18 @@ if you blast out of a\n\
 cannon wearing the\n\
 Wing Cap!\n\
 \n\
-Use the [C] Buttons to look\n\
+Use the " TEXT_CBUTTON " Buttons to look\n\
 around while flying, and\n\
-press [Z] to land.")
+press " TEXT_ZBUTTON " to land.")
 
 DEFINE_DIALOG(DIALOG_033, 1, 6, 30, 200, "\
 Ciao! You've reached\n\
 Princess Toadstool's\n\
 castle via a warp pipe.\n\
 Using the controller is a\n\
-piece of cake. Press [A] to\n\
-jump and [B] to attack.\n\
-Press [B] to read signs,\n\
+piece of cake. Press " TEXT_ABUTTON " to\n\
+jump and " TEXT_BBUTTON " to attack.\n\
+Press " TEXT_BBUTTON " to read signs,\n\
 too. Use the Control Stick\n\
 in the center of the\n\
 controller to move Mario\n\
@@ -419,16 +419,16 @@ we'll be shooting from the\n\
 recommended angle, but\n\
 you can change the\n\
 camera angle by pressing\n\
-the [C] Buttons.\n\
+the " TEXT_CBUTTON " Buttons.\n\
 If we can't adjust the\n\
 view any further, we'll\n\
 buzz. To take a look at\n\
 the surroundings, stop\n\
-and press [C]^.\n\
+and press " TEXT_CBUTTON TEXT_CUP ".\n\
 \n\
-Press [A] to resume play.\n\
+Press " TEXT_ABUTTON " to resume play.\n\
 Switch camera modes with\n\
-the [R] Button. Signs along\n\
+the " TEXT_RBUTTON " Button. Signs along\n\
 the way will review these\n\
 instructions.\n\
 \n\
@@ -438,7 +438,7 @@ Lakitu Bros.")
 
 DEFINE_DIALOG(DIALOG_035, 1, 5, 30, 200, "\
 There are four camera, or\n\
-『[C],』 Buttons. Press [C]^\n\
+" TEXT_QUOTE_OPEN TEXT_CBUTTON "," TEXT_QUOTE_CLOSE " Buttons. Press " TEXT_CBUTTON TEXT_CUP "\n\
 to look around using the\n\
 Control Stick.\n\
 \n\
@@ -448,31 +448,31 @@ It is the camera\n\
 recommended for normal\n\
 play.\n\
 You can change angles by\n\
-pressing [C]>. If you press\n\
-[R], the view switches to\n\
+pressing " TEXT_CBUTTON TEXT_CRIGHT ". If you press\n\
+" TEXT_RBUTTON ", the view switches to\n\
 Mario's camera, which\n\
 is directly behind him.\n\
-Press [R] again to return\n\
+Press " TEXT_RBUTTON " again to return\n\
 to Lakitu's camera. Press\n\
-[C]| to see Mario from\n\
+" TEXT_CBUTTON TEXT_CDOWN " to see Mario from\n\
 afar, using either\n\
 Lakitu's or Mario's view.")
 
 DEFINE_DIALOG(DIALOG_036, 1, 5, 30, 200, "\
 OBSERVATION PLATFORM\n\
-Press [C]^ to take a look\n\
+Press " TEXT_CBUTTON TEXT_CUP " to take a look\n\
 around. Don't miss\n\
 anything!\n\
 \n\
-Press [R] to switch to\n\
+Press " TEXT_RBUTTON " to switch to\n\
 Mario's camera. It\n\
 always follows Mario.\n\
-Press [R] again to switch\n\
+Press " TEXT_RBUTTON " again to switch\n\
 to Lakitu's camera.\n\
 Pause the game and\n\
-switch the mode to 『fix』\n\
+switch the mode to " TEXT_QUOTE_OPEN "fix" TEXT_QUOTE_CLOSE "\n\
 the camera in place while\n\
-holding [R]. Give it a try!")
+holding " TEXT_RBUTTON ". Give it a try!")
 
 DEFINE_DIALOG(DIALOG_037, 1, 2, 30, 200, "\
 I win! You lose!\n\
@@ -532,17 +532,17 @@ of the cliff and hang on,\n\
 and you can climb off the\n\
 edge if you move slowly.\n\
 When you want to let go,\n\
-either press [Z] or press\n\
+either press " TEXT_ZBUTTON " or press\n\
 the Control Stick in the\n\
 direction of Mario's back.\n\
 To climb up, press Up on\n\
 the Control Stick. To\n\
 scurry up quickly, press\n\
-the [A] Button.")
+the " TEXT_ABUTTON " Button.")
 
 DEFINE_DIALOG(DIALOG_043, 1, 5, 30, 200, "\
 If you jump and hold the\n\
-[A] Button, you can hang on\n\
+" TEXT_ABUTTON " Button, you can hang on\n\
 to some objects overhead.\n\
 It's the same as grabbing\n\
 a flying bird!")
@@ -556,8 +556,8 @@ sleeping!\n\
 Hey, as long as I'm\n\
 awake, why not take a\n\
 short flight with me?\n\
-Press and hold [A] to grab\n\
-on. Release [A] to let go.\n\
+Press and hold " TEXT_ABUTTON " to grab\n\
+on. Release " TEXT_ABUTTON " to let go.\n\
 I'll take you wherever\n\
 you want to go, as long\n\
 as my wings hold out.\n\
@@ -569,7 +569,7 @@ Whew! I'm just about\n\
 flapped out. You should\n\
 lay off the pasta, Mario!\n\
 That's it for now. Press\n\
-[A] to let go. Okay,\n\
+" TEXT_ABUTTON " to let go. Okay,\n\
 bye byyyyyyeeee!")
 
 DEFINE_DIALOG(DIALOG_046, 1, 5, 30, 200, "\
@@ -585,11 +585,11 @@ right, you'll hop, skip,\n\
 then jump really high.\n\
 Next, go for distance\n\
 with the Long Jump. Run,\n\
-press [Z] to crouch then [A]\n\
+press " TEXT_ZBUTTON " to crouch then " TEXT_ABUTTON "\n\
 to jump really far.\n\
 \n\
 To do the Wall Kick, press\n\
-[A] to jump at a wall, then\n\
+" TEXT_ABUTTON " to jump at a wall, then\n\
 jump again when you hit\n\
 the wall.\n\
 \n\
@@ -623,9 +623,9 @@ bounce to gain momentum.\n\
 Practice makes perfect!")
 
 DEFINE_DIALOG(DIALOG_050, 1, 4, 30, 200, "\
-Hold [Z] to crouch and\n\
+Hold " TEXT_ZBUTTON " to crouch and\n\
 slide down a slope.\n\
-Or press [Z] while in the\n\
+Or press " TEXT_ZBUTTON " while in the\n\
 air to Pound the Ground!\n\
 If you stop, crouch, then\n\
 jump, you'll do a\n\
@@ -640,7 +640,7 @@ DEFINE_DIALOG(DIALOG_051, 1, 6, 30, 200, "\
 Climbing's easy! When you\n\
 jump at trees, poles or\n\
 pillars, you'll grab them\n\
-automatically. Press [A] to\n\
+automatically. Press " TEXT_ABUTTON " to\n\
 jump off backward.\n\
 \n\
 To rotate around the\n\
@@ -654,8 +654,8 @@ handstand for a high,\n\
 stylin' dismount.")
 
 DEFINE_DIALOG(DIALOG_052, 1, 5, 30, 200, "\
-Stop and press [Z] to\n\
-crouch, then press [A]\n\
+Stop and press " TEXT_ZBUTTON " to\n\
+crouch, then press " TEXT_ABUTTON "\n\
 to do a high, Backward\n\
 Somersault!\n\
 \n\
@@ -751,19 +751,19 @@ Return to the surface for\n\
 air or find an air bubble\n\
 or coins to breathe while\n\
 underwater.\n\
-Press [A] to swim. Hold [A]\n\
+Press " TEXT_ABUTTON " to swim. Hold " TEXT_ABUTTON "\n\
 to swim slow and steady.\n\
-Tap [A] with smooth timing\n\
+Tap " TEXT_ABUTTON " with smooth timing\n\
 to gain speed.\n\
 Press Up on the\n\
-Control Stick and press [A]\n\
+Control Stick and press " TEXT_ABUTTON "\n\
 to dive.\n\
 \n\
 Press Down on the Control\n\
-Stick and press [A] to\n\
+Stick and press " TEXT_ABUTTON " to\n\
 return to the surface.\n\
 \n\
-Hold Down and press [A]\n\
+Hold Down and press " TEXT_ABUTTON "\n\
 while on the surface near\n\
 the edge of the water to\n\
 jump out.")
@@ -806,17 +806,17 @@ the sky.\n\
 Use the Control Stick to\n\
 guide Mario. Pull back to\n\
 to fly up, press forward\n\
-to nose down, and press [Z]\n\
+to nose down, and press " TEXT_ZBUTTON "\n\
 to land.")
 
 DEFINE_DIALOG(DIALOG_065, 1, 6, 30, 200, "\
 Swimming Lessons!\n\
-Tap [A] to do the breast\n\
+Tap " TEXT_ABUTTON " to do the breast\n\
 stroke. If you time the\n\
 taps right, you'll swim\n\
 fast.\n\
 \n\
-Press and hold [A] to do a\n\
+Press and hold " TEXT_ABUTTON " to do a\n\
 slow, steady flutter kick.\n\
 Press Up on the Control\n\
 Stick to dive, and pull\n\
@@ -824,7 +824,7 @@ back on the stick to head\n\
 for the surface.\n\
 To jump out of the water,\n\
 hold Down on the Control\n\
-Stick, then press [A].\n\
+Stick, then press " TEXT_ABUTTON ".\n\
 Easy as pie, right?\n\
 \n\
 \n\
@@ -846,7 +846,7 @@ to burn you with his\n\
 horrible flame breath.\n\
 Run around behind and\n\
 grab him by the tail with\n\
-the [B] Button. Once you\n\
+the " TEXT_BBUTTON " Button. Once you\n\
 grab hold, swing him\n\
 around in great circles.\n\
 Rotate the Control Stick\n\
@@ -854,12 +854,12 @@ to go faster and faster.\n\
 The faster you swing him,\n\
 the farther he'll fly.\n\
 \n\
-Use the [C] Buttons to look\n\
+Use the " TEXT_CBUTTON " Buttons to look\n\
 around, Mario. You have\n\
 to throw Bowser into one\n\
 of the bombs in the four\n\
 corners.\n\
-Aim well, then press [B]\n\
+Aim well, then press " TEXT_BBUTTON "\n\
 again to launch Bowser.\n\
 Good luck, Mario! Our\n\
 fate is in your hands.")
@@ -902,7 +902,7 @@ live.\n\
 Just stop, stand still,\n\
 press Start to pause the\n\
 game, then select\n\
-『Exit Course.』\n\
+" TEXT_QUOTE_OPEN "Exit Course." TEXT_QUOTE_CLOSE "\n\
 \n\
 You don't have to collect\n\
 all Power Stars in one\n\
@@ -969,10 +969,10 @@ To drop from the edge,\n\
 either press the Control\n\
 Stick in the direction of\n\
 Mario's back or press the\n\
-[Z] Button.\n\
+" TEXT_ZBUTTON " Button.\n\
 To get up onto the ledge,\n\
 either press Up on the\n\
-Control Stick or press [A]\n\
+Control Stick or press " TEXT_ABUTTON "\n\
 as soon as you grab the\n\
 ledge to climb up quickly.")
 
@@ -1034,7 +1034,7 @@ shall pound the pillars.")
 DEFINE_DIALOG(DIALOG_078, 1, 5, 30, 200, "\
 Break open the Blue Coin\n\
 Block by Pounding the\n\
-Ground with the [Z] Button.\n\
+Ground with the " TEXT_ZBUTTON " Button.\n\
 One Blue Coin is worth\n\
 five Yellow Coins.\n\
 But you have to hurry!\n\
@@ -1156,7 +1156,7 @@ Bwa ha ha ha!\n\
 You've stepped right into\n\
 my trap, just as I knew\n\
 you would! I warn you,\n\
-『Friend,』 watch your\n\
+" TEXT_QUOTE_OPEN "Friend," TEXT_QUOTE_CLOSE " watch your\n\
 step!")
 
 DEFINE_DIALOG(DIALOG_091, 2, 2, 30, 200, "\
@@ -1194,11 +1194,11 @@ DEFINE_DIALOG(DIALOG_094, 1, 4, 30, 200, "\
 Get a good run up the\n\
 slope! Do you remember\n\
 the Long Jump? Run, press\n\
-[Z], then jump!")
+" TEXT_ZBUTTON ", then jump!")
 
 DEFINE_DIALOG(DIALOG_095, 1, 4, 30, 200, "\
 To read a sign, stand in\n\
-front of it and press [B],\n\
+front of it and press " TEXT_BBUTTON ",\n\
 like you did just now.\n\
 \n\
 When you want to talk to\n\
@@ -1275,8 +1275,8 @@ shall shine the light...")
 
 DEFINE_DIALOG(DIALOG_104, 1, 5, 30, 200, "\
 The shadowy star in front\n\
-of you is a 『Star\n\
-Marker.』 When you collect\n\
+of you is a " TEXT_QUOTE_OPEN "Star\n\
+Marker." TEXT_QUOTE_CLOSE " When you collect\n\
 all 8 Red Coins, the Star\n\
 will appear here.")
 
@@ -1288,7 +1288,7 @@ You can reach the Star on\n\
 the floating island by\n\
 using the four cannons.\n\
 Use the Control Stick to\n\
-aim, then press [A] to fire.\n\
+aim, then press " TEXT_ABUTTON " to fire.\n\
 \n\
 If you're handy, you can\n\
 grab on to trees or poles\n\

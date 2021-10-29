@@ -48,6 +48,19 @@ struct DialogEntry
  /*0x0C*/ const u8 *str;
 };
 
+#define TEXT_CUP "\x80"
+#define TEXT_CDOWN "\x81"
+#define TEXT_CLEFT "\x82"
+#define TEXT_CRIGHT "\x83"
+#define TEXT_ABUTTON "\x84"
+#define TEXT_BBUTTON "\x85"
+#define TEXT_CBUTTON "\x86"
+#define TEXT_ZBUTTON "\x87"
+#define TEXT_RBUTTON "\x88"
+
+#define TEXT_QUOTE_OPEN "\xF5"
+#define TEXT_QUOTE_CLOSE "\xF6"
+
 // EU only
 enum HudSpecialHUDChars {
     HUD_CHAR_A_UMLAUT = 0x3A,

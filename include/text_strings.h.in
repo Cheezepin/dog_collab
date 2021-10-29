@@ -79,6 +79,15 @@
 #define CHAR_STAR 0xFA
 #define CHAR_UNFILLED_STAR 0xFD
 
+#define TEXT_CUP "\x80"
+#define TEXT_CDOWN "\x81"
+#define TEXT_CLEFT "\x82"
+#define TEXT_CRIGHT "\x83"
+#define TEXT_ABUTTON "\x84"
+#define TEXT_BBUTTON "\x85"
+#define TEXT_CBUTTON "\x86"
+#define TEXT_XBUTTON "\x87"
+#define TEXT_RBUTTON "\x88"
 #define TEXT_ZERO "0"
 #define TEXT_COIN "\xF9"
 #define TEXT_STAR "\xFA"
