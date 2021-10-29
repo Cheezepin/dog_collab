@@ -61,6 +61,8 @@ struct DialogEntry
 #define TEXT_QUOTE_OPEN "\xF5"
 #define TEXT_QUOTE_CLOSE "\xF6"
 
+#define TEXT_DOG "\xEF"
+
 // EU only
 enum HudSpecialHUDChars {
     HUD_CHAR_A_UMLAUT = 0x3A,
