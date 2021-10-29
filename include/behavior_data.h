@@ -3,6 +3,20 @@
 
 #include "types.h"
 
+extern const BehaviorScript bhvFazAmbient[];
+extern const BehaviorScript bhvKoopaDialog[];
+extern const BehaviorScript bhvGoombaDialog[];
+extern const BehaviorScript bhvGoddardHMC[];
+extern const BehaviorScript bhvHMCDoors[];
+extern const BehaviorScript bhvHMCElevator[];
+extern const BehaviorScript bhvPerservePosWarp[];
+extern const BehaviorScript bhvDoorDog[];
+extern const BehaviorScript bhvStarBlock[];
+extern const BehaviorScript bhvBossMatt[];
+extern const BehaviorScript bhvKoopaBoss[];
+extern const BehaviorScript bhvKoopaBossAnchor[];
+extern const BehaviorScript bhvBossShell[];
+
 extern const BehaviorScript bhvStarDoor[];
 extern const BehaviorScript bhvMrI[];
 extern const BehaviorScript bhvMrIBody[];
@@ -424,6 +438,7 @@ extern const BehaviorScript bhvBreakableBoxSmall[];
 extern const BehaviorScript bhvSlidingSnowMound[];
 extern const BehaviorScript bhvSnowMoundSpawn[];
 extern const BehaviorScript bhvWdwSquareFloatingPlatform[];
+extern const BehaviorScript bhvWdwSquareFloatingPlatform2[];
 extern const BehaviorScript bhvWdwRectangularFloatingPlatform[];
 extern const BehaviorScript bhvJrbFloatingPlatform[];
 extern const BehaviorScript bhvArrowLift[];
@@ -562,6 +577,10 @@ extern const BehaviorScript bhvCephie[];
 // thecozies bhvs start
 extern const BehaviorScript bhvRainCloud[];
 extern const BehaviorScript bhvWaterTop[];
+extern const BehaviorScript bhvWaterSpout[];
+extern const BehaviorScript bhvRedCoinStarMarkerNoDrop[];
+extern const BehaviorScript bhvVerticalInstantWarp[];
+extern const BehaviorScript bhvAperatureDoor[];
 // thecozies bhvs end
 
 //START ROVERT BEHAVIOR
@@ -573,6 +592,10 @@ extern const BehaviorScript bhvPropane[];
 extern const BehaviorScript bhvLavaGrate[];
 
 //END ROVERT BEHAVIOR
+
+//cheeze bhv starts
+extern const BehaviorScript bhvCheezePlat[];
+//cheeze bhv ends
 
 
 #endif // BEHAVIOR_DATA_H

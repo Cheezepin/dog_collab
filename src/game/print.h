@@ -3,11 +3,6 @@
 
 #include <PR/ultratypes.h>
 
-#define TEXRECT_MIN_X 10
-#define TEXRECT_MAX_X 300
-#define TEXRECT_MIN_Y 5
-#define TEXRECT_MAX_Y 220
-
 #define GLYPH_SPACE           -1
 #define GLYPH_U               30
 #define GLYPH_EXCLAMATION_PNT 36
@@ -25,9 +20,16 @@
 #define GLYPH_DOUBLE_QUOTE    57
 #define GLYPH_UMLAUT          58
 
+#define PRINT_TEXT_ALIGN_LEFT 0
+#define PRINT_TEXT_ALIGN_CENTRE 1
+#define PRINT_TEXT_ALIGN_RIGHT 2
+#define PRINT_ALL -1
+
 void print_text_fmt_int(s32 x, s32 y, const char *str, s32 n);
 void print_text(s32 x, s32 y, const char *str);
 void print_text_centered(s32 x, s32 y, const char *str);
 void render_text_labels(void);
+extern void print_text_fmt_int_centered(s32 x, s32 y, const char *str, s32 n);
+
 
 #endif // PRINT_H

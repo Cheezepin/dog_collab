@@ -185,6 +185,8 @@ s8 gNeverEnteredCastle;
 struct MarioState *gMarioState = &gMarioStates[0];
 s8 sWarpCheckpointActive = FALSE;
 
+struct Object *gInstantWarpObject = NULL;
+
 u16 level_control_timer(s32 timerOp) {
     switch (timerOp) {
         case TIMER_CONTROL_SHOW:
@@ -362,10 +364,15 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
         case MARIO_SPAWN_LAUNCH_DEATH:
             set_mario_action(m, ACT_SPECIAL_DEATH_EXIT, 0);
             break;
+        case MARIO_SPAWN_PRESERVE_POS:
+            set_mario_action(m, ACT_IDLE, 0);
+            break;
     }
 
     set_mario_initial_cap_powerup(m);
 }
+
+extern Vec3s warpRelPos;
 
 void init_mario_after_warp(void) {
     struct ObjectWarpNode *spawnNode = area_get_warp_node(sWarpDest.nodeId);
@@ -379,6 +386,14 @@ void init_mario_after_warp(void) {
         gPlayerSpawnInfos[0].startAngle[0] = 0;
         gPlayerSpawnInfos[0].startAngle[1] = spawnNode->object->oMoveAngleYaw;
         gPlayerSpawnInfos[0].startAngle[2] = 0;
+
+        if (warpRelPos[0] != 32000)
+        {
+            gPlayerSpawnInfos[0].startPos[0] -= warpRelPos[0];
+            gPlayerSpawnInfos[0].startPos[2] -= warpRelPos[1];
+            gPlayerSpawnInfos[0].startAngle[1] = warpRelPos[2];
+            warpRelPos[0] = 32000;
+        }
 
         if (marioSpawnType == MARIO_SPAWN_DOOR_WARP) {
             init_door_warp(&gPlayerSpawnInfos[0], sWarpDest.arg);
@@ -418,6 +433,8 @@ void init_mario_after_warp(void) {
             break;
         case MARIO_SPAWN_FADE_FROM_BLACK:
             play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x10, 0x00, 0x00, 0x00);
+            break;
+        case MARIO_SPAWN_PRESERVE_POS:
             break;
         default:
             play_transition(WARP_TRANSITION_FADE_FROM_STAR, 0x10, 0x00, 0x00, 0x00);
@@ -527,12 +544,42 @@ void warp_credits(void) {
     }
 }
 
+void do_the_vertical_instant_warp(void) {
+    int index = (gInstantWarpObject->oBehParams >> 16) & 0xFF;
+    struct InstantWarp *warp = &gCurrentArea->instantWarps[index];
+    gMarioState->pos[0] += warp->displacement[0];
+    gMarioState->pos[1] += warp->displacement[1];
+    gMarioState->pos[2] += warp->displacement[2];
+
+    gMarioState->marioObj->oPosX = gMarioState->pos[0];
+    gMarioState->marioObj->oPosY = gMarioState->pos[1];
+    gMarioState->marioObj->oPosZ = gMarioState->pos[2];
+
+    gMarioObject->header.gfx.pos[0] = gMarioState->pos[0];
+    gMarioObject->header.gfx.pos[1] = gMarioState->pos[1];
+    gMarioObject->header.gfx.pos[2] = gMarioState->pos[2];
+    s16 cameraAngle = gMarioState->area->camera->yaw;
+
+    change_area(warp->area);
+    gMarioState->area = gCurrentArea;
+
+    warp_camera(warp->displacement[0], warp->displacement[1], warp->displacement[2]);
+
+    gMarioState->area->camera->yaw = cameraAngle;
+}
+
 void check_instant_warp(void) {
     s16 cameraAngle;
     struct Surface *floor;
 
     if (gCurrLevelNum == LEVEL_CASTLE
         && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 70) {
+        return;
+    }
+
+    if (gInstantWarpObject) {
+        do_the_vertical_instant_warp();
+        gInstantWarpObject = NULL;
         return;
     }
 

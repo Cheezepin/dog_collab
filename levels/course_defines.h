@@ -16,7 +16,7 @@ DEFINE_COURSE(COURSE_WF, 0x00002040) // (2)  Whomp's Fortress (BernieBean, Mirro
 DEFINE_COURSE(COURSE_JRB, 0x22222240) // (3)  Jolly Rodger's Bay (CowQuack, Swirling Circus)
 DEFINE_COURSE(COURSE_CCM, 0x00220040) // (4)  Cool Cool Mountain (Rovert, Peach Ruins)
 DEFINE_COURSE(COURSE_BBH, 0x22222240) // (5)  Big Boo's Haunt (MrComit, Cumulus Correctional Center)
-DEFINE_COURSE(COURSE_HMC, 0x22222240) // (6)  Hazy Maze Cave (Fazana, Factory)
+DEFINE_COURSE(COURSE_HMC, 0x44444440) // (6)  Hazy Maze Cave (Fazana, Factory)
 DEFINE_COURSE(COURSE_LLL, 0x21212140) // (7)  Lethal Lava Land (Yoshi Milkman, Feudal Fortress)
 DEFINE_COURSE(COURSE_SSL, 0x20222240) // (8)  Shifting Sand Land (Reonu, Floating Lava Lands)
 DEFINE_COURSE(COURSE_DDD, 0x22222240) // (9)  Dire Dire Docks (thecozies, Bowser's Scuba Tower)
@@ -28,7 +28,7 @@ DEFINE_COURSE(COURSE_TTC, 0x22222240) // (14) Tick Tock Clock
 DEFINE_COURSE(COURSE_RR, 0x00000040) // (15) Rainbow Ride
 DEFINE_COURSES_END()
 DEFINE_BONUS_COURSE(COURSE_BITDW, 0x44444440) // (16) Bowser in the Dark World (emu, Bowser's Rainbow Rings)
-DEFINE_BONUS_COURSE(COURSE_BITFS, 0x34444440) // (17) Bowser in the Fire Sea (Cheezepin, Bowser's FUCKING Flying Fortress)
+DEFINE_BONUS_COURSE(COURSE_BITFS, 0x44444440) // (17) Bowser in the Fire Sea (Cheezepin, Bowser's FUCKING Flying Fortress)
 DEFINE_BONUS_COURSE(COURSE_BITS, 0x34444440) // (18) Bowser in the Sky
 DEFINE_BONUS_COURSE(COURSE_PSS, 0x24444440) // (19) Princess's Secret Slide
 DEFINE_BONUS_COURSE(COURSE_COTMC, 0x44444440) // (20) Cavern of the Metal Cap

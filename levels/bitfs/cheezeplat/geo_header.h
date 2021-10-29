@@ -1,0 +1,11 @@
+extern const GeoLayout cheezeplat_geo[];
+extern Lights1 cheezeplat_metal_lights;
+extern u8 cheezeplat_MarioParty_2DDD8EB8_2_0_ci_ci4[];
+extern u8 cheezeplat_MarioParty_2DDD8EB8_2_0_ci_ci4_pal_rgba16[];
+extern Vtx cheezeplat_plat_mesh_layer_1_vtx_cull[8];
+extern Vtx cheezeplat_plat_mesh_layer_1_vtx_0[20];
+extern Gfx cheezeplat_plat_mesh_layer_1_tri_0[];
+extern Gfx mat_cheezeplat_metal[];
+extern Gfx mat_revert_cheezeplat_metal[];
+extern Gfx cheezeplat_plat_mesh_layer_1[];
+extern Gfx cheezeplat_material_revert_render_settings[];

@@ -396,4 +396,5 @@ extern const Gfx white_particle_small_unused_dl[];
 
 
 #include "cephie/anim_header.h"
+
 #endif

@@ -3,8 +3,36 @@
 const GeoLayout bitfs_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(1, bitfs_dl_nocol_mesh_layer_1),
-		GEO_DISPLAY_LIST(1, bitfs_dl_op_mesh_layer_1),
+		GEO_SWITCH_CASE(4, geo_switch_area),
+		GEO_OPEN_NODE(),
+			GEO_BRANCH(1, bitfs_dl_a_geo),
+			GEO_BRANCH(1, bitfs_dl_b_geo),
+			GEO_BRANCH(1, bitfs_dl_c_geo),
+		GEO_CLOSE_NODE(),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout bitfs_dl_a_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, bitfs_dl_nocol_003_mesh_layer_1),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, bitfs_dl_op_mesh_layer_1),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout bitfs_dl_b_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, bitfs_dl_nocol_004_mesh_layer_1),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, bitfs_dl_op_001_mesh_layer_1),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout bitfs_dl_c_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, bitfs_dl_nocol_mesh_layer_1),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, bitfs_dl_op_002_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -30,7 +58,7 @@ const GeoLayout bitfs_area_1[] = {
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
-		GEO_DISPLAY_LIST(1, bitfs_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, bitfs_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

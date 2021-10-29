@@ -209,8 +209,8 @@
 #define MODEL_BITDW_STAIRCASE_FRAME2              0x3D        // geo_bitdw_0005D0
 #define MODEL_BITDW_STAIRCASE_FRAME1              0x3E        // geo_bitdw_0005E8
 #define MODEL_BITDW_STAIRCASE                     0x3F        // geo_bitdw_000600
-#define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA      
-#define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB 
+#define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA
+#define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB
 #define MODEL_BITDW_SIMPLE_SPINNER                0x1AC
 #define MODEL_BITDW_SIMPLE_SPINNER_SHOCK          0x1AE       // I was to lazy to change all the model numbers so its out of order here
 #define MODEL_BITDW_SPHERE                        0x1AD
@@ -281,9 +281,10 @@
 #define MODEL_LLL_VOLCANO_FALLING_TRAP            0x53        // lll_geo_000EA8
 
 // ddd
-#define MODEL_DDD_WATER_TOP                 0x36        // ddd_geo_000478
-#define MODEL_DDD_BOWSER_SUB                      0x37        // ddd_geo_0004A0
-#define MODEL_RAIN_CLOUD                            0x38        // ddd_geo_000450
+#define MODEL_DDD_WATER_TOP                       0x36
+#define MODEL_DDD_WATER_SPOUT                     0x37
+#define MODEL_RAIN_CLOUD                          0x38
+#define MODEL_DDD_APERATURE_DOOR                  0x39
 
 // wf
 #define MODEL_WF_BREAKABLE_WALL_RIGHT             0x36        // wf_geo_000B78
@@ -625,5 +626,21 @@ enum _2639Models {
 	MODEL_2639SODER,
 };
 
+//start cheeze model ids
+
+#define MODEL_CHEEZE_PLAT 0x180
+
+//end cheeze model ids
+
+//YO BITCHES YA BOY FAZ
+
+#define MODEL_KOOPA_NPC 0x140
+#define MODEL_HMC_DOORS 0x141
+#define MODEL_HMCELEVATOR 0x142
+#define MODEL_REDBLOCK 0x143
+#define MODEL_BOSSMATT 0x144
+#define MODEL_KOOPABOSS 0x145
+
+//CIAO BITCHES
 
 #endif // MODEL_IDS_H
