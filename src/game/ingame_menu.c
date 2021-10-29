@@ -92,7 +92,7 @@ u8 gDialogCharWidths[256] = { // TODO: Is there a way to auto generate this?
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, // 0:7, 1:7, 2:7, 3:7, 4:7, 5:7, 6:7, 7:7, 8:7, 9:7, A:6, B:6, C:6, D:6, E:6, F:6,
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, // G:6, H:6, I:5, J:6, K:6, L:5, M:8, N:8, O:6, P:6, Q:6, R:6, S:6, T:5, U:6, V:6,
     6,  5,  6,  0,  0,  7,  8,  4,  5,  5,  6,  0,  4,  6,  4,  0, // W:8, X:7, Y:6, Z:6, a:6, b:5, c:5, d:6, e:5, f:5, g:6, h:5, i:4, j:5, k:5, l:3,
-    7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  5,  0,  0,  0,  0,  7, // m:7, n:5, o:5, p:5, q:6, r:5, s:5, t:5, u:5, v:5, w:7, x:7, y:5, z:5, ':4, .:4,
+    7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  4,  0,  0,  0,  0,  7, // m:7, n:5, o:5, p:5, q:6, r:5, s:5, t:5, u:5, v:5, w:7, x:7, y:5, z:5, ':4, .:4,
     0,  6,  6,  6,  6,  6,  6,  6,  6,  5,  6,  6,  5,  8,  8,  6, //  :8,  :6,
     6,  6,  6,  6,  5,  6,  6,  8,  7,  6,  6,  0,  0,  0,  0,  0, // ▲:8, ▼:8, <:8, >:8, A:7, B:7, C:6, Z:7, R:7,
     0,  6,  5,  5,  6,  5,  5,  6,  5,  4,  5,  5,  3,  7,  5,  5, //                                                                            ,:4,
@@ -103,8 +103,8 @@ u8 gDialogCharWidths[256] = { // TODO: Is there a way to auto generate this?
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //  :7, (:5,X:10, ):5, ↔:9, &:8, …:4,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0  //           !:5, %:7, ?:7, “:6, ”:6, ~:8,      ¢:8, ★:10, *:6, ·:4, ☆:10
+    0,  0,  10, 0,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //  :7, (:5,X:10, ):5, ↔:9, &:8, ::4,
+    0,  0,  0,  0,  0,  6,  0,  0,  0,  8,  10, 6,  4,  10, 0,  0  //           !:5, %:7, ?:7, “:6, ”:6, ~:8,      ¢:8, ★:10, *:6, ·:4, ☆:10
 };
 #endif
 
@@ -294,8 +294,8 @@ struct MultiTextEntry {
     u8 str[4];
 };
 
-#define TEXT_THE_RAW ASCII_TO_DIALOG('t'), ASCII_TO_DIALOG('h'), ASCII_TO_DIALOG('e'), 0x00
-#define TEXT_YOU_RAW ASCII_TO_DIALOG('y'), ASCII_TO_DIALOG('o'), ASCII_TO_DIALOG('u'), 0x00
+#define TEXT_THE_RAW 't', 'h', 'e', 0x00
+#define TEXT_YOU_RAW 'y', 'o', 'u', 0x00
 
 enum MultiStringIDs { STRING_THE, STRING_YOU };
 
@@ -628,8 +628,8 @@ s16 get_string_width(u8 *str) {
     return width;
 }
 
-u8 gHudSymCoin[] = { GLYPH_COIN, GLYPH_SPACE };
-u8 gHudSymX[] = { GLYPH_MULTIPLY, GLYPH_SPACE };
+u8 gHudSymCoin[] = "+ ";
+u8 gHudSymX[] = "* ";
 
 void print_hud_my_score_coins(s32 useCourseCoinScore, s8 fileNum, s8 courseNum, s16 x, s16 y) {
     u8 strNumCoins[4];
@@ -1954,8 +1954,8 @@ void print_hud_course_complete_string(s8 str) {
 
 void print_hud_course_complete_coins(s16 x, s16 y) {
     u8 courseCompleteCoinsStr[4];
-    u8 hudTextSymCoin[] = { GLYPH_COIN, GLYPH_SPACE };
-    u8 hudTextSymX[] = { GLYPH_MULTIPLY, GLYPH_SPACE };
+    u8 hudTextSymCoin[] = "+ ";
+    u8 hudTextSymX[] = "* ";
 
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -2009,7 +2009,7 @@ void play_star_fanfare_and_flash_hud(s32 arg, u8 starNum) {
 void render_course_complete_lvl_info_and_hud_str(void) {
     u8 textCourse[] = { TEXT_COURSE };
     u8 textClear[] = { TEXT_CLEAR };
-    u8 textSymStar[] = { GLYPH_STAR, GLYPH_SPACE };
+    u8 textSymStar[] = "- ";
 
     void **actNameTbl;
     void **courseNameTbl;
