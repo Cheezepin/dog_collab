@@ -66,6 +66,19 @@
 /**
  * Global Symbols
  */
+#define CHAR_CUP 0x80
+#define CHAR_CDOWN 0x81
+#define CHAR_CLEFT 0x82
+#define CHAR_CRIGHT 0x83
+#define CHAR_ABUTTON 0x84
+#define CHAR_BBUTTON 0x85
+#define CHAR_CBUTTON 0x86
+#define CHAR_XBUTTON 0x87
+#define CHAR_RBUTTON 0x88
+#define CHAR_COIN 0xF9
+#define CHAR_STAR 0xFA
+#define CHAR_UNFILLED_STAR 0xFD
+
 #define TEXT_ZERO "0"
 #define TEXT_COIN "\xF9"
 #define TEXT_STAR "\xFA"

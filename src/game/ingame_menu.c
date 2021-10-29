@@ -2234,10 +2234,10 @@ Gfx icon_mesh[] = {
 
 u8 textEnterDogName[] = { TEXT_ENTER_DOG_NAME };
 u8 textKeyboardDefines[] = { TEXT_KEYBOARD_DEFINES };
-u8 dogStringTemp[DOG_STRING_LENGTH + 1] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF };
+u8 dogStringTemp[DOG_STRING_LENGTH + 1];
 u8 topBarMap[2][10] = {
-{ 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 },
-{ 0xFA, 0xFD, 0xF9, 0xE5, 0xE6, 0xFB, 0xF2, 0xF3, 0xF4, 0xF7 }, };
+{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' },
+{ CHAR_STAR, CHAR_UNFILLED_STAR, CHAR_COIN, '&', ':', '*', '!', '%', '?', '~' }, };
 
 s32 gKeyboardShifted;
 s8 keyboardCursorX = 0;
@@ -2286,7 +2286,7 @@ void render_dog_keyboard(void) {
     length = -1;
     for(i = 0; i < DOG_STRING_LENGTH; i++) {
         dogStringTemp[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
-        if(dogStringTemp[i] != 0xFF) {
+        if(dogStringTemp[i] != 0x0) {
             length = i;
         }
     }
@@ -2303,12 +2303,12 @@ void render_dog_keyboard(void) {
     //     }
     // }
     if(gKeyboardShifted) {
-        init = 0x0A;
-        max = 0x24;
+        init = 'A';
+        max = 'Z';
         topBar = 0x1;
     } else {
-        init = 0x24;
-        max = 0x3E;
+        init = 'a';
+        max = 'z';
         topBar = 0x0;
     }
     actualTick = 0;
@@ -2317,7 +2317,7 @@ void render_dog_keyboard(void) {
         create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
     }
     create_dl_translation_matrix(MENU_MTX_NOPUSH, -120.0f, -14.0f, 0.0f);
-    for(i = init; i < max; i++) {
+    for(i = init; i <= max; i++) {
         render_char_with_shadow(i, white);
         if(actualTick % 10 == 9) {
             create_dl_translation_matrix(MENU_MTX_NOPUSH, -108.0f, -14.0f, 0.0f);
@@ -2326,9 +2326,9 @@ void render_dog_keyboard(void) {
         }
         actualTick++;
     }
-    render_char_with_shadow(0x3F, white);
+    render_char_with_shadow('.', white);
     create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
-    render_char_with_shadow(0x3E, white);
+    render_char_with_shadow('\'', white);
     // create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
     // render_char_with_shadow(0x52, white);
     // create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
@@ -2340,25 +2340,25 @@ void render_dog_keyboard(void) {
             u8 key;
             switch(keyboardCursorX - 6) {
                 case 0:
-                    key = 0x3F;
+                    key = '.';
                     break;
                 case 1:
-                    key = 0x3E;
+                    key = '\'';
                     break;
                 case 2:
                 case 3:
-                    key = 0x9E;
+                    key = ' ';
                     break;
             }
             dogStringTemp[length + 1] = key;
         } else if(keyboardCursorY == 0) {
             dogStringTemp[length + 1] = topBarMap[topBar][keyboardCursorX];
         } else {
-            dogStringTemp[length + 1] = init + keyboardCursorX + ((keyboardCursorY - 1)*0x0A);
+            dogStringTemp[length + 1] = init + keyboardCursorX + ((keyboardCursorY - 1) * 0x0A);
         }
     }
     if(length > -1 && (gPlayer1Controller->buttonPressed & B_BUTTON)) {
-        dogStringTemp[length] = 0xFF;
+        dogStringTemp[length] = 0x0;
     }
     save_file_set_dog_string(gCurrSaveFileNum - 1, &dogStringTemp);
 
