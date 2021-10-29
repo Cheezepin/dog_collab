@@ -388,7 +388,7 @@ void print_act_selector_strings(void) {
 
     // Print the numbers above each star.
     for (i = 1; i <= sVisibleStars; i++) {
-        starNumbers[0] = i;
+        starNumbers[0] = 0x30 + i;
 #ifdef VERSION_EU
         print_menu_generic_string(143 - sVisibleStars * 15 + i * 30, 38, starNumbers);
 #else
