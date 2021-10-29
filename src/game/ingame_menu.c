@@ -652,8 +652,8 @@ void print_hud_my_score_coins(s32 useCourseCoinScore, s8 fileNum, s8 courseNum, 
 void print_hud_my_score_stars(s8 fileNum, s8 courseNum, s16 x, s16 y) {
     u8 strStarCount[4];
     s16 starCount;
-    u8 textSymStar[] = { GLYPH_STAR, GLYPH_SPACE };
-    u8 textSymX[] = { GLYPH_MULTIPLY, GLYPH_SPACE };
+    u8 textSymStar[] = "- ";
+    u8 textSymX[] = "* ";
 
     starCount = save_file_get_course_star_count(fileNum, courseNum);
 
@@ -858,7 +858,7 @@ void render_dog_string_lines(s8 lineNum, s16 *linePos, s8 linesPerBox, s8 xMatri
         if (linePos[0] != 0 || (xMatrix != 1)) {
             create_dl_translation_matrix(MENU_MTX_NOPUSH, (gDialogCharWidths[DIALOG_CHAR_SPACE] * (xMatrix - 1)), 0, 0);
         }
-        for (i = 0; i < length - 1; i++) {
+        for (i = 0; i < length; i++) {
             if(dogString[i] != DIALOG_CHAR_SPACE)
                 render_generic_char(dogString[i]);
             create_dl_translation_matrix(MENU_MTX_NOPUSH, (gDialogCharWidths[dogString[i]]), 0, 0);
@@ -1150,8 +1150,12 @@ void render_dialog_entries(void) {
     void **dialogTable;
     struct DialogEntry *dialog;
     s8 lowerBound = 0;
-    dialogTable = segmented_to_virtual(languageTable[gInGameLanguage][0]);
+    dialogTable = segmented_to_virtual(levelDialogTable);
     dialog = segmented_to_virtual(dialogTable[gDialogID]);
+    if (dialog->unused != 1) {
+        dialogTable = segmented_to_virtual(languageTable[gInGameLanguage][0]);
+        dialog = segmented_to_virtual(dialogTable[gDialogID]);
+    }
 
     // if the dialog entry is invalid, set the ID to -1.
     if (segmented_to_virtual(NULL) == dialog) {
