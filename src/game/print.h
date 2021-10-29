@@ -3,21 +3,21 @@
 
 #include <PR/ultratypes.h>
 
-#define GLYPH_SPACE           0x20
-#define GLYPH_U               0x55
-#define GLYPH_EXCLAMATION_PNT 0x21
+#define GLYPH_SPACE           ' '
+#define GLYPH_U               'U'
+#define GLYPH_EXCLAMATION_PNT '!'
 #define GLYPH_TWO_EXCLAMATION 0x0
-#define GLYPH_QUESTION_MARK   0x3F
-#define GLYPH_AMPERSAND       0x26
-#define GLYPH_PERCENT         0x25
-#define GLYPH_MULTIPLY        0x2A
-#define GLYPH_COIN            0x2B
-#define GLYPH_MARIO_HEAD      0x2C
-#define GLYPH_STAR            0x2D
-#define GLYPH_PERIOD          0x2E
+#define GLYPH_QUESTION_MARK   '?'
+#define GLYPH_AMPERSAND       '&'
+#define GLYPH_PERCENT         '%'
+#define GLYPH_MULTIPLY        '*'
+#define GLYPH_COIN            '+'
+#define GLYPH_MARIO_HEAD      ','
+#define GLYPH_STAR            '-'
+#define GLYPH_PERIOD          '.'
 #define GLYPH_BETA_KEY        0x0
-#define GLYPH_APOSTROPHE      0x27
-#define GLYPH_DOUBLE_QUOTE    0x22
+#define GLYPH_APOSTROPHE      '\''
+#define GLYPH_DOUBLE_QUOTE    '"'
 #define GLYPH_UMLAUT          0x0
 
 #define PRINT_TEXT_ALIGN_LEFT 0
