@@ -20,7 +20,7 @@
 #include "game/spawn_object.h"
 #include "game/rumble_init.h"
 #include "sm64.h"
-#include "text_strings.h"
+#include "text_strings.h.in"
 
 #include "eu_translation.h"
 #if MULTILANG
@@ -1566,7 +1566,7 @@ void print_save_file_star_count(s8 fileIndex, s16 x, s16 y) {
  */
 void print_main_menu_strings(void) {
     u8 x, y, i, j;
-    u8 dogString[DOG_STRING_LENGTH + 9] = { 0x16, 0x24, 0x35, 0x2C, 0x32, 0x9E, 0xE5, 0x9E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF };
+    u8 dogString[DOG_STRING_LENGTH + 9] = "Mario & ";
     u8 *string;
     // Print "SELECT FILE" text
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
@@ -2183,7 +2183,7 @@ void print_save_file_scores(s8 fileIndex) {
     unsigned char textFileLetter[] = { TEXT_ZERO     };
     void **levelNameTable = segmented_to_virtual(languageTable[gInGameLanguage][1]);
 
-    textFileLetter[0] = fileIndex + ASCII_TO_DIALOG('A'); // get letter of file selected
+    textFileLetter[0] = fileIndex + 'A'; // get letter of file selected
 
     // Print file name at top
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
