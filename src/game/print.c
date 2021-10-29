@@ -358,7 +358,7 @@ void render_text_labels(void) {
 
     for (i = 0; i < sTextLabelsCount; i++) {
         for (j = 0; j < sTextLabels[i]->length; j++) {
-            glyphIndex = char_to_glyph_index(sTextLabels[i]->buffer[j]);
+            glyphIndex = sTextLabels[i]->buffer[j];
 
             if (glyphIndex != GLYPH_SPACE) {
                 add_glyph_texture(glyphIndex);
