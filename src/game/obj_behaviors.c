@@ -832,3 +832,4 @@ s8 UNUSED debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/A2PushableCouch.inc.c"
 #include "behaviors/2639A2HiddenStar.inc.c"
 #include "behaviors/2639Elevator.inc.c"
+#include "behaviors/2639Soda.inc.c"

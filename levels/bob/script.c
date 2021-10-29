@@ -39,6 +39,7 @@ const LevelScript level_bob_entry[] = {
 	JUMP_LINK(script_func_global_16), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -46,7 +47,7 @@ const LevelScript level_bob_entry[] = {
 	AREA(1, bob_area_1),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_CASTLE, 0x01, 50, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_CASTLE, 0x01, 100, WARP_NO_CHECKPOINT),
 		WARP_NODE(1, LEVEL_BOB, 0x02, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_DOG, -4023, -4142, 186, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
 		MARIO_POS(0x01, 0, -4066, -4007, 0),
@@ -63,8 +64,10 @@ const LevelScript level_bob_entry[] = {
 	AREA(2, bob_area_2),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_CASTLE, 0x01, 50, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_CASTLE, 0x01, 100, WARP_NO_CHECKPOINT),
 		WARP_NODE(1, LEVEL_BOB, 3, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(2, LEVEL_BOB, 4, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_2639SODER, -1194, 76, 3585, 0, 0, 0, 0x00000000, bhv2639soda),
 		OBJECT_WITH_ACTS(MODEL_ELEV2639, -2375, 77, 687, 0, 0, 0, 1 << 16, bhv2639elevator, ACT_2),
 		OBJECT_WITH_ACTS(MODEL_ELEV2639, -2375, 77, 687, 0, 0, 0, 2 << 16, bhv2639elevator, ACT_3),
 		OBJECT_WITH_ACTS(MODEL_ELEV2639, -2375, 77, 687, 0, 0, 0, 1 << 16, bhv2639elevator, ACT_4),
@@ -99,6 +102,21 @@ const LevelScript level_bob_entry[] = {
 		OBJECT(MODEL_NONE, 1649, 101, 1927, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		TERRAIN(bob_area_3_collision),
 		MACRO_OBJECTS(bob_area_3_macro_objs),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
+	AREA(4, bob_area_4),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_CASTLE, 0x01, 50, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_2639SODER, -1194, 76, 5691, 0, 0, 0, 0x00000000, bhv2639soda),
+		MARIO_POS(0x01, 0, -999, 10, 0),
+		OBJECT(MODEL_NONE, 1649, 101, 1927, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		TERRAIN(bob_area_4_collision),
+		MACRO_OBJECTS(bob_area_4_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */

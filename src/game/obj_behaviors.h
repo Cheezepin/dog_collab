@@ -176,3 +176,4 @@ void bhv_2639glasses_init(void); void bhv_2639glasses_loop(void);
 void bhv_A2PushableCouch_init(void); void bhv_A2PushableCouch_loop(void);
 void bhv_2639A2HiddenStar_init(void); void bhv_2639A2HiddenStar_loop(void);
 void bhv_2639Elevator_init(void); void bhv_2639Elevator_loop(void);
+void bhv_2639Soda_init(void); void bhv_2639Soda_loop(void);
