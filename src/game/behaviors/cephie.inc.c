@@ -6,7 +6,6 @@ void bhv_cephie_init(void) {
 }
 
 void cephie_act_idle(void) {
-    object_step();
     o->oCephieStartYaw = o->oMoveAngleYaw;
 
     if (o->oInteractStatus == INT_STATUS_INTERACTED) {
