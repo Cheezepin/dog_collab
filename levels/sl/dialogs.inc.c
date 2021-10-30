@@ -10,7 +10,7 @@ const u8 string0[] = {
 };
 
 const struct DialogEntry entry0 = {
-    1, 4 /* Lines per box */, 30 /* Left offset */, 200 /* Width */, string0
+    1, 4 /* Lines per box */, 30 /* Left offset */, 200 /* Width */, string0, VOICE_NONE
 };
 
 const u8 string1[] = {
@@ -25,7 +25,7 @@ const u8 string1[] = {
 };
 
 const struct DialogEntry entry1 = {
-    1, 3 /* Lines per box */, 30 /* Left offset */, 200 /* Width */, string1
+    1, 3 /* Lines per box */, 30 /* Left offset */, 200 /* Width */, string1, VOICE_NONE
 };
 
 const u8 string2[] = {
@@ -38,7 +38,7 @@ const u8 string2[] = {
 };
 
 const struct DialogEntry entry2 = {
-    1, 3 /* Lines per box */, 30 /* Left offset */, 200 /* Width */, string2
+    1, 3 /* Lines per box */, 30 /* Left offset */, 200 /* Width */, string2, VOICE_NONE
 };
 
 const u8 string3[] = {
@@ -51,7 +51,7 @@ const u8 string3[] = {
 };
 
 const struct DialogEntry entry3 = {
-    1, 4 /* Lines per box */, 30 /* Left offset */, 200 /* Width */, string3
+    1, 4 /* Lines per box */, 30 /* Left offset */, 200 /* Width */, string3, VOICE_NONE
 };
 
 const struct DialogEntry *const levelDialogTable[] = {

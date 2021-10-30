@@ -22,11 +22,11 @@ static const u8 Debug1[] = {
 };
 
 static const struct DialogEntry debug_text_entry_0 = {
-    1, 8, 30, 200, Debug0
+    1, 8, 30, 200, Debug0, VOICE_NONE
 };
 
 static const struct DialogEntry debug_text_entry_1 = {
-    1, 3, 100, 150, Debug1
+    1, 3, 100, 150, Debug1, VOICE_NONE
 };
 
 const struct DialogEntry *const seg2_debug_text_table[] = {
@@ -47,7 +47,7 @@ const struct DialogEntry *const seg2_debug_text_table[] = {
 #undef DEFINE_DIALOG
 #define DEFINE_DIALOG(id, unused, linesPerBox, leftOffset, width, _) \
     static const struct DialogEntry dialog_entry_ ## id = { \
-        unused, linesPerBox, leftOffset, width, dialog_text_ ## id \
+        unused, linesPerBox, leftOffset, width, dialog_text_ ## id, VOICE_DEFAULT \
     };
 
 #include "dialogs.h"

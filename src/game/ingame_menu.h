@@ -39,6 +39,22 @@ extern s8 gDialogCourseActNum;
 extern s8 gHudFlash;
 extern s16 gInGameLanguage;
 
+// Voices for non-global dialogs
+// One higher than in external.c, to allow 0 to default to global
+#define VOICE_DEFAULT 0
+#define VOICE_UKIKI 1
+#define VOICE_TUXIE 2
+#define VOICE_BOWS1 3 // Bowser Intro / Doors Laugh
+#define VOICE_KOOPA 4
+#define VOICE_KBOMB 5
+#define VOICE_BOO 6
+#define VOICE_BOMB 7
+#define VOICE_BOWS2 8 // Bowser Battle Laugh
+#define VOICE_GRUNT 9
+#define VOICE_WIGLR 10
+#define VOICE_YOSHI 11
+#define VOICE_NONE 0xFF
+
 struct DialogEntry
 {
  /*0x00*/ u32 unused;
@@ -46,6 +62,7 @@ struct DialogEntry
  /*0x06*/ s16 leftOffset;
  /*0x08*/ s16 width;
  /*0x0C*/ const u8 *str;
+          u8 voice;
 };
 
 #define TEXT_CUP "\x80"
