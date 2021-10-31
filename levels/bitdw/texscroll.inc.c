@@ -162,7 +162,7 @@ void scroll_sts_mat_bitdw_dl_electricity_layer5() {
 
 void scroll_bitdw_dl_first_torus_mesh_layer_1_vtx_0() {
 	int i = 0;
-	int count = 433;
+	int count = 438;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
@@ -239,7 +239,7 @@ void scroll_bitdw_dl_Torus_009_mesh_layer_1_vtx_0() {
 
 void scroll_bitdw_dl_second_torus_mesh_layer_1_vtx_0() {
 	int i = 0;
-	int count = 334;
+	int count = 339;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
@@ -393,7 +393,7 @@ void scroll_bitdw_dl_Torus_015_mesh_layer_1_vtx_0() {
 
 void scroll_bitdw_dl_TOWER_mesh_layer_5_vtx_0() {
 	int i = 0;
-	int count = 214;
+	int count = 210;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 

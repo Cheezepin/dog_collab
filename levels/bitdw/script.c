@@ -92,7 +92,7 @@ const LevelScript level_bitdw_entry[] = {
 		OBJECT(MODEL_NONE, 7530, -712, 6227, 0, 98, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 5172, -2267, 7701, 0, 143, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 4646, -3067, 8451, 0, 158, 0, 0x00040000, bhvCoinFormation),
-		OBJECT(MODEL_NONE, 8134, -1037, 5952, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(MODEL_NONE, 9566, -8006, 8940, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		OBJECT(0x1F8, 7293, 2183, -2412, 0, 0, 0, 0x00000000, bhvMotos),
 		OBJECT(0x1F8, 5617, 2183, -507, 0, 0, 0, 0x00000000, bhvMotos),
 		OBJECT(0x1F8, 7175, 2185, -4502, 0, 0, 0, 0x00000000, bhvMotos),
