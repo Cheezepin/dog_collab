@@ -57,4 +57,20 @@ extern const Trajectory ccm_seg7_trajectory_penguin_race[];
 // script
 extern const LevelScript level_ccm_entry[];
 
+#include "levels/ccm/header.inc.h"
+
+#include "levels/ccm/magma_thwomp/geo_header.h"
+
+#include "levels/ccm/magma_thwomp/collision_header.h"
+
+#include "levels/ccm/swing_board/geo_header.h"
+
+#include "levels/ccm/swing_board/collision_header.h"
+
+#include "levels/ccm/propane_thrower/geo_header.h"
+
+#include "levels/ccm/lava_grate/geo_header.h"
+
+#include "levels/ccm/lava_grate/collision_header.h"
+
 #endif

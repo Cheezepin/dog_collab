@@ -110,13 +110,13 @@
 #define MODEL_CASTLE_CLOCK_PENDULUM            0x39        // castle_geo_001518
 
 // hmc
-#define MODEL_HMC_METAL_PLATFORM               0x36        // hmc_geo_controllable_arrow_platform
-#define MODEL_HMC_METAL_ARROW_PLATFORM         0x37        // hmc_geo_controllable_arrow_platform_button
-#define MODEL_HMC_ELEVATOR_PLATFORM            0x38        // hmc_geo_elevator_platform
-#define MODEL_HMC_ROLLING_ROCK                 0x39        // hmc_geo_rolling_rock
-#define MODEL_HMC_ROCK_PIECE                   0x3A        // hmc_geo_rolling_rock_fragment_large - unused
-#define MODEL_HMC_ROCK_SMALL_PIECE             0x3B        // hmc_geo_rolling_rock_fragment_small - unused
-#define MODEL_HMC_RED_GRILLS                   0x3C        // hmc_geo_grill_door
+#define MODEL_HMC_METAL_PLATFORM               0x36        // hmc_geo_0005A0
+#define MODEL_HMC_METAL_ARROW_PLATFORM         0x37        // hmc_geo_0005B8
+#define MODEL_HMC_ELEVATOR_PLATFORM            0x38        // hmc_geo_0005D0
+#define MODEL_HMC_ROLLING_ROCK                 0x39        // hmc_geo_000548
+#define MODEL_HMC_ROCK_PIECE                   0x3A        // hmc_geo_000570 - unused
+#define MODEL_HMC_ROCK_SMALL_PIECE             0x3B        // hmc_geo_000588 - unused
+#define MODEL_HMC_RED_GRILLS                   0x3C        // hmc_geo_000530
 
 // ssl
 #define MODEL_SSL_PYRAMID_TOP                  0x3A        // ssl_geo_000618
@@ -209,9 +209,10 @@
 #define MODEL_BITDW_STAIRCASE_FRAME2              0x3D        // geo_bitdw_0005D0
 #define MODEL_BITDW_STAIRCASE_FRAME1              0x3E        // geo_bitdw_0005E8
 #define MODEL_BITDW_STAIRCASE                     0x3F        // geo_bitdw_000600
-#define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA      
-#define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB 
+#define MODEL_BITDW_RAINBOW_CHAIN                 0x1AA
+#define MODEL_BITDW_ELECTRIC_SPINNER              0x1AB
 #define MODEL_BITDW_SIMPLE_SPINNER                0x1AC
+#define MODEL_BITDW_SIMPLE_SPINNER_SHOCK          0x1AE       // I was to lazy to change all the model numbers so its out of order here
 #define MODEL_BITDW_SPHERE                        0x1AD
 
 // vcutm
@@ -280,9 +281,10 @@
 #define MODEL_LLL_VOLCANO_FALLING_TRAP            0x53        // lll_geo_000EA8
 
 // ddd
-#define MODEL_DDD_BOWSER_SUB_DOOR                 0x36        // ddd_geo_000478
-#define MODEL_DDD_BOWSER_SUB                      0x37        // ddd_geo_0004A0
-#define MODEL_DDD_POLE                            0x38        // ddd_geo_000450
+#define MODEL_DDD_WATER_TOP                       0x36
+#define MODEL_DDD_WATER_SPOUT                     0x37
+#define MODEL_RAIN_CLOUD                          0x38
+#define MODEL_DDD_APERATURE_DOOR                  0x39
 
 // wf
 #define MODEL_WF_BREAKABLE_WALL_RIGHT             0x36        // wf_geo_000B78
@@ -590,6 +592,8 @@
 
 #define MODEL_DOG                         0xFF
 
+#define MODEL_CEPHIE                      0x100
+
 #define MODEL_REX                         0x1FF
 #define MODEL_GALOOMBA                    0x1FE
 #define MODEL_BLOOPER                     0x1FD
@@ -605,6 +609,7 @@
 #define MODEL_SPIKE_BALL                  0x1F3
 #define MODEL_PODOBOO                     0x1F2
 
+//CowQuack start (play DTL64)
 #define MODEL_CAROUSEL                    0x130
 #define MODEL_CIRCUS_POLE                    0x131
 #define MODEL_CLOWN_CLOCK                    0x132
@@ -621,8 +626,36 @@
 #define MODEL_STEEL_GATE                   0x13D
 #define MODEL_POWER_SWITCH                   0x13E
 
-#define MODEL_SAD_CAROUSEL                    0x140
-#define MODEL_SAD_CLOWN_CLOCK                    0x141
-#define MODEL_SAD_PINWHEEL                    0x142
+#define MODEL_SAD_CAROUSEL                    0x120
+#define MODEL_SAD_CLOWN_CLOCK                    0x121
+#define MODEL_SAD_PINWHEEL                    0x122
+//CowQuack end (fuck you fazana i had to change these last 3)
+
+
+//START ROVERT MODEL IDS
+
+#define MODEL_MAGMA_THWOMP 0x100
+#define MODEL_SWING_BOARD 0x101
+#define MODEL_PROPANE_THROWER 0x102
+#define MODEL_LAVA_GRATE 0x103
+
+//END ROVERT MODEL IDS
+
+//start cheeze model ids
+
+#define MODEL_CHEEZE_PLAT 0x180
+
+//end cheeze model ids
+
+//YO BITCHES YA BOY FAZ
+
+#define MODEL_KOOPA_NPC 0x140
+#define MODEL_HMC_DOORS 0x141
+#define MODEL_HMCELEVATOR 0x142
+#define MODEL_REDBLOCK 0x143
+#define MODEL_BOSSMATT 0x144
+#define MODEL_KOOPABOSS 0x145
+
+//CIAO BITCHES
 
 #endif // MODEL_IDS_H

@@ -1,6 +1,19 @@
 #ifndef BEHAVIOR_ACTIONS_H
 #define BEHAVIOR_ACTIONS_H
 
+extern void faz_ambient_loop(void);
+extern void goddard_hmc_init(void);
+extern void goddard_hmc_loop(void);
+extern void hmcelevator_init(void);
+extern void hmcelevator_loop(void);
+extern void starblock_init(void);
+extern void starblock_loop(void);
+extern void koopa_boss_spawn(void);
+extern void koopa_boss_init(void);
+extern void koopa_boss_loop(void);
+extern void koopa_boss_shell_init(void);
+extern void koopa_boss_shell_loop(void);
+
 void spawn_mist_particles_variable(s32 count, s32 offsetY, f32 size);
 void bhv_spawn_star_no_level_exit(u32);
 void bhv_star_door_loop_2(void);
@@ -582,12 +595,10 @@ void bhv_spike_update(void);
 void bhv_spike_ball_init(void);
 void bhv_spike_ball_loop(void);
 void bhv_podoboo_loop(void);
-void bhv_emu_electric_spinner(void);
-void bhv_shock_texture_loop(void);
-void bhv_emu_simple_spinner(void);
 void bhv_emu_sphere(void);
 void palette_swap(void);
 
+//CowQuack start
 void bhv_carousel_init(void);
 void bhv_carousel_loop(void);
 
@@ -627,28 +638,56 @@ void bhv_clown_bowling_ball_init(void);
 void bhv_boss_curtains_loop(void);
 void bhv_goddard_clown_fight_init(void);
 void bhv_goddard_clown_fight_loop(void);
+//CowQuack end
 
-Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
+// axo start
+void bhv_cephie_init(void);
+void bhv_cephie_loop(void);
+// axo end
+
+// thecozies start
+void set_water_top_force(struct MarioState *m);
+void water_top_loop(void);
+void water_spout_loop(void);
+void rain_cloud_init(void);
+void rain_cloud_loop(void);
+void vertical_instant_warp_loop(void);
+void aperature_door_loop(void);
+// thecozies end
+
+//ROVERT BEHAVIOR ACTIONS START
+void bhv_Magma_Thwomp(void);
+void bhv_swing_Board(void);
+void bhv_Propane_Shooter(void);
+void bhv_Propane_Flame(void);
+void bhv_lava_grate_loop();
+//ROVERT BEHAVIOR ACTIONS END
+
+//cheeze start
+void bhv_cheezeplat_loop(void);
+//cheeze end
+
+Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 
 Gfx *geo_carousel_billboard(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 // Bowser
-Gfx *geo_bits_bowser_coloring(s32 run, struct GraphNode *node, UNUSED s32 a2);
-Gfx *geo_update_body_rot_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
-Gfx *geo_switch_bowser_eyes(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_bits_bowser_coloring(s32 callContext, struct GraphNode *node, UNUSED s32 context);
+Gfx *geo_update_body_rot_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
+Gfx *geo_switch_bowser_eyes(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 // Tuxie
-Gfx *geo_switch_tuxie_mother_eyes(s32 run, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_switch_tuxie_mother_eyes(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 // Cap switch
-Gfx *geo_update_held_mario_pos(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
+Gfx *geo_update_held_mario_pos(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 
 // Snufit
 Gfx *geo_snufit_move_mask(s32 callContext, struct GraphNode *node, UNUSED Mat4 *c);
 Gfx *geo_snufit_scale_body(s32 callContext, struct GraphNode *node, UNUSED Mat4 *c);
 
 // Bowser key cutscene
-Gfx *geo_scale_bowser_key(s32 run, struct GraphNode *node, UNUSED f32 mtx[4][4]);
+Gfx *geo_scale_bowser_key(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 
 // Water splash
 extern struct WaterDropletParams gShallowWaterSplashDropletParams;

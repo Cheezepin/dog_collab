@@ -111,8 +111,7 @@ static u32 perform_water_full_step(struct MarioState *m, Vec3f nextPos) {
     if (nextPos[1] >= floorHeight) {
         if (ceilHeight - nextPos[1] >= 160.0f) {
             vec3f_copy(m->pos, nextPos);
-            m->floor = floor;
-            m->floorHeight = floorHeight;
+            set_mario_floor(m, floor, floorHeight);
 
             if (wall != NULL) {
                 return WATER_STEP_HIT_WALL;
@@ -127,8 +126,7 @@ static u32 perform_water_full_step(struct MarioState *m, Vec3f nextPos) {
 
         //! Water ceiling downwarp
         vec3f_set(m->pos, nextPos[0], ceilHeight - 160.0f, nextPos[2]);
-        m->floor = floor;
-        m->floorHeight = floorHeight;
+        set_mario_floor(m, floor, floorHeight);
         return WATER_STEP_HIT_CEILING;
     } else {
         if (ceilHeight - floorHeight < 160.0f) {
@@ -136,8 +134,7 @@ static u32 perform_water_full_step(struct MarioState *m, Vec3f nextPos) {
         }
 
         vec3f_set(m->pos, nextPos[0], floorHeight, nextPos[2]);
-        m->floor = floor;
-        m->floorHeight = floorHeight;
+        set_mario_floor(m, floor, floorHeight);
         return WATER_STEP_HIT_FLOOR;
     }
 }
@@ -164,7 +161,7 @@ static void apply_water_current(struct MarioState *m, Vec3f step) {
             f32 dz = whirlpool->pos[2] - m->pos[2];
 
             f32 lateralDist = sqrtf(sqr(dx) + sqr(dz));
-            f32 distance = sqrtf(lateralDist * lateralDist + sqr(dy));
+            f32 distance = sqrtf(sqr(lateralDist) + sqr(dy));
 
             s16 pitchToWhirlpool = atan2s(lateralDist, dy);
             s16 yawToWhirlpool = atan2s(dz, dx);
@@ -172,10 +169,11 @@ static void apply_water_current(struct MarioState *m, Vec3f step) {
             yawToWhirlpool -= (s16)(0x2000 * 1000.0f / (distance + 1000.0f));
 
             if (whirlpool->strength >= 0) {
+#ifndef DISABLE_LEVEL_SPECIFIC_CHECKS
                 if (gCurrLevelNum == LEVEL_DDD && gCurrAreaIndex == 2) {
                     whirlpoolRadius = 4000.0f;
                 }
-
+#endif
                 if (distance >= 26.0f && distance < whirlpoolRadius) {
                     strength = whirlpool->strength * (1.0f - distance / whirlpoolRadius);
                 }
@@ -190,12 +188,38 @@ static void apply_water_current(struct MarioState *m, Vec3f step) {
     }
 }
 
+#define EXIT_VEL 60.0f
+
 static u32 perform_water_step(struct MarioState *m) {
     u32 stepResult;
     Vec3f nextPos;
     Vec3f step;
     s32 canExitWaterWithMomentum = m->action == ACT_WATER_GROUND_POUND;
     struct Object *marioObj = m->marioObj;
+
+    if (gCurrLevelNum == LEVEL_DDD) {
+        // thecozies level
+        if (m->water && m->water->object && obj_has_behavior(m->water->object, bhvWaterTop)) {
+            set_water_top_force(m);
+        }
+
+        // Reduce effect of water force while plunging
+        if (
+            m->action == ACT_WATER_PLUNGE &&
+            m->waterForce < 0.0f &&
+            m->actionTimer <= 20
+        ) {
+            m->waterForce = m->actionTimer <= 10
+                ? 0.0f
+                : get_relative_position_between_ranges(m->actionTimer, 11.0f, 20.0f, 0.0f, m->waterForce);
+        }
+
+        if (ABS(m->waterForce) > 0.1f) {
+            m->vel[1] += m->waterForce;
+            m->vel[1] = MAX(m->vel[1], -75.0f);
+            if (m->waterForce > EXIT_VEL) canExitWaterWithMomentum = TRUE;
+        }
+    }
 
     vec3f_copy(step, m->vel);
 
@@ -207,9 +231,12 @@ static u32 perform_water_step(struct MarioState *m) {
     nextPos[1] = m->pos[1] + step[1];
     nextPos[2] = m->pos[2] + step[2];
 
-    if (nextPos[1] > m->waterLevel - 80 && !canExitWaterWithMomentum) {
-        nextPos[1] = m->waterLevel - 80;
-        m->vel[1] = 0.0f;
+    if (nextPos[1] > m->waterLevel - 80) {
+        if (!canExitWaterWithMomentum) {
+            // clamp to floor height for safety! (otherwise changed water levels can clip you through the floor)
+            nextPos[1] = MAX(m->waterLevel - 80.0f, m->floorHeight);
+            m->vel[1] = 0.0f;
+        }
     }
 
     if (nextPos[1] < m->waterBottomHeight + 25.0f && !canExitWaterWithMomentum) {
@@ -484,19 +511,21 @@ static void common_swimming_step(struct MarioState *m, s16 swimStrength) {
 
 static void play_swimming_noise(struct MarioState *m) {
     s16 animFrame = m->marioObj->header.gfx.animInfo.animFrame;
-
-    // This must be one line to match on -O2
-    if (animFrame == 0 || animFrame == 12) play_sound(SOUND_ACTION_UNKNOWN434, m->marioObj->header.gfx.cameraToObject);
+    if (animFrame == 0 || animFrame == 12) {
+        play_sound(SOUND_ACTION_UNKNOWN434, m->marioObj->header.gfx.cameraToObject);
+    }
 }
 
+#define WATER_JUMP_PROBE_AMT 40 // vanilla is 1.5f - adding more for new swimming forgiveness
 static s32 check_water_jump(struct MarioState *m) {
-    s32 probe = (s32)(m->pos[1] + 1.5f);
+    s32 probe = (s32)(m->pos[1] + WATER_JUMP_PROBE_AMT);
 
     if (m->input & INPUT_A_PRESSED) {
         if (probe >= m->waterLevel - 80) {
-            vec3s_set(m->angleVel, 0, 0, 0);
+            vec3_zero(m->angleVel);
 
-            m->vel[1] = 62.0f;
+            // This doesn't do anything - y vel is set in set_mario_action_airborne
+            // m->vel[1] = 62.0f;
 
             if (m->heldObj == NULL) {
                 return set_mario_action(m, ACT_WATER_JUMP, 0);
@@ -823,8 +852,11 @@ s32 act_water_ground_pound(struct MarioState *m) {
         else m->actionState = 2;
     }
 
+    // cap water force at 30 (ground pounds should always go down)
+    if (m->waterForce >= 30.0f) m->waterForce = 30.0f;
+
+    m->vel[1] = -35.0f;
     if (m->actionState == 0) {
-        m->vel[1] = -35.0f;
         mario_set_forward_vel(m, 0.0f);
 
         set_mario_animation(m, m->actionArg == 0 ? MARIO_ANIM_START_GROUND_POUND

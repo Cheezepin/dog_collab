@@ -18,3 +18,10 @@
 #include "levels/ddd/submarine/geo.inc.c"
 #include "levels/ddd/areas/1/geo.inc.c"
 #include "levels/ddd/areas/2/geo.inc.c"
+
+#include "levels/ddd/geo.inc.c"
+
+#include "levels/ddd/cloud/geo.inc.c"
+#include "levels/ddd/water_top/geo.inc.c"
+#include "levels/ddd/water_spout/geo.inc.c"
+#include "levels/ddd/aperature_door/geo.inc.c"

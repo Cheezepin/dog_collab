@@ -60,6 +60,7 @@
 #define MARIO_SPAWN_LAUNCH_STAR_COLLECT   0x24
 #define MARIO_SPAWN_LAUNCH_DEATH          0x25
 #define MARIO_SPAWN_FADE_FROM_BLACK       0x27
+#define MARIO_SPAWN_PRESERVE_POS          0x28
 
 
 struct CreditsEntry
@@ -98,6 +99,8 @@ extern s16 sDelayedWarpTimer;
 extern s16 sSourceWarpNodeId;
 extern s32 sDelayedWarpArg;
 extern s8 sTimerRunning;
+
+extern struct Object *gInstantWarpObject;
 
 struct HudDisplay {
     /*0x00*/ s16 lives;

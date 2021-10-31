@@ -167,7 +167,7 @@
 #define /*0x19C*/ oDrawingDistance                              OBJECT_FIELD_F32(0x45)
 #define /*0x1A0*/ oRoom                                         OBJECT_FIELD_S32(0x46)
 // 0x1A4 is unused, possibly related to 0x1A8 in removed macro purposes.
-#define /*0x1A8*/ oUnk1A8                                       OBJECT_FIELD_U32(0x48)
+#define /*0x1A8*/ oUnusedCoinParams                             OBJECT_FIELD_U32(0x48)
 // 0x1AC-0x1B2 (0x48-0x4A) are object specific and defined below the common fields.
 #define /*0x1B4*/ oWallAngle                                    OBJECT_FIELD_S32(0x4B)
 #define /*0x1B8*/ oFloorType                                    OBJECT_FIELD_S16(0x4C, 0)
@@ -1315,6 +1315,20 @@
 
 //goddardclown fight
 #define /*0x0F4*/ oGCFAction       OBJECT_FIELD_S32(0x1B)
+
+/* Cephie */
+#define /*0x0F4*/ oCephieStartYaw                               OBJECT_FIELD_S32(0x1B)
+#define /*0x0F8*/ oCephieTalked                                 OBJECT_FIELD_S32(0x1C)
+
+/* Cheeze */
+#define /*0x0F4*/ oPlatformSpeed                               OBJECT_FIELD_F32(0x1B)
+
+// thecozies start
+#define oRainCloudScaleVel                  OBJECT_FIELD_F32(0x1B)
+#define oRainCloudMarioIsStandingOnCloud    OBJECT_FIELD_S32(0x1C)
+#define oRainCloudPreservedMomentum         OBJECT_FIELD_F32(0x1D)
+#define oRainCloudPreservedMomentumTimeout  OBJECT_FIELD_S32(0x1E)
+// thecozies end
 
 /*Custom general defines:
 

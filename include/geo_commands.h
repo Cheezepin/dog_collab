@@ -452,5 +452,4 @@
     CMD_HHHHHH(tx, ty, tz, rx, ry, rz), \
     CMD_PTR(displayList)
 
-
 #endif // GEO_COMMANDS_H

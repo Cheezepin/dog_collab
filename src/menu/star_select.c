@@ -63,17 +63,17 @@ void bhv_act_selector_star_type_loop(void) {
     switch (gCurrentObject->oStarSelectorType) {
         // If a star is not selected, don't rotate or change size
         case STAR_SELECTOR_NOT_SELECTED:
-            gCurrentObject->oStarSelectorSize -= 0.1;
-            if (gCurrentObject->oStarSelectorSize < 1.0) {
-                gCurrentObject->oStarSelectorSize = 1.0;
+            gCurrentObject->oStarSelectorSize -= 0.1f;
+            if (gCurrentObject->oStarSelectorSize < 1.0f) {
+                gCurrentObject->oStarSelectorSize = 1.0f;
             }
             gCurrentObject->oFaceAngleYaw = 0;
             break;
         // If a star is selected, rotate and slightly increase size
         case STAR_SELECTOR_SELECTED:
-            gCurrentObject->oStarSelectorSize += 0.1;
-            if (gCurrentObject->oStarSelectorSize > 1.3) {
-                gCurrentObject->oStarSelectorSize = 1.3;
+            gCurrentObject->oStarSelectorSize += 0.1f;
+            if (gCurrentObject->oStarSelectorSize > 1.3f) {
+                gCurrentObject->oStarSelectorSize = 1.3f;
             }
             gCurrentObject->oFaceAngleYaw += 0x800;
             break;
@@ -107,7 +107,7 @@ void render_100_coin_star(u8 stars) {
                                                         bhvActSelectorStarType, 370, 24, -300, 0, 0, 0);
     #endif
 
-        sStarSelectorModels[6]->oStarSelectorSize = 0.8;
+        sStarSelectorModels[6]->oStarSelectorSize = 0.8f;
         sStarSelectorModels[6]->oStarSelectorType = STAR_SELECTOR_100_COINS;
     }
 }
@@ -122,6 +122,11 @@ void bhv_act_selector_init(void) {
     s16 i = 0;
     s32 selectorModelIDs[10];
     u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, gCurrCourseNum - 1);
+
+#ifdef UNLOCK_ALL
+    sObtainedStars = 6;
+    stars = 255;
+#endif // UNLOCK_ALL
 
     sVisibleStars = 0;
     while (i != sObtainedStars) {
@@ -425,6 +430,8 @@ s32 lvl_init_act_selector_values_and_stars(UNUSED s32 arg, UNUSED s32 unused) {
     return 0;
 }
 
+extern struct WarpDest sWarpDest;
+
 /**
  * Loads act selector button actions with selected act value checks.
  * Also updates objects and returns act number selected after is chosen.
@@ -459,5 +466,9 @@ s32 lvl_update_obj_and_load_act_button_actions(UNUSED s32 arg, UNUSED s32 unused
 
     area_update_objects(); scroll_textures();
     sActSelectorMenuTimer++;
+    if (sLoadedActNum == 1 && gCurrLevelNum == LEVEL_HMC)
+        sWarpDest.areaIdx = 1;
+    else
+        sWarpDest.areaIdx = 2;
     return sLoadedActNum;
 }

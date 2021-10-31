@@ -427,8 +427,8 @@ Gfx *geo_mario_head_rotation(s32 callContext, struct GraphNode *node, UNUSED Mat
             rotNode->rotation[1] = bodyState->headAngle[2];
             rotNode->rotation[2] = bodyState->headAngle[0];
         } else {
-            vec3s_set(bodyState->headAngle, 0, 0, 0);
-            vec3s_set(rotNode->rotation, 0, 0, 0);
+            vec3_zero(bodyState->headAngle);
+            vec3_zero(rotNode->rotation);
         }
     }
     return NULL;
@@ -514,11 +514,7 @@ Gfx *geo_switch_mario_cap_on_off(s32 callContext, struct GraphNode *node, UNUSED
         switchCase->selectedCase = bodyState->capState & 1;
         while (next != node) {
             if (next->type == GRAPH_NODE_TYPE_TRANSLATION_ROTATION) {
-                if (bodyState->capState & 2) {
-                    next->flags |= GRAPH_RENDER_ACTIVE;
-                } else {
-                    next->flags &= ~GRAPH_RENDER_ACTIVE;
-                }
+                COND_BIT((bodyState->capState & 0x2), next->flags, GRAPH_RENDER_ACTIVE);
             }
             next = next->next;
         }
@@ -589,15 +585,11 @@ Gfx *geo_switch_mario_hand_grab_pos(s32 callContext, struct GraphNode *b, Mat4 *
     return NULL;
 }
 
-// X position of the mirror
-#define MIRROR_X 4331.53
-
 /**
  * Geo node that creates a clone of Mario's geo node and updates it to becomes
  * a mirror image of the player.
  */
 Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
-    f32 mirroredX;
     struct Object *mario = gMarioStates[0].marioObj;
 
     switch (callContext) {
@@ -611,7 +603,7 @@ Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat
             geo_remove_child(&gMirrorMario.node);
             break;
         case GEO_CONTEXT_RENDER:
-            if (mario->header.gfx.pos[0] > 1700.0f) {
+            if (mario->header.gfx.pos[1] >= 76.0f) {
                 // TODO: Is this a geo layout copy or a graph node copy?
                 gMirrorMario.sharedChild = mario->header.gfx.sharedChild;
                 gMirrorMario.areaIndex = mario->header.gfx.areaIndex;
@@ -620,15 +612,30 @@ Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat
                 vec3f_copy(gMirrorMario.scale, mario->header.gfx.scale);
 
                 gMirrorMario.animInfo = mario->header.gfx.animInfo;
-                mirroredX = MIRROR_X - gMirrorMario.pos[0];
-                gMirrorMario.pos[0] = mirroredX + MIRROR_X;
-                gMirrorMario.angle[1] = -gMirrorMario.angle[1];
-                gMirrorMario.scale[0] *= -1.0f;
-                ((struct GraphNode *) &gMirrorMario)->flags |= GRAPH_RENDER_ACTIVE;
+                gMirrorMario.pos[0] -= 1340;
+                gMirrorMario.pos[1] = -(mario->header.gfx.pos[1]-76);
+                gMirrorMario.pos[2] -= 2620;
+                gMirrorMario.scale[1] *= -1.0f;
+                ((struct GraphNode *) &gMirrorMario)->flags |= 1;
             } else {
                 ((struct GraphNode *) &gMirrorMario)->flags &= ~GRAPH_RENDER_ACTIVE;
             }
             break;
+    }
+    return NULL;
+}
+
+Gfx *geo_render_bell(s32 callContext, struct GraphNode *node, UNUSED Mat4 *c) {
+    struct GraphNodeGenerated *asGenerated = (struct GraphNodeGenerated *) node;
+    s16 rotX = sins(gAreaUpdateCounter * 850) * 0x3000;
+
+    if (callContext == GEO_CONTEXT_RENDER)
+    {
+        struct GraphNodeRotation *rotNode = (struct GraphNodeRotation *) node->next;
+
+        rotNode->rotation[0] = rotX;
+        //if (ABS(rotX) == 0x3000)
+       //     play_sound
     }
     return NULL;
 }

@@ -10,14 +10,11 @@
 #include "game/level_update.h"
 #include "game/object_list_processor.h"
 #include "game/camera.h"
+#include "engine/math_util.h"
 #include "seq_ids.h"
 #include "dialog_ids.h"
 
-#if defined(VERSION_EU) || defined(VERSION_SH)
 #define EU_FLOAT(x) x##f
-#else
-#define EU_FLOAT(x) x
-#endif
 
 // N.B. sound banks are different from the audio banks referred to in other
 // files. We should really fix our naming to be less ambiguous...
@@ -105,10 +102,10 @@ u8 sDialogSpeaker[] = {
     /*10*/ UKIKI, UKIKI, _,     _,     _,     BOMB,  BOMB,  BOO,   BOO,   _,
     /*11*/ _,     _,     _,     _,     GRUNT, GRUNT, KBOMB, GRUNT, GRUNT, _,
     /*12*/ _,     _,     _,     _,     _,     _,     _,     _,     KBOMB, _,
-    /*13*/ _,     _,     TUXIE, _,     _,     _,     _,     _,     _,     _,
+    /*13*/ _,     _,     _, _,     _,     _,     _,     _,     _,     _,
     /*14*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
-    /*15*/ WIGLR, WIGLR, WIGLR, _,     _,     _,     _,     _,     _,     _,
-    /*16*/ _,     YOSHI, _,     _,     _,     _,     _,     _,     WIGLR, _
+    /*15*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
+    /*16*/ _,     _, _,     _,     _,     _,     _,     _,     _, _
 };
 #undef _
 STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
@@ -228,8 +225,8 @@ struct MusicDynamic sMusicDynamics[8] = {
     { 0x0e43, 127, 200, 0x0000, 0, 200 }, // SEQ_LEVEL_WATER
     { 0x02ff, 127, 100, 0x0100, 0, 100 }, // SEQ_LEVEL_UNDERGROUND
     { 0x03f7, 127, 100, 0x0008, 0, 100 }, // SEQ_LEVEL_UNDERGROUND
-    { 0x0070, 127, 10, 0x0000, 0, 100 },  // SEQ_LEVEL_SPOOKY
-    { 0x0000, 127, 100, 0x0070, 0, 10 },  // SEQ_LEVEL_SPOOKY
+    { 0x0070, 127,  10, 0x0000, 0, 100 }, // SEQ_LEVEL_SPOOKY
+    { 0x0000, 127, 100, 0x0070, 0,  10 }, // SEQ_LEVEL_SPOOKY
     { 0xffff, 127, 100, 0x0000, 0, 100 }, // any (unused)
 };
 
@@ -256,11 +253,7 @@ u16 sLevelAcousticReaches[LEVEL_COUNT] = {
 
 #define AUDIO_MAX_DISTANCE US_FLOAT(22000.0)
 
-#ifdef VERSION_JP
-#define LOW_VOLUME_REVERB 48.0
-#else
 #define LOW_VOLUME_REVERB 40.0f
-#endif
 
 #ifdef VERSION_JP
 #define VOLUME_RANGE_UNK1 0.8f
@@ -853,7 +846,7 @@ static void process_sound_request(u32 bits, f32 *pos) {
         // Allocate from free list
         soundIndex = sSoundBankFreeListFront[bank];
 
-        dist = sqrtf(pos[0] * pos[0] + pos[1] * pos[1] + pos[2] * pos[2]) * one;
+        dist = sqrtf(sqr(pos[0]) + sqr(pos[1]) + sqr(pos[2])) * one;
         sSoundBanks[bank][soundIndex].x = &pos[0];
         sSoundBanks[bank][soundIndex].y = &pos[1];
         sSoundBanks[bank][soundIndex].z = &pos[2];
@@ -1164,7 +1157,7 @@ static f32 get_sound_pan(f32 x, f32 z) {
         // since x is not clamped. On JP, this can lead to an out-of-bounds
         // float read in note_set_vel_pan_reverb when x is highly negative,
         // causing console crashes when that float is a nan or denormal.
-        pan = 0.5 + x / (US_FLOAT(6.0) * absZ);
+        pan = 0.5f + x / (US_FLOAT(6.0) * absZ);
     }
 
     return pan;

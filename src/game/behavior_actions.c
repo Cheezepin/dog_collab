@@ -46,50 +46,6 @@
 #include "rumble_init.h"
 #include "puppylights.h"
 
-#define o gCurrentObject
-
-struct WFRotatingPlatformData {
-    s16 pad;
-    s16 scale;
-    const Collision *collisionData;
-    s16 collisionDistance;
-};
-
-struct TumblingBridgeParams {
-    s16 numBridgeSections;
-    s16 bridgeRelativeStartingXorZ;
-    s16 platformWidth;
-    ModelID model;
-    const void *segAddr;
-};
-
-struct ExclamationBoxContents {
-    u8 id;
-    u8 unk1;
-    u8 behParams;
-    ModelID model;
-    const BehaviorScript *behavior;
-};
-
-struct CheckerBoardPlatformInitPosition {
-    s32 relPosZ;
-    Vec3f scale;
-    f32 radius;
-};
-
-struct OpenableGrill {
-    s16 halfWidth;
-    ModelID modelID;
-    const Collision *collision;
-};
-
-static s32 sCapSaveFlags[] = { SAVE_FLAG_HAVE_WING_CAP, SAVE_FLAG_HAVE_METAL_CAP, SAVE_FLAG_HAVE_VANISH_CAP };
-
-// Boo Roll
-static s16 sBooHitRotations[] = { 6047, 5664, 5292, 4934, 4587, 4254, 3933, 3624, 3329, 3046, 2775,
-                     2517, 2271, 2039, 1818, 1611, 1416, 1233, 1063, 906,  761,  629,
-                     509,  402,  308,  226,  157,  100,  56,   25,   4,    0 };
-
 #include "behaviors/star_door.inc.c"
 #include "behaviors/mr_i.inc.c"
 #include "behaviors/pole.inc.c"
@@ -107,6 +63,7 @@ static s16 sBooHitRotations[] = { 6047, 5664, 5292, 4934, 4587, 4254, 3933, 3624
 #include "behaviors/koopa_shell_underwater.inc.c"
 #include "behaviors/warp.inc.c"
 #include "behaviors/white_puff_explode.inc.c"
+#include "behaviors/faz_behaviour.inc.c"
 
 // not in behavior file
 struct SpawnParticlesInfo sMistParticles = { 2, 20, MODEL_MIST, 0, 40, 5, 30, 20, 252, 30, 330.0f, 10.0f };
@@ -114,7 +71,7 @@ struct SpawnParticlesInfo sMistParticles = { 2, 20, MODEL_MIST, 0, 40, 5, 30, 20
 // generate_wind_puffs/dust (something like that)
 void spawn_mist_particles_variable(s32 count, s32 offsetY, f32 size) {
     sMistParticles.sizeBase = size;
-    sMistParticles.sizeRange = size / 20.0;
+    sMistParticles.sizeRange = size / 20.0f;
     sMistParticles.offsetY = offsetY;
     if (count == 0) {
         sMistParticles.count = 20;
@@ -158,12 +115,11 @@ void spawn_mist_particles_variable(s32 count, s32 offsetY, f32 size) {
 #include "behaviors/breakable_box.inc.c"
 
 // not sure what this is doing here. not in a behavior file.
-Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx) {
+Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx) {
     Mat4 mtx2;
-    struct Object *obj;
 
-    if (run == TRUE) {
-        obj = (struct Object *) gCurGraphNodeObject;
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct Object *obj = (struct Object *) gCurGraphNodeObject;
         if (obj == gMarioObject && obj->prevObj != NULL) {
             create_transformation_from_matrices(mtx2, mtx, *gCurGraphNodeCamera->matrixPtr);
             obj_update_pos_from_parent_transformation(mtx2, obj->prevObj);
@@ -275,3 +231,7 @@ s32 set_obj_anim_with_accel_and_sound(s16 frame1, s16 frame2, s32 sound) {
 #include "behaviors/power_switch.inc.c"
 
 #include "behaviors/emu.inc.c"
+#include "behaviors/emu.inc.c"
+#include "behaviors/thecozies.inc.c"
+#include "behaviors/motos.inc.c"
+#include "behaviors/rovert.inc.c"
