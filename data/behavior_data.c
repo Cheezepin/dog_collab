@@ -6485,7 +6485,7 @@ const BehaviorScript bhvRotatingTorus[] = {
 
 const BehaviorScript bhvSphere[] = {
      BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     ADD_FLOAT(oPosY, 1),
     LOAD_COLLISION_DATA(sphere_collision),
     SET_FLOAT(oCollisionDistance, 8000),
