@@ -546,6 +546,22 @@ void render_hud(void) {
 #else
         create_dl_ortho_matrix();
 #endif
+
+extern u8 gShadeScreenAmount;
+
+if (gCurrLevelNum != LEVEL_JRB) {
+    gShadeScreenAmount = 0;
+}
+
+if (gShadeScreenAmount != 0) {
+    if (gShadeScreenAmount <= 255) {
+    shade_screen_amount(gShadeScreenAmount);
+    }
+    else {
+        shade_screen_amount(255);
+    }
+}
+
         if (gCurrentArea != NULL && gCurrentArea->camera->mode == CAMERA_MODE_INSIDE_CANNON) {
             render_hud_cannon_reticle();
         }

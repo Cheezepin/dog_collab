@@ -1620,6 +1620,27 @@ static void cur_obj_update_floor(void) {
     }
 }
 
+void cur_obj_update_clown_floor(void) {
+    struct Surface *floor = cur_obj_update_floor_height_and_get_floor();
+    o->oFloor = floor;
+
+    if (floor != NULL) {
+        if (floor->type == SURFACE_BURNING) {
+            o->oMoveFlags |= OBJ_MOVE_ABOVE_LAVA;
+        }
+        else if (floor->type == SURFACE_DEATH_PLANE) {
+            //! This misses SURFACE_VERTICAL_WIND (and maybe SURFACE_WARP)
+            o->oMoveFlags |= OBJ_MOVE_ABOVE_DEATH_BARRIER;
+        }
+
+        o->oFloorType = floor->type;
+        o->oFloorRoom = floor->room;
+    } else {
+        o->oFloorType = 0;
+        o->oFloorRoom = 0;
+    }
+}
+
 static void cur_obj_update_floor_and_resolve_wall_collisions(s16 steepSlopeDegrees) {
     o->oMoveFlags &= ~(OBJ_MOVE_ABOVE_LAVA | OBJ_MOVE_ABOVE_DEATH_BARRIER);
 

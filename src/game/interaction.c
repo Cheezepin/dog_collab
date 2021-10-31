@@ -1154,7 +1154,7 @@ u32 interact_pinwheel_wind(struct MarioState *m, UNUSED u32 interactType, struct
         return set_mario_action(m, ACT_VERTICAL_WIND, 0);
     }
     else {
-        if (m->vel[1] < 90.0f) {
+        if (m->vel[1] < 50.0f) {
             if (m->vel[1] < 0.0f) {
                 m->vel[1] += 40.0f;
             }

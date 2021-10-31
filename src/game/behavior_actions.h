@@ -597,6 +597,10 @@ void bhv_clown_clock_loop(void);
 void bhv_clown_door_spawner_init(void);
 void bhv_clown_door_spawner_loop(void);
 void bhv_clown_door_segment_loop(void);
+void bhv_steel_gate_init(void);
+
+void bhv_power_switch_init(void);
+void bhv_power_switch_loop(void);
 
 void bhv_circus_wheel_init(void);
 void bhv_circus_wheel_loop(void);
@@ -607,6 +611,7 @@ void bhv_pinwheel_init(void);
 void bhv_pinwheel_loop(void);
 void bhv_balloon_init(void);
 void bhv_balloon_loop(void);
+void bhv_pole_pinwheel_spawn(void);
 
 void bhv_trapeze_init(void);
 void bhv_trapeze_loop(void);
@@ -617,6 +622,11 @@ void bhv_balloon_platform_loop(void);
 
 void bhv_clown_boss_init(void);
 void bhv_clown_boss_loop(void);
+void bhv_clown_bowling_ball_roll_loop(void);
+void bhv_clown_bowling_ball_init(void);
+void bhv_boss_curtains_loop(void);
+void bhv_goddard_clown_fight_init(void);
+void bhv_goddard_clown_fight_loop(void);
 
 Gfx *geo_move_mario_part_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx);
 

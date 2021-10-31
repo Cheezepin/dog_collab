@@ -11,13 +11,15 @@ struct ObjectHitbox sTrapezeHitbox = {
 };
 
 void bhv_trapeze_init() {
-    o->oObjTrapezeHitbox = spawn_object_relative(0, 0, 0, 0, o, MODEL_NONE, bhvTrapezeHitbox);
+    o->oObjTrapezeHitbox = spawn_object_relative(o->oBehParams2ndByte, 0, 0, 0, o, MODEL_NONE, bhvTrapezeHitbox);
 }
 
 void bhv_trapeze_loop() {
+    if (o->oBehParams2ndByte != 1) {
     o->oTrapezeTimer += 1;
     o->oFaceAngleRoll = 0x2000*sins(o->oTrapezeTimer*0x300);
                 o->oMoveAngleRoll = 0x2000*sins(o->oTrapezeTimer*0x300);
+    }
 
 }
 

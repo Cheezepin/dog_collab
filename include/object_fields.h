@@ -1277,6 +1277,9 @@
 #define /*0x0FC*/ oBalloonInitY         OBJECT_FIELD_F32(0x1C)
 #define /*0x0F4*/ oPinwheelTimer        OBJECT_FIELD_S32(0x1D)
 
+//circus pole
+#define /*0x0F4*/ oObjPolePinwheel          OBJECT_FIELD_OBJ(0x1B)
+
 //balloon
 #define /*0x0F4*/ oObjBalloonCol           OBJECT_FIELD_OBJ(0x1B)
 #define /*0x0FC*/ oBalloonInitSide         OBJECT_FIELD_F32(0x1C)
@@ -1295,6 +1298,23 @@
 
 //balloon platform
 #define /*0x0F4*/ oBalloonPlatformOscilationTimer       OBJECT_FIELD_S32(0x1B)
+
+//clown boss
+#define /*0x0F4*/ oClownBossTimer       OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oClownAwooga       OBJECT_FIELD_S32(0x1C)
+#define /*0x0F4*/ oClownAction       OBJECT_FIELD_S32(0x1D)
+#define /*0x0F4*/ oObjMarioBomb           OBJECT_FIELD_OBJ(0x1E)
+#define /*0x0F4*/ oClownColFlags       OBJECT_FIELD_S32(0x1F)
+#define /*0x0F4*/ oClownActionNumber       OBJECT_FIELD_S32(0x20)
+#define /*0x0F4*/ oClownNumActionsSinceBomb       OBJECT_FIELD_S32(0x21)
+#define /*0x0F4*/ oClownHealth       OBJECT_FIELD_S32(0x22)
+#define /*0x0F4*/ oClownSound       OBJECT_FIELD_S32(0x23)
+
+//boss curtains
+#define /*0x0F4*/ oCurtainTimer       OBJECT_FIELD_S32(0x1B)
+
+//goddardclown fight
+#define /*0x0F4*/ oGCFAction       OBJECT_FIELD_S32(0x1B)
 
 /*Custom general defines:
 

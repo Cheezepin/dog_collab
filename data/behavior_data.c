@@ -3910,6 +3910,18 @@ const BehaviorScript bhvExplosion[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvVisualExplosion[] = {
+    BEGIN(OBJ_LIST_DESTRUCTIVE),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    BILLBOARD(),
+    SET_INT(oAnimState, -1),
+    CALL_NATIVE(bhv_explosion_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_explosion_loop),
+        ADD_INT(oAnimState, 1),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvBobombBullyDeathSmoke[] = {
     BEGIN(OBJ_LIST_UNIMPORTANT),
     OR_INT(oFlags, (OBJ_FLAG_MOVE_Y_WITH_TERMINAL_VEL | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -4274,6 +4286,18 @@ const BehaviorScript bhvBowlingBall[] = {
         CALL_NATIVE(bhv_bowling_ball_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvClownBowlingBall[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    SET_FLOAT(oGraphYOffset, 130),
+    CALL_NATIVE(bhv_clown_bowling_ball_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_clown_bowling_ball_roll_loop),
+    END_LOOP(),
+};
+
 
 const BehaviorScript bhvTtmBowlingBallSpawner[] = {
     BEGIN(OBJ_LIST_GENACTOR),
@@ -6230,17 +6254,37 @@ const BehaviorScript bhvDogNPC[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvDogForSC[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 60),
+    ANIMATE(2),
+    BEGIN_LOOP(),
+
+    END_LOOP(),
+};
+
 const BehaviorScript bhvCarousel[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    SET_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
+    OR_LONG(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
     LOAD_ANIMATIONS(oAnimations, carousel_anims),
     LOAD_COLLISION_DATA(carousel_collision),
-    ANIMATE(0),
     CALL_NATIVE(bhv_init_room),
     CALL_NATIVE(bhv_carousel_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_carousel_loop),
         CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvPowerSwitch[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_LONG(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
+    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(bhv_power_switch_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_power_switch_loop),
     END_LOOP(),
 };
 
@@ -6347,6 +6391,7 @@ const BehaviorScript bhvCircusBalloonCol[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     LOAD_COLLISION_DATA(circus_balloon_collision),
+    CALL_NATIVE(bhv_init_room),
     BEGIN_LOOP(),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
@@ -6354,7 +6399,7 @@ const BehaviorScript bhvCircusBalloonCol[] = {
 
 const BehaviorScript bhvWheelWind[] = {
     BEGIN(OBJ_LIST_GENACTOR),
-    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_wheel_wind_loop),
     END_LOOP(),
@@ -6390,6 +6435,7 @@ const BehaviorScript bhvCircusPole[] = {
     SET_INT(oIntangibleTimer, 0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_pole_base_loop),
+        
     END_LOOP(),
 };
 
@@ -6403,13 +6449,50 @@ const BehaviorScript bhvBalloonPlatform[] = {
     END_LOOP(),
 };
 
-const BehaviorScript bhvClownBoss[] = {
-    BEGIN(OBJ_LIST_GENACTOR),
+const BehaviorScript bhvSteelGate[] = {
+    BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(steel_gate_collision),
+    CALL_NATIVE(bhv_steel_gate_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvClownBoss[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, clown_boss_anims),
+    //SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 40, /*Gravity*/ 5.5, /*Bounciness*/ 1, /*Drag strength*/ 1000, /*Friction*/ 1000, /*Buoyancy*/ 0, /*Unused*/ 0, 0),
+    ANIMATE(0),
+    SET_HOME(),
+    DROP_TO_FLOOR(),
     CALL_NATIVE(bhv_init_room),
     CALL_NATIVE(bhv_clown_boss_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_clown_boss_loop),
+        SET_INT(oInteractStatus, 0),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvBossCurtains[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    OR_LONG(oFlags, OBJ_FLAG_UCODE_LARGE),
+    LOAD_COLLISION_DATA(boss_curtains_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+        CALL_NATIVE(bhv_boss_curtains_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvGoddardClownFight[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
+    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(bhv_goddard_clown_fight_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_goddard_clown_fight_loop),
     END_LOOP(),
 };
 

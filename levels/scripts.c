@@ -219,6 +219,12 @@ const LevelScript script_func_global_1[] = {
      LOAD_MODEL_FROM_GEO(MODEL_TRAPEZE,                  trapeze_geo),
      LOAD_MODEL_FROM_GEO(MODEL_BALLOON_PLATFORM,                  balloon_platform_geo),
      LOAD_MODEL_FROM_GEO(MODEL_CLOWN_BOSS,                  clown_boss_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_BOSS_CURTAINS,                  boss_curtains_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_SAD_CAROUSEL,                  sad_carousel_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_SAD_CLOWN_CLOCK,                  sad_clown_clock_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_SAD_PINWHEEL,                  sad_pinwheel_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_STEEL_GATE,                  steel_gate_geo),
+     LOAD_MODEL_FROM_GEO(MODEL_POWER_SWITCH,                  power_switch_geo),
     RETURN(),
 };
 

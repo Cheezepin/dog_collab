@@ -121,19 +121,17 @@ void cur_obj_spawn_weak_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f
     if ((gGlobalTimer % 10) == 0) {
         // Because the tiny particles are unimportant objects, invisible wind particles are spawned to provide collision.
         // There was absolutely no reason to make the smaller particles unimportant, though...
-        spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, 0.5f, o, MODEL_WHITE_PARTICLE_DL, bhvWeakWindParticle);
-    } else if (((gGlobalTimer+5) % 10) == 0) {
-        spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, scale, o, MODEL_MIST, bhvWeakWindParticle);
-    }
+        spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, 0.5f, o, MODEL_MIST, bhvWeakWindParticle);
+    } 
 }
 
 void cur_obj_spawn_pinwheel_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ) {
     // Alternate between tiny particles and regular particles each frame.
-    if ((gGlobalTimer % 6) == 0) {
+    if ((gGlobalTimer % 10) == 0) {
         // Because the tiny particles are unimportant objects, invisible wind particles are spawned to provide collision.
         // There was absolutely no reason to make the smaller particles unimportant, though...
-        spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, 0.5f, o, MODEL_SAND_DUST, bhvPinwheelWindParticle);
-    } else if (((gGlobalTimer+3) % 6) == 0) {
+        spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, 0.5f, o, MODEL_SPARKLES, bhvPinwheelWindParticle);
+    } else if (((gGlobalTimer+5) % 10) == 0) {
         spawn_object_relative_with_scale(windSpread, relPosX, relPosY, relPosZ, scale, o, MODEL_MIST, bhvPinwheelWindParticle);
     }
 }

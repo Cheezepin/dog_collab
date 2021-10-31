@@ -1257,28 +1257,107 @@ me than it does on you,\n\
 though! Eeeee! Kee keee!"))
 
 DEFINE_DIALOG(DIALOG_102, 1, 5, 30, 200, _("\
-Pssst! The Boos are super\n\
-shy. If you look them\n\
-in the eyes, they fade\n\
-away, but if you turn\n\
-your back, they reappear.\n\
-It's no use trying to hit\n\
-them when they're fading\n\
-away. Instead, sneak up\n\
-behind them and punch."))
+Gyahyuck! Welcome all!\n\
+We've got quite the show\n\
+awating your eyes\n\
+tonight!\n\
+(...oh?)\n\
+That's right ladies and\n\
+gentlemen! The show will\n\
+commence soon!\n\
+(...you! In the red cap!\n\
+Get off the stage!)\n\
+Dazzling performers will\n\
+crowd the stage and blow\n\
+you away!\n\
+(Sir, you really need to\n\
+leave now! Scram!)\n\
+And, uhh...\n\
+(GO AWAY! I'M ABOUT TO\n\
+LOSE IT!)\n\
+\n\
+\n\
+...\n\
+\n\
+\n\
+\n\
+\n\
+OH THAT DOES IT!\n\
+YOU IN THE RED! GET\n\
+OFF MY STAGE! YOU'RE\n\
+RUINING THE SHOW!\n\
+\n\
+...\n\
+\n\
+\n\
+\n\
+\n\
+THIS JOB DOESN'T PAY\n\
+WELL ENOUGH FOR ME\n\
+TO HAVE TO DEAL WITH\n\
+THIS! SCRAM!\n\
+\n\
+...\n\
+\n\
+\n\
+\n\
+\n\
+DO YOU THINK THIS IS\n\
+SOME KIND OF JOKE?\n\
+WHAT YOU'RE DOING IS\n\
+DRIVING ME NUTS!\n\
+\n\
+KNOCK IT OFF!\n\
+HEEHEEHOO...\n\
+I'M SO ANGRY!\n\
+HAHAHYUCK...\n\
+\n\
+HOHOHO!\n\
+HEHEHE!\n\
+HOO HOO HYAH!\n\
+WAHYAHOO!\n\
+HEEE HOO!\n\
+HA HA HA HA HA HA\n\
+HA HA HA HA HA HA\n\
+HA HA HA HA HA HA\n\
+HA HA HA HA HA HA\n\
+HA HA HA HA HA HA\n\
+AAAAAAAAARRGHHHHH!\n\
+\n\
+\n\
+\n\
+"))
 
-DEFINE_DIALOG(DIALOG_103, 1, 4, 95, 200, _("\
-Upon four towers\n\
-one must alight...\n\
-Then at the peak\n\
-shall shine the light..."))
+DEFINE_DIALOG(DIALOG_103, 1, 3, 95, 200, _("\
+That does it!\n\
+\n\
+\n\
+Oh ho ho...\n\
+I'm so mad!\n\
+\n\
+Time for my\n\
+ULTIMATE ATTACK!\n\
+\n\
+...huh?\n\
+\n\
+"))
 
-DEFINE_DIALOG(DIALOG_104, 1, 5, 30, 200, _("\
-The shadowy star in front\n\
-of you is a 『Star\n\
-Marker.』 When you collect\n\
-all 8 Red Coins, the Star\n\
-will appear here."))
+DEFINE_DIALOG(DIALOG_104, 1, 3, 30, 200, _("\
+OUCH! HEY! OW!\n\
+\n\
+\n\
+STOP! NO, DON'T BITE\n\
+ME THERE!\n\
+\n\
+YEEEEOOOOOOOW!\n\
+UNCLE! UNCLE!\n\
+\n\
+NO! HEY WHAT\n\
+ARE YOU DOING WITH\n\
+THAT?\n\
+AAUUUUUUGHH!!!!!\n\
+\n\
+"))
 
 DEFINE_DIALOG(DIALOG_105, 1, 3, 95, 200, _("\
 Ready for blastoff! Come\n\

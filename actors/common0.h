@@ -231,4 +231,22 @@ extern const Collision unknown_seg8_collision_080262F8[];
 
 #include "clown_boss/geo_header.h"
 
+
+#include "clown_boss/anim_header.h"
+#include "boss_curtains/geo_header.h"
+
+#include "boss_curtains/collision_header.h"
+
+#include "steel_gate/geo_header.h"
+
+#include "steel_gate/collision_header.h"
+
+#include "sad_carousel/geo_header.h"
+
+#include "sad_pinwheel/geo_header.h"
+
+#include "sad_clown_clock/geo_header.h"
+
+#include "power_switch/geo_header.h"
+
 #endif

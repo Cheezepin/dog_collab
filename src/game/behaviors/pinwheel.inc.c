@@ -5,13 +5,16 @@ void bhv_pinwheel_init(void) {
     o->oObjBalloon->oFaceAnglePitch = 0;
     o->oObjBalloon->oMoveAnglePitch = 0;
     }
+    if (o->oBehParams2ndByte == 4 || o->oBehParams2ndByte == 5) {
+        obj_scale_xyz(o, 0.5, 0.5, 0.5);
+    }
 }
 void bhv_pinwheel_loop(void) {
-
-    if (o->oRoom == gMarioCurrentRoom) {
+    if (o->header.gfx.node.flags & GRAPH_RENDER_ACTIVE) {
 
     switch (o->oBehParams2ndByte) {
             case 0:
+            case 4:
                 o->oFaceAngleRoll += 0x200;
                 o->oMoveAngleRoll += 0x200;
             break;

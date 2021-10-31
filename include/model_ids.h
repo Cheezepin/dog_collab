@@ -617,5 +617,12 @@
 #define MODEL_TRAPEZE                   0x139
 #define MODEL_BALLOON_PLATFORM                   0x13A
 #define MODEL_CLOWN_BOSS                   0x13B
+#define MODEL_BOSS_CURTAINS                   0x13C
+#define MODEL_STEEL_GATE                   0x13D
+#define MODEL_POWER_SWITCH                   0x13E
+
+#define MODEL_SAD_CAROUSEL                    0x140
+#define MODEL_SAD_CLOWN_CLOCK                    0x141
+#define MODEL_SAD_PINWHEEL                    0x142
 
 #endif // MODEL_IDS_H

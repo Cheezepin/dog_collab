@@ -17,7 +17,14 @@ void bhv_circus_wheel_init(void) {
 }
 
 void bhv_circus_wheel_loop(void) {
-    
+    extern s8 gIsNearFerrisWheel;
+    if (gMarioState->pos[0] > 388 && gMarioState->pos[0] < 8150 && gMarioState->pos[2] < -6715 && gMarioState->pos[2] > -11264) {
+        gIsNearFerrisWheel = 1;
+    }
+    else {
+        gIsNearFerrisWheel = 0;
+    }
+
 }
 
 void bhv_circus_wheel_platform_update(void) {
@@ -45,6 +52,8 @@ void bhv_circus_wheel_platform_update(void) {
 }
 
 void bhv_wheel_wind_loop(void) {
+    if (o->oDistanceToMario < 2000.0f) {
     cur_obj_play_sound_1(SOUND_AIR_BLOW_WIND);
     cur_obj_spawn_strong_wind_particles(12, 3.0f, 0.0f, -50.0f, 120.0f);
+    }
 }

@@ -341,6 +341,7 @@ extern const BehaviorScript bhvCarrySomethingThrown[];
 extern const BehaviorScript bhvObjectBubble[];
 extern const BehaviorScript bhvObjectWaterWave[];
 extern const BehaviorScript bhvExplosion[];
+extern const BehaviorScript bhvVisualExplosion[];
 extern const BehaviorScript bhvBobombBullyDeathSmoke[];
 extern const BehaviorScript bhvSmoke[];
 extern const BehaviorScript bhvBobombExplosionBubble[];
@@ -551,6 +552,7 @@ extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
 
+extern const BehaviorScript bhvDogForSC[];
 extern const BehaviorScript bhvCarousel[];
 extern const BehaviorScript bhvClownClock[];
 extern const BehaviorScript bhvClownDoorSpawner[];
@@ -567,6 +569,11 @@ extern const BehaviorScript bhvTrapeze[];
 extern const BehaviorScript bhvTrapezeHitbox[];
 extern const BehaviorScript bhvBalloonPlatform[];
 extern const BehaviorScript bhvClownBoss[];
+extern const BehaviorScript bhvClownBowlingBall[];
+extern const BehaviorScript bhvBossCurtains[];
+extern const BehaviorScript bhvGoddardClownFight[];
+extern const BehaviorScript bhvSteelGate[];
+extern const BehaviorScript bhvPowerSwitch[];
 
 extern const BehaviorScript bhvRotatingTorus[];
 extern const BehaviorScript bhvElectricSpinner[];

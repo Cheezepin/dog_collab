@@ -38,3 +38,9 @@ break;
 void bhv_clown_door_segment_loop(void){
 
 }
+
+void bhv_steel_gate_init(void) {
+    if (o->oBehParams2ndByte == 1) {
+        obj_scale_xyz(o, 1.5, 1.5, 1.5);
+    }
+}

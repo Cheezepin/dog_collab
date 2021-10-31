@@ -180,6 +180,7 @@ void cur_obj_spawn_loot_coin_at_mario_pos(void);
 s32 cur_obj_advance_looping_anim(void);
 s32 cur_obj_resolve_wall_collisions(void);
 void cur_obj_update_floor_and_walls(void);
+void cur_obj_update_clown_floor(void);
 void cur_obj_move_standard(s16 steepSlopeAngleDegrees);
 void cur_obj_move_using_vel_and_gravity(void);
 void cur_obj_move_using_fvel_and_gravity(void);
@@ -286,5 +287,9 @@ u32 obj_get_model_id(struct Object *obj);
 Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED void *context);
 
 Gfx *geo_clown_head_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_eyes_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_awooga_eyes_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_awooga_mouth_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_bone_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 #endif // OBJECT_HELPERS_H
