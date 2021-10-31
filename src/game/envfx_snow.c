@@ -12,6 +12,8 @@
 #include "engine/behavior_script.h"
 #include "audio/external.h"
 #include "obj_behaviors.h"
+#include "area.h"
+#include "object_helpers.h"
 
 /**
  * This file contains the function that handles 'environment effects',
@@ -456,6 +458,8 @@ Gfx *envfx_update_snow(s32 snowMode, Vec3s marioPos, Vec3s camFrom, Vec3s camTo)
     return gfxStart;
 }
 
+extern s16 gMarioCurrentRoom;
+
 /**
  * Updates the environment effects (snow, flowers, bubbles)
  * and returns a display list drawing them.
@@ -494,7 +498,10 @@ Gfx *envfx_update_particles(s32 mode, Vec3s marioPos, Vec3s camTo, Vec3s camFrom
             break;
 
         case ENVFX_SNOW_BLIZZARD:
-            gfx = envfx_update_snow(3, marioPos, camFrom, camTo);
+            if (gMarioCurrentRoom != 2 || gCurrLevelNum != LEVEL_HMC || gCurrAreaIndex != 1)
+                gfx = envfx_update_snow(3, marioPos, camFrom, camTo);
+            else
+                return NULL;
             break;
 
         default:

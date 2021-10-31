@@ -23,3 +23,9 @@
 #include "levels/ccm/areas/1/10/geo.inc.c"
 #include "levels/ccm/areas/1/geo.inc.c"
 #include "levels/ccm/areas/2/geo.inc.c"
+#include "levels/ccm/geo.inc.c"
+
+#include "levels/ccm/magma_thwomp/geo.inc.c"
+#include "levels/ccm/swing_board/geo.inc.c"
+#include "levels/ccm/propane_thrower/geo.inc.c"
+#include "levels/ccm/lava_grate/geo.inc.c"

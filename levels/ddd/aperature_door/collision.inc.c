@@ -1,0 +1,23 @@
+const Collision aperature_door_collision[] = {
+	COL_INIT(),
+	COL_VERTEX_INIT(10),
+	COL_VERTEX(-425, 130, 585),
+	COL_VERTEX(425, 130, 585),
+	COL_VERTEX(687, 130, -223),
+	COL_VERTEX(-687, 130, -223),
+	COL_VERTEX(0, 130, -723),
+	COL_VERTEX(425, -70, 585),
+	COL_VERTEX(-425, -70, 585),
+	COL_VERTEX(-687, -70, -223),
+	COL_VERTEX(0, -70, -723),
+	COL_VERTEX(687, -70, -223),
+	COL_TRI_INIT(SURFACE_DEFAULT, 6),
+	COL_TRI(0, 1, 2),
+	COL_TRI(2, 3, 0),
+	COL_TRI(2, 4, 3),
+	COL_TRI(5, 6, 7),
+	COL_TRI(7, 8, 9),
+	COL_TRI(7, 9, 5),
+	COL_TRI_STOP(),
+	COL_END()
+};

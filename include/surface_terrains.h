@@ -16,6 +16,7 @@
 #define SURFACE_INTERACT_SHOCK               0x000C // Surface with INTERACT_SHOCK incomplete rn
 #define SURFACE_WATER                        0x000D // Water, has no action, used on some waterboxes below
 #define SURFACE_FLOWING_WATER                0x000E // Water (flowing), has parameters
+#define SURFACE_HURT_FLOOR                   0x000F // Force controls the amount of damage it gives
 #define SURFACE_INTANGIBLE                   0x0012 // Intangible (Separates BBH mansion from merry-go-round, for room usage)
 #define SURFACE_VERY_SLIPPERY                0x0013 // Very slippery, mostly used for slides
 #define SURFACE_SLIPPERY                     0x0014 // Slippery
@@ -157,18 +158,29 @@
 
 #define SURFACE_SHOCK_WALL                     0x0100
 
-#define SURFACE_IS_QUICKSAND(cmd)     (cmd >= 0x21 && cmd < 0x28)   // Doesn't include SURFACE_INSTANT_MOVING_QUICKSAND
-#define SURFACE_IS_NOT_HARD(cmd)      (cmd != SURFACE_HARD && \
-                                     !(cmd >= 0x35 && cmd <= 0x37))
-#define SURFACE_IS_PAINTING_WARP(cmd) (cmd >= 0xD3 && cmd < 0xFD)
+#define SURFACE_IS_NEW_WATER(cmd)               (cmd == SURFACE_NEW_WATER || cmd == SURFACE_NEW_WATER_BOTTOM)
+#define SURFACE_IS_QUICKSAND(cmd)               ((cmd >= SURFACE_SHALLOW_QUICKSAND && cmd <= SURFACE_MOVING_QUICKSAND) || cmd == SURFACE_INSTANT_MOVING_QUICKSAND)
+#define SURFACE_IS_NOT_HARD(cmd)                (cmd != SURFACE_HARD && !(cmd >= SURFACE_HARD_SLIPPERY && cmd <= SURFACE_HARD_NOT_SLIPPERY))
+#define SURFACE_IS_PAINTING_WOBBLE(cmd)         (cmd >= SURFACE_PAINTING_WOBBLE_A6 && cmd <= SURFACE_PAINTING_WOBBLE_D2)
+#define SURFACE_IS_PAINTING_WOBBLE_LEFT(cmd)    (((cmd - SURFACE_PAINTING_WOBBLE_A6) % 3) == 0)
+#define SURFACE_IS_PAINTING_WOBBLE_MIDDLE(cmd)  (((cmd - SURFACE_PAINTING_WOBBLE_A7) % 3) == 0)
+#define SURFACE_IS_PAINTING_WOBBLE_RIGHT(cmd)   (((cmd - SURFACE_PAINTING_WOBBLE_A8) % 3) == 0)
+#define SURFACE_IS_PAINTING_WARP(cmd)           (cmd >= SURFACE_PAINTING_WARP_D3 && cmd < SURFACE_WOBBLING_WARP) // skips SURFACE_WOBBLING_WARP
+#define SURFACE_IS_PAINTING_WARP_LEFT(cmd)      (((cmd - SURFACE_PAINTING_WARP_D3  ) % 3) == 0)
+#define SURFACE_IS_PAINTING_WARP_MIDDLE(cmd)    (((cmd - SURFACE_PAINTING_WARP_D4  ) % 3) == 0)
+#define SURFACE_IS_PAINTING_WARP_RIGHT(cmd)     (((cmd - SURFACE_PAINTING_WARP_D5  ) % 3) == 0)
+#define SURFACE_IS_INSTANT_WARP(cmd)            (cmd >= SURFACE_INSTANT_WARP_1B && cmd <= SURFACE_INSTANT_WARP_1E)
+#define SURFACE_IS_WARP(cmd)                    (SURFACE_IS_PAINTING_WARP(cmd) || SURFACE_IS_INSTANT_WARP(cmd) || cmd == SURFACE_LOOK_UP_WARP || cmd == SURFACE_WOBBLING_WARP)
+#define SURFACE_IS_UNSAFE(cmd)                  (SURFACE_IS_QUICKSAND(cmd)|| cmd == SURFACE_BURNING)
 
 #define SURFACE_CLASS_DEFAULT       0x0000
 #define SURFACE_CLASS_VERY_SLIPPERY 0x0013
 #define SURFACE_CLASS_SLIPPERY      0x0014
 #define SURFACE_CLASS_NOT_SLIPPERY  0x0015
 
-#define SURFACE_FLAG_DYNAMIC          (1 << 0)
-#define SURFACE_FLAG_NO_CAM_COLLISION (1 << 1)
+#define SURFACE_FLAGS_NONE            (0 << 0) // 0x0000
+#define SURFACE_FLAG_DYNAMIC          (1 << 0) // 0x0001
+#define SURFACE_FLAG_NO_CAM_COLLISION (1 << 1) // 0x0002
 
 // These are effectively unique "surface" types like those defined higher
 // And they are used as collision commands to load certain functions
@@ -229,5 +241,13 @@
 
 // Water Box
 #define COL_WATER_BOX(id, x1, z1, x2, z2, y) id, x1, z1, x2, z2, y
+
+// Floor Checkpoint
+#define FLOOR_CHECKPOINT_FORCE 0xFCE
+#define SURFACE_IS_WARP_PLANE(surfType) (surfType == SURFACE_DEATH_PLANE || surfType == SURFACE_HURT_FLOOR || surfType == SURFACE_VERTICAL_WIND)
+
+// Custom Reonu surface types
+#define SURFACE_SUPER_SLIPPERY 0x0017
+//End of Reonu's surface types
 
 #endif // SURFACE_TERRAINS_H

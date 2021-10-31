@@ -1,6 +1,13 @@
 #pragma once
 
 /**
+ * Thank you to Kaze Emanuar for these major optimizations!
+ * https://www.youtube.com/watch?v=uYPH-NH3B6k
+ *
+ * If you are making a hack with this repo, it is recommended to credit Kaze Emanuar.
+ */
+
+/**
  * @file config.h
  * A catch-all file for configuring various bugfixes and other settings in SM64
  */
@@ -37,6 +44,11 @@
 // Internal ROM name. NEEDS TO BE **EXACTLY** 20 CHARACTERS. Can't be 19 characters, can't be 21 characters. You can fill it with spaces.
 // The end quote should be here:               "
 #define INTERNAL_ROM_NAME "DOG STAR ADVENTURE  "
+// -- GAME SETTINGS --
+// Disables some mechanics that change behavior depending on hardcoded level numbers.
+// You may also need to change sLevelsWithRooms in object_helpers.c
+// TODO: separate this into separate defines, behavior params, or make these mechanics otherwise dynamic
+// #define DISABLE_LEVEL_SPECIFIC_CHECKS
 // Disable lives and hide the lives counter
 #define DISABLE_LIVES
 // Air/Breath meter is separate from health meter when underwater
@@ -77,6 +89,7 @@
 // 1 is similar to vanilla, but prevents Mario from moving in the wrong direction, and allows finer control with the analog stick.
 // 2 is similar to mode 1, but a bit further from vanilla, and allows instant turnaround if Mario is moving slower than a certain threshold.
 // 3 is instant turning to the intended direction regardless of speed and angle.
+// 4 is an experimental asymptotic turn.
 #define GROUND_TURN_MODE 0
 // Improved hanging:
 // - Doesn't require holding down the A button
@@ -104,8 +117,9 @@
 #define HANGING_FIX
 // The last frame that will be considered a firsty when wallkicking
 #define FIRSTY_LAST_FRAME 1
+// The maximum angle the player can wall kick, in degrees. 0..90. To allow 45 degree wall kicks, you must supply `46` to allow 45 and under.
 // 46 degree walkicks
-#define WALLKICKS_46_DEGREES
+#define WALL_KICK_DEGREES 46
 // Disable BLJs and crush SimpleFlips's dreams
 //#define DISABLE_BLJ
 
@@ -129,6 +143,14 @@
 // -- SPECIFIC OBJECT SETTINGS --
 // Allow for retries on collecting the remaining blue coins from a blue coin switch
 #define BLUE_COIN_SWITCH_RETRY
+// Fixes shell cancel
+//#define SHELL_CANCEL_FIX
+// The number of chain balls the Chain Chomp has.  Vanilla is 5.
+#define CHAIN_CHOMP_NUM_SEGMENTS 5
+// The number of parts Pokey has, including the head. Vanilla is 5, max is 30.
+#define POKEY_NUM_SEGMENTS       5
+// The number of segments Wiggler has, not including the head. Vanilla is 4.
+#define WIGGLER_NUM_SEGMENTS     4
 
 // -- CUTSCENE SKIPS --
 // Skip peach letter cutscene
@@ -137,12 +159,10 @@
 //#define SKIP_TITLE_SCREEN
 // Uncomment this if you want to keep the mario head and not skip it
 //#define KEEP_MARIO_HEAD
-#ifdef KEEP_MARIO_HEAD // safeguard
-//Goddard easter egg from Shindou (has no effect if KEEP_MARIO_HEAD is disabled)
+// Goddard easter egg from Shindou (has no effect if KEEP_MARIO_HEAD is disabled)
 #define GODDARD_EASTER_EGG
 // Disables the demo that plays when idle on the start screen (has no effect if KEEP_MARIO_HEAD is disabled)
 #define DISABLE_DEMO
-#endif // KEEP_MARIO_HEAD
 
 // -- CAMERA SETTINGS --
 // Remove course specific camera processing
@@ -150,7 +170,7 @@
 // Enables "parallel lakitu camera" or "aglab cam" which lets you move the camera smoothly with the dpad
 #define PARALLEL_LAKITU_CAM
 // Enables Puppy Camera 2, a rewritten camera that can be freely configured and modified.
-//#define PUPPYCAM
+#define PUPPYCAM
 
 // -- GRAPHICS SETTINGS --
 // Enable widescreen (16:9) support
@@ -162,7 +182,7 @@
 // When this option is enabled, LODs will ONLY work on console.
 // When this option is disabled, LODs will work regardless of whether console or emulator is used.
 // Regardless of whether this setting is enabled or not, you can use gIsConsole to wrap your own code in a console check.
-#define AUTO_LOD
+//#define AUTO_LOD
 // Disable AA (Recommended: it changes nothing on emulator, and it makes console run better)
 #define DISABLE_AA
 // Makes the coins ia8 64x64 instead of ia16 32x32. Uses new ia8 textures so that vanilla coins look better.
@@ -197,20 +217,28 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
-// #define TEST_LEVEL LEVEL_SL
+// #define TEST_LEVEL LEVEL_BITFS
 // Enable debug level select
 //#define DEBUG_LEVEL_SELECT
+// Enable debug free move (DPad up to enter, A to exit)
+//#define ENABLE_DEBUG_FREE_MOVE
 // Custom debug mode. Press DPAD left to show the debug UI. Press DPAD right to enter the noclip mode.
 // #define CUSTOM_DEBUG
 // Include Puppyprint, a display library for text and large images. Also includes a custom, enhanced performance profiler.
-// #define PUPPYPRINT
-// #define PUPPYPRINT_DEBUG 1
+ #define PUPPYPRINT
+ #define PUPPYPRINT_DEBUG 1
 // Use cycles instead of microseconds
 //#define PUPPYPRINT_DEBUG_CYCLES
 // Visual debug enables some collision visuals. Tapping Right on the dpad will cycle between visual hitboxes, visual surfaces, both, and neither.
 // If puppyprint is enabled, then this can be cycled only while the screen is active.
-//#define VISUAL_DEBUG
+#define VISUAL_DEBUG
 // Open all courses and doors. Used for debugging purposes to unlock all content.
-//#define UNLOCK_ALL
+#define UNLOCK_ALL
 
 // If you want to change the extended boundaries mode, go to engine/extended_bounds.h and change EXTENDED_BOUNDS_MODE
+
+// -- Compatibility safeguards. Don't mess with these unless you know what you're doing.--
+#ifndef KEEP_MARIO_HEAD
+#undef GODDARD_EASTER_EGG
+#define DISABLE_DEMO
+#endif

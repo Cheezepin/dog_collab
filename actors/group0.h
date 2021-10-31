@@ -392,4 +392,9 @@ extern const Gfx white_particle_small_unused_dl[];
 
 
 #include "dog/anim_header.h"
+#include "cephie/geo_header.h"
+
+
+#include "cephie/anim_header.h"
+
 #endif

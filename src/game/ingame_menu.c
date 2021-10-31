@@ -27,6 +27,7 @@
 #include "config.h"
 #include "puppycam2.h"
 #include "main.h"
+#include "puppyprint.h"
 
 u16 gDialogColorFadeTimer;
 s8 gLastDialogLineNum;
@@ -222,10 +223,10 @@ void create_dl_ortho_matrix(void) {
 #if !defined(VERSION_JP) && !defined(VERSION_SH)
 UNUSED
 #endif
-static u8 *alloc_ia8_text_from_i1(u16 *in, s16 width, s16 height) {
+static Texture *alloc_ia8_text_from_i1(u16 *in, s16 width, s16 height) { //! Texture type for *in?
     s32 inPos;
     u16 bitMask;
-    u8 *out;
+    Texture *out;
     s16 outPos = 0;
 
     out = alloc_display_list((u32) width * (u32) height);
@@ -252,15 +253,15 @@ static u8 *alloc_ia8_text_from_i1(u16 *in, s16 width, s16 height) {
     return out;
 }
 
-u8 *alloc_ia4_tex_from_i1(u8 *in, s16 width, s16 height) {
+Texture *alloc_ia4_tex_from_i1(Texture *in, s16 width, s16 height) {
     u32 size = (u32) width * (u32) height;
-    u8 *out;
+    Texture *out;
     s32 inPos;
     s16 outPos;
     u8 bitMask;
 
     outPos = 0;
-    out = (u8 *) alloc_display_list(size);
+    out = (Texture *) alloc_display_list(size);
 
     if (out == NULL) {
         return NULL;
@@ -578,21 +579,11 @@ void handle_menu_scrolling(s8 scrollDirection, s8 *currentIndex, s8 minIndex, s8
     u8 index = 0;
 
     if (scrollDirection == MENU_SCROLL_VERTICAL) {
-        if (gPlayer3Controller->rawStickY > 60) {
-            index++;
-        }
-
-        if (gPlayer3Controller->rawStickY < -60) {
-            index += 2;
-        }
+        if (gPlayer3Controller->rawStickY >  60) index++;
+        if (gPlayer3Controller->rawStickY < -60) index += 2;
     } else if (scrollDirection == MENU_SCROLL_HORIZONTAL) {
-        if (gPlayer3Controller->rawStickX > 60) {
-            index += 2;
-        }
-
-        if (gPlayer3Controller->rawStickX < -60) {
-            index++;
-        }
+        if (gPlayer3Controller->rawStickX >  60) index += 2;
+        if (gPlayer3Controller->rawStickX < -60) index++;
     }
 
     if (((index ^ gMenuHoldKeyIndex) & index) == 2) {
@@ -634,7 +625,7 @@ s16 get_str_x_pos_from_center(s16 centerPos, u8 *str, UNUSED f32 scale) {
     }
     // return the x position of where the string starts as half the string's
     // length from the position of the provided center.
-    return (s16)(centerPos - (s16)(spacesWidth / 2.0));
+    return (s16)(centerPos - (s16)(spacesWidth / 2.0f));
 }
 
 
@@ -765,17 +756,13 @@ void reset_dialog_render_state(void) {
     gDialogResponse = DIALOG_RESPONSE_NONE;
 }
 
-#define X_VAL1 -7.0f
-#define Y_VAL1 5.0
-#define Y_VAL2 5.0f
-
 void render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox) {
     create_dl_translation_matrix(MENU_MTX_NOPUSH, dialog->leftOffset, dialog->width, 0);
 
     switch (gDialogBoxType) {
         case DIALOG_TYPE_ROTATE: // Renders a dialog black box with zoom and rotation
             if (gDialogBoxState == DIALOG_STATE_OPENING || gDialogBoxState == DIALOG_STATE_CLOSING) {
-                create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.0 / gDialogBoxScale, 1.0 / gDialogBoxScale, 1.0f);
+                create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.0f / gDialogBoxScale, 1.0f / gDialogBoxScale, 1.0f);
                 // convert the speed into angle
                 create_dl_rotation_matrix(MENU_MTX_NOPUSH, gDialogBoxOpenTimer * 4.0f, 0, 0, 1.0f);
             }
@@ -783,16 +770,15 @@ void render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox) {
             break;
         case DIALOG_TYPE_ZOOM: // Renders a dialog white box with zoom
             if (gDialogBoxState == DIALOG_STATE_OPENING || gDialogBoxState == DIALOG_STATE_CLOSING) {
-                create_dl_translation_matrix(MENU_MTX_NOPUSH, 65.0 - (65.0 / gDialogBoxScale),
-                                              (40.0 / gDialogBoxScale) - 40, 0);
-                create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.0 / gDialogBoxScale, 1.0 / gDialogBoxScale, 1.0f);
+                create_dl_translation_matrix(MENU_MTX_NOPUSH, 65.0f - (65.0f / gDialogBoxScale), (40.0f / gDialogBoxScale) - 40, 0);
+                create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.0f / gDialogBoxScale, 1.0f / gDialogBoxScale, 1.0f);
             }
             gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 150);
             break;
     }
 
-    create_dl_translation_matrix(MENU_MTX_PUSH, X_VAL1, Y_VAL1, 0);
-    create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.1f, ((f32) linesPerBox / Y_VAL2) + 0.1, 1.0f);
+    create_dl_translation_matrix(MENU_MTX_PUSH, -7.0f, 5.0f, 0);
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.1f, ((f32) linesPerBox / 5.0f) + 0.1f, 1.0f);
 
     gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
@@ -1114,13 +1100,13 @@ void render_dialog_string_color(s8 linesPerBox) {
 
 void handle_special_dialog_text(s16 dialogID) { // dialog ID tables, in order
     // King Bob-omb (Start), Whomp (Start), King Bob-omb (throw him out), Eyerock (Start), Wiggler (Start)
-    s16 dialogBossStart[] = { DIALOG_017, DIALOG_114, DIALOG_128, DIALOG_117, DIALOG_150 };
+    s16 dialogBossStart[] = { DIALOG_017, DIALOG_114, DIALOG_128, DIALOG_117 };
     // Koopa the Quick (BOB), Koopa the Quick (THI), Penguin Race, Fat Penguin Race (120 stars)
-    s16 dialogRaceSound[] = { DIALOG_005, DIALOG_009, DIALOG_055, DIALOG_164 };
+    s16 dialogRaceSound[] = { DIALOG_005, DIALOG_009, DIALOG_055 };
     // Red Switch, Green Switch, Blue Switch, 100 coins star, Bowser Red Coin Star
     s16 dialogStarSound[] = { DIALOG_010, DIALOG_011, DIALOG_012, DIALOG_013, DIALOG_014 };
     // King Bob-omb (Start), Whomp (Defeated), King Bob-omb (Defeated, missing in JP), Eyerock (Defeated), Wiggler (Defeated)
-    s16 dialogBossStop[] = { DIALOG_017, DIALOG_115, DIALOG_116, DIALOG_118, DIALOG_152 };
+    s16 dialogBossStop[] = { DIALOG_017, DIALOG_115, DIALOG_116, DIALOG_118 };
     s16 i;
 
     for (i = 0; i < (s16) ARRAY_COUNT(dialogBossStart); i++) {
@@ -1218,11 +1204,11 @@ void render_dialog_entries(void) {
             }
 
             if (gDialogBoxType == DIALOG_TYPE_ROTATE) {
-                gDialogBoxOpenTimer -= 7.5;
-                gDialogBoxScale -= 1.5;
+                gDialogBoxOpenTimer -= 7.5f;
+                gDialogBoxScale -= 1.5f;
             } else {
-                gDialogBoxOpenTimer -= 10.0;
-                gDialogBoxScale -= 2.0;
+                gDialogBoxOpenTimer -= 10.0f;
+                gDialogBoxScale -= 2.0f;
             }
 
             if (gDialogBoxOpenTimer == 0.0f) {
@@ -2286,7 +2272,7 @@ u8 textEnterDogName[] = { TEXT_ENTER_DOG_NAME };
 u8 textKeyboardDefines[] = { TEXT_KEYBOARD_DEFINES };
 u8 dogStringTemp[DOG_STRING_LENGTH + 1] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF };
 u8 topBarMap[2][10] = {
-{ 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 }, 
+{ 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 },
 { 0xFA, 0xFD, 0xF9, 0xE5, 0xE6, 0xFB, 0xF2, 0xF3, 0xF4, 0xF7 }, };
 
 s32 gKeyboardShifted;
@@ -2340,8 +2326,8 @@ void render_dog_keyboard(void) {
             length = i;
         }
     }
-    
-    
+
+
     create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
     create_dl_translation_matrix(MENU_MTX_NOPUSH, 10.0f, 64.0f, 0.0f);
     // for(i = 0; i < 0x40; i++) {

@@ -16,6 +16,12 @@ extern u16 gAreaUpdateCounter;
 extern u8 heatValue;
 extern f32 gWorldScale;
 
+// thecozies start
+extern Mat4 *viewMat;
+extern s32 gReadyForLookAt;
+extern s32 gCameraIsUnderwater;
+// thecozies end
+
 // after processing an object, the type is reset to this
 #define ANIM_TYPE_NONE                  0
 
@@ -39,17 +45,19 @@ extern f32 gWorldScale;
 #if SILHOUETTE
 #define IS_LAYER_SILHOUETTE(layer) (((layer) >= LAYER_SILHOUETTE_FIRST) || ((layer) <= LAYER_SILHOUETTE_LAST))
 
-#define RENDER_PHASE_REJ_ZB                 0
-#define RENDER_PHASE_ZEX_BEFORE_SILHOUETTE  1
-#define RENDER_PHASE_REJ_SILHOUETTE         2
-#define RENDER_PHASE_REJ_NON_SILHOUETTE     3
-#define RENDER_PHASE_REJ_OCCLUDE_SILHOUETTE 4
-#define RENDER_PHASE_ZEX_AFTER_SILHOUETTE   5
-#define RENDER_PHASE_REJ_NON_ZB             6
+#define RENDER_PHASE_ZEX_BG                 0
+#define RENDER_PHASE_REJ_ZB                 1
+#define RENDER_PHASE_ZEX_BEFORE_SILHOUETTE  2
+#define RENDER_PHASE_REJ_SILHOUETTE         3
+#define RENDER_PHASE_REJ_NON_SILHOUETTE     4
+#define RENDER_PHASE_REJ_OCCLUDE_SILHOUETTE 5
+#define RENDER_PHASE_ZEX_AFTER_SILHOUETTE   6
+#define RENDER_PHASE_REJ_NON_ZB             7
 #else
-#define RENDER_PHASE_REJ_ZB                 0
-#define RENDER_PHASE_ZEX_ALL                1
-#define RENDER_PHASE_REJ_NON_ZB             2
+#define RENDER_PHASE_ZEX_BG                 0
+#define RENDER_PHASE_REJ_ZB                 1
+#define RENDER_PHASE_ZEX_ALL                2
+#define RENDER_PHASE_REJ_NON_ZB             3
 #endif
 
 #define RENDER_PHASE_FIRST RENDER_PHASE_REJ_ZB

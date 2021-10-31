@@ -1,6 +1,9 @@
+extern Lights1 sl_backdrop_Water_layer1_lights;
+extern u8 sl_backdrop_water1_i4[];
+extern u8 sl_backdrop_water2_i4[];
 extern Vtx sl_backdrop_Backdrop_mesh_vtx_cull[8];
-extern Vtx sl_backdrop_Backdrop_mesh_vtx_0[8];
+extern Vtx sl_backdrop_Backdrop_mesh_vtx_0[560];
 extern Gfx sl_backdrop_Backdrop_mesh_tri_0[];
-extern Gfx mat_sl_backdrop_Backdrop_Water_layer1[];
-extern Gfx mat_revert_sl_backdrop_Backdrop_Water_layer1[];
+extern Gfx mat_sl_backdrop_Water_layer1[];
+extern Gfx mat_revert_sl_backdrop_Water_layer1[];
 extern Gfx sl_backdrop_Backdrop_mesh[];
