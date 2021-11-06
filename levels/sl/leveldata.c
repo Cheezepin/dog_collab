@@ -7,8 +7,11 @@
 #include "special_preset_names.h"
 #include "textures.h"
 #include "dialog_ids.h"
+#include "src/game/ingame_menu.h"
 
 #include "make_const_nonconst.h"
+
+#include "levels/sl/dialogs.inc.c"
 
 #include "levels/sl/leveldata.inc.c"
 
