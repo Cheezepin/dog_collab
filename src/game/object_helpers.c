@@ -699,6 +699,28 @@ struct Object *cur_obj_find_nearest_object_with_behavior(const BehaviorScript *b
     return closestObj;
 }
 
+struct Object *find_any_object_with_behavior(const BehaviorScript *behavior) {
+    uintptr_t *behaviorAddr = segmented_to_virtual(behavior);
+    struct Object *closestObj = NULL;
+    struct Object *obj;
+    struct ObjectNode *listHead;
+    f32 minDist = 0x20000;
+
+    listHead = &gObjectLists[get_object_list_from_behavior(behaviorAddr)];
+    obj = (struct Object *) listHead->next;
+
+    while (obj != (struct Object *) listHead) {
+        if (obj->behavior == behaviorAddr) {
+            if (obj->activeFlags != ACTIVE_FLAG_DEACTIVATED) {
+                return obj;
+            }
+        }
+        obj = (struct Object *) obj->header.next;
+    }
+
+    return 0;
+}
+
 struct Object *find_unimportant_object(void) {
     struct ObjectNode *listHead = &gObjectLists[OBJ_LIST_UNIMPORTANT];
     struct ObjectNode *obj = listHead->next;
@@ -1502,6 +1524,29 @@ static void cur_obj_update_floor_and_resolve_wall_collisions(s16 steepSlopeDegre
 
 void cur_obj_update_floor_and_walls(void) {
     cur_obj_update_floor_and_resolve_wall_collisions(60);
+}
+
+extern f32 find_ceil(f32 posX, f32 posY, f32 posZ, struct Surface **pceil);
+void cur_obj_resolve_ceil(f32 ceilOffset) {
+    Vec3f pos = { o->oPosX, o->oPosY + ceilOffset, o->oPosZ };
+    struct Surface *ceil;
+    f32 ceilHeight = 0.0f;
+    f32 diff = 0.0f;
+    ceilHeight = find_ceil(pos[0], pos[1] + 3.0f, pos[2], &ceil);
+    if(ceil != 0) {
+        diff = ceilHeight - pos[1];
+        //print_text_fmt_int(20, 20, "%d", (s32)diff);
+
+        if(diff < 50.0f) {
+            o->oPosY -= (50.0f - diff);
+            if(o->oVelY > 0.0f) {o->oVelY = 0.0f;}
+        }
+    }
+};
+
+void cur_obj_update_floor_and_walls_and_ceil(f32 ceilOffset) {
+    cur_obj_update_floor_and_walls();
+    cur_obj_resolve_ceil(ceilOffset);
 }
 
 void cur_obj_move_standard(s16 steepSlopeAngleDegrees) {

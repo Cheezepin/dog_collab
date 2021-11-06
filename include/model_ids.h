@@ -620,7 +620,8 @@
 
 //start cheeze model ids
 
-#define MODEL_CHEEZE_PLAT 0x180
+#define MODEL_CHEEZE_PLAT      0x180
+#define MODEL_CHEEZE_BOMB_WALL 0x181
 
 //end cheeze model ids
 
