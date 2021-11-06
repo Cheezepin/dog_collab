@@ -1256,7 +1256,7 @@ s32 update_level(void) {
     return changeLevel;
 }
 
-u8 dogString[DOG_STRING_LENGTH] = { 0x10, 0x32, 0x27, 0x27, 0x24, 0x35, 0x27, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+u8 dogString[DOG_STRING_LENGTH] = "Goddard";
 
 s32 init_level(void) {
     s32 fadeFromColor = FALSE;

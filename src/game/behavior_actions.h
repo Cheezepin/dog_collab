@@ -597,6 +597,7 @@ void palette_swap(void);
 // axo start
 void bhv_cephie_init(void);
 void bhv_cephie_loop(void);
+Gfx *geo_switch_cephie_hold(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 // axo end
 
 // thecozies start
