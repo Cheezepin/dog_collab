@@ -182,7 +182,6 @@ static void apply_mario_inertia(void) {
     if (sInertiaFirstFrame && sMarioAmountDisplaced[1] > 0) {
         gMarioState->vel[1] += sMarioAmountDisplaced[1];
     }
-
     // Apply sideways inertia
     gMarioState->pos[0] += sMarioAmountDisplaced[0];
     gMarioState->pos[2] += sMarioAmountDisplaced[2];
