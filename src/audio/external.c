@@ -105,7 +105,9 @@ u8 sDialogSpeaker[] = {
     /*13*/ _,     _,     _, _,     _,     _,     _,     _,     _,     _,
     /*14*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
     /*15*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
-    /*16*/ _,     _, _,     _,     _,     _,     _,     _,     _, _
+    /*16*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
+    /*17*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
+    /*18*/ _,     _,     _,     _,     _,     _,     _,
 };
 #undef _
 STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
@@ -301,6 +303,7 @@ u8 sBackgroundMusicDefaultVolume[] = {
     65,  // SEQ_MENU_FILE_SELECT
     0,   // SEQ_EVENT_CUTSCENE_LAKITU (not in JP)
     70,  // SEQ_LEVEL_BOSS_JENOVA
+    70,  // SEQ_COMIT_CLOUD
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,
@@ -2294,10 +2297,9 @@ void play_dialog_sound(u8 voice, u8 dialogID) {
             dialogID = 0;
         }
 
-        speaker = sDialogSpeaker[dialogID];
-    }
-    else {
-        speaker = voice != 0xff ? voice - 1 : voice;
+    speaker = sDialogSpeaker[dialogID];
+    if (gCurrLevelNum == LEVEL_BBH) { // comit code
+        speaker = 0xFF;
     }
     if (speaker != 0xff) {
         play_sound(sDialogSpeakerVoice[speaker], gGlobalSoundSource);

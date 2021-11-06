@@ -1,0 +1,10 @@
+extern const GeoLayout floor_door_geo[];
+extern Lights1 floor_door_Metal_001_lights;
+extern u8 floor_door_i8_metal_pattern2_i8[];
+extern Vtx floor_door_FloorDoor_mesh_layer_1_vtx_cull[8];
+extern Vtx floor_door_FloorDoor_mesh_layer_1_vtx_0[6];
+extern Gfx floor_door_FloorDoor_mesh_layer_1_tri_0[];
+extern Gfx mat_floor_door_Metal_001[];
+extern Gfx mat_revert_floor_door_Metal_001[];
+extern Gfx floor_door_FloorDoor_mesh_layer_1[];
+extern Gfx floor_door_material_revert_render_settings[];

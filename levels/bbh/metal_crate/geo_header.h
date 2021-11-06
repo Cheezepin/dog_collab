@@ -1,0 +1,10 @@
+extern const GeoLayout metal_crate_geo[];
+extern Lights1 metal_crate_MetalCrate_001_lights;
+extern u8 metal_crate_i8_metal_crate_i8[];
+extern Vtx metal_crate_Crate_mesh_layer_1_vtx_cull[8];
+extern Vtx metal_crate_Crate_mesh_layer_1_vtx_0[14];
+extern Gfx metal_crate_Crate_mesh_layer_1_tri_0[];
+extern Gfx mat_metal_crate_MetalCrate_001[];
+extern Gfx mat_revert_metal_crate_MetalCrate_001[];
+extern Gfx metal_crate_Crate_mesh_layer_1[];
+extern Gfx metal_crate_material_revert_render_settings[];

@@ -564,9 +564,49 @@ extern const BehaviorScript bhvPodoboo[];
 extern const BehaviorScript bhvDogNPC[];
 extern const BehaviorScript bhvRotatingTorus[];
 //extern const BehaviorScript bhvElectricSpinner[];
-//extern const BehaviorScript bhvSimpleSpinner[];
-//extern const BehaviorScript bhvSimpleSpinnerShock[];
+extern const BehaviorScript bhvMarioPlane[];
 //extern const BehaviorScript bhvShockTexture[];
+//extern const BehaviorScript bhvSimpleSpinnerShock[];
+//extern const BehaviorScript bhvSimpleSpinner[];
+extern const BehaviorScript bhvRotatingTorus[];
+
+//comit behaviors
+extern const BehaviorScript bhvBounceCloud[];
+extern const BehaviorScript bhvStretchCloud[];
+extern const BehaviorScript bhvRainbowCloud[];
+extern const BehaviorScript bhvCloudRainbow[];
+extern const BehaviorScript bhvCRainCloud[];
+extern const BehaviorScript bhvFadeCloud[];
+extern const BehaviorScript bhvBodyLakitu[];
+extern const BehaviorScript bhvMinigameFwoosh[];
+extern const BehaviorScript bhvFwooshButton[];
+extern const BehaviorScript bhvMetalCrate[];
+extern const BehaviorScript bhvFwooshMGHandler[];
+extern const BehaviorScript bhvFwooshMGGoomba[];
+extern const BehaviorScript bhvFwooshMGKoopa[];
+extern const BehaviorScript bhvFwooshMGStar[];
+extern const BehaviorScript bhvMistTrigger[];
+extern const BehaviorScript bhvLightningCloud[];
+extern const BehaviorScript bhvLightningBolt[];
+extern const BehaviorScript bhvFloorDoor[];
+extern const BehaviorScript bhvFloorDoorButton[];
+extern const BehaviorScript bhvLightningStrike[];
+extern const BehaviorScript bhvLightningBlast[];
+extern const BehaviorScript bhvCenterPlatform[];
+extern const BehaviorScript bhvLightningButton[];
+extern const BehaviorScript bhvBonusLightningCloud[];
+extern const BehaviorScript bhvComitCoin[];
+extern const BehaviorScript bhvDarkSky[];
+extern const BehaviorScript bhvHiddenBounceCloud[];
+extern const BehaviorScript bhvGuideLakitu[];
+extern const BehaviorScript bhvGateLakitu[];
+extern const BehaviorScript bhvEntranceGate[];
+extern const BehaviorScript bhvSpectatorLakitu[];
+extern const BehaviorScript bhvComitDog[];
+extern const BehaviorScript bhvRainbowCloudSpawner[];
+//comit behaviors end
+
+
 extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
 

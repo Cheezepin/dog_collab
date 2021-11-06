@@ -648,4 +648,63 @@ Gfx *geo_scale_bowser_key(s32 callContext, struct GraphNode *node, UNUSED Mat4 m
 extern struct WaterDropletParams gShallowWaterSplashDropletParams;
 extern struct WaterDropletParams gShallowWaterWaveDropletParams;
 
+
+
+
+
+
+
+
+
+
+
+void bhv_bounce_cloud_loop(void);
+void bhv_bounce_cloud_init(void);
+void bhv_stretch_cloud_loop(void);
+void bhv_stretch_cloud_init(void);
+void bhv_rainbow_cloud_loop(void);
+void bhv_rainbow_cloud_init(void);
+void bhv_cloud_rainbow_loop(void);
+void bhv_rain_cloud_loop(void);
+void bhv_fade_cloud_loop(void);
+void bhv_fade_cloud_init(void);
+void bhv_body_lakitu_loop(void);
+void bhv_body_lakitu_init(void);
+void bhv_mg_fwoosh_update(void);
+void bhv_fwoosh_button_loop(void);
+void bhv_metal_crate_loop(void);
+void bhv_metal_crate_init(void);
+void bhv_fwooshmg_handler_update(void);
+void bhv_fwooshmg_handler_init(void);
+void bhv_fwooshmg_goomba_update(void);
+void bhv_fwooshmg_koopa_update(void);
+void bhv_fwooshmg_star_loop(void);
+void bhv_mist_trigger_loop(void);
+void bhv_lightning_cloud_loop(void);
+void bhv_lightning_bolt_loop(void);
+void bhv_lightning_bolt_init(void);
+void bhv_floor_door_loop(void);
+void bhv_floor_door_button_loop(void);
+void bhv_lightning_strike_init(void);
+void bhv_lightning_strike_loop(void);
+void bhv_lightning_blast_loop(void);
+void bhv_center_platform_loop(void);
+void bhv_lightning_button_loop(void);
+void bhv_bonus_lightning_cloud_loop(void);
+void bhv_bonus_lightning_cloud_init(void);
+void bhv_comit_coin_init(void);
+void bhv_dark_sky_loop(void);
+void bhv_hidden_cloud_loop(void);
+void bhv_guide_lakitu_loop(void);
+void bhv_guide_lakitu_init(void);
+void bhv_gate_lakitu_loop(void);
+void bhv_entrance_gate_loop(void);
+void bhv_comit_dog_loop(void);
+void bhv_rainbow_cloud_spawner_loop(void);
+void bhv_spectator_lakitu_init(void);
+
+
+
+
+
 #endif // BEHAVIOR_ACTIONS_H
