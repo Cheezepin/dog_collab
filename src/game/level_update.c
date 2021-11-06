@@ -1061,6 +1061,7 @@ s8 determine_joystick_movement(void) {
 }
 
 u8 gDirectionsHeld;
+s32 gCurrentCharacter = 0;
 
 s32 play_mode_normal(void) {
 #ifndef DISABLE_DEMO

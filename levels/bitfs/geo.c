@@ -48,3 +48,4 @@
 #include "levels/bitfs/geo.inc.c"
 
 #include "levels/bitfs/cheezeplat/geo.inc.c"
+#include "levels/bitfs/cheezebombwall/geo.inc.c"
