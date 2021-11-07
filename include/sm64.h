@@ -184,6 +184,8 @@ enum RenderLayers
 #define MARIO_SPECIAL_CAPS (MARIO_VANISH_CAP | MARIO_METAL_CAP | MARIO_WING_CAP)
 #define MARIO_CAPS (MARIO_NORMAL_CAP | MARIO_SPECIAL_CAPS)
 
+#define POW2(x) ((x) * (x))
+
 #define ACT_ID_MASK                         0x000001FF
 
 #define ACT_GROUP_MASK                      0x000001C0

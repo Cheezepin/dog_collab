@@ -601,6 +601,7 @@ void bhv_goddard_cageCOL_loop(void);
 // axo start
 void bhv_cephie_init(void);
 void bhv_cephie_loop(void);
+Gfx *geo_switch_cephie_hold(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 // axo end
 
 // thecozies start
@@ -623,6 +624,8 @@ void bhv_lava_grate_loop();
 
 //cheeze start
 void bhv_cheezeplat_loop(void);
+void bhv_cheezebombwall_loop(void);
+void bhv_cheezedog_loop(void);
 //cheeze end
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
