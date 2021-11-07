@@ -60,3 +60,5 @@
 
 #include "levels/bitfs/cheezeplat/model.inc.c"
 #include "levels/bitfs/cheezeplat/collision.inc.c"
+#include "levels/bitfs/cheezebombwall/model.inc.c"
+#include "levels/bitfs/cheezebombwall/collision.inc.c"

@@ -562,13 +562,13 @@ extern const BehaviorScript bhvSpikeBall[];
 extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
+//emu start
 extern const BehaviorScript bhvRotatingTorus[];
-//extern const BehaviorScript bhvElectricSpinner[];
-//extern const BehaviorScript bhvSimpleSpinner[];
-//extern const BehaviorScript bhvSimpleSpinnerShock[];
-//extern const BehaviorScript bhvShockTexture[];
 extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
+extern const BehaviorScript bhvGoddardCage[];
+extern const BehaviorScript bhvGoddardCageCOL[];
+//emu end
 
 // axo start
 extern const BehaviorScript bhvCephie[];
@@ -595,6 +595,8 @@ extern const BehaviorScript bhvLavaGrate[];
 
 //cheeze bhv starts
 extern const BehaviorScript bhvCheezePlat[];
+extern const BehaviorScript bhvCheezeBombWall[];
+extern const BehaviorScript bhvCheezeDog[];
 //cheeze bhv ends
 
 

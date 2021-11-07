@@ -119,6 +119,7 @@ void bhv_manta_ray_water_ring_init(void);
 void manta_water_ring_act_not_collected(void);
 void bhv_manta_ray_water_ring_loop(void);
 void bhv_bowser_bomb_loop(void);
+void bhv_goddard_cage_loop(void);
 void bhv_bowser_bomb_explosion_loop(void);
 void bhv_bowser_bomb_smoke_loop(void);
 void bhv_celebration_star_init(void);

@@ -13,4 +13,7 @@
 
 #include "levels/bowser_1/header.h"
 
-#include "levels/bowser_1/areas/1/geo.inc.c"
+
+#include "levels/bowser_1/geo.inc.c"
+
+#include "levels/bowser_1/cage/geo.inc.c"

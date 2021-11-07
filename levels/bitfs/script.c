@@ -71,6 +71,7 @@ const LevelScript level_bitfs_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_BITFS_TUMBLING_PLATFORM_PART, bitfs_geo_0006D8), 
 	LOAD_MODEL_FROM_GEO(MODEL_BITFS_TUMBLING_PLATFORM, bitfs_geo_0006F0), 
 	LOAD_MODEL_FROM_GEO(MODEL_CHEEZE_PLAT, cheezeplat_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_CHEEZE_BOMB_WALL, cheezebombwall_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -81,6 +82,8 @@ const LevelScript level_bitfs_entry[] = {
 		MARIO_POS(0x01, 0, 0, -14456, 0),
 		OBJECT(MODEL_NONE, 0, -14456, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		OBJECT(MODEL_CHEEZE_PLAT, 8504, -4579, -2214, 0, 0, 0, 0x00000000, bhvCheezePlat),
+		OBJECT(MODEL_CHEEZE_BOMB_WALL, 4242, 3263, -6244, 0, 0, 0, 0x00000000, bhvCheezeBombWall),
+		OBJECT(MODEL_DOG, 3479, 3106, -6537, 0, 0, 0, 0x00000000, bhvCheezeDog),
 		TERRAIN(bitfs_area_1_collision),
 		ROOMS(bitfs_area_1_collision_rooms),
 		MACRO_OBJECTS(bitfs_area_1_macro_objs),
