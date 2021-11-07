@@ -596,6 +596,8 @@ void bhv_emu_sphere(void);
 void palette_swap(void);
 void bhv_goddard_cage_loop(void);
 void bhv_goddard_cageCOL_loop(void);
+void bhv_idle_dog_init (void);
+void bhv_idle_dog_loop(void);
 //emu end
 
 // axo start

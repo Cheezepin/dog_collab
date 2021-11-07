@@ -6510,6 +6510,7 @@ const BehaviorScript bhvGoddardCage[] = {
     SET_INT(oIntangibleTimer, 0),
     SET_HITBOX_WITH_OFFSET(/*Radius*/ 40, /*Height*/ 40, /*Downwards offset*/ 40),
     SPAWN_CHILD(/*Model*/ MODEL_NONE, /*Behavior*/ bhvGoddardCageCOL),
+    SPAWN_CHILD(/*Model*/ MODEL_DOG, /*Behavior*/ bhvDogIdle),
     DELAY(1),
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
@@ -6527,6 +6528,17 @@ const BehaviorScript bhvGoddardCageCOL[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvDogIdle[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    ANIMATE(0),
+    CALL_NATIVE(bhv_idle_dog_init),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_idle_dog_loop),
+    END_LOOP(),
+};
 // END EMU BEHAVIOR
 
 // axo start

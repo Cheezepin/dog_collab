@@ -74,10 +74,10 @@ void bhv_goddard_cage_loop(void) {
     
     if (o->oInteractStatus & INT_STATUS_HIT_MINE)
     {
-        spawn_object(o, MODEL_BOWSER_FLAMES, bhvBowserBombExplosion);
+       spawn_mist_particles_variable(0, 0, 46.0f);
+        spawn_triangle_break_particles(30, MODEL_DIRT_ANIMATION, 3.0f, 4);
         create_sound_spawner(SOUND_GENERAL_BOWSER_BOMB_EXPLOSION);
         set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
-        obj_mark_for_deletion(bhvGoddardCageCOL);
 
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
@@ -88,7 +88,27 @@ void bhv_goddard_cage_loop(void) {
 void bhv_goddard_cageCOL_loop(void) {
     f32 dist;
     if (cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist) == NULL){
-        
+
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }
+}
+
+
+#define DOG_ANIM_IDLE 0
+#define DOG_ANIM_DIG  1
+#define DOG_ANIM_RUN  2
+#define DOG_ANIM_WALK 3
+#define DOG_ANIM_POUNCE 4
+
+void bhv_idle_dog_init (void) {
+   cur_obj_init_animation(DOG_ANIM_IDLE);
+   o->oPosY -= 147;
+   o->oFaceAngleYaw += DEGREES(180);
+}
+void bhv_idle_dog_loop (void) {
+    f32 dist;
+    if (cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist) == NULL){
+        //cur_obj_init_animation(DOG_ANIM_POUNCE);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
 }

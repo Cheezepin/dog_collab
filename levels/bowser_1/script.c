@@ -59,7 +59,7 @@ const LevelScript level_bowser_1_entry[] = {
 	/* Fast64 end persistent block [level commands] */
 
 	AREA(1, bowser_1_area_1),
-		OBJECT(MODEL_GODDARD_CAGE, 0, 403, 878, 0, 0, 0, 0x00000000, bhvGoddardCage),
+		OBJECT(MODEL_GODDARD_CAGE, 0, 500, 878, 0, 0, 0, 0x00000000, bhvGoddardCage),
 		OBJECT(MODEL_BOWSER, 0, 403, -865, 0, 0, 0, 0x13001850, bhvBowser),
 		OBJECT(MODEL_BOWSER_BOMB, 1024, 420, -875, 0, 0, 0, 0x00000000, bhvBowserBomb),
 		OBJECT(MODEL_NONE, 0, 200, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
