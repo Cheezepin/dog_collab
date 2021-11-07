@@ -605,10 +605,40 @@
 #define MODEL_MOTOS                       0x1F8
 #define MODEL_STROLLIN_STU                0x1F7
 #define MODEL_LASER_RING_SPAWNER          0x1F6
-#define MODEL_LASER_RING                  0x1F5
-#define MODEL_SPIKE                       0x1F4
-#define MODEL_SPIKE_BALL                  0x1F3
-#define MODEL_PODOBOO                     0x1F2
+#define MODEL_LASER_RING                  5
+#define MODEL_SPIKE                       4
+#define MODEL_SPIKE_BALL                  3
+#define MODEL_PODOBOO                     2
+
+
+
+
+
+
+
+//comit models
+#define MODEL_BOUNCE_CLOUD                0x100
+#define MODEL_STRETCH_CLOUD               0x101
+#define MODEL_RAINBOW_CLOUD               0x102
+#define MODEL_CLOUD_RAINBOW               0x103
+#define MODEL_C_RAIN_CLOUD                0x104
+#define MODEL_MIST_SECRET                 0x105
+#define MODEL_FADE_CLOUD                  0x106
+#define MODEL_BODY_LAKITU                 0x107
+#define MODEL_FWOOSH_BUTTON               0x108
+#define MODEL_METAL_CRATE                 0x109
+#define MODEL_LOWPOLY_KOOPA               0x10A
+#define MODEL_LOWPOLY_GOOMBA              0x10B
+#define MODEL_LIGHTNING_CLOUD             0x10C
+#define MODEL_LIGHTNING_BOLT              0x10D
+#define MODEL_FLOOR_DOOR                  0x10E
+#define MODEL_LIGHTNING_STRIKE            0x10F
+#define MODEL_LIGHTNING_BLAST             0x110
+#define MODEL_CENTER_PLATFORM             0x111
+#define MODEL_DARK_SKY                    0x112
+#define MODEL_ENTRANCE_GATE               0x113
+#define MODEL_CENTER_LIGHT                0x114
+#define MODEL_FWOOSH_STEP_BUTTON          0x115
 
 //START ROVERT MODEL IDS
 

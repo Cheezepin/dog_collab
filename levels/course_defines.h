@@ -15,7 +15,7 @@ DEFINE_COURSE(COURSE_BOB, 0x00022240) // (1)  Bob Omb Battlefield (someone2639, 
 DEFINE_COURSE(COURSE_WF, 0x00002040) // (2)  Whomp's Fortress (BernieBean, Mirror World Under the Ice)
 DEFINE_COURSE(COURSE_JRB, 0x22222240) // (3)  Jolly Rodger's Bay (CowQuack, Swirling Circus)
 DEFINE_COURSE(COURSE_CCM, 0x00220040) // (4)  Cool Cool Mountain (Rovert, Peach Ruins)
-DEFINE_COURSE(COURSE_BBH, 0x22222240) // (5)  Big Boo's Haunt (MrComit, Cumulus Correctional Center)
+DEFINE_COURSE(COURSE_BBH, 0x44444440) // (5)  Big Boo's Haunt (MrComit, Cumulus Correctional Center)
 DEFINE_COURSE(COURSE_HMC, 0x44444440) // (6)  Hazy Maze Cave (Fazana, Factory)
 DEFINE_COURSE(COURSE_LLL, 0x21212140) // (7)  Lethal Lava Land (Yoshi Milkman, Feudal Fortress)
 DEFINE_COURSE(COURSE_SSL, 0x20222240) // (8)  Shifting Sand Land (Reonu, Floating Lava Lands)

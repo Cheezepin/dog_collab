@@ -1886,3 +1886,151 @@ disbanded.\n\
 Just make sure this\n\
 doesn't fall into their\n\
 hands.")
+
+
+//COMIT DIALOG
+DEFINE_DIALOG(COMIT_DIALOG_1, 1, 4, 30, 200, "\
+Welcome to the Cumulus\n\
+Correctional Camp!\n\
+You must be Mario - We\n\
+hope you enjoy your stay,\n\
+but first you must go\n\
+through the mandatory\n\
+introductory tour.\n\
+\n\
+The tour starts on your\n\
+left, now please, right\n\
+this way!")
+
+DEFINE_DIALOG(COMIT_DIALOG_2, 1, 3, 30, 200, "\
+Oh, this cloud right here.\n\
+He's crying.\n\
+\n\
+Crying TEARS OF JOY!!!!!!\n\
+Hop onto his back and\n\
+he'll give you a lift!")
+
+DEFINE_DIALOG(COMIT_DIALOG_3, 1, 4, 30, 200, "\
+Look at the smile on that\n\
+face! The only thing these\n\
+guys love more than\n\
+floating in place for 12\n\
+hours a day, is getting\n\
+jumped on!\n\
+Don't be shy, Mario!")
+
+DEFINE_DIALOG(COMIT_DIALOG_4, 1, 5, 30, 200, "\
+These deep breathing\n\
+exercises help the clouds\n\
+relax, and remove\n\
+unwanted stress from\n\
+their minds.\n\
+It also expands their\n\
+size, perfect for crossing\n\
+those large gaps you're\n\
+faced with~")
+
+DEFINE_DIALOG(COMIT_DIALOG_5, 1, 5, 30, 200, "\
+Thank you for completing\n\
+the tour, Mario!\n\
+\n\
+\n\
+\n\
+We here at Cirrus\n\
+Solutions Inc. hope you\n\
+find your stay at Cumulus\n\
+Correctional Camp both\n\
+relaxing and enlightening!")
+
+DEFINE_DIALOG(COMIT_DIALOG_6, 1, 4, 30, 200, "\
+Welcome back!\n\
+Now that you've completed\n\
+the tour, you can now\n\
+enter, drum roll please...\n\
+...\n\
+\n\
+...\n\
+\n\
+CUMULUS\n\
+CORRECTIONAL\n\
+CAMP!")
+
+DEFINE_DIALOG(COMIT_DIALOG_7, 1, 4, 30, 200, "\
+Have fun and relax Mario.\n\
+You won't be doing any\n\
+labor, that's all for the\n\
+clouds, hah!")
+
+DEFINE_DIALOG(COMIT_DIALOG_8, 1, 3, 30, 200, "\
+A strong gust of wind\n\
+came by and blew apart\n\
+one of my clouds!\n\
+Pieces of him are now\n\
+scattered all around\n\
+the camp...")
+
+DEFINE_DIALOG(COMIT_DIALOG_9, 1, 3, 30, 200, "\
+Thank you so much Mario!\n\
+Now my little friend is\n\
+back to his old self!")
+
+DEFINE_DIALOG(COMIT_DIALOG_10, 1, 3, 30, 200, _\
+Up ahead is one of our\n\
+research facilities.\n\
+\n\
+This one's currently\n\
+empty, but we'll be\n\
+examing some rather...\n\
+'shocking' behavior\n\
+from a few of our\n\
+inmates soon.")
+
+DEFINE_DIALOG(COMIT_DIALOG_11, 1, 4, 30, 200, "\
+CUMULUS RESEARCH\n\
+FACILITY ROOM 29B\n\
+------------------\n\
+CURRENT STATUS: EMPTY")
+
+DEFINE_DIALOG(COMIT_DIALOG_12, 1, 4, 30, 200, "\
+CUMULUS RESEARCH\n\
+FACILITY ROOM 29B\n\
+------------------\n\
+CURRENT STATUS: ACTIVE")
+
+DEFINE_DIALOG(COMIT_DIALOG_13, 1, 3, 30, 200, "\
+Bark! Bark!\n\
+\n\
+Bark!\n\
+(He's looking at that\n\
+blue floating object\n\
+over there)")
+
+DEFINE_DIALOG(COMIT_DIALOG_14, 1, 2, 30, 200, "\
+RRRRRR... WOOF WOOF\n\
+WOOFWOOFWOOFWOOF\n\
+(He seems to be barking\n\
+at what's down there)")
+
+DEFINE_DIALOG(COMIT_DIALOG_15, 1, 3, 30, 200, "\
+Arf!\n\
+...\n\
+...\n\
+(His thoughts are empty\n\
+at the moment. He's\n\
+just happy to see you.)")
+
+DEFINE_DIALOG(COMIT_DIALOG_16, 1, 4, 30, 200, "\
+Ruff, ruff\n\
+ruff ruff ruff ruff\n\
+woof bark ruff\n\
+\n\
+(He thinks he saw a\n\
+button that could open\n\
+that tunnel. Try checking\n\
+that fenced off cage...)")
+
+
+DEFINE_DIALOG(COMIT_DIALOG_17, 1, 3, 30, 200, "\
+Want a neat tip?\n\
+Hold A while twirling to\n\
+descend slower!"))

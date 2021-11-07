@@ -660,6 +660,7 @@ Bool32 set_mario_wall(struct MarioState *m, struct Surface *wall) {
     return (m->wall != NULL);
 }
 
+
 Bool32 set_mario_ceil(struct MarioState *m, struct Surface *ceil, f32 ceilHeight) {
     if (m->ceil != ceil) {
         m->ceil  = ceil;
