@@ -1,0 +1,17 @@
+extern const GeoLayout lightning_strike_switch_opt1[];
+extern const GeoLayout lightning_strike_geo[];
+extern Lights1 lightning_strike_Beam_layer5_lights;
+extern u8 lightning_strike_dot_i8[];
+extern Vtx lightning_strike_mark_mesh_layer_5_vtx_0[7];
+extern Gfx lightning_strike_mark_mesh_layer_5_tri_0[];
+extern Vtx lightning_strike_lightning_mesh_layer_1_vtx_0[17];
+extern Gfx lightning_strike_lightning_mesh_layer_1_tri_0[];
+extern Gfx mat_lightning_strike_Beam_layer5[];
+extern Gfx mat_revert_lightning_strike_Beam_layer5[];
+extern Gfx mat_lightning_strike_Lighting[];
+extern Gfx mat_revert_lightning_strike_Lighting[];
+extern Gfx mat_lightning_strike_Blank[];
+extern Gfx lightning_strike_mark_mesh_layer_5[];
+extern Gfx lightning_strike_lightning_mesh_layer_1[];
+extern Gfx lightning_strike_lightning_mesh_layer_1_mat_override_Blank_0[];
+extern Gfx lightning_strike_material_revert_render_settings[];
