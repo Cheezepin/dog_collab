@@ -1,0 +1,10 @@
+extern const GeoLayout bowser_1_area_1_geo[];
+extern const GeoLayout bowser_1_area_1[];
+extern const Collision bowser_1_area_1_collision[];
+extern const MacroObject bowser_1_area_1_macro_objs[];
+extern Vtx bowser_1_dl_level_geometry_mesh_layer_1_vtx_cull[8];
+extern Vtx bowser_1_dl_level_geometry_mesh_layer_1_vtx_0[101];
+extern Gfx bowser_1_dl_level_geometry_mesh_layer_1_tri_0[];
+extern Gfx mat_bowser_1_dl_f3d_material_002[];
+extern Gfx bowser_1_dl_level_geometry_mesh_layer_1[];
+extern Gfx bowser_1_dl_material_revert_render_settings[];

@@ -51,6 +51,7 @@
 #include "levels/bitfs/header.h"
 #include "levels/ddd/header.h"
 #include "levels/wf/header.h"
+#include "levels/bowser_1/header.h"
 #include "levels/bowser_2/header.h"
 #include "levels/ttm/header.h"
 #include "levels/ccm/header.h"
@@ -6500,6 +6501,29 @@ const BehaviorScript bhvSphere[] = {
 const BehaviorScript bhvPaletteSwap[] = {
     BEGIN_LOOP(),
     CALL_NATIVE(palette_swap),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvGoddardCage[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oIntangibleTimer, 0),
+    SET_HITBOX_WITH_OFFSET(/*Radius*/ 40, /*Height*/ 40, /*Downwards offset*/ 40),
+    SPAWN_CHILD(/*Model*/ MODEL_NONE, /*Behavior*/ bhvGoddardCageCOL),
+    DELAY(1),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_goddard_cage_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvGoddardCageCOL[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(cage_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_goddard_cageCOL_loop),
+        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 

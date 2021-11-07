@@ -1,5 +1,4 @@
 // bowser_bomb.c.inc
-
 void bhv_bowser_bomb_loop(void) {
     if (obj_check_if_collided_with_object(o, gMarioObject) == 1) {
         o->oInteractStatus &= ~INT_STATUS_INTERACTED;

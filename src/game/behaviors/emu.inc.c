@@ -59,3 +59,36 @@ void palette_swap(void){
         }
     }
 }
+
+/********************************************************
+ * ******************************************************
+ * ****************GODDARD CAGE**************************
+ * ***************SIMILAR TO BOWSER BOMB*****************
+ ********************************************************
+ * ******************************************************/
+
+
+// bhv_bowser_bomb_loop but it only cares about bowser and doesn't explode if mario hits it
+
+void bhv_goddard_cage_loop(void) {
+    
+    if (o->oInteractStatus & INT_STATUS_HIT_MINE)
+    {
+        spawn_object(o, MODEL_BOWSER_FLAMES, bhvBowserBombExplosion);
+        create_sound_spawner(SOUND_GENERAL_BOWSER_BOMB_EXPLOSION);
+        set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
+        obj_mark_for_deletion(bhvGoddardCageCOL);
+
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }
+
+    set_object_visibility(o, 7000);
+}
+
+void bhv_goddard_cageCOL_loop(void) {
+    f32 dist;
+    if (cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist) == NULL){
+        
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }
+}
