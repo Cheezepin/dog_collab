@@ -1974,7 +1974,7 @@ Thank you so much Mario!\n\
 Now my little friend is\n\
 back to his old self!")
 
-DEFINE_DIALOG(COMIT_DIALOG_10, 1, 3, 30, 200, _\
+DEFINE_DIALOG(COMIT_DIALOG_10, 1, 3, 30, 200, "\
 Up ahead is one of our\n\
 research facilities.\n\
 \n\
@@ -2033,4 +2033,4 @@ that fenced off cage...)")
 DEFINE_DIALOG(COMIT_DIALOG_17, 1, 3, 30, 200, "\
 Want a neat tip?\n\
 Hold A while twirling to\n\
-descend slower!"))
+descend slower!")
