@@ -928,7 +928,6 @@ void handle_dialog_text_and_pages(s8 colorMode, struct DialogEntry *dialog, s8 l
                 customColor = TRUE;
                 strIdx++;
                 for (colorLoop = strIdx + 8; strIdx < colorLoop; ++strIdx) {
-                    diffTmp = 0;
                     if (str[strIdx] >= '0' && str[strIdx] <= '9') {
                         diffTmp = 0x30;
                     }
