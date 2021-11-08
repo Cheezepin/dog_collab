@@ -356,30 +356,25 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
     create_dl_translation_matrix(MENU_MTX_PUSH, x, y, 0.0f);
 
     while (str[strPos] != DIALOG_CHAR_TERMINATOR) {
-        if (customColor == TRUE) {
-            gDPSetEnvColor(gDisplayListHead++, rgbaColors[0], rgbaColors[1], rgbaColors[2], rgbaColors[3]);
-        }
-        else {
-            if (customColor == 2) {
-                gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255); // TODO: Is it possible to retrieve the original color that was set before print_generic_string was called?
-                customColor = FALSE;
-            }
-        }
-
         switch (str[strPos]) {
             case DIALOG_CHAR_COLOR:
                 customColor = TRUE;
                 strPos++;
                 for (colorLoop = strPos + 8; strPos < colorLoop; ++strPos) {
-                    diffTmp = 0;
-                    if (str[strPos] >= 0x24 && str[strPos] <= 0x29) {
-                        diffTmp = 0x1A;
+                    if (str[strPos] >= '0' && str[strPos] <= '9') {
+                        diffTmp = 0x30;
                     }
-                    else if (str[strPos] >= 0x10) {
+                    else if (str[strPos] >= 'A' && str[strPos] <= 'F') {
+                        diffTmp = 0x37;
+                    }
+                    else if (str[strPos] >= 'a' && str[strPos] <= 'f') {
+                        diffTmp = 0x57;
+                    }
+                    else {
                         customColor = 2;
                         strPos = colorLoop - 8;
                         for (diffTmp = 0; diffTmp < 8; ++diffTmp) {
-                            if (str[strPos + diffTmp] != 0x9F)
+                            if (str[strPos + diffTmp] != '-')
                                 break;
                         }
                         if (diffTmp == 8)
@@ -394,6 +389,15 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
                     }
                 }
                 strPos--;
+                if (customColor == 1) {
+                    gDPSetEnvColor(gDisplayListHead++, rgbaColors[0],
+                                                    rgbaColors[1],
+                                                    rgbaColors[2],
+                                                    rgbaColors[3]);
+                } else if (customColor == 2) {
+                    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255); // TODO: Is it possible to retrieve the original color that was set before print_generic_string was called?
+                    customColor = 0;
+                }
                 break;
             case DIALOG_CHAR_DAKUTEN:
                 mark = DIALOG_MARK_DAKUTEN;
