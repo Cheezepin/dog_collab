@@ -929,14 +929,20 @@ void handle_dialog_text_and_pages(s8 colorMode, struct DialogEntry *dialog, s8 l
                 strIdx++;
                 for (colorLoop = strIdx + 8; strIdx < colorLoop; ++strIdx) {
                     diffTmp = 0;
-                    if (str[strIdx] >= 0x24 && str[strIdx] <= 0x29) {
-                        diffTmp = 0x1A;
+                    if (str[strIdx] >= '0' && str[strIdx] <= '9') {
+                        diffTmp = 0x30;
                     }
-                    else if (str[strIdx] >= 0x10) {
+                    else if (str[strIdx] >= 'A' && str[strIdx] <= 'F') {
+                        diffTmp = 0x37;
+                    }
+                    else if (str[strIdx] >= 'a' && str[strIdx] <= 'f') {
+                        diffTmp = 0x57;
+                    }
+                    else {
                         customColor = 2;
                         strIdx = colorLoop - 8;
                         for (diffTmp = 0; diffTmp < 8; ++diffTmp) {
-                            if (str[strIdx + diffTmp] != 0x9F)
+                            if (str[strIdx + diffTmp] != '-')
                                 break;
                         }
                         if (diffTmp == 8)

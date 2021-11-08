@@ -29,10 +29,10 @@ const struct DialogEntry entry1 = {
 };
 
 const u8 string2[] = {
-    "(I've been eating my\n"
+    "@FFFFFF80(I've been eating my\n"
     "cards while they're\n"
     "not looking.)\n"
-    "(They taste pretty bad,\n"
+    "@FFFFFF80(They taste pretty bad,\n"
     "but at least I'm\n"
     "winning.)"
 };
