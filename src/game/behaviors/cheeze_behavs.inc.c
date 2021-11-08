@@ -13,3 +13,13 @@ void bhv_cheezeplat_loop(void) {
         o->oPosZ += o->oVelZ;
     }
 }
+
+void bhv_cheezebombwall_loop(void) {
+    if (o->collidedObjs[0] != 0) {
+        if(o->collidedObjs[0]->behavior == segmented_to_virtual(bhvBobomb) && o->collidedObjs[0]->oAction == 3)
+            obj_mark_for_deletion(o);
+        else
+            o->collidedObjs[0] = 0;
+    }
+    o->oInteractStatus = 0;
+}

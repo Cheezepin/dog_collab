@@ -170,7 +170,7 @@
 // When this option is enabled, LODs will ONLY work on console.
 // When this option is disabled, LODs will work regardless of whether console or emulator is used.
 // Regardless of whether this setting is enabled or not, you can use gIsConsole to wrap your own code in a console check.
-//#define AUTO_LOD
+#define AUTO_LOD
 // Disable AA (Recommended: it changes nothing on emulator, and it makes console run better)
 #define DISABLE_AA
 // Makes the coins ia8 64x64 instead of ia16 32x32. Uses new ia8 textures so that vanilla coins look better.
@@ -205,18 +205,18 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
- #define TEST_LEVEL LEVEL_BOWSER_1
+// #define TEST_LEVEL LEVEL_BOB
 // Enable debug level select
 //#define DEBUG_LEVEL_SELECT
 // Enable debug free move (DPad up to enter, A to exit)
 #define ENABLE_DEBUG_FREE_MOVE
 // Custom debug mode. Press DPAD left to show the debug UI. Press DPAD right to enter the noclip mode.
- #define CUSTOM_DEBUG
+//  #define CUSTOM_DEBUG
 // Include Puppyprint, a display library for text and large images. Also includes a custom, enhanced performance profiler.
- #define PUPPYPRINT
- #define PUPPYPRINT_DEBUG 1
+#define PUPPYPRINT
+#define PUPPYPRINT_DEBUG 1
 // Use cycles instead of microseconds
-#define PUPPYPRINT_DEBUG_CYCLES
+// #define PUPPYPRINT_DEBUG_CYCLES
 // Visual debug enables some collision visuals. Tapping Right on the dpad will cycle between visual hitboxes, visual surfaces, both, and neither.
 // If puppyprint is enabled, then this can be cycled only while the screen is active.
 #define VISUAL_DEBUG
