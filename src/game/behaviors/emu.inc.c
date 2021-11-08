@@ -100,6 +100,35 @@ void bhv_goddard_cageCOL_loop(void) {
 #define DOG_ANIM_WALK 3
 #define DOG_ANIM_POUNCE 4
 
+
+extern u8 floor_check = 0;
+void freedom (void) {
+    if(floor_check == 0) {
+    cur_obj_init_animation(DOG_ANIM_POUNCE);
+    o->oForwardVel = -10.0f;
+    cur_obj_update_floor_and_walls();
+    cur_obj_move_standard(78);
+    o->oVelY = -10.0f;
+    if(o->oVelY < -64.0f) {o->oVelY = -64.0f;}
+    if(o->oPosY - o->oFloorHeight >= -20.0f && o->oPosY - o->oFloorHeight < 5.0f) {
+        cur_obj_init_animation(DOG_ANIM_WALK);
+        o->oVelY = 0.0f;
+        floor_check=1;
+    }
+    }
+    else if (floor_check >= 60){ 
+        cur_obj_init_animation(DOG_ANIM_IDLE);
+        o->oForwardVel = -0.0f;
+    }
+    else {
+        floor_check++;
+    }
+}
+
+static void (*sEmuDogActions[])(void) = {
+    freedom,
+};
+
 void bhv_idle_dog_init (void) {
    cur_obj_init_animation(DOG_ANIM_IDLE);
    o->oPosY -= 147;
@@ -107,8 +136,11 @@ void bhv_idle_dog_init (void) {
 }
 void bhv_idle_dog_loop (void) {
     f32 dist;
+    
     if (cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist) == NULL){
-        //cur_obj_init_animation(DOG_ANIM_POUNCE);
-        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+        
+        cur_obj_call_action_function(sEmuDogActions);  
+        o->oAction = 0;
+
     }
 }

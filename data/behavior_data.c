@@ -6534,6 +6534,7 @@ const BehaviorScript bhvDogIdle[] = {
     LOAD_ANIMATIONS(oAnimations, dog_anims),
     ANIMATE(0),
     CALL_NATIVE(bhv_idle_dog_init),
+    SCALE(/*Unused*/ 0, /*Field*/ 50),
     SET_HOME(),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_idle_dog_loop),
