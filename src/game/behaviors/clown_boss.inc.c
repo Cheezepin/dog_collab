@@ -16,7 +16,7 @@ void bhv_clown_boss_init(void) {
     obj_set_hitbox(o, &sClownBossHitbox);
     o->oGravity = 5.5;
     o->oClownAction = 0;
-    o->oClownHealth = 1;
+    o->oClownHealth = 3;
 }
 
 void bhv_clown_boss_loop(void) {
@@ -273,6 +273,7 @@ cur_obj_init_animation_with_accel_and_sound(5, 1.0f);
         o->header.gfx.animInfo.animFrameAccelAssist = 2;
         o->oClownBossTimer = 0;
         o->oClownActionNumber += 1;
+        play_sound(SOUND_GENERAL_BOING2, gGlobalSoundSource);
     }
 
     if (o->oMoveFlags & OBJ_MOVE_HIT_WALL) {
@@ -483,7 +484,7 @@ goddard = cur_obj_find_nearest_object_with_behavior(bhvDogForSC, &dist);
 goddard->oPosZ = o->oPosZ + 1800;
 goddard->oPosY = o->oPosY + 300;
 cur_obj_init_animation_with_accel_and_sound(2, 2.0f);
-play_sound(SOUND_CUSTOM_AWOOGA, o->header.gfx.cameraToObject);
+play_sound(SOUND_CUSTOM_AWOOGA, gGlobalSoundSource);
 gLakituState.goalFocus[0] = o->oPosX;
          gLakituState.goalFocus[1] = o->oPosY + 400;
          gLakituState.goalFocus[2] = o->oPosZ;
@@ -707,11 +708,25 @@ void bhv_goddard_clown_fight_loop(void) {
 
     if (gGlobalTimer % 12 == 0) {
     cur_obj_spawn_particles(&sFightStars);
+    
     }
     if (gGlobalTimer % 8 == 0) {
     cur_obj_spawn_particles(&sFightPuffs);
     }
     if (gGlobalTimer % 2 == 0) {
     cur_obj_spawn_particles(&sFightPuffSingle);
+    }
+
+    if (gGlobalTimer % 40 == 0) {
+        play_sound(SOUND_GENERAL_BREAK_BOX, gGlobalSoundSource);
+    }
+    if ((gGlobalTimer + 10) % 40 == 0) {
+        play_sound(SOUND_GENERAL_POUND_WOOD_POST, gGlobalSoundSource);
+    }
+    if ((gGlobalTimer + 20) % 40 == 0) {
+        play_sound(SOUND_GENERAL_BOING2, gGlobalSoundSource);
+    }
+    if ((gGlobalTimer + 30) % 40 == 0) {
+        play_sound(SOUND_GENERAL_METAL_POUND, gGlobalSoundSource);
     }
 }

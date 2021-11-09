@@ -1360,56 +1360,53 @@ AAUUUUUUGHH!!!!!\n\
 "))
 
 DEFINE_DIALOG(DIALOG_105, 1, 3, 95, 200, _("\
-Ready for blastoff! Come\n\
-on, hop into the cannon!\n\
-\n\
-You can reach the Star on\n\
-the floating island by\n\
-using the four cannons.\n\
-Use the Control Stick to\n\
-aim, then press [A] to fire.\n\
-\n\
-If you're handy, you can\n\
-grab on to trees or poles\n\
-to land."))
+The circus is a fun\n\
+place! So much movement!\n\
+Watch your step in there."))
 
-DEFINE_DIALOG(DIALOG_106, 1, 2, 95, 200, _("\
-Ready for blastoff! Come\n\
-on, hop into the cannon!"))
+DEFINE_DIALOG(DIALOG_106, 1, 4, 95, 200, _("\
+Hey, did you know that\n\
+you can walk on the\n\
+arms of the clown\n\
+thwomp clocks?"))
 
 DEFINE_DIALOG(DIALOG_107, 1, 3, 95, 200, _("\
-Ghosts...\n\
-...don't...\n\
-...DIE!\n\
-Heh, heh, heh!\n\
-Can you get out of here...\n\
-...alive?"))
+How are you planning\n\
+on getting back?\n\
+"))
 
 DEFINE_DIALOG(DIALOG_108, 1, 2, 95, 200, _("\
-Boooooo-m! Here comes\n\
-the master of mischief,\n\
-the tower of terror,\n\
-the Big Boo!\n\
-Ka ha ha ha..."))
+I hate my job.\n\
+"))
 
-DEFINE_DIALOG(DIALOG_109, 1, 4, 95, 200, _("\
-Ooooo Nooooo!\n\
-Talk about out-of-body\n\
-experiences--my body\n\
-has melted away!\n\
-Have you run in to any\n\
-headhunters lately??\n\
-I could sure use a new\n\
-body!\n\
-Brrr! My face might\n\
-freeze like this!"))
+DEFINE_DIALOG(DIALOG_109, 1, 5, 95, 200, _("\
+Here's a tip:\n\
+If you zoom out the\n\
+camera near the\n\
+Ferris Wheel, it will\n\
+go further than normal!"))
 
-DEFINE_DIALOG(DIALOG_110, 1, 5, 95, 200, _("\
-I need a good head on my\n\
-shoulders. Do you know of\n\
-anybody in need of a good\n\
-body? Please! I'll follow\n\
-you if you do!"))
+DEFINE_DIALOG(DIALOG_110, 1, 4, 95, 200, _("\
+Hey, you there!\n\
+Do you know what you've\n\
+done!? How could you\n\
+do such a thing?\n\
+I mean, for the love\n\
+of linguine,\n\
+who's going to close\n\
+the circus now?\n\
+Don't you get it?\n\
+The clown you beat\n\
+the daylights out of\n\
+was supposed to close!\n\
+I guess it's your job\n\
+now! I need you to go\n\
+and turn off the main\n\
+power switch.\n\
+The switch is deep within\n\
+the indoor section of the\n\
+circus. You should be \n\
+able to find it."))
 
 DEFINE_DIALOG(DIALOG_111, 1, 4, 95, 200, _("\
 Perfect! What a great\n\

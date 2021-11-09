@@ -54,8 +54,8 @@ void scroll_sts_mat_jrb_dl_f3d_material_067() {
 };
 
 void scroll_sts_mat_jrb_dl_f3d_material_040() {
-	static int intervalTex0 = 3;
-	static int curInterval0 = 3;
+	static int intervalTex0 = 6;
+	static int curInterval0 = 6;
 	Gfx *mat = segmented_to_virtual(mat_jrb_dl_f3d_material_040);
 
 	if (--curInterval0 <= 0) {
@@ -76,8 +76,8 @@ void scroll_sts_mat_jrb_dl_f3d_material_031() {
 };
 
 void scroll_sts_mat_jrb_dl_f3d_material_062() {
-	static int intervalTex0 = 4;
-	static int curInterval0 = 4;
+	static int intervalTex0 = 6;
+	static int curInterval0 = 6;
 	Gfx *mat = segmented_to_virtual(mat_jrb_dl_f3d_material_062);
 
 	if (--curInterval0 <= 0) {

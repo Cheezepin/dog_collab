@@ -1313,8 +1313,11 @@
 //boss curtains
 #define /*0x0F4*/ oCurtainTimer       OBJECT_FIELD_S32(0x1B)
 
-//goddardclown fight
+//goddard & clown fight
 #define /*0x0F4*/ oGCFAction       OBJECT_FIELD_S32(0x1B)
+
+//circus toad
+#define /*0x0F4*/ oTalkedToMario       OBJECT_FIELD_S32(0x30)
 
 /* Cephie */
 #define /*0x0F4*/ oCephieStartYaw                               OBJECT_FIELD_S32(0x1B)

@@ -41,6 +41,8 @@ extern u8 gShadeScreenAmount;
         }
     }
 
+    
+
 
     }
     else if (o->oBehParams2ndByte == 1) {

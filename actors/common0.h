@@ -191,62 +191,6 @@ extern const GeoLayout test_platform_geo[];
 extern const Gfx unknown_seg8_dl_08026260[];
 extern const Collision unknown_seg8_collision_080262F8[];
 
-#include "carousel/geo_header.h"
 
-#include "carousel/collision_header.h"
-
-
-#include "carousel/anim_header.h"
-#include "circus_pole/geo_header.h"
-
-#include "clown_clock/geo_header.h"
-
-#include "clown_clock/collision_header.h"
-
-#include "clown_door_top/geo_header.h"
-
-#include "clown_door_bottom/geo_header.h"
-
-#include "clown_door_top/collision_header.h"
-
-#include "clown_door_bottom/collision_header.h"
-
-#include "circus_wheel/geo_header.h"
-
-#include "cable_car/geo_header.h"
-
-#include "cable_car/collision_header.h"
-
-#include "circus_balloon/collision_header.h"
-
-#include "circus_balloon/geo_header.h"
-
-#include "pinwheel/geo_header.h"
-
-#include "trapeze/geo_header.h"
-
-#include "balloon_platform/geo_header.h"
-
-#include "balloon_platform/collision_header.h"
-
-#include "clown_boss/geo_header.h"
-
-
-#include "clown_boss/anim_header.h"
-#include "boss_curtains/geo_header.h"
-
-#include "boss_curtains/collision_header.h"
-
-#include "steel_gate/geo_header.h"
-
-#include "steel_gate/collision_header.h"
-
-#include "sad_carousel/geo_header.h"
-
-#include "sad_pinwheel/geo_header.h"
-
-#include "sad_clown_clock/geo_header.h"
-
-#include "power_switch/geo_header.h"
 
 #endif

@@ -588,6 +588,8 @@ extern const BehaviorScript bhvBossCurtains[];
 extern const BehaviorScript bhvGoddardClownFight[];
 extern const BehaviorScript bhvSteelGate[];
 extern const BehaviorScript bhvPowerSwitch[];
+extern const BehaviorScript bhvClownToad[];
+extern const BehaviorScript bhvKidToad[];
 
 extern const BehaviorScript bhvRotatingTorus[];
 //extern const BehaviorScript bhvElectricSpinner[];

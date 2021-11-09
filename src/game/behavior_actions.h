@@ -631,6 +631,9 @@ void bhv_trapeze_hitbox_loop(void);
 
 void bhv_balloon_platform_loop(void);
 
+void bhv_kid_toad_init(void);
+void bhv_clown_toad_loop(void);
+
 void bhv_clown_boss_init(void);
 void bhv_clown_boss_loop(void);
 void bhv_clown_bowling_ball_roll_loop(void);

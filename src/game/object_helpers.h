@@ -284,6 +284,8 @@ Gfx *geo_clown_eyes_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 
 Gfx *geo_clown_awooga_eyes_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 Gfx *geo_clown_awooga_mouth_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 Gfx *geo_clown_bone_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+
+Gfx *geo_switch_kid_toad_holding(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 //CowQuack end
 
 // thecozies start
