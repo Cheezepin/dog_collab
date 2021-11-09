@@ -12,6 +12,8 @@
 #include "make_const_nonconst.h"
 
 #include "levels/bbh/header.h"
+Gfx *geo_comit_cpu_fog(s32 callContext, struct GraphNode *node, Mat4 mtx);
+Gfx *geo_comit_cpu_fog_big(s32 callContext, struct GraphNode *node, Mat4 mtx);
 
 #include "levels/bbh/staircase_step/geo.inc.c"
 #include "levels/bbh/tilting_trap_platform/geo.inc.c"
@@ -22,3 +24,27 @@
 #include "levels/bbh/merry_go_round/geo.inc.c"
 #include "levels/bbh/coffin/geo.inc.c"
 #include "levels/bbh/areas/1/geo.inc.c"
+#include "levels/bbh/geo.inc.c"
+
+#include "levels/bbh/bounce_cloud/geo.inc.c"
+#include "levels/bbh/stretch_cloud/geo.inc.c"
+#include "levels/bbh/rainbow_cloud/geo.inc.c"
+#include "levels/bbh/cloud_rainbow/geo.inc.c"
+#include "levels/bbh/rain_cloud/geo.inc.c"
+#include "levels/bbh/mist_secret/geo.inc.c"
+#include "levels/bbh/fade_cloud/geo.inc.c"
+#include "levels/bbh/body_lakitu/geo.inc.c"
+#include "levels/bbh/fwoosh_button/geo.inc.c"
+#include "levels/bbh/metal_crate/geo.inc.c"
+#include "levels/bbh/lowpoly_koopa/geo.inc.c"
+#include "levels/bbh/lowpoly_goomba/geo.inc.c"
+#include "levels/bbh/lightning_cloud/geo.inc.c"
+#include "levels/bbh/lightning_bolt/geo.inc.c"
+#include "levels/bbh/floor_door/geo.inc.c"
+#include "levels/bbh/lightning_strike/geo.inc.c"
+#include "levels/bbh/lightning_blast/geo.inc.c"
+#include "levels/bbh/center_platform/geo.inc.c"
+#include "levels/bbh/dark_sky/geo.inc.c"
+#include "levels/bbh/entrance_gate/geo.inc.c"
+#include "levels/bbh/center_light/geo.inc.c"
+#include "levels/bbh/fwoosh_step_button/geo.inc.c"

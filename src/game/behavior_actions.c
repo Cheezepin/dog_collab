@@ -231,6 +231,7 @@ s32 set_obj_anim_with_accel_and_sound(s16 frame1, s16 frame2, s32 sound) {
 #include "behaviors/power_switch.inc.c"
 #include "behaviors/circus_toads.inc.c"
 
+#include "behaviors/comit_code.inc.c"
 #include "behaviors/emu.inc.c"
 #include "behaviors/thecozies.inc.c"
 #include "behaviors/motos.inc.c"

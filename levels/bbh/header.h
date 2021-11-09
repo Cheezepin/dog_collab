@@ -111,4 +111,78 @@ extern const struct MovtexQuadCollection bbh_movtex_merry_go_round_water_side[];
 // script
 extern const LevelScript level_bbh_entry[];
 
+#include "levels/bbh/header.inc.h"
+
+#include "levels/bbh/bounce_cloud/geo_header.h"
+
+#include "levels/bbh/bounce_cloud/collision_header.h"
+
+#include "levels/bbh/stretch_cloud/geo_header.h"
+
+#include "levels/bbh/stretch_cloud/collision_header.h"
+
+#include "levels/bbh/rainbow_cloud/geo_header.h"
+
+#include "levels/bbh/rainbow_cloud/anim_header.h"
+
+#include "levels/bbh/cloud_rainbow/collision_header.h"
+
+#include "levels/bbh/cloud_rainbow/geo_header.h"
+
+#include "levels/bbh/rain_cloud/geo_header.h"
+
+#include "levels/bbh/rain_cloud/collision_header.h"
+
+#include "levels/bbh/mist_secret/geo_header.h"
+
+#include "levels/bbh/fade_cloud/collision_header.h"
+
+#include "levels/bbh/fade_cloud/geo_header.h"
+
+#include "levels/bbh/body_lakitu/geo_header.h"
+
+#include "levels/bbh/body_lakitu/anim_header.h"
+
+#include "levels/bbh/fwoosh_button/geo_header.h"
+
+#include "levels/bbh/fwoosh_button/collision_header.h"
+
+#include "levels/bbh/metal_crate/geo_header.h"
+
+#include "levels/bbh/metal_crate/collision_header.h"
+
+#include "levels/bbh/lowpoly_koopa/geo_header.h"
+
+#include "levels/bbh/lowpoly_goomba/geo_header.h"
+
+#include "levels/bbh/lightning_cloud/geo_header.h"
+
+#include "levels/bbh/lightning_cloud/anim_header.h"
+
+#include "levels/bbh/lightning_bolt/geo_header.h"
+
+#include "levels/bbh/floor_door/geo_header.h"
+
+#include "levels/bbh/floor_door/collision_header.h"
+
+#include "levels/bbh/lightning_strike/geo_header.h"
+
+#include "levels/bbh/lightning_blast/geo_header.h"
+
+#include "levels/bbh/center_platform/geo_header.h"
+
+#include "levels/bbh/center_platform/collision_header.h"
+
+#include "levels/bbh/dark_sky/geo_header.h"
+
+#include "levels/bbh/entrance_gate/geo_header.h"
+
+#include "levels/bbh/entrance_gate/collision_header.h"
+
+#include "levels/bbh/center_light/geo_header.h"
+
+#include "levels/bbh/fwoosh_step_button/geo_header.h"
+
+#include "levels/bbh/fwoosh_step_button/collision_header.h"
+
 #endif

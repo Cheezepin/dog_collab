@@ -1,8 +1,12 @@
 extern const GeoLayout sphere_geo[];
-extern Lights1 sphere_sphere_layer1_lights;
-extern Vtx sphere_000_displaylist_mesh_layer_1_vtx_0[31];
-extern Gfx sphere_000_displaylist_mesh_layer_1_tri_0[];
-extern Gfx mat_sphere_sphere_layer1[];
-extern Gfx mat_revert_sphere_sphere_layer1[];
-extern Gfx sphere_000_displaylist_mesh_layer_1[];
+extern u8 sphere_Rainbow_small_rgba16[];
+extern u8 sphere_blockCity04R_32x32_grayscale_i4[];
+extern Vtx sphere_skinned_mesh_layer_1_vtx_0[56];
+extern Gfx sphere_skinned_mesh_layer_1_tri_0[];
+extern Vtx sphere_skinned_mesh_layer_1_vtx_1[49];
+extern Gfx sphere_skinned_mesh_layer_1_tri_1[];
+extern Gfx mat_sphere_f3d_material_layer1[];
+extern Gfx mat_revert_sphere_f3d_material_layer1[];
+extern Gfx mat_sphere_f3d_material_001[];
+extern Gfx sphere_skinned_mesh_layer_1[];
 extern Gfx sphere_material_revert_render_settings[];

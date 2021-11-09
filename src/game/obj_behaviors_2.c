@@ -459,7 +459,7 @@ static s32 oscillate_toward(s32 *value, f32 *vel, s32 target, f32 velCloseToZero
     return FALSE;
 }
 
-static void obj_update_blinking(s32 *blinkTimer, s16 baseCycleLength, s16 cycleLengthRange,
+void obj_update_blinking(s32 *blinkTimer, s16 baseCycleLength, s16 cycleLengthRange,
                                 s16 blinkLength) {
     if (*blinkTimer != 0) {
         *blinkTimer -= 1;

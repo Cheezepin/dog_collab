@@ -3,6 +3,7 @@
 
 #include "src/game/texscroll/jrb_texscroll.inc.h"
 #include "src/game/texscroll/common0_texscroll.inc.h"
+#include "src/game/texscroll/bbh_texscroll.inc.h"
 #include "src/game/texscroll/ccm_texscroll.inc.h"
 #include "src/game/texscroll/bitdw_texscroll.inc.h"
 #include "src/game/texscroll/sl_texscroll.inc.h"

@@ -1,0 +1,17 @@
+extern const GeoLayout stretch_cloud_switch_opt1[];
+extern const GeoLayout stretch_cloud_geo[];
+extern Lights1 stretch_cloud_Cloud_001_lights;
+extern u8 stretch_cloud_clouds_i8_i8[];
+extern u8 stretch_cloud_smiling_face_ia8[];
+extern u8 stretch_cloud_stretch_face_ia8[];
+extern Vtx stretch_cloud_stretchdl_mesh_layer_1_vtx_0[29];
+extern Gfx stretch_cloud_stretchdl_mesh_layer_1_tri_0[];
+extern Vtx stretch_cloud_stretchface_mesh_layer_4_vtx_0[4];
+extern Gfx stretch_cloud_stretchface_mesh_layer_4_tri_0[];
+extern Gfx mat_stretch_cloud_Cloud_001[];
+extern Gfx mat_stretch_cloud_StretchFace[];
+extern Gfx mat_stretch_cloud_StretchFace2[];
+extern Gfx stretch_cloud_stretchdl_mesh_layer_1[];
+extern Gfx stretch_cloud_stretchface_mesh_layer_4[];
+extern Gfx stretch_cloud_stretchface_mesh_layer_4_mat_override_StretchFace2_0[];
+extern Gfx stretch_cloud_material_revert_render_settings[];

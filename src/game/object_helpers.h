@@ -119,6 +119,7 @@ u32 get_object_list_from_behavior(const BehaviorScript *behavior);
 struct Object *cur_obj_nearest_object_with_behavior(const BehaviorScript *behavior);
 f32 cur_obj_dist_to_nearest_object_with_behavior(const BehaviorScript* behavior);
 struct Object *cur_obj_find_nearest_object_with_behavior(const BehaviorScript * behavior, f32 *dist);
+struct Object *find_any_object_with_behavior(const BehaviorScript *behavior);
 struct Object *find_unimportant_object(void);
 s32 count_unimportant_objects(void);
 s32 count_objects_with_behavior(const BehaviorScript *behavior);
@@ -288,6 +289,8 @@ Gfx *geo_clown_bone_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 
 Gfx *geo_switch_kid_toad_holding(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 //CowQuack end
 
+
+Gfx *geo_comit_set_brightness(s32 callContext, struct GraphNode *node, UNUSED void *context);
 // thecozies start
 Gfx *move_water_top(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);

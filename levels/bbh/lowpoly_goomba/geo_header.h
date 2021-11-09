@@ -1,0 +1,16 @@
+extern const GeoLayout lowpoly_goomba_geo[];
+extern Lights1 lowpoly_goomba_Face_lights;
+extern u8 lowpoly_goomba_goomba_face_rgba16_ci8[];
+extern u8 lowpoly_goomba_goomba_face_rgba16_ci8_pal_rgba16[];
+extern Vtx lowpoly_goomba_000_offset_002_mesh_layer_1_vtx_0[17];
+extern Gfx lowpoly_goomba_000_offset_002_mesh_layer_1_tri_0[];
+extern Vtx lowpoly_goomba_000_offset_003_mesh_layer_1_vtx_0[12];
+extern Gfx lowpoly_goomba_000_offset_003_mesh_layer_1_tri_0[];
+extern Vtx lowpoly_goomba_000_offset_004_mesh_layer_1_vtx_0[12];
+extern Gfx lowpoly_goomba_000_offset_004_mesh_layer_1_tri_0[];
+extern Gfx mat_lowpoly_goomba_Face[];
+extern Gfx mat_revert_lowpoly_goomba_Face[];
+extern Gfx lowpoly_goomba_000_offset_002_mesh_layer_1[];
+extern Gfx lowpoly_goomba_000_offset_003_mesh_layer_1[];
+extern Gfx lowpoly_goomba_000_offset_004_mesh_layer_1[];
+extern Gfx lowpoly_goomba_material_revert_render_settings[];

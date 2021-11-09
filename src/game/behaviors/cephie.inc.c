@@ -1,4 +1,9 @@
 void bhv_cephie_init(void) {
+    u8 anim = 0;
+    if (o->oBehParams2ndByte == 1 || o->oBehParams2ndByte == 2) {
+        anim = 1;
+    }
+    cur_obj_init_animation(anim);
     o->oGravity = 2.5;
     o->oFriction = 0.8;
     o->oBuoyancy = 1.3;
@@ -6,7 +11,6 @@ void bhv_cephie_init(void) {
 }
 
 void cephie_act_idle(void) {
-    object_step();
     o->oCephieStartYaw = o->oMoveAngleYaw;
 
     if (o->oInteractStatus == INT_STATUS_INTERACTED) {
@@ -70,4 +74,19 @@ void bhv_cephie_loop(void) {
     cephie_actions();
 
     o->oInteractStatus = 0;
+}
+
+Gfx *geo_switch_cephie_hold(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct Object *obj = (struct Object *) gCurGraphNodeObject;
+        struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
+
+        if (obj->oBehParams2ndByte == 1 || obj->oBehParams2ndByte == 2) {
+            switchCase->selectedCase = 1; // Uno cards
+        }
+        else {
+            switchCase->selectedCase = 0;
+        }
+    }
+    return NULL;
 }

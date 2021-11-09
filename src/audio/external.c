@@ -105,7 +105,9 @@ u8 sDialogSpeaker[] = {
     /*13*/ _,     _,     _, _,     _,     _,     _,     _,     _,     _,
     /*14*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
     /*15*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
-    /*16*/ _,     _, _,     _,     _,     _,     _,     _,     _, _
+    /*16*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
+    /*17*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
+    /*18*/ _,     _,     _,     _,     _,     _,     _,
 };
 #undef _
 STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
@@ -303,7 +305,8 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_LEVEL_BOSS_JENOVA
     100,  // SEQ_LEVEL_STRIATION
     70,  // SEQ_LEVEL_BOSS_CACKLETTA
-    70,
+    70, // SEQ_LEVEL_SAD_OLIVIA
+    70,  // SEQ_COMIT_CLOUD
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,
@@ -2289,14 +2292,18 @@ void set_sound_moving_speed(u8 bank, u8 speed) {
 /**
  * Called from threads: thread5_game_loop
  */
-void play_dialog_sound(u8 dialogID) {
+void play_dialog_sound(u8 voice, u8 dialogID) {
     u8 speaker;
 
-    if (dialogID >= DIALOG_COUNT) {
-        dialogID = 0;
-    }
+    if (voice == 0) {
+        if (dialogID >= DIALOG_COUNT) {
+            dialogID = 0;
+        }
 
     speaker = sDialogSpeaker[dialogID];
+    if (gCurrLevelNum == LEVEL_BBH) { // comit code
+        speaker = 0xFF;
+    }
     if (speaker != 0xff) {
         play_sound(sDialogSpeakerVoice[speaker], gGlobalSoundSource);
 
