@@ -2322,6 +2322,8 @@ void play_dialog_sound(u8 voice, u8 dialogID) {
 #endif
 }
 
+}
+
 /**
  * Called from threads: thread5_game_loop
  */

@@ -1256,7 +1256,7 @@ I think it looks better on\n\
 me than it does on you,\n\
 though! Eeeee! Kee keee!")
 
-DEFINE_DIALOG(DIALOG_102, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_102, 1, 5, 30, 200, "\
 Gyahyuck! Welcome all!\n\
 We've got quite the show\n\
 awating your eyes\n\
@@ -1326,9 +1326,9 @@ AAAAAAAAARRGHHHHH!\n\
 \n\
 \n\
 \n\
-"))
+")
 
-DEFINE_DIALOG(DIALOG_103, 1, 3, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_103, 1, 3, 95, 200, "\
 That does it!\n\
 \n\
 \n\
@@ -1340,9 +1340,9 @@ ULTIMATE ATTACK!\n\
 \n\
 ...huh?\n\
 \n\
-"))
+")
 
-DEFINE_DIALOG(DIALOG_104, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_104, 1, 3, 30, 200, "\
 OUCH! HEY! OW!\n\
 \n\
 \n\
@@ -1357,36 +1357,36 @@ ARE YOU DOING WITH\n\
 THAT?\n\
 AAUUUUUUGHH!!!!!\n\
 \n\
-"))
+")
 
-DEFINE_DIALOG(DIALOG_105, 1, 3, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_105, 1, 3, 95, 200, "\
 The circus is a fun\n\
 place! So much movement!\n\
-Watch your step in there."))
+Watch your step in there.")
 
-DEFINE_DIALOG(DIALOG_106, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_106, 1, 4, 95, 200, "\
 Hey, did you know that\n\
 you can walk on the\n\
 arms of the clown\n\
-thwomp clocks?"))
+thwomp clocks?")
 
-DEFINE_DIALOG(DIALOG_107, 1, 3, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_107, 1, 3, 95, 200, "\
 How are you planning\n\
 on getting back?\n\
-"))
+")
 
-DEFINE_DIALOG(DIALOG_108, 1, 2, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_108, 1, 2, 95, 200, "\
 I hate my job.\n\
-"))
+")
 
-DEFINE_DIALOG(DIALOG_109, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_109, 1, 5, 95, 200, "\
 Here's a tip:\n\
 If you zoom out the\n\
 camera near the\n\
 Ferris Wheel, it will\n\
-go further than normal!"))
+go further than normal!")
 
-DEFINE_DIALOG(DIALOG_110, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_110, 1, 4, 95, 200, "\
 Hey, you there!\n\
 Do you know what you've\n\
 done!? How could you\n\
@@ -1406,7 +1406,7 @@ power switch.\n\
 The switch is deep within\n\
 the indoor section of the\n\
 circus. You should be \n\
-able to find it."))
+able to find it.")
 
 DEFINE_DIALOG(DIALOG_111, 1, 4, 95, 200, "\
 Perfect! What a great\n\
@@ -2050,7 +2050,7 @@ Thank you so much Mario!\n\
 Now my little friend is\n\
 back to his old self!")
 
-DEFINE_DIALOG(COMIT_DIALOG_10, 1, 3, 30, 200, _\
+DEFINE_DIALOG(COMIT_DIALOG_10, 1, 3, 30, 200, "\
 Up ahead is one of our\n\
 research facilities.\n\
 \n\
@@ -2109,4 +2109,4 @@ that fenced off cage...)")
 DEFINE_DIALOG(COMIT_DIALOG_17, 1, 3, 30, 200, "\
 Want a neat tip?\n\
 Hold A while twirling to\n\
-descend slower!"))
+descend slower!")
