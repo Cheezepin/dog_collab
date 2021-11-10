@@ -661,7 +661,8 @@
 #define MODEL_SAD_CLOWN_CLOCK                    0x121
 #define MODEL_SAD_PINWHEEL                    0x122
 #define MODEL_POWER_SWITCH                   0x123
-//CowQuack end (fuck you fazana i had to change these last 4)
+#define MODEL_CIRCUS_CANNON                   0x124
+//CowQuack end (fuck you fazana i had to change these last 5)
 
 
 //START ROVERT MODEL IDS

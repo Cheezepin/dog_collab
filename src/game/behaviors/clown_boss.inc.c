@@ -734,3 +734,47 @@ void bhv_goddard_clown_fight_loop(void) {
         play_sound(SOUND_GENERAL_METAL_POUND, gGlobalSoundSource);
     }
 }
+
+void bhv_circus_cannon_init(void) {
+   
+}
+
+void bhv_circus_cannon_loop(void) {
+    struct Object *clown;
+    f32 dist;
+    clown = cur_obj_find_nearest_object_with_behavior(bhvClownBoss, &dist);
+    if (clown && clown->oClownAction != 0 && clown->oClownAction != 10) {
+
+        if ((o->oCircusCannonTimer + 150*o->oBehParams2ndByte) % 450 == 0) {
+            int rand = random_u16();
+        
+        play_sound(SOUND_OBJ_CANNON4, gGlobalSoundSource);
+        switch (rand % 3) {
+            case 0:
+            o->oObjShootObject = spawn_object_relative(0x30, 100, 100, 0, o, MODEL_BLACK_BOBOMB, bhvBobomb);
+            o->oObjShootObject->oVelY = 30.0f;
+            o->oObjShootObject->oForwardVel = 320.0f;
+            o->oObjShootObject->oAction = BOBOMB_ACT_CHASE_MARIO;
+            o->oObjShootObject->oBobombFuseLit = 1;
+            break;
+            case 1:
+            o->oObjShootObject = spawn_object_relative(1, 100, 100, 0, o, MODEL_BOWLING_BALL, bhvClownBowlingBall);
+            o->oObjShootObject->oVelY = 40.0f;
+            o->oObjShootObject->oForwardVel = 100.0f;
+            o->oObjShootObject->oMoveAngleYaw = o->oMoveAngleYaw + 0x4000;
+            o->oObjShootObject->oFaceAngleYaw = o->oFaceAngleYaw + 0x4000;
+            break;
+            case 2:
+            o->oObjShootObject = spawn_object_relative(0x30, 100, 100, 0, o, MODEL_BLUE_FLAME, bhvBlueBowserFlame);
+            o->oObjShootObject->oMoveAngleYaw = o->oMoveAngleYaw + 0x4000;
+            o->oObjShootObject->oFaceAngleYaw = o->oFaceAngleYaw + 0x4000;
+            o->oObjShootObject->oVelY = 30.0f;
+            o->oObjShootObject->oForwardVel = 120.0f;
+            break;
+        }
+
+        }
+
+        o->oCircusCannonTimer += 1;
+    }
+}

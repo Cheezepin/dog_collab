@@ -176,11 +176,19 @@ void bhv_clown_bowling_ball_roll_loop(void) {
 
     //! Uninitialzed parameter, but the parameter is unused in the called function
     //pathResult = cur_obj_follow_path(pathResult);
-
+    if (o->oBehParams2ndByte == 0) {
     obj_turn_toward_object(o, gMarioObject, 0x10, 0x200);
-    
         o->oForwardVel = 20.0;
-    
+    }
+    else {
+        obj_turn_toward_object(o, gMarioObject, 0x10, 0x100);
+        if (o->oForwardVel > 25.0) {
+            o->oForwardVel -= 4.0f;
+        }
+        else {
+         o->oForwardVel = 25.0;
+        }
+    }
 
     bowling_ball_set_hitbox();
     if (o->oTimer >= 140) {

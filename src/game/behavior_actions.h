@@ -641,6 +641,8 @@ void bhv_clown_bowling_ball_init(void);
 void bhv_boss_curtains_loop(void);
 void bhv_goddard_clown_fight_init(void);
 void bhv_goddard_clown_fight_loop(void);
+void bhv_circus_cannon_init(void);
+void bhv_circus_cannon_loop(void);
 //CowQuack end
 
 // axo start

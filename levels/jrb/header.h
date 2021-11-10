@@ -141,4 +141,10 @@ extern const LevelScript level_jrb_entry[];
 
 #include "levels/jrb/sad_clown_clock/geo_header.h"
 
+#include "levels/jrb/circus_cannon/geo_header.h"
+
+#include "levels/jrb/balloon_platform/collision_header.h"
+
+#include "levels/jrb/thwomp_clock/collision_header.h"
+
 #endif

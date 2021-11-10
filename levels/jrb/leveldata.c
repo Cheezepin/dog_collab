@@ -78,3 +78,5 @@
 #include "levels/jrb/clown_toad/anims/table.inc.c"
 #include "levels/jrb/clown_toad/model.inc.c"
 #include "levels/jrb/circus_wheel/model.inc.c"
+#include "levels/jrb/circus_cannon/model.inc.c"
+#include "levels/jrb/thwomp_clock/collision.inc.c"

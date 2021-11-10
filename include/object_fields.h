@@ -1319,6 +1319,10 @@
 //circus toad
 #define /*0x0F4*/ oTalkedToMario       OBJECT_FIELD_S32(0x30)
 
+//circus cannon
+#define /*0x0F4*/ oCircusCannonTimer       OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oObjShootObject           OBJECT_FIELD_OBJ(0x1C)
+
 /* Cephie */
 #define /*0x0F4*/ oCephieStartYaw                               OBJECT_FIELD_S32(0x1B)
 #define /*0x0F8*/ oCephieTalked                                 OBJECT_FIELD_S32(0x1C)

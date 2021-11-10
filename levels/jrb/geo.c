@@ -43,3 +43,4 @@
 #include "levels/jrb/kid_toad/geo.inc.c"
 #include "levels/jrb/clown_toad/geo.inc.c"
 #include "levels/jrb/circus_wheel/geo.inc.c"
+#include "levels/jrb/circus_cannon/geo.inc.c"

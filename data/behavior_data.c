@@ -6470,7 +6470,15 @@ const BehaviorScript bhvPowerSwitch[] = {
     END_LOOP(),
 };
 
-
+const BehaviorScript bhvCircusCannon[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_LONG(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
+    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(bhv_circus_cannon_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_circus_cannon_loop),
+    END_LOOP(),
+};
 
 const BehaviorScript bhvMagmaThwomp[] = {
     BEGIN(OBJ_LIST_SURFACE),
@@ -6638,8 +6646,9 @@ const BehaviorScript bhvSteelGate[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_LONG(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
     LOAD_COLLISION_DATA(steel_gate_collision),
-    SET_FLOAT(oDrawingDistance, 10500),
+    SET_FLOAT(oDrawingDistance, 15500),
     CALL_NATIVE(bhv_steel_gate_init),
+    CALL_NATIVE(bhv_init_room),
     BEGIN_LOOP(),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
