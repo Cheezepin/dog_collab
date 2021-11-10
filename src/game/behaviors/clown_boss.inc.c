@@ -501,7 +501,9 @@ if (o->oClownActionNumber == 5) {
     o->oPosZ += 16*sins(0x2000 * o->oClownBossTimer) * -coss(o->parentObj->oFaceAngleYaw);
     
     goddard = cur_obj_find_nearest_object_with_behavior(bhvDogForSC, &dist);
+    
 goddard->oPosZ -= 30;
+
     if (goddard->oPosZ - o->oPosZ <= 0) {
         gMarioObject->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_MARIO];
         gCamera->cutscene = 0;
@@ -679,7 +681,9 @@ void bhv_boss_curtains_loop(void) {
 }
 
 void bhv_goddard_clown_fight_init(void) {
-
+    if (o->parentObj->oClownActionNumber == 4) {
+        cur_obj_init_animation_with_accel_and_sound(4, 1.0f);
+    }
 }
 
 struct SpawnParticlesInfo sFightStars = {

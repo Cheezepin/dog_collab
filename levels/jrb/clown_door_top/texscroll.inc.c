@@ -9,6 +9,6 @@ void scroll_sts_mat_clown_door_top_f3d_material_031() {
 	}
 };
 
-void scroll_actor_geo_clown_door_top() {
+void scroll_jrb_level_geo_clown_door_top() {
 	scroll_sts_mat_clown_door_top_f3d_material_031();
 }

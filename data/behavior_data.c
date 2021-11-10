@@ -6443,7 +6443,7 @@ const BehaviorScript bhvDogForSC[] = {
     SET_HITBOX(/*Radius*/ 100, /*Height*/ 60),
     ANIMATE(2),
     BEGIN_LOOP(),
-
+    CALL_NATIVE(bhv_goddard_clown_fight_init),
     END_LOOP(),
 };
 
@@ -6638,6 +6638,7 @@ const BehaviorScript bhvSteelGate[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_LONG(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
     LOAD_COLLISION_DATA(steel_gate_collision),
+    SET_FLOAT(oDrawingDistance, 10500),
     CALL_NATIVE(bhv_steel_gate_init),
     BEGIN_LOOP(),
         CALL_NATIVE(load_object_collision_model),
@@ -6675,7 +6676,6 @@ const BehaviorScript bhvGoddardClownFight[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
     CALL_NATIVE(bhv_init_room),
-    CALL_NATIVE(bhv_goddard_clown_fight_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_goddard_clown_fight_loop),
     END_LOOP(),

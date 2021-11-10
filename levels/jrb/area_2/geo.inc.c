@@ -428,7 +428,7 @@ const GeoLayout jrb_dl_6PathToBackrooms_001_geo[] = {
 		GEO_OPEN_NODE(),
 			GEO_SCALE_WITH_DL(LAYER_OPAQUE, 106453, jrb_dl_Cube_115_mesh_layer_1),
 		GEO_CLOSE_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 8963, 100, -1075, jrb_dl_Plane_177_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 15585, 290, -5434, jrb_dl_Plane_135_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 20376, -2940, -8686, 0, -90, 0, jrb_dl_Plane_249_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 20376, -2669, -8686, 0, -90, 0, jrb_dl_Plane_256_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 8963, 100, -1075, jrb_dl_Plane_257_mesh_layer_1),

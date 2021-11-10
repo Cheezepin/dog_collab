@@ -131,4 +131,14 @@ extern const LevelScript level_jrb_entry[];
 #include "clown_toad/anim_header.h"
 #include "clown_toad/geo_header.h"
 
+#include "levels/jrb/circus_wheel/geo_header.h"
+
+#include "levels/jrb/cable_car/geo_header.h"
+
+#include "levels/jrb/clown_door_top/geo_header.h"
+
+#include "levels/jrb/clown_clock/geo_header.h"
+
+#include "levels/jrb/sad_clown_clock/geo_header.h"
+
 #endif

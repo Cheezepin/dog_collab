@@ -9,8 +9,8 @@ void scroll_sts_mat_circus_wheel_f3d_material_035() {
 };
 
 void scroll_sts_mat_circus_wheel_f3d_material_034() {
-	static int intervalTex0 = 20;
-	static int curInterval0 = 20;
+	static int intervalTex0 = 40;
+	static int curInterval0 = 40;
 	Gfx *mat = segmented_to_virtual(mat_circus_wheel_f3d_material_034);
 
 	if (--curInterval0 <= 0) {
@@ -19,7 +19,7 @@ void scroll_sts_mat_circus_wheel_f3d_material_034() {
 	}
 };
 
-void scroll_actor_geo_circus_wheel() {
+void scroll_jrb_level_geo_circus_wheel() {
 	scroll_sts_mat_circus_wheel_f3d_material_036();
 	scroll_sts_mat_circus_wheel_f3d_material_035();
 	scroll_sts_mat_circus_wheel_f3d_material_034();

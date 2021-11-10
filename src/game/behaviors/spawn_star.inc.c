@@ -142,7 +142,7 @@ void spawn_default_star(f32 x, f32 y, f32 z) {
 void spawn_clown_star(f32 x, f32 y, f32 z) {
     struct Object *starObj = NULL;
     starObj = spawn_star(starObj, x, y, z);
-    starObj->oBehParams2ndByte = 4;
+    starObj->oBehParams = 0x04040000;
 }
 
 void spawn_red_coin_cutscene_star(f32 x, f32 y, f32 z) {
