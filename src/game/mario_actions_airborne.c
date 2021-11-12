@@ -530,9 +530,7 @@ s32 act_backflip(struct MarioState *m) {
 }
 
 s32 act_trapeze(struct MarioState *m) {
-    if (m->input & INPUT_Z_PRESSED) {
-        return set_mario_action(m, ACT_GROUND_POUND, 0);
-    }
+    
 
         update_air_without_turn(m);
 perform_trapeze_air_step(m, 0);
