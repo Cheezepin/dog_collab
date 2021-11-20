@@ -2296,6 +2296,7 @@ void play_dialog_sound(u8 voice, u8 dialogID) {
         if (dialogID >= DIALOG_COUNT) {
             dialogID = 0;
         }
+    }
 
     speaker = sDialogSpeaker[dialogID];
     if (gCurrLevelNum == LEVEL_BBH) { // comit code
