@@ -2821,6 +2821,8 @@ sound_ref .sound_general_boing3
 sound_ref .sound_general_grand_star
 sound_ref .sound_general_grand_star_jump
 sound_ref .sound_general_boat_rock
+sound_ref .sound_CUSTOM_awooga
+sound_ref .sound_CUSTOM_cartoon_run
 #ifdef VERSION_JP
   sound_ref .sound_menu_enter_hole
   sound_ref .sound_menu_enter_hole
@@ -4898,6 +4900,22 @@ chan_setinstr 5
 chan_setdecayrelease 20
 chan_setlayer 1, .layer_1DE4
 chan_setlayer 2, .layer_1DE2
+chan_end
+
+.layer_clowning:
+layer_note1 39, 0x226, 255
+layer_end
+
+.sound_CUSTOM_awooga:
+chan_setbank 0
+chan_setinstr 6
+chan_setlayer 0, .layer_clowning
+chan_end
+
+.sound_CUSTOM_cartoon_run:
+chan_setbank 0
+chan_setinstr 7
+chan_setlayer 0, .layer_clowning
 chan_end
 
 .layer_1DD4:

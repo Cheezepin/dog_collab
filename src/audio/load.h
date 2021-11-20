@@ -53,6 +53,8 @@ extern s32 gMinAiBufferLength;
 extern s16 gTempoInternalToExternal;
 extern s8 gAudioUpdatesPerFrame; // = 4
 extern s8 gSoundMode;
+extern s16 gOverrideTempo;
+extern s16 gInitOverrideTempo;
 
 #ifdef VERSION_SH
 extern OSMesgQueue gUnkQueue1;

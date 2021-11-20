@@ -5,7 +5,7 @@
 
 #include "types.h"
 
-#define INTERACT_HOOT                   /* 0x00000001 */ (1 <<  0)
+#define INTERACT_HOOT                   /* 0x00000001 */ 0x40000001 //(1 <<  0)
 #define INTERACT_GRABBABLE              /* 0x00000002 */ (1 <<  1)
 #define INTERACT_DOOR                   /* 0x00000004 */ (1 <<  2)
 #define INTERACT_DAMAGE                 /* 0x00000008 */ (1 <<  3)
@@ -36,9 +36,11 @@
 #define INTERACT_SNUFIT_BULLET          /* 0x10000000 */ (1 << 28)
 #define INTERACT_SHOCK                  /* 0x20000000 */ (1 << 29)
 #define INTERACT_IGLOO_BARRIER          /* 0x40000000 */ (1 << 30)
-#define INTERACT_UNKNOWN_31             /* 0x80000000 */ (1 << 31)
+//#define INTERACT_UNKNOWN_31             /* 0x80000000 */ (1 << 31)
+#define INTERACT_PINWHEEL_WIND            /* 0x80000000 */ (1 << 31)
+#define INTERACT_TRAPEZE                  (1 <<  0)
 
-#define INTERACT_MASK_NO_OBJ_COLLISIONS (INTERACT_COIN | INTERACT_CAP | INTERACT_STRONG_WIND | INTERACT_STAR_OR_KEY | INTERACT_WARP | INTERACT_WATER_RING | INTERACT_FLAME)
+#define INTERACT_MASK_NO_OBJ_COLLISIONS (INTERACT_COIN | INTERACT_CAP | INTERACT_STRONG_WIND | INTERACT_PINWHEEL_WIND | INTERACT_TRAPEZE | INTERACT_STAR_OR_KEY | INTERACT_WARP | INTERACT_WATER_RING | INTERACT_FLAME)
 
 // INTERACT_WARP
 #define INT_SUBTYPE_FADING_WARP         /* 0x00000001 */ (1 <<  0)

@@ -85,6 +85,12 @@
             [103, 24112],
             [409, 0],
             "hang"
+        ],
+        "envelope14": [
+            [2, 32700],
+            [103, 24112],
+            [409, 0],
+            "hang"
         ]
     },
     "instruments": {
@@ -252,6 +258,11 @@
             "release_rate": 10,
             "envelope": "envelope13",
             "sound": "42_vibraphone"
+        },
+        "inst13": {
+            "release_rate": 10,
+            "envelope": "envelope14",
+            "sound": "CUSTOM_handpan"
         }
     },
     "instrument_list": [
@@ -265,7 +276,7 @@
         "inst7",
         "inst8",
         null,
-        null,
+        "inst13",
         "inst9",
         "inst10",
         "inst11",
