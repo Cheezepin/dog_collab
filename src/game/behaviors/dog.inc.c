@@ -4,11 +4,7 @@
 #define DOG_ANIM_WALK   3
 #define DOG_ANIM_POUNCE 4
 
-<<<<<<< HEAD
-/*s32 dog_rotate_to_intended_yaw(s32 target) {
-=======
 s32 dog_rotate_to_intended_yaw(s32 target) {
->>>>>>> a3428998bc92f29e151229d09f8d7d0ad411fa92
     //return approach_s16_symmetric(o->oMoveAngleYaw, target, 0x1000);
     return target;
 }
@@ -69,4 +65,4 @@ void bhv_cheezedog_loop(void) {
             o->oVelY = 0;
         }
     }
-}*/
+}

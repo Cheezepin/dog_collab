@@ -1,4 +1,5 @@
 #include "config.h"
+#include "src/game/game_init.h"
 
 // bowser.c.inc
 /**
@@ -318,7 +319,7 @@ void bowser_bitdw_actions(void) {
     if (o->oBowserIsReacting == FALSE) {
         if (o->oBowserStatus & BOWSER_STATUS_ANGLE_MARIO) {
             if (o->oDistanceToMario < 1500.0f) {
-                o->oAction = BOWSER_ACT_BREATH_FIRE; // nearby
+                o->oAction = BOWSER_ACT_HOMING_ORB; // nearby
             } else {
                 o->oAction = BOWSER_ACT_QUICK_JUMP; // far away
             }
@@ -534,6 +535,10 @@ void bowser_act_walk_to_mario(void) {
                     o->oBowserStatus &= ~BOWSER_STATUS_FIRE_SKY;
                 }
             // Do subaction below if angles is less than 0x2000
+            } else if (o->oBowserStatus & BOWSER_STATUS_AMP_THROW){
+                if (o->oBowserTimer > 4) {
+                    o->oBowserStatus &= ~BOWSER_STATUS_AMP_THROW;
+                }
             } else if (angleFromMario < 0x2000) {
                 o->oSubAction++;
             }
@@ -595,6 +600,23 @@ void bowser_act_teleport(void) {
     }
 }
 
+/**
+ * emu custom ganondorf style homing orb
+ */
+void bowser_act_homing_orb(void) {
+    cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
+    s32 frame;
+   // if(angleFromMario <= 0x050 && angleFromMario <= -0x050){
+        cur_obj_init_animation_with_sound(BOWSER_ANIM_DANCE);
+        frame = o->header.gfx.animInfo.animFrame;
+            if (frame == 35) { // Spawns Blue flames at this frame
+            spawn_object_relative(0, -0x050, 0x050, 0, o, MODEL_AMP, bhvAttackableAmp);
+            }
+    // Return to default act once the animation is over
+    if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)){
+        o->oAction = BOWSER_ACT_DEFAULT;
+    }
+}
 /**
  * Makes Bowser do a fire split into the sky
  */
@@ -1491,7 +1513,8 @@ void (*sBowserActions[])(void) = {
     bowser_act_teleport,
     bowser_act_quick_jump,
     bowser_act_idle,
-    bowser_act_tilt_lava_platform
+    bowser_act_tilt_lava_platform,
+    bowser_act_homing_orb
 };
 
 /**

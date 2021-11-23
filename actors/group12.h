@@ -135,4 +135,11 @@ extern const GeoLayout bowser_1_yellow_sphere_geo[];
 extern const Gfx yellow_sphere_seg6_dl_0601F388[];
 extern const Gfx yellow_sphere_seg6_dl_0601F3C0[];
 
+// amp
+extern const GeoLayout dAmpGeo[];
+extern const Gfx dAmpElectricityDl[];
+extern const Gfx dAmpEyeDl[];
+extern const Gfx dAmpMouthDl[];
+extern const Gfx dAmpBodyDl[];
+extern const struct Animation *const dAmpAnimsList[];
 #endif

@@ -144,3 +144,138 @@ void bhv_idle_dog_loop (void) {
 
     }
 }
+
+
+
+static struct ObjectHitbox sEmuAmpHitbox = {
+    /* interactType:      */ INTERACT_SHOCK,
+    /* downOffset:        */ 40,
+    /* damageOrCoinValue: */ 1,
+    /* health:            */ 0,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 40,
+    /* height:            */ 50,
+    /* hurtboxRadius:     */ 50,
+    /* hurtboxHeight:     */ 60,
+};
+
+void bhv_attackable_amp_init(void) {
+    vec3_copy(&o->oHomeVec, &o->oPosVec);
+    o->oGravity = 0;
+    o->oFriction = 1.0f;
+    o->oBuoyancy = 1.0f;
+    o->oHomingAmpAvgY = o->oHomeY;
+    struct Object *bowserObj;
+    
+
+    bowserObj = cur_obj_nearest_object_with_behavior(bhvBowser);
+    o->parentObj = bowserObj;
+}
+
+void check_emu_amp_attack(void) {
+    u8 marioAttack = 5;
+        obj_set_hitbox(o, &sEmuAmpHitbox);
+     if (o->oDistanceToMario < 100) {
+         if (abs_angle_diff(o->oMoveAngleYaw, gMarioObject->oMoveAngleYaw) > 0x6000) {
+            if (gMarioStates[0].action == ACT_SLIDE_KICK) {marioAttack= 1;}
+           else if (gMarioStates[0].action == ACT_PUNCHING) {marioAttack= 1;}
+           else if (gMarioStates[0].action == ACT_MOVE_PUNCHING) {marioAttack= 1;}
+           else if (gMarioStates[0].action == ACT_SLIDE_KICK_SLIDE) {marioAttack= 1;}
+           else if (gMarioStates[0].action == ACT_JUMP_KICK) {marioAttack= 1;}
+           else {marioAttack = 0;}
+         }
+     }
+     switch (marioAttack){
+         case 1:
+         o->oAction = EMU_AMP_COUNTER;
+         o->oInteractStatus = 0;
+         print_fps(0,0);
+         break;
+         case 0: 
+         if (o->oInteractStatus & INT_STATUS_INTERACTED){
+         o->oAction = EMU_AMP_SUCCESS;
+         o->oInteractStatus =0;
+         }
+         break;
+         default:
+         o->oAction = EMU_AMP_CHASE;
+         break;
+     }
+}
+
+
+void attackable_amp_counter(void) {
+    o->oMoveAngleYaw = obj_angle_to_object(o->parentObj, o) - o->oFaceAngleYaw + 0x2000;
+    o->oForwardVel = 15.0f;
+    //obj_turn_toward_object(o, o->parentObj, 16, 0x400);
+
+
+}
+
+
+void attackable_amp_appear_loop(void) {
+    // gLakituState.goalPos is the position lakitu is moving towards.
+    // In Lakitu and Mario cam, it is usually very close to the current camera position.
+    // In Fixed cam, it is the point behind Mario the camera will go to when transitioning
+    // to Lakitu cam. Homing amps will point themselves towards this point when appearing.
+    f32 relativeTargetX = gLakituState.goalPos[0] - o->oPosX;
+    f32 relativeTargetZ = gLakituState.goalPos[2] - o->oPosZ;
+    s16 targetYaw = atan2s(relativeTargetZ, relativeTargetX);
+
+    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, targetYaw, 0x1000);
+
+    o->oAction = EMU_AMP_CHASE;
+    //o->oAmpYPhase = 0;
+}
+
+
+void attackable_amp_chase_loop(void) {
+    o->oMoveAngleYaw = o->oAngleToMario;
+    // If the amp is locked on to Mario, start "chasing" him by moving
+    // in a straight line at 15 units/second for 32 frames.
+        o->oForwardVel = 15.0f;
+
+        // Move the amp's average Y (the Y value it oscillates around) to align with
+        // Mario's head. Mario's graphics' Y + 150 is around the top of his head.
+        // Note that the average Y will slowly go down to approach his head if the amp
+        // is above his head, but if the amp is below it will instantly snap up.
+        if (o->oHomingAmpAvgY > gMarioObject->header.gfx.pos[1] + 50.0f) {
+            o->oHomingAmpAvgY = gMarioObject->header.gfx.pos[1] + 50.0f;
+        } else if (o->oHomingAmpAvgY < gMarioObject->header.gfx.pos[1] + 50.0f) {
+            o->oHomingAmpAvgY += (10 * coss(o->oAngleToMario));
+        } else {
+           o->oHomingAmpAvgY = gMarioObject->header.gfx.pos[1] + 50.0f;
+        }
+
+        obj_turn_toward_object(o, gMarioObject, 16, 0x400);
+
+        // The amp's average Y will approach Mario's graphical Y position + 250
+        // at a rate of 10 units per frame. Interestingly, this is different from
+        // the + 150 used while chasing him. Could this be a typo?
+
+    // The amp's position will sinusoidally oscillate 40 units around its average Y.
+    o->oPosY = o->oHomingAmpAvgY + sins(o->oAmpYPhase * 0x400) * 20.0f;
+
+    // Handle attacks
+    check_emu_amp_attack();
+}
+
+void attackable_amp_success(void) {
+    obj_mark_for_deletion(o);
+}
+
+void bhv_attackable_amp_loop(void) {
+    switch (o->oAction) {
+        case EMU_AMP_CHASE:
+        attackable_amp_chase_loop();
+        break;
+
+        case EMU_AMP_SUCCESS:
+        attackable_amp_success();
+        break;
+
+        case EMU_AMP_COUNTER:
+        attackable_amp_counter();
+    }
+    object_step();
+}

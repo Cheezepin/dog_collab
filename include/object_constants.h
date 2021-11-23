@@ -307,6 +307,7 @@
     #define BOWSER_ACT_QUICK_JUMP                           0x11
     #define BOWSER_ACT_UNUSED_SLOW_WALK                     0x12
     #define BOWSER_ACT_TILT_LAVA_PLATFORM                   0x13
+    #define BOWSER_ACT_HOMING_ORB                           0x14
     /* oAnimState */
     #define BOWSER_ANIM_STATE_OPAQUE                        TRANSPARENCY_ANIM_STATE_OPAQUE
     #define BOWSER_ANIM_STATE_TRANSPARENT                   TRANSPARENCY_ANIM_STATE_TRANSPARENT
@@ -350,6 +351,7 @@
     #define BOWSER_STATUS_DIST_CENTRE                       (1 <<  4) // 0x00000010
     #define BOWSER_STATUS_BIG_JUMP                          (1 << 16) // 0x00010000
     #define BOWSER_STATUS_FIRE_SKY                          (1 << 17) // 0x00020000
+    #define BOWSER_STATUS_AMP_THROW                         (1 << 30)
     /* oBowserGrabbedStatus */
     #define BOWSER_GRAB_STATUS_NONE                         0x0
     #define BOWSER_GRAB_STATUS_GRABBED                      0x1
@@ -2435,4 +2437,10 @@
     #define CEPHIE_ACT_TALK 2
     #define CEPHIE_ACT_TURN_FROM_TALK 3
 
+/* EMU */
+
+// Attackable Amp
+    #define EMU_AMP_CHASE                                   0
+    #define EMU_AMP_SUCCESS                                 1
+    #define EMU_AMP_COUNTER                                 2
 #endif // OBJECT_CONSTANTS_H

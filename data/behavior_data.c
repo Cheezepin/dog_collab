@@ -6469,22 +6469,6 @@ const BehaviorScript bhvLavaGrate[] = {
 
 //END ROVERT BEHAVIOR
 
-//START EMU BEHAVIOR
-const BehaviorScript bhvRotatingTorus[] = {
-   BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    ADD_FLOAT(oPosY, 1),
-    LOAD_COLLISION_DATA(rainbow_chain_collision),
-    SET_FLOAT(oCollisionDistance, 8000),
-    SET_FLOAT(oDrawingDistance, 8000),
-    SET_HOME(),
-    BEGIN_LOOP(),
-        ADD_INT(oFaceAnglePitch, -150),
-        CALL_NATIVE(load_object_collision_model),
-    END_LOOP(),
-};
-
-
 const BehaviorScript bhvBounceCloud[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -6802,6 +6786,21 @@ const BehaviorScript bhvCenterPlatform[] = {
     END_LOOP(),
 };
 
+//START EMU BEHAVIOR
+const BehaviorScript bhvRotatingTorus[] = {
+   BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    ADD_FLOAT(oPosY, 1),
+    LOAD_COLLISION_DATA(rainbow_chain_collision),
+    SET_FLOAT(oCollisionDistance, 8000),
+    SET_FLOAT(oDrawingDistance, 8000),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        ADD_INT(oFaceAnglePitch, -150),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvPaletteSwap[] = {
     BEGIN_LOOP(),
     CALL_NATIVE(palette_swap),
@@ -6842,6 +6841,19 @@ const BehaviorScript bhvDogIdle[] = {
     SET_HOME(),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_idle_dog_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvAttackableAmp[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, dAmpAnimsList),
+    ANIMATE(0),
+    SET_FLOAT(oGraphYOffset, 40),
+    SET_INT(oIntangibleTimer, 0),
+    CALL_NATIVE(bhv_attackable_amp_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_attackable_amp_loop),
     END_LOOP(),
 };
 // END EMU BEHAVIOR
