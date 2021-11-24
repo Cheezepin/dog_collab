@@ -153,10 +153,10 @@ static struct ObjectHitbox sEmuAmpHitbox = {
     /* damageOrCoinValue: */ 1,
     /* health:            */ 0,
     /* numLootCoins:      */ 0,
-    /* radius:            */ 40,
-    /* height:            */ 50,
-    /* hurtboxRadius:     */ 50,
-    /* hurtboxHeight:     */ 60,
+    /* radius:            */ 0,
+    /* height:            */ 0,
+    /* hurtboxRadius:     */ 0,
+    /* hurtboxHeight:     */ 0,
 };
 
 void bhv_attackable_amp_init(void) {
@@ -166,16 +166,15 @@ void bhv_attackable_amp_init(void) {
     o->oBuoyancy = 1.0f;
     o->oHomingAmpAvgY = o->oHomeY;
     struct Object *bowserObj;
-    
-
-    bowserObj = cur_obj_nearest_object_with_behavior(bhvBowser);
+    f32 dist;
+    bowserObj = cur_obj_find_nearest_object_with_behavior(bhvBowser, &dist);
     o->parentObj = bowserObj;
 }
 
 void check_emu_amp_attack(void) {
     u8 marioAttack = 5;
-        obj_set_hitbox(o, &sEmuAmpHitbox);
-     if (o->oDistanceToMario < 100) {
+        //obj_set_hitbox(o, &sEmuAmpHitbox);
+     if (o->oDistanceToMario < 100 && o->oDistanceToMario > 60) {
          if (abs_angle_diff(o->oMoveAngleYaw, gMarioObject->oMoveAngleYaw) > 0x6000) {
             if (gMarioStates[0].action == ACT_SLIDE_KICK) {marioAttack= 1;}
            else if (gMarioStates[0].action == ACT_PUNCHING) {marioAttack= 1;}
@@ -189,27 +188,24 @@ void check_emu_amp_attack(void) {
          case 1:
          o->oAction = EMU_AMP_COUNTER;
          o->oInteractStatus = 0;
-         print_fps(0,0);
          break;
-         case 0: 
-         if (o->oInteractStatus & INT_STATUS_INTERACTED){
+         default: 
+         if (o->oDistanceToMario <= 60){
          o->oAction = EMU_AMP_SUCCESS;
-         o->oInteractStatus =0;
+         o->oInteractStatus = 0;
          }
-         break;
-         default:
-         o->oAction = EMU_AMP_CHASE;
+         else{
+         o->oAction = EMU_AMP_CHASE;}
          break;
      }
 }
 
 
 void attackable_amp_counter(void) {
-    o->oMoveAngleYaw = obj_angle_to_object(o->parentObj, o) - o->oFaceAngleYaw + 0x2000;
-    o->oForwardVel = 15.0f;
-    //obj_turn_toward_object(o, o->parentObj, 16, 0x400);
-
-
+    o->oMoveAngleYaw = obj_angle_to_object(o->parentObj, o);
+    obj_turn_toward_object(o, o->parentObj, 16, DEGREES(180));
+ o->oForwardVel = 15.0f;
+ o->oInteractStatus = 0;
 }
 
 
@@ -261,6 +257,8 @@ void attackable_amp_chase_loop(void) {
 }
 
 void attackable_amp_success(void) {
+    interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
+    gMarioState->hurtCounter += 4;
     obj_mark_for_deletion(o);
 }
 
