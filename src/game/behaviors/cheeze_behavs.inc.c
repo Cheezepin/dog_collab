@@ -121,7 +121,7 @@ void bhv_koopatrol_loop(void) {
         case 1:
             angle = atan2s((o->oKoopatrolTargetZ - o->oPosZ), (o->oKoopatrolTargetX - o->oPosX));
             o->oForwardVel = 20.0f;
-            cur_obj_init_animation_with_accel_and_sound(3, 2.1f);
+            cur_obj_init_animation_with_accel_and_sound(1, 2.1f);
             o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, angle, 0x400);
             if(o->oMoveAngleYaw == angle) {
                 o->oForwardVel = 20.0f;
