@@ -637,6 +637,7 @@ extern const BehaviorScript bhvLavaGrate[];
 extern const BehaviorScript bhvCheezePlat[];
 extern const BehaviorScript bhvCheezeBombWall[];
 extern const BehaviorScript bhvCheezeDog[];
+extern const BehaviorScript bhvKoopatrol[];
 //cheeze bhv ends
 
 

@@ -604,6 +604,7 @@
 #define MODEL_MOTOS                       0x1F8
 #define MODEL_STROLLIN_STU                0x1F7
 #define MODEL_LASER_RING_SPAWNER          0x1F6
+#define MODEL_KOOPATROL                   0x1F5
 #define MODEL_LASER_RING                  5
 #define MODEL_SPIKE                       4
 #define MODEL_SPIKE_BALL                  3

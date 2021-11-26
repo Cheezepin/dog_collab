@@ -622,6 +622,8 @@ void bhv_lava_grate_loop();
 void bhv_cheezeplat_loop(void);
 void bhv_cheezebombwall_loop(void);
 void bhv_cheezedog_loop(void);
+void bhv_koopatrol_init(void);
+void bhv_koopatrol_loop(void);
 //cheeze end
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
