@@ -25,3 +25,5 @@
 #include "levels/bob/seesaw_platform/collision.inc.c"
 #include "levels/bob/grate_door/collision.inc.c"
 #include "levels/bob/areas/1/trajectory.inc.c"
+#include "levels/bob/clown_clock/collision.inc.c"
+#include "levels/bob/balloon_platform/collision.inc.c"

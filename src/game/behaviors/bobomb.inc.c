@@ -34,10 +34,14 @@ void bobomb_act_explode(void) {
     else {
         explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
         explosion->oGraphYOffset += 100.0f;
-
+if (o->oBehParams2ndByte == 0x30) {
+    obj_mark_for_deletion(o);
+}
+else {
         bobomb_spawn_coin();
         create_respawner(MODEL_BLACK_BOBOMB, bhvBobomb, 3000);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+}
     }
 }
 
@@ -54,13 +58,13 @@ void bobomb_check_interactions(void) {
             o->oAction       = BOBOMB_ACT_LAUNCHED;
         }
 
-        if ((o->oInteractStatus & INT_STATUS_TOUCHED_BOB_OMB) != 0)
+        if ((o->oInteractStatus & INT_STATUS_TOUCHED_BOB_OMB) != 0 && o->oBehParams2ndByte != 0x30)
             o->oAction = BOBOMB_ACT_EXPLODE;
 
         o->oInteractStatus = 0;
     }
 
-    if (obj_attack_collided_from_other_object(o) == 1)
+    if (obj_attack_collided_from_other_object(o) == 1 && o->oBehParams2ndByte != 0x30)
         o->oAction = BOBOMB_ACT_EXPLODE;
 }
 
@@ -163,6 +167,8 @@ void stationary_bobomb_free_loop(void) {
 
 void bobomb_free_loop(void) {
     if (o->oBehParams2ndByte == BOBOMB_BP_STYPE_GENERIC)
+        generic_bobomb_free_loop();
+    else if (o->oBehParams2ndByte == 0x30)
         generic_bobomb_free_loop();
     else
         stationary_bobomb_free_loop();

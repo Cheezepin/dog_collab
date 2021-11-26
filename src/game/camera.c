@@ -159,6 +159,7 @@ extern struct CutsceneVariable sCutsceneVars[10];
 extern s32 gObjCutsceneDone;
 extern u32 gCutsceneObjSpawn;
 extern struct Camera *gCamera;
+extern s8 gIsNearFerrisWheel;
 
 /**
  * Lakitu's position and focus.
@@ -374,6 +375,7 @@ struct Object *gCutsceneFocus = NULL;
  */
 struct Object *gSecondCameraFocus = NULL;
 
+s8 gIsNearFerrisWheel = 0;
 /**
  * How fast the camera's yaw should approach the next yaw.
  */
@@ -1124,8 +1126,12 @@ void mode_8_directions_camera(struct Camera *c) {
         s8DirModeYawOffset = (s8DirModeYawOffset + 0x1000) & 0xE000;
     }
 #endif
-
+    if (gCurrLevelNum == LEVEL_JRB && gIsNearFerrisWheel == 1) {
+        lakitu_zoom(1600.f, 0x900);
+    }
+    else {
     lakitu_zoom(400.f, 0x900);
+    }
     c->nextYaw = update_8_directions_camera(c, c->focus, pos);
     c->pos[0] = pos[0];
     c->pos[2] = pos[2];
@@ -5732,6 +5738,9 @@ struct CameraTrigger sCamBBH[] = {
 struct CameraTrigger sCamBitFS[] = {
 	NULL_TRIGGER
 };
+struct CameraTrigger sCamJRB[] = {
+	NULL_TRIGGER
+};
 
 struct CameraTrigger sCamBitDW[] = {
 	NULL_TRIGGER
@@ -9934,7 +9943,7 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // CASTLE_INSIDE  | HMC
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SSL            | BOB
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SL             | WDW
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 0, 0), // JRB            | THI
+	ZOOMOUT_AREA_MASK(1, 1, 0, 0, 1, 1, 0, 0), // JRB            | THI
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS

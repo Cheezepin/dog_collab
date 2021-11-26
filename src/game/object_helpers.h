@@ -177,6 +177,7 @@ void cur_obj_spawn_loot_coin_at_mario_pos(void);
 s32 cur_obj_advance_looping_anim(void);
 s32 cur_obj_resolve_wall_collisions(void);
 void cur_obj_update_floor_and_walls(void);
+void cur_obj_update_clown_floor(void);
 void cur_obj_move_standard(s16 steepSlopeAngleDegrees);
 void cur_obj_move_using_vel_and_gravity(void);
 void cur_obj_move_using_fvel_and_gravity(void);
@@ -277,6 +278,16 @@ s32 obj_has_model(struct Object *obj, ModelID16 modelID);
 u32 obj_get_model_id(struct Object *obj);
 // End of HackerSM64 stuff
 Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED void *context);
+
+// CowQuack start
+Gfx *geo_clown_head_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_eyes_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_awooga_eyes_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_awooga_mouth_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_bone_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+
+Gfx *geo_switch_kid_toad_holding(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+//CowQuack end
 
 
 Gfx *geo_comit_set_brightness(s32 callContext, struct GraphNode *node, UNUSED void *context);

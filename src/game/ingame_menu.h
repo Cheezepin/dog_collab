@@ -129,10 +129,10 @@ enum DialogSpecialChars {
     DIALOG_CHAR_MULTI_THE = 0xD1, // 'the'
     DIALOG_CHAR_MULTI_YOU = 0xD2, // 'you'
 #endif
-    DIALOG_CHAR_PERIOD = 0x2E,
-    DIALOG_CHAR_COMMA = 0x2C,
-    DIALOG_CHAR_COLOR = 0xDF,
-    DIALOG_CHAR_SPACE = 0x20,
+    DIALOG_CHAR_PERIOD = '.',
+    DIALOG_CHAR_COMMA = ',',
+    DIALOG_CHAR_COLOR = '@',
+    DIALOG_CHAR_SPACE = ' ',
     DIALOG_CHAR_STAR_COUNT = 0xE0, // number of stars
     DIALOG_CHAR_UMLAUT = 0xE9,
 

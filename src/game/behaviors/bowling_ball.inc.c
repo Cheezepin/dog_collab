@@ -45,6 +45,13 @@ void bhv_bowling_ball_init(void) {
     o->oBuoyancy = 2.0f;
 }
 
+void bhv_clown_bowling_ball_init(void) {
+    o->oGravity = 5.5f;
+    o->oFriction = 1.0f;
+    o->oBuoyancy = 2.0f;
+    o->oVelY = 60.0f;
+}
+
 void bowling_ball_set_hitbox(void) {
     obj_set_hitbox(o, &sBowlingBallHitbox);
 
@@ -158,6 +165,39 @@ void bhv_bowling_ball_loop(void) {
         set_camera_shake_from_point(SHAKE_POS_BOWLING_BALL, o->oPosX, o->oPosY, o->oPosZ);
 
     set_object_visibility(o, 4000);
+}
+
+void bhv_clown_bowling_ball_roll_loop(void) {
+    s16 collisionFlags;
+    s32 pathResult = 0;
+
+    //bowling_ball_set_waypoints();
+    collisionFlags = object_step();
+
+    //! Uninitialzed parameter, but the parameter is unused in the called function
+    //pathResult = cur_obj_follow_path(pathResult);
+    if (o->oBehParams2ndByte == 0) {
+    obj_turn_toward_object(o, gMarioObject, 0x10, 0x200);
+        o->oForwardVel = 20.0;
+    }
+    else {
+        obj_turn_toward_object(o, gMarioObject, 0x10, 0x100);
+        if (o->oForwardVel > 25.0) {
+            o->oForwardVel -= 4.0f;
+        }
+        else {
+         o->oForwardVel = 25.0;
+        }
+    }
+
+    bowling_ball_set_hitbox();
+    if (o->oTimer >= 140) {
+        obj_explode_and_spawn_coins(30, 0);
+    }
+    
+        cur_obj_play_sound_1(SOUND_ENV_UNKNOWN2);
+        if ((collisionFlags & OBJ_COL_FLAG_GROUNDED) && (o->oVelY > 5.0f))
+        cur_obj_play_sound_2(SOUND_GENERAL_QUIET_POUND1_LOWPRIO);
 }
 
 void bhv_generic_bowling_ball_spawner_init(void) {

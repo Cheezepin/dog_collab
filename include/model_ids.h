@@ -11,7 +11,7 @@
 // If an object is set as active for the first 5 acts only, it is treated as always active.
 // It's possible that there were only planned to be 5 acts per level early in development.
 // Hence, they added a macro so they wouldn't have to change the acts for every object.
-#define ALL_ACTS_MACRO ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_5
+#define ALL_ACTS_MACRO ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_5 
 #define ALL_ACTS       ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_5 | ACT_6
 
 #define COIN_FORMATION_FLAG_VERTICAL  (1 << 0)
@@ -639,6 +639,32 @@
 #define MODEL_ENTRANCE_GATE               0x113
 #define MODEL_CENTER_LIGHT                0x114
 #define MODEL_FWOOSH_STEP_BUTTON          0x115
+
+//CowQuack start (play DTL64)
+#define MODEL_CAROUSEL                    0x130
+#define MODEL_CIRCUS_POLE                    0x131
+#define MODEL_CLOWN_CLOCK                    0x132
+#define MODEL_CLOWN_DOOR_TOP                   0x133
+#define MODEL_CLOWN_DOOR_BOTTOM                   0x134
+#define MODEL_CIRCUS_WHEEL                   0x135
+#define MODEL_CABLE_CAR                   0x136
+#define MODEL_CIRCUS_BALLOON                   0x137
+#define MODEL_PINWHEEL                   0x138
+#define MODEL_TRAPEZE                   0x139
+#define MODEL_BALLOON_PLATFORM                   0x13A
+#define MODEL_CLOWN_BOSS                   0x13B
+#define MODEL_BOSS_CURTAINS                   0x13C
+#define MODEL_STEEL_GATE                   0x13D
+#define MODEL_KID_TOAD                      0x13E
+#define MODEL_CLOWN_TOAD                      0x13F
+
+#define MODEL_SAD_CAROUSEL                    0x120
+#define MODEL_SAD_CLOWN_CLOCK                    0x121
+#define MODEL_SAD_PINWHEEL                    0x122
+#define MODEL_POWER_SWITCH                   0x123
+#define MODEL_CIRCUS_CANNON                   0x124
+//CowQuack end (fuck you fazana i had to change these last 5)
+
 
 //START ROVERT MODEL IDS
 

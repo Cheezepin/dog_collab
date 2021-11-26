@@ -1,0 +1,15 @@
+extern const GeoLayout boss_curtains_geo[];
+extern Lights1 boss_curtains_f3d_material_089_lights;
+extern Lights1 boss_curtains_f3d_material_085_lights;
+extern u8 boss_curtains_curtain_ci8[];
+extern u8 boss_curtains_curtain_ci8_pal_rgba16[];
+extern u8 boss_curtains_pole_i8[];
+extern Vtx boss_curtains_Circle_009_mesh_layer_1_vtx_0[34];
+extern Gfx boss_curtains_Circle_009_mesh_layer_1_tri_0[];
+extern Vtx boss_curtains_Circle_009_mesh_layer_1_vtx_1[36];
+extern Gfx boss_curtains_Circle_009_mesh_layer_1_tri_1[];
+extern Gfx mat_boss_curtains_f3d_material_089[];
+extern Gfx mat_revert_boss_curtains_f3d_material_089[];
+extern Gfx mat_boss_curtains_f3d_material_085[];
+extern Gfx boss_curtains_Circle_009_mesh_layer_1[];
+extern Gfx boss_curtains_material_revert_render_settings[];

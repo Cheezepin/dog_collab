@@ -1,0 +1,11 @@
+extern const GeoLayout power_switch_geo[];
+extern Lights1 power_switch_f3d_material_120_lights;
+extern Lights1 power_switch_f3d_material_121_lights;
+extern Vtx power_switch_Cube_068_mesh_layer_1_vtx_0[64];
+extern Gfx power_switch_Cube_068_mesh_layer_1_tri_0[];
+extern Vtx power_switch_Cube_068_mesh_layer_1_vtx_1[109];
+extern Gfx power_switch_Cube_068_mesh_layer_1_tri_1[];
+extern Gfx mat_power_switch_f3d_material_120[];
+extern Gfx mat_power_switch_f3d_material_121[];
+extern Gfx power_switch_Cube_068_mesh_layer_1[];
+extern Gfx power_switch_material_revert_render_settings[];

@@ -121,6 +121,7 @@ s8 gLastDialogResponse = 0;
 u8 gMenuHoldKeyIndex = 0;
 u8 gMenuHoldKeyTimer = 0;
 s32 gDialogResponse = DIALOG_RESPONSE_NONE;
+s8 gDialogCurPage = 0;
 
 
 void create_dl_identity_matrix(void) {
@@ -356,30 +357,25 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
     create_dl_translation_matrix(MENU_MTX_PUSH, x, y, 0.0f);
 
     while (str[strPos] != DIALOG_CHAR_TERMINATOR) {
-        if (customColor == TRUE) {
-            gDPSetEnvColor(gDisplayListHead++, rgbaColors[0], rgbaColors[1], rgbaColors[2], rgbaColors[3]);
-        }
-        else {
-            if (customColor == 2) {
-                gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255); // TODO: Is it possible to retrieve the original color that was set before print_generic_string was called?
-                customColor = FALSE;
-            }
-        }
-
         switch (str[strPos]) {
             case DIALOG_CHAR_COLOR:
                 customColor = TRUE;
                 strPos++;
                 for (colorLoop = strPos + 8; strPos < colorLoop; ++strPos) {
-                    diffTmp = 0;
-                    if (str[strPos] >= 0x24 && str[strPos] <= 0x29) {
-                        diffTmp = 0x1A;
+                    if (str[strPos] >= '0' && str[strPos] <= '9') {
+                        diffTmp = 0x30;
                     }
-                    else if (str[strPos] >= 0x10) {
+                    else if (str[strPos] >= 'A' && str[strPos] <= 'F') {
+                        diffTmp = 0x37;
+                    }
+                    else if (str[strPos] >= 'a' && str[strPos] <= 'f') {
+                        diffTmp = 0x57;
+                    }
+                    else {
                         customColor = 2;
                         strPos = colorLoop - 8;
                         for (diffTmp = 0; diffTmp < 8; ++diffTmp) {
-                            if (str[strPos + diffTmp] != 0x9F)
+                            if (str[strPos + diffTmp] != '-')
                                 break;
                         }
                         if (diffTmp == 8)
@@ -394,6 +390,15 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
                     }
                 }
                 strPos--;
+                if (customColor == 1) {
+                    gDPSetEnvColor(gDisplayListHead++, rgbaColors[0],
+                                                    rgbaColors[1],
+                                                    rgbaColors[2],
+                                                    rgbaColors[3]);
+                } else if (customColor == 2) {
+                    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255); // TODO: Is it possible to retrieve the original color that was set before print_generic_string was called?
+                    customColor = 0;
+                }
                 break;
             case DIALOG_CHAR_DAKUTEN:
                 mark = DIALOG_MARK_DAKUTEN;
@@ -781,6 +786,8 @@ void change_and_flash_dialog_text_color_lines(s8 colorMode, s8 lineNum, u8 *cust
 #define X_VAL3 0.0f
 #define Y_VAL3 16
 
+
+
 void handle_dialog_scroll_page_state(s8 lineNum, s8 totalLines, s8 *pageState, s8 *xMatrix, s16 *linePos) {
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
@@ -928,15 +935,20 @@ void handle_dialog_text_and_pages(s8 colorMode, struct DialogEntry *dialog, s8 l
                 customColor = TRUE;
                 strIdx++;
                 for (colorLoop = strIdx + 8; strIdx < colorLoop; ++strIdx) {
-                    diffTmp = 0;
-                    if (str[strIdx] >= 0x24 && str[strIdx] <= 0x29) {
-                        diffTmp = 0x1A;
+                    if (str[strIdx] >= '0' && str[strIdx] <= '9') {
+                        diffTmp = 0x30;
                     }
-                    else if (str[strIdx] >= 0x10) {
+                    else if (str[strIdx] >= 'A' && str[strIdx] <= 'F') {
+                        diffTmp = 0x37;
+                    }
+                    else if (str[strIdx] >= 'a' && str[strIdx] <= 'f') {
+                        diffTmp = 0x57;
+                    }
+                    else {
                         customColor = 2;
                         strIdx = colorLoop - 8;
                         for (diffTmp = 0; diffTmp < 8; ++diffTmp) {
-                            if (str[strIdx + diffTmp] != 0x9F)
+                            if (str[strIdx + diffTmp] != '-')
                                 break;
                         }
                         if (diffTmp == 8)
@@ -1190,6 +1202,7 @@ void render_dialog_entries(void) {
 
             if ((gPlayer3Controller->buttonPressed & A_BUTTON)
                 || (gPlayer3Controller->buttonPressed & B_BUTTON)) {
+                    gDialogCurPage += 1;
                 if (gLastDialogPageStrPos == -1) {
                     handle_special_dialog_text(gDialogID);
                     gDialogBoxState = DIALOG_STATE_CLOSING;
@@ -1211,6 +1224,7 @@ void render_dialog_entries(void) {
             lowerBound = (gDialogScrollOffsetY / DIAG_VAL1) + 1;
             break;
         case DIALOG_STATE_CLOSING:
+        gDialogCurPage = 0;
             if (gDialogBoxOpenTimer == 20.0f) {
                 level_set_transition(0, NULL);
                 play_sound(SOUND_MENU_MESSAGE_DISAPPEAR, gGlobalSoundSource);
@@ -1498,6 +1512,23 @@ void shade_screen(void) {
 #endif
 
     gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 110);
+    gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+}
+
+void shade_screen_amount(int amount) {
+    create_dl_translation_matrix(MENU_MTX_PUSH, GFX_DIMENSIONS_FROM_LEFT_EDGE(0), SCREEN_HEIGHT, 0);
+
+    // This is a bit weird. It reuses the dialog text box (width 130, height -80),
+    // so scale to at least fit the screen.
+#ifndef WIDESCREEN
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 2.6f, 3.4f, 1.0f);
+#else
+    create_dl_scale_matrix(MENU_MTX_NOPUSH,
+                           GFX_DIMENSIONS_ASPECT_RATIO * SCREEN_HEIGHT / 130.0f, 3.0f, 1.0f);
+#endif
+
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, amount);
     gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
