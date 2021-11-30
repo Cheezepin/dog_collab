@@ -1,4 +1,5 @@
 #include "levels/bitdw/model.inc.c"
+#include "levels/bowser_1/model.inc.c"
 void bhv_emu_sphere(void){
    long a;
     a = o->oBehParams;
@@ -40,11 +41,16 @@ u8 indices[] = {
 };
 
 void palette_swap(void){
-
-    if (o->oTimer == 0) {
-        vein_rock = segmented_to_virtual(bitdw_dl_scrolling_texture_ci4_pal_rgba16);
+    if (gCurrLevelNum == LEVEL_BITDW){
+        if (o->oTimer == 0) {
+            vein_rock = segmented_to_virtual(bitdw_dl_scrolling_texture_ci4_pal_rgba16);
+        }
     }
-
+     else if (gCurrLevelNum == LEVEL_BOWSER_1){
+        if (o->oTimer == 0) {
+            vein_rock = segmented_to_virtual(bowser_1_dl_scrolling_texture_ci4_pal_rgba16);
+        }
+    }
     if (o->oTimer % 6 == 0) {
         s32 i;
         s32 index;

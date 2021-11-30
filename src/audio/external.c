@@ -99,7 +99,7 @@ u8 sDialogSpeaker[] = {
     /* 7*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     UKIKI,
     /* 8*/ UKIKI, _,     _,     _,     _,     BOO,   _,     _,     _,     _,
     /* 9*/ BOWS2, _,     BOWS2, BOWS2, _,     _,     _,     _,     BOO,   BOO,
-    /*10*/ UKIKI, UKIKI, _,     _,     _,     BOMB,  BOMB,  BOO,   BOO,   _,
+    /*10*/ UKIKI, UKIKI, _,     _,     _,     _,     _,  BOO,   BOO,   _,
     /*11*/ _,     _,     _,     _,     GRUNT, GRUNT, KBOMB, GRUNT, GRUNT, _,
     /*12*/ _,     _,     _,     _,     _,     _,     _,     _,     KBOMB, _,
     /*13*/ _,     _,     _, _,     _,     _,     _,     _,     _,     _,
@@ -303,6 +303,9 @@ u8 sBackgroundMusicDefaultVolume[] = {
     65,  // SEQ_MENU_FILE_SELECT
     0,   // SEQ_EVENT_CUTSCENE_LAKITU (not in JP)
     70,  // SEQ_LEVEL_BOSS_JENOVA
+    100,  // SEQ_LEVEL_STRIATION
+    70,  // SEQ_LEVEL_BOSS_CACKLETTA
+    70, // SEQ_LEVEL_SAD_OLIVIA
     70,  // SEQ_COMIT_CLOUD
 };
 
@@ -2312,12 +2315,12 @@ void play_dialog_sound(u8 voice, u8 dialogID) {
         }
     }
 
-#ifndef VERSION_JP
+    #ifndef VERSION_JP
     // "You've stepped on the (Wing|Metal|Vanish) Cap Switch"
     if (dialogID == DIALOG_010 || dialogID == DIALOG_011 || dialogID == DIALOG_012) {
         play_puzzle_jingle();
     }
-#endif
+    #endif
 }
 
 /**

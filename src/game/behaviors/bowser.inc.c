@@ -606,17 +606,31 @@ void bowser_act_teleport(void) {
 void bowser_act_homing_orb(void) {
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
     s32 frame;
-   // if(angleFromMario <= 0x050 && angleFromMario <= -0x050){
+   if (o->childObj == NULL){ //checks to make sure that an amp isnt already spawned
         cur_obj_init_animation_with_sound(BOWSER_ANIM_DANCE);
         frame = o->header.gfx.animInfo.animFrame;
-            if (frame == 35) { // Spawns Blue flames at this frame
-            spawn_object_relative(0, -0x050, 0x050, 0, o, MODEL_AMP, bhvAttackableAmp);
+            if (frame == 20) { 
+            spawn_object_relative(0, -0x100, 0x100, -0x40, o, MODEL_AMP, bhvAttackableAmp);
             }
     // Return to default act once the animation is over
     if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)){
         o->oAction = BOWSER_ACT_DEFAULT;
     }
+   } else if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)){
+        o->oAction = BOWSER_ACT_DEFAULT;}
 }
+
+
+void bowser_act_counter(void) {
+    cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
+    s32 frame;
+    cur_obj_init_animation_with_sound(BOWSER_ANIM_DANCE);
+    frame = o->header.gfx.animInfo.animFrame;
+    if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)){
+        o->oAction = BOWSER_ACT_DEFAULT;
+    }
+}
+
 /**
  * Makes Bowser do a fire split into the sky
  */
@@ -1514,7 +1528,8 @@ void (*sBowserActions[])(void) = {
     bowser_act_quick_jump,
     bowser_act_idle,
     bowser_act_tilt_lava_platform,
-    bowser_act_homing_orb
+    bowser_act_homing_orb,
+    bowser_act_counter
 };
 
 /**
@@ -1681,6 +1696,16 @@ void bhv_bowser_loop(void) {
     // Reset Status
     o->oBowserStatus &= ~0xFF;
 
+   struct Object *ampObj;
+    f32 dist;
+    ampObj = cur_obj_find_nearest_object_with_behavior(bhvAttackableAmp, &dist);
+    o->childObj = ampObj;
+    if (o->childObj != NULL){
+        if (dist_between_objects(o, o->childObj) < 150.0f){
+            o->oAction = BOWSER_ACT_COUNTER;
+            o->childObj->oAction = EMU_AMP_CHASE;
+        }
+    }
     // Set bitflag status for distance/angle values
     // Only the first one is used
     if (angleToMario < 0x2000) {

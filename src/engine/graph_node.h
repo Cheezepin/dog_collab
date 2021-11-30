@@ -51,6 +51,7 @@
 #define GRAPH_NODE_TYPE_BILLBOARD             0x01A
 #define GRAPH_NODE_TYPE_DISPLAY_LIST          0x01B
 #define GRAPH_NODE_TYPE_SCALE                 0x01C
+#define GRAPH_NODE_TYPE_SCALE_BETTER          0x01D
 #define GRAPH_NODE_TYPE_SHADOW                0x028
 #define GRAPH_NODE_TYPE_OBJECT_PARENT         0x029
 #define GRAPH_NODE_TYPE_GENERATED_LIST       (0x02A | GRAPH_NODE_TYPE_FUNCTIONAL)
@@ -296,6 +297,15 @@ struct GraphNodeScale
     /*0x00*/ struct GraphNode node;
     /*0x14*/ void *displayList;
     /*0x18*/ f32 scale;
+};
+
+struct GraphNodeScaleBetter
+{
+    /*0x00*/ struct GraphNode node;
+    /*0x14*/ void *displayList;
+    /*0x18*/ f32 scaleX;
+    /*0x1C*/ f32 scaleY;
+    /*0x20*/ f32 scaleZ;
 };
 
 /** GraphNode that draws a shadow under an object.

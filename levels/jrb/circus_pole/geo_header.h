@@ -1,0 +1,10 @@
+extern const GeoLayout circus_pole_geo[];
+extern Lights1 circus_pole_f3d_material_016_lights;
+extern u8 circus_pole_circuspole_ci8[];
+extern u8 circus_pole_circuspole_ci8_pal_rgba16[];
+extern Vtx circus_pole_Bone_mesh_layer_1_vtx_0[4];
+extern Gfx circus_pole_Bone_mesh_layer_1_tri_0[];
+extern Gfx mat_circus_pole_f3d_material_016[];
+extern Gfx mat_revert_circus_pole_f3d_material_016[];
+extern Gfx circus_pole_Bone_mesh_layer_1[];
+extern Gfx circus_pole_material_revert_render_settings[];
