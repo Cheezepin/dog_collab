@@ -1,0 +1,17 @@
+extern const GeoLayout fwoosh_button_geo[];
+extern Lights1 fwoosh_button_Metal_001_lights;
+extern Lights1 fwoosh_button_MetalDecal_lights;
+extern u8 fwoosh_button_i8_metal_pattern2_i8[];
+extern Vtx fwoosh_button_Button_mesh_layer_1_vtx_cull[8];
+extern Vtx fwoosh_button_Button_mesh_layer_1_vtx_0[12];
+extern Gfx fwoosh_button_Button_mesh_layer_1_tri_0[];
+extern Vtx fwoosh_button_Button_mesh_layer_2_vtx_cull[8];
+extern Vtx fwoosh_button_Button_mesh_layer_2_vtx_0[8];
+extern Gfx fwoosh_button_Button_mesh_layer_2_tri_0[];
+extern Gfx mat_fwoosh_button_Metal_001[];
+extern Gfx mat_revert_fwoosh_button_Metal_001[];
+extern Gfx mat_fwoosh_button_MetalDecal[];
+extern Gfx mat_revert_fwoosh_button_MetalDecal[];
+extern Gfx fwoosh_button_Button_mesh_layer_1[];
+extern Gfx fwoosh_button_Button_mesh_layer_2[];
+extern Gfx fwoosh_button_material_revert_render_settings[];

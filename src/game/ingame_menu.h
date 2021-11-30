@@ -39,6 +39,22 @@ extern s8 gDialogCourseActNum;
 extern s8 gHudFlash;
 extern s16 gInGameLanguage;
 
+// Voices for non-global dialogs
+// One higher than in external.c, to allow 0 to default to global
+#define VOICE_DEFAULT 0
+#define VOICE_UKIKI 1
+#define VOICE_TUXIE 2
+#define VOICE_BOWS1 3 // Bowser Intro / Doors Laugh
+#define VOICE_KOOPA 4
+#define VOICE_KBOMB 5
+#define VOICE_BOO 6
+#define VOICE_BOMB 7
+#define VOICE_BOWS2 8 // Bowser Battle Laugh
+#define VOICE_GRUNT 9
+#define VOICE_WIGLR 10
+#define VOICE_YOSHI 11
+#define VOICE_NONE 0xFF
+
 struct DialogEntry
 {
  /*0x00*/ u32 unused;
@@ -46,7 +62,23 @@ struct DialogEntry
  /*0x06*/ s16 leftOffset;
  /*0x08*/ s16 width;
  /*0x0C*/ const u8 *str;
+          u8 voice;
 };
+
+#define TEXT_CUP "\x80"
+#define TEXT_CDOWN "\x81"
+#define TEXT_CLEFT "\x82"
+#define TEXT_CRIGHT "\x83"
+#define TEXT_ABUTTON "\x84"
+#define TEXT_BBUTTON "\x85"
+#define TEXT_CBUTTON "\x86"
+#define TEXT_ZBUTTON "\x87"
+#define TEXT_RBUTTON "\x88"
+
+#define TEXT_QUOTE_OPEN "\xF5"
+#define TEXT_QUOTE_CLOSE "\xF6"
+
+#define TEXT_DOG "\xEF"
 
 // EU only
 enum HudSpecialHUDChars {
@@ -56,8 +88,8 @@ enum HudSpecialHUDChars {
 };
 
 enum SpecialFontChars {
-    GLOBAL_CHAR_SPACE = 0x9E,
-    GLOBAR_CHAR_TERMINATOR = 0xFF
+    GLOBAL_CHAR_SPACE = 0x20,
+    GLOBAR_CHAR_TERMINATOR = 0x0
 };
 
 // definitions for some of the special characters defined in charmap.txt
@@ -97,10 +129,10 @@ enum DialogSpecialChars {
     DIALOG_CHAR_MULTI_THE = 0xD1, // 'the'
     DIALOG_CHAR_MULTI_YOU = 0xD2, // 'you'
 #endif
-    DIALOG_CHAR_PERIOD = 0x6E,
-    DIALOG_CHAR_COMMA = 0x6F,
-    DIALOG_CHAR_COLOR = 0xDF,
-    DIALOG_CHAR_SPACE = 0x9E,
+    DIALOG_CHAR_PERIOD = '.',
+    DIALOG_CHAR_COMMA = ',',
+    DIALOG_CHAR_COLOR = '@',
+    DIALOG_CHAR_SPACE = ' ',
     DIALOG_CHAR_STAR_COUNT = 0xE0, // number of stars
     DIALOG_CHAR_UMLAUT = 0xE9,
 
@@ -110,8 +142,8 @@ enum DialogSpecialChars {
     DIALOG_CHAR_PERIOD_OR_HANDAKUTEN = 0xF1,
     DIALOG_CHAR_STAR_FILLED = 0xFA,
     DIALOG_CHAR_STAR_OPEN = 0xFD,
-    DIALOG_CHAR_NEWLINE = 0xFE,
-    DIALOG_CHAR_TERMINATOR = 0xFF
+    DIALOG_CHAR_NEWLINE = 0x0A,
+    DIALOG_CHAR_TERMINATOR = 0x0
 };
 
 // gDialogResponse

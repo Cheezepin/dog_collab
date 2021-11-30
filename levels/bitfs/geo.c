@@ -46,3 +46,6 @@
 #include "levels/bitfs/seesaw_platform/geo.inc.c"
 #include "levels/bitfs/areas/1/geo.inc.c"
 #include "levels/bitfs/geo.inc.c"
+
+#include "levels/bitfs/cheezeplat/geo.inc.c"
+#include "levels/bitfs/cheezebombwall/geo.inc.c"

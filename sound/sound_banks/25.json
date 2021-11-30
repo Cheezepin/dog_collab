@@ -91,6 +91,12 @@
             [1, 32700],
             [32700, 29430],
             "hang"
+        ],
+        "envelope15": [
+            [11, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
         ]
     },
     "instruments": {
@@ -180,6 +186,11 @@
             "envelope": "envelope14",
             "sound": "43_harmonica"
         },
+        "inst14": {
+            "release_rate": 34,
+            "envelope": "envelope15",
+            "sound": "CUSTOM_clarinet"
+        },
         "percussion": [
             {"release_rate": 10, "pan": 62, "envelope": "envelope11", "sound": {"sample": "06_kick_drum_1", "tuning": 0.210224}},
             {"release_rate": 10, "pan": 62, "envelope": "envelope11", "sound": {"sample": "06_kick_drum_1", "tuning": 0.2227245}},
@@ -263,6 +274,7 @@
         "inst8",
         null,
         "inst13",
-        "inst11"
+        "inst11",
+        "inst14"
     ]
 }

@@ -200,8 +200,11 @@ void reset_clipping(void)
 }
 
 // thecozies start
+#include "engine/surface_collision.h"
+#include "object_list_processor.h"
 Mat4 *viewMat;
 s32 gReadyForLookAt = FALSE;
+s32 gCameraIsUnderwater = FALSE;
 // thecozies end
 
 /**
@@ -521,6 +524,12 @@ void geo_process_camera(struct GraphNodeCamera *node) {
     // thecozies start
     viewMat = &gMatStack[gMatStackIndex];
     gReadyForLookAt = TRUE;
+    if (gCurrLevelNum == LEVEL_DDD && gCamera) {
+        s16 checkingTemp = gCheckingSurfaceCollisionsForCamera;
+        gCheckingSurfaceCollisionsForCamera = TRUE;
+        gCameraIsUnderwater = find_water_level(gCamera->pos[0], gCamera->pos[2]) > gCamera->pos[1];
+        gCheckingSurfaceCollisionsForCamera = checkingTemp;
+    }
     // thecozies end
 
     if (node->fnNode.node.children != 0) {
@@ -591,6 +600,25 @@ void geo_process_scale(struct GraphNodeScale *node) {
     mtxf_scale_vec3f(gMatStack[gMatStackIndex + 1], gMatStack[gMatStackIndex], scaleVec);
     inc_mat_stack();
     append_dl_and_return(((struct GraphNodeDisplayList *)node));
+}
+
+static void geo_process_scale_better(struct GraphNodeScaleBetter *node) {
+    UNUSED Mat4 transform;
+    Vec3f scaleVec;
+    Mtx *mtx = alloc_display_list(sizeof(*mtx));
+
+    vec3f_set(scaleVec, node->scaleX, node->scaleY, node->scaleZ);
+    mtxf_scale_vec3f(gMatStack[gMatStackIndex + 1], gMatStack[gMatStackIndex], scaleVec);
+    gMatStackIndex++;
+    mtxf_to_mtx(mtx, gMatStack[gMatStackIndex]);
+    gMatStackFixed[gMatStackIndex] = mtx;
+    if (node->displayList != NULL) {
+        geo_append_display_list(node->displayList, node->node.flags >> 8);
+    }
+    if (node->node.children != NULL) {
+        geo_process_node_and_siblings(node->node.children);
+    }
+    gMatStackIndex--;
 }
 
 /**
@@ -688,7 +716,6 @@ void geo_process_animated_part(struct GraphNodeAnimatedPart *node) {
     Vec3s rotation = {0, 0, 0};
     Vec3f translation = {node->translation[0], node->translation[1], node->translation[2]};
 
-    vec3f_set(translation, node->translation[0], node->translation[1], node->translation[2]);
     if (gCurAnimType == ANIM_TYPE_TRANSLATION) {
         translation[0] += gCurAnimData[retrieve_animation_index(gCurrAnimFrame, &gCurrAnimAttribute)] * gCurAnimTranslationMultiplier;
         translation[1] += gCurAnimData[retrieve_animation_index(gCurrAnimFrame, &gCurrAnimAttribute)] * gCurAnimTranslationMultiplier;
@@ -1155,6 +1182,9 @@ void geo_process_node_and_siblings(struct GraphNode *firstNode) {
                         break;
                     case GRAPH_NODE_TYPE_SCALE:
                         geo_process_scale((struct GraphNodeScale *) curGraphNode);
+                        break;
+                    case GRAPH_NODE_TYPE_SCALE_BETTER:
+                        geo_process_scale_better((struct GraphNodeScaleBetter *) curGraphNode); 
                         break;
                     case GRAPH_NODE_TYPE_SHADOW:
                         geo_process_shadow((struct GraphNodeShadow *) curGraphNode);

@@ -337,6 +337,9 @@ void koopa_boss_spawn(void)
 #define oMode oF4
 #define oFirstHit oF8
 #define oPhase oFC
+#define oFireTime o100
+#define oAmmo o104
+#define oWaitTime o108
 
 #define MODE_PREFIGHT 0
 #define MODE_FIGHTING 1
@@ -349,10 +352,27 @@ void koopa_boss_init(void)
     o->oMode = 0;
     o->oFirstHit = 0;
     o->oPhase = 0;
+    o->oFireTime = 0;
+    o->oAmmo = random_u16() % 12;
+    o->oWaitTime = 0;
 }
+
+static struct ObjectHitbox sBossKoopaHitbox = {
+    /* interactType:      */ INTERACT_BOUNCE_TOP,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 0,
+    /* health:            */ 3,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 100,
+    /* height:            */ 200,
+    /* hurtboxRadius:     */ 0,
+    /* hurtboxHeight:     */ 0,
+};
 
 void koopa_boss_prefight(void)
 {
+
+    obj_set_hitbox(o, &sBossKoopaHitbox);
     if (o->oDistanceToMario < 1000)
     {
         stop_background_music(SEQ_LEVEL_UNDERGROUND);
@@ -369,7 +389,9 @@ void koopa_find_anchor(void)
     struct Object *obj;
     struct ObjectNode *listHead;
     s32 countUp = 0;
-    s32 count = random_u16() % 8;
+    s32 count;
+    tryAgain:
+    count = random_u16() % 24;
 
     listHead = &gObjectLists[get_object_list_from_behavior(segmented_to_virtual(bhvKoopaBossAnchor))];
     obj = (struct Object *) listHead->next;
@@ -378,9 +400,10 @@ void koopa_find_anchor(void)
     {
         if (obj->behavior == segmented_to_virtual(bhvKoopaBossAnchor))
         {
-
             if (countUp == count)
             {
+                if (obj == o->oBitsPlatformBowser)
+                    goto tryAgain;
                 o->oBitsPlatformBowser = obj;
                 o->oHomeX = obj->oPosX;
                 o->oHomeY = obj->oPosY;
@@ -393,60 +416,142 @@ void koopa_find_anchor(void)
     }
 }
 
+void koopa_boss_hurt(void)
+{
+    cur_obj_init_animation(4);
+    cur_obj_extend_animation_if_at_end();
+    struct Surface *floor;
+    f32 floorHeight = find_floor(o->oPosX, o->oPosY+1000, o->oPosZ, &floor);
+    o->oForwardVel = 0;
+    if (o->oVelY > -40)
+        o->oVelY -= 8;
+    o->oPosY += o->oVelY;
+    if (ABS(floorHeight - o->oPosY) < 100 && o->oVelY < 0)
+    {
+        o->oPosY = floorHeight;
+        o->oPhase = 1;
+        o->oHealth--;
+        o->oVelY = 0;
+        cur_obj_play_sound_2(SOUND_GENERAL_METAL_POUND);
+        spawn_mist_particles_variable(0, 0, 100.0f);
+        cur_obj_become_tangible();
+    }
+}
+
 void koopa_boss_jump(void)
 {
     struct Surface *floor;
     f32 floorHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, &floor);
+
+    cur_obj_init_animation(2);
+    cur_obj_extend_animation_if_at_end();
 
     if (o->oPhase == 1)
     {
         o->oPhase = 2;
         koopa_find_anchor();
         cur_obj_play_sound_2(SOUND_OBJ_KING_BOBOMB_JUMP);
+        o->oVelY = 100;
+        cur_obj_become_intangible();
+        if (o->oBitsPlatformBowser == NULL)
+            o->oPhase = 1;
     }
     else
     if (o->oPhase == 2)
     {
-        arc_to_goal_pos(&o->oHomeX, &o->oPosVec, 100.0f, -4.0f);
+        arc_to_goal_pos(&o->oHomeX, &o->oPosVec, o->oVelY, -4.0f);
         cur_obj_move_using_fvel_and_gravity();
         if (lateral_dist_between_objects(o, o->oBitsPlatformBowser) < 100 && ABS(o->oPosY - o->oHomeY) < 50)
         {
             o->oPosY = floorHeight;
+            o->oAmmo = random_u16() % 24 + (8 - o->oHealth);
+            o->oPhase = 0;
             if (o->oFirstHit == 0)
-            {
-                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_FRONT, DIALOG_FLAG_NONE, CUTSCENE_DIALOG, DIALOG_168))
-                {
-                    o->oPhase = 0;
-                    o->oFirstHit = 1;
-                }
-            }
+                o->oFirstHit = 1;
         }
     }
+}
+
+void koopa_boss_shooting(void)
+{
+    if (o->oFireTime > 0)
+        return;
+    if (o->oAmmo == 0)
+    {
+        if (o->oWaitTime-- <= 0)
+            o->oPhase = 1;
+        return;
+    }
+    cur_obj_become_tangible();
+    o->oAmmo--;
+    s16 targetAngle = ((o->oFaceAngleYaw - 0xC00) + (random_u16() % 0x1800));
+    struct Object *bullet = create_object(bhvBossShell);
+    obj_set_model(bullet, MODEL_KOOPA_SHELL);
+    bullet->oPosX = o->oPosX;
+    bullet->oPosY = o->oPosY+200;
+    bullet->oPosZ = o->oPosZ;
+    obj_scale(bullet, 2.5f-((f32)o->oHealth/2));
+    bullet->oForwardVel = 32 + ((4-o->oHealth) * 4);
+    bullet->oMoveAngleYaw = targetAngle;
+    o->oFireTime = 24 - (8-(o->oHealth*2));
+    if (o->oAmmo == 0)
+        o->oWaitTime = 45;
 }
 
 void koopa_boss_fighting(void)
 {
     if (o->oHealth == 0)
+    {
         o->oMode = MODE_MORTIS;
+        return;
+    }
+
+    cur_obj_init_animation(1);
 
     o->oFaceAngleYaw = atan2s(o->oPosZ - gMarioState->pos[2], o->oPosX - gMarioState->pos[0])+0x8000;
 
-    if (o->oDistanceToMario < 1050 && o->oPhase == 0)
+    if (o->oInteractStatus & INT_STATUS_WAS_ATTACKED)
+    {
+        o->oPhase = 3;
+        o->oVelY = 100;
+        cur_obj_play_sound_2(SOUND_OBJ_KOOPA_FLYGUY_DEATH);
+        o->oInteractStatus = 0;
+    }
+
+    if (o->oPhase == 3)
+    {
+        koopa_boss_hurt();
+    }
+    else
+    {
+        o->oInteractStatus = 0;
+    }
+
+    if (o->oDistanceToMario < 1050 && o->oPhase == 0 && o->oAmmo == 0)
         o->oPhase = 1;
 
-    if (o->oPhase != 0)
+    if (o->oPhase == 1 || o->oPhase == 2)
         koopa_boss_jump();
+
+    o->oFireTime--;
+
+    if (o->oPhase == 0)
+    {
+        koopa_boss_shooting();
+    }
 
 }
 
 void koopa_boss_mortis(void)
 {
+    cur_obj_init_animation(4);
+    cur_obj_extend_animation_if_at_end();
     if (o->oDistanceToMario < 1000)
     {
-        if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_FRONT, DIALOG_FLAG_NONE, CUTSCENE_DIALOG, DIALOG_167))
+        if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_FRONT, DIALOG_FLAG_NONE, CUTSCENE_DIALOG, DIALOG_169))
         {
             set_background_music(SEQ_LEVEL_UNDERGROUND, SEQUENCE_ARGS(4, SEQ_LEVEL_UNDERGROUND), 30);
-            struct Object *star = spawn_star(star, 2387.0f, 4500.0f, -778.0f);
+            struct Object *star = spawn_star(star, -354.0f, 250.0f, -9775.0f);
             star->oBehParams = 0x05000000;
             spawn_mist_particles_variable(0, 0, 100.0f);
             spawn_triangle_break_particles(20, MODEL_DIRT_ANIMATION, 3.0f, 4);
@@ -476,12 +581,47 @@ void koopa_boss_loop(void)
 #undef oFirstHit
 #undef oPhase
 
+#define oMarked oF4
+
+static struct ObjectHitbox sShellBulletHitbox = {
+    /* interactType:      */ INTERACT_DAMAGE,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 2,
+    /* health:            */ 0,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 100,
+    /* height:            */ 75,
+    /* hurtboxRadius:     */ 50,
+    /* hurtboxHeight:     */ 50,
+};
+
 void koopa_boss_shell_init()
 {
-
+    o->oMarked = 0;
+    obj_set_model(o, MODEL_KOOPA_SHELL);
+    cur_obj_become_tangible();
+    cur_obj_enable_rendering();
 }
+
+extern s32 obj_handle_attacks(struct ObjectHitbox *hitbox, s32 attackedMarioAction, u8 *attackHandlers);
 
 void koopa_boss_shell_loop(void)
 {
-
+    struct Surface *floor;
+    f32 floorHeight = find_floor(o->oPosX, o->oPosY+500, o->oPosZ, &floor);
+    o->oPosY = floorHeight;
+    o->oFaceAngleYaw+= 0x1000;
+    obj_set_hitbox(o, &sShellBulletHitbox);
+    cur_obj_move_using_fvel_and_gravity();
+    if (o->oInteractStatus & INT_STATUS_ATTACKED_MARIO)
+        o->oTimer = 300;
+    if (o->oTimer >= 300)
+    {
+        struct Object *obj = create_object(bhvExplosion);
+        obj->oPosX = o->oPosX;
+        obj->oPosY = o->oPosY;
+        obj->oPosZ = o->oPosZ;
+        obj_set_model(obj, MODEL_EXPLOSION);
+        obj_mark_for_deletion(o);
+    }
 }

@@ -1,0 +1,17 @@
+extern const GeoLayout cheezebombwall_geo[];
+extern Lights1 cheezebombwall_fortress_003_lights;
+extern Lights1 cheezebombwall_lmao_lights;
+extern u8 cheezebombwall_xx_9_ci8[];
+extern u8 cheezebombwall_xx_9_ci8_pal_rgba16[];
+extern u8 cheezebombwall_crack_ia8[];
+extern Vtx cheezebombwall_op_003_mesh_layer_1_vtx_0[10];
+extern Gfx cheezebombwall_op_003_mesh_layer_1_tri_0[];
+extern Vtx cheezebombwall_op_003_mesh_layer_6_vtx_0[4];
+extern Gfx cheezebombwall_op_003_mesh_layer_6_tri_0[];
+extern Gfx mat_cheezebombwall_fortress_003[];
+extern Gfx mat_revert_cheezebombwall_fortress_003[];
+extern Gfx mat_cheezebombwall_lmao[];
+extern Gfx mat_revert_cheezebombwall_lmao[];
+extern Gfx cheezebombwall_op_003_mesh_layer_1[];
+extern Gfx cheezebombwall_op_003_mesh_layer_6[];
+extern Gfx cheezebombwall_material_revert_render_settings[];

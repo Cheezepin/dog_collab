@@ -1,0 +1,15 @@
+extern const GeoLayout center_platform_geo[];
+extern Lights1 center_platform_Metal3_lights;
+extern Lights1 center_platform_Metal2_lights;
+extern u8 center_platform_i8_metal_pattern5_i8[];
+extern u8 center_platform_i8_metal_texture_i8[];
+extern Vtx center_platform_cdl_mesh_layer_1_vtx_0[45];
+extern Gfx center_platform_cdl_mesh_layer_1_tri_0[];
+extern Vtx center_platform_cdl_mesh_layer_1_vtx_1[9];
+extern Gfx center_platform_cdl_mesh_layer_1_tri_1[];
+extern Gfx mat_center_platform_Metal3[];
+extern Gfx mat_revert_center_platform_Metal3[];
+extern Gfx mat_center_platform_Metal2[];
+extern Gfx mat_revert_center_platform_Metal2[];
+extern Gfx center_platform_cdl_mesh_layer_1[];
+extern Gfx center_platform_material_revert_render_settings[];

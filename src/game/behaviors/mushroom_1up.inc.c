@@ -175,7 +175,7 @@ void bhv_1up_sliding_loop(void) {
 
 void bhv_1up_loop(void) {
     bhv_1up_interact();
-    set_object_visibility(o, 3000);
+    //set_object_visibility(o, 3000);
 }
 
 void bhv_1up_jump_on_approach_loop(void) {

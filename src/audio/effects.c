@@ -143,6 +143,16 @@ void sequence_player_process_sound(struct SequencePlayer *seqPlayer) {
 #if defined(VERSION_EU) || defined(VERSION_SH)
     seqPlayer->recalculateVolume = FALSE;
 #endif
+
+if (gOverrideTempo != 0) {
+                            if (gInitOverrideTempo == 0) {
+                                gInitOverrideTempo = seqPlayer->tempo/100;
+                            }
+                            gSequencePlayers[1].tempo = 96*gOverrideTempo;
+                            //seqPlayer->tempo = 96*gOverrideTempo;
+                           
+                        }
+                        
 }
 
 f32 get_portamento_freq_scale(struct Portamento *p) {

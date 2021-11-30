@@ -23,3 +23,5 @@
 
 #include "levels/ddd/cloud/geo.inc.c"
 #include "levels/ddd/water_top/geo.inc.c"
+#include "levels/ddd/water_spout/geo.inc.c"
+#include "levels/ddd/aperature_door/geo.inc.c"

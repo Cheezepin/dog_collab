@@ -2473,6 +2473,10 @@ void sequence_player_process_sequence(struct SequencePlayer *seqPlayer) {
                         if ((s16) seqPlayer->tempo < 0) {
                             seqPlayer->tempo = 0;
                         }
+    
+                        
+
+
                         break;
 
 #ifdef VERSION_SH

@@ -185,6 +185,8 @@ s8 gNeverEnteredCastle;
 struct MarioState *gMarioState = &gMarioStates[0];
 s8 sWarpCheckpointActive = FALSE;
 
+struct Object *gInstantWarpObject = NULL;
+
 u16 level_control_timer(s32 timerOp) {
     switch (timerOp) {
         case TIMER_CONTROL_SHOW:
@@ -542,12 +544,42 @@ void warp_credits(void) {
     }
 }
 
+void do_the_vertical_instant_warp(void) {
+    int index = (gInstantWarpObject->oBehParams >> 16) & 0xFF;
+    struct InstantWarp *warp = &gCurrentArea->instantWarps[index];
+    gMarioState->pos[0] += warp->displacement[0];
+    gMarioState->pos[1] += warp->displacement[1];
+    gMarioState->pos[2] += warp->displacement[2];
+
+    gMarioState->marioObj->oPosX = gMarioState->pos[0];
+    gMarioState->marioObj->oPosY = gMarioState->pos[1];
+    gMarioState->marioObj->oPosZ = gMarioState->pos[2];
+
+    gMarioObject->header.gfx.pos[0] = gMarioState->pos[0];
+    gMarioObject->header.gfx.pos[1] = gMarioState->pos[1];
+    gMarioObject->header.gfx.pos[2] = gMarioState->pos[2];
+    s16 cameraAngle = gMarioState->area->camera->yaw;
+
+    change_area(warp->area);
+    gMarioState->area = gCurrentArea;
+
+    warp_camera(warp->displacement[0], warp->displacement[1], warp->displacement[2]);
+
+    gMarioState->area->camera->yaw = cameraAngle;
+}
+
 void check_instant_warp(void) {
     s16 cameraAngle;
     struct Surface *floor;
 
     if (gCurrLevelNum == LEVEL_CASTLE
         && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 70) {
+        return;
+    }
+
+    if (gInstantWarpObject) {
+        do_the_vertical_instant_warp();
+        gInstantWarpObject = NULL;
         return;
     }
 
@@ -1029,6 +1061,7 @@ s8 determine_joystick_movement(void) {
 }
 
 u8 gDirectionsHeld;
+s32 gCurrentCharacter = 0;
 
 s32 play_mode_normal(void) {
 #ifndef DISABLE_DEMO
@@ -1223,7 +1256,7 @@ s32 update_level(void) {
     return changeLevel;
 }
 
-u8 dogString[DOG_STRING_LENGTH] = { 0x10, 0x32, 0x27, 0x27, 0x24, 0x35, 0x27, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+u8 dogString[DOG_STRING_LENGTH] = "Goddard";
 
 s32 init_level(void) {
     s32 fadeFromColor = FALSE;

@@ -36,7 +36,10 @@
     "21_menu_file_select": ["24"],
     "22_cutscene_lakitu": {"ifdef": ["VERSION_US", "VERSION_EU", "VERSION_SH"], "banks": ["1B"]},
     "23_CUSTOM_jenova": ["19"],
-    "24_custom_ambi": ["12"],
-    "25_custom_tank_boss": ["1A"]
-    
+    "24_CUSTOM_striation": ["25"],
+    "25_CUSTOM_cackletta": ["21"],
+    "26_CUSTOM_sad_olivia": ["0C"],
+    "27_CUSTOM_comit_cloud": ["26_comit"],
+    "28_custom_ambi": ["12"],
+    "29_custom_tank_boss": ["1A"]
 }

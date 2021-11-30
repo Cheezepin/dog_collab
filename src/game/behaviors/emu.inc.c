@@ -22,15 +22,6 @@ u8 swapSlots[COLOR_COUNT];
 
 /*******Labeled indecies***********
     COLOR_INDEX(5), //some gray 5
-    *COLOR_INDEX(7), //orange 7
-    COLOR_INDEX(8), // some gray 8
-    COLOR_INDEX(11), //yellow 11
-    COLOR_INDEX(13),//blue 13
-    *COLOR_INDEX(12), //green 12
-    *COLOR_INDEX(9), //light orange 9
-    COLOR_INDEX(4), //red 4
-
-    COLOR_INDEX(5), //some gray 5
     *COLOR_INDEX(6), //orange 6
     COLOR_INDEX(8), // some gray 8
     COLOR_INDEX(9), //yellow 9

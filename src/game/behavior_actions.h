@@ -28,6 +28,8 @@ void tox_box_move(f32 forwardVel, f32 a1, s16 deltaPitch, s16 deltaRoll);
 void play_penguin_walking_sound(s32 walk);
 s32 update_angle_from_move_flags(s32 *angle);
 void cur_obj_spawn_strong_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
+void cur_obj_spawn_weak_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
+void cur_obj_spawn_pinwheel_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
 
 void bhv_cap_switch_loop(void);
 void bhv_tiny_star_particles_init(void);
@@ -265,6 +267,8 @@ void bhv_idle_water_wave_loop(void);
 void bhv_shallow_water_splash_init(void);
 void bhv_wave_trail_shrink(void);
 void bhv_strong_wind_particle_loop(void);
+void bhv_weak_wind_particle_loop(void);
+void bhv_pinwheel_wind_particle_loop(void);
 void bhv_sl_snowman_wind_loop(void);
 void bhv_sl_walking_penguin_loop(void);
 void bhv_menu_button_init(void);
@@ -594,13 +598,67 @@ void bhv_podoboo_loop(void);
 void bhv_emu_sphere(void);
 void palette_swap(void);
 
+//CowQuack start
+void bhv_carousel_init(void);
+void bhv_carousel_loop(void);
+
+void bhv_clown_clock_init(void);
+void bhv_clown_clock_loop(void);
+
+void bhv_clown_door_spawner_init(void);
+void bhv_clown_door_spawner_loop(void);
+void bhv_clown_door_segment_loop(void);
+void bhv_steel_gate_init(void);
+
+void bhv_power_switch_init(void);
+void bhv_power_switch_loop(void);
+
+void bhv_circus_wheel_init(void);
+void bhv_circus_wheel_loop(void);
+void bhv_circus_wheel_platform_update(void);
+void bhv_wheel_wind_loop(void);
+
+void bhv_pinwheel_init(void);
+void bhv_pinwheel_loop(void);
+void bhv_balloon_init(void);
+void bhv_balloon_loop(void);
+void bhv_pole_pinwheel_spawn(void);
+
+void bhv_trapeze_init(void);
+void bhv_trapeze_loop(void);
+void bhv_trapeze_hitbox_init(void);
+void bhv_trapeze_hitbox_loop(void);
+
+void bhv_balloon_platform_loop(void);
+
+void bhv_kid_toad_init(void);
+void bhv_clown_toad_loop(void);
+
+void bhv_clown_boss_init(void);
+void bhv_clown_boss_loop(void);
+void bhv_clown_bowling_ball_roll_loop(void);
+void bhv_clown_bowling_ball_init(void);
+void bhv_boss_curtains_loop(void);
+void bhv_goddard_clown_fight_init(void);
+void bhv_goddard_clown_fight_loop(void);
+void bhv_circus_cannon_init(void);
+void bhv_circus_cannon_loop(void);
+//CowQuack end
+
 // axo start
 void bhv_cephie_init(void);
 void bhv_cephie_loop(void);
+Gfx *geo_switch_cephie_hold(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 // axo end
 
 // thecozies start
+void set_water_top_force(struct MarioState *m);
 void water_top_loop(void);
+void water_spout_loop(void);
+void rain_cloud_init(void);
+void rain_cloud_loop(void);
+void vertical_instant_warp_loop(void);
+void aperature_door_loop(void);
 // thecozies end
 
 //ROVERT BEHAVIOR ACTIONS START
@@ -617,7 +675,17 @@ void bhv_toad_cage(void);
 void bhv_rovert_toad(void);
 //ROVERT BEHAVIOR ACTIONS END
 
+//cheeze start
+void bhv_cheezeplat_loop(void);
+void bhv_cheezebombwall_loop(void);
+void bhv_cheezedog_loop(void);
+void bhv_koopatrol_init(void);
+void bhv_koopatrol_loop(void);
+//cheeze end
+
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
+
+Gfx *geo_carousel_billboard(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 // Bowser
 Gfx *geo_bits_bowser_coloring(s32 callContext, struct GraphNode *node, UNUSED s32 context);
@@ -640,5 +708,64 @@ Gfx *geo_scale_bowser_key(s32 callContext, struct GraphNode *node, UNUSED Mat4 m
 // Water splash
 extern struct WaterDropletParams gShallowWaterSplashDropletParams;
 extern struct WaterDropletParams gShallowWaterWaveDropletParams;
+
+
+
+
+
+
+
+
+
+
+
+void bhv_bounce_cloud_loop(void);
+void bhv_bounce_cloud_init(void);
+void bhv_stretch_cloud_loop(void);
+void bhv_stretch_cloud_init(void);
+void bhv_rainbow_cloud_loop(void);
+void bhv_rainbow_cloud_init(void);
+void bhv_cloud_rainbow_loop(void);
+void bhv_rain_cloud_loop(void);
+void bhv_fade_cloud_loop(void);
+void bhv_fade_cloud_init(void);
+void bhv_body_lakitu_loop(void);
+void bhv_body_lakitu_init(void);
+void bhv_mg_fwoosh_update(void);
+void bhv_fwoosh_button_loop(void);
+void bhv_metal_crate_loop(void);
+void bhv_metal_crate_init(void);
+void bhv_fwooshmg_handler_update(void);
+void bhv_fwooshmg_handler_init(void);
+void bhv_fwooshmg_goomba_update(void);
+void bhv_fwooshmg_koopa_update(void);
+void bhv_fwooshmg_star_loop(void);
+void bhv_mist_trigger_loop(void);
+void bhv_lightning_cloud_loop(void);
+void bhv_lightning_bolt_loop(void);
+void bhv_lightning_bolt_init(void);
+void bhv_floor_door_loop(void);
+void bhv_floor_door_button_loop(void);
+void bhv_lightning_strike_init(void);
+void bhv_lightning_strike_loop(void);
+void bhv_lightning_blast_loop(void);
+void bhv_center_platform_loop(void);
+void bhv_lightning_button_loop(void);
+void bhv_bonus_lightning_cloud_loop(void);
+void bhv_bonus_lightning_cloud_init(void);
+void bhv_comit_coin_init(void);
+void bhv_dark_sky_loop(void);
+void bhv_hidden_cloud_loop(void);
+void bhv_guide_lakitu_loop(void);
+void bhv_guide_lakitu_init(void);
+void bhv_gate_lakitu_loop(void);
+void bhv_entrance_gate_loop(void);
+void bhv_comit_dog_loop(void);
+void bhv_rainbow_cloud_spawner_loop(void);
+void bhv_spectator_lakitu_init(void);
+
+
+
+
 
 #endif // BEHAVIOR_ACTIONS_H

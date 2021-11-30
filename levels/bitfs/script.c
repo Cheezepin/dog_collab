@@ -13,8 +13,14 @@
 
 #include "actors/common1.h"
 
+/* Fast64 begin persistent block [includes] */
+/* Fast64 end persistent block [includes] */
+
 #include "make_const_nonconst.h"
 #include "levels/bitfs/header.h"
+
+/* Fast64 begin persistent block [scripts] */
+/* Fast64 end persistent block [scripts] */
 
 const LevelScript level_bitfs_entry[] = {
 	INIT_LEVEL(),
@@ -64,19 +70,32 @@ const LevelScript level_bitfs_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_BITFS_SLIDING_PLATFORM, bitfs_geo_000740), 
 	LOAD_MODEL_FROM_GEO(MODEL_BITFS_TUMBLING_PLATFORM_PART, bitfs_geo_0006D8), 
 	LOAD_MODEL_FROM_GEO(MODEL_BITFS_TUMBLING_PLATFORM, bitfs_geo_0006F0), 
+	LOAD_MODEL_FROM_GEO(MODEL_CHEEZE_PLAT, cheezeplat_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_CHEEZE_BOMB_WALL, cheezebombwall_geo), 
+
+	/* Fast64 begin persistent block [level commands] */
+	/* Fast64 end persistent block [level commands] */
 
 	AREA(1, bitfs_area_1),
 		WARP_NODE(0x0A, LEVEL_BITFS, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		MARIO_POS(0x01, 0, 0, 544, 0),
-		OBJECT(MODEL_NONE, 0, 544, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(MODEL_CANNON_BASE, -1323, -15150, 0, 0, 0, 0, 0x00000000, bhvCannon),
+		MARIO_POS(0x01, 0, 0, -14456, 0),
+		OBJECT(MODEL_NONE, 0, -14456, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(MODEL_CHEEZE_PLAT, 8504, -4579, -2214, 0, 0, 0, 0x00000000, bhvCheezePlat),
+		OBJECT(MODEL_CHEEZE_BOMB_WALL, 4242, 5763, -6244, 0, 0, 0, 0x00000000, bhvCheezeBombWall),
+		OBJECT(MODEL_DOG, 3479, 3106, -6537, 0, 0, 0, 0x00000000, bhvCheezeDog),
+		OBJECT(MODEL_KOOPATROL, 10512, 2867, -1740, 0, 0, 0, 0x00000000, bhvKoopatrol),
 		TERRAIN(bitfs_area_1_collision),
+		ROOMS(bitfs_area_1_collision_rooms),
 		MACRO_OBJECTS(bitfs_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
 		TERRAIN_TYPE(TERRAIN_SNOW),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 0, 0, 544, 0),
+	MARIO_POS(0x01, 0, 0, -14456, 0),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),

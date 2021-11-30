@@ -1,7 +1,7 @@
 #include "src/game/envfx_snow.h"
 
 const GeoLayout water_top_geo[] = {
-	GEO_CULLING_RADIUS(5800),
+	GEO_CULLING_RADIUS(10000),
 	GEO_OPEN_NODE(),
 		GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, NULL),
 		GEO_OPEN_NODE(),

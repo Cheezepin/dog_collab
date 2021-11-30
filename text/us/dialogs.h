@@ -16,27 +16,27 @@
 #define GIVE_UP "give"
 #endif
 
-DEFINE_DIALOG(DIALOG_000, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_000, 1, 6, 30, 200, "\
 Wow! You're smack in the\n\
-middle of the battlefield.\n\
+middle of the " TEXT_DOG ".\n\
 You'll find the Power\n\
 Stars that Bowser stole\n\
 inside the painting\n\
 worlds.\n\
 First, talk to the\n\
-Bob-omb Buddy. (Press [B]\n\
+Bob-omb Buddy. (Press " TEXT_BBUTTON "\n\
 to talk.) He'll certainly\n\
 help you out, and so will\n\
 his " COMRADES " in other\n\
 areas.\n\
 To read signs, stop, face\n\
-them and press [B]. Press [A]\n\
-or [B] to scroll ahead. You\n\
+them and press " TEXT_BBUTTON ". Press " TEXT_ABUTTON "\n\
+or " TEXT_BBUTTON " to scroll ahead. You\n\
 can talk to some other\n\
 characters by facing them\n\
-and pressing [B]."))
+and pressing " TEXT_BBUTTON ".")
 
-DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 200, "\
 Watch out! If you wander\n\
 around here, you're liable\n\
 to be " PLASTERED " by a\n\
@@ -55,9 +55,9 @@ and go left up the path\n\
 to find the Big Bob-omb.\n\
 Please come back to see\n\
 me after you've retrieved\n\
-the Power Star!"))
+the Power Star!")
 
-DEFINE_DIALOG(DIALOG_002, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_002, 1, 4, 95, 200, "\
 Hey, you! It's dangerous\n\
 ahead, so listen up! Take\n\
 my advice.\n\
@@ -73,9 +73,9 @@ him grab you!\n\
 We're Bob-omb Buddies,\n\
 and we're on your side.\n\
 You can talk to us\n\
-whenever you'd like to!"))
+whenever you'd like to!")
 
-DEFINE_DIALOG(DIALOG_003, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_003, 1, 5, 95, 200, "\
 Thank you, Mario! The Big\n\
 Bob-omb is nothing but a\n\
 big dud now! But the\n\
@@ -89,9 +89,9 @@ that lead to new worlds!\n\
 My Bob-omb Buddies are\n\
 waiting for you. Be sure\n\
 to talk to them--they'll\n\
-set up cannons for you."))
+set up cannons for you.")
 
-DEFINE_DIALOG(DIALOG_004, 1, 3, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_004, 1, 3, 95, 200, "\
 We're peace-loving\n\
 Bob-ombs, so we don't use\n\
 cannons.\n\
@@ -100,9 +100,9 @@ to blast off, we don't\n\
 mind. Help yourself.\n\
 We'll prepare all of the\n\
 cannons in this course for\n\
-you to use. Bon Voyage!"))
+you to use. Bon Voyage!")
 
-DEFINE_DIALOG(DIALOG_005, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_005, 1, 3, 30, 200, "\
 Hey, Mario! Is it true\n\
 that you beat the Big\n\
 Bob-omb? Cool!\n\
@@ -116,31 +116,31 @@ How about a race to the\n\
 mountaintop, where the\n\
 Big Bob-omb was?\n\
 Whaddya say? When I say\n\
-『Go,』 let the race begin!\n\
+" TEXT_QUOTE_OPEN "Go," TEXT_QUOTE_CLOSE " let the race begin!\n\
 \n\
 Ready....\n\
 \n\
-//Go!////Don't Go"))
+//Go!////Don't Go")
 
-DEFINE_DIALOG(DIALOG_006, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_006, 1, 3, 30, 200, "\
 Hey!!! Don't try to " SCAM_ME
 "You've gotta run\n\
 the whole course.\n\
 Later. Look me up when\n\
 you want to race for\n\
-real."))
+real.")
 
-DEFINE_DIALOG(DIALOG_007, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_007, 1, 5, 30, 200, "\
 Hufff...fff...pufff...\n\
 Whoa! You...really...are...\n\
 fast! A human blur!\n\
 Here you go--you've won\n\
-it, fair and square!"))
+it, fair and square!")
 
-DEFINE_DIALOG(DIALOG_008, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_008, 1, 4, 30, 200, "\
 BEWARE OF CHAIN CHOMP\n\
 Extreme Danger!\n\
-Get close and press [C]^\n\
+Get close and press " TEXT_CBUTTON TEXT_CUP "\n\
 for a better look.\n\
 Scary, huh?\n\
 See the Red Coin on top\n\
@@ -149,9 +149,9 @@ of the stake?\n\
 When you collect eight of\n\
 them, a Power Star will\n\
 appear in the meadow\n\
-across the bridge."))
+across the bridge.")
 
-DEFINE_DIALOG(DIALOG_009, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_009, 1, 5, 30, 200, "\
 Long time, no see! Wow,\n\
 have you gotten fast!\n\
 Have you been training\n\
@@ -166,9 +166,9 @@ The goal is in\n\
 Windswept Valley.\n\
 Ready?\n\
 \n\
-//Go//// Don't Go"))
+//Go//// Don't Go")
 
-DEFINE_DIALOG(DIALOG_010, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_010, 1, 4, 30, 200, "\
 You've stepped on the\n\
 Wing Cap Switch. Wearing\n\
 the Wing Cap, you can\n\
@@ -179,9 +179,9 @@ you find.\n\
 \n\
 Would you like to Save?\n\
 \n\
-//Yes////No"))
+//Yes////No")
 
-DEFINE_DIALOG(DIALOG_011, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_011, 1, 4, 30, 200, "\
 You've just stepped on\n\
 the Metal Cap Switch!\n\
 The Metal Cap makes\n\
@@ -192,9 +192,9 @@ green blocks you find.\n\
 \n\
 Would you like to Save?\n\
 \n\
-//Yes////No"))
+//Yes////No")
 
-DEFINE_DIALOG(DIALOG_012, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_012, 1, 4, 30, 200, "\
 You've just stepped on\n\
 the Vanish Cap Switch.\n\
 The Vanish Cap makes\n\
@@ -205,40 +205,40 @@ blocks you find.\n\
 \n\
 Would you like to Save?\n\
 \n\
-//Yes////No"))
+//Yes////No")
 
-DEFINE_DIALOG(DIALOG_013, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_013, 1, 5, 30, 200, "\
 You've collected 100\n\
 coins! Mario gains more\n\
 power from the castle.\n\
 Do you want to Save?\n\
-//Yes////No"))
+//Yes////No")
 
-DEFINE_DIALOG(DIALOG_014, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_014, 1, 4, 30, 200, "\
 Wow! Another Power Star!\n\
 Mario gains more courage\n\
 from the power of the\n\
 castle.\n\
 Do you want to Save?\n\
 \n\
-//You Bet//Not Now"))
+//You Bet//Not Now")
 
-DEFINE_DIALOG(DIALOG_015, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_015, 1, 4, 30, 200, "\
 You can punch enemies to\n\
-knock them down. Press [A]\n\
-to jump, [B] to punch.\n\
-Press [A] then [B] to Kick.\n\
+knock them down. Press " TEXT_ABUTTON "\n\
+to jump, " TEXT_BBUTTON " to punch.\n\
+Press " TEXT_ABUTTON " then " TEXT_BBUTTON " to Kick.\n\
 To pick something up,\n\
-press [B], too. To throw\n\
+press " TEXT_BBUTTON ", too. To throw\n\
 something you're holding,\n\
-press [B] again."))
+press " TEXT_BBUTTON " again.")
 
-DEFINE_DIALOG(DIALOG_016, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_016, 1, 3, 30, 200, "\
 Hop on the shiny shell and\n\
 ride wherever you want to\n\
-go! Shred those enemies!"))
+go! Shred those enemies!")
 
-DEFINE_DIALOG(DIALOG_017, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_017, 1, 4, 30, 200, "\
 I'm the Big Bob-omb, lord\n\
 of all blasting matter,\n\
 king of ka-booms the\n\
@@ -262,81 +262,81 @@ yourself in battle.\n\
 Can you pick me up from\n\
 the back and hurl me to\n\
 this royal turf? I think\n\
-that you cannot!"))
+that you cannot!")
 
-DEFINE_DIALOG(DIALOG_018, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_018, 1, 4, 30, 200, "\
 I'm sleeping because...\n\
 ...I'm sleepy. I don't\n\
 like being disturbed.\n\
-Please walk quietly."))
+Please walk quietly.")
 
-DEFINE_DIALOG(DIALOG_019, 1, 2, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_019, 1, 2, 30, 200, "\
 Shhh! Please walk\n\
-quietly in the hallway!"))
+quietly in the hallway!")
 
-DEFINE_DIALOG(DIALOG_020, 1, 6, 95, 150, _("\
+DEFINE_DIALOG(DIALOG_020, 1, 6, 95, 150, "\
 Dear Mario:\n\
 Please come to the\n\
 castle. I've baked\n\
 a cake for you.\n\
 Yours truly--\n\
-Princess Toadstool"))
+Princess Toadstool")
 
-DEFINE_DIALOG(DIALOG_021, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_021, 1, 5, 95, 200, "\
 Welcome.\n\
 No one's home!\n\
 Now " SCRAM "\n\
 and don't come back!\n\
-Gwa ha ha!"))
+Gwa ha ha!")
 
-DEFINE_DIALOG(DIALOG_022, 1, 2, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_022, 1, 2, 95, 200, "\
 You need a key to open\n\
-this door."))
+this door.")
 
-DEFINE_DIALOG(DIALOG_023, 1, 3, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_023, 1, 3, 95, 200, "\
 This key doesn't fit!\n\
 Maybe it's for the\n\
-basement..."))
+basement...")
 
-DEFINE_DIALOG(DIALOG_024, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_024, 1, 5, 95, 200, "\
 You need Star power to\n\
 open this door. Recover a\n\
 Power Star from an enemy\n\
 inside one of the castle's\n\
-paintings."))
+paintings.")
 
-DEFINE_DIALOG(DIALOG_025, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_025, 1, 4, 95, 200, "\
 It takes the power of\n\
 3 Stars to open this\n\
 door. You need [%] more\n\
-Stars."))
+Stars.")
 
-DEFINE_DIALOG(DIALOG_026, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_026, 1, 4, 95, 200, "\
 It takes the power of\n\
 8 Stars to open this\n\
 door. You need [%] more\n\
-Stars."))
+Stars.")
 
-DEFINE_DIALOG(DIALOG_027, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_027, 1, 4, 95, 200, "\
 It takes the power of\n\
 30 Stars to open this\n\
 door. You need [%] more\n\
-Stars."))
+Stars.")
 
-DEFINE_DIALOG(DIALOG_028, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_028, 1, 4, 95, 200, "\
 It takes the power of\n\
 50 Stars to open this\n\
 door. You need [%] more\n\
-Stars."))
+Stars.")
 
-DEFINE_DIALOG(DIALOG_029, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_029, 1, 5, 95, 200, "\
 To open the door that\n\
-leads to the 『endless』\n\
+leads to the " TEXT_QUOTE_OPEN "endless" TEXT_QUOTE_CLOSE "\n\
 stairs, you need 70\n\
 Stars.\n\
-Bwa ha ha!"))
+Bwa ha ha!")
 
-DEFINE_DIALOG(DIALOG_030, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_030, 1, 6, 30, 200, "\
 Hello! The Lakitu Bros.,\n\
 cutting in with a live\n\
 update on Mario's\n\
@@ -352,16 +352,16 @@ order to walk quietly.\n\
 And wrapping up filming\n\
 techniques reported on\n\
 earlier, you can take a\n\
-look around using [C]> and\n\
-[C]<. Press [C]| to view the\n\
+look around using " TEXT_CBUTTON TEXT_CRIGHT " and\n\
+" TEXT_CBUTTON TEXT_CLEFT ". Press " TEXT_CBUTTON TEXT_CDOWN " to view the\n\
 action from a distance.\n\
 When you can't move the\n\
 camera any farther, the\n\
 buzzer will sound. This is\n\
 the Lakitu Bros.,\n\
-signing off."))
+signing off.")
 
-DEFINE_DIALOG(DIALOG_031, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_031, 1, 5, 30, 200, "\
 No way! You beat me...\n\
 again!! And I just spent\n\
 my entire savings on\n\
@@ -370,9 +370,9 @@ Mach 1 Sprint shoes!\n\
 Here, I guess I have to\n\
 hand over this Star to\n\
 the winner of the race.\n\
-Congrats, Mario!"))
+Congrats, Mario!")
 
-DEFINE_DIALOG(DIALOG_032, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_032, 1, 5, 30, 200, "\
 If you get the Wing Cap,\n\
 you can fly! Put the cap\n\
 on, then do a Triple\n\
@@ -383,25 +383,25 @@ if you blast out of a\n\
 cannon wearing the\n\
 Wing Cap!\n\
 \n\
-Use the [C] Buttons to look\n\
+Use the " TEXT_CBUTTON " Buttons to look\n\
 around while flying, and\n\
-press [Z] to land."))
+press " TEXT_ZBUTTON " to land.")
 
-DEFINE_DIALOG(DIALOG_033, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_033, 1, 6, 30, 200, "\
 Ciao! You've reached\n\
 Princess Toadstool's\n\
 castle via a warp pipe.\n\
 Using the controller is a\n\
-piece of cake. Press [A] to\n\
-jump and [B] to attack.\n\
-Press [B] to read signs,\n\
+piece of cake. Press " TEXT_ABUTTON " to\n\
+jump and " TEXT_BBUTTON " to attack.\n\
+Press " TEXT_BBUTTON " to read signs,\n\
 too. Use the Control Stick\n\
 in the center of the\n\
 controller to move Mario\n\
 around. Now, head for\n\
-the castle."))
+the castle.")
 
-DEFINE_DIALOG(DIALOG_034, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_034, 1, 6, 30, 200, "\
 Good afternoon. The\n\
 Lakitu Bros., here,\n\
 reporting live from just\n\
@@ -419,26 +419,26 @@ we'll be shooting from the\n\
 recommended angle, but\n\
 you can change the\n\
 camera angle by pressing\n\
-the [C] Buttons.\n\
+the " TEXT_CBUTTON " Buttons.\n\
 If we can't adjust the\n\
 view any further, we'll\n\
 buzz. To take a look at\n\
 the surroundings, stop\n\
-and press [C]^.\n\
+and press " TEXT_CBUTTON TEXT_CUP ".\n\
 \n\
-Press [A] to resume play.\n\
+Press " TEXT_ABUTTON " to resume play.\n\
 Switch camera modes with\n\
-the [R] Button. Signs along\n\
+the " TEXT_RBUTTON " Button. Signs along\n\
 the way will review these\n\
 instructions.\n\
 \n\
 For now, reporting live,\n\
 this has been the\n\
-Lakitu Bros."))
+Lakitu Bros.")
 
-DEFINE_DIALOG(DIALOG_035, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_035, 1, 5, 30, 200, "\
 There are four camera, or\n\
-『[C],』 Buttons. Press [C]^\n\
+" TEXT_QUOTE_OPEN TEXT_CBUTTON "," TEXT_QUOTE_CLOSE " Buttons. Press " TEXT_CBUTTON TEXT_CUP "\n\
 to look around using the\n\
 Control Stick.\n\
 \n\
@@ -448,45 +448,45 @@ It is the camera\n\
 recommended for normal\n\
 play.\n\
 You can change angles by\n\
-pressing [C]>. If you press\n\
-[R], the view switches to\n\
+pressing " TEXT_CBUTTON TEXT_CRIGHT ". If you press\n\
+" TEXT_RBUTTON ", the view switches to\n\
 Mario's camera, which\n\
 is directly behind him.\n\
-Press [R] again to return\n\
+Press " TEXT_RBUTTON " again to return\n\
 to Lakitu's camera. Press\n\
-[C]| to see Mario from\n\
+" TEXT_CBUTTON TEXT_CDOWN " to see Mario from\n\
 afar, using either\n\
-Lakitu's or Mario's view."))
+Lakitu's or Mario's view.")
 
-DEFINE_DIALOG(DIALOG_036, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_036, 1, 5, 30, 200, "\
 OBSERVATION PLATFORM\n\
-Press [C]^ to take a look\n\
+Press " TEXT_CBUTTON TEXT_CUP " to take a look\n\
 around. Don't miss\n\
 anything!\n\
 \n\
-Press [R] to switch to\n\
+Press " TEXT_RBUTTON " to switch to\n\
 Mario's camera. It\n\
 always follows Mario.\n\
-Press [R] again to switch\n\
+Press " TEXT_RBUTTON " again to switch\n\
 to Lakitu's camera.\n\
 Pause the game and\n\
-switch the mode to 『fix』\n\
+switch the mode to " TEXT_QUOTE_OPEN "fix" TEXT_QUOTE_CLOSE "\n\
 the camera in place while\n\
-holding [R]. Give it a try!"))
+holding " TEXT_RBUTTON ". Give it a try!")
 
-DEFINE_DIALOG(DIALOG_037, 1, 2, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_037, 1, 2, 30, 200, "\
 I win! You lose!\n\
 Ha ha ha ha!\n\
 You're no slouch, but I'm\n\
 a better sledder!\n\
-Better luck next time!"))
+Better luck next time!")
 
-DEFINE_DIALOG(DIALOG_038, 1, 3, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_038, 1, 3, 95, 200, "\
 Reacting to the Star\n\
 power, the door slowly\n\
-opens."))
+opens.")
 
-DEFINE_DIALOG(DIALOG_039, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_039, 1, 4, 30, 200, "\
 No visitors allowed,\n\
 by decree of\n\
 the Big Bob-omb\n\
@@ -506,23 +506,23 @@ perhaps one hint:\n\
 Heed the Star names at\n\
 the beginning of the\n\
 course.\n\
-//--The Big Bob-omb"))
+//--The Big Bob-omb")
 
-DEFINE_DIALOG(DIALOG_040, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_040, 1, 3, 30, 200, "\
 Warning!\n\
 Cold, Cold Crevasse\n\
-Below!"))
+Below!")
 
-DEFINE_DIALOG(DIALOG_041, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_041, 1, 3, 30, 200, "\
 I win! You lose!\n\
 Ha ha ha!\n\
 \n\
 That's what you get for\n\
 messin' with Koopa the\n\
 Quick.\n\
-Better luck next time!"))
+Better luck next time!")
 
-DEFINE_DIALOG(DIALOG_042, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_042, 1, 4, 30, 200, "\
 Caution! Narrow Bridge!\n\
 Cross slowly!\n\
 \n\
@@ -532,22 +532,22 @@ of the cliff and hang on,\n\
 and you can climb off the\n\
 edge if you move slowly.\n\
 When you want to let go,\n\
-either press [Z] or press\n\
+either press " TEXT_ZBUTTON " or press\n\
 the Control Stick in the\n\
 direction of Mario's back.\n\
 To climb up, press Up on\n\
 the Control Stick. To\n\
 scurry up quickly, press\n\
-the [A] Button."))
+the " TEXT_ABUTTON " Button.")
 
-DEFINE_DIALOG(DIALOG_043, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_043, 1, 5, 30, 200, "\
 If you jump and hold the\n\
-[A] Button, you can hang on\n\
+" TEXT_ABUTTON " Button, you can hang on\n\
 to some objects overhead.\n\
 It's the same as grabbing\n\
-a flying bird!"))
+a flying bird!")
 
-DEFINE_DIALOG(DIALOG_044, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_044, 1, 5, 95, 200, "\
 Whooo's there? Whooo\n\
 woke me up? It's still\n\
 daylight--I should be\n\
@@ -556,23 +556,23 @@ sleeping!\n\
 Hey, as long as I'm\n\
 awake, why not take a\n\
 short flight with me?\n\
-Press and hold [A] to grab\n\
-on. Release [A] to let go.\n\
+Press and hold " TEXT_ABUTTON " to grab\n\
+on. Release " TEXT_ABUTTON " to let go.\n\
 I'll take you wherever\n\
 you want to go, as long\n\
 as my wings hold out.\n\
 Watch my shadow, and\n\
-grab on."))
+grab on.")
 
-DEFINE_DIALOG(DIALOG_045, 1, 6, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_045, 1, 6, 95, 200, "\
 Whew! I'm just about\n\
 flapped out. You should\n\
 lay off the pasta, Mario!\n\
 That's it for now. Press\n\
-[A] to let go. Okay,\n\
-bye byyyyyyeeee!"))
+" TEXT_ABUTTON " to let go. Okay,\n\
+bye byyyyyyeeee!")
 
-DEFINE_DIALOG(DIALOG_046, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_046, 1, 5, 30, 200, "\
 You have to master three\n\
 important jumping\n\
 techniques.\n\
@@ -585,11 +585,11 @@ right, you'll hop, skip,\n\
 then jump really high.\n\
 Next, go for distance\n\
 with the Long Jump. Run,\n\
-press [Z] to crouch then [A]\n\
+press " TEXT_ZBUTTON " to crouch then " TEXT_ABUTTON "\n\
 to jump really far.\n\
 \n\
 To do the Wall Kick, press\n\
-[A] to jump at a wall, then\n\
+" TEXT_ABUTTON " to jump at a wall, then\n\
 jump again when you hit\n\
 the wall.\n\
 \n\
@@ -597,19 +597,19 @@ Got that? Triple Jump,\n\
 Long Jump, Wall Kick.\n\
 Practice, practice,\n\
 practice. You don't stand\n\
-a chance without them."))
+a chance without them.")
 
-DEFINE_DIALOG(DIALOG_047, 1, 2, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_047, 1, 2, 95, 200, "\
 Hi! I'll prepare the\n\
-cannon for you!"))
+cannon for you!")
 
-DEFINE_DIALOG(DIALOG_048, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_048, 1, 4, 30, 200, "\
 Snow Mountain Summit\n\
 Watch for slippery\n\
 conditions! Please enter\n\
-the cottage first."))
+the cottage first.")
 
-DEFINE_DIALOG(DIALOG_049, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_049, 1, 5, 30, 200, "\
 Remember that tricky Wall\n\
 Kick jump? It's a\n\
 technique you'll have to\n\
@@ -620,12 +620,12 @@ to wall. Press the\n\
 Control Stick in the\n\
 direction you want to\n\
 bounce to gain momentum.\n\
-Practice makes perfect!"))
+Practice makes perfect!")
 
-DEFINE_DIALOG(DIALOG_050, 1, 4, 30, 200, _("\
-Hold [Z] to crouch and\n\
+DEFINE_DIALOG(DIALOG_050, 1, 4, 30, 200, "\
+Hold " TEXT_ZBUTTON " to crouch and\n\
 slide down a slope.\n\
-Or press [Z] while in the\n\
+Or press " TEXT_ZBUTTON " while in the\n\
 air to Pound the Ground!\n\
 If you stop, crouch, then\n\
 jump, you'll do a\n\
@@ -634,13 +634,13 @@ Got that?\n\
 There's more. Crouch and\n\
 then jump to do a\n\
 Long Jump! Or crouch and\n\
-walk to...never mind."))
+walk to...never mind.")
 
-DEFINE_DIALOG(DIALOG_051, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_051, 1, 6, 30, 200, "\
 Climbing's easy! When you\n\
 jump at trees, poles or\n\
 pillars, you'll grab them\n\
-automatically. Press [A] to\n\
+automatically. Press " TEXT_ABUTTON " to\n\
 jump off backward.\n\
 \n\
 To rotate around the\n\
@@ -651,11 +651,11 @@ press Up to do a\n\
 handstand!\n\
 Jump off from the\n\
 handstand for a high,\n\
-stylin' dismount."))
+stylin' dismount.")
 
-DEFINE_DIALOG(DIALOG_052, 1, 5, 30, 200, _("\
-Stop and press [Z] to\n\
-crouch, then press [A]\n\
+DEFINE_DIALOG(DIALOG_052, 1, 5, 30, 200, "\
+Stop and press " TEXT_ZBUTTON " to\n\
+crouch, then press " TEXT_ABUTTON "\n\
 to do a high, Backward\n\
 Somersault!\n\
 \n\
@@ -663,9 +663,9 @@ To perform a Side\n\
 Somersault, run, do a\n\
 sharp U-turn and jump.\n\
 You can catch lots of\n\
-air with both jumps."))
+air with both jumps.")
 
-DEFINE_DIALOG(DIALOG_053, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_053, 1, 5, 30, 200, "\
 Sometimes, if you pass\n\
 through a coin ring or\n\
 find a secret point in a\n\
@@ -673,16 +673,16 @@ course, a red number will\n\
 appear.\n\
 If you trigger five red\n\
 numbers, a secret Star\n\
-will show up."))
+will show up.")
 
-DEFINE_DIALOG(DIALOG_054, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_054, 1, 5, 30, 200, "\
 Welcome to the snow\n\
 slide! Hop on! To speed\n\
 up, press forward on the\n\
 Control Stick. To slow\n\
-down, pull back."))
+down, pull back.")
 
-DEFINE_DIALOG(DIALOG_055, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_055, 1, 4, 30, 200, "\
 Hey-ey, Mario, buddy,\n\
 howzit goin'? Step right\n\
 up. You look like a fast\n\
@@ -694,9 +694,9 @@ you know. Whaddya say?\n\
 How about a race?\n\
 Ready...\n\
 \n\
-//Go//// Don't Go"))
+//Go//// Don't Go")
 
-DEFINE_DIALOG(DIALOG_056, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_056, 1, 6, 30, 200, "\
 You brrrr-oke my record!\n\
 Unbelievable! I knew\n\
 that you were the coolest.\n\
@@ -706,9 +706,9 @@ fastest!\n\
 I can't award you a gold\n\
 medal, but here, take this\n\
 Star instead. You've\n\
-earned it!"))
+earned it!")
 
-DEFINE_DIALOG(DIALOG_057, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_057, 1, 4, 30, 200, "\
 Egad! My baby!! Have you\n\
 seen my baby??? She's\n\
 the most precious baby in\n\
@@ -720,9 +720,9 @@ her.\n\
 Let's see...I stopped\n\
 for herring and ice cubes,\n\
 then I...oohh! I just\n\
-don't know!"))
+don't know!")
 
-DEFINE_DIALOG(DIALOG_058, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_058, 1, 4, 30, 200, "\
 You found my precious,\n\
 precious baby! Where\n\
 have you been? How can\n\
@@ -730,15 +730,15 @@ I ever thank you, Mario?\n\
 Oh, I do have this...\n\
 ...Star. Here, take it\n\
 with my eternal\n\
-gratitude."))
+gratitude.")
 
-DEFINE_DIALOG(DIALOG_059, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_059, 1, 4, 30, 200, "\
 That's not my baby! She\n\
 looks nothing like me!\n\
 Her parents must be\n\
-worried sick!"))
+worried sick!")
 
-DEFINE_DIALOG(DIALOG_060, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_060, 1, 4, 30, 200, "\
 ATTENTION!\n\
 Read Before Diving In!\n\
 \n\
@@ -751,30 +751,30 @@ Return to the surface for\n\
 air or find an air bubble\n\
 or coins to breathe while\n\
 underwater.\n\
-Press [A] to swim. Hold [A]\n\
+Press " TEXT_ABUTTON " to swim. Hold " TEXT_ABUTTON "\n\
 to swim slow and steady.\n\
-Tap [A] with smooth timing\n\
+Tap " TEXT_ABUTTON " with smooth timing\n\
 to gain speed.\n\
 Press Up on the\n\
-Control Stick and press [A]\n\
+Control Stick and press " TEXT_ABUTTON "\n\
 to dive.\n\
 \n\
 Press Down on the Control\n\
-Stick and press [A] to\n\
+Stick and press " TEXT_ABUTTON " to\n\
 return to the surface.\n\
 \n\
-Hold Down and press [A]\n\
+Hold Down and press " TEXT_ABUTTON "\n\
 while on the surface near\n\
 the edge of the water to\n\
-jump out."))
+jump out.")
 
-DEFINE_DIALOG(DIALOG_061, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_061, 1, 4, 30, 200, "\
 BRRR! Frostbite Danger!\n\
 Do not swim here.\n\
 I'm serious.\n\
-/--The Penguin"))
+/--The Penguin")
 
-DEFINE_DIALOG(DIALOG_062, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_062, 1, 3, 30, 200, "\
 Hidden inside the green\n\
 block is the amazing\n\
 Metal Cap.\n\
@@ -785,9 +785,9 @@ You don't even have to\n\
 breathe while wearing it.\n\
 \n\
 The only problem:\n"
-YOU_CANT_SWIM_IN_IT))
+YOU_CANT_SWIM_IN_IT)
 
-DEFINE_DIALOG(DIALOG_063, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_063, 1, 5, 30, 200, "\
 The Vanish Cap is inside\n\
 the blue block. Mr. I.\n\
 will be surprised, since\n\
@@ -795,9 +795,9 @@ you'll be invisible when\n\
 you wear it!\n\
 Even the Big Boo will be\n\
 fooled--and you can walk\n\
-through secret walls, too."))
+through secret walls, too.")
 
-DEFINE_DIALOG(DIALOG_064, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_064, 1, 5, 30, 200, "\
 When you put on the Wing\n\
 Cap that comes from a\n\
 red block, do the Triple\n\
@@ -806,17 +806,17 @@ the sky.\n\
 Use the Control Stick to\n\
 guide Mario. Pull back to\n\
 to fly up, press forward\n\
-to nose down, and press [Z]\n\
-to land."))
+to nose down, and press " TEXT_ZBUTTON "\n\
+to land.")
 
-DEFINE_DIALOG(DIALOG_065, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_065, 1, 6, 30, 200, "\
 Swimming Lessons!\n\
-Tap [A] to do the breast\n\
+Tap " TEXT_ABUTTON " to do the breast\n\
 stroke. If you time the\n\
 taps right, you'll swim\n\
 fast.\n\
 \n\
-Press and hold [A] to do a\n\
+Press and hold " TEXT_ABUTTON " to do a\n\
 slow, steady flutter kick.\n\
 Press Up on the Control\n\
 Stick to dive, and pull\n\
@@ -824,7 +824,7 @@ back on the stick to head\n\
 for the surface.\n\
 To jump out of the water,\n\
 hold Down on the Control\n\
-Stick, then press [A].\n\
+Stick, then press " TEXT_ABUTTON ".\n\
 Easy as pie, right?\n\
 \n\
 \n\
@@ -836,9 +836,9 @@ Power Meter runs low.\n\
 \n\
 And one last thing: You\n\
 can't open doors that\n\
-are underwater."))
+are underwater.")
 
-DEFINE_DIALOG(DIALOG_066, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_066, 1, 5, 30, 200, "\
 Mario, it's Peach!\n\
 Please be careful! Bowser\n\
 is so wicked! He will try\n\
@@ -846,7 +846,7 @@ to burn you with his\n\
 horrible flame breath.\n\
 Run around behind and\n\
 grab him by the tail with\n\
-the [B] Button. Once you\n\
+the " TEXT_BBUTTON " Button. Once you\n\
 grab hold, swing him\n\
 around in great circles.\n\
 Rotate the Control Stick\n\
@@ -854,17 +854,17 @@ to go faster and faster.\n\
 The faster you swing him,\n\
 the farther he'll fly.\n\
 \n\
-Use the [C] Buttons to look\n\
+Use the " TEXT_CBUTTON " Buttons to look\n\
 around, Mario. You have\n\
 to throw Bowser into one\n\
 of the bombs in the four\n\
 corners.\n\
-Aim well, then press [B]\n\
+Aim well, then press " TEXT_BBUTTON "\n\
 again to launch Bowser.\n\
 Good luck, Mario! Our\n\
-fate is in your hands."))
+fate is in your hands.")
 
-DEFINE_DIALOG(DIALOG_067, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_067, 1, 5, 30, 200, "\
 Tough luck, Mario!\n\
 Princess Toadstool isn't\n\
 here...Gwa ha ha!! Go\n\
@@ -873,9 +873,9 @@ me by the tail!\n\
 You'll never be able to\n\
 swing ME around! A wimp\n\
 like you won't throw me\n\
-out of here! Never! Ha!"))
+out of here! Never! Ha!")
 
-DEFINE_DIALOG(DIALOG_068, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_068, 1, 5, 30, 200, "\
 It's Lethal Lava Land!\n\
 If you catch fire or fall\n\
 into a pool of flames,\n\
@@ -883,17 +883,17 @@ you'll be hopping mad, but\n\
 don't lose your cool.\n\
 You can still control\n\
 Mario--just try to keep\n\
-calm!"))
+calm!")
 
-DEFINE_DIALOG(DIALOG_069, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_069, 1, 6, 30, 200, "\
 Sometimes you'll bump into\n\
 invisible walls at the\n\
 edges of the painting\n\
 worlds. If you hit a wall\n\
 while flying, you'll bounce\n\
-back."))
+back.")
 
-DEFINE_DIALOG(DIALOG_070, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_070, 1, 5, 30, 200, "\
 You can return to the\n\
 castle's main hall at any\n\
 time from the painting\n\
@@ -902,7 +902,7 @@ live.\n\
 Just stop, stand still,\n\
 press Start to pause the\n\
 game, then select\n\
-『Exit Course.』\n\
+" TEXT_QUOTE_OPEN "Exit Course." TEXT_QUOTE_CLOSE "\n\
 \n\
 You don't have to collect\n\
 all Power Stars in one\n\
@@ -923,9 +923,9 @@ You can, however, collect\n\
 any of the remaining\n\
 Stars next. You don't\n\
 have to recover the one\n\
-described by the hint."))
+described by the hint.")
 
-DEFINE_DIALOG(DIALOG_071, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_071, 1, 3, 30, 200, "\
 Danger Ahead!\n\
 Beware of the strange\n\
 cloud! Don't inhale!\n\
@@ -933,16 +933,16 @@ If you feel faint, run for\n\
 higher ground and fresh\n\
 air!\n\
 Circle: Shelter\n\
-Arrow: Entrance-Exit"))
+Arrow: Entrance-Exit")
 
-DEFINE_DIALOG(DIALOG_072, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_072, 1, 5, 30, 200, "\
 High winds ahead!\n\
 Pull your Cap down tight.\n\
 If it blows off, you'll\n\
 have to find it on this\n\
-mountain."))
+mountain.")
 
-DEFINE_DIALOG(DIALOG_073, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_073, 1, 4, 95, 200, "\
 Aarrgh! Ahoy, matey. I\n\
 have sunken treasure,\n\
 here, I do.\n\
@@ -957,9 +957,9 @@ ye say?\n\
 \n\
 I'll never tell!\n\
 \n\
-//--The Cap'n"))
+//--The Cap'n")
 
-DEFINE_DIALOG(DIALOG_074, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_074, 1, 5, 30, 200, "\
 You can grab on to the\n\
 edge of a cliff or ledge\n\
 with your fingertips and\n\
@@ -969,14 +969,14 @@ To drop from the edge,\n\
 either press the Control\n\
 Stick in the direction of\n\
 Mario's back or press the\n\
-[Z] Button.\n\
+" TEXT_ZBUTTON " Button.\n\
 To get up onto the ledge,\n\
 either press Up on the\n\
-Control Stick or press [A]\n\
+Control Stick or press " TEXT_ABUTTON "\n\
 as soon as you grab the\n\
-ledge to climb up quickly."))
+ledge to climb up quickly.")
 
-DEFINE_DIALOG(DIALOG_075, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_075, 1, 5, 30, 200, "\
 Mario!! My castle is in\n\
 great peril. I know that\n\
 Bowser is the cause...and\n\
@@ -1006,9 +1006,9 @@ Retrieve all of the\n\
 Power Stars in the castle\n\
 and free us from this\n\
 awful prison!\n\
-Please!"))
+Please!")
 
-DEFINE_DIALOG(DIALOG_076, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_076, 1, 6, 30, 200, "\
 Thanks to the power of\n\
 the Stars, life is\n\
 returning to the castle.\n\
@@ -1025,24 +1025,24 @@ And when you go to the\n\
 water town, you can flood\n\
 it with a high jump into\n\
 the painting. Oh, by the\n\
-way, look what I found!"))
+way, look what I found!")
 
-DEFINE_DIALOG(DIALOG_077, 1, 2, 150, 200, _("\
+DEFINE_DIALOG(DIALOG_077, 1, 2, 150, 200, "\
 It is decreed that one\n\
-shall pound the pillars."))
+shall pound the pillars.")
 
-DEFINE_DIALOG(DIALOG_078, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_078, 1, 5, 30, 200, "\
 Break open the Blue Coin\n\
 Block by Pounding the\n\
-Ground with the [Z] Button.\n\
+Ground with the " TEXT_ZBUTTON " Button.\n\
 One Blue Coin is worth\n\
 five Yellow Coins.\n\
 But you have to hurry!\n\
 The coins will disappear\n\
 if you're not quick to\n\
-collect them! Too bad."))
+collect them! Too bad.")
 
-DEFINE_DIALOG(DIALOG_079, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_079, 1, 4, 30, 200, "\
 Owwwuu! Let me go!\n\
 Uukee-kee! I was only\n\
 teasing! Can't you take\n\
@@ -1053,21 +1053,21 @@ I'll give you something\n\
 really good.\n\
 So, how about it?\n\
 \n\
-//Free him/ Hold on"))
+//Free him/ Hold on")
 
-DEFINE_DIALOG(DIALOG_080, 1, 1, 30, 200, _("\
-Eeeh hee hee hee!"))
+DEFINE_DIALOG(DIALOG_080, 1, 1, 30, 200, "\
+Eeeh hee hee hee!")
 
-DEFINE_DIALOG(DIALOG_081, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_081, 1, 4, 30, 200, "\
 The mystery is of Wet\n\
 or Dry.\n\
 And where does the\n\
 solution lie?\n\
 The city welcomes visitors\n\
 with the depth they bring\n\
-as they enter."))
+as they enter.")
 
-DEFINE_DIALOG(DIALOG_082, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_082, 1, 4, 30, 200, "\
 Hold on to your hat! If\n\
 you lose it, you'll be\n\
 injured easily.\n\
@@ -1087,17 +1087,17 @@ worlds inside the walls?\n\
 Yup. It's true. Bowser's\n\
 troops are there, too.\n\
 Oh, here, take this. I've\n\
-been keeping it for you."))
+been keeping it for you.")
 
-DEFINE_DIALOG(DIALOG_083, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_083, 1, 6, 30, 200, "\
 There's something strange\n\
 about that clock. As you\n\
 jump inside, watch the\n\
 position of the big hand.\n\
 Oh, look what I found!\n\
-Here, Mario, catch!"))
+Here, Mario, catch!")
 
-DEFINE_DIALOG(DIALOG_084, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_084, 1, 3, 30, 200, "\
 Yeeoww! Unhand me,\n\
 brute! I'm late, so late,\n\
 I must make haste!\n\
@@ -1109,34 +1109,34 @@ Ouch! Take it then! A\n\
 gift from Bowser, it was.\n\
 Now let me be! I have a\n\
 date! I cannot be late\n\
-for tea!"))
+for tea!")
 
-DEFINE_DIALOG(DIALOG_085, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_085, 1, 5, 30, 200, "\
 You don't stand a ghost\n\
 of a chance in this house.\n\
 If you walk out of here,\n\
 you deserve...\n\
-...a Ghoul Medal..."))
+...a Ghoul Medal...")
 
-DEFINE_DIALOG(DIALOG_086, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_086, 1, 3, 30, 200, "\
 Running around in circles\n\
 makes some bad guys roll\n\
-their eyes."))
+their eyes.")
 
-DEFINE_DIALOG(DIALOG_087, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_087, 1, 4, 30, 200, "\
 Santa Claus isn't the only\n\
 one who can go down a\n\
 chimney! Come on in!\n\
-/--Cabin Proprietor"))
+/--Cabin Proprietor")
 
-DEFINE_DIALOG(DIALOG_088, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_088, 1, 5, 30, 200, "\
 Work Elevator\n\
 For those who get off\n\
 here: Grab the pole to the\n\
 left and slide carefully\n\
-down."))
+down.")
 
-DEFINE_DIALOG(DIALOG_089, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_089, 1, 5, 95, 200, "\
 Both ways fraught with\n\
 danger! Watch your feet!\n\
 Those who can't do the\n\
@@ -1149,23 +1149,23 @@ Left: Black Hole\n\
 \n\
 Red Circle: Elevator 2\n\
 //// Underground Lake\n\
-Arrow: You are here"))
+Arrow: You are here")
 
-DEFINE_DIALOG(DIALOG_090, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_090, 1, 6, 30, 200, "\
 Bwa ha ha ha!\n\
 You've stepped right into\n\
 my trap, just as I knew\n\
 you would! I warn you,\n\
-『Friend,』 watch your\n\
-step!"))
+" TEXT_QUOTE_OPEN "Friend," TEXT_QUOTE_CLOSE " watch your\n\
+step!")
 
-DEFINE_DIALOG(DIALOG_091, 2, 2, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_091, 2, 2, 30, 200, "\
 Danger!\n\
 Strong Gusts!\n\
 But the wind makes a\n\
-comfy ride."))
+comfy ride.")
 
-DEFINE_DIALOG(DIALOG_092, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_092, 1, 5, 30, 200, "\
 Pestering me again, are\n\
 you, Mario? Can't you see\n\
 that I'm having a merry\n\
@@ -1173,9 +1173,9 @@ little time, making\n\
 mischief with my minions?\n\
 Now, return those Stars!\n\
 My troops in the walls\n\
-need them! Bwa ha ha!"))
+need them! Bwa ha ha!")
 
-DEFINE_DIALOG(DIALOG_093, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_093, 1, 5, 30, 200, "\
 Mario! You again! Well\n\
 that's just fine--I've\n\
 been looking for something\n\
@@ -1188,17 +1188,17 @@ trapped within the\n\
 walls...\n\
 And you'll never see the\n\
 Princess again!\n\
-Bwa ha ha ha!"))
+Bwa ha ha ha!")
 
-DEFINE_DIALOG(DIALOG_094, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_094, 1, 4, 30, 200, "\
 Get a good run up the\n\
 slope! Do you remember\n\
 the Long Jump? Run, press\n\
-[Z], then jump!"))
+" TEXT_ZBUTTON ", then jump!")
 
-DEFINE_DIALOG(DIALOG_095, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_095, 1, 4, 30, 200, "\
 To read a sign, stand in\n\
-front of it and press [B],\n\
+front of it and press " TEXT_BBUTTON ",\n\
 like you did just now.\n\
 \n\
 When you want to talk to\n\
@@ -1207,9 +1207,9 @@ animal, stand right in\n\
 front of it.\n\
 Please recover the Stars\n\
 that were stolen by\n\
-Bowser in this course."))
+Bowser in this course.")
 
-DEFINE_DIALOG(DIALOG_096, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_096, 1, 4, 30, 200, "\
 The path is narrow here.\n\
 Easy does it! No one is\n\
 allowed on top of the\n\
@@ -1219,33 +1219,33 @@ good for you, you won't\n\
 wake anyone who's\n\
 sleeping!\n\
 Move slowly,\n\
-tread lightly."))
+tread lightly.")
 
-DEFINE_DIALOG(DIALOG_097, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_097, 1, 5, 30, 200, "\
 Don't be a pushover!\n\
 If anyone tries to shove\n\
 you around, push back!\n\
 It's one-on-one, with a\n\
-fiery finish for the loser!"))
+fiery finish for the loser!")
 
-DEFINE_DIALOG(DIALOG_098, 1, 2, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_098, 1, 2, 95, 200, "\
 Come on in here...\n\
-...heh, heh, heh..."))
+...heh, heh, heh...")
 
 // unused
-DEFINE_DIALOG(DIALOG_099, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_099, 1, 5, 95, 200, "\
 Eh he he...\n\
 You're mine, now, hee hee!\n\
 I'll pass right through\n\
 this wall. Can you do\n\
-that? Heh, heh, heh!"))
+that? Heh, heh, heh!")
 
-DEFINE_DIALOG(DIALOG_100, 1, 3, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_100, 1, 3, 95, 200, "\
 Ukkiki...Wakkiki...kee kee!\n\
 Ha! I snagged it!\n\
-It's mine! Heeheeheeee!"))
+It's mine! Heeheeheeee!")
 
-DEFINE_DIALOG(DIALOG_101, 1, 3, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_101, 1, 3, 95, 200, "\
 Ackk! Let...go...\n\
 You're...choking...me...\n\
 Cough...I've been framed!\n\
@@ -1254,91 +1254,167 @@ take it. It's a cool Cap,\n\
 but I'll give it back.\n\
 I think it looks better on\n\
 me than it does on you,\n\
-though! Eeeee! Kee keee!"))
+though! Eeeee! Kee keee!")
 
-DEFINE_DIALOG(DIALOG_102, 1, 5, 30, 200, _("\
-Pssst! The Boos are super\n\
-shy. If you look them\n\
-in the eyes, they fade\n\
-away, but if you turn\n\
-your back, they reappear.\n\
-It's no use trying to hit\n\
-them when they're fading\n\
-away. Instead, sneak up\n\
-behind them and punch."))
-
-DEFINE_DIALOG(DIALOG_103, 1, 4, 95, 200, _("\
-Upon four towers\n\
-one must alight...\n\
-Then at the peak\n\
-shall shine the light..."))
-
-DEFINE_DIALOG(DIALOG_104, 1, 5, 30, 200, _("\
-The shadowy star in front\n\
-of you is a 『Star\n\
-Marker.』 When you collect\n\
-all 8 Red Coins, the Star\n\
-will appear here."))
-
-DEFINE_DIALOG(DIALOG_105, 1, 3, 95, 200, _("\
-Ready for blastoff! Come\n\
-on, hop into the cannon!\n\
+DEFINE_DIALOG(DIALOG_102, 1, 5, 30, 200, "\
+Gyahyuck! Welcome all!\n\
+We've got quite the show\n\
+awating your eyes\n\
+tonight!\n\
+(...oh?)\n\
+That's right ladies and\n\
+gentlemen! The show will\n\
+commence soon!\n\
+(...you! In the red cap!\n\
+Get off the stage!)\n\
+Dazzling performers will\n\
+crowd the stage and blow\n\
+you away!\n\
+(Sir, you really need to\n\
+leave now! Scram!)\n\
+And, uhh...\n\
+(GO AWAY! I'M ABOUT TO\n\
+LOSE IT!)\n\
 \n\
-You can reach the Star on\n\
-the floating island by\n\
-using the four cannons.\n\
-Use the Control Stick to\n\
-aim, then press [A] to fire.\n\
 \n\
-If you're handy, you can\n\
-grab on to trees or poles\n\
-to land."))
+...\n\
+\n\
+\n\
+\n\
+\n\
+OH THAT DOES IT!\n\
+YOU IN THE RED! GET\n\
+OFF MY STAGE! YOU'RE\n\
+RUINING THE SHOW!\n\
+\n\
+...\n\
+\n\
+\n\
+\n\
+\n\
+THIS JOB DOESN'T PAY\n\
+WELL ENOUGH FOR ME\n\
+TO HAVE TO DEAL WITH\n\
+THIS! SCRAM!\n\
+\n\
+...\n\
+\n\
+\n\
+\n\
+\n\
+DO YOU THINK THIS IS\n\
+SOME KIND OF JOKE?\n\
+WHAT YOU'RE DOING IS\n\
+DRIVING ME NUTS!\n\
+\n\
+KNOCK IT OFF!\n\
+HEEHEEHOO...\n\
+I'M SO ANGRY!\n\
+HAHAHYUCK...\n\
+\n\
+HOHOHO!\n\
+HEHEHE!\n\
+HOO HOO HYAH!\n\
+WAHYAHOO!\n\
+HEEE HOO!\n\
+HA HA HA HA HA HA\n\
+HA HA HA HA HA HA\n\
+HA HA HA HA HA HA\n\
+HA HA HA HA HA HA\n\
+HA HA HA HA HA HA\n\
+AAAAAAAAARRGHHHHH!\n\
+\n\
+\n\
+\n\
+")
 
-DEFINE_DIALOG(DIALOG_106, 1, 2, 95, 200, _("\
-Ready for blastoff! Come\n\
-on, hop into the cannon!"))
+DEFINE_DIALOG(DIALOG_103, 1, 3, 95, 200, "\
+That does it!\n\
+\n\
+\n\
+Oh ho ho...\n\
+I'm so mad!\n\
+\n\
+Time for my\n\
+ULTIMATE ATTACK!\n\
+\n\
+...huh?\n\
+\n\
+")
 
-DEFINE_DIALOG(DIALOG_107, 1, 3, 95, 200, _("\
-Ghosts...\n\
-...don't...\n\
-...DIE!\n\
-Heh, heh, heh!\n\
-Can you get out of here...\n\
-...alive?"))
+DEFINE_DIALOG(DIALOG_104, 1, 3, 30, 200, "\
+OUCH! HEY! OW!\n\
+\n\
+\n\
+STOP! NO, DON'T BITE\n\
+ME THERE!\n\
+\n\
+YEEEEOOOOOOOW!\n\
+UNCLE! UNCLE!\n\
+\n\
+NO! HEY WHAT\n\
+ARE YOU DOING WITH\n\
+THAT?\n\
+AAUUUUUUGHH!!!!!\n\
+\n\
+")
 
-DEFINE_DIALOG(DIALOG_108, 1, 2, 95, 200, _("\
-Boooooo-m! Here comes\n\
-the master of mischief,\n\
-the tower of terror,\n\
-the Big Boo!\n\
-Ka ha ha ha..."))
+DEFINE_DIALOG(DIALOG_105, 1, 3, 95, 200, "\
+The circus is a fun\n\
+place! So much movement!\n\
+Watch your step in there.")
 
-DEFINE_DIALOG(DIALOG_109, 1, 4, 95, 200, _("\
-Ooooo Nooooo!\n\
-Talk about out-of-body\n\
-experiences--my body\n\
-has melted away!\n\
-Have you run in to any\n\
-headhunters lately??\n\
-I could sure use a new\n\
-body!\n\
-Brrr! My face might\n\
-freeze like this!"))
+DEFINE_DIALOG(DIALOG_106, 1, 4, 95, 200, "\
+Hey, did you know that\n\
+you can walk on the\n\
+arms of the clown\n\
+thwomp clocks?")
 
-DEFINE_DIALOG(DIALOG_110, 1, 5, 95, 200, _("\
-I need a good head on my\n\
-shoulders. Do you know of\n\
-anybody in need of a good\n\
-body? Please! I'll follow\n\
-you if you do!"))
+DEFINE_DIALOG(DIALOG_107, 1, 3, 95, 200, "\
+How are you planning\n\
+on getting back?\n\
+")
 
-DEFINE_DIALOG(DIALOG_111, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_108, 1, 2, 95, 200, "\
+I hate my job.\n\
+")
+
+DEFINE_DIALOG(DIALOG_109, 1, 5, 95, 200, "\
+Here's a tip:\n\
+If you zoom out the\n\
+camera near the\n\
+Ferris Wheel, it will\n\
+go further than normal!")
+
+DEFINE_DIALOG(DIALOG_110, 1, 4, 95, 200, "\
+Hey, you there!\n\
+Do you know what you've\n\
+done!? How could you\n\
+do such a thing?\n\
+I mean, for the love\n\
+of linguine,\n\
+who's going to close\n\
+the circus now?\n\
+Don't you get it?\n\
+The clown you beat\n\
+the daylights out of\n\
+was supposed to close!\n\
+I guess it's your job\n\
+now! I need you to go\n\
+and turn off the main\n\
+power switch.\n\
+The switch is deep within\n\
+the indoor section of the\n\
+circus. You should be \n\
+able to find it.")
+
+DEFINE_DIALOG(DIALOG_111, 1, 4, 95, 200, "\
 Perfect! What a great\n\
 new body! Here--this is a\n\
 present for you. It's sure\n\
-to warm you up."))
+to warm you up.")
 
-DEFINE_DIALOG(DIALOG_112, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_112, 1, 4, 30, 200, "\
 Collect as many coins as\n\
 possible! They'll refill\n\
 your Power Meter.\n\
@@ -1353,17 +1429,17 @@ Spinning Heart.\n\
 \n\
 The faster you run\n\
 through the heart, the\n\
-more power you'll recover."))
+more power you'll recover.")
 
-DEFINE_DIALOG(DIALOG_113, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_113, 1, 6, 30, 200, "\
 There are special Caps in\n\
 the red, green and blue\n\
 blocks. Step on the\n\
 switches in the hidden\n\
 courses to activate the\n\
-Cap Blocks."))
+Cap Blocks.")
 
-DEFINE_DIALOG(DIALOG_114, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_114, 1, 5, 95, 200, "\
 It makes me so mad! We\n\
 build your houses, your\n\
 castles. We pave your\n\
@@ -1376,16 +1452,16 @@ on me! I think I'll crush\n\
 you just for fun!\n\
 Do you have a problem\n\
 with that? Just try to\n\
-pound me, wimp! Ha!"))
+pound me, wimp! Ha!")
 
-DEFINE_DIALOG(DIALOG_115, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_115, 1, 5, 95, 200, "\
 No! Crushed again!\n\
 I'm just a stepping stone,\n\
 after all. I won't gravel,\n\
 er, grovel. Here, you win.\n\
-Take this with you!"))
+Take this with you!")
 
-DEFINE_DIALOG(DIALOG_116, 1, 5, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_116, 1, 5, 95, 200, "\
 Whaaa....Whaaat?\n\
 Can it be that a\n\
 pipsqueak like you has\n\
@@ -1404,9 +1480,9 @@ promised, Mario.\n\
 If you want to see me\n\
 again, select this Star\n\
 from the menu. For now,\n\
-farewell."))
+farewell.")
 
-DEFINE_DIALOG(DIALOG_117, 1, 1, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_117, 1, 1, 95, 200, "\
 Who...walk...here?\n\
 Who...break...seal?\n\
 Wake..ancient..ones?\n\
@@ -1416,9 +1492,9 @@ We no like...intruders!\n\
 Now battle...\n\
 ...hand...\n\
 ...to...\n\
-...hand!"))
+...hand!")
 
-DEFINE_DIALOG(DIALOG_118, 1, 6, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_118, 1, 6, 95, 200, "\
 Grrrrumbbble!\n\
 What...happen?\n\
 We...crushed like pebble.\n\
@@ -1426,9 +1502,9 @@ You so strong!\n\
 You rule ancient pyramid!\n\
 For today...\n\
 Now, take Star of Power.\n\
-We...sleep...darkness."))
+We...sleep...darkness.")
 
-DEFINE_DIALOG(DIALOG_119, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_119, 1, 6, 30, 200, "\
 Grrr! I was a bit\n\
 careless. This is not as I\n\
 had planned...but I still\n\
@@ -1440,9 +1516,9 @@ more Stars from me! I'm\n\
 not finished with you yet,\n\
 but I'll let you go for\n\
 now. You'll pay for this...\n\
-later!"))
+later!")
 
-DEFINE_DIALOG(DIALOG_120, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_120, 1, 4, 30, 200, "\
 Ooowaah! Can it be that\n\
 I've lost??? The power of\n\
 the Stars has failed me...\n\
@@ -1456,9 +1532,9 @@ your precious Princess,\n\
 come to the top of the\n\
 tower.\n\
 I'll be waiting!\n\
-Gwa ha ha ha!"))
+Gwa ha ha ha!")
 
-DEFINE_DIALOG(DIALOG_121, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_121, 1, 5, 30, 200, "\
 Nooo! It can't be!\n\
 You've really beaten me,\n\
 Mario?!! I gave those\n\
@@ -1471,39 +1547,39 @@ It's not over yet...\n\
 \n\
 C'mon troops! Let's watch\n\
 the ending together!\n\
-Bwa ha ha!"))
+Bwa ha ha!")
 
-DEFINE_DIALOG(DIALOG_122, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_122, 1, 4, 30, 200, "\
 The Black Hole\n\
 Right: Work Elevator\n\
 /// Cloudy Maze\n\
-Left: Underground Lake"))
+Left: Underground Lake")
 
-DEFINE_DIALOG(DIALOG_123, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_123, 1, 4, 30, 200, "\
 Metal Cavern\n\
 Right: To Waterfall\n\
-Left: Metal Cap Switch"))
+Left: Metal Cap Switch")
 
-DEFINE_DIALOG(DIALOG_124, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_124, 1, 4, 30, 200, "\
 Work Elevator\n\
 Danger!!\n\
 Read instructions\n\
 thoroughly!\n\
 Elevator continues in the\n\
 direction of the arrow\n\
-activated."))
+activated.")
 
-DEFINE_DIALOG(DIALOG_125, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_125, 1, 3, 30, 200, "\
 Hazy Maze-Exit\n\
 Danger! Closed.\n\
-Turn back now."))
+Turn back now.")
 
-DEFINE_DIALOG(DIALOG_126, 2, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_126, 2, 3, 30, 200, "\
 Up: Black Hole\n\
 Right: Work Elevator\n\
-/// Hazy Maze"))
+/// Hazy Maze")
 
-DEFINE_DIALOG(DIALOG_127, 3, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_127, 3, 4, 30, 200, "\
 Underground Lake\n\
 Right: Metal Cave\n\
 Left: Abandoned Mine\n\
@@ -1511,15 +1587,15 @@ Left: Abandoned Mine\n\
 A gentle sea dragon lives\n\
 here. Pound on his back to\n\
 make him lower his head.\n\
-Don't become his lunch."))
+Don't become his lunch.")
 
-DEFINE_DIALOG(DIALOG_128, 1, 4, 95, 200, _("\
+DEFINE_DIALOG(DIALOG_128, 1, 4, 95, 200, "\
 You must fight with\n\
 honor! It is against the\n\
 royal rules to throw the\n\
-king out of the ring!"))
+king out of the ring!")
 
-DEFINE_DIALOG(DIALOG_129, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_129, 1, 5, 30, 200, "\
 Welcome to the Vanish\n\
 Cap Switch Course! All of\n\
 the blue blocks you find\n\
@@ -1529,9 +1605,9 @@ You'll disappear when you\n\
 put on the Vanish Cap, so\n\
 you'll be able to elude\n\
 enemies and walk through\n\
-many things. Try it out!"))
+many things. Try it out!")
 
-DEFINE_DIALOG(DIALOG_130, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_130, 1, 4, 30, 200, "\
 Hey, you found our special\n\
 secret factory.\n\
 \n\
@@ -1541,9 +1617,9 @@ but what makes this place\n\
 special is that we operate\n\
 mostly off the grid.\n\
 So um, welcome to the\n\
-Forbidden Factory I suppose."))
+Forbidden Factory I suppose.")
 
-DEFINE_DIALOG(DIALOG_131, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_131, 1, 3, 30, 200, "\
 Our blocks are the best in\n\
 all the kingdom!\n\
 \n\
@@ -1554,27 +1630,27 @@ I'm actually missing\n\
 a few blocks from this\n\
 shipment.\n\
 Once the power's back on,\n\
-See me if you want to help."))
+See me if you want to help.")
 
-DEFINE_DIALOG(DIALOG_132, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_132, 1, 4, 30, 200, "\
 Safety regulations are a bit\n\
 of a work in progress right\n\
 now.\n\
 \n\
 Oh! You're not with the\n\
 inspection team? Thank\n\
-goodness!"))
+goodness!")
 
-DEFINE_DIALOG(DIALOG_133, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_133, 1, 4, 30, 200, "\
 I'm not allowed in the\n\
 generator room anymore.\n\
 \n\
 \n\
 I'm a 'Workplace Hazard'\n\
 says the oh-so-mighty\n\
-supervisor. Hmph."))
+supervisor. Hmph.")
 
-DEFINE_DIALOG(DIALOG_134, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_134, 1, 4, 30, 200, "\
 My buddy's locked in that\n\
 room. Some dog went and\n\
 took the key and now he's\n\
@@ -1582,43 +1658,43 @@ making a mess of the place.\n\
 You need to find him and\n\
 bring him here otherwise\n\
 I'm going to lose my job!\n\
-He can't have gone too far..."))
+He can't have gone too far...")
 
-DEFINE_DIALOG(DIALOG_135, 1, 2, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_135, 1, 2, 30, 200, "\
 OH COME ON!\n\
-That's going to come out my pay!"))
+That's going to come out my pay!")
 
-DEFINE_DIALOG(DIALOG_136, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_136, 1, 4, 30, 200, "\
 We've been trying to move\n\
 these carts to the central\n\
 pillar for storage, but this\n\
 dog appeared out of nowhere!\n\
 We can't get anything done\n\
-at this rate!"))
+at this rate!")
 
-DEFINE_DIALOG(DIALOG_137, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_137, 1, 3, 30, 200, "\
 I on the other hand\n\
 couldn't care less.\n\
 \n\
 Anything to give me an\n\
 excuse to do literally\n\
-anything except work."))
+anything except work.")
 
-DEFINE_DIALOG(DIALOG_138, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_138, 1, 4, 30, 200, "\
 Every day I think about\n\
 what would happen if I\n\
 pushed someone off this\n\
-edge."))
+edge.")
 
-DEFINE_DIALOG(DIALOG_139, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_139, 1, 4, 30, 200, "\
 Every day I think about\n\
 how much I want this idiot\n\
 to shut up about pushing\n\
 people off!\n\
 Sometimes I feel like\n\
-pushing HIM off."))
+pushing HIM off.")
 
-DEFINE_DIALOG(DIALOG_140, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_140, 1, 4, 30, 200, "\
 My buddy here was telling\n\
 me how most work accidents\n\
 here happen because they ride\n\
@@ -1626,19 +1702,19 @@ these carts into the abyss.\n\
 It's pretty funny, but we\n\
 have to fill in for them\n\
 every time it happens and\n\
-it gets old quick."))
+it gets old quick.")
 
-DEFINE_DIALOG(DIALOG_141, 1, 2, 150, 200, _("\
+DEFINE_DIALOG(DIALOG_141, 1, 2, 150, 200, "\
 I want to ride the cart.\n\
 \n\
 Not particularly planning\n\
-on becoming void soup, though."))
+on becoming void soup, though.")
 
-DEFINE_DIALOG(DIALOG_142, 1, 2, 150, 200, _("\
+DEFINE_DIALOG(DIALOG_142, 1, 2, 150, 200, "\
 Please don't tell my boss\n\
-I'm here."))
+I'm here.")
 
-DEFINE_DIALOG(DIALOG_143, 1, 3, 150, 200, _("\
+DEFINE_DIALOG(DIALOG_143, 1, 3, 150, 200, "\
 The door jammed and now\n\
 I can't open it.\n\
 This is not very good.\n\
@@ -1646,9 +1722,9 @@ I am probably going to be\n\
 put on sewer cleaning duty\n\
 once again as punishment.\n\
 Nobody wants to join Klem\n\
-in there."))
+in there.")
 
-DEFINE_DIALOG(DIALOG_144, 1, 3, 150, 200, _("\
+DEFINE_DIALOG(DIALOG_144, 1, 3, 150, 200, "\
 Okay I know that look.\n\
 \n\
 \n\
@@ -1657,17 +1733,17 @@ the crate. You WILL be\n\
 sent to Brazil.\n\
 You know how many people\n\
 we have to retrieve every\n\
-week because they get stuck?"))
+week because they get stuck?")
 
-DEFINE_DIALOG(DIALOG_145, 1, 6, 150, 200, _("\
+DEFINE_DIALOG(DIALOG_145, 1, 6, 150, 200, "\
 Phew, thanks!\n\
 I've been stuck in this\n\
 room for at least 17\n\
 minutes!\n\
 I wouldn't have lasted\n\
-another 49 seconds."))
+another 49 seconds.")
 
-DEFINE_DIALOG(DIALOG_146, 1, 3, 150, 200, _("\
+DEFINE_DIALOG(DIALOG_146, 1, 3, 150, 200, "\
 Some idiot threw a cart\n\
 through the window and\n\
 shattered it.\n\
@@ -1676,65 +1752,65 @@ stuck on cleanup duty!\n\
 \n\
 And you are not helping\n\
 by jumping through it\n\
-trailing glass everywhere!"))
+trailing glass everywhere!")
 
-DEFINE_DIALOG(DIALOG_147, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_147, 1, 3, 30, 200, "\
 Cleaning up glass is\n\
 therapeutic.\n\
 \n\
 Gregory disagrees, but\n\
 he's just mad that he\n\
-gets glass cuts."))
+gets glass cuts.")
 
-DEFINE_DIALOG(DIALOG_148, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_148, 1, 4, 30, 200, "\
 Somebody needs to put\n\
 guard rails on the\n\
 conveyors. Blocks keep\n\
 falling off.\n\
 We really don't need\n\
 yet more workplace \n\
-incidents."))
+incidents.")
 
-DEFINE_DIALOG(DIALOG_149, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_149, 1, 3, 30, 200, "\
 That nearly hit me!\n\
 \n\
 \n\
 ...Could've claimed\n\
 insurance, need to\n\
-work on my aim."))
+work on my aim.")
 
-DEFINE_DIALOG(DIALOG_150, 1, 2, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_150, 1, 2, 30, 200, "\
 I heard a scream when\n\
 the block fell off.\n\
 I just hope I don't\n\
-get blamed for it."))
+get blamed for it.")
 
-DEFINE_DIALOG(DIALOG_151, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_151, 1, 3, 30, 200, "\
 Mind your head.\n\
 Blocks fall from above\n\
-onto this belt."))
+onto this belt.")
 
-DEFINE_DIALOG(DIALOG_152, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_152, 1, 3, 30, 200, "\
 That looks like a drop.\n\
 Dude, are you sure I\n\
 should actually jump?\n\
 I don't think I'll\n\
-be okay..."))
+be okay...")
 
-DEFINE_DIALOG(DIALOG_153, 1, 2, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_153, 1, 2, 30, 200, "\
 Do it it'll be so fun!\n\
 \n\
 Come onnnn, before the\n\
-supervisor catches us!"))
+supervisor catches us!")
 
-DEFINE_DIALOG(DIALOG_154, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_154, 1, 3, 30, 200, "\
 Hey, you're looking for\n\
 work? I may have\n\
 something for you later.\n\
 Come back then, we can\n\
-talk details."))
+talk details.")
 
-DEFINE_DIALOG(DIALOG_155, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_155, 1, 4, 30, 200, "\
 Oh hey, Mario.\n\
 So about that thing.\n\
 \n\
@@ -1750,16 +1826,16 @@ planning.\n\
 Be careful though,\n\
 I hear their leader\n\
 is quite tough.\n\
-Good luck."))
+Good luck.")
 
-DEFINE_DIALOG(DIALOG_156, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_156, 1, 5, 30, 200, "\
 I hate this room so\n\
 much! We REALLY need\n\
 an elevator so I can\n\
 move these stupid carts\n\
-up easier."))
+up easier.")
 
-DEFINE_DIALOG(DIALOG_157, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_157, 1, 3, 30, 200, "\
 Phew, maintaining this\n\
 generator is hard work.\n\
 \n\
@@ -1768,13 +1844,13 @@ these carts around without\n\
 any hands?\n\
 Now how the heck am I\n\
 supposed to get back\n\
-down?"))
+down?")
 
-DEFINE_DIALOG(DIALOG_158, 1, 1, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_158, 1, 1, 30, 200, "\
 ...I'm stuck.\n\
-Please call the chief."))
+Please call the chief.")
 
-DEFINE_DIALOG(DIALOG_159, 1, 6, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_159, 1, 6, 30, 200, "\
 My entire job is to\n\
 warn people NOT to use\n\
 this door.\n\
@@ -1792,47 +1868,47 @@ has never come out.\n\
 Laughter is heard from\n\
 inside as soon as someone\n\
 enters, but it's not\n\
-their voice..."))
+their voice...")
 
-DEFINE_DIALOG(DIALOG_160, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_160, 1, 3, 30, 200, "\
 Shoutouts to Fazana\n\
 for making the deadline\n\
-without need for extension."))
+without need for extension.")
 
-DEFINE_DIALOG(DIALOG_161, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_161, 1, 4, 30, 200, "\
 My useless lackeys have\n\
 gone and lost some of\n\
 the red ! blocks around\n\
 the place.\n\
 If you can find one and\n\
 bring it to me, I will\n\
-compensate you for it."))
+compensate you for it.")
 
-DEFINE_DIALOG(DIALOG_162, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_162, 1, 3, 30, 200, "\
 Ah, good!\n\
 Thank you for returning\n\
 some lost cargo to me.\n\
 Here, I believe you\n\
-are looking for these?"))
+are looking for these?")
 
-DEFINE_DIALOG(DIALOG_163, 1, 1, 30, 200, _("\
-Go get 'em, Mario!"))
+DEFINE_DIALOG(DIALOG_163, 1, 1, 30, 200, "\
+Go get 'em, Mario!")
 
-DEFINE_DIALOG(DIALOG_164, 1, 5, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_164, 1, 5, 30, 200, "\
 I'm not actually part\n\
 of the garbage gang.\n\
 I just fell down here\n\
 one day and they've\n\
-let me stay since."))
+let me stay since.")
 
-DEFINE_DIALOG(DIALOG_165, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_165, 1, 4, 30, 200, "\
 Yesterday, somebody\n\
 dropped a bar of\n\
 chocolate still in\n\
 the wrapper.\n\
-I'm so lucky."))
+I'm so lucky.")
 
-DEFINE_DIALOG(DIALOG_166, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_166, 1, 3, 30, 200, "\
 The big boss is waiting\n\
 for you. His name is\n\
 King Goopa Troopa.\n\
@@ -1840,9 +1916,9 @@ It stands for Garbage\n\
 Koopa Trash Troopa.\n\
 \n\
 Unlike us, he lives\n\
-down here full time."))
+down here full time.")
 
-DEFINE_DIALOG(DIALOG_167, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_167, 1, 4, 30, 200, "\
 So you're the one they\n\
 sent to try to stop me\n\
 from opposing the\n\
@@ -1862,9 +1938,9 @@ with force.\n\
 I believe I am right\n\
 and I will show you\n\
 how wrong you truly\n\
-are!"))
+are!")
 
-DEFINE_DIALOG(DIALOG_168, 1, 3, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_168, 1, 3, 30, 200, "\
 Ha ha ha ha!\n\
 Get a load of my\n\
 firepower!\n\
@@ -1873,9 +1949,9 @@ try to dodge my shells!\n\
 \n\
 In my hands, they're\n\
 super weapons, in yours,\n\
-they're so pitiful!"))
+they're so pitiful!")
 
-DEFINE_DIALOG(DIALOG_169, 1, 4, 30, 200, _("\
+DEFINE_DIALOG(DIALOG_169, 1, 4, 30, 200, "\
 Shoot...\n\
 I can't believe I\n\
 lost...\n\
@@ -1885,4 +1961,152 @@ the Garbage Gang is\n\
 disbanded.\n\
 Just make sure this\n\
 doesn't fall into their\n\
-hands."))
+hands.")
+
+
+//COMIT DIALOG
+DEFINE_DIALOG(COMIT_DIALOG_1, 1, 4, 30, 200, "\
+Welcome to the Cumulus\n\
+Correctional Camp!\n\
+You must be Mario - We\n\
+hope you enjoy your stay,\n\
+but first you must go\n\
+through the mandatory\n\
+introductory tour.\n\
+\n\
+The tour starts on your\n\
+left, now please, right\n\
+this way!")
+
+DEFINE_DIALOG(COMIT_DIALOG_2, 1, 3, 30, 200, "\
+Oh, this cloud right here.\n\
+He's crying.\n\
+\n\
+Crying TEARS OF JOY!!!!!!\n\
+Hop onto his back and\n\
+he'll give you a lift!")
+
+DEFINE_DIALOG(COMIT_DIALOG_3, 1, 4, 30, 200, "\
+Look at the smile on that\n\
+face! The only thing these\n\
+guys love more than\n\
+floating in place for 12\n\
+hours a day, is getting\n\
+jumped on!\n\
+Don't be shy, Mario!")
+
+DEFINE_DIALOG(COMIT_DIALOG_4, 1, 5, 30, 200, "\
+These deep breathing\n\
+exercises help the clouds\n\
+relax, and remove\n\
+unwanted stress from\n\
+their minds.\n\
+It also expands their\n\
+size, perfect for crossing\n\
+those large gaps you're\n\
+faced with~")
+
+DEFINE_DIALOG(COMIT_DIALOG_5, 1, 5, 30, 200, "\
+Thank you for completing\n\
+the tour, Mario!\n\
+\n\
+\n\
+\n\
+We here at Cirrus\n\
+Solutions Inc. hope you\n\
+find your stay at Cumulus\n\
+Correctional Camp both\n\
+relaxing and enlightening!")
+
+DEFINE_DIALOG(COMIT_DIALOG_6, 1, 4, 30, 200, "\
+Welcome back!\n\
+Now that you've completed\n\
+the tour, you can now\n\
+enter, drum roll please...\n\
+...\n\
+\n\
+...\n\
+\n\
+CUMULUS\n\
+CORRECTIONAL\n\
+CAMP!")
+
+DEFINE_DIALOG(COMIT_DIALOG_7, 1, 4, 30, 200, "\
+Have fun and relax Mario.\n\
+You won't be doing any\n\
+labor, that's all for the\n\
+clouds, hah!")
+
+DEFINE_DIALOG(COMIT_DIALOG_8, 1, 3, 30, 200, "\
+A strong gust of wind\n\
+came by and blew apart\n\
+one of my clouds!\n\
+Pieces of him are now\n\
+scattered all around\n\
+the camp...")
+
+DEFINE_DIALOG(COMIT_DIALOG_9, 1, 3, 30, 200, "\
+Thank you so much Mario!\n\
+Now my little friend is\n\
+back to his old self!")
+
+DEFINE_DIALOG(COMIT_DIALOG_10, 1, 3, 30, 200, "\
+Up ahead is one of our\n\
+research facilities.\n\
+\n\
+This one's currently\n\
+empty, but we'll be\n\
+examing some rather...\n\
+'shocking' behavior\n\
+from a few of our\n\
+inmates soon.")
+
+DEFINE_DIALOG(COMIT_DIALOG_11, 1, 4, 30, 200, "\
+CUMULUS RESEARCH\n\
+FACILITY ROOM 29B\n\
+------------------\n\
+CURRENT STATUS: EMPTY")
+
+DEFINE_DIALOG(COMIT_DIALOG_12, 1, 4, 30, 200, "\
+CUMULUS RESEARCH\n\
+FACILITY ROOM 29B\n\
+------------------\n\
+CURRENT STATUS: ACTIVE")
+
+DEFINE_DIALOG(COMIT_DIALOG_13, 1, 3, 30, 200, "\
+Bark! Bark!\n\
+\n\
+Bark!\n\
+(He's looking at that\n\
+blue floating object\n\
+over there)")
+
+DEFINE_DIALOG(COMIT_DIALOG_14, 1, 2, 30, 200, "\
+RRRRRR... WOOF WOOF\n\
+WOOFWOOFWOOFWOOF\n\
+(He seems to be barking\n\
+at what's down there)")
+
+DEFINE_DIALOG(COMIT_DIALOG_15, 1, 3, 30, 200, "\
+Arf!\n\
+...\n\
+...\n\
+(His thoughts are empty\n\
+at the moment. He's\n\
+just happy to see you.)")
+
+DEFINE_DIALOG(COMIT_DIALOG_16, 1, 4, 30, 200, "\
+Ruff, ruff\n\
+ruff ruff ruff ruff\n\
+woof bark ruff\n\
+\n\
+(He thinks he saw a\n\
+button that could open\n\
+that tunnel. Try checking\n\
+that fenced off cage...)")
+
+
+DEFINE_DIALOG(COMIT_DIALOG_17, 1, 3, 30, 200, "\
+Want a neat tip?\n\
+Hold A while twirling to\n\
+descend slower!")
