@@ -608,7 +608,13 @@ void bhv_Magma_Thwomp(void);
 void bhv_swing_Board(void);
 void bhv_Propane_Shooter(void);
 void bhv_Propane_Flame(void);
-void bhv_lava_grate_loop();
+void bhv_lava_grate_loop(void);
+void bhv_ash_pile(void);
+void bhv_castle_raft(void);
+void bhv_rovert_elevator(void);
+void bhv_rovert_fling(void);
+void bhv_toad_cage(void);
+void bhv_rovert_toad(void);
 //ROVERT BEHAVIOR ACTIONS END
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);

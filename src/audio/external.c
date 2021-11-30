@@ -301,6 +301,8 @@ u8 sBackgroundMusicDefaultVolume[] = {
     65,  // SEQ_MENU_FILE_SELECT
     0,   // SEQ_EVENT_CUTSCENE_LAKITU (not in JP)
     70,  // SEQ_LEVEL_BOSS_JENOVA
+    70,  // SEQ_LEVEL_PEACH_RUINS
+    70,  // SEQ_BOSS_PEACH_RUINS
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,

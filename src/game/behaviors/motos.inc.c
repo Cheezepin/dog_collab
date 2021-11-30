@@ -125,6 +125,10 @@ void bhv_motos_thrown(void) {
             coin->oForwardVel = 10.0f;
             coin->oVelY = 20.0f;
             coin->oMoveAngleYaw = (f32)(o->oFaceAngleYaw + 0x8000) + random_float() * 1024.0f;
+
+            if (coin->oPosY < gMarioState->pos[1]-300.0f) {
+                coin->oPosY = gMarioState->pos[1]-300.0f;
+                }
             }
     }
 }
@@ -155,6 +159,10 @@ void bhv_motos_death(void) {
         coin->oVelY = 100.0f;
         coin->oPosY = o->oPosY + 310.0f;
         coin->oMoveAngleYaw = (f32)(o->oFaceAngleYaw + 0x8000) + random_float() * 1024.0f;
+
+        if (coin->oPosY < gMarioState->pos[1]-300.0f) {
+            coin->oPosY = gMarioState->pos[1]-300.0f;
+            }
     }
 }
 

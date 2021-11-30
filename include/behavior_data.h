@@ -586,6 +586,13 @@ extern const BehaviorScript bhvSwingBoard[];
 extern const BehaviorScript bhvPropaneThrower[];
 extern const BehaviorScript bhvPropane[];
 extern const BehaviorScript bhvLavaGrate[];
+extern const BehaviorScript bhvCastleRaft[];
+extern const BehaviorScript bhvAshpile[];
+extern const BehaviorScript bhvDogRovert[];
+extern const BehaviorScript bhvRovertElevator[];
+extern const BehaviorScript bhvRovertFling[];
+extern const BehaviorScript bhvToadCage[];
+extern const BehaviorScript bhvRovertToad[];
 
 //END ROVERT BEHAVIOR
 
