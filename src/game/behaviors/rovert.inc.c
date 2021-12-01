@@ -1,4 +1,5 @@
 //hey sussy baka >:3
+#include "src/game/game_init.h"
 
 void bhv_Magma_Thwomp() {
     if (o->oTimer > 120) {
@@ -291,6 +292,9 @@ void bhv_toad_cage(void) {
                 cur_obj_play_sound_2(SOUND_ACTION_METAL_HEAVY_LANDING);
                 o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_TOAD_CAGE_2];
                 o->oAction = 4;
+
+                
+
                 toad_opened_cage_count ++;
                 }
         break;
@@ -324,4 +328,85 @@ void bhv_rovert_toad(void) {
 
         break;
         }
+    }
+
+u16 tank_target_angle;
+
+void bhv_tank_base(void) {
+    u16 a_diff;
+    switch(o->oAction) {
+        case 0://init
+        o->oAction = 1;
+            o->oHealth = 3;
+            o->prevObj = spawn_object(o,MODEL_TANK_HEAD,bhvTankHead);
+        break;
+        case 1://wait for mario
+            if (o->oDistanceToMario < 1500.0f) {
+                o->oAction = 2;
+                play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_BOSS_PEACH_RUINS), 0);
+                }
+        break;
+        case 2://kill
+            tank_target_angle = o->oAngleToMario;
+            if (o->oForwardVel < 15.0f) {
+                o->oForwardVel += .2;
+                }
+        break;
+        }
+
+    a_diff = tank_target_angle - o->oMoveAngleYaw;
+    a_diff = (a_diff + 0x7FFF) % 0xFFFF - 0x7FFF;
+
+    if ((a_diff > 0x200)&&(a_diff < 0x7FFF)) {
+        o->oMoveAngleYaw += 0x100;
+        }
+    if ((a_diff < 0xFFDF)&&(a_diff > 0x7FFF)) {
+        o->oMoveAngleYaw -= 0x100;
+        }
+
+    
+    cur_obj_update_floor_and_walls();
+    cur_obj_move_standard(-30);
+    o->oFaceAngleYaw = o->oMoveAngleYaw;
+
+    //if mario falls reset boss
+    if ((gMarioState->pos[1] < o->oHomeY-100.0f)&&(o->oAction>1)) {
+        play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_LEVEL_PEACH_RUINS), 0);
+        o->oAction = 1;
+        o->oHealth = 3;
+        o->oPosX = o->oHomeX;
+        o->oPosY = o->oHomeY;
+        o->oPosZ = o->oHomeZ;
+        o->oMoveAngleYaw = 0;
+        }
+
+    o->prevObj->oAction = o->oAction;
+    o->prevObj->oPosX = o->oPosX;
+    o->prevObj->oPosZ = o->oPosZ;
+    o->prevObj->oPosY = o->oPosY;
+    tank_treads = o->oForwardVel;
+    }
+
+s16 angle_speed = 0;
+
+void bhv_tank_head(void) {
+    u16 a_diff;
+    u8 anyone_picked = FALSE;
+    a_diff = o->parentObj->oAngleToMario - o->oFaceAngleYaw;
+    a_diff = (a_diff + 0x7FFF) % 0xFFFF - 0x7FFF;
+
+    
+    if ((a_diff > 0x200)&&(a_diff < 0x7FFF)) {
+       angle_speed += 0x15;
+       anyone_picked = TRUE;
+        }
+    if ((a_diff < 0xFFDF)&&(a_diff > 0x7FFF)) {
+        angle_speed -= 0x15;
+        anyone_picked = TRUE;
+        }
+    if (!anyone_picked) {
+        angle_speed /= 2;
+        }
+
+    o->oFaceAngleYaw += angle_speed;
     }

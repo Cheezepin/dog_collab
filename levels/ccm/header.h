@@ -101,4 +101,12 @@ extern const LevelScript level_ccm_entry[];
 
 #include "levels/ccm/toad_cage_4_geo/geo_header.h"
 
+#include "levels/ccm/tank_base/geo_header.h"
+
+#include "levels/ccm/tank_head/geo_header.h"
+
+#include "levels/ccm/tank_base/collision_header.h"
+
+#include "levels/ccm/tank_head/collision_header.h"
+
 #endif

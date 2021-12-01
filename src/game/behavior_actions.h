@@ -673,6 +673,8 @@ void bhv_rovert_elevator(void);
 void bhv_rovert_fling(void);
 void bhv_toad_cage(void);
 void bhv_rovert_toad(void);
+void bhv_tank_base(void);
+void bhv_tank_head(void);
 //ROVERT BEHAVIOR ACTIONS END
 
 //cheeze start

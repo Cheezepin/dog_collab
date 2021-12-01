@@ -6897,6 +6897,35 @@ const BehaviorScript bhvRovertToad[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvTankBase[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(tank_base_collision),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+    SCALE(/*Unused*/ 0, /*Field*/ 100),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 4000),
+    SET_FLOAT(oCollisionDistance, 1000),
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 1000, /*Friction*/ 1000, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_tank_base),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvTankHead[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(tank_head_collision),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
+    SCALE(/*Unused*/ 0, /*Field*/ 100),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 4000),
+    SET_FLOAT(oCollisionDistance, 1000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_tank_head),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
 //END ROVERT BEHAVIOR
 
 //START EMU BEHAVIOR

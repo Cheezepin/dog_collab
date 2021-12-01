@@ -52,6 +52,8 @@ const LevelScript level_ccm_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_TOAD_CAGE_2, toad_cage_2_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_TOAD_CAGE_3, toad_cage_3_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_TOAD_CAGE_4, toad_cage_4_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_TANK_BASE, tank_base_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_TANK_HEAD, tank_head_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -139,7 +141,7 @@ const LevelScript level_ccm_entry[] = {
 		OBJECT(MODEL_LAVA_GRATE, 1047, 655, 11861, 0, 0, 0, 0x00000000, bhvLavaGrate),
 		OBJECT(MODEL_LAVA_GRATE, -2946, 438, -4491, 0, 0, 0, 0x00000000, bhvLavaGrate),
 		OBJECT(MODEL_LAVA_GRATE, -2539, 295, -13184, 0, 0, 0, 0x00000000, bhvLavaGrate),
-		MARIO_POS(0x01, 0, -615, 842, -216),
+		MARIO_POS(0x01, 0, 2811, 11998, -8467),
 		OBJECT(MODEL_MOTOS, -1600, 842, 6306, 0, 129, 0, 0x00000000, bhvMotos),
 		OBJECT(MODEL_MOTOS, -4435, 3593, 4415, 0, 129, 0, 0x00000000, bhvMotos),
 		OBJECT(MODEL_MOTOS, -5247, 3947, 4530, 0, 129, 0, 0x00000000, bhvMotos),
@@ -188,6 +190,7 @@ const LevelScript level_ccm_entry[] = {
 		OBJECT(MODEL_SWING_BOARD, -6076, 4072, 10535, 8, -180, 0, 0x00000000, bhvSwingBoard),
 		OBJECT(MODEL_SWING_BOARD, -5676, 4051, 10266, -8, 0, 0, 0x00000000, bhvSwingBoard),
 		OBJECT(MODEL_SWING_BOARD, -5676, 3970, 9782, -8, 0, 0, 0x00000000, bhvSwingBoard),
+		OBJECT(MODEL_TANK_BASE, 2829, 11997, -10962, 0, 0, 0, 0x00000000, bhvTankBase),
 		OBJECT(MODEL_MAGMA_THWOMP, -3427, 3072, 7293, 0, 0, 0, 0x00000000, bhvMagmaThwomp),
 		OBJECT(MODEL_MAGMA_THWOMP, -3427, 3072, 6452, 0, 0, 0, 0x00010000, bhvMagmaThwomp),
 		OBJECT(MODEL_MAGMA_THWOMP, 6918, 2080, 4914, 0, 0, 0, 0x00000000, bhvMagmaThwomp),
@@ -211,7 +214,7 @@ const LevelScript level_ccm_entry[] = {
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 0, -615, 842, -216),
+	MARIO_POS(0x01, 0, 2811, 11998, -8467),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),

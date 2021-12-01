@@ -68,3 +68,7 @@
 #include "levels/ccm/toad_cage_2_geo/model.inc.c"
 #include "levels/ccm/toad_cage_3_geo/model.inc.c"
 #include "levels/ccm/toad_cage_4_geo/model.inc.c"
+#include "levels/ccm/tank_base/model.inc.c"
+#include "levels/ccm/tank_head/model.inc.c"
+#include "levels/ccm/tank_base/collision.inc.c"
+#include "levels/ccm/tank_head/collision.inc.c"
