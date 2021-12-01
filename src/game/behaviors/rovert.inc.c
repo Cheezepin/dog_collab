@@ -293,7 +293,8 @@ void bhv_toad_cage(void) {
                 o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_TOAD_CAGE_2];
                 o->oAction = 4;
 
-                
+                stop_background_music(SEQUENCE_ARGS(4, SEQ_EVENT_TOAD_MESSAGE));
+                play_music(SEQ_PLAYER_ENV, SEQUENCE_ARGS(4, SEQ_EVENT_TOAD_MESSAGE), 0);
 
                 toad_opened_cage_count ++;
                 }
@@ -333,6 +334,7 @@ void bhv_rovert_toad(void) {
 u16 tank_target_angle;
 
 void bhv_tank_base(void) {
+    struct Object *spawnobj;
     u16 a_diff;
     switch(o->oAction) {
         case 0://init
@@ -342,14 +344,48 @@ void bhv_tank_base(void) {
         break;
         case 1://wait for mario
             if (o->oDistanceToMario < 1500.0f) {
-                o->oAction = 2;
-                play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_BOSS_PEACH_RUINS), 0);
+                if (cutscene_object_with_dialog(CUTSCENE_DIALOG, o, o->oBehParams2ndByte) != DIALOG_RESPONSE_NONE) {
+                    o->oAction = 2;
+                    play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_BOSS_PEACH_RUINS), 0);
+                    }
                 }
         break;
-        case 2://kill
-            tank_target_angle = o->oAngleToMario;
-            if (o->oForwardVel < 15.0f) {
+        case 2://chase mario
+            if (o->oTimer%15==0) {
+                //spawnobj = spawn_object_relative(0, 0, 300, 600, o->prevObj, MODEL_BOWLING_BALL, bhvSnufitBalls);
+                //spawnobj->oForwardVel = 30.0f;
+                }
+            if (o->oTimer%60==0) {
+                tank_target_angle = cur_obj_angle_to_home();
+                }
+            if (o->oForwardVel < 40.0f-(10.0*o->oHealth)) {
                 o->oForwardVel += .2;
+                }
+            if (o->oTimer > 250) {
+                o->oAction = 4;
+                }
+        break;
+        case 3://death
+            tank_target_angle = o->oMoveAngleYaw;
+            o->oForwardVel = 0.0f;
+        break;//
+        case 4://charge
+            tank_target_angle = o->oAngleToMario;
+            if (o->oForwardVel > -(o->oHealth*4.0)) {
+                o->oForwardVel -= 0.5f;
+                }
+                else
+                {
+                o->oAction = 5;
+                }
+        break;
+        case 5:
+            tank_target_angle = o->oAngleToMario;
+            if (o->oForwardVel < 50.0f) {
+                o->oForwardVel += 3.0;
+                }
+            if (o->oTimer > 90) {
+                o->oAction = 2;
                 }
         break;
         }
@@ -358,10 +394,10 @@ void bhv_tank_base(void) {
     a_diff = (a_diff + 0x7FFF) % 0xFFFF - 0x7FFF;
 
     if ((a_diff > 0x200)&&(a_diff < 0x7FFF)) {
-        o->oMoveAngleYaw += 0x100;
+        o->oMoveAngleYaw += 0x200;
         }
     if ((a_diff < 0xFFDF)&&(a_diff > 0x7FFF)) {
-        o->oMoveAngleYaw -= 0x100;
+        o->oMoveAngleYaw -= 0x200;
         }
 
     
@@ -370,7 +406,8 @@ void bhv_tank_base(void) {
     o->oFaceAngleYaw = o->oMoveAngleYaw;
 
     //if mario falls reset boss
-    if ((gMarioState->pos[1] < o->oHomeY-100.0f)&&(o->oAction>1)) {
+    if ((gMarioState->pos[1] < o->oHomeY-100.0f)&&(o->oAction>1)&&(o->oAction!=3)) {
+        stop_background_music(SEQUENCE_ARGS(4, SEQ_BOSS_PEACH_RUINS));
         play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_LEVEL_PEACH_RUINS), 0);
         o->oAction = 1;
         o->oHealth = 3;
@@ -378,6 +415,7 @@ void bhv_tank_base(void) {
         o->oPosY = o->oHomeY;
         o->oPosZ = o->oHomeZ;
         o->oMoveAngleYaw = 0;
+        o->oForwardVel = 0.0f;
         }
 
     o->prevObj->oAction = o->oAction;
@@ -387,26 +425,86 @@ void bhv_tank_base(void) {
     tank_treads = o->oForwardVel;
     }
 
-s16 angle_speed = 0;
+f32 angle_speed = 0;
+f32 roll_amount = 0;
 
 void bhv_tank_head(void) {
     u16 a_diff;
     u8 anyone_picked = FALSE;
-    a_diff = o->parentObj->oAngleToMario - o->oFaceAngleYaw;
-    a_diff = (a_diff + 0x7FFF) % 0xFFFF - 0x7FFF;
+    struct Object *spawnobj;
 
-    
-    if ((a_diff > 0x200)&&(a_diff < 0x7FFF)) {
-       angle_speed += 0x15;
-       anyone_picked = TRUE;
-        }
-    if ((a_diff < 0xFFDF)&&(a_diff > 0x7FFF)) {
-        angle_speed -= 0x15;
+    if (o->oAction != 3) {//live
+        a_diff = o->parentObj->oAngleToMario - o->oFaceAngleYaw;
+        a_diff = (a_diff + 0x7FFF) % 0xFFFF - 0x7FFF;
+
+        
+        if ((a_diff > 0x300)&&(a_diff < 0x7FFF)) {
+        angle_speed += 0x15;
         anyone_picked = TRUE;
-        }
-    if (!anyone_picked) {
-        angle_speed /= 2;
-        }
+            }
+        if ((a_diff < 0xFFCF)&&(a_diff > 0x7FFF)) {
+            angle_speed -= 0x15;
+            anyone_picked = TRUE;
+            }
+        if (!anyone_picked) {
+            angle_speed /= 1.2;
+            }
 
-    o->oFaceAngleYaw += angle_speed;
+        //cap
+        //dont feel like writing a clamp function xd
+        if (angle_speed > 768.0f) {
+            angle_speed = 768.0f;
+            }
+        if (angle_speed < -768.0f) {
+            angle_speed = -768.0f;
+            }
+
+        o->oFaceAngleYaw += (s16)angle_speed;
+        o->oFaceAngleRoll = sins(o->oTimer*0x700)*roll_amount;
+        roll_amount *= 0.99;
+
+        if ((cur_obj_is_mario_ground_pounding_platform())&&(o->oTimer > 20)) {
+            o->oTimer = 0;
+            o->parentObj->oHealth --;
+            cur_obj_play_sound_2(SOUND_ACTION_METAL_HEAVY_LANDING);
+            if (o->parentObj->oHealth < 1) {
+                o->parentObj->oAction = 3;
+                o->oAction = 3;
+                stop_background_music(SEQUENCE_ARGS(4, SEQ_BOSS_PEACH_RUINS));
+                play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_LEVEL_PEACH_RUINS), 0);
+
+                //bruh this code is sus as shit xd
+                spawnobj = spawn_object(o,MODEL_RED_FLAME,bhvFlame);
+                spawnobj->oPosY += 300.0f;
+                spawnobj->oPosX += sinf(o->oFaceAngleYaw+1000)*200.0f;
+                spawnobj->oPosZ += cosf(o->oFaceAngleYaw+1000)*200.0f;
+                spawnobj = spawn_object(o,MODEL_RED_FLAME,bhvFlame);
+                spawnobj->oPosY += 300.0f;
+                spawnobj->oPosX -= sinf(o->oFaceAngleYaw+0x5FFF)*270.0f;
+                spawnobj->oPosZ -= cosf(o->oFaceAngleYaw+0x5FFF)*270.0f;
+                }
+                else
+                {
+                cur_obj_play_sound_2(SOUND_OBJ_HEAVEHO_TOSSED);
+                drop_and_set_mario_action(gMarioState, ACT_THROWN_BACKWARD, 1);
+                gMarioState->vel[1] = 40.0f;
+                gMarioState->forwardVel = 40.0f;
+                gMarioState->faceAngle[1] = o->oFaceAngleYaw+0x7FFF;
+                roll_amount = 0x1000;
+                }
+            }
+        }
+        else
+        {//die
+        if (o->oTimer < 50) {
+            o->oFaceAnglePitch += 0x30;
+            }
+        if (o->oTimer == 70) {
+            spawn_default_star(o->oPosX,o->oPosY+700.0f,o->oPosZ);
+            gMarioState->vel[1] = 40.0f;
+            gMarioState->forwardVel = 40.0f;
+            gMarioState->faceAngle[1] = o->oFaceAngleYaw+0x7FFF;
+            roll_amount = 0x1000;
+            }
+        }
     }
