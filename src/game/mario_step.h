@@ -32,5 +32,6 @@ void stop_and_set_height_to_floor(struct MarioState *m);
 s32 stationary_ground_step(struct MarioState *m);
 s32 perform_ground_step(struct MarioState *m);
 s32 perform_air_step(struct MarioState *m, u32 stepArg);
+s32 perform_trapeze_air_step(struct MarioState *m, u32 stepArg);
 
 #endif // MARIO_STEP_H

@@ -28,6 +28,8 @@ void tox_box_move(f32 forwardVel, f32 a1, s16 deltaPitch, s16 deltaRoll);
 void play_penguin_walking_sound(s32 walk);
 s32 update_angle_from_move_flags(s32 *angle);
 void cur_obj_spawn_strong_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
+void cur_obj_spawn_weak_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
+void cur_obj_spawn_pinwheel_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
 
 void bhv_cap_switch_loop(void);
 void bhv_tiny_star_particles_init(void);
@@ -265,6 +267,8 @@ void bhv_idle_water_wave_loop(void);
 void bhv_shallow_water_splash_init(void);
 void bhv_wave_trail_shrink(void);
 void bhv_strong_wind_particle_loop(void);
+void bhv_weak_wind_particle_loop(void);
+void bhv_pinwheel_wind_particle_loop(void);
 void bhv_sl_snowman_wind_loop(void);
 void bhv_sl_walking_penguin_loop(void);
 void bhv_menu_button_init(void);
@@ -594,6 +598,53 @@ void bhv_podoboo_loop(void);
 void bhv_emu_sphere(void);
 void palette_swap(void);
 
+//CowQuack start
+void bhv_carousel_init(void);
+void bhv_carousel_loop(void);
+
+void bhv_clown_clock_init(void);
+void bhv_clown_clock_loop(void);
+
+void bhv_clown_door_spawner_init(void);
+void bhv_clown_door_spawner_loop(void);
+void bhv_clown_door_segment_loop(void);
+void bhv_steel_gate_init(void);
+
+void bhv_power_switch_init(void);
+void bhv_power_switch_loop(void);
+
+void bhv_circus_wheel_init(void);
+void bhv_circus_wheel_loop(void);
+void bhv_circus_wheel_platform_update(void);
+void bhv_wheel_wind_loop(void);
+
+void bhv_pinwheel_init(void);
+void bhv_pinwheel_loop(void);
+void bhv_balloon_init(void);
+void bhv_balloon_loop(void);
+void bhv_pole_pinwheel_spawn(void);
+
+void bhv_trapeze_init(void);
+void bhv_trapeze_loop(void);
+void bhv_trapeze_hitbox_init(void);
+void bhv_trapeze_hitbox_loop(void);
+
+void bhv_balloon_platform_loop(void);
+
+void bhv_kid_toad_init(void);
+void bhv_clown_toad_loop(void);
+
+void bhv_clown_boss_init(void);
+void bhv_clown_boss_loop(void);
+void bhv_clown_bowling_ball_roll_loop(void);
+void bhv_clown_bowling_ball_init(void);
+void bhv_boss_curtains_loop(void);
+void bhv_goddard_clown_fight_init(void);
+void bhv_goddard_clown_fight_loop(void);
+void bhv_circus_cannon_init(void);
+void bhv_circus_cannon_loop(void);
+//CowQuack end
+
 // axo start
 void bhv_cephie_init(void);
 void bhv_cephie_loop(void);
@@ -622,9 +673,13 @@ void bhv_lava_grate_loop();
 void bhv_cheezeplat_loop(void);
 void bhv_cheezebombwall_loop(void);
 void bhv_cheezedog_loop(void);
+void bhv_koopatrol_init(void);
+void bhv_koopatrol_loop(void);
 //cheeze end
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
+
+Gfx *geo_carousel_billboard(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 // Bowser
 Gfx *geo_bits_bowser_coloring(s32 callContext, struct GraphNode *node, UNUSED s32 context);

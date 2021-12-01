@@ -287,6 +287,25 @@ struct GraphNodeScale *init_graph_node_scale(struct AllocOnlyPool *pool,
     return graphNode;
 }
 
+struct GraphNodeScale *init_graph_node_scale_better(struct AllocOnlyPool *pool,
+                                             struct GraphNodeScaleBetter *graphNode, s32 drawingLayer,
+                                             void *displayList, f32 scaleX, f32 scaleY, f32 scaleZ) {
+    if (pool != NULL) {
+        graphNode = alloc_only_pool_alloc(pool, sizeof(struct GraphNodeScaleBetter));
+    }
+
+    if (graphNode != NULL) {
+        init_scene_graph_node_links(&graphNode->node, GRAPH_NODE_TYPE_SCALE_BETTER);
+        graphNode->node.flags = (drawingLayer << 8) | (graphNode->node.flags & 0xFF);
+        graphNode->scaleX = scaleX;
+        graphNode->scaleY = scaleY;
+        graphNode->scaleZ = scaleZ;
+        graphNode->displayList = displayList;
+    }
+
+    return graphNode;
+}
+
 /**
  * Allocates and returns a newly created object node
  */

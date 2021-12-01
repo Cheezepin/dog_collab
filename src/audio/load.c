@@ -84,6 +84,8 @@ s32 gMinAiBufferLength;
 s16 gTempoInternalToExternal;
 
 s8 gAudioUpdatesPerFrame;
+s16 gInitOverrideTempo;
+s16 gOverrideTempo;
 #endif
 
 s8 gSoundMode;

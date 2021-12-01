@@ -1,0 +1,18 @@
+extern const GeoLayout trapeze_geo[];
+extern Lights1 trapeze_f3d_material_041_lights;
+extern Lights1 trapeze_f3d_material_076_lights;
+extern Lights1 trapeze_f3d_material_078_lights;
+extern u8 trapeze_clownbricks_ci8[];
+extern u8 trapeze_clownbricks_ci8_pal_rgba16[];
+extern Vtx trapeze_Cube_021_mesh_layer_1_vtx_0[26];
+extern Gfx trapeze_Cube_021_mesh_layer_1_tri_0[];
+extern Vtx trapeze_Cube_021_mesh_layer_1_vtx_1[83];
+extern Gfx trapeze_Cube_021_mesh_layer_1_tri_1[];
+extern Vtx trapeze_Cube_021_mesh_layer_1_vtx_2[12];
+extern Gfx trapeze_Cube_021_mesh_layer_1_tri_2[];
+extern Gfx mat_trapeze_f3d_material_041[];
+extern Gfx mat_revert_trapeze_f3d_material_041[];
+extern Gfx mat_trapeze_f3d_material_076[];
+extern Gfx mat_trapeze_f3d_material_078[];
+extern Gfx trapeze_Cube_021_mesh_layer_1[];
+extern Gfx trapeze_material_revert_render_settings[];

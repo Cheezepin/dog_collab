@@ -397,4 +397,8 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "cephie/anim_header.h"
 
+#include "koopatrol/geo_header.h"
+
+
+#include "koopatrol/anim_header.h"
 #endif

@@ -29,7 +29,7 @@
 #include "puppylights.h"
 #include "levels/ddd/header.h"
 
-static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, LEVEL_SL, -1 };
+static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, LEVEL_SL, LEVEL_JRB, -1 };
 
 static s32 clear_move_flag(u32 * bitSet, s32 flag);
 
@@ -1514,6 +1514,27 @@ static void cur_obj_update_floor(void) {
             o->oMoveFlags |= OBJ_MOVE_ABOVE_LAVA;
         } else if ((floor->type == SURFACE_DEATH_PLANE) || (floor->type == SURFACE_VERTICAL_WIND)) {
             //! This maybe misses SURFACE_WARP
+            o->oMoveFlags |= OBJ_MOVE_ABOVE_DEATH_BARRIER;
+        }
+
+        o->oFloorType = floor->type;
+        o->oFloorRoom = floor->room;
+    } else {
+        o->oFloorType = 0;
+        o->oFloorRoom = 0;
+    }
+}
+
+void cur_obj_update_clown_floor(void) {
+    struct Surface *floor = cur_obj_update_floor_height_and_get_floor();
+    o->oFloor = floor;
+
+    if (floor != NULL) {
+        if (floor->type == SURFACE_BURNING) {
+            o->oMoveFlags |= OBJ_MOVE_ABOVE_LAVA;
+        }
+        else if (floor->type == SURFACE_DEATH_PLANE) {
+            //! This misses SURFACE_VERTICAL_WIND (and maybe SURFACE_WARP)
             o->oMoveFlags |= OBJ_MOVE_ABOVE_DEATH_BARRIER;
         }
 

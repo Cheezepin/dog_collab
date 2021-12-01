@@ -32,6 +32,18 @@
 #define BORDER_HEIGHT_EMULATOR 0
 #endif // TARGET_N64
 
+// -- ultrasm64-extbounds specific settings --
+
+// TEST LEVEL
+// Uncomment this define and set a test level in order to boot straight into said level.
+// This allows you to quickly test the level you're working on.
+// If you want the game to boot normally, just comment out the define again.
+//#define TEST_LEVEL LEVEL_JRB
+
+// COMMON HACK CHANGES
+// Internal ROM name. NEEDS TO BE **EXACTLY** 20 CHARACTERS. Can't be 19 characters, can't be 21 characters. You can fill it with spaces.
+// The end quote should be here:               "
+#define INTERNAL_ROM_NAME "DOG STAR ADVENTURE  "
 // -- GAME SETTINGS --
 // Disables some mechanics that change behavior depending on hardcoded level numbers.
 // You may also need to change sLevelsWithRooms in object_helpers.c
@@ -205,7 +217,7 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
-// #define TEST_LEVEL LEVEL_BOB
+#define TEST_LEVEL LEVEL_BITFS
 // Enable debug level select
 //#define DEBUG_LEVEL_SELECT
 // Enable debug free move (DPad up to enter, A to exit)

@@ -706,6 +706,10 @@ void push_or_sidle_wall(struct MarioState *m, Vec3f startPos) {
         dWallAngle = wallAngle - m->faceAngle[1];
     }
 
+    if (m->wall != NULL && m->wall->type == SURFACE_SHOCK_WALL) {
+        return m->action = ACT_SHOCKED;
+    }
+
     if (m->wall == NULL || dWallAngle <= -0x71C8 || dWallAngle >= 0x71C8) {
         m->flags |= MARIO_PUSHING;
         set_mario_animation(m, MARIO_ANIM_PUSHING);
