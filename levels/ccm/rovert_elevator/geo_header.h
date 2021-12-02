@@ -1,0 +1,10 @@
+extern const GeoLayout rovert_elevator_geo[];
+extern Lights1 rovert_elevator_tiles_lights;
+extern u8 rovert_elevator_tile_rgba16[];
+extern Vtx rovert_elevator_Cube_011_mesh_layer_1_vtx_cull[8];
+extern Vtx rovert_elevator_Cube_011_mesh_layer_1_vtx_0[20];
+extern Gfx rovert_elevator_Cube_011_mesh_layer_1_tri_0[];
+extern Gfx mat_rovert_elevator_tiles[];
+extern Gfx mat_revert_rovert_elevator_tiles[];
+extern Gfx rovert_elevator_Cube_011_mesh_layer_1[];
+extern Gfx rovert_elevator_material_revert_render_settings[];

@@ -59,4 +59,8 @@ void scroll_textures() {
 		scroll_textures_jrb();
 	}
 
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_ccm_segment_7SegmentRomStart)) {
+		scroll_textures_ccm();
+	}
+
 }
