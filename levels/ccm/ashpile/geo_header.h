@@ -1,0 +1,11 @@
+extern const GeoLayout ashpile_geo[];
+extern Lights1 ashpile_Ash_lights;
+extern u8 ashpile_ash_ci4[];
+extern u8 ashpile_ash_ci4_pal_rgba16[];
+extern Vtx ashpile_Cylinder_002_mesh_layer_5_vtx_cull[8];
+extern Vtx ashpile_Cylinder_002_mesh_layer_5_vtx_0[50];
+extern Gfx ashpile_Cylinder_002_mesh_layer_5_tri_0[];
+extern Gfx mat_ashpile_Ash[];
+extern Gfx mat_revert_ashpile_Ash[];
+extern Gfx ashpile_Cylinder_002_mesh_layer_5[];
+extern Gfx ashpile_material_revert_render_settings[];
