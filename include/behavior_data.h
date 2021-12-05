@@ -668,6 +668,10 @@ extern const BehaviorScript bhvToadCage[];
 extern const BehaviorScript bhvRovertToad[];
 extern const BehaviorScript bhvTankBase[];
 extern const BehaviorScript bhvTankHead[];
+extern const BehaviorScript bhvTankPropane[];
+extern const BehaviorScript bhv_rmine[];
+extern const BehaviorScript bhvStaticMotos[];
+extern const BehaviorScript bhvMissile[];
 //END ROVERT BEHAVIOR
 
 //cheeze bhv starts

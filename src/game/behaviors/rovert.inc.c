@@ -1,6 +1,18 @@
 //hey sussy baka >:3
 #include "src/game/game_init.h"
 
+struct ObjectHitbox sMissileHitbox = {
+    /* interactType: */ INTERACT_DAMAGE,
+    /* downOffset: */ 0,
+    /* damageOrCoinValue: */ 2,
+    /* health: */ 1,
+    /* numLootCoins: */ 7,
+    /* radius: */ 40,
+    /* height: */ 40,
+    /* hurtboxRadius: */ 40,
+    /* hurtboxHeight: */ 40,
+};
+
 void bhv_Magma_Thwomp() {
     if (o->oTimer > 120) {
         o->oTimer = 0;
@@ -316,13 +328,17 @@ void bhv_rovert_toad(void) {
     o->oFaceAngleYaw = o->oAngleToMario;
     switch(o->oAction) {
         case 0:
-            o->oAction = 1;
+            if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, DIALOG_002)) {
+                o->oAction = 1;
+                }
         break;
         case 1:
             
             if ((o->oDistanceToMario < 200.0f)&&(toad_opened_cage_count == 5)) {
-                spawn_default_star(o->oPosX+100.0f,o->oPosY+200.0f,o->oPosZ);
-                o->oAction = 2;
+                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, DIALOG_003)) {
+                    spawn_default_star(o->oPosX+100.0f,o->oPosY+200.0f,o->oPosZ);
+                    o->oAction = 2;
+                    }
                 }
         break;
         case 2:
@@ -332,6 +348,7 @@ void bhv_rovert_toad(void) {
     }
 
 u16 tank_target_angle;
+u8 tank_phase;
 
 void bhv_tank_base(void) {
     struct Object *spawnobj;
@@ -340,20 +357,35 @@ void bhv_tank_base(void) {
         case 0://init
         o->oAction = 1;
             o->oHealth = 3;
+            tank_phase = 1;
             o->prevObj = spawn_object(o,MODEL_TANK_HEAD,bhvTankHead);
         break;
         case 1://wait for mario
             if (o->oDistanceToMario < 1500.0f) {
-                if (cutscene_object_with_dialog(CUTSCENE_DIALOG, o, o->oBehParams2ndByte) != DIALOG_RESPONSE_NONE) {
+                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_NONE, CUTSCENE_DIALOG, DIALOG_000)) {
                     o->oAction = 2;
                     play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_BOSS_PEACH_RUINS), 0);
                     }
                 }
         break;
         case 2://chase mario
-            if (o->oTimer%15==0) {
-                //spawnobj = spawn_object_relative(0, 0, 300, 600, o->prevObj, MODEL_BOWLING_BALL, bhvSnufitBalls);
-                //spawnobj->oForwardVel = 30.0f;
+            if (tank_phase) {
+                if (o->oTimer%10==0) {
+                    spawnobj = spawn_object_relative(0, 0, 300, 700, o->prevObj, MODEL_BLUE_FLAME, bhvTankPropane);
+                    spawnobj->oMoveAngleYaw = o->oFaceAngleYaw;
+                    cur_obj_play_sound_2(SOUND_OBJ_FLAME_BLOWN);
+                    spawnobj->oHomeY = o->oPosY;
+                    }
+                }
+                else
+                {
+                if (o->oTimer%(40+(o->oHealth*5))==0) {
+                    spawnobj = spawn_object_relative(0, 0, 300, 700, o->prevObj, MODEL_MISSILE, bhvMissile);
+                    spawnobj->parentObj = o;
+                    spawnobj->oMoveAngleYaw = o->prevObj->oFaceAngleYaw;
+                    cur_obj_play_sound_2(SOUND_OBJ_POUNDING_CANNON);
+                    spawnobj->oHomeY = o->oPosY;
+                    }
                 }
             if (o->oTimer%60==0) {
                 tank_target_angle = cur_obj_angle_to_home();
@@ -368,6 +400,12 @@ void bhv_tank_base(void) {
         case 3://death
             tank_target_angle = o->oMoveAngleYaw;
             o->oForwardVel = 0.0f;
+            if (o->oTimer > 70) {
+                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_NONE, CUTSCENE_DIALOG, DIALOG_001)) {
+                    spawn_default_star(o->oPosX,o->oPosY+700.0f,o->oPosZ);
+                    o->oAction = 6;
+                    }
+                }
         break;//
         case 4://charge
             tank_target_angle = o->oAngleToMario;
@@ -386,6 +424,7 @@ void bhv_tank_base(void) {
                 }
             if (o->oTimer > 90) {
                 o->oAction = 2;
+                tank_phase = !tank_phase;
                 }
         break;
         }
@@ -406,7 +445,7 @@ void bhv_tank_base(void) {
     o->oFaceAngleYaw = o->oMoveAngleYaw;
 
     //if mario falls reset boss
-    if ((gMarioState->pos[1] < o->oHomeY-100.0f)&&(o->oAction>1)&&(o->oAction!=3)) {
+    if ((gMarioState->pos[1] < o->oHomeY-100.0f)&&(o->oAction>1)&&(o->oAction!=3)&&(o->oAction!=6)) {
         stop_background_music(SEQUENCE_ARGS(4, SEQ_BOSS_PEACH_RUINS));
         play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_LEVEL_PEACH_RUINS), 0);
         o->oAction = 1;
@@ -425,19 +464,31 @@ void bhv_tank_base(void) {
     tank_treads = o->oForwardVel;
     }
 
+u16 FaceAngleLock = 0;
 f32 angle_speed = 0;
 f32 roll_amount = 0;
+f32 crack_sound = 0;
 
 void bhv_tank_head(void) {
     u16 a_diff;
     u8 anyone_picked = FALSE;
     struct Object *spawnobj;
 
-    if (o->oAction != 3) {//live
+    if ((o->oAction != 3)&&(o->oAction != 6)) {//live
         a_diff = o->parentObj->oAngleToMario - o->oFaceAngleYaw;
         a_diff = (a_diff + 0x7FFF) % 0xFFFF - 0x7FFF;
 
-        
+        crack_sound += angle_speed;
+        if (crack_sound > 200.0f) {
+            crack_sound -= 200.0f;
+            cur_obj_play_sound_2(SOUND_MOVING_AIM_CANNON);
+            }
+        if (crack_sound < -200.0f) {
+            crack_sound += 200.0f;
+            cur_obj_play_sound_2(SOUND_MOVING_AIM_CANNON);
+            }
+
+
         if ((a_diff > 0x300)&&(a_diff < 0x7FFF)) {
         angle_speed += 0x15;
         anyone_picked = TRUE;
@@ -468,8 +519,10 @@ void bhv_tank_head(void) {
             o->parentObj->oHealth --;
             cur_obj_play_sound_2(SOUND_ACTION_METAL_HEAVY_LANDING);
             if (o->parentObj->oHealth < 1) {
+                FaceAngleLock = o->oFaceAngleYaw;
                 o->parentObj->oAction = 3;
                 o->oAction = 3;
+                o->parentObj->oAction = 3;
                 stop_background_music(SEQUENCE_ARGS(4, SEQ_BOSS_PEACH_RUINS));
                 play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_LEVEL_PEACH_RUINS), 0);
 
@@ -496,15 +549,91 @@ void bhv_tank_head(void) {
         }
         else
         {//die
+        o->oFaceAngleYaw = FaceAngleLock;
         if (o->oTimer < 50) {
             o->oFaceAnglePitch += 0x30;
             }
-        if (o->oTimer == 70) {
-            spawn_default_star(o->oPosX,o->oPosY+700.0f,o->oPosZ);
-            gMarioState->vel[1] = 40.0f;
-            gMarioState->forwardVel = 40.0f;
-            gMarioState->faceAngle[1] = o->oFaceAngleYaw+0x7FFF;
-            roll_amount = 0x1000;
+        }
+    }
+
+void bhv_Tank_Propane_Flame() {
+    switch(o->oAction) {
+        case 0:
+            o->oPosY -= 10.0f;
+            if (o->oPosY < o->oHomeY+20.0f) {
+                o->oPosY = o->oHomeY;
+                o->oAction = 1;
+                }
+        break;
+        case 1:
+            if (o->oTimer > 200) {
+                o->oAction = 2;
+                o->oTimer = 0;
+                }
+        break;
+        case 2:
+            obj_scale(o,((10.0f-(f32)(o->oTimer))/10.0f)*5.0f);//crack head code
+            if (o->oTimer > 10) {
+                obj_mark_for_deletion(o);
+                }
+        break;
+        }
+    }
+
+void bhv_Launcher_Motos() {
+    struct Object *spawnobj;
+    o->oHealth = 1;
+    o->oFaceAngleYaw = o->oAngleToMario;
+    if (o->oBehParams2ndByte == 1) {
+        if ((o->oTimer%30==0)&&(o->oDistanceToMario < 3000.0f)) {
+                spawnobj = spawn_object_relative(0, 0, 10, 200, o, MODEL_MISSILE, bhvMissile);
+                spawnobj->oPosY += 200.0f;
+                spawnobj->oMoveAngleYaw = o->oFaceAngleYaw;
+                cur_obj_play_sound_2(SOUND_OBJ_POUNDING_CANNON);
             }
         }
     }
+
+
+static s16 obj_turn_pitch_toward_mario_rovert(f32 targetOffsetY, s16 turnAmount) {
+    s16 targetPitch;
+
+    o->oPosY -= targetOffsetY;
+    targetPitch = obj_turn_toward_object(o, gMarioObject, O_MOVE_ANGLE_PITCH_INDEX, turnAmount);
+    o->oPosY += targetOffsetY;
+
+    return targetPitch;
+}
+
+void bhv_missile_loop(void) {
+    o->oMoveAnglePitch = obj_turn_pitch_toward_mario_rovert(120.0f, 80);
+    o->oFaceAnglePitch = -o->oMoveAnglePitch;
+    o->oGravity = 0;
+    o->oFaceAngleYaw = o->oMoveAngleYaw+0x7FFF;
+    obj_turn_toward_object(o, gMarioObject, 16, 0x100);
+
+    o->oForwardVel = 40.0f *  coss(o->oMoveAnglePitch);
+    o->oVelY       = 40.0f * -sins(o->oMoveAnglePitch);
+
+    o->oPosY += o->oVelY;
+
+    if ((o->oTimer > 100)&&(o->oMoveAnglePitch < 0xD000)) {
+        o->oMoveAnglePitch += 0x100;
+        }
+
+    //INIT
+    if (o->oAction == 0) {
+        obj_set_hitbox(o, &sMissileHitbox);
+        o->oAction = 1;
+        }
+
+    if ((o->oMoveFlags & (OBJ_MOVE_MASK_ON_GROUND | OBJ_MOVE_HIT_WALL))||(o->oTimer > 300)||(o->oMoveFlags & 0x200)||(o->parentObj->oHealth == 0)) {
+        spawn_object(o,MODEL_EXPLOSION,bhvExplosion);
+        obj_mark_for_deletion(o);
+        }
+
+    cur_obj_update_floor_and_walls();
+    cur_obj_move_standard(50);
+    }
+
+//yabba dabba doo

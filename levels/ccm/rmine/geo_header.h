@@ -1,0 +1,18 @@
+extern const GeoLayout rmine_geo[];
+extern Lights1 rmine_camo_lights;
+extern Lights1 rmine_mine_scroll_lights;
+extern u8 rmine_camo_motos_ci8[];
+extern u8 rmine_camo_motos_ci8_pal_rgba16[];
+extern u8 rmine_mine_scroll_ci4[];
+extern u8 rmine_mine_scroll_ci4_pal_rgba16[];
+extern Vtx rmine_Cylinder_006_mesh_layer_1_vtx_cull[8];
+extern Vtx rmine_Cylinder_006_mesh_layer_1_vtx_0[10];
+extern Gfx rmine_Cylinder_006_mesh_layer_1_tri_0[];
+extern Vtx rmine_Cylinder_006_mesh_layer_1_vtx_1[25];
+extern Gfx rmine_Cylinder_006_mesh_layer_1_tri_1[];
+extern Gfx mat_rmine_camo[];
+extern Gfx mat_revert_rmine_camo[];
+extern Gfx mat_rmine_mine_scroll[];
+extern Gfx mat_revert_rmine_mine_scroll[];
+extern Gfx rmine_Cylinder_006_mesh_layer_1[];
+extern Gfx rmine_material_revert_render_settings[];

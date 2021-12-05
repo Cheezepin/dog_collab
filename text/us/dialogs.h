@@ -16,111 +16,69 @@
 #define GIVE_UP "give"
 #endif
 
-DEFINE_DIALOG(DIALOG_000, 1, 6, 30, 200, "\
-Wow! You're smack in the\n\
-middle of the " TEXT_DOG ".\n\
-You'll find the Power\n\
-Stars that Bowser stole\n\
-inside the painting\n\
-worlds.\n\
-First, talk to the\n\
-Bob-omb Buddy. (Press " TEXT_BBUTTON "\n\
-to talk.) He'll certainly\n\
-help you out, and so will\n\
-his " COMRADES " in other\n\
-areas.\n\
-To read signs, stop, face\n\
-them and press " TEXT_BBUTTON ". Press " TEXT_ABUTTON "\n\
-or " TEXT_BBUTTON " to scroll ahead. You\n\
-can talk to some other\n\
-characters by facing them\n\
-and pressing " TEXT_BBUTTON ".")
-
-DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 200, "\
-Watch out! If you wander\n\
-around here, you're liable\n\
-to be " PLASTERED " by a\n\
-water bomb!\n\
-Those enemy Bob-ombs love\n\
-to fight, and they're\n\
-always finding ways to\n\
-attack.\n\
-This meadow has become\n\
-a battlefield ever since\n\
-the Big Bob-omb got his\n\
-paws on the Power Star.\n\
-Can you recover the Star\n\
-for us? Cross the bridge\n\
-and go left up the path\n\
-to find the Big Bob-omb.\n\
-Please come back to see\n\
-me after you've retrieved\n\
-the Power Star!")
-
-DEFINE_DIALOG(DIALOG_002, 1, 4, 95, 200, "\
-Hey, you! It's dangerous\n\
-ahead, so listen up! Take\n\
-my advice.\n\
+DEFINE_DIALOG(DIALOG_000, 1, 3, 30, 200, "\
+YOU! The one in the\n\
+@FF0000FFred hat!@FFFFFFFF You've ruined\n\
+my plans!\n\
+Those toads who were\n\
+doing all our work\n\
+escaped!\n\
+Now how will we\n\
+expand our prestigious\n\
+military nation?!\n\
+That's it!\n\
 \n\
-Cross the two\n\
-bridges ahead, then\n\
-watch for falling\n\
-water bombs.\n\
-The Big Bob-omb at the\n\
-top of the mountain is\n\
-very powerful--don't let\n\
-him grab you!\n\
-We're Bob-omb Buddies,\n\
-and we're on your side.\n\
-You can talk to us\n\
-whenever you'd like to!")
+\n\
+I, @00DD00FFGENERAL MOTOS@FFFFFFFF,\n\
+AM GOING TO MURDER\n\
+YOU!!!\n\
+@FFFFFF50What do you mean\n\
+where am I?\n\
+\n\
+@FF0000FFI AM THE TANK!!!")
 
-DEFINE_DIALOG(DIALOG_003, 1, 5, 95, 200, "\
-Thank you, Mario! The Big\n\
-Bob-omb is nothing but a\n\
-big dud now! But the\n\
-battle for the castle has\n\
-just begun.\n\
-Other enemies are holding\n\
-the other Power Stars. If\n\
-you recover more Stars,\n\
-you can open new doors\n\
-that lead to new worlds!\n\
-My Bob-omb Buddies are\n\
-waiting for you. Be sure\n\
-to talk to them--they'll\n\
-set up cannons for you.")
+DEFINE_DIALOG(DIALOG_001, 1, 3, 95, 200, "\
+NOOOOOO!!!\n\
+You have defeated me...\n\
+\n\
+@00DD00FFGeneral Motos@FFFFFFFF is sorry\n\
+for all the wrong\n\
+he's done...\n\
+Have our final star...\n\
+Our army doesn't need\n\
+it no more...")
+
+DEFINE_DIALOG(DIALOG_002, 1, 5, 95, 200, "\
+@FF0000FFMario!@FFFFFFFF Help!\n\
+The Motos Army has\n\
+kidnapped all of Peach's\n\
+servants and are using\n\
+them for slave labor!\n\
+Now that we have\n\
+enough @FFFF00FFstarpower@FFFFFFFF,\n\
+we need you to break\n\
+open the cages and\n\
+set them free!")
+
+DEFINE_DIALOG(DIALOG_003, 1, 4, 95, 200, "\
+Thank you so much!\n\
+We can now return\n\
+to @FFFF00FFPeach's New Home@FFFFFFFF.\n\
+\n\
+The last thing to be\n\
+done is to stop\n\
+@00DD00FFGeneral Motos@FFFFFFFF once\n\
+and for all!")
 
 DEFINE_DIALOG(DIALOG_004, 1, 3, 95, 200, "\
-We're peace-loving\n\
-Bob-ombs, so we don't use\n\
-cannons.\n\
-But if you'd like\n\
-to blast off, we don't\n\
-mind. Help yourself.\n\
-We'll prepare all of the\n\
-cannons in this course for\n\
-you to use. Bon Voyage!")
+Press " TEXT_ZBUTTON " to summon\n\
+"TEXT_DOG" to dig\n\
+the ashpiles!")
 
 DEFINE_DIALOG(DIALOG_005, 1, 3, 30, 200, "\
-Hey, Mario! Is it true\n\
-that you beat the Big\n\
-Bob-omb? Cool!\n\
-You must be strong. And\n\
-pretty fast. So, how fast\n\
-are you, anyway?\n\
-Fast enough to beat me...\n\
-Koopa the Quick? I don't\n\
-think so. Just try me.\n\
-How about a race to the\n\
-mountaintop, where the\n\
-Big Bob-omb was?\n\
-Whaddya say? When I say\n\
-" TEXT_QUOTE_OPEN "Go," TEXT_QUOTE_CLOSE " let the race begin!\n\
-\n\
-Ready....\n\
-\n\
-//Go!////Don't Go")
+Come back later...\n\
+When you're ready to\n\
+face the @00DD00FFGeneral@000000FF.")
 
 DEFINE_DIALOG(DIALOG_006, 1, 3, 30, 200, "\
 Hey!!! Don't try to " SCAM_ME

@@ -675,6 +675,9 @@ void bhv_toad_cage(void);
 void bhv_rovert_toad(void);
 void bhv_tank_base(void);
 void bhv_tank_head(void);
+void bhv_Tank_Propane_Flame(void);
+void bhv_Launcher_Motos(void);
+void bhv_missile_loop(void);
 //ROVERT BEHAVIOR ACTIONS END
 
 //cheeze start

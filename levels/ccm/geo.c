@@ -40,3 +40,5 @@
 #include "levels/ccm/toad_cage_4_geo/geo.inc.c"
 #include "levels/ccm/tank_base/geo.inc.c"
 #include "levels/ccm/tank_head/geo.inc.c"
+#include "levels/ccm/rmine/geo.inc.c"
+#include "levels/ccm/missile/geo.inc.c"
