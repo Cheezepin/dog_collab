@@ -122,12 +122,12 @@ void bhv_motos_thrown(void) {
 
             coin = spawn_object(o, MODEL_BLUE_COIN, bhvBlueCoinMotos);
             cur_obj_play_sound_2(SOUND_GENERAL_COIN_SPURT_2);
-            coin->oForwardVel = 10.0f;
-            coin->oVelY = 20.0f;
+            coin->oForwardVel = 15.0f;
+            coin->oVelY = 25.0f;
             coin->oMoveAngleYaw = (f32)(o->oFaceAngleYaw + 0x8000) + random_float() * 1024.0f;
 
-            if (coin->oPosY < gMarioState->pos[1]-300.0f) {
-                coin->oPosY = gMarioState->pos[1]-300.0f;
+            if (coin->oPosY < gMarioState->pos[1]-270.0f) {
+                coin->oPosY = gMarioState->pos[1]-270.0f;
                 }
             }
     }

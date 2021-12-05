@@ -29,7 +29,7 @@ void scroll_ccm_dl_Plane_mesh_layer_1_vtx_0() {
 	static int currentX = 0;
 	int deltaX;
 	static int timeX;
-	float amplitudeX = 1.0;
+	float amplitudeX = 0.5;
 	float frequencyX = 0.10000000149011612;
 	float offsetX = 0.0;
 	static int currentY = 0;

@@ -72,3 +72,6 @@
 #include "levels/ccm/tank_head/model.inc.c"
 #include "levels/ccm/tank_base/collision.inc.c"
 #include "levels/ccm/tank_head/collision.inc.c"
+
+#include "levels/ccm/rmine/model.inc.c"
+#include "levels/ccm/missile/model.inc.c"
