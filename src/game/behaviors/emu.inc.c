@@ -105,13 +105,28 @@ void bhv_goddard_cageCOL_loop(void) {
 #define DOG_ANIM_RUN  2
 #define DOG_ANIM_WALK 3
 #define DOG_ANIM_POUNCE 4
+s32 nextX, nextZ nextXangle, nextZangle;
+
+void rand_polar_coord(void){
+    f32 theta;
+    u16 r;
+    theta = random_float() * 2 * M_PI;
+    r = (random_u16() % 2600) + (random_u16() % 2600);
+    if (r >=2600) {r = 5200-r;}
+    theta = radians_to_angle(theta);
+    nextX = ((r * cosf(theta))); 
+    nextZ = ((r * sinf(theta)));
+    nextXangle = nextX - o->oPosX;
+    nextZangle = nextZ - o->oPosZ;
+    //return atan2s(nextZ, nextX);
+}
 
 
 extern u8 floor_check = 0;
 void freedom (void) {
     if(floor_check == 0) {
     cur_obj_init_animation(DOG_ANIM_POUNCE);
-    o->oForwardVel = -10.0f;
+    o->oForwardVel = 10.0f;
     cur_obj_update_floor_and_walls();
     cur_obj_move_standard(78);
     o->oVelY = -10.0f;
@@ -124,15 +139,42 @@ void freedom (void) {
     }
     else if (floor_check >= 60){ 
         cur_obj_init_animation(DOG_ANIM_IDLE);
-        o->oForwardVel = -0.0f;
+        o->oForwardVel = 0.0f;
+        o->oAction = EMU_DOG_RANDOM_LOCATION;
     }
     else {
         floor_check++;
     }
 }
 
-static void (*sEmuDogActions[])(void) = {
+void find_random_location(void) {
+    struct Object *bowser;
+    f32 dist;
+    f32 randCords;
+    s16 turnSpeed = 0x100;
+    rand_polar_coord();
+    bowser = cur_obj_find_nearest_object_with_behavior(bhvBowser, &dist);
+    o->oMoveAngleYaw = atan2s(nextZ, nextX);
+    o->oForwardVel = 20.0f;
+    cur_obj_init_animation(DOG_ANIM_DIG);
+    print_text_fmt_int(5, 20, "X %f", nextX);
+    print_text_fmt_int(5, 40, "Z %f", nextZ);
+    o->oAction = EMU_DOG_RUN_AROUND;
+    
+}
+void run_around(void) {
+    cur_obj_init_animation(DOG_ANIM_DIG);
+    print_text_fmt_int(5, 20, "X %f", nextX);
+    print_text_fmt_int(5, 40, "Z %f", nextZ);
+    if (nextX > o->oPosX - 10.0f && nextX < o->oPosX + 10.0f && nextZ > o->oPosZ - 10.0f && nextZ < o->oPosZ + 10.0f){
+        o->oAction = EMU_DOG_RANDOM_LOCATION;
+    }
+}
+
+UNUSED static void (*sEmuDogActions[])(void) = {
     freedom,
+    find_random_location,
+    run_around,
 };
 
 void bhv_idle_dog_init (void) {
@@ -145,8 +187,18 @@ void bhv_idle_dog_loop (void) {
     
     if (cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist) == NULL){
         
-        cur_obj_call_action_function(sEmuDogActions);  
-        o->oAction = 0;
+        switch(o->oAction){
+            case EMU_DOG_FREEDOM:
+            freedom();
+            break;
+            case EMU_DOG_RANDOM_LOCATION:
+            find_random_location();
+            break;
+            case EMU_DOG_RUN_AROUND:
+            run_around();
+            break;
+        }
+
 
     }
 }

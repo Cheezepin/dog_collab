@@ -6729,21 +6729,6 @@ const BehaviorScript bhvKidToad[] = {
     END_LOOP(),
 };
 
-/*
-const BehaviorScript bhvElectricSpinner[] = {
-   BEGIN(OBJ_LIST_SURFACE),
-    OR_INT(oFlags, (OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    ADD_FLOAT(oPosY, 1),
-    LOAD_COLLISION_DATA(electric_spinner_collision),
-    SET_FLOAT(oCollisionDistance, 8000),
-    SET_FLOAT(oDrawingDistance, 8000),
-    SET_HOME(),
-    BEGIN_LOOP(),
-        //CALL_NATIVE(bhv_emu_electric_spinner),
-        CALL_NATIVE(load_object_collision_model),
-    END_LOOP(),
-};
-*/
 const BehaviorScript bhvSwingBoard[] = {
     BEGIN(OBJ_LIST_SURFACE),
     LOAD_COLLISION_DATA(swing_board_collision),
@@ -7293,13 +7278,15 @@ const BehaviorScript bhvGoddardCageCOL[] = {
 
 const BehaviorScript bhvDogIdle[] = {
     BEGIN(OBJ_LIST_LEVEL),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+    OR_INT(oFlags, (OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW)),
     LOAD_ANIMATIONS(oAnimations, dog_anims),
     ANIMATE(0),
+    ADD_INT(oMoveAngleYaw, 0x8000),
     CALL_NATIVE(bhv_idle_dog_init),
     SCALE(/*Unused*/ 0, /*Field*/ 50),
     SET_HOME(),
     BEGIN_LOOP(),
+    CALL_NATIVE(cur_obj_rotate_face_angle_using_vel),
         CALL_NATIVE(bhv_idle_dog_loop),
     END_LOOP(),
 };

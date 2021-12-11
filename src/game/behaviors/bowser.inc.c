@@ -7,7 +7,17 @@
  */
 
 // Bowser's Tail
+extern phase = 0;
 
+/**
+ * Set whenever Bowser should have rainbow light or not on each stage
+ */
+s8 sBowserRainbowLight[] = { FALSE, FALSE, TRUE };
+
+/**
+ * Set how much health Bowser has on each stage
+ */
+s8 sBowserHealth[] = { 1, 1, 4 };
 /**
  * Checks whenever the Bowser and his tail should be intangible or not
  * By default it starts tangible
@@ -408,6 +418,7 @@ void bowser_bits_action_list(void) {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;
     }
+
 }
 
 /**
@@ -418,10 +429,12 @@ void bowser_set_act_big_jump(void) {
     o->oAction = BOWSER_ACT_BIG_JUMP;
 }
 
+
 /**
  * Set actions (and attacks) for Bowser in "Bowser in the Sky"
  */
 void bowser_bits_actions(void) {
+phase = 0;
     switch (o->oBowserIsReacting) {
         case FALSE:
             // oBowserBitsJustJump never changes value,
@@ -438,6 +451,31 @@ void bowser_bits_actions(void) {
             o->oAction = BOWSER_ACT_WALK_TO_MARIO;
             break;
     }
+}
+
+void bowser_emu_actions(void) {
+    struct Object *sussy;
+    sussy = cur_obj_nearest_object_with_behavior(bhvDogRovert);
+    if (sussy != NULL) {
+        cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
+        o->oAction = BOWSER_ACT_HOMING_ORB;
+    } else {
+    switch (o->oBowserIsReacting) {
+        case FALSE:
+            // oBowserBitsJustJump never changes value,
+            // so its always FALSE, maybe a debug define
+            if (o->oBowserBitsJustJump == FALSE) {
+                bowser_bits_action_list();
+            } else {
+                bowser_set_act_big_jump();
+            }
+            o->oBowserIsReacting = TRUE;
+            break;
+        case TRUE:
+            o->oBowserIsReacting = FALSE;
+            o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+            break;
+    }}
 }
 
 /**
@@ -479,7 +517,8 @@ void bowser_act_default(void) {
     } else if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
         bowser_bitfs_actions();
     } else { // BOWSER_BP_BITS
-        bowser_bits_actions();
+        if (phase == 0) {bowser_bits_actions(); }
+        else if (phase == 1) {bowser_emu_actions();}
     }
 }
 
@@ -667,6 +706,7 @@ void bowser_act_hit_mine(void) {
         o->oVelY = 100.0f;
         o->oMoveAngleYaw = o->oBowserAngleToCentre + 0x8000;
         o->oBowserEyesShut = TRUE; // close eyes
+        if (phase ==0) o->oBowserRainbowLight = sBowserRainbowLight[BOWSER_BP_BITS];
     }
     // Play flip animation
     if (o->oSubAction == BOWSER_SUB_ACT_HIT_MINE_START) {
@@ -687,6 +727,7 @@ void bowser_act_hit_mine(void) {
         }
     // Play these actions once he is stand up
     } else if (o->oSubAction == BOWSER_SUB_ACT_HIT_MINE_STOP) {
+        phase = 1;
         if (cur_obj_check_if_near_animation_end()) {
             // Makes Bowser dance at one health (in BITS)
             if (o->oHealth == 1) {
@@ -1565,15 +1606,6 @@ struct SoundState sBowserSoundStates[] = {
     { 1, 0, -1, SOUND_OBJ2_BOWSER_ROAR },
 };
 
-/**
- * Set whenever Bowser should have rainbow light or not on each stage
- */
-s8 sBowserRainbowLight[] = { FALSE, FALSE, TRUE };
-
-/**
- * Set how much health Bowser has on each stage
- */
-s8 sBowserHealth[] = { 1, 1, 3 };
 
 /**
  * Update Bowser's actions when he's hands free
@@ -1696,6 +1728,8 @@ void bhv_bowser_loop(void) {
     // Reset Status
     o->oBowserStatus &= ~0xFF;
 
+
+    // checks if an amp already exists and makes bowser counter if it's close enough
    struct Object *ampObj;
     f32 dist;
     ampObj = cur_obj_find_nearest_object_with_behavior(bhvAttackableAmp, &dist);
@@ -1772,16 +1806,10 @@ void bhv_bowser_init(void) {
     o->oOpacity = 0xFF;
     o->oBowserTargetOpacity = 0xFF;
     // Set Bowser B-param depending of the stage
-    if (gCurrLevelNum == LEVEL_BOWSER_2) {
-        level = BOWSER_BP_BITFS;
-    } else if (gCurrLevelNum == LEVEL_BOWSER_3) {
-        level = BOWSER_BP_BITS;
-    } else { // LEVEL_BOWSER_1
-        level = BOWSER_BP_BITDW;
-    }
+    level = BOWSER_BP_BITS;
     o->oBehParams2ndByte = level;
     // Set health and rainbow light depending of the level
-    o->oBowserRainbowLight = sBowserRainbowLight[level];
+    o->oBowserRainbowLight = sBowserRainbowLight[BOWSER_BP_BITDW]; //sets bowser to not have rainbow
     o->oHealth = sBowserHealth[level];
     // Start camera event, this event is not defined so maybe
     // the "start arena" cutscene was originally called this way

@@ -14,7 +14,7 @@ extern Gfx bowser_1_dl_Torus_mesh_layer_1_tri_0[];
 extern Vtx bowser_1_dl_Torus_mesh_layer_1_vtx_1[9];
 extern Gfx bowser_1_dl_Torus_mesh_layer_1_tri_1[];
 extern Vtx bowser_1_dl_Torus_mesh_layer_5_vtx_cull[8];
-extern Vtx bowser_1_dl_Torus_mesh_layer_5_vtx_0[526];
+extern Vtx bowser_1_dl_Torus_mesh_layer_5_vtx_0[528];
 extern Gfx bowser_1_dl_Torus_mesh_layer_5_tri_0[];
 extern Gfx mat_bowser_1_dl_f3d_material_layer1[];
 extern Gfx mat_revert_bowser_1_dl_f3d_material_layer1[];

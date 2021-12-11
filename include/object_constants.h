@@ -2444,4 +2444,9 @@
     #define EMU_AMP_CHASE                                   0
     #define EMU_AMP_SUCCESS                                 1
     #define EMU_AMP_COUNTER                                 2
+
+// Doggo
+    #define EMU_DOG_FREEDOM                                 0
+    #define EMU_DOG_RANDOM_LOCATION                         1
+    #define EMU_DOG_RUN_AROUND                              2
 #endif // OBJECT_CONSTANTS_H

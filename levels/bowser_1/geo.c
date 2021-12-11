@@ -17,3 +17,5 @@
 #include "levels/bowser_1/geo.inc.c"
 
 #include "levels/bowser_1/cage/geo.inc.c"
+#include "levels/bowser_1/ashpile/geo.inc.c"
+#include "levels/bowser_1/ashpile2/geo.inc.c"

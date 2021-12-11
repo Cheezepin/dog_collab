@@ -146,8 +146,7 @@ void bhv_ash_pile(void) {
             load_object_collision_model();
             o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_ASHPILE2];
             o->oOpacity = 255.0f;
-
-            sussy = cur_obj_nearest_object_with_behavior(bhvDogRovert);
+            sussy = cur_obj_nearest_object_with_behavior(bhvDogRovert); 
             if ((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (!sussy)) {
                 play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
                 sussy = spawn_object(o,MODEL_DOG,bhvDogRovert);

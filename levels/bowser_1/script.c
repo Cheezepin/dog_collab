@@ -13,6 +13,10 @@
 
 #include "actors/common1.h"
 #include "actors/group12.h"
+#include "actors/common1.h"
+#include "actors/group12.h"
+#include "actors/common1.h"
+#include "actors/group12.h"
 
 /* Fast64 begin persistent block [includes] */
 #include "actors/common1.h"
@@ -29,17 +33,28 @@ const LevelScript level_bowser_1_entry[] = {
 	INIT_LEVEL(),
 	LOAD_YAY0(0x7, _bowser_1_segment_7SegmentRomStart, _bowser_1_segment_7SegmentRomEnd), 
 	LOAD_YAY0(0x0A, _bidw_skybox_yay0SegmentRomStart, _bidw_skybox_yay0SegmentRomEnd), 
-	LOAD_YAY0(0x06, _group12_yay0SegmentRomStart, _group12_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd), 
 	LOAD_MIO0(0x7, _bowser_1_segment_7SegmentRomStart, _bowser_1_segment_7SegmentRomEnd), 
 	LOAD_MIO0(0xa, _water_skybox_mio0SegmentRomStart, _water_skybox_mio0SegmentRomEnd), 
+	LOAD_YAY0(0x06, _group12_yay0SegmentRomStart, _group12_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd), 
+	LOAD_YAY0(0x06, _group12_yay0SegmentRomStart, _group12_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd), 
+	LOAD_YAY0(0x06, _group12_yay0SegmentRomStart, _group12_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_13), 
-	
+	JUMP_LINK(script_func_global_13), 
+	JUMP_LINK(script_func_global_13), 
 	LOAD_MODEL_FROM_GEO(MODEL_GODDARD_CAGE, cage_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER, bowser_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB, bowser_bomb_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE, emu_ashpile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE2, emu_ashpile2_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_GODDARD_CAGE, cage_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE, emu_ashpile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE2, emu_ashpile2_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_GODDARD_CAGE, cage_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE, emu_ashpile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE2, emu_ashpile2_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
     LOAD_YAY0(/*seg*/ 0x06, _group12_yay0SegmentRomStart, _group12_yay0SegmentRomEnd),
@@ -48,16 +63,17 @@ const LevelScript level_bowser_1_entry[] = {
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_13),
 	LOAD_MODEL_FROM_GEO(MODEL_GODDARD_CAGE, cage_geo), 
-	//LOAD_MODEL_FROM_GEO(MODEL_BOWSER, bowser_geo),
-	//LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB, bowser_bomb_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE, emu_ashpile_geo), 
+    LOAD_MODEL_FROM_GEO(MODEL_ASHPILE2, emu_ashpile2_geo), 
 	/* Fast64 end persistent block [level commands] */
 
 	AREA(1, bowser_1_area_1),
 		WARP_NODE(0x0A, LEVEL_BITDW, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BITDW, 0x01, 0x0C, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOWSER_1, 0x01, 0x0C, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_GODDARD_CAGE, 0, 403, 878, 0, 0, 0, 0x00000000, bhvGoddardCage),
-		OBJECT(MODEL_BOWSER, 0, 403, -865, 0, 0, 0, 0x13001850, bhvBowser),
+		OBJECT(MODEL_ASHPILE, -1193, 95, 150, 0, 0, 0, (0 << 16), bhvAshpile),
+		OBJECT(MODEL_BOWSER, 0, 403, 649, 0, 0, 0, 0x13001850, bhvBowser),
+		OBJECT(MODEL_GODDARD_CAGE, 0, 568, 2307, 0, 0, 0, 0x00000000, bhvGoddardCage),
 		OBJECT(MODEL_NONE, 0, -421, 0, 0, 0, 0, 0x00000000, bhvPaletteSwap),
 		OBJECT(MODEL_NONE, 0, 200, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		MARIO_POS(0x01, 0, 0, 451, 0),

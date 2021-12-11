@@ -13,4 +13,12 @@ extern const LevelScript level_bowser_1_entry[];
 
 #include "levels/bowser_1/cage/collision_header.h"
 
+#include "levels/bowser_1/ashpile/geo_header.h"
+
+#include "levels/bowser_1/ashpile2/geo_header.h"
+
+#include "levels/bowser_1/ashpile2/collision_header.h"
+
+#include "levels/bowser_1/ashpile/collision_header.h"
+
 #endif
