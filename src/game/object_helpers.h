@@ -119,6 +119,7 @@ u32 get_object_list_from_behavior(const BehaviorScript *behavior);
 struct Object *cur_obj_nearest_object_with_behavior(const BehaviorScript *behavior);
 f32 cur_obj_dist_to_nearest_object_with_behavior(const BehaviorScript* behavior);
 struct Object *cur_obj_find_nearest_object_with_behavior(const BehaviorScript * behavior, f32 *dist);
+struct Object *find_any_object_with_behavior(const BehaviorScript *behavior);
 struct Object *find_unimportant_object(void);
 s32 count_unimportant_objects(void);
 s32 count_objects_with_behavior(const BehaviorScript *behavior);
@@ -176,6 +177,7 @@ void cur_obj_spawn_loot_coin_at_mario_pos(void);
 s32 cur_obj_advance_looping_anim(void);
 s32 cur_obj_resolve_wall_collisions(void);
 void cur_obj_update_floor_and_walls(void);
+void cur_obj_update_clown_floor(void);
 void cur_obj_move_standard(s16 steepSlopeAngleDegrees);
 void cur_obj_move_using_vel_and_gravity(void);
 void cur_obj_move_using_fvel_and_gravity(void);
@@ -277,6 +279,18 @@ u32 obj_get_model_id(struct Object *obj);
 // End of HackerSM64 stuff
 Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED void *context);
 
+// CowQuack start
+Gfx *geo_clown_head_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_eyes_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_awooga_eyes_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_awooga_mouth_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_clown_bone_scaler(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+
+Gfx *geo_switch_kid_toad_holding(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+//CowQuack end
+
+
+Gfx *geo_comit_set_brightness(s32 callContext, struct GraphNode *node, UNUSED void *context);
 // thecozies start
 Gfx *move_water_top(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);

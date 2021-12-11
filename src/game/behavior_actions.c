@@ -220,6 +220,18 @@ s32 set_obj_anim_with_accel_and_sound(s16 frame1, s16 frame2, s32 sound) {
 #include "behaviors/strong_wind_particle.inc.c"
 #include "behaviors/sl_snowman_wind.inc.c"
 #include "behaviors/sl_walking_penguin.inc.c"
+
+#include "behaviors/carousel.inc.c"
+#include "behaviors/clown_clock.inc.c"
+#include "behaviors/clown_door.inc.c"
+#include "behaviors/circus_wheel.inc.c"
+#include "behaviors/pinwheel.inc.c"
+#include "behaviors/trapeze.inc.c"
+#include "behaviors/clown_boss.inc.c"
+#include "behaviors/power_switch.inc.c"
+#include "behaviors/circus_toads.inc.c"
+
+#include "behaviors/comit_code.inc.c"
 #include "behaviors/emu.inc.c"
 #include "behaviors/thecozies.inc.c"
 #include "behaviors/motos.inc.c"

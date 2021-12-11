@@ -22,7 +22,7 @@
 #include "segment7.h"
 #include "seq_ids.h"
 #include "sm64.h"
-#include "text_strings.h"
+#include "text_strings.h.in"
 #include "types.h"
 #include "config.h"
 #include "puppycam2.h"
@@ -89,34 +89,22 @@ enum DialogMark { DIALOG_MARK_NONE = 0, DIALOG_MARK_DAKUTEN = 1, DIALOG_MARK_HAN
 
 #if defined(VERSION_US) || defined(VERSION_EU)
 u8 gDialogCharWidths[256] = { // TODO: Is there a way to auto generate this?
-    7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  6,  6,  6,  6,  6,  6,
-    6,  6,  5,  6,  6,  5,  8,  8,  6,  6,  6,  6,  6,  5,  6,  6,
-    8,  7,  6,  6,  6,  5,  5,  6,  5,  5,  6,  5,  4,  5,  5,  3,
-    7,  5,  5,  5,  6,  5,  5,  5,  5,  5,  7,  7,  5,  5,  4,  4,
-    8,  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    8,  8,  8,  8,  7,  7,  6,  7,  7,  0,  0,  0,  0,  0,  0,  0,
-#ifdef VERSION_EU
-    6,  6,  6,  0,  6,  6,  6,  0,  0,  0,  0,  0,  0,  0,  0,  4,
-    5,  5,  5,  5,  6,  6,  6,  6,  0,  0,  0,  0,  0,  0,  0,  0,
-    5,  5,  5,  0,  6,  6,  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  5,  5,  0,  0,  6,  6,  0,  0,  0,  0,  0,  0,  0,  5,  6,
-    0,  4,  4,  0,  0,  5,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-#else
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  5,  6,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-#endif
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-#ifdef VERSION_EU
-    7,  5, 10,  5,  9,  8,  4,  0,  0,  0,  0,  5,  5,  6,  5,  0,
-#else
-    7,  5, 10,  5,  9,  8,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-#endif
-    0,  0,  5,  7,  7,  6,  6,  8,  0,  8, 10,  6,  4, 10,  0,  0
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, // 0:7, 1:7, 2:7, 3:7, 4:7, 5:7, 6:7, 7:7, 8:7, 9:7, A:6, B:6, C:6, D:6, E:6, F:6,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, // G:6, H:6, I:5, J:6, K:6, L:5, M:8, N:8, O:6, P:6, Q:6, R:6, S:6, T:5, U:6, V:6,
+    6,  5,  6,  0,  0,  7,  8,  4,  5,  5,  6,  0,  4,  6,  4,  0, // W:8, X:7, Y:6, Z:6, a:6, b:5, c:5, d:6, e:5, f:5, g:6, h:5, i:4, j:5, k:5, l:3,
+    7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  4,  0,  0,  0,  0,  7, // m:7, n:5, o:5, p:5, q:6, r:5, s:5, t:5, u:5, v:5, w:7, x:7, y:5, z:5, ':4, .:4,
+    0,  6,  6,  6,  6,  6,  6,  6,  6,  5,  6,  6,  5,  8,  8,  6, //  :8,  :6,
+    6,  6,  6,  6,  5,  6,  6,  8,  7,  6,  6,  0,  0,  0,  0,  0, // ▲:8, ▼:8, <:8, >:8, A:7, B:7, C:6, Z:7, R:7,
+    0,  6,  5,  5,  6,  5,  5,  6,  5,  4,  5,  5,  3,  7,  5,  5, //                                                                            ,:4,
+    5,  6,  5,  5,  5,  5,  5,  7,  7,  5,  5,  0,  0,  0,  8,  0, //
+    8,  8,  8,  8,  7,  7,  6,  7,  7,  0,  0,  0,  0,  0,  0,  0, //
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //                                                                        :5, -:6,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //
+    0,  0,  10, 0,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //  :7, (:5,X:10, ):5, ↔:9, &:8, ::4,
+    0,  0,  0,  0,  0,  6,  0,  0,  0,  8,  10, 6,  4,  10, 0,  0  //           !:5, %:7, ?:7, “:6, ”:6, ~:8,      ¢:8, ★:10, *:6, ·:4, ☆:10
 };
 #endif
 
@@ -133,6 +121,7 @@ s8 gLastDialogResponse = 0;
 u8 gMenuHoldKeyIndex = 0;
 u8 gMenuHoldKeyTimer = 0;
 s32 gDialogResponse = DIALOG_RESPONSE_NONE;
+s8 gDialogCurPage = 0;
 
 
 void create_dl_identity_matrix(void) {
@@ -306,8 +295,8 @@ struct MultiTextEntry {
     u8 str[4];
 };
 
-#define TEXT_THE_RAW ASCII_TO_DIALOG('t'), ASCII_TO_DIALOG('h'), ASCII_TO_DIALOG('e'), 0x00
-#define TEXT_YOU_RAW ASCII_TO_DIALOG('y'), ASCII_TO_DIALOG('o'), ASCII_TO_DIALOG('u'), 0x00
+#define TEXT_THE_RAW 't', 'h', 'e', 0x00
+#define TEXT_YOU_RAW 'y', 'o', 'u', 0x00
 
 enum MultiStringIDs { STRING_THE, STRING_YOU };
 
@@ -338,11 +327,11 @@ void render_dog_string(void)
 
     for(i = 0; i < DOG_STRING_LENGTH + 1; i++) {
         dogString[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
-        if(dogString[i] == 0xFF && length == 12) {
+        if(dogString[i] == 0x0 && length == 12) {
             length = i;
         }
     }
-    dogString[DOG_STRING_LENGTH] = 0xFF;
+    dogString[DOG_STRING_LENGTH] = 0x0;
     for (i = 0; i < length; i++) {
         render_generic_char(dogString[i]);
         create_dl_translation_matrix(MENU_MTX_NOPUSH, (gDialogCharWidths[dogString[i]]), 0, 0);
@@ -368,30 +357,25 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
     create_dl_translation_matrix(MENU_MTX_PUSH, x, y, 0.0f);
 
     while (str[strPos] != DIALOG_CHAR_TERMINATOR) {
-        if (customColor == TRUE) {
-            gDPSetEnvColor(gDisplayListHead++, rgbaColors[0], rgbaColors[1], rgbaColors[2], rgbaColors[3]);
-        }
-        else {
-            if (customColor == 2) {
-                gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255); // TODO: Is it possible to retrieve the original color that was set before print_generic_string was called?
-                customColor = FALSE;
-            }
-        }
-
         switch (str[strPos]) {
             case DIALOG_CHAR_COLOR:
                 customColor = TRUE;
                 strPos++;
                 for (colorLoop = strPos + 8; strPos < colorLoop; ++strPos) {
-                    diffTmp = 0;
-                    if (str[strPos] >= 0x24 && str[strPos] <= 0x29) {
-                        diffTmp = 0x1A;
+                    if (str[strPos] >= '0' && str[strPos] <= '9') {
+                        diffTmp = 0x30;
                     }
-                    else if (str[strPos] >= 0x10) {
+                    else if (str[strPos] >= 'A' && str[strPos] <= 'F') {
+                        diffTmp = 0x37;
+                    }
+                    else if (str[strPos] >= 'a' && str[strPos] <= 'f') {
+                        diffTmp = 0x57;
+                    }
+                    else {
                         customColor = 2;
                         strPos = colorLoop - 8;
                         for (diffTmp = 0; diffTmp < 8; ++diffTmp) {
-                            if (str[strPos + diffTmp] != 0x9F)
+                            if (str[strPos + diffTmp] != '-')
                                 break;
                         }
                         if (diffTmp == 8)
@@ -406,6 +390,15 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
                     }
                 }
                 strPos--;
+                if (customColor == 1) {
+                    gDPSetEnvColor(gDisplayListHead++, rgbaColors[0],
+                                                    rgbaColors[1],
+                                                    rgbaColors[2],
+                                                    rgbaColors[3]);
+                } else if (customColor == 2) {
+                    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255); // TODO: Is it possible to retrieve the original color that was set before print_generic_string was called?
+                    customColor = 0;
+                }
                 break;
             case DIALOG_CHAR_DAKUTEN:
                 mark = DIALOG_MARK_DAKUTEN;
@@ -640,8 +633,8 @@ s16 get_string_width(u8 *str) {
     return width;
 }
 
-u8 gHudSymCoin[] = { GLYPH_COIN, GLYPH_SPACE };
-u8 gHudSymX[] = { GLYPH_MULTIPLY, GLYPH_SPACE };
+u8 gHudSymCoin[] = "+ ";
+u8 gHudSymX[] = "* ";
 
 void print_hud_my_score_coins(s32 useCourseCoinScore, s8 fileNum, s8 courseNum, s16 x, s16 y) {
     u8 strNumCoins[4];
@@ -664,8 +657,8 @@ void print_hud_my_score_coins(s32 useCourseCoinScore, s8 fileNum, s8 courseNum, 
 void print_hud_my_score_stars(s8 fileNum, s8 courseNum, s16 x, s16 y) {
     u8 strStarCount[4];
     s16 starCount;
-    u8 textSymStar[] = { GLYPH_STAR, GLYPH_SPACE };
-    u8 textSymX[] = { GLYPH_MULTIPLY, GLYPH_SPACE };
+    u8 textSymStar[] = "- ";
+    u8 textSymX[] = "* ";
 
     starCount = save_file_get_course_star_count(fileNum, courseNum);
 
@@ -678,31 +671,7 @@ void print_hud_my_score_stars(s8 fileNum, s8 courseNum, s16 x, s16 y) {
 }
 
 void int_to_str(s32 num, u8 *dst) {
-    s32 digit1;
-    s32 digit2;
-    s32 digit3;
-
-    s8 pos = 0;
-
-    if (num > 999) {
-        dst[0] = 0x00; dst[1] = DIALOG_CHAR_TERMINATOR;
-        return;
-    }
-
-    digit1 = num / 100;
-    digit2 = (num - digit1 * 100) / 10;
-    digit3 = (num - digit1 * 100) - (digit2 * 10);
-
-    if (digit1 != 0) {
-        dst[pos++] = digit1;
-    }
-
-    if (digit2 != 0 || digit1 != 0) {
-        dst[pos++] = digit2;
-    }
-
-    dst[pos++] = digit3;
-    dst[pos] = DIALOG_CHAR_TERMINATOR;
+    sprintf(dst, "%d", num);
 }
 
 s16 get_dialog_id(void) {
@@ -817,6 +786,8 @@ void change_and_flash_dialog_text_color_lines(s8 colorMode, s8 lineNum, u8 *cust
 #define X_VAL3 0.0f
 #define Y_VAL3 16
 
+
+
 void handle_dialog_scroll_page_state(s8 lineNum, s8 totalLines, s8 *pageState, s8 *xMatrix, s16 *linePos) {
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
@@ -884,11 +855,11 @@ void render_dog_string_lines(s8 lineNum, s16 *linePos, s8 linesPerBox, s8 xMatri
 
     for(i = 0; i < DOG_STRING_LENGTH + 1; i++) {
         dogString[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
-        if(dogString[i] == 0xFF && length == 12) {
+        if(dogString[i] == 0x0 && length == 12) {
             length = i;
         }
     }
-    dogString[DOG_STRING_LENGTH] = 0xFF;
+    dogString[DOG_STRING_LENGTH] = 0x0;
 
     if (lineNum >= lowerBound && lineNum <= (lowerBound + linesPerBox)) {
         if (linePos[0] != 0 || (xMatrix != 1)) {
@@ -964,15 +935,20 @@ void handle_dialog_text_and_pages(s8 colorMode, struct DialogEntry *dialog, s8 l
                 customColor = TRUE;
                 strIdx++;
                 for (colorLoop = strIdx + 8; strIdx < colorLoop; ++strIdx) {
-                    diffTmp = 0;
-                    if (str[strIdx] >= 0x24 && str[strIdx] <= 0x29) {
-                        diffTmp = 0x1A;
+                    if (str[strIdx] >= '0' && str[strIdx] <= '9') {
+                        diffTmp = 0x30;
                     }
-                    else if (str[strIdx] >= 0x10) {
+                    else if (str[strIdx] >= 'A' && str[strIdx] <= 'F') {
+                        diffTmp = 0x37;
+                    }
+                    else if (str[strIdx] >= 'a' && str[strIdx] <= 'f') {
+                        diffTmp = 0x57;
+                    }
+                    else {
                         customColor = 2;
                         strIdx = colorLoop - 8;
                         for (diffTmp = 0; diffTmp < 8; ++diffTmp) {
-                            if (str[strIdx + diffTmp] != 0x9F)
+                            if (str[strIdx + diffTmp] != '-')
                                 break;
                         }
                         if (diffTmp == 8)
@@ -1186,8 +1162,12 @@ void render_dialog_entries(void) {
     void **dialogTable;
     struct DialogEntry *dialog;
     s8 lowerBound = 0;
-    dialogTable = segmented_to_virtual(languageTable[gInGameLanguage][0]);
+    dialogTable = segmented_to_virtual(levelDialogTable);
     dialog = segmented_to_virtual(dialogTable[gDialogID]);
+    if (dialog->unused != 1) {
+        dialogTable = segmented_to_virtual(languageTable[gInGameLanguage][0]);
+        dialog = segmented_to_virtual(dialogTable[gDialogID]);
+    }
 
     // if the dialog entry is invalid, set the ID to -1.
     if (segmented_to_virtual(NULL) == dialog) {
@@ -1199,7 +1179,7 @@ void render_dialog_entries(void) {
     switch (gDialogBoxState) {
         case DIALOG_STATE_OPENING:
             if (gDialogBoxOpenTimer == DEFAULT_DIALOG_BOX_ANGLE) {
-                play_dialog_sound(gDialogID);
+                play_dialog_sound(dialog->voice, gDialogID);
                 play_sound(SOUND_MENU_MESSAGE_APPEAR, gGlobalSoundSource);
             }
 
@@ -1222,6 +1202,7 @@ void render_dialog_entries(void) {
 
             if ((gPlayer3Controller->buttonPressed & A_BUTTON)
                 || (gPlayer3Controller->buttonPressed & B_BUTTON)) {
+                    gDialogCurPage += 1;
                 if (gLastDialogPageStrPos == -1) {
                     handle_special_dialog_text(gDialogID);
                     gDialogBoxState = DIALOG_STATE_CLOSING;
@@ -1243,6 +1224,7 @@ void render_dialog_entries(void) {
             lowerBound = (gDialogScrollOffsetY / DIAG_VAL1) + 1;
             break;
         case DIALOG_STATE_CLOSING:
+        gDialogCurPage = 0;
             if (gDialogBoxOpenTimer == 20.0f) {
                 level_set_transition(0, NULL);
                 play_sound(SOUND_MENU_MESSAGE_DISAPPEAR, gGlobalSoundSource);
@@ -1530,6 +1512,23 @@ void shade_screen(void) {
 #endif
 
     gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 110);
+    gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+}
+
+void shade_screen_amount(int amount) {
+    create_dl_translation_matrix(MENU_MTX_PUSH, GFX_DIMENSIONS_FROM_LEFT_EDGE(0), SCREEN_HEIGHT, 0);
+
+    // This is a bit weird. It reuses the dialog text box (width 130, height -80),
+    // so scale to at least fit the screen.
+#ifndef WIDESCREEN
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 2.6f, 3.4f, 1.0f);
+#else
+    create_dl_scale_matrix(MENU_MTX_NOPUSH,
+                           GFX_DIMENSIONS_ASPECT_RATIO * SCREEN_HEIGHT / 130.0f, 3.0f, 1.0f);
+#endif
+
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, amount);
     gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
@@ -1990,8 +1989,8 @@ void print_hud_course_complete_string(s8 str) {
 
 void print_hud_course_complete_coins(s16 x, s16 y) {
     u8 courseCompleteCoinsStr[4];
-    u8 hudTextSymCoin[] = { GLYPH_COIN, GLYPH_SPACE };
-    u8 hudTextSymX[] = { GLYPH_MULTIPLY, GLYPH_SPACE };
+    u8 hudTextSymCoin[] = "+ ";
+    u8 hudTextSymX[] = "* ";
 
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
@@ -2045,7 +2044,7 @@ void play_star_fanfare_and_flash_hud(s32 arg, u8 starNum) {
 void render_course_complete_lvl_info_and_hud_str(void) {
     u8 textCourse[] = { TEXT_COURSE };
     u8 textClear[] = { TEXT_CLEAR };
-    u8 textSymStar[] = { GLYPH_STAR, GLYPH_SPACE };
+    u8 textSymStar[] = "- ";
 
     void **actNameTbl;
     void **courseNameTbl;
@@ -2270,10 +2269,10 @@ Gfx icon_mesh[] = {
 
 u8 textEnterDogName[] = { TEXT_ENTER_DOG_NAME };
 u8 textKeyboardDefines[] = { TEXT_KEYBOARD_DEFINES };
-u8 dogStringTemp[DOG_STRING_LENGTH + 1] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF };
+u8 dogStringTemp[DOG_STRING_LENGTH + 1];
 u8 topBarMap[2][10] = {
-{ 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 },
-{ 0xFA, 0xFD, 0xF9, 0xE5, 0xE6, 0xFB, 0xF2, 0xF3, 0xF4, 0xF7 }, };
+{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' },
+{ CHAR_STAR, CHAR_UNFILLED_STAR, CHAR_COIN, '&', ':', '*', '!', '%', '?', '~' }, };
 
 s32 gKeyboardShifted;
 s8 keyboardCursorX = 0;
@@ -2322,7 +2321,7 @@ void render_dog_keyboard(void) {
     length = -1;
     for(i = 0; i < DOG_STRING_LENGTH; i++) {
         dogStringTemp[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
-        if(dogStringTemp[i] != 0xFF) {
+        if(dogStringTemp[i] != 0x0) {
             length = i;
         }
     }
@@ -2339,12 +2338,12 @@ void render_dog_keyboard(void) {
     //     }
     // }
     if(gKeyboardShifted) {
-        init = 0x0A;
-        max = 0x24;
+        init = 'A';
+        max = 'Z';
         topBar = 0x1;
     } else {
-        init = 0x24;
-        max = 0x3E;
+        init = 'a';
+        max = 'z';
         topBar = 0x0;
     }
     actualTick = 0;
@@ -2353,7 +2352,7 @@ void render_dog_keyboard(void) {
         create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
     }
     create_dl_translation_matrix(MENU_MTX_NOPUSH, -120.0f, -14.0f, 0.0f);
-    for(i = init; i < max; i++) {
+    for(i = init; i <= max; i++) {
         render_char_with_shadow(i, white);
         if(actualTick % 10 == 9) {
             create_dl_translation_matrix(MENU_MTX_NOPUSH, -108.0f, -14.0f, 0.0f);
@@ -2362,9 +2361,9 @@ void render_dog_keyboard(void) {
         }
         actualTick++;
     }
-    render_char_with_shadow(0x3F, white);
+    render_char_with_shadow('.', white);
     create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
-    render_char_with_shadow(0x3E, white);
+    render_char_with_shadow('\'', white);
     // create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
     // render_char_with_shadow(0x52, white);
     // create_dl_translation_matrix(MENU_MTX_NOPUSH, 12.0f, 0.0f, 0.0f);
@@ -2376,25 +2375,25 @@ void render_dog_keyboard(void) {
             u8 key;
             switch(keyboardCursorX - 6) {
                 case 0:
-                    key = 0x3F;
+                    key = '.';
                     break;
                 case 1:
-                    key = 0x3E;
+                    key = '\'';
                     break;
                 case 2:
                 case 3:
-                    key = 0x9E;
+                    key = ' ';
                     break;
             }
             dogStringTemp[length + 1] = key;
         } else if(keyboardCursorY == 0) {
             dogStringTemp[length + 1] = topBarMap[topBar][keyboardCursorX];
         } else {
-            dogStringTemp[length + 1] = init + keyboardCursorX + ((keyboardCursorY - 1)*0x0A);
+            dogStringTemp[length + 1] = init + keyboardCursorX + ((keyboardCursorY - 1) * 0x0A);
         }
     }
     if(length > -1 && (gPlayer1Controller->buttonPressed & B_BUTTON)) {
-        dogStringTemp[length] = 0xFF;
+        dogStringTemp[length] = 0x0;
     }
     save_file_set_dog_string(gCurrSaveFileNum - 1, &dogStringTemp);
 

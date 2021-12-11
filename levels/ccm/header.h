@@ -73,4 +73,44 @@ extern const LevelScript level_ccm_entry[];
 
 #include "levels/ccm/lava_grate/collision_header.h"
 
+#include "levels/ccm/castle_raft/geo_header.h"
+
+#include "levels/ccm/castle_raft/collision_header.h"
+
+#include "levels/ccm/ashpile/geo_header.h"
+
+#include "levels/ccm/ashpile/collision_header.h"
+
+#include "levels/ccm/ashpile2/geo_header.h"
+
+#include "levels/ccm/rovert_elevator/geo_header.h"
+
+#include "levels/ccm/rovert_elevator/collision_header.h"
+
+#include "levels/ccm/rovert_fling/geo_header.h"
+
+#include "levels/ccm/rovert_fling/collision_header.h"
+
+#include "levels/ccm/toad_cage/collision_header.h"
+
+#include "levels/ccm/toad_cage_1_geo/geo_header.h"
+
+#include "levels/ccm/toad_cage_2_geo/geo_header.h"
+
+#include "levels/ccm/toad_cage_3_geo/geo_header.h"
+
+#include "levels/ccm/toad_cage_4_geo/geo_header.h"
+
+#include "levels/ccm/tank_base/geo_header.h"
+
+#include "levels/ccm/tank_head/geo_header.h"
+
+#include "levels/ccm/tank_base/collision_header.h"
+
+#include "levels/ccm/tank_head/collision_header.h"
+
+#include "levels/ccm/rmine/geo_header.h"
+
+#include "levels/ccm/missile/geo_header.h"
+
 #endif

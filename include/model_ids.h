@@ -11,7 +11,7 @@
 // If an object is set as active for the first 5 acts only, it is treated as always active.
 // It's possible that there were only planned to be 5 acts per level early in development.
 // Hence, they added a macro so they wouldn't have to change the acts for every object.
-#define ALL_ACTS_MACRO ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_5
+#define ALL_ACTS_MACRO ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_5 
 #define ALL_ACTS       ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_5 | ACT_6
 
 #define COIN_FORMATION_FLAG_VERTICAL  (1 << 0)
@@ -604,10 +604,67 @@
 #define MODEL_MOTOS                       0x1F8
 #define MODEL_STROLLIN_STU                0x1F7
 #define MODEL_LASER_RING_SPAWNER          0x1F6
-#define MODEL_LASER_RING                  0x1F5
-#define MODEL_SPIKE                       0x1F4
-#define MODEL_SPIKE_BALL                  0x1F3
-#define MODEL_PODOBOO                     0x1F2
+#define MODEL_KOOPATROL                   0x1F5
+#define MODEL_LASER_RING                  5
+#define MODEL_SPIKE                       4
+#define MODEL_SPIKE_BALL                  3
+#define MODEL_PODOBOO                     2
+
+
+
+
+
+
+
+//comit models
+#define MODEL_BOUNCE_CLOUD                0x100
+#define MODEL_STRETCH_CLOUD               0x101
+#define MODEL_RAINBOW_CLOUD               0x102
+#define MODEL_CLOUD_RAINBOW               0x103
+#define MODEL_C_RAIN_CLOUD                0x104
+#define MODEL_MIST_SECRET                 0x105
+#define MODEL_FADE_CLOUD                  0x106
+#define MODEL_BODY_LAKITU                 0x107
+#define MODEL_FWOOSH_BUTTON               0x108
+#define MODEL_METAL_CRATE                 0x109
+#define MODEL_LOWPOLY_KOOPA               0x10A
+#define MODEL_LOWPOLY_GOOMBA              0x10B
+#define MODEL_LIGHTNING_CLOUD             0x10C
+#define MODEL_LIGHTNING_BOLT              0x10D
+#define MODEL_FLOOR_DOOR                  0x10E
+#define MODEL_LIGHTNING_STRIKE            0x10F
+#define MODEL_LIGHTNING_BLAST             0x110
+#define MODEL_CENTER_PLATFORM             0x111
+#define MODEL_DARK_SKY                    0x112
+#define MODEL_ENTRANCE_GATE               0x113
+#define MODEL_CENTER_LIGHT                0x114
+#define MODEL_FWOOSH_STEP_BUTTON          0x115
+
+//CowQuack start (play DTL64)
+#define MODEL_CAROUSEL                    0x130
+#define MODEL_CIRCUS_POLE                    0x131
+#define MODEL_CLOWN_CLOCK                    0x132
+#define MODEL_CLOWN_DOOR_TOP                   0x133
+#define MODEL_CLOWN_DOOR_BOTTOM                   0x134
+#define MODEL_CIRCUS_WHEEL                   0x135
+#define MODEL_CABLE_CAR                   0x136
+#define MODEL_CIRCUS_BALLOON                   0x137
+#define MODEL_PINWHEEL                   0x138
+#define MODEL_TRAPEZE                   0x139
+#define MODEL_BALLOON_PLATFORM                   0x13A
+#define MODEL_CLOWN_BOSS                   0x13B
+#define MODEL_BOSS_CURTAINS                   0x13C
+#define MODEL_STEEL_GATE                   0x13D
+#define MODEL_KID_TOAD                      0x13E
+#define MODEL_CLOWN_TOAD                      0x13F
+
+#define MODEL_SAD_CAROUSEL                    0x120
+#define MODEL_SAD_CLOWN_CLOCK                    0x121
+#define MODEL_SAD_PINWHEEL                    0x122
+#define MODEL_POWER_SWITCH                   0x123
+#define MODEL_CIRCUS_CANNON                   0x124
+//CowQuack end (fuck you fazana i had to change these last 5)
+
 
 //START ROVERT MODEL IDS
 
@@ -615,6 +672,19 @@
 #define MODEL_SWING_BOARD 0x101
 #define MODEL_PROPANE_THROWER 0x102
 #define MODEL_LAVA_GRATE 0x103
+#define MODEL_CASTLE_RAFT 0x104
+#define MODEL_ASHPILE2 0x105
+#define MODEL_ASHPILE 0x106
+#define MODEL_ROVERT_ELEVATOR 0x107
+#define MODEL_ROVERT_FLING 0x108
+#define MODEL_TOAD_CAGE 0x109
+#define MODEL_TOAD_CAGE_2 0x10A
+#define MODEL_TOAD_CAGE_3 0x10B
+#define MODEL_TOAD_CAGE_4 0x10C
+#define MODEL_TANK_BASE 0x10D
+#define MODEL_TANK_HEAD 0x10E
+#define MODEL_RMINE 0x10F
+#define MODEL_MISSILE 0x110
 
 //END ROVERT MODEL IDS
 
@@ -628,7 +698,8 @@ enum _2639Models {
 
 //start cheeze model ids
 
-#define MODEL_CHEEZE_PLAT 0x180
+#define MODEL_CHEEZE_PLAT      0x180
+#define MODEL_CHEEZE_BOMB_WALL 0x181
 
 //end cheeze model ids
 

@@ -29,7 +29,7 @@
 #include "puppylights.h"
 #include "levels/ddd/header.h"
 
-static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, LEVEL_SL, -1 };
+static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, LEVEL_SL, LEVEL_JRB, -1 };
 
 static s32 clear_move_flag(u32 * bitSet, s32 flag);
 
@@ -183,6 +183,37 @@ Gfx *geo_switch_area(s32 callContext, struct GraphNode *node, UNUSED void *conte
 
     return NULL;
 }
+
+
+#ifdef AVOID_UB
+Gfx *geo_switch_bparam2(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+#else
+Gfx *geo_switch_bparam2(s32 callContext, struct GraphNode *node) {
+#endif
+    struct Object *obj;
+    struct GraphNodeSwitchCase *switchCase;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        obj = (struct Object *) gCurGraphNodeObject; // TODO: change global type to Object pointer
+
+        // move to a local var because GraphNodes are passed in all geo functions.
+        // cast the pointer.
+        switchCase = (struct GraphNodeSwitchCase *) node;
+
+        if (gCurGraphNodeHeldObject != NULL) {
+            obj = gCurGraphNodeHeldObject->objNode;
+        }
+
+        // if the case is greater than the number of cases, set to 0 to avoid overflowing
+        // the switch.
+
+        // assign the case number for execution.
+        switchCase->selectedCase = obj->oBehParams2ndByte;
+    }
+
+    return NULL;
+}
+
 
 void obj_update_pos_from_parent_transformation(Mat4 mtx, struct Object *obj) {
     Vec3f rel;
@@ -697,6 +728,28 @@ struct Object *cur_obj_find_nearest_object_with_behavior(const BehaviorScript *b
 
     *dist = minDist;
     return closestObj;
+}
+
+struct Object *find_any_object_with_behavior(const BehaviorScript *behavior) {
+    uintptr_t *behaviorAddr = segmented_to_virtual(behavior);
+    struct Object *closestObj = NULL;
+    struct Object *obj;
+    struct ObjectNode *listHead;
+    f32 minDist = 0x20000;
+
+    listHead = &gObjectLists[get_object_list_from_behavior(behaviorAddr)];
+    obj = (struct Object *) listHead->next;
+
+    while (obj != (struct Object *) listHead) {
+        if (obj->behavior == behaviorAddr) {
+            if (obj->activeFlags != ACTIVE_FLAG_DEACTIVATED) {
+                return obj;
+            }
+        }
+        obj = (struct Object *) obj->header.next;
+    }
+
+    return 0;
 }
 
 struct Object *find_unimportant_object(void) {
@@ -1472,6 +1525,27 @@ static void cur_obj_update_floor(void) {
     }
 }
 
+void cur_obj_update_clown_floor(void) {
+    struct Surface *floor = cur_obj_update_floor_height_and_get_floor();
+    o->oFloor = floor;
+
+    if (floor != NULL) {
+        if (floor->type == SURFACE_BURNING) {
+            o->oMoveFlags |= OBJ_MOVE_ABOVE_LAVA;
+        }
+        else if (floor->type == SURFACE_DEATH_PLANE) {
+            //! This misses SURFACE_VERTICAL_WIND (and maybe SURFACE_WARP)
+            o->oMoveFlags |= OBJ_MOVE_ABOVE_DEATH_BARRIER;
+        }
+
+        o->oFloorType = floor->type;
+        o->oFloorRoom = floor->room;
+    } else {
+        o->oFloorType = 0;
+        o->oFloorRoom = 0;
+    }
+}
+
 static void cur_obj_update_floor_and_resolve_wall_collisions(s16 steepSlopeDegrees) {
     o->oMoveFlags &= ~(OBJ_MOVE_ABOVE_LAVA | OBJ_MOVE_ABOVE_DEATH_BARRIER);
 
@@ -1502,6 +1576,29 @@ static void cur_obj_update_floor_and_resolve_wall_collisions(s16 steepSlopeDegre
 
 void cur_obj_update_floor_and_walls(void) {
     cur_obj_update_floor_and_resolve_wall_collisions(60);
+}
+
+extern f32 find_ceil(f32 posX, f32 posY, f32 posZ, struct Surface **pceil);
+void cur_obj_resolve_ceil(f32 ceilOffset) {
+    Vec3f pos = { o->oPosX, o->oPosY + ceilOffset, o->oPosZ };
+    struct Surface *ceil;
+    f32 ceilHeight = 0.0f;
+    f32 diff = 0.0f;
+    ceilHeight = find_ceil(pos[0], pos[1] + 3.0f, pos[2], &ceil);
+    if(ceil != 0) {
+        diff = ceilHeight - pos[1];
+        //print_text_fmt_int(20, 20, "%d", (s32)diff);
+
+        if(diff < 50.0f) {
+            o->oPosY -= (50.0f - diff);
+            if(o->oVelY > 0.0f) {o->oVelY = 0.0f;}
+        }
+    }
+};
+
+void cur_obj_update_floor_and_walls_and_ceil(f32 ceilOffset) {
+    cur_obj_update_floor_and_walls();
+    cur_obj_resolve_ceil(ceilOffset);
 }
 
 void cur_obj_move_standard(s16 steepSlopeAngleDegrees) {

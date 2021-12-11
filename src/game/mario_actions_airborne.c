@@ -440,6 +440,11 @@ u32 common_air_action_step(struct MarioState *m, u32 landAction, s32 animation, 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
             break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
+            break;
+
     }
 
     return stepResult;
@@ -521,6 +526,23 @@ s32 act_backflip(struct MarioState *m) {
     }
 #endif
     play_flip_sounds(m, 2, 3, 17);
+    return FALSE;
+}
+
+s32 act_trapeze(struct MarioState *m) {
+    
+
+        update_air_without_turn(m);
+perform_trapeze_air_step(m, 0);
+
+
+
+#if ENABLE_RUMBLE
+    if (m->action == ACT_BACKFLIP_LAND) {
+        queue_rumble_data(5, 40);
+    }
+#endif
+
     return FALSE;
 }
 
@@ -674,6 +696,10 @@ s32 act_riding_shell_air(struct MarioState *m) {
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
             break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
+            break;
     }
 
     m->marioObj->header.gfx.pos[1] += 42.0f;
@@ -715,6 +741,10 @@ s32 act_twirling(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -791,6 +821,10 @@ s32 act_dive(struct MarioState *m) {
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
             break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
+            break;
     }
 
     return FALSE;
@@ -818,6 +852,10 @@ s32 act_air_throw(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -856,6 +894,10 @@ s32 act_hold_water_jump(struct MarioState *m) {
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
             break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
+            break;
     }
 
     return FALSE;
@@ -883,6 +925,10 @@ s32 act_steep_jump(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -1064,6 +1110,10 @@ s32 act_crazy_box_bounce(struct MarioState *m) {
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
             break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
+            break;
     }
 
     m->marioObj->header.gfx.angle[0] = atan2s(m->forwardVel, -m->vel[1]);
@@ -1114,6 +1164,10 @@ u32 common_air_knockback_step(struct MarioState *m, u32 landAction, u32 hardFall
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -1252,7 +1306,7 @@ s32 act_getting_blown(struct MarioState *m) {
         }
     }
 
-    if (++(m->actionTimer) == 20) {
+    if (++(m->actionTimer) == 20 && gCurrLevelNum != LEVEL_JRB) {
         mario_blow_off_cap(m, 50.0f);
     }
 
@@ -1354,6 +1408,10 @@ s32 act_forward_rollout(struct MarioState *m) {
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
             break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
+            break;
     }
 
     if (m->actionState == 1 && is_anim_past_end(m)) {
@@ -1395,6 +1453,10 @@ s32 act_backward_rollout(struct MarioState *m) {
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
             break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
+            break;
     }
 
     if (m->actionState == 1 && m->marioObj->header.gfx.animInfo.animFrame == 2) {
@@ -1431,6 +1493,10 @@ s32 act_butt_slide_air(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -1472,6 +1538,10 @@ s32 act_hold_butt_slide_air(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -1525,6 +1595,10 @@ s32 act_lava_boost(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -1593,6 +1667,10 @@ s32 act_slide_kick(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -1674,6 +1752,10 @@ s32 act_shot_from_cannon(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -1795,6 +1877,10 @@ s32 act_flying(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -1921,6 +2007,10 @@ s32 act_flying_triple_jump(struct MarioState *m) {
 
         case AIR_STEP_HIT_LAVA_WALL:
             lava_boost_on_wall(m);
+            break;
+
+        case AIR_STEP_HIT_SHOCK_WALL:
+            gMarioState->action = ACT_SHOCKED;
             break;
     }
 
@@ -2055,6 +2145,7 @@ s32 mario_execute_airborne_action(struct MarioState *m) {
         case ACT_BURNING_FALL:         cancel = act_burning_fall(m);         break;
         case ACT_TRIPLE_JUMP:          cancel = act_triple_jump(m);          break;
         case ACT_BACKFLIP:             cancel = act_backflip(m);             break;
+        case ACT_TRAPEZE:             cancel = act_trapeze(m);             break;
         case ACT_LONG_JUMP:            cancel = act_long_jump(m);            break;
         case ACT_RIDING_SHELL_JUMP:
         case ACT_RIDING_SHELL_FALL:    cancel = act_riding_shell_air(m);     break;

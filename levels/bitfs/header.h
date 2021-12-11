@@ -100,4 +100,8 @@ extern const LevelScript level_bitfs_entry[];
 
 #include "levels/bitfs/cheezeplat/collision_header.h"
 
+#include "levels/bitfs/cheezebombwall/geo_header.h"
+
+#include "levels/bitfs/cheezebombwall/collision_header.h"
+
 #endif

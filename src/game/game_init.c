@@ -31,6 +31,10 @@
 #include "debug_box.h"
 #include "vc_check.h"
 
+
+f32 tank_treads;
+//dont get mad
+
 // First 3 controller slots
 struct Controller gControllers[3];
 

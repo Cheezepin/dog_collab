@@ -1267,12 +1267,71 @@
 #define /*0x0BC*/ oMaxShotDelay               OBJECT_FIELD_S32(0x0D)    // overwrites oUnkBC
 #define /*0x1A8*/ oShotSpeed                  OBJECT_FIELD_F32(0x48)    // overwrites oUnk1A8
 
+//Clown door
+#define /*0x0F4*/ oObjClownDoorTop           OBJECT_FIELD_OBJ(0x1B)
+#define /*0x0F4*/ oObjClownDoorBottom           OBJECT_FIELD_OBJ(0x1C)
+#define /*0x0F4*/ oDoorState OBJECT_FIELD_S32(0x1D)
+
+//pinwheel
+#define /*0x0F4*/ oObjBalloon           OBJECT_FIELD_OBJ(0x1B)
+#define /*0x0FC*/ oBalloonInitY         OBJECT_FIELD_F32(0x1C)
+#define /*0x0F4*/ oPinwheelTimer        OBJECT_FIELD_S32(0x1D)
+
+//circus pole
+#define /*0x0F4*/ oObjPolePinwheel          OBJECT_FIELD_OBJ(0x1B)
+
+//balloon
+#define /*0x0F4*/ oObjBalloonCol           OBJECT_FIELD_OBJ(0x1B)
+#define /*0x0FC*/ oBalloonInitSide         OBJECT_FIELD_F32(0x1C)
+#define /*0x0F4*/ oBalloonTimer        OBJECT_FIELD_S32(0x1D)
+
+//trapeze
+#define /*0x0F4*/ oTrapezeTimer        OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oObjTrapezeHitbox           OBJECT_FIELD_OBJ(0x1C)
+
+//trapeze hitbox
+#define /*0x0F4*/ oTrapezeGrabbing       OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oTrapezeFlip       OBJECT_FIELD_S32(0x1C)
+#define /*0x0F4*/ oTrapezeFlipTimer       OBJECT_FIELD_S32(0x1D)
+#define /*0x0F4*/ oTrapezeMomentum       OBJECT_FIELD_S32(0x1E)
+#define /*0x0F4*/ oIsLastTrapeze       OBJECT_FIELD_S32(0x1F)
+
+//balloon platform
+#define /*0x0F4*/ oBalloonPlatformOscilationTimer       OBJECT_FIELD_S32(0x1B)
+
+//clown boss
+#define /*0x0F4*/ oClownBossTimer       OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oClownAwooga       OBJECT_FIELD_S32(0x1C)
+#define /*0x0F4*/ oClownAction       OBJECT_FIELD_S32(0x1D)
+#define /*0x0F4*/ oObjMarioBomb           OBJECT_FIELD_OBJ(0x1E)
+#define /*0x0F4*/ oClownColFlags       OBJECT_FIELD_S32(0x1F)
+#define /*0x0F4*/ oClownActionNumber       OBJECT_FIELD_S32(0x20)
+#define /*0x0F4*/ oClownNumActionsSinceBomb       OBJECT_FIELD_S32(0x21)
+#define /*0x0F4*/ oClownHealth       OBJECT_FIELD_S32(0x22)
+#define /*0x0F4*/ oClownSound       OBJECT_FIELD_S32(0x23)
+
+//boss curtains
+#define /*0x0F4*/ oCurtainTimer       OBJECT_FIELD_S32(0x1B)
+
+//goddard & clown fight
+#define /*0x0F4*/ oGCFAction       OBJECT_FIELD_S32(0x1B)
+
+//circus toad
+#define /*0x0F4*/ oTalkedToMario       OBJECT_FIELD_S32(0x30)
+
+//circus cannon
+#define /*0x0F4*/ oCircusCannonTimer       OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oObjShootObject           OBJECT_FIELD_OBJ(0x1C)
+
 /* Cephie */
 #define /*0x0F4*/ oCephieStartYaw                               OBJECT_FIELD_S32(0x1B)
 #define /*0x0F8*/ oCephieTalked                                 OBJECT_FIELD_S32(0x1C)
 
 /* Cheeze */
 #define /*0x0F4*/ oPlatformSpeed                               OBJECT_FIELD_F32(0x1B)
+#define /*0x0F8*/ oKoopatrolTargetX                            OBJECT_FIELD_F32(0x1C)
+#define /*0x0FC*/ oKoopatrolTargetZ                            OBJECT_FIELD_F32(0x1D)
+#define /*0x100*/ oKoopatrolCooldown                           OBJECT_FIELD_S32(0x1E)
 
 // thecozies start
 #define oRainCloudScaleVel                  OBJECT_FIELD_F32(0x1B)

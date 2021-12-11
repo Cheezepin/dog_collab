@@ -45,6 +45,12 @@ enum SeqId {
     SEQ_MENU_FILE_SELECT,             // 0x21
     SEQ_EVENT_CUTSCENE_LAKITU,        // 0x22 (not in JP)
     SEQ_LEVEL_BOSS_JENOVA,            // 0x23
+    SEQ_LEVEL_STRIATION,            // 0x24
+    SEQ_LEVEL_BOSS_CACKLETTA,            // 0x25
+    SEQ_LEVEL_SAD_OLIVIA,            // 0x26
+    SEQ_COMIT_CLOUD,                  // 0x27
+    SEQ_LEVEL_PEACH_RUINS,            // 0x28
+    SEQ_BOSS_PEACH_RUINS,              // 0x29
     SEQ_COUNT
 };
 

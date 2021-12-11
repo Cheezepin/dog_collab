@@ -139,6 +139,12 @@ void spawn_default_star(f32 x, f32 y, f32 z) {
     starObj->oBehParams2ndByte = SPAWN_STAR_ARC_CUTSCENE_BP_DEFAULT_STAR;
 }
 
+void spawn_clown_star(f32 x, f32 y, f32 z) {
+    struct Object *starObj = NULL;
+    starObj = spawn_star(starObj, x, y, z);
+    starObj->oBehParams = 0x04040000;
+}
+
 void spawn_red_coin_cutscene_star(f32 x, f32 y, f32 z) {
     struct Object *starObj = NULL;
     starObj = spawn_star(starObj, x, y, z);
@@ -155,8 +161,6 @@ void spawn_no_exit_star(f32 x, f32 y, f32 z) {
 void bhv_hidden_red_coin_star_init(void) {
     struct Object *starObj = NULL;
     switch (gCurrCourseNum) {
-        case COURSE_JRB:
-            break;
         case COURSE_DDD:
             spawn_object(o, MODEL_TRANSPARENT_STAR, bhvRedCoinStarMarkerNoDrop);
             break;

@@ -73,3 +73,6 @@
 #include "cephie/model.inc.c"
 #include "cephie/anims/data.inc.c"
 #include "cephie/anims/table.inc.c"
+#include "koopatrol/model.inc.c"
+#include "koopatrol/anims/data.inc.c"
+#include "koopatrol/anims/table.inc.c"

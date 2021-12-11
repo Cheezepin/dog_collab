@@ -34,3 +34,4 @@
 #include "spike_ball/geo.inc.c"
 #include "podoboo/geo.inc.c"
 #include "cephie/geo.inc.c"
+#include "koopatrol/geo.inc.c"
