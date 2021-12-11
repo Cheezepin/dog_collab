@@ -105,7 +105,7 @@ void bhv_goddard_cageCOL_loop(void) {
 #define DOG_ANIM_RUN  2
 #define DOG_ANIM_WALK 3
 #define DOG_ANIM_POUNCE 4
-s32 nextX, nextZ nextXangle, nextZangle;
+s32 nextX, nextZ, nextXangle, nextZangle;
 
 void rand_polar_coord(void){
     f32 theta;
