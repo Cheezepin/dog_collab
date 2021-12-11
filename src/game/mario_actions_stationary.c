@@ -1138,6 +1138,10 @@ s32 mario_execute_stationary_action(struct MarioState *m) {
     }
     /* clang-format on */
 
+    if (m->action == ACT_TOTSUGEKI) {
+        assert (m->action & ACT_GROUP_MASK == , "")
+    }
+
     if (!cancel && (m->input & INPUT_IN_WATER)) {
         m->particleFlags |= PARTICLE_IDLE_WATER_WAVE;
     }
