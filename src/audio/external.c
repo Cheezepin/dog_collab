@@ -89,7 +89,7 @@ s32 sGameLoopTicked = 0;
 
 u8 sDialogSpeaker[] = {
     //       0      1      2      3      4      5      6      7      8      9
-    /* 0*/ _,     BOMB,  BOMB,  BOMB,  BOMB,  KOOPA, KOOPA, KOOPA, _,     KOOPA,
+    /* 0*/ _,     _,  _,  _,  _,  _, KOOPA, KOOPA, _,     KOOPA,
     /* 1*/ _,     _,     _,     _,     _,     _,     _,     KBOMB, _,     _,
     /* 2*/ _,     BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1,
     /* 3*/ _,     _,     _,     _,     _,     _,     _,     DIFF,  _,     _,
@@ -307,6 +307,8 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_LEVEL_BOSS_CACKLETTA
     70, // SEQ_LEVEL_SAD_OLIVIA
     70,  // SEQ_COMIT_CLOUD
+    70,  // SEQ_LEVEL_PEACH_RUINS
+    70,  // SEQ_BOSS_PEACH_RUINS
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,

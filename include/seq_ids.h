@@ -49,6 +49,8 @@ enum SeqId {
     SEQ_LEVEL_BOSS_CACKLETTA,            // 0x25
     SEQ_LEVEL_SAD_OLIVIA,            // 0x26
     SEQ_COMIT_CLOUD,                  // 0x27
+    SEQ_LEVEL_PEACH_RUINS,            // 0x28
+    SEQ_BOSS_PEACH_RUINS,              // 0x29
     SEQ_COUNT
 };
 

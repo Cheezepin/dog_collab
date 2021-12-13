@@ -666,7 +666,18 @@ void bhv_Magma_Thwomp(void);
 void bhv_swing_Board(void);
 void bhv_Propane_Shooter(void);
 void bhv_Propane_Flame(void);
-void bhv_lava_grate_loop();
+void bhv_lava_grate_loop(void);
+void bhv_ash_pile(void);
+void bhv_castle_raft(void);
+void bhv_rovert_elevator(void);
+void bhv_rovert_fling(void);
+void bhv_toad_cage(void);
+void bhv_rovert_toad(void);
+void bhv_tank_base(void);
+void bhv_tank_head(void);
+void bhv_Tank_Propane_Flame(void);
+void bhv_Launcher_Motos(void);
+void bhv_missile_loop(void);
 //ROVERT BEHAVIOR ACTIONS END
 
 //cheeze start
