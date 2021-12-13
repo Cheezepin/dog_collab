@@ -85,6 +85,8 @@ const LevelScript level_bitfs_entry[] = {
 		OBJECT(MODEL_CHEEZE_BOMB_WALL, 4242, 5763, -6244, 0, 0, 0, 0x00000000, bhvCheezeBombWall),
 		OBJECT(MODEL_DOG, 3479, 3106, -6537, 0, 0, 0, 0x00000000, bhvCheezeDog),
 		OBJECT(MODEL_KOOPATROL, 10512, 2867, -1740, 0, 0, 0, 0x00000000, bhvKoopatrol),
+		OBJECT(MODEL_KOOPATROL, 12273, 2867, 1464, 0, 0, 0, 0x00000000, bhvKoopatrol),
+		OBJECT(MODEL_KOOPATROL, 6728, 2867, 5668, 0, 0, 0, 0x00000000, bhvKoopatrol),
 		TERRAIN(bitfs_area_1_collision),
 		ROOMS(bitfs_area_1_collision_rooms),
 		MACRO_OBJECTS(bitfs_area_1_macro_objs),
