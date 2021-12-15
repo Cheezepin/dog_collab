@@ -7258,7 +7258,7 @@ const BehaviorScript bhvGoddardCage[] = {
     SET_INT(oIntangibleTimer, 0),
     SET_HITBOX_WITH_OFFSET(/*Radius*/ 40, /*Height*/ 40, /*Downwards offset*/ 40),
     SPAWN_CHILD(/*Model*/ MODEL_NONE, /*Behavior*/ bhvGoddardCageCOL),
-    SPAWN_CHILD(/*Model*/ MODEL_DOG, /*Behavior*/ bhvDogIdle),
+    SPAWN_CHILD(/*Model*/ MODEL_DOG, /*Behavior*/ bhvDogEmu),
     DELAY(1),
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
@@ -7276,7 +7276,7 @@ const BehaviorScript bhvGoddardCageCOL[] = {
     END_LOOP(),
 };
 
-const BehaviorScript bhvDogIdle[] = {
+const BehaviorScript bhvDogEmu[] = {
     BEGIN(OBJ_LIST_LEVEL),
     OR_INT(oFlags, (OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW)),
     LOAD_ANIMATIONS(oAnimations, dog_anims),

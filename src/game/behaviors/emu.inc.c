@@ -111,8 +111,8 @@ void rand_polar_coord(void){
     f32 theta;
     u16 r;
     theta = random_float() * 2 * M_PI;
-    r = (random_u16() % 2600) + (random_u16() % 2600);
-    if (r >=2600) {r = 5200-r;}
+    r = (random_u16() % 2800) + (random_u16() % 2800);
+    if (r >=2800) {r = 5400-r;}
     theta = radians_to_angle(theta);
     nextX = ((r * cosf(theta))); 
     nextZ = ((r * sinf(theta)));
@@ -154,21 +154,33 @@ void find_random_location(void) {
     s16 turnSpeed = 0x100;
     rand_polar_coord();
     bowser = cur_obj_find_nearest_object_with_behavior(bhvBowser, &dist);
-    o->oMoveAngleYaw = atan2s(nextZ, nextX);
+    o->oMoveAngleYaw = atan2s(nextZangle, nextXangle);
     o->oForwardVel = 20.0f;
-    cur_obj_init_animation(DOG_ANIM_DIG);
-    print_text_fmt_int(5, 20, "X %f", nextX);
-    print_text_fmt_int(5, 40, "Z %f", nextZ);
     o->oAction = EMU_DOG_RUN_AROUND;
     
 }
+
+void goto_ashpile(void) {
+    struct Object *ashpile;
+    ashpile = cur_obj_nearest_object_with_behavior(bhvAshpile);
+    o->childObj = ashpile;
+    nextX = o->childObj->oPosX - o->oPosX;
+    nextZ = o->childObj->oPosZ - o->oPosZ;
+    o->oMoveAngleYaw = atan2s(nextZ, nextX);
+    o->oForwardVel = 50.0f;
+}
 void run_around(void) {
-    cur_obj_init_animation(DOG_ANIM_DIG);
-    print_text_fmt_int(5, 20, "X %f", nextX);
-    print_text_fmt_int(5, 40, "Z %f", nextZ);
+    cur_obj_init_animation(DOG_ANIM_WALK);
+    print_text_fmt_int(5, 20, "X %d", nextX);
+    print_text_fmt_int(5, 40, "Z %d", nextZ);
     if (nextX > o->oPosX - 10.0f && nextX < o->oPosX + 10.0f && nextZ > o->oPosZ - 10.0f && nextZ < o->oPosZ + 10.0f){
         o->oAction = EMU_DOG_RANDOM_LOCATION;
     }
+}
+
+void placeholder(void){
+    cur_obj_init_animation(DOG_ANIM_DIG);
+        o->oForwardVel = 0.0f;
 }
 
 UNUSED static void (*sEmuDogActions[])(void) = {
@@ -196,6 +208,12 @@ void bhv_idle_dog_loop (void) {
             break;
             case EMU_DOG_RUN_AROUND:
             run_around();
+            break;
+            case GOTO_ASHPILE:
+            goto_ashpile();
+            break;
+            case 4:
+            placeholder();
             break;
         }
 

@@ -598,7 +598,7 @@ extern const BehaviorScript bhvSphere[];
 extern const BehaviorScript bhvPaletteSwap[];
 extern const BehaviorScript bhvGoddardCage[];
 extern const BehaviorScript bhvGoddardCageCOL[];
-extern const BehaviorScript bhvDogIdle[];
+extern const BehaviorScript bhvDogEmu[];
 extern const BehaviorScript bhvAttackableAmp[];
 //emu end
 

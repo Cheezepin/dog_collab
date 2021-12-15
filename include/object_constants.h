@@ -2449,4 +2449,5 @@
     #define EMU_DOG_FREEDOM                                 0
     #define EMU_DOG_RANDOM_LOCATION                         1
     #define EMU_DOG_RUN_AROUND                              2
+    #define GOTO_ASHPILE                                    3
 #endif // OBJECT_CONSTANTS_H

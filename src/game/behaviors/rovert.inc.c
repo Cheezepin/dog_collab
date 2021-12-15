@@ -146,33 +146,50 @@ void bhv_ash_pile(void) {
             load_object_collision_model();
             o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_ASHPILE2];
             o->oOpacity = 255.0f;
-            sussy = cur_obj_nearest_object_with_behavior(bhvDogRovert); 
-            if ((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (!sussy)) {
+            if (gCurrLevelNum == LEVEL_BOWSER_1){
+                sussy = cur_obj_nearest_object_with_behavior(bhvDogEmu); 
+            } else {
+                sussy = cur_obj_nearest_object_with_behavior(bhvDogRovert); 
+            }
+            if (((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (!sussy)) |  ((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && gCurrLevelNum == LEVEL_BOWSER_1)){
+                o->parentObj = sussy;
                 play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
+                if (gCurrLevelNum == LEVEL_BOWSER_1){
+                o->parentObj->oAction = GOTO_ASHPILE;
+                } else { 
                 sussy = spawn_object(o,MODEL_DOG,bhvDogRovert);
                 sussy->oPosY += 1000.0f;
-                o->parentObj = sussy;
+                }
                 o->oAction = 3;
                 o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_ASHPILE];
                 }
         break;
         case 1:
+        if (o->parentObj->oPosX < o->oPosX + 20 && o->parentObj->oPosX > o->oPosX - 20 && o->parentObj->oPosZ < o->oPosZ + 20 && o->parentObj->oPosZ > o->oPosZ - 20){
+            o->parentObj->oAction = 4;
             if (o->oTimer%8==0) {
                 cur_obj_play_sound_2(SOUND_ACTION_QUICKSAND_STEP);
                 }
             if (o->oOpacity  > 20.0f) {
                 o->oOpacity -= 2.0f;
                 obj_scale(o,o->oOpacity/255.0f);
+                if (gCurrLevelNum != LEVEL_BOWSER_1){
                 o->parentObj->oPosY = o->oHomeY+((o->oOpacity/255.0f)*100.0f);
+                }
                 }
                 else
                 {
                 o->oAction = 2;
                 }
+        }
         break;
         case 2:
+        if (gCurrLevelNum == LEVEL_BOWSER_1){ 
+            o->parentObj->oAction = EMU_DOG_RANDOM_LOCATION;
+        } else {
             obj_mark_for_deletion(o->parentObj);
             spawn_object(o, MODEL_NONE, bhvStarKeyCollectionPuffSpawner);
+        }
             switch(o->oBehParams2ndByte) {
                 case 0: //coin
                     spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);
@@ -190,11 +207,13 @@ void bhv_ash_pile(void) {
             obj_mark_for_deletion(o);
         break;
         case 3:
-            o->parentObj->oPosY -= 30.0f;
+        if (gCurrLevelNum == LEVEL_BOWSER_1){ o->oAction = 1;}
+           else { o->parentObj->oPosY -= 30.0f;
             if (o->parentObj->oPosY < o->oHomeY + 100.0f) {
                 o->parentObj->oPosY = o->oHomeY + 100.0f;
                 o->oAction = 1;
                 }
+           }
         break;
         }
     
