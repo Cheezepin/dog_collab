@@ -216,4 +216,3 @@ Gfx ashpile_material_revert_render_settings[] = {
 	gsDPSetAlphaCompare(G_AC_NONE),
 	gsSPEndDisplayList(),
 };
-

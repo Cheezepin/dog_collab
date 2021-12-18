@@ -659,6 +659,7 @@ extern const BehaviorScript bhvPropane[];
 extern const BehaviorScript bhvLavaGrate[];
 extern const BehaviorScript bhvCastleRaft[];
 extern const BehaviorScript bhvAshpile[];
+extern const BehaviorScript bhvAshpileEmu[];
 extern const BehaviorScript bhvDogRovert[];
 extern const BehaviorScript bhvRovertElevator[];
 extern const BehaviorScript bhvRovertFling[];

@@ -1,4 +1,4 @@
-const Collision ashpile_collision[] = {
+const Collision ashpile_collision_emu[] = {
 	COL_INIT(),
 	COL_VERTEX_INIT(15),
 	COL_VERTEX(0, 20, -108),

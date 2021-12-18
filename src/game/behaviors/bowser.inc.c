@@ -455,9 +455,10 @@ phase = 0;
 
 void bowser_emu_actions(void) {
     struct Object *sussy;
-    sussy = cur_obj_nearest_object_with_behavior(bhvDogRovert);
-    if (sussy != NULL) {
-        cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
+    sussy = cur_obj_nearest_object_with_behavior(bhvDogEmu);
+    o->childObj = sussy;
+    if (sussy != NULL && o->childObj->oAction == DIG) {
+        cur_obj_rotate_yaw_toward(atan2s(o->childObj->oPosZ - o->oPosZ, o->childObj->oPosX - o->oPosX), 0x900);
         o->oAction = BOWSER_ACT_HOMING_ORB;
     } else {
     switch (o->oBowserIsReacting) {

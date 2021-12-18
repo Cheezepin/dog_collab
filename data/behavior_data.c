@@ -6813,6 +6813,19 @@ const BehaviorScript bhvAshpile[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvAshpileEmu[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(ashpile_collision_emu),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
+    SCALE(/*Unused*/ 0, /*Field*/ 100),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 4000),
+    SET_FLOAT(oCollisionDistance, 500),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_ash_pile),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvDogRovert[] = {
     BEGIN(OBJ_LIST_LEVEL),
     OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),

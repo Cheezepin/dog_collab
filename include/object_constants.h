@@ -2444,10 +2444,13 @@
     #define EMU_AMP_CHASE                                   0
     #define EMU_AMP_SUCCESS                                 1
     #define EMU_AMP_COUNTER                                 2
+    #define EMU_AMP_HIT_DOG                                 3
 
 // Doggo
     #define EMU_DOG_FREEDOM                                 0
     #define EMU_DOG_RANDOM_LOCATION                         1
     #define EMU_DOG_RUN_AROUND                              2
     #define GOTO_ASHPILE                                    3
+    #define DIG                                             4
+    #define INJURED                                         5
 #endif // OBJECT_CONSTANTS_H
