@@ -679,6 +679,7 @@ extern const BehaviorScript bhvCheezePlat[];
 extern const BehaviorScript bhvCheezeBombWall[];
 extern const BehaviorScript bhvCheezeDog[];
 extern const BehaviorScript bhvKoopatrol[];
+extern const BehaviorScript bhvWindSoundLoop[];
 //cheeze bhv ends
 
 

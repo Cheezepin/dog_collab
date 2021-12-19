@@ -78,9 +78,10 @@ const LevelScript level_bitfs_entry[] = {
 
 	AREA(1, bitfs_area_1),
 		WARP_NODE(0x0A, LEVEL_BITFS, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_CANNON_BASE, -1323, -15150, 0, 0, 0, 0, 0x00000000, bhvCannon),
 		MARIO_POS(0x01, 0, 0, -14456, 0),
 		OBJECT(MODEL_NONE, 0, -14456, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(MODEL_CANNON_BASE, -1323, -15150, 0, 0, 0, 0, 0x00000000, bhvCannon),
+		OBJECT(MODEL_NONE, 0, -14456, 0, 0, 0, 0, 0x000A0000, bhvWindSoundLoop),
 		OBJECT(MODEL_CHEEZE_PLAT, 8504, -4579, -2214, 0, 0, 0, 0x00000000, bhvCheezePlat),
 		OBJECT(MODEL_CHEEZE_BOMB_WALL, 4242, 5763, -6244, 0, 0, 0, 0x00000000, bhvCheezeBombWall),
 		OBJECT(MODEL_DOG, 3479, 3106, -6537, 0, 0, 0, 0x00000000, bhvCheezeDog),
@@ -90,7 +91,7 @@ const LevelScript level_bitfs_entry[] = {
 		TERRAIN(bitfs_area_1_collision),
 		ROOMS(bitfs_area_1_collision_rooms),
 		MACRO_OBJECTS(bitfs_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_SOUND_PLAYER),
 		TERRAIN_TYPE(TERRAIN_SNOW),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */

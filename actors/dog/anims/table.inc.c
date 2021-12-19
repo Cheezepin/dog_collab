@@ -9,5 +9,7 @@ const struct Animation *const dog_anims[] = {
 
 	&dog_anim_pounce,
 
+	&dog_anim_knockback,
+
 	NULL,
 };

@@ -3,3 +3,4 @@
 #include "anim_run.inc.c"
 #include "anim_walk.inc.c"
 #include "anim_pounce.inc.c"
+#include "anim_knockback.inc.c"

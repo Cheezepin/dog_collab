@@ -16,7 +16,7 @@
 #include "camera.h"
 #include "level_table.h"
 #include "rumble_init.h"
-
+#include "seq_ids.h"
 #include "config.h"
 
 #define POLE_NONE          0
@@ -750,6 +750,10 @@ s32 act_in_cannon(struct MarioState *m) {
                 queue_rumble_data(60, 70);
 #endif
                 m->usedObj->oAction = 2;
+
+                if(gCurrLevelNum == LEVEL_BITFS) {
+                    play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_LEVEL_HYRULE_CASTLE), 0);
+                }
                 return FALSE;
             } else if (m->faceAngle[0] != startFacePitch || m->faceAngle[1] != startFaceYaw) {
                 play_sound(SOUND_MOVING_AIM_CANNON, m->marioObj->header.gfx.cameraToObject);
