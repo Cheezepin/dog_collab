@@ -118,7 +118,7 @@ void bhv_koopatrol_loop(void) {
     while(searchAngle >= 0x10000) {searchAngle -= 0x10000;}
     while(searchAngle < 0x0) {searchAngle += 0x10000;}
 
-    if (gMarioCurrentRoom != o->oRoom) {
+    if ((o->oRoom != -1 && gMarioCurrentRoom != o->oRoom) || (o->activeFlags & ACTIVE_FLAG_FAR_AWAY)) {
         o->oAction = 4;
     }
 
@@ -196,7 +196,7 @@ void bhv_koopatrol_loop(void) {
             o->oPosX = o->oHomeX;
             o->oPosY = o->oHomeY;
             o->oPosZ = o->oHomeZ;
-            if(gMarioCurrentRoom == o->oRoom) {
+            if(gMarioCurrentRoom == o->oRoom || !(o->activeFlags & ACTIVE_FLAG_FAR_AWAY)) {
                 o->oAction = 0;
             }
             break;
