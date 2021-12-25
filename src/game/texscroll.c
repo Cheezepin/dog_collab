@@ -62,8 +62,8 @@ void scroll_textures() {
 		scroll_textures_ccm();
 	}
 
-	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_bowser_1_segment_7SegmentRomStart)) {
-		scroll_textures_bowser_1();
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_ccm_segment_7SegmentRomStart)) {
+		scroll_textures_ccm();
 	}
 
 }

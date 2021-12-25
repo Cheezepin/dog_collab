@@ -29,7 +29,7 @@
 #include "puppylights.h"
 #include "levels/ddd/header.h"
 
-static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, LEVEL_SL, LEVEL_JRB, -1 };
+static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, LEVEL_SL, LEVEL_JRB, LEVEL_BITFS, -1 };
 
 static s32 clear_move_flag(u32 * bitSet, s32 flag);
 

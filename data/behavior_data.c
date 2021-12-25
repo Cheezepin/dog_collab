@@ -3758,7 +3758,8 @@ const BehaviorScript bhvMovingYellowCoin[] = {
 const BehaviorScript bhvBlueCoinMotos[] = {
     BEGIN(OBJ_LIST_LEVEL),
     CALL_NATIVE(bhv_moving_blue_coin_init),
-    GOTO(bhvMovingYellowCoin + 1 + 2),
+    SET_INT(oOpacity, 255),
+    GOTO(bhvMovingYellowCoin),
 };
 
 const BehaviorScript bhvMovingBlueCoin[] = {
@@ -4060,7 +4061,7 @@ const BehaviorScript bhvExplosion[] = {
     SET_INTERACT_TYPE(INTERACT_DAMAGE),
     SET_INT(oDamageOrCoinValue, 2),
     SET_INT(oIntangibleTimer, 0),
-    SET_HITBOX_WITH_OFFSET(/*Radius*/ 150, /*Height*/ 150, /*Downwards offset*/ 150),
+    SET_HITBOX_WITH_OFFSET(/*Radius*/ 150, /*Height*/ 150, /*Downwards offset*/ 50),
     SET_INT(oAnimState, -1),
     CALL_NATIVE(bhv_explosion_init),
     BEGIN_LOOP(),
@@ -6903,7 +6904,7 @@ const BehaviorScript bhvTankBase[] = {
     SCALE(/*Unused*/ 0, /*Field*/ 100),
     SET_HOME(),
     SET_FLOAT(oDrawingDistance, 4000),
-    SET_FLOAT(oCollisionDistance, 1000),
+    SET_FLOAT(oCollisionDistance, 4000),
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 1000, /*Friction*/ 1000, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_tank_base),
@@ -6918,10 +6919,61 @@ const BehaviorScript bhvTankHead[] = {
     SCALE(/*Unused*/ 0, /*Field*/ 100),
     SET_HOME(),
     SET_FLOAT(oDrawingDistance, 4000),
-    SET_FLOAT(oCollisionDistance, 1000),
+    SET_FLOAT(oCollisionDistance, 4000),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_tank_head),
         CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvTankPropane[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    SCALE(/*Unused*/ 0, /*Field*/ 700),
+    SET_INTERACT_TYPE(INTERACT_FLAME),
+    SET_HITBOX_WITH_OFFSET(/*Radius*/ 50, /*Height*/ 25, /*Downwards offset*/ 25),
+    SET_INT(oIntangibleTimer, 0),
+    CALL_NATIVE(bhv_init_room),
+    BEGIN_LOOP(),
+        SET_INT(oInteractStatus, 0),
+        ANIMATE_TEXTURE(oAnimState, 2),
+        CALL_NATIVE(bhv_Tank_Propane_Flame),
+    END_LOOP(),
+};
+
+const BehaviorScript bhv_rmine[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oIntangibleTimer, 0),
+    SET_HITBOX_WITH_OFFSET(/*Radius*/ 110, /*Height*/ 40, /*Downwards offset*/ 0),
+    DELAY(1),
+    SET_FLOAT(oDrawingDistance, 2000),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_bowser_bomb_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvStaticMotos[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+    LOAD_ANIMATIONS(oAnimations, motos_anime),
+    SET_INT(oInteractType, INTERACT_IGLOO_BARRIER),
+    SCALE(/*Unused*/ 0, /*Field*/ 200),
+    ANIMATE(8),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_Launcher_Motos),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvMissile[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 80, /*Gravity*/ -400, /*Bounciness*/ 0, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_missile_loop),
     END_LOOP(),
 };
 
@@ -7548,6 +7600,7 @@ const BehaviorScript bhvCheezePlat[] = {
     LOAD_COLLISION_DATA(cheezeplat_collision),
     SET_FLOAT(oCollisionDistance, 10000),
     SET_FLOAT(oDrawingDistance, 10000),
+    SET_HOME(),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_cheezeplat_loop),
         CALL_NATIVE(load_object_collision_model),
@@ -7592,10 +7645,18 @@ const BehaviorScript bhvKoopatrol[] = {
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 50, /*Gravity*/ -400, /*Bounciness*/ 0, /*Drag strength*/ 0, /*Friction*/ 1000, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
     SCALE(/*Unused*/ 0, /*Field*/ 150),
     SET_FLOAT(oKoopaAgility, 1),
+    CALL_NATIVE(bhv_init_room),
     CALL_NATIVE(bhv_koopatrol_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_koopatrol_loop),
         SET_INT(oInteractStatus, 0),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvWindSoundLoop[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_wind_sound_loop),
     END_LOOP(),
 };
 

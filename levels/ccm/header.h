@@ -109,4 +109,8 @@ extern const LevelScript level_ccm_entry[];
 
 #include "levels/ccm/tank_head/collision_header.h"
 
+#include "levels/ccm/rmine/geo_header.h"
+
+#include "levels/ccm/missile/geo_header.h"
+
 #endif
