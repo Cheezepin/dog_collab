@@ -180,8 +180,8 @@ void run_around(void) {
 }
 
 void dig(void){
-    cur_obj_init_animation(DOG_ANIM_DIG);
-        o->oForwardVel = 0.0f;
+   cur_obj_init_animation(DOG_ANIM_DIG);
+   o->oForwardVel = 0.0f;
 }
 
 void null_action(void){}
@@ -201,6 +201,8 @@ void bhv_idle_dog_init (void) {
 void injured (void) {
     cur_obj_init_animation(DOG_ANIM_POUNCE);
     dogHealth--;
+    mark_obj_for_deletion(o->parentObj); //deletes the amp
+    o->childObj->oAction = 0; //resets the ashpile
     if (dogHealth <= 0){
         gMarioState->health = 0x00FF;
         gMarioState->hurtCounter = 0;
@@ -208,12 +210,25 @@ void injured (void) {
         level_trigger_warp(gMarioState, WARP_OP_DEATH);
         // woosh, he's gone!
         set_mario_action(gMarioState, ACT_DISAPPEARED, 0);
+    } else {
+        //if (cur_obj_init_animation_and_check_if_near_end(DOG_ANIM_POUNCE)){
+            o->oPosY = 95;
+            o->oAction = EMU_DOG_RANDOM_LOCATION;
+        //}
     }
 }
 void bhv_idle_dog_loop (void) {
     f32 dist;
     if (cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist) == NULL){
         print_text_fmt_int(0, 0, "Dog Health = %d", dogHealth);
+        struct Object *amp;
+        if (o->oAction == DIG && cur_obj_nearest_object_with_behavior(bhvAttackableAmp) != NULL){
+            amp = cur_obj_nearest_object_with_behavior(bhvAttackableAmp);
+            o->parentObj = amp;
+            if (o->parentObj->oPosX < o->oPosX + 20 && o->parentObj->oPosX > o->oPosX - 20 && o->parentObj->oPosZ < o->oPosZ + 20 && o->parentObj->oPosZ > o->oPosZ - 20){
+                o->oAction = INJURED;
+            }
+        }
         switch(o->oAction){
             case EMU_DOG_FREEDOM:
             freedom();
@@ -294,10 +309,14 @@ void check_emu_amp_attack(void) {
          }
      }
 
-     if (o->childObj->oPosX < o->oPosX + 20 && o->childObj->oPosX > o->oPosX - 20 && o->childObj->oPosZ < o->oPosZ + 20 && o->childObj->oPosZ > o->oPosZ - 20){
-         o->oAction = EMU_AMP_HIT_DOG;
+     if (o->childObj->oAction == INJURED){
+            o->oAction = EMU_AMP_HIT_DOG;
      }
      switch (marioAttack){
+         case 0:
+         o->oAction = EMU_AMP_SUCCESS;
+         o->oInteractStatus = 0;
+         break;
          case 1:
          o->oAction = EMU_AMP_COUNTER;
          o->oInteractStatus = 0;
@@ -315,8 +334,8 @@ void check_emu_amp_attack(void) {
 
 
 void attackable_amp_counter(void) {
-    o->oMoveAngleYaw = obj_angle_to_object(o->childObj, o);
-    obj_turn_toward_object(o, o->childObj, 16, DEGREES(180));
+    o->oMoveAngleYaw = obj_angle_to_object(o->parentObj, o);
+    obj_turn_toward_object(o, o->parentObj, 16, DEGREES(180));
  o->oForwardVel = 15.0f;
  o->oInteractStatus = 0;
 }
@@ -372,7 +391,6 @@ void attackable_amp_success(void) {
 }
 
 void attackable_amp_hit_dog(void) {
-    o->childObj->oAction = INJURED;
     obj_mark_for_deletion(o);
 }
 void bhv_attackable_amp_loop(void) {
