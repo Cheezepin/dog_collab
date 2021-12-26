@@ -245,7 +245,7 @@
 
 // Floor Checkpoint
 #define FLOOR_CHECKPOINT_FORCE 0xFCE
-#define SURFACE_IS_WARP_PLANE(surfType) (surfType == SURFACE_DEATH_PLANE || surfType == SURFACE_HURT_FLOOR || surfType == SURFACE_VERTICAL_WIND)
+#define SURFACE_IS_WARP_PLANE(surfType) (surfType == SURFACE_DEATH_PLANE || surfType == SURFACE_HURT_FLOOR /*|| surfType == SURFACE_VERTICAL_WIND*/)
 
 // Custom Reonu surface types
 #define SURFACE_SUPER_SLIPPERY 0x0017

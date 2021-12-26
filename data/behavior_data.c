@@ -7559,15 +7559,13 @@ const BehaviorScript bhvCheezePlat[] = {
 
 const BehaviorScript bhvCheezeBombWall[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(cheezebombwall_collision),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
     SET_FLOAT(oCollisionDistance, 10000),
     SET_FLOAT(oDrawingDistance, 10000),
     SET_HITBOX(/*Radius*/ 250, /*Height*/ 800),
     SET_INT(oIntangibleTimer, 0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_cheezebombwall_loop),
-        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
@@ -7581,6 +7579,7 @@ const BehaviorScript bhvCheezeDog[] = {
     SET_HOME(),
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
+        SET_INT(oInteractStatus, 0),
         CALL_NATIVE(bhv_cheezedog_loop),
     END_LOOP(),
 };
