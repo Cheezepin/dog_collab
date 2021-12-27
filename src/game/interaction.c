@@ -1948,7 +1948,7 @@ void mario_handle_special_floors(struct MarioState *m) {
 
         switch (floorType) {
             case SURFACE_DEATH_PLANE:
-            case SURFACE_VERTICAL_WIND:
+            //case SURFACE_VERTICAL_WIND:
                 check_death_barrier(m);
                 break;
 

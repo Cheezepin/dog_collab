@@ -29,13 +29,28 @@ void bhv_cheezeplat_loop(void) {
     }
 }
 
+void explode(s16 dontDeactivate) {
+    struct Object *explosion;
+    explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
+    explosion->oGraphYOffset += 100.0f;
+    if(dontDeactivate == 0)
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+}
+
+struct CollisionData *bombwallCols[2] = {
+    &cheezebombwall_collision,
+    &cheeze_bombwall2_collision
+};
+
 void bhv_cheezebombwall_loop(void) {
-    if (o->collidedObjs[0] != 0) {
-        if(o->collidedObjs[0]->behavior == segmented_to_virtual(bhvBobomb) && o->collidedObjs[0]->oAction == 3)
-            obj_mark_for_deletion(o);
-        else
-            o->collidedObjs[0] = 0;
+    f32 dist;
+    if(o->collisionData == 0) {
+        o->collisionData = segmented_to_virtual(bombwallCols[o->oBehParams2ndByte]);
     }
+    if(lateral_dist_between_objects(o, cur_obj_find_nearest_object_with_behavior(bhvCheezeDog, &dist)) < 75.0f) {
+        explode(0);
+    }
+    load_object_collision_model();
     o->oInteractStatus = 0;
 }
 
@@ -84,7 +99,7 @@ s32 check_if_mario_is_seen(void) {
         o->oKoopatrolCooldown--;
         return FALSE;
     }
-    print_text_fmt_int(220, 20, "0x%x", searchAngle);
+    //print_text_fmt_int(220, 20, "0x%x", searchAngle);
 
     vec3f_set(pos, o->oPosX, o->oPosY + 150.0f, o->oPosZ);
     if(o->oDistanceToMario < koopatrolViewRange) {
@@ -95,11 +110,11 @@ s32 check_if_mario_is_seen(void) {
     vec3f_set(dir, sins(o->oAngleToMario)*rayDist, 0, coss(o->oAngleToMario)*rayDist);
     vec3f_set(hitpos, 0, 0, 0);
     find_surface_on_ray(pos, dir, &surf, hitpos, RAYCAST_FIND_FLOOR | RAYCAST_FIND_CEIL | RAYCAST_FIND_WALL);
-    print_text_fmt_int(180, 40, "%d", (s32)hitpos[0]);
-    print_text_fmt_int(250, 40, "%d", (s32)hitpos[2]);
+    //print_text_fmt_int(180, 40, "%d", (s32)hitpos[0]);
+    //print_text_fmt_int(250, 40, "%d", (s32)hitpos[2]);
     distFromHit = sqrtf(POW2(o->oPosX - hitpos[0]) + POW2(o->oPosZ - hitpos[2]));
-    print_text_fmt_int(180, 80, "%d", (s32)rayDist);
-    print_text_fmt_int(180, 60, "%d", (s32)distFromHit);
+    //print_text_fmt_int(180, 80, "%d", (s32)rayDist);
+    //print_text_fmt_int(180, 60, "%d", (s32)distFromHit);
     if((searchAngle < 0x3800 || searchAngle > 0x0000C800) && o->oDistanceToMario < koopatrolViewRange && absf(gMarioState->pos[1] + 150.0f - o->oPosY) <= o->oDistanceToMario && distFromHit >= rayDist - 1.0f) {
         return TRUE;
     }
@@ -174,8 +189,8 @@ void bhv_koopatrol_loop(void) {
         case 3:
             cur_obj_init_animation_with_accel_and_sound(2, 3.0f);
             koopa_play_footstep_sound(1, 21);
-            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x600);
-            o->oForwardVel = 32.0f;
+            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x200);
+            o->oForwardVel = 52.0f;
             vec3f_set(pos, o->oPosX, o->oPosY + 150.0f, o->oPosZ);
             vec3f_set(pos, o->oPosX, o->oPosY + 150.0f, o->oPosZ);
             if(o->oDistanceToMario < koopatrolViewRange) {
