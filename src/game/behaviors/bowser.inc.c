@@ -1,6 +1,6 @@
 #include "config.h"
 #include "src/game/game_init.h"
-
+u8 count;
 // bowser.c.inc
 /**
  * Behavior for Bowser and it's actions (Tail, Flame, Body)
@@ -521,6 +521,7 @@ void bowser_act_default(void) {
         if (phase == 0) {bowser_bits_actions(); }
         else if (phase == 1) {bowser_emu_actions();}
     }
+    count = 0;
 }
 
 /**
@@ -639,7 +640,7 @@ void bowser_act_teleport(void) {
             break;
     }
 }
-
+s8 hitCount = -1;
 /**
  * emu custom ganondorf style homing orb
  */
@@ -660,17 +661,17 @@ void bowser_act_homing_orb(void) {
         o->oAction = BOWSER_ACT_DEFAULT;}
 }
 
-
 void bowser_act_counter(void) {
+    o->childObj->oForwardVel += 5.0f;
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
     s32 frame;
+    count = 1;
     cur_obj_init_animation_with_sound(BOWSER_ANIM_DANCE);
     frame = o->header.gfx.animInfo.animFrame;
-    if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)){
+    //if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)){
         o->oAction = BOWSER_ACT_DEFAULT;
-    }
+    //}
 }
-
 /**
  * Makes Bowser do a fire split into the sky
  */
@@ -1736,7 +1737,7 @@ void bhv_bowser_loop(void) {
     ampObj = cur_obj_find_nearest_object_with_behavior(bhvAttackableAmp, &dist);
     o->childObj = ampObj;
     if (o->childObj != NULL){
-        if (dist_between_objects(o, o->childObj) < 150.0f){
+        if (dist_between_objects(o, o->childObj) < 150.0f && count == 0){
             o->oAction = BOWSER_ACT_COUNTER;
             o->childObj->oAction = EMU_AMP_CHASE;
         }

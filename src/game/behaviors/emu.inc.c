@@ -293,6 +293,7 @@ void bhv_attackable_amp_init(void) {
     doggoObj = cur_obj_nearest_object_with_behavior(bhvDogEmu);
     o->parentObj = bowserObj;
     o->childObj = doggoObj;
+    o->oForwardVel = 15.0f;
 }
 
 void check_emu_amp_attack(void) {
@@ -306,7 +307,7 @@ void check_emu_amp_attack(void) {
            else if (gMarioStates[0].action == ACT_SLIDE_KICK_SLIDE) {marioAttack= 1;}
            else if (gMarioStates[0].action == ACT_JUMP_KICK) {marioAttack= 1;}
            else {marioAttack = 0;}
-         }
+         } else {marioAttack = 0;}
      }
 
      if (o->childObj->oAction == INJURED){
@@ -336,7 +337,7 @@ void check_emu_amp_attack(void) {
 void attackable_amp_counter(void) {
     o->oMoveAngleYaw = obj_angle_to_object(o->parentObj, o);
     obj_turn_toward_object(o, o->parentObj, 16, DEGREES(180));
- o->oForwardVel = 15.0f;
+ //o->oForwardVel = 15.0f;
  o->oInteractStatus = 0;
 }
 
@@ -351,7 +352,6 @@ void attackable_amp_appear_loop(void) {
     s16 targetYaw = atan2s(relativeTargetZ, relativeTargetX);
 
     o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, targetYaw, 0x1000);
-
     o->oAction = EMU_AMP_CHASE;
     //o->oAmpYPhase = 0;
 }
@@ -364,7 +364,6 @@ void attackable_amp_chase_loop(void) {
     //o->childObj = doggo;
     // If the amp is locked on to Mario, start "chasing" him by moving
     // in a straight line at 15 units/second for 32 frames.
-        o->oForwardVel = 15.0f;
 
         // Move the amp's average Y (the Y value it oscillates around) to align with
         // Mario's head. Mario's graphics' Y + 150 is around the top of his head.
@@ -387,7 +386,8 @@ void attackable_amp_chase_loop(void) {
 void attackable_amp_success(void) {
     interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
     gMarioState->hurtCounter += 4;
-    obj_mark_for_deletion(o);
+    o->oInteractStatus = 0;
+    o->oAction = EMU_AMP_CHASE;
 }
 
 void attackable_amp_hit_dog(void) {
