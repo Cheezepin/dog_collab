@@ -1042,7 +1042,7 @@ s32 bowser_check_hit_mine(void) {
         return TRUE;
     }
     else {
-        mine = cur_obj_find_nearest_object_with_behavior(bhvBowserBomb, &dist);
+        mine = cur_obj_find_nearest_object_with_behavior(bhvEmuBomb, &dist);
         if (mine != NULL && dist < 800.0f) {
         mine->oInteractStatus |= INT_STATUS_HIT_MINE;
         return TRUE;
@@ -1050,6 +1050,7 @@ s32 bowser_check_hit_mine(void) {
     }
     return FALSE;
 }
+
 
 /**
  * Bowser's thrown act that gets called after Mario releases him

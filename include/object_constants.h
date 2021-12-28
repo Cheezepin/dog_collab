@@ -2453,4 +2453,9 @@
     #define GOTO_ASHPILE                                    3
     #define DIG                                             4
     #define INJURED                                         5
+
+// Bowser Bomb
+    #define EMU_BOMB_SIT                                    0
+    #define EMU_BOMB_EXPLODE                                1
+    #define EMU_BOMB_LAUNCHED                               2
 #endif // OBJECT_CONSTANTS_H

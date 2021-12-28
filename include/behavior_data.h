@@ -600,6 +600,7 @@ extern const BehaviorScript bhvGoddardCage[];
 extern const BehaviorScript bhvGoddardCageCOL[];
 extern const BehaviorScript bhvDogEmu[];
 extern const BehaviorScript bhvAttackableAmp[];
+extern const BehaviorScript bhvEmuBomb[];
 //emu end
 
 //comit behaviors

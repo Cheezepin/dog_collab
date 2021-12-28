@@ -7245,21 +7245,6 @@ const BehaviorScript bhvFloorDoorButton[] = {
     END_LOOP(),
 };
 
-const BehaviorScript bhvSphere[] = {
-     BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    ADD_FLOAT(oPosY, 1),
-    LOAD_COLLISION_DATA(sphere_collision),
-    SET_FLOAT(oCollisionDistance, 8000),
-    SET_FLOAT(oDrawingDistance, 8000),
-    SET_HOME(),
-    BEGIN_LOOP(),
-        CALL_NATIVE(bhv_emu_sphere),
-        CALL_NATIVE(load_object_collision_model),
-    END_LOOP(),
-};
-
-
 const BehaviorScript bhvLightningStrike[] = {
     BEGIN(OBJ_LIST_DESTRUCTIVE),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -7307,6 +7292,20 @@ const BehaviorScript bhvRotatingTorus[] = {
     SET_HOME(),
     BEGIN_LOOP(),
         ADD_INT(oFaceAnglePitch, -150),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvSphere[] = {
+     BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    ADD_FLOAT(oPosY, 1),
+    LOAD_COLLISION_DATA(sphere_collision),
+    SET_FLOAT(oCollisionDistance, 8000),
+    SET_FLOAT(oDrawingDistance, 8000),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_emu_sphere),
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
@@ -7367,6 +7366,19 @@ const BehaviorScript bhvAttackableAmp[] = {
     CALL_NATIVE(bhv_attackable_amp_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_attackable_amp_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvEmuBomb[] = {
+    BEGIN(OBJ_LIST_DESTRUCTIVE),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_INT(oIntangibleTimer, 0),
+    SCALE(/*Unused*/ 0, /*Field*/ 50),
+    DROP_TO_FLOOR(),
+    SET_HOME(),
+    CALL_NATIVE(bhv_emu_bomb_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_emu_bomb_loop),
     END_LOOP(),
 };
 // END EMU BEHAVIOR

@@ -604,6 +604,8 @@ void bhv_idle_dog_init (void);
 void bhv_idle_dog_loop(void);
 void bhv_attackable_amp_init(void);
 void bhv_attackable_amp_loop(void);
+void bhv_emu_bomb_init(void);
+void bhv_emu_bomb_loop(void);
 //emu end
 
 //CowQuack start

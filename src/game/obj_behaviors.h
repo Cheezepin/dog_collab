@@ -164,4 +164,14 @@ void bhv_rr_cruiser_wing_loop(void);
 void spawn_default_star(f32 x, f32 y, f32 z);
 void spawn_clown_star(f32 x, f32 y, f32 z);
 
+//EMU START
+void bhv_emu_bomb_init(void);
+void bhv_emu_bomb_loop(void);
+void emu_bomb_act_launched(void);
+void emu_bomb_held_loop(void);
+void emu_bomb_dropped_loop(void);
+void emu_bomb_thrown_loop(void);
+void emu_bomb_free_loop(void);
+void emu_bomb_check_interactions(void);
+
 #endif // OBJ_BEHAVIORS_H

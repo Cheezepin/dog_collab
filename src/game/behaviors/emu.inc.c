@@ -105,6 +105,7 @@ void bhv_goddard_cageCOL_loop(void) {
 #define DOG_ANIM_RUN  2
 #define DOG_ANIM_WALK 3
 #define DOG_ANIM_POUNCE 4
+#define DOG_ANIM_KNOCKBACK 5
 s32 nextX, nextZ, nextXangle, nextZangle;
 u8 dogHealth = 3;
 
@@ -411,4 +412,160 @@ void bhv_attackable_amp_loop(void) {
         attackable_amp_hit_dog();
     }
     object_step();
+}
+
+
+
+
+
+
+
+
+
+
+// emu_bomb.c.inc
+
+static struct ObjectHitbox sEmuBombHitbox = {
+    /* interactType:      */ INTERACT_GRABBABLE,
+    /* downOffset:        */ 40,
+    /* damageOrCoinValue: */ 0,
+    /* health:            */ 0,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 65,
+    /* height:            */ 113,
+    /* hurtboxRadius:     */ 0,
+    /* hurtboxHeight:     */ 0,
+};
+
+void bhv_emu_bomb_init(void) {
+    o->oGravity  = 2.5f;
+    o->oFriction = 0.8f;
+    o->oBuoyancy = 1.3f;
+    o->oInteractionSubtype = INT_SUBTYPE_KICKABLE;
+    obj_set_hitbox(o, &sEmuBombHitbox);
+}
+
+void emu_bomb_act_launched(void) {
+    s16 collisionFlags = object_step();
+    if (o->oPosY <= 95.0f)
+        o->oAction = EMU_BOMB_EXPLODE; /* bit 0 */
+}
+
+void emu_bomb_held_loop(void) {
+    o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+    //cur_obj_init_animation(1);
+    cur_obj_set_pos_relative(gMarioObject, 0, 60.0f, 100.0f);
+}
+
+void emu_bomb_dropped_loop(void) {
+    cur_obj_get_dropped();
+
+    o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+    //cur_obj_init_animation(0);
+
+    o->oHeldState = 0;
+    o->oAction = EMU_BOMB_SIT;
+}
+
+void emu_bomb_thrown_loop(void) {
+    cur_obj_enable_rendering_2();
+
+    o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+    o->oHeldState  = 0;
+    o->oFlags     &= ~OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW; /* bit 3 */
+    o->oForwardVel = 25.0f;
+    o->oVelY       = 20.0f;
+    o->oAction     = EMU_BOMB_LAUNCHED;
+}
+
+void bhv_emu_bomb_explosion_loop(void) {
+        spawn_object(o, MODEL_BOWSER_FLAMES, bhvBowserBombExplosion);
+        create_sound_spawner(SOUND_GENERAL_BOWSER_BOMB_EXPLOSION);
+        set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+}
+
+
+void emu_bomb_free_loop(void) {
+    switch (o->oAction) {
+        case EMU_BOMB_LAUNCHED:
+            emu_bomb_act_launched();
+            break;
+
+        case EMU_BOMB_EXPLODE:
+            bhv_emu_bomb_explosion_loop();
+            break;
+        case EMU_BOMB_SIT:
+        break;
+    }
+
+    emu_bomb_check_interactions();
+}
+
+
+void emu_bomb_check_interactions(void) {
+    obj_set_hitbox(o, &sEmuBombHitbox);
+     if ((o->oInteractStatus & INT_STATUS_INTERACTED) != 0)
+    {
+        if ((o->oInteractStatus & INT_STATUS_MARIO_KNOCKBACK_DMG) != 0)
+        {
+            o->oMoveAngleYaw = gMarioObject->header.gfx.angle[1];
+            o->oForwardVel   = 25.0f;
+            o->oVelY         = 30.0f;
+            o->oAction       = EMU_BOMB_LAUNCHED;
+        }
+
+        if ((o->oInteractStatus & INT_STATUS_TOUCHED_BOB_OMB) != 0)
+            o->oAction = BOBOMB_ACT_EXPLODE;
+
+        o->oInteractStatus = 0;
+    }
+}
+
+void bhv_emu_bomb_smoke_loop(void) {
+    cur_obj_scale((f32) o->oTimer / 14.0f * 9.0f + 1.0f);
+    if (o->oTimer % 2 == 0)
+        o->oAnimState++;
+
+    o->oOpacity -= 10;
+    if (o->oOpacity < 10) {
+        o->oOpacity = 0;
+    }
+    o->oPosY += o->oVelY;
+
+    if (o->oTimer == 28) {
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }
+}
+
+
+void bhv_emu_bomb_loop(void) {
+    if (o->oInteractStatus & INT_STATUS_HIT_MINE)
+    {
+        spawn_object(o, MODEL_BOWSER_FLAMES, bhvBowserBombExplosion);
+        create_sound_spawner(SOUND_GENERAL_BOWSER_BOMB_EXPLOSION);
+        set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }
+  if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 4000) != 0) {
+        switch (o->oHeldState) {
+            case HELD_FREE:
+                emu_bomb_free_loop();
+                break;
+
+            case HELD_HELD:
+                emu_bomb_held_loop();
+                break;
+
+            case HELD_THROWN:
+                emu_bomb_thrown_loop();
+                break;
+
+            case HELD_DROPPED:
+                emu_bomb_dropped_loop();
+                break;
+        }
+    }
+
+    set_object_visibility(o, 7000);
 }

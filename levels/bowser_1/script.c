@@ -78,6 +78,7 @@ const LevelScript level_bowser_1_entry[] = {
 		OBJECT(MODEL_GODDARD_CAGE, 0, 568, 2307, 0, 0, 0, 0x00000000, bhvGoddardCage),
 		OBJECT(MODEL_NONE, 0, -421, 0, 0, 0, 0, 0x00000000, bhvPaletteSwap),
 		OBJECT(MODEL_NONE, 0, 200, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(/*model*/ MODEL_BOWSER_BOMB, 0, 200, 0, 0, 0, 0, /*behParam*/ 0x00000000, /*beh*/ bhvEmuBomb),
 		MARIO_POS(0x01, 0, 0, 451, 0),
 		TERRAIN(bowser_1_area_1_collision),
 		MACRO_OBJECTS(bowser_1_area_1_macro_objs),
