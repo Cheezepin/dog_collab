@@ -600,6 +600,10 @@ u8 bowser_1_dl_scrolling_texture_ci4_pal_rgba16[] = {
 	0x52, 0x95, 0x63, 0x19, 
 };
 
+Gfx bowser_1_dl_water_big_chungus_defined_intensity2_i4_aligner[] = {gsSPEndDisplayList()};
+u8 bowser_1_dl_water_big_chungus_defined_intensity2_i4[] = {
+	#include "levels/bowser_1/water_big_chungus_defined_intensity2.i4.inc.c"
+};
 
 Vtx bowser_1_dl_Torus_mesh_layer_1_vtx_cull[8] = {
 	{{{-3452, -936, 3618},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
@@ -1491,7 +1495,7 @@ Vtx bowser_1_dl_Torus_mesh_layer_5_vtx_0[528] = {
 Gfx bowser_1_dl_Torus_mesh_layer_5_tri_0[] = {
 	gsDPPipeSync(),
 	gsDPTileSync(),
-	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b, 32, bowser_1_dl_scrolling_texture_ci4),
+	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b, 32, bowser_1_dl_water_big_chungus_defined_intensity2_i4),
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b, 4, 0, 7, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
 	gsDPLoadSync(),
 	gsDPLoadTile(7, 6, 12, 116, 236),

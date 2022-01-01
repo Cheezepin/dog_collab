@@ -156,38 +156,55 @@ void bhv_ash_pile(void) {
 if (gCurrLevelNum == LEVEL_BOWSER_1){
     switch(o->oAction) {
         case 0:
+        o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            if (cur_obj_nearest_object_with_behavior(bhvGoddardCage) == NULL){
+            o->oOpacity = 0;
+            o->oAction = 1;
+            }
+            break;
+        case 1:
+        o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+            if (o->oOpacity < 500.0f) {
+                o->oOpacity += 25.0f;
+                obj_scale(o,o->oOpacity/500.0f);
+            } else {o->oAction = 2;}
+            break;
+        case 2:
             load_object_collision_model();
             o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_ASHPILE2];
-            o->oOpacity = 2000.0f;
+            o->oOpacity = 500.0f;
             sussy = cur_obj_nearest_object_with_behavior(bhvDogEmu); 
             o->parentObj = sussy;
             if((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (o->parentObj->oAction != GOTO_ASHPILE && o->parentObj->oAction != 50 && o->parentObj->oAction != 4)){
                 play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
-                o->parentObj->oAction = GOTO_ASHPILE;
-                o->oAction = 1;
+                o->parentObj->oAction = SET_ASHPILE_TARGET;
+                o->oAction = 3;
                 o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_ASHPILE];
                 }
         break;
-        case 1:
-        if (o->parentObj->oPosX < o->oPosX + 20 && o->parentObj->oPosX > o->oPosX - 20 && o->parentObj->oPosZ < o->oPosZ + 20 && o->parentObj->oPosZ > o->oPosZ - 20){
+        case 3:
+        if (o->parentObj->oPosX < o->oPosX + 25 && o->parentObj->oPosX > o->oPosX - 26 && o->parentObj->oPosZ < o->oPosZ + 25 && o->parentObj->oPosZ > o->oPosZ - 26){
             o->parentObj->oAction = 4;
             if (o->oTimer%8==0) {
                 cur_obj_play_sound_2(SOUND_ACTION_QUICKSAND_STEP);
             }
             if (o->oOpacity  > 20.0f) {
                 o->oOpacity -= 2.0f;
-                obj_scale(o,o->oOpacity/2000.0f);
-                o->parentObj->oPosY = o->oHomeY+((o->oOpacity/2000.0f)*100.0f);
+                obj_scale(o,o->oOpacity/500.0f);
+                o->parentObj->oPosY = o->oHomeY+((o->oOpacity/500.0f)*100.0f);
             } else {
-                o->oAction = 2;
+                o->oAction = 4;
             }
         }
+        else if (o->parentObj->oPosX < o->oPosX + 500 && o->parentObj->oPosX > o->oPosX - 500 && o->parentObj->oPosZ < o->oPosZ + 500 && o->parentObj->oPosZ > o->oPosZ - 500){
+            o->parentObj->oForwardVel = 50;
+        }
         break;
-        case 2:
+        case 4:
             o->parentObj->oAction = EMU_DOG_RANDOM_LOCATION;
-            switch(random_u16() % 4) {
+            switch(1-1) {
                 case 0: //coin
-                    spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);
+                    spawn_object(o, MODEL_BOWSER_BOMB, bhvEmuBomb);
                 break;
                 case 1: //motos
                     spawn_object(o,MODEL_CHUCKYA,bhvChuckya);
@@ -202,8 +219,16 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
                 spawn_object(o,MODEL_BLACK_BOBOMB,bhvBobomb);
                 break;
                 }
-            obj_mark_for_deletion(o);
+            o->oInteractStatus = 0;
+            o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            o->oAction = 5;
+            o->oTimer = 0;
         break;
+        case 5:
+            if (o->oTimer >= 500){
+                o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+                o->oAction = 0;
+            } else {o->oTimer ++;}
         }
     
     } else {

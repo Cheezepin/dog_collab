@@ -1,6 +1,6 @@
 #include "config.h"
 #include "src/game/game_init.h"
-u8 count;
+u8 count, numberOfAmps;
 // bowser.c.inc
 /**
  * Behavior for Bowser and it's actions (Tail, Flame, Body)
@@ -644,23 +644,31 @@ s8 hitCount = -1;
 /**
  * emu custom ganondorf style homing orb
  */
+ u8 flag_spawn_amp;
 void bowser_act_homing_orb(void) {
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
-    s32 frame;
+    s32 frame = o->header.gfx.animInfo.animFrame;
+    o->oTimer ++;
    if (o->childObj == NULL){ //checks to make sure that an amp isnt already spawned
+        flag_spawn_amp = 1;
+   }
+    else if (numberOfAmps < 4-o->oHealth){
+        flag_spawn_amp = 1;
+     }
+    if (flag_spawn_amp == 1){
         cur_obj_init_animation_with_sound(BOWSER_ANIM_DANCE);
-        frame = o->header.gfx.animInfo.animFrame;
-            if (frame == 20) { 
+        if (o->oTimer > 50){
             spawn_object_relative(0, -0x100, 0x100, -0x40, o, MODEL_AMP, bhvAttackableAmp);
-            }
+            o->oTimer = 0;
+            flag_spawn_amp = 0;
+            numberOfAmps++;
+        }
+    }
     // Return to default act once the animation is over
-    if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)){
+        if (cur_obj_check_if_near_animation_end() && flag_spawn_amp == 0){
         o->oAction = BOWSER_ACT_DEFAULT;
     }
-   } else if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)){
-        o->oAction = BOWSER_ACT_DEFAULT;}
-}
-
+   }
 void bowser_act_counter(void) {
     o->childObj->oForwardVel += 5.0f;
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
@@ -1037,7 +1045,7 @@ s32 bowser_check_hit_mine(void) {
     f32 dist;
 
     mine = cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist);
-    if (mine != NULL && dist < 800.0f) {
+    if (mine != NULL && dist < 800.0f && o->oAction == BOWSER_ACT_THROWN) {
         mine->oInteractStatus |= INT_STATUS_HIT_MINE;
         return TRUE;
     }
@@ -1719,6 +1727,8 @@ void bowser_thrown_dropped_update(void) {
  * Bowser's main loop
  */
 void bhv_bowser_loop(void) {
+    struct Object *mine;
+    mine = cur_obj_nearest_object_with_behavior(bhvEmuBomb);
     s16 angleToMario;  // AngleToMario from Bowser's perspective
     s16 angleToCentre; // AngleToCentre from Bowser's perspective
 
@@ -1727,11 +1737,18 @@ void bhv_bowser_loop(void) {
     o->oBowserAngleToCentre = atan2s(0.0f - o->oPosZ, 0.0f - o->oPosX);
     angleToMario = abs_angle_diff(o->oMoveAngleYaw, o->oAngleToMario);
     angleToCentre = abs_angle_diff(o->oMoveAngleYaw, o->oBowserAngleToCentre);
-
     // Reset Status
     o->oBowserStatus &= ~0xFF;
-
-
+    if (cur_obj_nearest_object_with_behavior(bhvGoddardCage) == NULL && mine != NULL && (mine->oAction == EMU_BOMB_ACT_LAUNCHED || mine->oAction == EMU_BOMB_ACT_EXPLODE) {
+        if (bowser_check_hit_mine()) {
+            o->oHealth--;
+            if (o->oHealth <= 0) {
+                o->oAction = BOWSER_ACT_DEAD;
+            } else {
+                o->oAction = BOWSER_ACT_HIT_MINE;
+            }
+        }
+    }
     // checks if an amp already exists and makes bowser counter if it's close enough
    struct Object *ampObj;
     f32 dist;

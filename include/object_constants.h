@@ -2445,6 +2445,7 @@
     #define EMU_AMP_SUCCESS                                 1
     #define EMU_AMP_COUNTER                                 2
     #define EMU_AMP_HIT_DOG                                 3
+    #define RETURN_TO_BOWSER                                4
 
 // Doggo
     #define EMU_DOG_FREEDOM                                 0
@@ -2453,9 +2454,11 @@
     #define GOTO_ASHPILE                                    3
     #define DIG                                             4
     #define INJURED                                         5
+    #define SET_ASHPILE_TARGET                              6
 
 // Bowser Bomb
-    #define EMU_BOMB_SIT                                    0
-    #define EMU_BOMB_EXPLODE                                1
-    #define EMU_BOMB_LAUNCHED                               2
+    #define EMU_BOMB_ACT_PATROL                               0x0
+    #define EMU_BOMB_ACT_LAUNCHED                             0x1
+    #define EMU_BOMB_ACT_CHASE_MARIO                          0x2
+    #define EMU_BOMB_ACT_EXPLODE                              0x3
 #endif // OBJECT_CONSTANTS_H
