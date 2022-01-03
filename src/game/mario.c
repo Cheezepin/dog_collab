@@ -1142,8 +1142,7 @@ s32 transition_submerged_to_airborne(struct MarioState *m) {
     }
     else {
         if (m->heldObj == NULL) {
-            if (m->input & INPUT_A_DOWN) return set_mario_action(m, ACT_DIVE, 0);
-            else return set_mario_action(m, ACT_FREEFALL, 0);
+            return set_mario_action(m, ACT_FREEFALL, 0);
         } else {
             if (m->input & INPUT_A_DOWN) return set_mario_action(m, ACT_HOLD_JUMP, 0);
             else return set_mario_action(m, ACT_HOLD_FREEFALL, 0);
@@ -1522,7 +1521,7 @@ void update_mario_health(struct MarioState *m) {
 
 #ifdef BREATH_METER
 void update_mario_breath(struct MarioState *m) {
-    if (gCurrLevelNum == LEVEL_DDD) {
+    if (gCurrLevelNum == LEVEL_COZIES) {
         m->breath = 0;
         m->breathCounter = 0;
         return;
