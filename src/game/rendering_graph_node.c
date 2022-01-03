@@ -17,6 +17,7 @@
 #include "level_update.h"
 #include "behavior_data.h"
 #include "string.h"
+#include "behaviors/thecozies_helpers.h"
 
 #include "config.h"
 
@@ -524,7 +525,7 @@ void geo_process_camera(struct GraphNodeCamera *node) {
     // thecozies start
     viewMat = &gMatStack[gMatStackIndex];
     gReadyForLookAt = TRUE;
-    if (gCurrLevelNum == LEVEL_DDD && gCamera) {
+    if (gCurrLevelNum == LEVEL_COZIES && gCamera) {
         s16 checkingTemp = gCheckingSurfaceCollisionsForCamera;
         gCheckingSurfaceCollisionsForCamera = TRUE;
         gCameraIsUnderwater = find_water_level(gCamera->pos[0], gCamera->pos[2]) > gCamera->pos[1];
