@@ -25,3 +25,5 @@
 #include "levels/ddd/water_top/geo.inc.c"
 #include "levels/ddd/water_spout/geo.inc.c"
 #include "levels/ddd/aperature_door/geo.inc.c"
+#include "levels/ddd/floaty_rock/geo.inc.c"
+#include "levels/ddd/shyguy_scuba/geo.inc.c"

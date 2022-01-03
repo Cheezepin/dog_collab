@@ -3,8 +3,10 @@
 const GeoLayout ddd_area_2_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, 6000, 0, ddd_dl_CentralArea_mesh_layer_1),
+		GEO_TRANSLATE_NODE(LAYER_OPAQUE, 0, 6000, 0),
 		GEO_OPEN_NODE(),
+			GEO_ASM(LAYER_OPAQUE, geo_set_global_fog),
+			GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_CentralArea_mesh_layer_1),
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, ddd_dl_CentralArea_mesh_layer_5),
 		GEO_CLOSE_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 1862, 1825, -2563, ddd_dl_ObservingGlass_mesh_layer_5),
