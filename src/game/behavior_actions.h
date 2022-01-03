@@ -663,13 +663,7 @@ Gfx *geo_switch_cephie_hold(s32 callContext, struct GraphNode *node, UNUSED Mat4
 // axo end
 
 // thecozies start
-void set_water_top_force(struct MarioState *m);
-void water_top_loop(void);
-void water_spout_loop(void);
-void rain_cloud_init(void);
-void rain_cloud_loop(void);
-void vertical_instant_warp_loop(void);
-void aperature_door_loop(void);
+#include "game/behaviors/thecozies.inc.h"
 // thecozies end
 
 //ROVERT BEHAVIOR ACTIONS START
