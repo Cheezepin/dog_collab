@@ -658,6 +658,15 @@ static void puppycam_input_hold_preset3(void) {
             gPuppyCam.yawTarget += 0x2000;
             play_sound(SOUND_MENU_CAMERA_TURN,gGlobalSoundSource);
         }
+
+        if (gPlayer1Controller->buttonDown & L_JPAD) {
+            gPuppyCam.stickN[0]  = 1;
+            gPuppyCam.yawTarget -= 0x200;
+        }
+        if (gPlayer1Controller->buttonDown & R_JPAD) {
+            gPuppyCam.stickN[0]  = 1;
+            gPuppyCam.yawTarget += 0x200;
+        }
     }
 
     // Handles zooming in. Works just like vanilla.
