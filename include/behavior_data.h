@@ -651,6 +651,9 @@ extern const BehaviorScript bhvWaterSpout[];
 extern const BehaviorScript bhvRedCoinStarMarkerNoDrop[];
 extern const BehaviorScript bhvVerticalInstantWarp[];
 extern const BehaviorScript bhvAperatureDoor[];
+extern const BehaviorScript bhvFloatyRock[];
+extern const BehaviorScript bhvShyguyScuba[];
+extern const BehaviorScript bhvBubbleShell[];
 // thecozies bhvs end
 
 //START ROVERT BEHAVIOR

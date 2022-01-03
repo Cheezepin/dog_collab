@@ -1334,10 +1334,29 @@
 #define /*0x100*/ oKoopatrolCooldown                           OBJECT_FIELD_S32(0x1E)
 
 // thecozies start
+#define oFloatyRockWaterSpout               OBJECT_FIELD_OBJ(0x1B)
+#define oFloatyRockPrevWaterLevel           OBJECT_FIELD_F32(0x1C)
+#define oFloatyRockPreservedMomentum        OBJECT_FIELD_F32(0x1D)
+#define oFloatyRockPreservedMomentumTimeout OBJECT_FIELD_S32(0x1E)
+#define oFloatyRockMarioIsOnTop             OBJECT_FIELD_S32(0x1F)
+#define oFloatyRockFloorHeight              OBJECT_FIELD_F32(0x20)
+
+#define oWaterSpoutBobTimer                 OBJECT_FIELD_S32(0x1B)
+#define oWaterSpoutFloatyRock               OBJECT_FIELD_OBJ(0x1C)
+#define oWaterSpoutBottom                   OBJECT_FIELD_F32(0x1D)
+
 #define oRainCloudScaleVel                  OBJECT_FIELD_F32(0x1B)
 #define oRainCloudMarioIsStandingOnCloud    OBJECT_FIELD_S32(0x1C)
 #define oRainCloudPreservedMomentum         OBJECT_FIELD_F32(0x1D)
 #define oRainCloudPreservedMomentumTimeout  OBJECT_FIELD_S32(0x1E)
+#define oRainCloudWaypointIndex             OBJECT_FIELD_S32(0x1F)
+#define oRainCloudWaypointProgress          OBJECT_FIELD_F32(0x20)
+#define oRainCloudWaypoint                  OBJECT_FIELD_WAYPOINT(0x21)
+#define oRainCloudNextWaypointIndex         OBJECT_FIELD_S32(0x22)
+#define oRainCloudWaypointDirection         OBJECT_FIELD_F32(0x32) // oSubAction
+
+#define oBubbleShellScaleVel                OBJECT_FIELD_F32(0x1B)
+#define oBubbleShellObj                     OBJECT_FIELD_OBJ(0x1C)
 // thecozies end
 
 /*Custom general defines:

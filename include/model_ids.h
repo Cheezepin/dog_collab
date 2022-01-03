@@ -286,6 +286,8 @@
 #define MODEL_DDD_WATER_SPOUT                     0x37
 #define MODEL_RAIN_CLOUD                          0x38
 #define MODEL_DDD_APERATURE_DOOR                  0x39
+#define MODEL_FLOATY_ROCK                         0x3A
+#define MODEL_SHYGUY_SCUBA                        0x3E
 
 // wf
 #define MODEL_WF_BREAKABLE_WALL_RIGHT             0x36        // wf_geo_000B78
@@ -429,6 +431,7 @@
 #define MODEL_CYAN_FISH                   0x67        // cyan_fish_geo
 #define MODEL_WATER_RING                  0x68        // water_ring_geo
 #define MODEL_SKEETER                     0x69        // skeeter_geo
+#define MODEL_SHELL_BUBBLE                0x6A // shell bubble geo
 
 // group 14
 #define MODEL_PIRANHA_PLANT               0x64        // piranha_plant_geo
