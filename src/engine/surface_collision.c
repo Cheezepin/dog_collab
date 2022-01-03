@@ -509,9 +509,7 @@ f32 find_water_bottom_from_list(struct SurfaceNode *surfaceNode, s32 x, s32 y, s
     struct SurfaceNode *bottomSurfaceNode = surfaceNode;
     f32 bottomHeight = FLOOR_LOWER_LIMIT;
     f32 topBottomHeight = FLOOR_LOWER_LIMIT;
-#ifdef WATER_BOTTOM_FORCE
-    s32 bottomForce = 0;
-#endif
+    s16 bottomForce = 0;
 
     // Iterate through the list of water floors until there are no more water floors.
     while (bottomSurfaceNode != NULL) {
@@ -527,9 +525,7 @@ f32 find_water_bottom_from_list(struct SurfaceNode *surfaceNode, s32 x, s32 y, s
         if (curBottomHeight < y + 78.0f) {
             if (curBottomHeight > topBottomHeight) {
                 topBottomHeight = curBottomHeight;
-#ifdef WATER_BOTTOM_FORCE
                 bottomForce = surf->force;
-#endif
             }
             continue;
         }
@@ -538,9 +534,7 @@ f32 find_water_bottom_from_list(struct SurfaceNode *surfaceNode, s32 x, s32 y, s
 
     if (gCheckingWaterForMario) {
         gMarioState->waterBottomHeight = topBottomHeight;
-#ifdef WATER_BOTTOM_FORCE
         gMarioState->waterBottomParam = bottomForce;
-#endif
     }
 
     return bottomHeight;

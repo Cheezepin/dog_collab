@@ -468,6 +468,7 @@ struct MarioState
     /*0xC0*/ f32 quicksandDepth;
     /*0xC4*/ f32 windGravity;
              f32 waterBottomHeight;
+             s16 waterBottomParam;
 #ifdef BREATH_METER
              s16 breath;
              u8  breathCounter;
