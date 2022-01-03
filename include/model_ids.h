@@ -420,6 +420,7 @@
 #define MODEL_BOWSER_FLAMES               0x67        // bowser_flames_geo
 #define MODEL_BOWSER_WAVE                 0x68        // invisible_bowser_accessory_geo
 #define MODEL_BOWSER_NO_SHADOW            0x69        // bowser_geo_no_shadow
+#define MODEL_BOWSER_ELECTRIC_RING        0x70        // electric_ring_geo
 
 // group 13
 #define MODEL_BUB                         0x64        // cheep_cheep_geo

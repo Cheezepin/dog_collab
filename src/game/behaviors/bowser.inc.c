@@ -1,6 +1,7 @@
 #include "config.h"
 #include "src/game/game_init.h"
 u8 count, numberOfAmps;
+s32 marioX, marioZ;
 // bowser.c.inc
 /**
  * Behavior for Bowser and it's actions (Tail, Flame, Body)
@@ -169,6 +170,16 @@ s32 bowser_spawn_shockwave(void) {
     if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
         wave = spawn_object(o, MODEL_BOWSER_WAVE, bhvBowserShockWave);
         wave->oPosY = o->oFloorHeight;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+s32 bowser_spawn_electric_ring(void) {
+    struct Object *ring;
+    if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
+        ring = spawn_object(o, MODEL_BOWSER_ELECTRIC_RING, bhvBowserElectricRing);
+        ring->oPosY = o->oFloorHeight;
         return TRUE;
     }
     return FALSE;
@@ -410,9 +421,15 @@ void bowser_bits_action_list(void) {
                 o->oAction = BOWSER_ACT_BREATH_FIRE;
             } // far away
         } else if (rand < 0.5f) {
-            o->oAction = BOWSER_ACT_BIG_JUMP; // 50% chance
+            o->oAction = BOWSER_ACT_PROPANE_SHOOTER;
+            o->oTimer = 0;
+            marioX = gMarioObject->oPosX;
+            marioZ = gMarioObject->oPosZ; // 50% chance
         } else {
-            o->oAction = BOWSER_ACT_CHARGE_MARIO;
+            o->oTimer = 0;
+            o->oAction = BOWSER_ACT_PROPANE_SHOOTER;
+            marioX = gMarioObject->oPosX;
+            marioZ = gMarioObject->oPosZ;
         }
     } else {
         // Keep walking
@@ -841,6 +858,43 @@ void bowser_act_big_jump(void) {
     }
 }
 
+// START EMU ATTACKS
+void bowser_act_multi_jump (void){
+    if (o->oSubAction == 0) {
+    if (bowser_set_anim_jump()) {
+            // Set vel depending of the stage and status
+            if (o->oBehParams2ndByte == BOWSER_BP_BITS && o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
+                o->oVelY = 70.0f;
+            } else {
+                o->oVelY = 80.0f;
+            }
+            o->oBowserTimer = 0;
+            bowser_short_second_hop();
+            o->oSubAction++;
+        }
+    } else if (o->oSubAction == 1) {
+        // Reset Bowser back on stage in BITS if he doesn't land properly
+        if (o->oBehParams2ndByte == BOWSER_BP_BITS && o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
+            bowser_reset_fallen_off_stage();
+        }
+        // Land on stage, reset status jump and velocity
+        if (bowser_land()) {
+            o->oBowserStatus &= ~BOWSER_STATUS_BIG_JUMP;
+            o->oForwardVel = 0.0f;
+            o->oSubAction++;
+            // Spawn shockwave (BITS only) if is not on a platform
+            //if (o->oHealth < 3) bowser_spawn_shockwave();
+            bowser_spawn_electric_ring();
+            // Tilt platform in BITFS
+           //if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
+           //    o->oAction = BOWSER_ACT_TILT_LAVA_PLATFORM;
+           //}
+        }
+    // Set to default action when the animation is over
+    } else if (cur_obj_check_if_near_animation_end()) {
+        o->oAction = BOWSER_ACT_DEFAULT;
+    }
+}
 /**
  * Fixed values for the quick jump action
  */
@@ -928,6 +982,46 @@ void bowser_act_spit_fire_onto_floor(void) {
     }
 }
 
+void bowser_act_propane_shooter(void) {
+    //mostly stolen from Rovert
+    struct Object *obj;
+    o->oFaceAngleYaw += 0x600;
+    o->oMoveAngleYaw = o->oFaceAngleYaw;
+    if (o->oDistanceToMario < 8000.0f) {
+        cur_obj_play_sound_1(SOUND_AIR_BLOW_FIRE);
+        if (gIsConsole == 1){
+        if (o->oTimer%2) {
+            obj = spawn_object(o,MODEL_BLUE_FLAME,bhvPropane);
+            obj->oMoveAngleYaw = o->oFaceAngleYaw;
+            obj->oPosY += 90.0f;
+            obj = spawn_object(o,MODEL_BLUE_FLAME,bhvPropane);
+            obj->oMoveAngleYaw = o->oFaceAngleYaw+0x7FFF;
+            obj->oPosY += 90.0f;
+            //spawn_object_relative(1, 0, 0x190, 0x64, o, MODEL_RED_FLAME, bhvBlueBowserFlame);
+            //spawn_object_relative(1, 0x64, 0x190, 0x64, o, MODEL_RED_FLAME, bhvBlueBowserFlame);
+            //spawn_object_relative(1, 0x64, 0x190, 0, o, MODEL_RED_FLAME, bhvBlueBowserFlame);
+            
+        }
+        } else {
+            obj = spawn_object(o,MODEL_BLUE_FLAME,bhvPropane);
+            obj->oMoveAngleYaw = o->oFaceAngleYaw;
+            obj->oPosY += 90.0f;
+            obj = spawn_object(o,MODEL_BLUE_FLAME,bhvPropane);
+            obj->oMoveAngleYaw = o->oFaceAngleYaw+0x7FFF;
+            obj->oPosY += 90.0f;
+        }
+    }
+
+    //o->oMoveAngleYaw = atan2s(marioZ, marioX);
+    //o->oForwardVel = 10.0f;
+    if (marioX > o->oPosX - 10.0f && marioX < o->oPosX + 10.0f && marioZ > o->oPosZ - 10.0f && marioZ < o->oPosZ + 10.0f){
+        marioX = gMarioObject->oPosX;
+        marioZ = gMarioObject->oPosZ;
+    }
+    if (o->oTimer > 600){
+        o->oAction = BOWSER_ACT_DEFAULT;
+    }
+}
 /**
  * Turns around Bowser from an specific yaw angle
  * Returns TRUE once the timer is bigger than the time set
@@ -1581,7 +1675,9 @@ void (*sBowserActions[])(void) = {
     bowser_act_idle,
     bowser_act_tilt_lava_platform,
     bowser_act_homing_orb,
-    bowser_act_counter
+    bowser_act_counter,
+    bowser_act_multi_jump,
+    bowser_act_propane_shooter
 };
 
 /**
@@ -1731,7 +1827,6 @@ void bhv_bowser_loop(void) {
     mine = cur_obj_nearest_object_with_behavior(bhvEmuBomb);
     s16 angleToMario;  // AngleToMario from Bowser's perspective
     s16 angleToCentre; // AngleToCentre from Bowser's perspective
-
     // Set distance/angle values
     o->oBowserDistToCentre = sqrtf(o->oPosX * o->oPosX + o->oPosZ * o->oPosZ);
     o->oBowserAngleToCentre = atan2s(0.0f - o->oPosZ, 0.0f - o->oPosX);
@@ -1739,7 +1834,7 @@ void bhv_bowser_loop(void) {
     angleToCentre = abs_angle_diff(o->oMoveAngleYaw, o->oBowserAngleToCentre);
     // Reset Status
     o->oBowserStatus &= ~0xFF;
-    if (cur_obj_nearest_object_with_behavior(bhvGoddardCage) == NULL && mine != NULL && (mine->oAction == EMU_BOMB_ACT_LAUNCHED || mine->oAction == EMU_BOMB_ACT_EXPLODE) {
+    if (cur_obj_nearest_object_with_behavior(bhvGoddardCage) == NULL && mine != NULL && (mine->oAction == EMU_BOMB_ACT_LAUNCHED || mine->oAction == EMU_BOMB_ACT_EXPLODE)) {
         if (bowser_check_hit_mine()) {
             o->oHealth--;
             if (o->oHealth <= 0) {

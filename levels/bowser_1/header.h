@@ -21,4 +21,8 @@ extern const LevelScript level_bowser_1_entry[];
 
 #include "levels/bowser_1/ashpile/collision_header.h"
 
+#include "levels/bowser_1/electric_ring/collision_header.h"
+
+#include "levels/bowser_1/electric_ring/geo_header.h"
+
 #endif

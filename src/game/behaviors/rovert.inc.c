@@ -92,6 +92,14 @@ void bhv_Propane_Shooter(void) {
     }
 
 void bhv_Propane_Flame(void) {
+    if (gCurrLevelNum == LEVEL_BOWSER_1){
+    obj_scale(o,3.0f-(o->oTimer * .5));
+    o->oPosX += sins(o->oMoveAngleYaw) * 50.0f;
+    o->oPosZ += coss(o->oMoveAngleYaw) * 50.0f;
+    if (o->oTimer > 50) {
+        obj_mark_for_deletion(o);
+        }
+    } else {
     obj_scale(o,3.0f-(o->oTimer * .15));
     o->oPosX += sins(o->oMoveAngleYaw) * 50.0f;
     o->oPosZ += coss(o->oMoveAngleYaw) * 50.0f;
@@ -99,6 +107,7 @@ void bhv_Propane_Flame(void) {
         obj_mark_for_deletion(o);
         }
     }
+}
 
 void bhv_lava_grate_loop(void) {
     if (o->oBehParams2ndByte == 0) {

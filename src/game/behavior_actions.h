@@ -606,6 +606,7 @@ void bhv_attackable_amp_init(void);
 void bhv_attackable_amp_loop(void);
 void bhv_emu_bomb_init(void);
 void bhv_emu_bomb_loop(void);
+void bhv_bowser_electric_ring_loop(void);
 //emu end
 
 //CowQuack start

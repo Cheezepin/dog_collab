@@ -309,6 +309,8 @@
     #define BOWSER_ACT_TILT_LAVA_PLATFORM                   0x13
     #define BOWSER_ACT_HOMING_ORB                           0x14
     #define BOWSER_ACT_COUNTER                              0x15
+    #define BOWSER_ACT_MULTI_JUMP                           0x16
+    #define BOWSER_ACT_PROPANE_SHOOTER                      0x17
     /* oAnimState */
     #define BOWSER_ANIM_STATE_OPAQUE                        TRANSPARENCY_ANIM_STATE_OPAQUE
     #define BOWSER_ANIM_STATE_TRANSPARENT                   TRANSPARENCY_ANIM_STATE_TRANSPARENT

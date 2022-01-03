@@ -1673,6 +1673,22 @@ const BehaviorScript bhvBowserShockWave[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvBowserElectricRing[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    //OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_LONG(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
+    ADD_FLOAT(oPosY, 1),
+    LOAD_COLLISION_DATA(electric_ring_collision),
+    //SET_INT(oFaceAnglePitch, 0x4000),
+    SET_INT(oOpacity, 255),
+    SET_FLOAT(oCollisionDistance, 8000),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+        CALL_NATIVE(bhv_bowser_electric_ring_loop),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvFireParticleSpawner[] = {
     BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),

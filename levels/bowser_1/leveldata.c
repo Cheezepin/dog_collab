@@ -19,3 +19,5 @@
 #include "levels/bowser_1/ashpile2/model.inc.c"
 #include "levels/bowser_1/ashpile2/collision.inc.c"
 #include "levels/bowser_1/ashpile/collision.inc.c"
+#include "levels/bowser_1/electric_ring/collision.inc.c"
+#include "levels/bowser_1/electric_ring/model.inc.c"
