@@ -242,3 +242,5 @@
 #undef GODDARD_EASTER_EGG
 #define DISABLE_DEMO
 #endif
+
+#define LEVEL_COZIES LEVEL_DDD
