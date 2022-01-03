@@ -179,11 +179,15 @@ static u8 sInertiaFirstFrame = FALSE;
  */
 static void apply_mario_inertia(void) {
     // On the first frame of leaving the ground, boost Mario's y velocity
-  
-	if (sInertiaFirstFrame) {
-        if (sMarioAmountDisplaced[1] > 0)
-		    gMarioState->vel[1] += sMarioAmountDisplaced[1];
-	}
+    if (sInertiaFirstFrame && sMarioAmountDisplaced[1] > 0) {
+        // Long jump is the only player initiated jump that has less gravity, so apply less displacement
+        f32 yDisplacement = gMarioState->action == ACT_LONG_JUMP
+            ? sMarioAmountDisplaced[1] * 0.5f
+            : sMarioAmountDisplaced[1];
+        gMarioState->vel[1] += yDisplacement;
+        // Offset Y position to prevent platforms from colliding into Mario after jumping
+        gMarioState->pos[1] += sMarioAmountDisplaced[1];
+    }
 
     // Apply sideways inertia
     gMarioState->pos[0] += sMarioAmountDisplaced[0];
