@@ -595,8 +595,19 @@ void bhv_spike_update(void);
 void bhv_spike_ball_init(void);
 void bhv_spike_ball_loop(void);
 void bhv_podoboo_loop(void);
+//emu start
 void bhv_emu_sphere(void);
 void palette_swap(void);
+void bhv_goddard_cage_loop(void);
+void bhv_goddard_cageCOL_loop(void);
+void bhv_idle_dog_init (void);
+void bhv_idle_dog_loop(void);
+void bhv_attackable_amp_init(void);
+void bhv_attackable_amp_loop(void);
+void bhv_emu_bomb_init(void);
+void bhv_emu_bomb_loop(void);
+void bhv_bowser_electric_ring_loop(void);
+//emu end
 
 //CowQuack start
 void bhv_carousel_init(void);

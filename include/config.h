@@ -217,13 +217,13 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
-#define TEST_LEVEL LEVEL_BITFS
+ #define TEST_LEVEL LEVEL_BOWSER_1
 // Enable debug level select
 //#define DEBUG_LEVEL_SELECT
 // Enable debug free move (DPad up to enter, A to exit)
 #define ENABLE_DEBUG_FREE_MOVE
 // Custom debug mode. Press DPAD left to show the debug UI. Press DPAD right to enter the noclip mode.
-//  #define CUSTOM_DEBUG
+  #define CUSTOM_DEBUG
 // Include Puppyprint, a display library for text and large images. Also includes a custom, enhanced performance profiler.
 #define PUPPYPRINT
 #define PUPPYPRINT_DEBUG 1

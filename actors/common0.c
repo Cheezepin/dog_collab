@@ -10,9 +10,9 @@
 #include "blue_coin_switch/collision.inc.c"
 UNUSED static const u64 binid_0 = 0;
 
-#include "amp/model.inc.c"
-#include "amp/anims/data.inc.c"
-#include "amp/anims/table.inc.c"
+//#include "amp/model.inc.c"
+//#include "amp/anims/data.inc.c"
+//#include "amp/anims/table.inc.c"
 UNUSED static const u64 binid_1 = 1;
 
 #include "cannon_lid/model.inc.c"

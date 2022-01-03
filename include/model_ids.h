@@ -214,6 +214,7 @@
 #define MODEL_BITDW_SIMPLE_SPINNER                0x1AC
 #define MODEL_BITDW_SIMPLE_SPINNER_SHOCK          0x1AE       // I was to lazy to change all the model numbers so its out of order here
 #define MODEL_BITDW_SPHERE                        0x1AD
+#define MODEL_GODDARD_CAGE                        0x1AF       // only used in Bowser battle 1, not ever used in bitdw
 
 // vcutm
 #define MODEL_VCUTM_SEESAW_PLATFORM               0x36        // vcutm_geo_0001F0
@@ -419,6 +420,7 @@
 #define MODEL_BOWSER_FLAMES               0x67        // bowser_flames_geo
 #define MODEL_BOWSER_WAVE                 0x68        // invisible_bowser_accessory_geo
 #define MODEL_BOWSER_NO_SHADOW            0x69        // bowser_geo_no_shadow
+#define MODEL_BOWSER_ELECTRIC_RING        0x70        // electric_ring_geo
 
 // group 13
 #define MODEL_BUB                         0x64        // cheep_cheep_geo

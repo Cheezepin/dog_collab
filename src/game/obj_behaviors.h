@@ -119,6 +119,7 @@ void bhv_manta_ray_water_ring_init(void);
 void manta_water_ring_act_not_collected(void);
 void bhv_manta_ray_water_ring_loop(void);
 void bhv_bowser_bomb_loop(void);
+void bhv_goddard_cage_loop(void);
 void bhv_bowser_bomb_explosion_loop(void);
 void bhv_bowser_bomb_smoke_loop(void);
 void bhv_celebration_star_init(void);
@@ -162,5 +163,22 @@ void bhv_rr_cruiser_wing_init(void);
 void bhv_rr_cruiser_wing_loop(void);
 void spawn_default_star(f32 x, f32 y, f32 z);
 void spawn_clown_star(f32 x, f32 y, f32 z);
+
+//EMU START
+void bhv_emu_bomb_init(void);
+void emu_bomb_spawn_coin(void) ;
+void emu_bomb_act_explode(void);
+void emu_bomb_check_interactions(void);
+void emu_bomb_act_patrol(void);
+void emu_bomb_act_chase_mario(void);
+void emu_bomb_act_launched(void);
+void generic_emu_bomb_free_loop(void);
+void stationary_emu_bomb_free_loop(void) ;
+void emu_bomb_free_loop(void);
+void emu_bomb_held_loop(void);
+void emu_bomb_dropped_loop(void);
+void emu_bomb_thrown_loop(void);
+void bhv_emu_bomb_loop(void);
+void bhv_emu_bomb_fuse_smoke_init(void);
 
 #endif // OBJ_BEHAVIORS_H
