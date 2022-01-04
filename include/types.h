@@ -278,6 +278,7 @@ struct Object
 {
     /*0x000*/ struct ObjectNode header;
     /*0x068*/ struct Object *parentObj;
+              struct Object *childObj;
     /*0x06C*/ struct Object *prevObj;
     /*0x070*/ u32 collidedObjInteractTypes;
     /*0x074*/ s16 activeFlags;

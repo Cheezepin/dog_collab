@@ -92,6 +92,14 @@ void bhv_Propane_Shooter(void) {
     }
 
 void bhv_Propane_Flame(void) {
+    if (gCurrLevelNum == LEVEL_BOWSER_1){
+    obj_scale(o,3.0f-(o->oTimer * .5));
+    o->oPosX += sins(o->oMoveAngleYaw) * 50.0f;
+    o->oPosZ += coss(o->oMoveAngleYaw) * 50.0f;
+    if (o->oTimer > 50) {
+        obj_mark_for_deletion(o);
+        }
+    } else {
     obj_scale(o,3.0f-(o->oTimer * .15));
     o->oPosX += sins(o->oMoveAngleYaw) * 50.0f;
     o->oPosZ += coss(o->oMoveAngleYaw) * 50.0f;
@@ -99,6 +107,7 @@ void bhv_Propane_Flame(void) {
         obj_mark_for_deletion(o);
         }
     }
+}
 
 void bhv_lava_grate_loop(void) {
     if (o->oBehParams2ndByte == 0) {
@@ -152,8 +161,88 @@ void bhv_castle_raft(void) {
 
 void bhv_ash_pile(void) {
     struct Object *sussy;
-
+    /* emu's section of the code*/
+if (gCurrLevelNum == LEVEL_BOWSER_1){
     switch(o->oAction) {
+        case 0:
+        o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            if (cur_obj_nearest_object_with_behavior(bhvGoddardCage) == NULL){
+            o->oOpacity = 0;
+            o->oAction = 1;
+            }
+            break;
+        case 1:
+        o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+            if (o->oOpacity < 500.0f) {
+                o->oOpacity += 25.0f;
+                obj_scale(o,o->oOpacity/500.0f);
+            } else {o->oAction = 2;}
+            break;
+        case 2:
+            load_object_collision_model();
+            o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_ASHPILE2];
+            o->oOpacity = 500.0f;
+            sussy = cur_obj_nearest_object_with_behavior(bhvDogEmu); 
+            o->parentObj = sussy;
+            if((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (o->parentObj->oAction != GOTO_ASHPILE && o->parentObj->oAction != 50 && o->parentObj->oAction != 4)){
+                play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
+                o->parentObj->oAction = SET_ASHPILE_TARGET;
+                o->oAction = 3;
+                o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_ASHPILE];
+                }
+        break;
+        case 3:
+        if (o->parentObj->oPosX < o->oPosX + 25 && o->parentObj->oPosX > o->oPosX - 26 && o->parentObj->oPosZ < o->oPosZ + 25 && o->parentObj->oPosZ > o->oPosZ - 26){
+            o->parentObj->oAction = 4;
+            if (o->oTimer%8==0) {
+                cur_obj_play_sound_2(SOUND_ACTION_QUICKSAND_STEP);
+            }
+            if (o->oOpacity  > 20.0f) {
+                o->oOpacity -= 2.0f;
+                obj_scale(o,o->oOpacity/500.0f);
+                o->parentObj->oPosY = o->oHomeY+((o->oOpacity/500.0f)*100.0f);
+            } else {
+                o->oAction = 4;
+            }
+        }
+        else if (o->parentObj->oPosX < o->oPosX + 500 && o->parentObj->oPosX > o->oPosX - 500 && o->parentObj->oPosZ < o->oPosZ + 500 && o->parentObj->oPosZ > o->oPosZ - 500){
+            o->parentObj->oForwardVel = 50;
+        }
+        break;
+        case 4:
+            o->parentObj->oAction = EMU_DOG_RANDOM_LOCATION;
+            switch(1-1) {
+                case 0: //coin
+                    spawn_object(o, MODEL_BOWSER_BOMB, bhvEmuBomb);
+                break;
+                case 1: //motos
+                    spawn_object(o,MODEL_CHUCKYA,bhvChuckya);
+                break;
+                case 2: //star
+                    spawn_object(o,MODEL_BOWSER_BOMB, bhvBowserBomb);
+                break;
+                case 3: //flyguy
+                    spawn_object(o,MODEL_FLYGUY,bhvFlyGuy);
+                break;
+                case 4: //bomb
+                spawn_object(o,MODEL_BLACK_BOBOMB,bhvBobomb);
+                break;
+                }
+            o->oInteractStatus = 0;
+            o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            o->oAction = 5;
+            o->oTimer = 0;
+        break;
+        case 5:
+            if (o->oTimer >= 500){
+                o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+                o->oAction = 0;
+            } else {o->oTimer ++;}
+        }
+    
+    } else {
+        /* Rovert's original code*/
+ switch(o->oAction) {
         case 0:
             load_object_collision_model();
             o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_ASHPILE2];
@@ -210,9 +299,8 @@ void bhv_ash_pile(void) {
                 }
         break;
         }
-    
     }
-
+}
 void bhv_rovert_elevator(void) {
     switch(o->oAction) {
         case 0:

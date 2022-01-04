@@ -89,7 +89,7 @@ void bhv_koopa_init(void) {
 /**
  * Play the appropriate footstep sound on the two provided animation frames.
  */
-static void koopa_play_footstep_sound(s8 animFrame1, s8 animFrame2) {
+void koopa_play_footstep_sound(s8 animFrame1, s8 animFrame2) {
     s32 sound;
     if (o->header.gfx.scale[0] > 1.5f) {
         sound = SOUND_OBJ_KOOPA_THE_QUICK_WALK;
