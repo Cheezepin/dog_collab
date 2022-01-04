@@ -10,6 +10,7 @@
 #include "game/mario_misc.h"
 #include "game/object_helpers.h"
 #include "game/debug.h"
+#include "game/obj_behaviors.h"
 #include "menu/file_select.h"
 #include "engine/surface_load.h"
 
@@ -33,6 +34,7 @@
 #include "actors/group15.h"
 #include "actors/group16.h"
 #include "actors/group17.h"
+#include "actors/group2639.h"
 #include "levels/bbh/header.h"
 #include "levels/castle_inside/header.h"
 #include "levels/hmc/header.h"
@@ -7688,3 +7690,158 @@ const BehaviorScript bhvWindSoundLoop[] = {
 };
 
 //cheeze bhvs end
+
+// someone2638 scripts
+
+const BehaviorScript bhvDoginlobby[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    SET_FLOAT(oGravity, 3.0f),
+	CALL_NATIVE(bhv_DogInLobby_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogInLobby_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogoutsidehotel[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    SET_FLOAT(oGravity, 3.0f),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+	CALL_NATIVE(bhv_DogOutsideHotel_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogOutsideHotel_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogfloor1[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    SET_FLOAT(oGravity, 3.0f),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+	CALL_NATIVE(bhv_DogFloor1_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogFloor1_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogfloor2[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    SET_FLOAT(oGravity, 3.0f),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+	CALL_NATIVE(bhv_DogFloor2_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogFloor2_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogfloor3[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    SET_FLOAT(oGravity, 3.0f),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+	CALL_NATIVE(bhv_DogFloor3_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogFloor3_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogfloor4[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    SET_FLOAT(oGravity, 3.0f),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+	CALL_NATIVE(bhv_DogFloor4_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogFloor4_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvDogbalcony[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    SET_FLOAT(oGravity, 3.0f),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+	CALL_NATIVE(bhv_DogBalcony_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_DogBalcony_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639cane[] = {
+	BEGIN(OBJ_LIST_GENACTOR),
+	CALL_NATIVE(bhv_2639cane_init),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639cane_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639glasses[] = {
+	BEGIN(OBJ_LIST_GENACTOR),
+	CALL_NATIVE(bhv_2639glasses_init),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639glasses_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhvA2pushablecouch[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(couch_collision),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL)),
+	CALL_NATIVE(bhv_A2PushableCouch_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_A2PushableCouch_loop),
+        CALL_NATIVE(load_object_collision_model),
+        SET_INT(oInteractStatus, 0),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639a2hiddenstar[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_PERSISTENT_RESPAWN | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+	CALL_NATIVE(bhv_2639A2HiddenStar_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639A2HiddenStar_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639elevator[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(elevator_collision),
+	CALL_NATIVE(bhv_2639Elevator_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639Elevator_loop),
+        CALL_NATIVE(load_object_collision_model),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639soda[] = {
+	BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_INT(oInteractType, INTERACT_GRABBABLE),
+    SET_INT(oInteractionSubtype, INT_SUBTYPE_HOLDABLE_NPC),
+    SET_HITBOX(/*Radius*/ 40, /*Height*/ 40),
+    SET_INT(oIntangibleTimer, 0),
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
+    SET_HOME(),
+	CALL_NATIVE(bhv_2639Soda_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639Soda_loop),
+	END_LOOP(),
+};
+

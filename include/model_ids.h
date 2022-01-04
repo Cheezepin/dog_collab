@@ -690,6 +690,14 @@
 
 //END ROVERT MODEL IDS
 
+
+// someone2639 models
+enum _2639Models {
+	MODEL_2639COUCH = 0x100,
+	MODEL_ELEV2639,
+	MODEL_2639SODER,
+};
+
 //start cheeze model ids
 
 #define MODEL_CHEEZE_PLAT       0x180

@@ -35,7 +35,8 @@ ACTOR_GROUPS := \
     group16 \
     group17 \
     common0 \
-    common1
+    common1 \
+    group2639 \
 
 LEVEL_FILES := $(addsuffix leveldata,$(LEVEL_DIRS))
 
@@ -77,6 +78,7 @@ LAKITU_DIRS      := lakitu_cameraman toad mips boo_castle
 PEACH_DIRS       := bird peach yoshi
 BOWSER_DIRS      := bowser_flame impact_ring yellow_sphere bowser bomb impact_smoke
 MARIO_DIRS       := mario bubble walk_smoke burn_smoke stomp_smoke water_wave sparkle water_splash white_particle_small sparkle_animation
+_2639_DIRS       := couch
 
 # Actor Textures
 AMP_CHUCKYA_TEXTURES            := $(foreach dir,$(AMP_DIRS),        $(wildcard actors/$(dir)/*.png))
@@ -99,6 +101,7 @@ PEACH_TOADSTOOL_TEXTURES        := $(foreach dir,$(PEACH_DIRS),      $(wildcard 
 SEA_CREATURES_TEXTURES          := $(foreach dir,$(SEA_DIRS),        $(wildcard actors/$(dir)/*.png))
 SKEETER_FISH_TEXTURES           := $(foreach dir,$(SKEETER_DIRS),    $(wildcard actors/$(dir)/*.png))
 SPINDRIFT_PENGUIN_TEXTURES      := $(foreach dir,$(SPINDRIFT_DIRS),  $(wildcard actors/$(dir)/*.png))
+_2639_TEXTURES                  := $(foreach dir,$(_2639_DIRS),      $(wildcard actors/$(dir)/*.png))
 
 # Actor dependencies
 $(BUILD_DIR)/actors/group0.o:  $(MARIO_WATER_TEXTURES:%.png=$(BUILD_DIR)/%.inc.c)
@@ -121,6 +124,7 @@ $(BUILD_DIR)/actors/group16.o: $(CHILLYCHIEF_TEXTURES:%.png=$(BUILD_DIR)/%.inc.c
 $(BUILD_DIR)/actors/group17.o: $(MR_I_SWOOP_TEXTURES:%.png=$(BUILD_DIR)/%.inc.c)
 $(BUILD_DIR)/actors/common0.o: $(AMP_CHUCKYA_TEXTURES:%.png=$(BUILD_DIR)/%.inc.c)
 $(BUILD_DIR)/actors/common1.o: $(COINS_PIPE_TEXTURES:%.png=$(BUILD_DIR)/%.inc.c)
+$(BUILD_DIR)/actors/group2639.o: $(_2639_TEXTURES:%.png=$(BUILD_DIR)/%.inc.c)
 
 # Actor Elf Files
 $(BUILD_DIR)/actors/group0.elf:  SEGMENT_ADDRESS := 0x04000000
@@ -143,6 +147,7 @@ $(BUILD_DIR)/actors/group16.elf: SEGMENT_ADDRESS := 0x06000000
 $(BUILD_DIR)/actors/group17.elf: SEGMENT_ADDRESS := 0x06000000
 $(BUILD_DIR)/actors/common0.elf: SEGMENT_ADDRESS := 0x08000000
 $(BUILD_DIR)/actors/common1.elf: SEGMENT_ADDRESS := 0x03000000
+$(BUILD_DIR)/actors/group2639.elf: SEGMENT_ADDRESS := 0x05000000
 
 # --------------------------------------
 # Level Rules
