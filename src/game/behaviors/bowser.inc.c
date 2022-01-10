@@ -2,6 +2,8 @@
 #include "src/game/game_init.h"
 u8 count, numberOfAmps;
 s32 marioX, marioZ;
+u8 action;
+s32 preChosenAction;
 // bowser.c.inc
 /**
  * Behavior for Bowser and it's actions (Tail, Flame, Body)
@@ -28,7 +30,7 @@ void bowser_tail_anchor_act_default(void) {
     cur_obj_become_tangible();
     cur_obj_scale(1.0f);
 
-    if (bowser->oAction == BOWSER_ACT_TILT_LAVA_PLATFORM) {
+    if (bowser->oHealth <= 3) {
         // Bowser cannot be touched when he tilts BITFS platform
         bowser->oIntangibleTimer = -1;
     } else if (obj_check_if_collided_with_object(o, gMarioObject)) {
@@ -56,7 +58,7 @@ void bowser_tail_anchor_thrown(void) {
  */
 void bowser_tail_anchor_act_touched_mario(void) {
     // Return to main action when Bowser tilts BITFS platform
-    if (o->parentObj->oAction == BOWSER_ACT_TILT_LAVA_PLATFORM) {
+    if (o->parentObj->oHealth <= 3) {
         o->parentObj->oIntangibleTimer = -1;
         o->oAction = BOWSER_ACT_TAIL_DEFAULT;
     }
@@ -179,7 +181,7 @@ s32 bowser_spawn_electric_ring(void) {
     struct Object *ring;
     if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
         ring = spawn_object(o, MODEL_BOWSER_ELECTRIC_RING, bhvBowserElectricRing);
-        ring->oPosY = o->oFloorHeight;
+        ring->oPosY += 100.0f;
         return TRUE;
     }
     return FALSE;
@@ -421,13 +423,37 @@ void bowser_bits_action_list(void) {
                 o->oAction = BOWSER_ACT_BREATH_FIRE;
             } // far away
         } else if (rand < 0.5f) {
-            o->oAction = BOWSER_ACT_PROPANE_SHOOTER;
+            o->oAction = BOWSER_ACT_BIG_JUMP; // 50% chance
+        } else {
+            o->oAction = BOWSER_ACT_CHARGE_MARIO;
+        }
+    } else {
+        // Keep walking
+        o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+    }
+}
+
+void bowser_emu_action_list(void) {
+    f32 rand = random_float();
+    if (o->oBowserStatus & BOWSER_STATUS_ANGLE_MARIO) {
+        if (o->oDistanceToMario < 1000.0f) { // nearby
+            if (rand < 0.4f) {
+                o->oAction = BOWSER_ACT_SPIT_FIRE_ONTO_FLOOR; // 40% chance
+            } else if (rand < 0.8f) {
+                o->oAction = BOWSER_ACT_SPIT_FIRE_INTO_SKY; // 80% chance
+            } else {
+                o->oAction = BOWSER_ACT_BREATH_FIRE;
+            } // far away
+        } else if (rand < 0.5f) {
+            preChosenAction = BOWSER_ACT_PROPANE_SHOOTER;
+            o->oAction = BOWSER_ACT_TELEPORT_HOME;
             o->oTimer = 0;
             marioX = gMarioObject->oPosX;
             marioZ = gMarioObject->oPosZ; // 50% chance
         } else {
             o->oTimer = 0;
-            o->oAction = BOWSER_ACT_PROPANE_SHOOTER;
+            preChosenAction = BOWSER_ACT_MULTI_JUMP;
+            o->oAction = BOWSER_ACT_TELEPORT_HOME;
             marioX = gMarioObject->oPosX;
             marioZ = gMarioObject->oPosZ;
         }
@@ -437,7 +463,6 @@ void bowser_bits_action_list(void) {
     }
 
 }
-
 /**
  * Sets big jump action, not much to say
  * Never gets called since oBowserBitsJustJump is always FALSE
@@ -471,19 +496,12 @@ phase = 0;
 }
 
 void bowser_emu_actions(void) {
-    struct Object *sussy;
-    sussy = cur_obj_nearest_object_with_behavior(bhvDogEmu);
-    o->childObj = sussy;
-    if (sussy != NULL && o->childObj->oAction == DIG) {
-        cur_obj_rotate_yaw_toward(atan2s(o->childObj->oPosZ - o->oPosZ, o->childObj->oPosX - o->oPosX), 0x900);
-        o->oAction = BOWSER_ACT_HOMING_ORB;
-    } else {
     switch (o->oBowserIsReacting) {
         case FALSE:
             // oBowserBitsJustJump never changes value,
             // so its always FALSE, maybe a debug define
             if (o->oBowserBitsJustJump == FALSE) {
-                bowser_bits_action_list();
+                bowser_emu_action_list();
             } else {
                 bowser_set_act_big_jump();
             }
@@ -493,7 +511,7 @@ void bowser_emu_actions(void) {
             o->oBowserIsReacting = FALSE;
             o->oAction = BOWSER_ACT_WALK_TO_MARIO;
             break;
-    }}
+    }
 }
 
 /**
@@ -521,6 +539,7 @@ void bowser_act_idle(void) {
  * Default Bowser act that doesn't last very long
  */
 void bowser_act_default(void) {
+    action = 0;
     // Set eye state
     o->oBowserEyesShut = FALSE;
     // Set idle animation
@@ -530,14 +549,14 @@ void bowser_act_default(void) {
     o->oForwardVel = 0.0f;
     o->oVelY = 0.0f;
     // Set level specific actions
-    if (o->oBehParams2ndByte == BOWSER_BP_BITDW) {
-        bowser_bitdw_actions();
-    } else if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
-        bowser_bitfs_actions();
-    } else { // BOWSER_BP_BITS
-        if (phase == 0) {bowser_bits_actions(); }
-        else if (phase == 1) {bowser_emu_actions();}
-    }
+    //if (o->oBehParams2ndByte == BOWSER_BP_BITDW) {
+    //    bowser_bitdw_actions();
+    //} else if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
+    //    bowser_bitfs_actions();
+    //} else { // BOWSER_BP_BITS
+        if (o->oHealth == 4) {bowser_bits_actions(); }
+        else {bowser_emu_actions();}
+   // }
     count = 0;
 }
 
@@ -657,13 +676,62 @@ void bowser_act_teleport(void) {
             break;
     }
 }
+
+void bowser_act_teleport_home(void){
+    switch (o->oSubAction) {
+        // Set opacity target to invisible and become intangible
+        case BOWSER_SUB_ACT_TELEPORT_START:
+            cur_obj_become_intangible();
+            o->oBowserTargetOpacity = 0;
+            o->oBowserTimer = 10; // set timer value
+            // Play sound effect
+            if (o->oTimer == 0) {
+                cur_obj_play_sound_2(SOUND_OBJ2_BOWSER_TELEPORT);
+            }
+            // Bowser is invisible, move angle to face center
+            if (o->oOpacity == 0) {
+                o->oSubAction++;
+                o->oMoveAngleYaw = o->oBowserAngleToCentre;
+                //o->oFaceAngleYaw = o->oMoveAngleYaw;
+            }
+            break;
+        case BOWSER_SUB_ACT_TELEPORT_MOVE:
+            // reduce timer and set velocity teleport while at it
+            if (o->oPosZ > -50 && o->oPosZ < 50 && o->oPosX > -50 && o->oPosX < 50) {
+                o->oSubAction = BOWSER_SUB_ACT_TELEPORT_STOP;
+                o->oFaceAngleYaw = o->oAngleToMario;
+                o->oMoveAngleYaw = o->oFaceAngleYaw; // update angle
+            }
+            else {
+                o->oForwardVel = 99.0f;
+            }
+            break;
+        // Set opacity target to visible and become tangible
+        case BOWSER_SUB_ACT_TELEPORT_STOP:
+            o->oPosY = 95;
+            cur_obj_init_animation_with_sound(BOWSER_ANIM_IDLE);
+            o->oForwardVel = 0.0f; // reset velocity
+            o->oBowserTargetOpacity = 0xFF;
+            // Set to default action once visible
+            if (o->oOpacity == 0xFF) {
+                o->oAction = preChosenAction;
+                action = 1;
+            }
+            cur_obj_become_tangible();
+            break;
+    }
+}
 s8 hitCount = -1;
 /**
  * emu custom ganondorf style homing orb
  */
  u8 flag_spawn_amp;
 void bowser_act_homing_orb(void) {
+    struct Object *ampObj;
+    f32 dist;
+    ampObj = cur_obj_find_nearest_object_with_behavior(bhvAttackableAmp, &dist);
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
+    o->childObj = ampObj;
     s32 frame = o->header.gfx.animInfo.animFrame;
     o->oTimer ++;
    if (o->childObj == NULL){ //checks to make sure that an amp isnt already spawned
@@ -728,6 +796,7 @@ void bowser_act_spit_fire_into_sky(void) {
  */
 void bowser_act_hit_mine(void) {
     // Similar vel values from bowser_fly_back_dead
+    action = 0;
     if (o->oTimer == 0) {
         o->oForwardVel = -400.0f;
         o->oVelY = 100.0f;
@@ -860,39 +929,40 @@ void bowser_act_big_jump(void) {
 
 // START EMU ATTACKS
 void bowser_act_multi_jump (void){
-    if (o->oSubAction == 0) {
-    if (bowser_set_anim_jump()) {
-            // Set vel depending of the stage and status
-            if (o->oBehParams2ndByte == BOWSER_BP_BITS && o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
-                o->oVelY = 70.0f;
-            } else {
-                o->oVelY = 80.0f;
-            }
-            o->oBowserTimer = 0;
-            bowser_short_second_hop();
-            o->oSubAction++;
-        }
-    } else if (o->oSubAction == 1) {
-        // Reset Bowser back on stage in BITS if he doesn't land properly
-        if (o->oBehParams2ndByte == BOWSER_BP_BITS && o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
-            bowser_reset_fallen_off_stage();
-        }
-        // Land on stage, reset status jump and velocity
-        if (bowser_land()) {
-            o->oBowserStatus &= ~BOWSER_STATUS_BIG_JUMP;
-            o->oForwardVel = 0.0f;
-            o->oSubAction++;
-            // Spawn shockwave (BITS only) if is not on a platform
-            //if (o->oHealth < 3) bowser_spawn_shockwave();
-            bowser_spawn_electric_ring();
-            // Tilt platform in BITFS
-           //if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
-           //    o->oAction = BOWSER_ACT_TILT_LAVA_PLATFORM;
-           //}
-        }
-    // Set to default action when the animation is over
-    } else if (cur_obj_check_if_near_animation_end()) {
-        o->oAction = BOWSER_ACT_DEFAULT;
+    if(bowser_set_anim_jump()) {o->oVelY = 70.0f;}
+    if(o->oPosY > 500.0f){
+        o->oVelY = 0.0f;
+        o->oPosY = 500.0f;
+        o->oAction = BOWSER_ACT_ELECTRIC_EXPANSION;
+    }
+}
+
+void bowser_act_electric_expansion (void){
+    o->oPosY = 500.0f;
+    cur_obj_init_animation_with_sound(BOWSER_ANIM_BREATH_UP);
+    // Set frames
+    s32 frame = o->header.gfx.animInfo.animFrame;
+    // Spawn flames in the middle of the animation
+    if (frame == 30) {
+    bowser_spawn_electric_ring();
+    }
+    if (cur_obj_check_if_near_animation_end()) {
+        o->oAction = BOWSER_ACT_SKY_ATTACK;
+    }
+}
+
+void bowser_act_sky_attack(void){
+    o->oPosY = 500.0f;
+    struct Object *wave;
+    if(o->oTimer%60 == 1){
+    wave = spawn_object(o, MODEL_EMU_LASER_RING, bhvLaserRing);
+        wave->oPosY = o->oFloorHeight+5.0f;
+    spawn_object_relative(
+            /* behParam */ 0x00, /* pos */ 0, 125, 0,
+            /* parent */ o, /* model */ MODEL_EMU_LASER_RING, bhvLaserRing);
+    spawn_object_relative(
+            /* behParam */ 0x00, /* pos */ 0, -20, 0,
+            /* parent */ o, /* model */ MODEL_EMU_LASER_RING, bhvLaserRing);
     }
 }
 /**
@@ -1677,7 +1747,10 @@ void (*sBowserActions[])(void) = {
     bowser_act_homing_orb,
     bowser_act_counter,
     bowser_act_multi_jump,
-    bowser_act_propane_shooter
+    bowser_act_propane_shooter,
+    bowser_act_electric_expansion,
+    bowser_act_sky_attack,
+    bowser_act_teleport_home
 };
 
 /**
@@ -1732,6 +1805,12 @@ void bowser_free_update(void) {
         apply_platform_displacement(FALSE, platform);
     }
 #endif
+    struct Object *sussy;
+    sussy = cur_obj_nearest_object_with_behavior(bhvDogEmu);
+    // checks if an amp already exists and makes bowser counter if it's close enough
+   struct Object *ampObj;
+    f32 dist;
+    ampObj = cur_obj_find_nearest_object_with_behavior(bhvAttackableAmp, &dist);
     // Reset grabbed status
     o->oBowserGrabbedStatus = BOWSER_GRAB_STATUS_NONE;
     // Update positions and actions (default action)
@@ -1741,6 +1820,22 @@ void bowser_free_update(void) {
     // Jump on stage if Bowser has fallen off
     if (bowser_check_fallen_off_stage()) {
         o->oAction = BOWSER_ACT_JUMP_ONTO_STAGE;
+    }
+    if (ampObj != NULL){
+        o->childObj = ampObj;
+        if (dist_between_objects(o, o->childObj) < 150.0f && count == 0){
+            o->oAction = BOWSER_ACT_COUNTER;
+            o->childObj->oAction = EMU_AMP_CHASE;
+        }
+    }
+    if (sussy != NULL && sussy->oAction == DIG) {
+        if (action == 0){
+        preChosenAction = BOWSER_ACT_HOMING_ORB;
+        o->oAction = BOWSER_ACT_TELEPORT_HOME;
+        o->childObj = sussy;
+        } else if (action == 1) {
+            o->oAction = BOWSER_ACT_HOMING_ORB;
+        }
     }
     // Check floor height and platform
     find_floor(o->oPosX, o->oPosY, o->oPosZ, &floor);
@@ -1844,17 +1939,7 @@ void bhv_bowser_loop(void) {
             }
         }
     }
-    // checks if an amp already exists and makes bowser counter if it's close enough
-   struct Object *ampObj;
-    f32 dist;
-    ampObj = cur_obj_find_nearest_object_with_behavior(bhvAttackableAmp, &dist);
-    o->childObj = ampObj;
-    if (o->childObj != NULL){
-        if (dist_between_objects(o, o->childObj) < 150.0f && count == 0){
-            o->oAction = BOWSER_ACT_COUNTER;
-            o->childObj->oAction = EMU_AMP_CHASE;
-        }
-    }
+
     // Set bitflag status for distance/angle values
     // Only the first one is used
     if (angleToMario < 0x2000) {

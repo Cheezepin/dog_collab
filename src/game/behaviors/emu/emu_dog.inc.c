@@ -72,8 +72,9 @@ void rand_polar_coord(void){
     f32 theta;
     u16 r;
     theta = random_float() * 2 * M_PI;
-    r = (random_u16() % 2800) + (random_u16() % 2800);
-    if (r >=2800) {r = 5400-r;}
+    r = (random_u16() % 3500) + (random_u16() % 3500);
+    if (r >=3500) {r = 7000-r;}
+    if (r < 2000) {r = 3500 - r;}
     theta = radians_to_angle(theta);
     nextX = ((r * cosf(theta))); 
     nextZ = ((r * sinf(theta)));
@@ -134,8 +135,8 @@ void set_ashpile_target(void) {
 void goto_ashpile(void) {}
 void run_around(void) {
     cur_obj_init_animation(DOG_ANIM_RUN);
-    print_text_fmt_int(5, 20, "X %d", nextX);
-    print_text_fmt_int(5, 40, "Z %d", nextZ);
+    //print_text_fmt_int(5, 20, "X %d", nextX);
+    //print_text_fmt_int(5, 40, "Z %d", nextZ);
     if (nextX > o->oPosX - 10.0f && nextX < o->oPosX + 10.0f && nextZ > o->oPosZ - 10.0f && nextZ < o->oPosZ + 10.0f){
         o->oAction = EMU_DOG_RANDOM_LOCATION;
     }
@@ -187,9 +188,9 @@ void injured (void) {
 void bhv_idle_dog_loop (void) {
     if (cur_obj_nearest_object_with_behavior(bhvGoddardCage) == NULL){
         print_text_fmt_int(0, 0, "Dog Health = %d", dogHealth);
-        print_text_fmt_int(0, 50, "action = %d", o->oAction);
-        print_text_fmt_int(0, 100, "X %d", o->oPosX);
-        print_text_fmt_int(0, 200, "Y %d", o->oPosY);
+        //print_text_fmt_int(0, 50, "action = %d", o->oAction);
+        //print_text_fmt_int(0, 100, "X %d", o->oPosX);
+        //print_text_fmt_int(0, 200, "Y %d", o->oPosY);
         struct Object *amp;
         if (o->oAction == DIG && cur_obj_nearest_object_with_behavior(bhvAttackableAmp) != NULL){
             amp = cur_obj_nearest_object_with_behavior(bhvAttackableAmp);

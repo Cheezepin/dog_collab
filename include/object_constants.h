@@ -311,6 +311,9 @@
     #define BOWSER_ACT_COUNTER                              0x15
     #define BOWSER_ACT_MULTI_JUMP                           0x16
     #define BOWSER_ACT_PROPANE_SHOOTER                      0x17
+    #define BOWSER_ACT_ELECTRIC_EXPANSION                   0x18
+    #define BOWSER_ACT_SKY_ATTACK                           0x19
+    #define BOWSER_ACT_TELEPORT_HOME                        0x1A
     /* oAnimState */
     #define BOWSER_ANIM_STATE_OPAQUE                        TRANSPARENCY_ANIM_STATE_OPAQUE
     #define BOWSER_ANIM_STATE_TRANSPARENT                   TRANSPARENCY_ANIM_STATE_TRANSPARENT

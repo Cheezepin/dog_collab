@@ -10,8 +10,6 @@
 #include "game/level_update.h"
 
 #include "levels/scripts.h"
-
-
 /* Fast64 begin persistent block [includes] */
 #include "actors/common1.h"
 #include "actors/group12.h"
@@ -39,20 +37,20 @@ const LevelScript level_bowser_1_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_GODDARD_CAGE, cage_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE, emu_ashpile_geo), 
     LOAD_MODEL_FROM_GEO(MODEL_ASHPILE2, emu_ashpile2_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_EMU_LASER_RING, laser_ring),
 	/* Fast64 end persistent block [level commands] */
 
 	AREA(1, bowser_1_area_1),
-		OBJECT(MODEL_ASHPILE, 2059, 95, 0, 0, 0, 0, 0x00000000, bhvAshpileEmu),
-		OBJECT(MODEL_ASHPILE, 0, 95, -2059, 0, 90, 0, 0x00000000, bhvAshpileEmu),
-		OBJECT(MODEL_ASHPILE, -2059, 95, 0, 0, -180, 0, 0x00000000, bhvAshpileEmu),
-		OBJECT(MODEL_ASHPILE, 0, 95, 2059, 0, -90, 0, 0x00000000, bhvAshpileEmu),
-		OBJECT(MODEL_ASHPILE, 1456, 95, -1456, 0, 45, 0, 0x00000000, bhvAshpileEmu),
-		OBJECT(MODEL_ASHPILE, 1456, 95, 1456, 0, -45, 0, 0x00000000, bhvAshpileEmu),
-		OBJECT(MODEL_ASHPILE, -1456, 95, -1456, 0, 135, 0, 0x00000000, bhvAshpileEmu),
-		OBJECT(MODEL_ASHPILE, -1456, 95, 1456, 0, -135, 0, 0x00000000, bhvAshpileEmu),
+		OBJECT(MODEL_ASHPILE, 3633, 95, -105, 0, 0, 0, (0 << 16), bhvAshpileEmu),
+		OBJECT(MODEL_ASHPILE, 0, 95, -3737, 0, 90, 0, (0 << 16), bhvAshpileEmu),
+		OBJECT(MODEL_ASHPILE, -3632, 95, -105, 0, -180, 0, (0 << 16), bhvAshpileEmu),
+		OBJECT(MODEL_ASHPILE, 0, 95, 3528, 0, -90, 0, (0 << 16), bhvAshpileEmu),
+		OBJECT(MODEL_ASHPILE, 2569, 95, -2673, 0, 45, 0, (0 << 16), bhvAshpileEmu),
+		OBJECT(MODEL_ASHPILE, 2569, 95, 2464, 0, -45, 0, (0 << 16), bhvAshpileEmu),
+		OBJECT(MODEL_ASHPILE, -2568, 95, -2673, 0, 135, 0, (0 << 16), bhvAshpileEmu),
+		OBJECT(MODEL_ASHPILE, -2568, 95, 2464, 0, -135, 0, (0 << 16), bhvAshpileEmu),
 		OBJECT(MODEL_BOWSER, 0, 403, 649, 0, 0, 0, 0x13001850, bhvBowser),
-		OBJECT(MODEL_DOG, 0, 95, 2307, 0, 0, 0, 0x00000000, bhvDogEmu),
-		//OBJECT(MODEL_GODDARD_CAGE, 0, 568, 2307, 0, 0, 0, 0x00000000, bhvGoddardCage),
+		OBJECT(MODEL_GODDARD_CAGE, 0, 568, 3356, 0, 0, 0, 0x00000000, bhvGoddardCage),
 		OBJECT(MODEL_NONE, 0, -421, 0, 0, 0, 0, 0x00000000, bhvPaletteSwap),
 		OBJECT(MODEL_NONE, 0, 200, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		MARIO_POS(0x01, 0, 0, 451, 0),
