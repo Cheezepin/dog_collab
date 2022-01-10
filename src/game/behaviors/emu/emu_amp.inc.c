@@ -26,14 +26,15 @@ void bhv_attackable_amp_init(void) {
     o->parentObj = bowserObj;
     o->childObj = doggoObj;
     if (o->parentObj->oHealth == 3) o->oForwardVel = 15.0f;
-    if (o->parentObj->oHealth == 2) o->oForwardVel = 20.0f;
-    if (o->parentObj->oHealth == 1) o->oForwardVel = 25.0f;
+    else if (o->parentObj->oHealth == 2) o->oForwardVel = 20.0f;
+    else if (o->parentObj->oHealth == 1) o->oForwardVel = 25.0f;
+    else {o->oForwardVel = 25.0f;}
 }
 
 void check_emu_amp_attack(void) {
     u8 marioAttack = 5;
         //obj_set_hitbox(o, &sEmuAmpHitbox);
-     if (o->oDistanceToMario < 100 && o->oDistanceToMario > 60) {
+     if (o->oDistanceToMario < 100 && o->oDistanceToMario > 0) {
          if (abs_angle_diff(o->oMoveAngleYaw, gMarioObject->oMoveAngleYaw) > 0x6000) {
             if (gMarioStates[0].action == ACT_SLIDE_KICK) {marioAttack= 1;}
            else if (gMarioStates[0].action == ACT_PUNCHING) {marioAttack= 1;}

@@ -93,7 +93,9 @@ void bhv_Propane_Shooter(void) {
 
 void bhv_Propane_Flame(void) {
     if (gCurrLevelNum == LEVEL_BOWSER_1){
+        if((3.0f-o->oTimer*.5) > 2){ 
     obj_scale(o,3.0f-(o->oTimer * .5));
+        }
     o->oPosX += sins(o->oMoveAngleYaw) * 50.0f;
     o->oPosZ += coss(o->oMoveAngleYaw) * 50.0f;
     if (o->oTimer > 50) {

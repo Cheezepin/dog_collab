@@ -4,35 +4,36 @@
 /**
  * Bowser's shockwave attack main loop
  */
-s32 hurt = 0;
+s32 expansionPhase = 0;
 void bhv_bowser_electric_ring_loop(void) {
-    s16 fadeFrames = 70;
+    if (expansionPhase == 0){
+    o->header.gfx.scale[0] = o->header.gfx.scale[0] + 0.2f;
+    o->header.gfx.scale[1] = o->header.gfx.scale[1] + 0.2f;
+    o->header.gfx.scale[2] = o->header.gfx.scale[2] + 0.2f;
+    if (o->header.gfx.scale[0] > 20.0f){
+        expansionPhase = 1;
+    }
+    }
+    if (expansionPhase == 1){
+    o->header.gfx.scale[0] = o->header.gfx.scale[0] - 0.2f;
+    o->header.gfx.scale[1] = o->header.gfx.scale[1] - 0.2f;
+    o->header.gfx.scale[2] = o->header.gfx.scale[2] - 0.2f;
+    if (o->header.gfx.scale[0] < 15.0f){
+       expansionPhase = 2; 
+    }
+    }
+    if (expansionPhase == 2){
+    o->header.gfx.scale[0] = o->header.gfx.scale[0] + 1.0f;
+    o->header.gfx.scale[1] = o->header.gfx.scale[1] + 1.0f;
+    o->header.gfx.scale[2] = o->header.gfx.scale[2] + 1.0f;
+    if (o->header.gfx.scale[0] > 45.0f){
+        expansionPhase = 3;
+    }
+    }
    
-    // Scale shockwave as the timer goes on
-    o->header.gfx.scale[0] = o->header.gfx.scale[0] + 0.05f;
-    o->header.gfx.scale[1] = 0.5f;
-    o->header.gfx.scale[2] = o->header.gfx.scale[2] + 0.05f;
-    // Slightly reduce opacity each 3 frames
-    if (gGlobalTimer % 3)
-        o->oOpacity -= 1;
-    // Reduce opacity faster after 70 frames have passed
-    if (o->oTimer > fadeFrames)
-        o->oOpacity -= 5;
-    // Delete object when it's fully transparent
-    if (o->oOpacity <= 0)
-        obj_mark_for_deletion(o);
-    // If object times is less than 70 frame and Mario is not in the air...
-    if (o->oTimer < fadeFrames) {
-        if (gMarioState->wall) {hurt = TRUE;} else {hurt = FALSE;}
-        //if (gMarioState->ceil) {if (gMarioState->ceil->object == o) {hurt = TRUE;print_text(100,100, "hurt");} else {hurt = FALSE;}}
-        //if (gMarioState->floor) {if (gMarioState->floor->object == o) {hurt = TRUE;print_text(100,100, "hurt");} else {hurt = FALSE;}}
-        switch (hurt) {
-            case TRUE:
-            gMarioObject->oInteractStatus |= INT_STATUS_MARIO_SHOCKWAVE;
-            o->oInteractStatus = 0;
-            break;
-            case FALSE:
-            break;
-        }
+    if (expansionPhase == 3){
+        if (o->oTimer > 500){
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }
     }
 }

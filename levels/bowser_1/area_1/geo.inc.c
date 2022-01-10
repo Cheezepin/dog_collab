@@ -4,8 +4,10 @@ const GeoLayout bowser_1_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE(LAYER_OPAQUE, 0, 95, 0),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, bowser_1_dl_Torus_mesh_layer_1),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, bowser_1_dl_Torus_mesh_layer_5),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -5, -4, -106, bowser_1_dl_Torus_001_mesh_layer_1),
+		GEO_OPEN_NODE(),
+			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, bowser_1_dl_Torus_001_mesh_layer_5),
+		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
