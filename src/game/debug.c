@@ -424,7 +424,6 @@ void try_print_debug_mario_object_info(void) {
  * stageinfo)
  */
 void try_print_debug_mario_level_info(void) {
-    if (gPlayer1Controller->buttonPressed & L_TRIG) *(vs8*)0=0;
     switch (sDebugPage) {
         case DEBUG_PAGE_OBJECTINFO:
             break; // no info list is printed for obj info.
