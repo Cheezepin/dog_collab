@@ -117,3 +117,10 @@ void bhv_spawn_star_no_level_exit(u32 params) {
     starObj->oInteractionSubtype = INT_SUBTYPE_NO_EXIT;
     obj_set_angle(starObj, 0, 0, 0);
 }
+
+void bhv_spawn_star_get_outta_here(u32 params) {
+    struct Object *starObj = spawn_object(o, MODEL_STAR, bhvSpawnedStar);
+    starObj->oBehParams = params << 24;
+    // starObj->oInteractionSubtype = INT_SUBTYPE_NO_EXIT;
+    obj_set_angle(starObj, 0, 0, 0);
+}

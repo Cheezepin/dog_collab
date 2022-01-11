@@ -20,3 +20,4 @@
 #include "levels/bowser_1/ashpile/geo.inc.c"
 #include "levels/bowser_1/ashpile2/geo.inc.c"
 #include "levels/bowser_1/electric_ring/geo.inc.c"
+#include "levels/bowser_1/laser_ring/geo.inc.c"

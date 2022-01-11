@@ -198,7 +198,7 @@
 
 // castle grounds
 
-// bitdw
+// emu
 #define MODEL_BITDW_SQUARE_PLATFORM               0x36        // geo_bitdw_000558
 #define MODEL_BITDW_SEESAW_PLATFORM               0x37        // geo_bitdw_000540
 #define MODEL_BITDW_SLIDING_PLATFORM              0x38        // geo_bitdw_000528
@@ -215,6 +215,7 @@
 #define MODEL_BITDW_SIMPLE_SPINNER_SHOCK          0x1AE       // I was to lazy to change all the model numbers so its out of order here
 #define MODEL_BITDW_SPHERE                        0x1AD
 #define MODEL_GODDARD_CAGE                        0x1AF       // only used in Bowser battle 1, not ever used in bitdw
+#define MODEL_EMU_LASER_RING                      0x1B0
 
 // vcutm
 #define MODEL_VCUTM_SEESAW_PLATFORM               0x36        // vcutm_geo_0001F0
@@ -692,6 +693,14 @@
 #define MODEL_MISSILE 0x110
 
 //END ROVERT MODEL IDS
+
+
+// someone2639 models
+enum _2639Models {
+	MODEL_2639COUCH = 0x100,
+	MODEL_ELEV2639,
+	MODEL_2639SODER,
+};
 
 //start cheeze model ids
 
