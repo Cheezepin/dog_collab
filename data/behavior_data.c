@@ -7592,6 +7592,8 @@ const BehaviorScript bhvWaterSpout[] = {
     LOAD_COLLISION_DATA(water_spout_collision),
     SET_FLOAT(oCollisionDistance, 30000),
     SET_FLOAT(oDrawingDistance, 30000),
+    SET_HOME(),
+    CALL_NATIVE(water_spout_init),
     BEGIN_LOOP(),
         CALL_NATIVE(water_spout_loop),
         CALL_NATIVE(load_object_collision_model),
