@@ -123,7 +123,7 @@ enum WATER_SPOUT_PLATFORM_STATES {
 #define WATER_SPOUT_MAX_VEL_DECEL   -70.0f
 #define WATER_SPOUT_VEL_DEC         3.0f
 #define WATER_SPOUT_SNAP_STRENGTH_DOWN 0.035f
-inline void determine_water_spout_height_from_platform(void) {
+void determine_water_spout_height_from_platform(void) {
     s32 marioOnPlatform = gMarioObject->platform == o->oWaterSpoutFloatyRock;
     switch (o->oSubAction) {
         case WATER_SPOUT_AT_BOTTOM: {

@@ -137,10 +137,10 @@ void parse_width_field(const char *str, s32 *srcIndex, u8 *width, s8 *zeroPad) {
     }
 
     // Read width digits up until the 'd' or 'x' format specifier.
-    while ((str[*srcIndex] != 'b')
-        && (str[*srcIndex] != 'o')
-        && (str[*srcIndex] != 'd')
-        && (str[*srcIndex] != 'x')) {
+    while (str[*srcIndex] != 'b'
+        && str[*srcIndex] != 'o'
+        && str[*srcIndex] != 'd'
+        && str[*srcIndex] != 'x') {
         digits[digitsLen] = str[*srcIndex] - '0';
 
         if (digits[digitsLen] < 0 || digits[digitsLen] >= 10) { // not a valid digit
@@ -197,10 +197,10 @@ void print_text_fmt_int(s32 x, s32 y, const char *str, s32 n) {
 
             parse_width_field(str, &srcIndex, &width, &zeroPad);
 
-            if ((str[srcIndex] != 'b')
-             && (str[srcIndex] != 'o')
-             && (str[srcIndex] != 'd')
-             && (str[srcIndex] != 'x')) {
+            if (str[srcIndex] != 'b'
+                && str[srcIndex] != 'o'
+                && str[srcIndex] != 'd'
+                && str[srcIndex] != 'x') {
                 break;
             }
             if (str[srcIndex] == 'b') base =  2;
@@ -279,7 +279,7 @@ void print_text_centered(s32 x, s32 y, const char *str) {
     }
 
     sTextLabels[sTextLabelsCount]->length = length;
-    sTextLabels[sTextLabelsCount]->x = x - length * 12 / 2;
+    sTextLabels[sTextLabelsCount]->x = x - length * 6; // * 12 / 2;
     sTextLabels[sTextLabelsCount]->y = y;
     sTextLabelsCount++;
 }
@@ -317,13 +317,37 @@ void add_glyph_texture(s8 glyphIndex) {
     gSPDisplayList(gDisplayListHead++, dl_hud_img_load_tex_block);
 }
 
+#ifndef WIDESCREEN
+/**
+ * Clips textrect into the boundaries defined.
+ */
+void clip_to_bounds(s32 *x, s32 *y) {
+    if (*x < TEXRECT_MIN_X) {
+        *x = TEXRECT_MIN_X;
+    }
+
+    if (*x > TEXRECT_MAX_X) {
+        *x = TEXRECT_MAX_X;
+    }
+
+    if (*y < TEXRECT_MIN_Y) {
+        *y = TEXRECT_MIN_Y;
+    }
+
+    if (*y > TEXRECT_MAX_Y) {
+        *y = TEXRECT_MAX_Y;
+    }
+}
+#endif
+
 /**
  * Renders the glyph that's set at the given position.
  */
 void render_textrect(s32 x, s32 y, s32 pos) {
     s32 rectBaseX = x + pos * 12;
     s32 rectBaseY = 224 - y;
-    s32 rectX, rectY;
+    s32 rectX;
+    s32 rectY;
 
     rectX = rectBaseX;
     rectY = rectBaseY;
@@ -336,7 +360,8 @@ void render_textrect(s32 x, s32 y, s32 pos) {
  * a for loop.
  */
 void render_text_labels(void) {
-    s32 i, j;
+    s32 i;
+    s32 j;
     s8 glyphIndex;
     Mtx *mtx;
 

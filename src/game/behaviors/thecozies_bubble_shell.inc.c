@@ -28,14 +28,14 @@ void bubble_shell_sample_frame_buffer(void) {
     static s32 xOffset = (SCREEN_WIDTH / 2) - BUBBLE_FB_SAMPLE_OFFSET__W;
     static s32 yOffset = (SCREEN_HEIGHT / 2) - BUBBLE_FB_SAMPLE_OFFSET__H;
 
-    // if (gNoFrameBufferEmulation) {
+    // if (gNoFramebufferEmulation) {
     //     return;
     // }
 
     if (curFrame == gGlobalTimer) return;
     curFrame = gGlobalTimer;
 
-    u16 *fb = gFrameBuffers[sRenderingFrameBuffer];
+    u16 *fb = gFramebuffers[sRenderingFramebuffer];
     u16 *image = segmented_to_virtual(shell_bubble_framebuffer_img);
 
     for (iy = 0; iy < BUBBLE_FB_IMAGE__H; iy++) {

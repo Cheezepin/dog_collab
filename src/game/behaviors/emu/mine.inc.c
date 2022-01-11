@@ -21,7 +21,7 @@ void emu_bomb_spawn_coin(void) {
     if (((o->oBehParams >> 8) & 0x1) == 0) {
         obj_spawn_yellow_coins(o, 1);
         o->oBehParams = 0x100;
-        set_object_respawn_info_bits(o, RESPAWN_INFO_TYPE_32);
+        set_object_respawn_info_bits(o, RESPAWN_INFO_TYPE_NORMAL);
     }
 }
 
@@ -130,7 +130,7 @@ void emu_bomb_dropped_loop(void) {
 }
 
 void emu_bomb_thrown_loop(void) {
-    cur_obj_enable_rendering_2();
+    cur_obj_enable_rendering();
 
     o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
     o->oHeldState  = 0;
