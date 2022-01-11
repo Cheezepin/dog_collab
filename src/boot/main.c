@@ -12,7 +12,7 @@
 #include "segments.h"
 #include "game/main.h"
 #include "game/rumble_init.h"
-#include "game/version.h"
+// #include "game/version.h"
 #ifdef UNF
 #include "usb/usb.h"
 #include "usb/debug.h"
