@@ -19,7 +19,7 @@
 // Skybox size modifier, changing this will add support for larger skybox images. NOTE: Vanilla skyboxes may break if you change this option. Be sure to rescale them accordingly.
 // Whenever you change this, make sure to run "make -C tools clean" to rebuild the skybox tool (alternatively go into skyconv.c and change the file in any way (like adding/deleting a space) to specifically rebuild that tool).
 // When increasing this, you should probably also increase the GFX pool size. (the GFX_POOL_SIZE define above)
-#define SKYBOX_SIZE 1
+#define SKYBOX_SIZE 2
 
 // When this option is enabled, LODs will ONLY work on console.
 // When this option is disabled, LODs will work regardless of whether console or emulator is used.
@@ -31,7 +31,7 @@
 // #define PUPPYPRINT
 
 // Disable AA (Improves console performance but causes visible seams between unconnected geometry).
-// #define DISABLE_AA
+#define DISABLE_AA
 
 // Makes the coins ia8 64x64 instead of ia16 32x32. Uses new ia8 textures so that vanilla coins look better.
 #define IA8_COINS
