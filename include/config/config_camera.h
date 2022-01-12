@@ -17,9 +17,9 @@
 
 /***** Movement specific camera modes: *****/
 // Camera mode when Mario is < 400 units away from the water surface (default is CAMERA_MODE_WATER_SURFACE)
-#define WATER_SURFACE_CAMERA_MODE CAMERA_MODE_WATER_SURFACE
+#define WATER_SURFACE_CAMERA_MODE CAMERA_MODE_8_DIRECTIONS
 // Camera mode when Mario is > 800 units away from the water surface (default is CAMERA_MODE_BEHIND_MARIO)
-#define DEEP_WATER_CAMERA_MODE    CAMERA_MODE_BEHIND_MARIO
+#define DEEP_WATER_CAMERA_MODE    CAMERA_MODE_8_DIRECTIONS
 // Camera mode when Mario is flying (default is CAMERA_MODE_BEHIND_MARIO)
 #define FLYING_CAMERA_MODE        CAMERA_MODE_BEHIND_MARIO
 /*******************************************/
