@@ -50,7 +50,7 @@
 s16 gMatStackIndex;
 ALIGNED16 Mat4 gMatStack[32];
 ALIGNED16 Mtx *gMatStackFixed[32];
-f32 aspect;
+
 u8 heatValue = 0; //Controls the intensity of the heatwave. Goes up to 255.
 f32 sAspectRatio;
 
@@ -1015,7 +1015,7 @@ s32 obj_is_in_view(struct GraphNodeObject *node, Mat4 matrix) {
 
     struct GraphNode *geo = node->sharedChild;
 
-    s16 cullingRadius;
+    s32 cullingRadius;
 
     if (geo != NULL && geo->type == GRAPH_NODE_TYPE_CULLING_RADIUS) {
         cullingRadius = ((struct GraphNodeCullingRadius *) geo)->cullingRadius;
