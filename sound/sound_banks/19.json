@@ -225,6 +225,13 @@
             "release_rate": 34,
             "envelope": "envelope0",
             "sound": "44_grand_piano"
+        },
+        "instFrenchHorn": {
+            "release_rate": 53,
+            "normal_range_hi": 50,
+            "envelope": "envelope5",
+            "sound": "16_french_horns",
+            "sound_hi": "45_french_horns_lq"
         }
     },
     "instrument_list": [
@@ -241,6 +248,7 @@
         "inst10",
         "inst8",
         "inst9",
-        "instGrandPiano"
+        "instGrandPiano",
+        "instFrenchHorn"
     ]
 }

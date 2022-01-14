@@ -15,14 +15,14 @@ extern void koopa_boss_shell_init(void);
 extern void koopa_boss_shell_loop(void);
 
 void spawn_mist_particles_variable(s32 count, s32 offsetY, f32 size);
-void bhv_spawn_star_no_level_exit(u32);
-void bhv_star_door_loop_2(void);
+void bhv_spawn_star_no_level_exit(u32 params);
+void bhv_door_rendering_loop(void);
 void spawn_triangle_break_particles(s16 numTris, s16 triModel, f32 triSize, s16 triAnimState);
 
 void spawn_mist_from_global(void);
 void clear_particle_flags(u32 flags);
 void spawn_wind_particles(s16 pitch, s16 yaw);
-s32 check_if_moving_over_floor(f32 a0, f32 a1);
+s32 check_if_moving_over_floor(f32 maxDist, f32 offset);
 s32 arc_to_goal_pos(Vec3f a0, Vec3f a1, f32 yVel, f32 gravity);
 void tox_box_move(f32 forwardVel, f32 a1, s16 deltaPitch, s16 deltaRoll);
 void play_penguin_walking_sound(s32 walk);
@@ -31,14 +31,14 @@ void cur_obj_spawn_strong_wind_particles(s32 windSpread, f32 scale, f32 relPosX,
 void cur_obj_spawn_weak_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
 void cur_obj_spawn_pinwheel_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
 
+//! Lots of these are duplicates
 void bhv_cap_switch_loop(void);
 void bhv_tiny_star_particles_init(void);
 void bhv_grindel_thwomp_loop(void);
-void bhv_koopa_shell_underwater_loop(void);
 void bhv_door_init(void);
 void bhv_door_loop(void);
 void bhv_star_door_loop(void);
-void bhv_mr_i_loop(void);
+void bhv_mr_i_iris_loop(void);
 void bhv_mr_i_body_loop(void);
 void bhv_mr_i_particle_loop(void);
 void bhv_piranha_particle_loop(void);
@@ -82,8 +82,8 @@ void bhv_spawned_star_loop(void);
 void bhv_coin_init(void);
 void bhv_coin_loop(void);
 void bhv_coin_inside_boo_loop(void);
+void bhv_coin_formation_spawned_coin_loop(void);
 void bhv_coin_formation_init(void);
-void bhv_coin_formation_spawn_loop(void);
 void bhv_coin_formation_loop(void);
 void bhv_temp_coin_loop(void);
 void bhv_coin_sparkles_loop(void);
@@ -217,11 +217,10 @@ void bhv_wdw_express_elevator_loop(void);
 void bhv_bub_spawner_loop(void);
 void bhv_bub_loop(void);
 void bhv_exclamation_box_loop(void);
-void bhv_rotating_exclamation_box_loop(void);
+void bhv_rotating_exclamation_mark_loop(void);
 void bhv_sound_spawner_init(void);
 void bhv_bowsers_sub_loop(void);
 void bhv_sushi_shark_loop(void);
-void bhv_sushi_shark_collision_loop(void);
 void bhv_jrb_sliding_box_loop(void);
 void bhv_ship_part_3_loop(void);
 void bhv_sunken_ship_part_loop(void);
@@ -505,8 +504,8 @@ void bhv_ttc_spinner_update(void);
 void bhv_mr_blizzard_init(void);
 void bhv_mr_blizzard_update(void);
 void bhv_mr_blizzard_snowball(void);
-void bhv_sliding_plat_2_init(void);
-void bhv_sliding_plat_2_loop(void);
+void bhv_sliding_platform_init(void);
+void bhv_sliding_platform_loop(void);
 void bhv_rotating_octagonal_plat_init(void);
 void bhv_rotating_octagonal_plat_loop(void);
 void bhv_animates_on_floor_switch_press_init(void);
@@ -529,9 +528,9 @@ void bhv_haunted_bookshelf_manager_loop(void);
 void bhv_book_switch_loop(void);
 void bhv_fire_piranha_plant_init(void);
 void bhv_fire_piranha_plant_update(void);
-void bhv_small_piranha_flame_loop(void);
+void bhv_moving_flame_loop(void);
+void bhv_moving_flame_particle_loop(void);
 void bhv_fire_spitter_update(void);
-void bhv_fly_guy_flame_loop(void);
 void bhv_snufit_loop(void);
 void bhv_snufit_balls_loop(void);
 void bhv_horizontal_grindel_init(void);
@@ -595,8 +594,19 @@ void bhv_spike_update(void);
 void bhv_spike_ball_init(void);
 void bhv_spike_ball_loop(void);
 void bhv_podoboo_loop(void);
+//emu start
 void bhv_emu_sphere(void);
 void palette_swap(void);
+void bhv_goddard_cage_loop(void);
+void bhv_goddard_cageCOL_loop(void);
+void bhv_idle_dog_init (void);
+void bhv_idle_dog_loop(void);
+void bhv_attackable_amp_init(void);
+void bhv_attackable_amp_loop(void);
+void bhv_emu_bomb_init(void);
+void bhv_emu_bomb_loop(void);
+void bhv_bowser_electric_ring_loop(void);
+//emu end
 
 //CowQuack start
 void bhv_carousel_init(void);
@@ -652,13 +662,7 @@ Gfx *geo_switch_cephie_hold(s32 callContext, struct GraphNode *node, UNUSED Mat4
 // axo end
 
 // thecozies start
-void set_water_top_force(struct MarioState *m);
-void water_top_loop(void);
-void water_spout_loop(void);
-void rain_cloud_init(void);
-void rain_cloud_loop(void);
-void vertical_instant_warp_loop(void);
-void aperature_door_loop(void);
+#include "game/behaviors/thecozies.inc.h"
 // thecozies end
 
 //ROVERT BEHAVIOR ACTIONS START
@@ -666,7 +670,18 @@ void bhv_Magma_Thwomp(void);
 void bhv_swing_Board(void);
 void bhv_Propane_Shooter(void);
 void bhv_Propane_Flame(void);
-void bhv_lava_grate_loop();
+void bhv_lava_grate_loop(void);
+void bhv_ash_pile(void);
+void bhv_castle_raft(void);
+void bhv_rovert_elevator(void);
+void bhv_rovert_fling(void);
+void bhv_toad_cage(void);
+void bhv_rovert_toad(void);
+void bhv_tank_base(void);
+void bhv_tank_head(void);
+void bhv_Tank_Propane_Flame(void);
+void bhv_Launcher_Motos(void);
+void bhv_missile_loop(void);
 //ROVERT BEHAVIOR ACTIONS END
 
 //cheeze start
@@ -675,6 +690,7 @@ void bhv_cheezebombwall_loop(void);
 void bhv_cheezedog_loop(void);
 void bhv_koopatrol_init(void);
 void bhv_koopatrol_loop(void);
+void bhv_wind_sound_loop(void);
 //cheeze end
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
@@ -693,8 +709,8 @@ Gfx *geo_switch_tuxie_mother_eyes(s32 callContext, struct GraphNode *node, UNUSE
 Gfx *geo_update_held_mario_pos(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 
 // Snufit
-Gfx *geo_snufit_move_mask(s32 callContext, struct GraphNode *node, UNUSED Mat4 *c);
-Gfx *geo_snufit_scale_body(s32 callContext, struct GraphNode *node, UNUSED Mat4 *c);
+Gfx *geo_snufit_move_mask(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
+Gfx *geo_snufit_scale_body(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);
 
 // Bowser key cutscene
 Gfx *geo_scale_bowser_key(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);

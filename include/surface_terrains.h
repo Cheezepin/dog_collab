@@ -4,6 +4,7 @@
 #include "config.h"
 
 // Surface Types
+#define SURFACE_NULL -1
 #define SURFACE_DEFAULT                      0x0000 // Environment default
 #define SURFACE_BURNING                      0x0001 // Lava / Frostbite (in SL), but is used mostly for Lava
 #define SURFACE_NEW_WATER                    0x0002 // Custom water surface
@@ -185,24 +186,28 @@
 
 // These are effectively unique "surface" types like those defined higher
 // And they are used as collision commands to load certain functions
-#define TERRAIN_LOAD_VERTICES    0x0040 // Begins vertices list for collision triangles
-#define TERRAIN_LOAD_CONTINUE    0x0041 // Stop loading vertices but continues to load other collision commands
-#define TERRAIN_LOAD_END         0x0042 // End the collision list
-#define TERRAIN_LOAD_OBJECTS     0x0043 // Loads in certain objects for level start
-#define TERRAIN_LOAD_ENVIRONMENT 0x0044 // Loads water/HMC gas
+enum TerrainLoadCmd {
+    TERRAIN_LOAD_VERTICES = 0x40, // Begins vertices list for collision triangles
+    TERRAIN_LOAD_CONTINUE,        // Stop loading vertices but continues to load other collision commands
+    TERRAIN_LOAD_END,             // End the collision list
+    TERRAIN_LOAD_OBJECTS,         // Loads in certain objects for level start
+    TERRAIN_LOAD_ENVIRONMENT      // Loads water/HMC gas
+};
 
-#define TERRAIN_LOAD_IS_SURFACE_TYPE_LOW(cmd)  (cmd < 0x40)
+#define TERRAIN_LOAD_IS_SURFACE_TYPE_LOW(cmd)  (cmd <  0x40)
 #define TERRAIN_LOAD_IS_SURFACE_TYPE_HIGH(cmd) (cmd >= 0x65)
 
 // Terrain types defined by the level script command terrain_type (cmd_31)
-#define TERRAIN_GRASS  0x0000
-#define TERRAIN_STONE  0x0001
-#define TERRAIN_SNOW   0x0002
-#define TERRAIN_SAND   0x0003
-#define TERRAIN_SPOOKY 0x0004
-#define TERRAIN_WATER  0x0005
-#define TERRAIN_SLIDE  0x0006
-#define TERRAIN_MASK   0x0007
+enum TerrainType {
+    TERRAIN_GRASS,
+    TERRAIN_STONE,
+    TERRAIN_SNOW,
+    TERRAIN_SAND,
+    TERRAIN_SPOOKY,
+    TERRAIN_WATER,
+    TERRAIN_SLIDE,
+    TERRAIN_MASK = 0x7
+};
 
 // These collision commands are unique "surface" types like those defined higher
 
@@ -245,7 +250,7 @@
 
 // Floor Checkpoint
 #define FLOOR_CHECKPOINT_FORCE 0xFCE
-#define SURFACE_IS_WARP_PLANE(surfType) (surfType == SURFACE_DEATH_PLANE || surfType == SURFACE_HURT_FLOOR || surfType == SURFACE_VERTICAL_WIND)
+#define SURFACE_IS_WARP_PLANE(surfType) (surfType == SURFACE_DEATH_PLANE || surfType == SURFACE_HURT_FLOOR /*|| surfType == SURFACE_VERTICAL_WIND*/)
 
 // Custom Reonu surface types
 #define SURFACE_SUPER_SLIPPERY 0x0017

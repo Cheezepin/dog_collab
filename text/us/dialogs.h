@@ -5,122 +5,76 @@
 #define PLASTERED "splattered"
 #define SCAM_ME "cheat!\n"
 #define SCRAM "get lost"
-#define YOU_CANT_SWIM_IN_IT "It is too heavy to\nswim with."
-#define GIVE_UP "give up"
 #else
 #define COMRADES "comrades"
 #define PLASTERED "plastered"
 #define SCAM_ME "scam\nME. "
 #define SCRAM "scram--"
-#define YOU_CANT_SWIM_IN_IT "You can't swim in it."
-#define GIVE_UP "give"
 #endif
 
-DEFINE_DIALOG(DIALOG_000, 1, 6, 30, 200, "\
-Wow! You're smack in the\n\
-middle of the " TEXT_DOG ".\n\
-You'll find the Power\n\
-Stars that Bowser stole\n\
-inside the painting\n\
-worlds.\n\
-First, talk to the\n\
-Bob-omb Buddy. (Press " TEXT_BBUTTON "\n\
-to talk.) He'll certainly\n\
-help you out, and so will\n\
-his " COMRADES " in other\n\
-areas.\n\
-To read signs, stop, face\n\
-them and press " TEXT_BBUTTON ". Press " TEXT_ABUTTON "\n\
-or " TEXT_BBUTTON " to scroll ahead. You\n\
-can talk to some other\n\
-characters by facing them\n\
-and pressing " TEXT_BBUTTON ".")
-
-DEFINE_DIALOG(DIALOG_001, 1, 4, 95, 200, "\
-Watch out! If you wander\n\
-around here, you're liable\n\
-to be " PLASTERED " by a\n\
-water bomb!\n\
-Those enemy Bob-ombs love\n\
-to fight, and they're\n\
-always finding ways to\n\
-attack.\n\
-This meadow has become\n\
-a battlefield ever since\n\
-the Big Bob-omb got his\n\
-paws on the Power Star.\n\
-Can you recover the Star\n\
-for us? Cross the bridge\n\
-and go left up the path\n\
-to find the Big Bob-omb.\n\
-Please come back to see\n\
-me after you've retrieved\n\
-the Power Star!")
-
-DEFINE_DIALOG(DIALOG_002, 1, 4, 95, 200, "\
-Hey, you! It's dangerous\n\
-ahead, so listen up! Take\n\
-my advice.\n\
+DEFINE_DIALOG(DIALOG_000, 1, 3, 30, 200, "\
+YOU! The one in the\n\
+@FF0000FFred hat!@FFFFFFFF You've ruined\n\
+my plans!\n\
+Those toads who were\n\
+doing all our work\n\
+escaped!\n\
+Now how will we\n\
+expand our prestigious\n\
+military nation?!\n\
+That's it!\n\
 \n\
-Cross the two\n\
-bridges ahead, then\n\
-watch for falling\n\
-water bombs.\n\
-The Big Bob-omb at the\n\
-top of the mountain is\n\
-very powerful--don't let\n\
-him grab you!\n\
-We're Bob-omb Buddies,\n\
-and we're on your side.\n\
-You can talk to us\n\
-whenever you'd like to!")
+\n\
+I, @00DD00FFGENERAL MOTOS@FFFFFFFF,\n\
+AM GOING TO MURDER\n\
+YOU!!!\n\
+@FFFFFF50What do you mean\n\
+where am I?\n\
+\n\
+@FF0000FFI AM THE TANK!!!")
 
-DEFINE_DIALOG(DIALOG_003, 1, 5, 95, 200, "\
-Thank you, Mario! The Big\n\
-Bob-omb is nothing but a\n\
-big dud now! But the\n\
-battle for the castle has\n\
-just begun.\n\
-Other enemies are holding\n\
-the other Power Stars. If\n\
-you recover more Stars,\n\
-you can open new doors\n\
-that lead to new worlds!\n\
-My Bob-omb Buddies are\n\
-waiting for you. Be sure\n\
-to talk to them--they'll\n\
-set up cannons for you.")
+DEFINE_DIALOG(DIALOG_001, 1, 3, 95, 200, "\
+NOOOOOO!!!\n\
+You have defeated me...\n\
+\n\
+@00DD00FFGeneral Motos@FFFFFFFF is sorry\n\
+for all the wrong\n\
+he's done...\n\
+Have our final star...\n\
+Our army doesn't need\n\
+it no more...")
+
+DEFINE_DIALOG(DIALOG_002, 1, 5, 95, 200, "\
+@FF0000FFMario!@FFFFFFFF Help!\n\
+The Motos Army has\n\
+kidnapped all of Peach's\n\
+servants and are using\n\
+them for slave labor!\n\
+Now that we have\n\
+enough @FFFF00FFstarpower@FFFFFFFF,\n\
+we need you to break\n\
+open the cages and\n\
+set them free!")
+
+DEFINE_DIALOG(DIALOG_003, 1, 4, 95, 200, "\
+Thank you so much!\n\
+We can now return\n\
+to @FFFF00FFPeach's New Home@FFFFFFFF.\n\
+\n\
+The last thing to be\n\
+done is to stop\n\
+@00DD00FFGeneral Motos@FFFFFFFF once\n\
+and for all!")
 
 DEFINE_DIALOG(DIALOG_004, 1, 3, 95, 200, "\
-We're peace-loving\n\
-Bob-ombs, so we don't use\n\
-cannons.\n\
-But if you'd like\n\
-to blast off, we don't\n\
-mind. Help yourself.\n\
-We'll prepare all of the\n\
-cannons in this course for\n\
-you to use. Bon Voyage!")
+Press " TEXT_ZBUTTON " to summon\n\
+"TEXT_DOG" to dig\n\
+the ashpiles!")
 
 DEFINE_DIALOG(DIALOG_005, 1, 3, 30, 200, "\
-Hey, Mario! Is it true\n\
-that you beat the Big\n\
-Bob-omb? Cool!\n\
-You must be strong. And\n\
-pretty fast. So, how fast\n\
-are you, anyway?\n\
-Fast enough to beat me...\n\
-Koopa the Quick? I don't\n\
-think so. Just try me.\n\
-How about a race to the\n\
-mountaintop, where the\n\
-Big Bob-omb was?\n\
-Whaddya say? When I say\n\
-" TEXT_QUOTE_OPEN "Go," TEXT_QUOTE_CLOSE " let the race begin!\n\
-\n\
-Ready....\n\
-\n\
-//Go!////Don't Go")
+Come back later...\n\
+When you're ready to\n\
+face the @00DD00FFGeneral@000000FF.")
 
 DEFINE_DIALOG(DIALOG_006, 1, 3, 30, 200, "\
 Hey!!! Don't try to " SCAM_ME
@@ -784,8 +738,9 @@ by enemy attacks.\n\
 You don't even have to\n\
 breathe while wearing it.\n\
 \n\
-The only problem:\n"
-YOU_CANT_SWIM_IN_IT)
+The only problem:\n\
+It is too heavy to\n\
+swim with.")
 
 DEFINE_DIALOG(DIALOG_063, 1, 5, 30, 200, "\
 The Vanish Cap is inside\n\
@@ -1963,7 +1918,6 @@ Just make sure this\n\
 doesn't fall into their\n\
 hands.")
 
-
 //COMIT DIALOG
 DEFINE_DIALOG(COMIT_DIALOG_1, 1, 4, 30, 200, "\
 Welcome to the Cumulus\n\
@@ -2110,3 +2064,44 @@ DEFINE_DIALOG(COMIT_DIALOG_17, 1, 3, 30, 200, "\
 Want a neat tip?\n\
 Hold A while twirling to\n\
 descend slower!")
+
+#define C_NORMAL "@--------"
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 4, 30, 200, "\n\
+Hey you!\n\
+No pets allowed!\n\
+")
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, "(\n\
+Mario! I was\n\
+looking for you!\n\
+I see you brought your dog,\n\
+but that angry\n\
+@FF0000FFFront Desk Toad" C_NORMAL "\n\
+isn't having any of it!\n\
+But maybe there's a\n\
+loophole in the law\n\
+you could exploit?\n\
+You're totally allowed\n\
+to bring in\n\
+service animals,\n\
+so all we need to do\n\
+is find a way to\n\
+make you look like\n\
+you're blind!\n\
+See if you can grab a\n\
+@00FF00FFCANE" C_NORMAL " and @34ebe1FFSUNGLASSES" C_NORMAL",\n\
+Then talk to the\n\
+@FF0000FFFront Desk Toad" C_NORMAL " again.\n\
+Maybe he'll budge then.\n\
+)")
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, "Hey you!\n\
+You didn't tell me that was a service dog!\n\
+Now I gotta get the exemption form!\n\
+")
+
+

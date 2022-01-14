@@ -36,3 +36,6 @@ UNUSED static const u64 binid_5 = 5;
 
 #include "treasure_chest/model.inc.c"
 UNUSED static const u64 binid_6 = 6;
+
+#include "shell_bubble/shell_bubble_framebuffer.inc.c"
+#include "shell_bubble/model.inc.c"

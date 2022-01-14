@@ -658,6 +658,15 @@ static void puppycam_input_hold_preset3(void) {
             gPuppyCam.yawTarget += 0x2000;
             play_sound(SOUND_MENU_CAMERA_TURN,gGlobalSoundSource);
         }
+
+        if (gPlayer1Controller->buttonDown & L_JPAD) {
+            gPuppyCam.stickN[0]  = 1;
+            gPuppyCam.yawTarget -= 0x200;
+        }
+        if (gPlayer1Controller->buttonDown & R_JPAD) {
+            gPuppyCam.stickN[0]  = 1;
+            gPuppyCam.yawTarget += 0x200;
+        }
     }
 
     // Handles zooming in. Works just like vanilla.
@@ -911,11 +920,12 @@ void puppycam_terrain_angle(void) {
         f32 z = gPuppyCam.targetObj->oPosZ - (10 * coss(gPuppyCam.yaw));
 
         f32 floorHeight = find_floor_height(x, gPuppyCam.targetObj->oPosY+100, z);
+        f32 diff = gMarioState->floorHeight - floorHeight;
 
-        if (ABS(mfloorHeight - floorHeight) > 350) {
+        if (ABS(diff) > 350.f) {
             gPuppyCam.intendedTerrainPitch = 0;
         } else {
-            floorPitch = -atan2s(30.0f, mfloorHeight - floorHeight);
+            floorPitch = -atan2s(30.0f, diff);
             gPuppyCam.intendedTerrainPitch = approach_f32_asymptotic(gPuppyCam.intendedTerrainPitch, floorPitch, adjustSpeed);
             gotTheOkay = TRUE;
         }
@@ -1040,10 +1050,12 @@ void puppycam_projection_behaviours(void) {
         if (gPuppyCam.options.turnAggression > 0 && gPuppyCam.flags & PUPPYCAM_BEHAVIOUR_TURN_HELPER && !(gPuppyCam.flags & PUPPYCAM_BEHAVIOUR_INPUT_8DIR) &&
         yVel == 0.0f && !(gPuppyCam.flags & PUPPYCAM_BEHAVIOUR_INPUT_4DIR) && gPuppyCam.options.inputType != 2) { // Holy hell this is getting spicy.
             // With turn aggression enabled, or if Mario's sliding, adjust the camera view behind mario.
-            if (gPuppyCam.options.turnAggression > 0 || gMarioState->action & ACT_FLAG_BUTT_OR_STOMACH_SLIDE) {
+            if (gPuppyCam.options.turnAggression > 0 || gMarioState->action & ACT_FLAG_BUTT_OR_STOMACH_SLIDE || gMarioState->action == ACT_SHOT_FROM_CANNON || gMarioState->action == ACT_FLYING) {
                 if (gMarioState->action & ACT_FLAG_BUTT_OR_STOMACH_SLIDE) {
                     turnRate = 4; // If he's sliding, do it 4x as fast.
                 }
+                if (gMarioState->action == ACT_SHOT_FROM_CANNON || gMarioState->action == ACT_FLYING)
+                    turnRate = 1;
                 // The deal here, is if Mario's moving, or he's sliding and the camera's within 90 degrees behind him, it'll auto focus behind him, with an intensity based on the camera's centre speed.
                 // It also scales with forward velocity, so it's a gradual effect as he speeds up.
                 if ((ABS(gPlayer1Controller->rawStickX) > 20 && !(gMarioState->action & ACT_FLAG_BUTT_OR_STOMACH_SLIDE)) ||
@@ -1068,7 +1080,7 @@ void puppycam_projection_behaviours(void) {
         //This is the base floor height when stood on the ground. It's used to set a baseline for where the camera sits while Mario remains a height from this point, so it keeps a consistent motion.
         gPuppyCam.targetFloorHeight = CLAMP(find_floor_height(gPuppyCam.targetObj->oPosX, gPuppyCam.targetObj->oPosY, gPuppyCam.targetObj->oPosZ), gPuppyCam.targetObj->oPosY-350, gPuppyCam.targetObj->oPosY+300);
         gPuppyCam.lastTargetFloorHeight = approach_f32_asymptotic(gPuppyCam.lastTargetFloorHeight , gPuppyCam.targetFloorHeight
-                                                                , CLAMP((ABSF(yVel) - 17.f) / 200.f, 0, 0.1f)
+                                                                , CLAMP((absf(yVel) - 17.f) / 200.f, 0, 0.1f)
                                                                 + CLAMP((absf(gPuppyCam.targetFloorHeight - gPuppyCam.lastTargetFloorHeight) - 30.f) / 300.f, 0, 0.1f));
 
         if (gMarioState->action == ACT_SLEEPING || gMarioState->action == ACT_START_SLEEPING) {
@@ -1077,7 +1089,7 @@ void puppycam_projection_behaviours(void) {
         //     // When moving underwater, the camera will zoom in on Mayro.
         //     gPuppyCam.zoom = approach_f32_asymptotic(gPuppyCam.zoom, MAX(gPuppyCam.zoomTarget/1.5f, gPuppyCam.zoomPoints[0]), 0.2f);
         } else {
-            gPuppyCam.zoom = approach_f32_asymptotic(gPuppyCam.zoom,gPuppyCam.zoomTarget,0.2f);
+            gPuppyCam.zoom = approach_f32_asymptotic(gPuppyCam.zoom,gPuppyCam.zoomTarget, 0.2f);
         }
         // Attempts at automatic adjustment that only apply when moving or jumping.
         if ((gMarioState->action & ACT_FLAG_MOVING || gMarioState->action & ACT_FLAG_AIR || (gMarioState->action & ACT_FLAG_SWIMMING && !gMarioState->waterLevel-100 - gMarioState->pos[1] > 5 && gMarioState->forwardVel != 0.0f)) || (gCurrentCharacter == 1 && dogObj != 0 && (forwardVel > 0 || ABS(yVel) > 2.0f))) {
@@ -1098,7 +1110,7 @@ void puppycam_projection_behaviours(void) {
             gPuppyCam.zoom = approach_f32_asymptotic((f32)gPuppyCam.zoom, 250.0f, CLAMP((f32)((gPuppyCam.pitch - 0x38C0) / 3072.0f), 0.0f, 1.0f));
         }
 
-        if (!(gMarioState->action & ACT_FLAG_SWIMMING)) {
+        if (!(gMarioState->action & ACT_FLAG_SWIMMING_OR_FLYING)) {
             gPuppyCam.floorY[0] = softClamp(gPuppyCam.targetObj->oPosY - gPuppyCam.lastTargetFloorHeight, -180, 300);
             gPuppyCam.floorY[1] = softClamp(gPuppyCam.targetObj->oPosY - gPuppyCam.lastTargetFloorHeight, -180, 350);
             gPuppyCam.swimPitch = approach_f32_asymptotic(gPuppyCam.swimPitch,0,0.2f);
@@ -1124,6 +1136,19 @@ void puppycam_projection_behaviours(void) {
 
         // This will shift the intended yaw when wall kicking, to align with the wall being kicked.
         // puppycam_wall_angle();
+
+#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
+ #ifdef UNLOCK_ALL
+    if (gMarioState->floor != NULL && gMarioState->floor->type == SURFACE_LOOK_UP_WARP) {
+ #else // !UNLOCK_ALL
+    if (gMarioState->floor != NULL && gMarioState->floor->type == SURFACE_LOOK_UP_WARP
+        && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 10) {
+ #endif // !UNLOCK_ALL
+        if (gPuppyCam.pitchTarget >= 0x7000) {
+            level_trigger_warp(gMarioState, WARP_OP_LOOK_UP);
+        }
+    }
+#endif // ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
     } else {
         puppycam_reset_values();
     }
@@ -1337,7 +1362,7 @@ static void puppycam_apply(void) {
 
     gLakituState.mode    = gCamera->mode;
     gLakituState.defMode = gCamera->defMode;
-    gLakituState.roll    = approach_s32(gLakituState.roll, 0, 0x80, 0x80);
+    gLakituState.roll    = 0;
 
     // Commented out simply because vanilla SM64 has this always set sometimes, and relies on certain camera modes to apply secondary foci.
     // Uncomment to have fun with certain angles.

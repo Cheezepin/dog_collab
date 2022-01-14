@@ -7,6 +7,16 @@
 #include "macros.h"
 #include "types.h"
 
+enum ObjCollisionFlags {
+    OBJ_COL_FLAGS_NONE      = (0 << 0),
+    OBJ_COL_FLAG_GROUNDED   = (1 << 0),
+    OBJ_COL_FLAG_HIT_WALL   = (1 << 1),
+    OBJ_COL_FLAG_UNDERWATER = (1 << 2),
+    OBJ_COL_FLAG_NO_Y_VEL   = (1 << 3),
+    OBJ_COL_FLAGS_LANDED    = (OBJ_COL_FLAG_GROUNDED | OBJ_COL_FLAG_NO_Y_VEL)
+};
+
+//! Lots of these are duplicates
 void set_yoshi_as_not_dead(void);
 s32 coin_step(s16 *collisionFlagsPtr);
 void moving_coin_flicker(void);
@@ -64,7 +74,7 @@ void butterfly_act_follow_mario(void);
 void butterfly_act_return_home(void);
 void bhv_butterfly_loop(void);
 void bhv_hoot_init(void);
-f32  hoot_find_next_floor(f32 dist);
+f32 hoot_find_next_floor(f32 dist);
 void hoot_floor_bounce(void);
 void hoot_free_step(s16 fastOscY, s32 speed);
 void hoot_player_set_yaw(void);
@@ -87,7 +97,7 @@ void bhv_bobomb_bully_death_smoke_init(void);
 void bhv_bobomb_explosion_bubble_init(void);
 void bhv_bobomb_explosion_bubble_loop(void);
 void bhv_respawner_loop(void);
-void create_respawner(s32 arg0, const BehaviorScript *behToSpawn, s32 minSpawnDist);
+void create_respawner(ModelID32 model, const BehaviorScript *behToSpawn, s32 minSpawnDist);
 void bhv_small_bully_init(void);
 void bhv_big_bully_init(void);
 void bully_check_mario_collision(void);
@@ -100,14 +110,14 @@ void bully_step(void);
 void bully_spawn_coin(void);
 void bully_act_level_death(void);
 void bhv_bully_loop(void);
-void big_bully_spawn_minion(s32 arg0, s32 arg1, s32 arg2, s16 arg3);
+void big_bully_spawn_minion(s32 x, s32 y, s32 z, s16 ry);
 void bhv_big_bully_with_minions_init(void);
 void big_bully_spawn_star(void);
 void bhv_big_bully_with_minions_loop(void);
 f32 water_ring_calc_mario_dist(void);
 void water_ring_init(void);
 void bhv_jet_stream_water_ring_init(void);
-void water_ring_check_collection(f32 avgScale, struct Object* ringManager);
+void water_ring_check_collection(f32 avgScale, struct Object *ringManager);
 void water_ring_set_scale(f32 avgScale);
 void water_ring_act_collected(void);
 void water_ring_act_not_collected(void);
@@ -119,6 +129,7 @@ void bhv_manta_ray_water_ring_init(void);
 void manta_water_ring_act_not_collected(void);
 void bhv_manta_ray_water_ring_loop(void);
 void bhv_bowser_bomb_loop(void);
+void bhv_goddard_cage_loop(void);
 void bhv_bowser_bomb_explosion_loop(void);
 void bhv_bowser_bomb_smoke_loop(void);
 void bhv_celebration_star_init(void);
@@ -137,7 +148,7 @@ void bhv_wf_sliding_platform_init(void);
 void bhv_wf_sliding_platform_loop(void);
 void bhv_moneybag_init(void);
 void moneybag_check_mario_collision(void);
-void moneybag_jump(s8 collisionFlags);
+void moneybag_jump(s16 collisionFlags);
 void moneybag_act_move_around(void);
 void moneybag_act_return_home(void);
 void moneybag_act_disappear(void);
@@ -148,7 +159,7 @@ void bhv_bowling_ball_init(void);
 void bowling_ball_set_hitbox(void);
 void bowling_ball_set_waypoints(void);
 void bhv_bowling_ball_roll_loop(void);
-void bhv_bowling_ball_initializeLoop(void);
+void bhv_bowling_ball_initialize_loop(void);
 void bhv_bowling_ball_loop(void);
 void bhv_generic_bowling_ball_spawner_init(void);
 void bhv_generic_bowling_ball_spawner_loop(void);
@@ -163,4 +174,35 @@ void bhv_rr_cruiser_wing_loop(void);
 void spawn_default_star(f32 x, f32 y, f32 z);
 void spawn_clown_star(f32 x, f32 y, f32 z);
 
+//EMU START
+void bhv_emu_bomb_init(void);
+void emu_bomb_spawn_coin(void) ;
+void emu_bomb_act_explode(void);
+void emu_bomb_check_interactions(void);
+void emu_bomb_act_patrol(void);
+void emu_bomb_act_chase_mario(void);
+void emu_bomb_act_launched(void);
+void generic_emu_bomb_free_loop(void);
+void stationary_emu_bomb_free_loop(void) ;
+void emu_bomb_free_loop(void);
+void emu_bomb_held_loop(void);
+void emu_bomb_dropped_loop(void);
+void emu_bomb_thrown_loop(void);
+void bhv_emu_bomb_loop(void);
+void bhv_emu_bomb_fuse_smoke_init(void);
+
 #endif // OBJ_BEHAVIORS_H
+
+void bhv_DogInLobby_init(void); void bhv_DogInLobby_loop(void);
+void bhv_DogOutsideHotel_init(void); void bhv_DogOutsideHotel_loop(void);
+void bhv_DogFloor1_init(void); void bhv_DogFloor1_loop(void);
+void bhv_DogFloor2_init(void); void bhv_DogFloor2_loop(void);
+void bhv_DogFloor3_init(void); void bhv_DogFloor3_loop(void);
+void bhv_DogFloor4_init(void); void bhv_DogFloor4_loop(void);
+void bhv_DogBalcony_init(void); void bhv_DogBalcony_loop(void);
+void bhv_2639cane_init(void); void bhv_2639cane_loop(void);
+void bhv_2639glasses_init(void); void bhv_2639glasses_loop(void);
+void bhv_A2PushableCouch_init(void); void bhv_A2PushableCouch_loop(void);
+void bhv_2639A2HiddenStar_init(void); void bhv_2639A2HiddenStar_loop(void);
+void bhv_2639Elevator_init(void); void bhv_2639Elevator_loop(void);
+void bhv_2639Soda_init(void); void bhv_2639Soda_loop(void);

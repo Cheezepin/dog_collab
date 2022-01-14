@@ -1,0 +1,13 @@
+extern const GeoLayout missile_geo[];
+extern Lights1 missile_rocket_white_lights;
+extern Lights1 missile_rocket_red_lights;
+extern Vtx missile_Cube_043_mesh_layer_1_vtx_cull[8];
+extern Vtx missile_Cube_043_mesh_layer_1_vtx_0[14];
+extern Gfx missile_Cube_043_mesh_layer_1_tri_0[];
+extern Vtx missile_Cube_043_mesh_layer_1_vtx_1[26];
+extern Gfx missile_Cube_043_mesh_layer_1_tri_1[];
+extern Gfx mat_missile_rocket_white[];
+extern Gfx mat_missile_rocket_red[];
+extern Gfx mat_revert_missile_rocket_red[];
+extern Gfx missile_Cube_043_mesh_layer_1[];
+extern Gfx missile_material_revert_render_settings[];

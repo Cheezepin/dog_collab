@@ -7,7 +7,7 @@ const GeoLayout water_spout_geo[] = {
 		GEO_OPEN_NODE(),
 			GEO_SCALE(LAYER_OPAQUE, 49152),
 			GEO_OPEN_NODE(),
-				GEO_RENDER_RANGE(0, 5000),
+				GEO_RENDER_RANGE(0, 51),
 				GEO_OPEN_NODE(),
 					GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, water_spout_b_inner_water_spout_mesh_layer_7),
 				GEO_CLOSE_NODE(),

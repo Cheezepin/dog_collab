@@ -22,6 +22,8 @@
 #include "src/game/texscroll/ddd_texscroll.inc.c"
 
 #include "src/game/texscroll/hmc_texscroll.inc.c"
+#include "src/game/texscroll/bowser_1_texscroll.inc.c"
+#include "src/game/texscroll/bitfs_texscroll.inc.c"
 void scroll_textures() {
 	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_bbh_segment_7SegmentRomStart)) {
 		scroll_textures_bbh();
@@ -53,10 +55,24 @@ void scroll_textures() {
 		scroll_textures_bitdw();
 	}
 
-	
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_bowser_1_segment_7SegmentRomStart)) {
+		scroll_textures_bowser_1();
+	}
 
-	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_jrb_segment_7SegmentRomStart)) {
-		scroll_textures_jrb();
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_ccm_segment_7SegmentRomStart)) {
+		scroll_textures_ccm();
+	}
+
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_ccm_segment_7SegmentRomStart)) {
+		scroll_textures_ccm();
+	}
+
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_bitfs_segment_7SegmentRomStart)) {
+		scroll_textures_bitfs();
+	}
+
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_bowser_1_segment_7SegmentRomStart)) {
+		scroll_textures_bowser_1();
 	}
 
 }

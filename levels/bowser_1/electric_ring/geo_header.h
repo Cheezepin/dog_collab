@@ -1,0 +1,10 @@
+extern const GeoLayout electric_ring_geo[];
+extern Lights1 electric_ring_electricity_layer5_lights;
+extern u8 electric_ring_thunderBiri4_ia4[];
+extern u8 electric_ring_rk_thunder1_ia8[];
+extern Vtx electric_ring_skinned_001_mesh_layer_5_vtx_0[28];
+extern Gfx electric_ring_skinned_001_mesh_layer_5_tri_0[];
+extern Gfx mat_electric_ring_electricity_layer5[];
+extern Gfx mat_revert_electric_ring_electricity_layer5[];
+extern Gfx electric_ring_skinned_001_mesh_layer_5[];
+extern Gfx electric_ring_material_revert_render_settings[];
