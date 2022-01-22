@@ -167,7 +167,7 @@ if (o->oInteractStatus & INT_STATUS_HIT_MINE)
                 break;
 
             case HELD_DROPPED:
-                emu_bomb_dropped_loop();
+                emu_bomb_thrown_loop();
                 break;
         }
 

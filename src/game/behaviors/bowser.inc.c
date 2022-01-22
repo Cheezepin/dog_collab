@@ -187,6 +187,11 @@ s32 bowser_spawn_electric_ring(void) {
     return FALSE;
 }
 
+s32 bowser_spawn_lightning(void){
+    struct Object *bolt;
+    spawn_object(o, MODEL_NONE, bhvBowserLightning);
+}
+
 /**
  * Misc effects that Bowser plays when he lands with drastic actions
  * Plays step sound, spawns particles and changes camera event
@@ -539,6 +544,8 @@ void bowser_act_idle(void) {
  * Default Bowser act that doesn't last very long
  */
 void bowser_act_default(void) {
+    struct Object *mine;
+    mine = cur_obj_nearest_object_with_behavior(bhvEmuBomb);
     action = 0;
     // Set eye state
     o->oBowserEyesShut = FALSE;
@@ -554,7 +561,7 @@ void bowser_act_default(void) {
     //} else if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
     //    bowser_bitfs_actions();
     //} else { // BOWSER_BP_BITS
-        if (o->oHealth == 4) {bowser_bits_actions(); }
+        if (o->oHealth == 4 || mine == NULL) {bowser_bits_actions(); }
         else {bowser_emu_actions();}
    // }
     count = 0;
@@ -697,12 +704,22 @@ void bowser_act_teleport_home(void){
             break;
         case BOWSER_SUB_ACT_TELEPORT_MOVE:
             // reduce timer and set velocity teleport while at it
+            o->oForwardVel = 200.0f;
+            if (o->oPosZ > -100 && o->oPosZ < 103 && o->oPosX > -100 && o->oPosX < 103){
+                o->oForwardVel = 99.0f;
             if (o->oPosZ > -50 && o->oPosZ < 50 && o->oPosX > -50 && o->oPosX < 50) {
                 o->oSubAction = BOWSER_SUB_ACT_TELEPORT_STOP;
                 o->oFaceAngleYaw = o->oAngleToMario;
                 o->oMoveAngleYaw = o->oFaceAngleYaw; // update angle
-            }
+            }}
             else {
+                if (o->oTimer > 120){
+                    o->oPosX = 0;
+                    o->oPosZ = 0;
+                    o->oSubAction = BOWSER_SUB_ACT_TELEPORT_STOP;
+                    o->oFaceAngleYaw = o->oAngleToMario;
+                    o->oMoveAngleYaw = o->oFaceAngleYaw;
+                }
                 o->oForwardVel = 99.0f;
             }
             break;
@@ -755,7 +772,7 @@ void bowser_act_homing_orb(void) {
     }
    }
 void bowser_act_counter(void) {
-    o->childObj->oForwardVel += 5.0f;
+    o->childObj->oPiranhaPlantScale += 5.0f;
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x900);
     s32 frame;
     count = 1;
@@ -764,6 +781,36 @@ void bowser_act_counter(void) {
     //if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)){
         o->oAction = BOWSER_ACT_DEFAULT;
     //}
+}
+
+void bowser_act_pre_attack(void){
+    struct Object *amp;
+    amp = cur_obj_nearest_object_with_behavior(bhvAttackableAmp);
+    if (cur_obj_nearest_object_with_behavior(bhvEmuBomb) != NULL){
+    if (o->oHealth == 3) {preChosenAction = BOWSER_ACT_MULTI_JUMP;} //BOWSER_ACT_LIGHTNING
+    else if (o->oHealth == 2) {preChosenAction = BOWSER_ACT_PROPANE_SHOOTER;}
+    else  {preChosenAction = BOWSER_ACT_MULTI_JUMP;}
+    o->oAction = BOWSER_ACT_TELEPORT_HOME;
+    }
+    else {o->oAction = BOWSER_ACT_DEFAULT;}
+}
+
+void bowser_act_lightning(void){
+    struct Object *lightning;
+    s32 frame = o->header.gfx.animInfo.animFrame;
+    cur_obj_init_animation_with_sound(BOWSER_ANIM_BREATH_UP);
+    if (frame == 30) {
+        for (u8 i=0; i<8; i++){
+        o->oMoveAngleYaw += DEGREES(45);
+        lightning = spawn_object(o, MODEL_LIGHTNING, bhvStationaryLightning);
+        lightning->oPosX = coss(o->oMoveAngleYaw) * 500;
+        lightning->oPosZ = sins(o->oMoveAngleYaw) * 500;
+    }
+    bowser_spawn_electric_ring();
+    }
+    if (o->oTimer%20 == 1){
+     bowser_spawn_lightning();   
+    }
 }
 /**
  * Makes Bowser do a fire split into the sky
@@ -927,23 +974,71 @@ void bowser_act_big_jump(void) {
     }
 }
 
+struct Object *mario_find_furthest_object_with_behavior(const BehaviorScript *behavior, f32 *dist) {
+    uintptr_t *behaviorAddr = segmented_to_virtual(behavior);
+    struct Object *furthestObj = NULL;
+    struct Object *obj;
+    struct ObjectNode *listHead;
+    f32 maxDist = 0x20000;
+
+    listHead = &gObjectLists[get_object_list_from_behavior(behaviorAddr)];
+    obj = (struct Object *) listHead->next;
+
+    while (obj != (struct Object *) listHead) {
+        if (obj->behavior == behaviorAddr) {
+            if (obj->activeFlags != ACTIVE_FLAG_DEACTIVATED && obj != o) {
+                f32 objDist = dist_between_objects(gMarioObject, obj);
+                if (objDist > maxDist) {
+                    furthestObj = obj;
+                    maxDist = objDist;
+                }
+            }
+        }
+        obj = (struct Object *) obj->header.next;
+    }
+
+    *dist = maxDist;
+    return furthestObj;
+}
+
+struct Object *mario_furthest_object_with_behavior(const BehaviorScript *behavior) {
+    f32 dist;
+    struct Object *obj;
+    obj = mario_find_furthest_object_with_behavior(behavior, &dist);
+    return obj;
+}
 // START EMU ATTACKS
 void bowser_act_multi_jump (void){
-    if(bowser_set_anim_jump()) {o->oVelY = 70.0f;}
+    struct Object *ashpile;
+    ashpile = mario_furthest_object_with_behavior(bhvAshpileEmu);
+    if(bowser_set_anim_jump() && ashpile != NULL){ 
+    o->oVelY = 70.0f;
+    o->oMoveAngleYaw = obj_angle_to_object(o, ashpile) + 0x8000;
+    o->oForwardVel = -100.0f;
+    }
     if(o->oPosY > 500.0f){
         o->oVelY = 0.0f;
         o->oPosY = 500.0f;
+        if (dist_between_objects(o, ashpile) < 101.0f){
         o->oAction = BOWSER_ACT_ELECTRIC_EXPANSION;
+        }
     }
 }
 
 void bowser_act_electric_expansion (void){
+    struct Object *lightning;
     o->oPosY = 500.0f;
     cur_obj_init_animation_with_sound(BOWSER_ANIM_BREATH_UP);
     // Set frames
     s32 frame = o->header.gfx.animInfo.animFrame;
     // Spawn flames in the middle of the animation
     if (frame == 30) {
+        for (u8 i=0; i<8; i++){
+        o->oMoveAngleYaw += DEGREES(45);
+        lightning = spawn_object(o, MODEL_LIGHTNING, bhvStationaryLightning);
+        lightning->oPosX = coss(o->oMoveAngleYaw) * 500;
+        lightning->oPosZ = sins(o->oMoveAngleYaw) * 500;
+    }
     bowser_spawn_electric_ring();
     }
     if (cur_obj_check_if_near_animation_end()) {
@@ -1395,9 +1490,9 @@ void bowser_fly_back_dead(void) {
     cur_obj_init_animation_with_sound(BOWSER_ANIM_FLIP_DOWN);
     // More knockback in BITS
     if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
-        o->oForwardVel = -400.0f;
+        o->oForwardVel = -150.0f;
     } else {
-        o->oForwardVel = -200.0f;
+        o->oForwardVel = -150.0f;
     }
     o->oVelY = 100.0f;
     o->oMoveAngleYaw = o->oBowserAngleToCentre + 0x8000;
@@ -1750,7 +1845,9 @@ void (*sBowserActions[])(void) = {
     bowser_act_propane_shooter,
     bowser_act_electric_expansion,
     bowser_act_sky_attack,
-    bowser_act_teleport_home
+    bowser_act_teleport_home,
+    bowser_act_pre_attack,
+    bowser_act_lightning
 };
 
 /**
@@ -1793,6 +1890,8 @@ struct SoundState sBowserSoundStates[] = {
 void bowser_free_update(void) {
     struct Surface *floor;
     struct Object *platform;
+    struct Object *mine;
+    mine = cur_obj_nearest_object_with_behavior(bhvEmuBomb);
 #ifdef PLATFORM_DISPLACEMENT_2
     s16 tmpOFaceAngleYaw = (s16) o->oFaceAngleYaw;
     if ((platform = o->platform) != NULL) {
@@ -1828,7 +1927,7 @@ void bowser_free_update(void) {
             o->childObj->oAction = EMU_AMP_CHASE;
         }
     }
-    if (sussy != NULL && sussy->oAction == DIG) {
+    if (sussy != NULL && sussy->oAction == DIG && mine == NULL) {
         if (action == 0){
         preChosenAction = BOWSER_ACT_HOMING_ORB;
         o->oAction = BOWSER_ACT_TELEPORT_HOME;
@@ -1940,6 +2039,9 @@ void bhv_bowser_loop(void) {
         }
     }
 
+    if (mine == NULL && (o->oAction == BOWSER_ACT_LIGHTNING || o->oAction == BOWSER_ACT_PROPANE_SHOOTER || o->oAction == BOWSER_ACT_SKY_ATTACK)){
+        o->oAction = BOWSER_ACT_DEFAULT;
+    }
     // Set bitflag status for distance/angle values
     // Only the first one is used
     if (angleToMario < 0x2000) {
