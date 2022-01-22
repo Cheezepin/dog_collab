@@ -1,5 +1,5 @@
-#include "levels/bitdw/model.inc.c"
-#include "levels/bowser_1/model.inc.c"
+#include "levels/bitdw/header.h"
+#include "levels/bowser_1/header.h"
 void bhv_emu_sphere(void){
    long a;
     a = o->oBehParams;

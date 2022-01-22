@@ -5,6 +5,47 @@
 
 #include "types.h"
 
+enum TimerControl {
+    TIMER_CONTROL_SHOW,
+    TIMER_CONTROL_START,
+    TIMER_CONTROL_STOP,
+    TIMER_CONTROL_HIDE
+};
+
+enum WarpOperation {
+    WARP_OP_NONE,
+    WARP_OP_LOOK_UP,
+    WARP_OP_SPIN_SHRINK,
+    WARP_OP_WARP_DOOR,
+    WARP_OP_WARP_OBJECT,
+    WARP_OP_TELEPORT,
+    WARP_OP_TRIGGERS_LEVEL_SELECT = 0x10,
+    WARP_OP_STAR_EXIT,
+    WARP_OP_DEATH,
+    WARP_OP_WARP_FLOOR,
+    WARP_OP_GAME_OVER,
+    WARP_OP_CREDITS_END,
+    WARP_OP_DEMO_NEXT,
+    WARP_OP_CREDITS_START,
+    WARP_OP_CREDITS_NEXT,
+    WARP_OP_DEMO_END
+};
+
+enum SpecialWarpDestinations {
+    WARP_SPECIAL_LEVEL_SELECT        = -9,
+    WARP_SPECIAL_INTRO_SPLASH_SCREEN = -8,
+    WARP_SPECIAL_MARIO_HEAD_DIZZY    = -3,
+    WARP_SPECIAL_MARIO_HEAD_REGULAR  = -2,
+    WARP_SPECIAL_ENDING              = -1,
+    WARP_SPECIAL_NONE                =  0,
+};
+
+enum WarpDoorFlags {
+    WARP_FLAGS_NONE           = (0 << 0), // 0x00
+    WARP_FLAG_DOOR_PULLED     = (1 << 0), // 0x01
+    WARP_FLAG_DOOR_FLIP_MARIO = (1 << 1), // 0x02
+    WARP_FLAG_DOOR_IS_WARP    = (1 << 2), // 0x04
+};
 
 #define TIMER_CONTROL_SHOW                0x00
 #define TIMER_CONTROL_START               0x01
@@ -42,8 +83,8 @@
 #define WARP_FLAG_DOOR_IS_WARP            (1 << 2) // 0x04
 
 #define MARIO_SPAWN_DOOR_WARP             0x01
-#define MARIO_SPAWN_UNKNOWN_02            0x02
-#define MARIO_SPAWN_UNKNOWN_03            0x03
+#define MARIO_SPAWN_IDLE            0x02
+#define MARIO_SPAWN_PIPE            0x03
 #define MARIO_SPAWN_TELEPORT              0x04
 #define MARIO_SPAWN_INSTANT_ACTIVE        0x10
 #define MARIO_SPAWN_SWIMMING              0x11
@@ -133,21 +174,48 @@ enum HUDDisplayFlag {
     HUD_DISPLAY_FLAG_EMPHASIZE_POWER  = (1 << 15), // 0x8000
 
     HUD_DISPLAY_NONE                  = (0 <<  0), // 0x0000
-    HUD_DISPLAY_DEFAULT = HUD_DISPLAY_FLAG_LIVES | HUD_DISPLAY_FLAG_COIN_COUNT | HUD_DISPLAY_FLAG_STAR_COUNT | HUD_DISPLAY_FLAG_CAMERA_AND_POWER | HUD_DISPLAY_FLAG_KEYS | HUD_DISPLAY_FLAG_UNKNOWN_0020
+    HUD_DISPLAY_DEFAULT = (HUD_DISPLAY_FLAG_LIVES | HUD_DISPLAY_FLAG_COIN_COUNT | HUD_DISPLAY_FLAG_STAR_COUNT | HUD_DISPLAY_FLAG_CAMERA_AND_POWER | HUD_DISPLAY_FLAG_KEYS | HUD_DISPLAY_FLAG_UNKNOWN_0020)
 };
 
+enum PlayModes {
+    PLAY_MODE_NORMAL,
+    PLAY_MODE_UNUSED,
+    PLAY_MODE_PAUSED,
+    PLAY_MODE_CHANGE_AREA,
+    PLAY_MODE_CHANGE_LEVEL,
+    PLAY_MODE_FRAME_ADVANCE
+};
+
+enum WarpTypes {
+    WARP_TYPE_NOT_WARPING,
+    WARP_TYPE_CHANGE_LEVEL,
+    WARP_TYPE_CHANGE_AREA,
+    WARP_TYPE_SAME_AREA
+};
+
+enum WarpNodes {
+    WARP_NODE_MAIN_ENTRY    = 0x0A,
+    WARP_NODE_DEFAULT       = 0xF0,
+    WARP_NODE_DEATH         = 0xF1,
+    WARP_NODE_LOOK_UP       = 0xF2,
+    WARP_NODE_WARP_FLOOR    = 0xF3,
+    WARP_NODE_CREDITS_MIN   = 0xF8,
+    WARP_NODE_CREDITS_START = 0xF8,
+    WARP_NODE_CREDITS_NEXT  = 0xF9,
+    WARP_NODE_CREDITS_END   = 0xFA
+};
 
 u16 level_control_timer(s32 timerOp);
 void fade_into_special_warp(u32 arg, u32 color);
 void load_level_init_text(u32 arg);
 s16 level_trigger_warp(struct MarioState *m, s32 warpOp);
-void level_set_transition(s16 length, void (*updateFunction)(s16 *));
+void level_set_transition(s16 length, void (*updateFunction)());
 
 s32 lvl_init_or_update(s16 initOrUpdate, UNUSED s32 unused);
 s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum);
 s32 lvl_set_current_level(UNUSED s16 arg0, s32 levelNum);
 s32 lvl_play_the_end_screen_sound(UNUSED s16 arg0, UNUSED s32 arg1);
-void basic_update(UNUSED s16 *arg);
+void basic_update(void);
 s8 determine_joystick_movement(void);
 
 extern u8 gDirectionsHeld;

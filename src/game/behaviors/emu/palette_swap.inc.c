@@ -1,5 +1,5 @@
-#include "levels/bitdw/model.inc.c"
-#include "levels/bowser_1/model.inc.c"
+#include "levels/bitdw/header.h"
+#include "levels/bowser_1/header.h"
 
 // This accounts for both the first and second u8 entries
 #define COLOR_INDEX(_x) _x*2, _x*2+1

@@ -62,4 +62,10 @@ extern const LevelScript level_ddd_entry[];
 
 #include "levels/ddd/aperature_door/anim_header.h"
 
+#include "levels/ddd/floaty_rock/geo_header.h"
+
+#include "levels/ddd/floaty_rock/collision_header.h"
+
+#include "levels/ddd/shyguy_scuba/geo_header.h"
+
 #endif

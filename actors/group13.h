@@ -100,4 +100,8 @@ extern const GeoLayout water_ring_geo[];
 extern const Gfx water_ring_seg6_dl_06013AC0[];
 extern const struct Animation *const water_ring_seg6_anims_06013F7C[];
 
+extern u8 shell_bubble_framebuffer_img[];
+
+#include "shell_bubble/geo_header.h"
+
 #endif

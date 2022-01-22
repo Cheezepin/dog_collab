@@ -65,15 +65,12 @@ Gfx *geo_skybox_main(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) 
 
     if (callContext == GEO_CONTEXT_AREA_LOAD) {
         backgroundNode->unused = 0;
+#ifndef L3DEX2_ALONE
     } else if (callContext == GEO_CONTEXT_RENDER) {
         struct GraphNodeCamera *camNode = (struct GraphNodeCamera *) gCurGraphNodeRoot->views[0];
         struct GraphNodePerspective *camFrustum =
             (struct GraphNodePerspective *) camNode->fnNode.node.parent;
-
-#ifndef L3DEX2_ALONE
-        gfx = create_skybox_facing_camera(0, backgroundNode->background, camFrustum->fov, gLakituState.pos[0],
-                            gLakituState.pos[1], gLakituState.pos[2], gLakituState.focus[0],
-                            gLakituState.focus[1], gLakituState.focus[2]);
+        gfx = create_skybox_facing_camera(0, backgroundNode->background, camFrustum->fov, gLakituState.pos, gLakituState.focus);
 #endif
     }
 
@@ -99,7 +96,7 @@ Gfx *geo_zbuffer_clear(s32 callContext, UNUSED struct GraphNode *node, UNUSED Ma
         gDPPipeSync(dlHead++);
         gDPSetCycleType(dlHead++, G_CYC_1CYCLE);
         gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH,
-                        gPhysicalFrameBuffers[sRenderingFrameBuffer]);
+                        gPhysicalFramebuffers[sRenderingFramebuffer]);
         gDPSetScissor(dlHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
                   SCREEN_HEIGHT - gBorderHeight);
         gSPEndDisplayList(dlHead++);

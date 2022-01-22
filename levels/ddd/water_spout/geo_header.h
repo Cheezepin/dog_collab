@@ -1,7 +1,7 @@
 extern const GeoLayout water_spout_geo[];
 extern Lights1 water_spout_cozieswater_layer7_lights;
-extern u8 water_spout_Untitled_i4[];
-extern u8 water_spout_water_waves_i4[];
+extern u8 water_spout_fizzy_i4[];
+extern u8 water_spout_water_waves_brightwe_i4[];
 extern Vtx water_spout_b_inner_water_spout_mesh_layer_7_vtx_cull[8];
 extern Vtx water_spout_b_inner_water_spout_mesh_layer_7_vtx_0[28];
 extern Gfx water_spout_b_inner_water_spout_mesh_layer_7_tri_0[];

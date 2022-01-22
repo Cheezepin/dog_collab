@@ -3,6 +3,11 @@
 
 #include <PR/ultratypes.h>
 
+#define TEXRECT_MIN_X 10
+#define TEXRECT_MAX_X 300
+#define TEXRECT_MIN_Y 5
+#define TEXRECT_MAX_Y 220
+
 #define GLYPH_SPACE           ' '
 #define GLYPH_U               'U'
 #define GLYPH_EXCLAMATION_PNT '!'
