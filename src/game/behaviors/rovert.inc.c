@@ -163,8 +163,20 @@ void bhv_castle_raft(void) {
 
 void bhv_ash_pile(void) {
     struct Object *sussy;
+    struct Object *mine;
+    struct Object *bowser;
+    struct Object *lightning;
+    f32 dist;
+    mine = cur_obj_find_nearest_object_with_behavior(bhvEmuBomb, &dist);
     /* emu's section of the code*/
 if (gCurrLevelNum == LEVEL_BOWSER_1){
+    bowser = cur_obj_nearest_object_with_behavior(bhvBowser);
+    lightning = cur_obj_nearest_object_with_behavior(bhvStationaryLightning);
+    if (bowser != NULL && (bowser->oAction == BOWSER_ACT_LIGHTNING || bowser->oAction == BOWSER_ACT_PROPANE_SHOOTER || bowser->oAction == BOWSER_ACT_SKY_ATTACK)){
+        if (o->oAction == 2){
+            if (lightning == NULL){spawn_object(o, MODEL_LIGHTNING, bhvStationaryLightning);}
+            else if (dist_between_objects(o, lightning) > 100) {spawn_object(o, MODEL_LIGHTNING, bhvStationaryLightning);}
+    }}
     switch(o->oAction) {
         case 0:
         o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
@@ -200,7 +212,7 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
                 cur_obj_play_sound_2(SOUND_ACTION_QUICKSAND_STEP);
             }
             if (o->oOpacity  > 20.0f) {
-                o->oOpacity -= 2.0f;
+                o->oOpacity -= 1.0f;
                 obj_scale(o,o->oOpacity/500.0f);
                 o->parentObj->oPosY = o->oHomeY+((o->oOpacity/500.0f)*100.0f);
             } else {
@@ -213,35 +225,30 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
         break;
         case 4:
             o->parentObj->oAction = EMU_DOG_RANDOM_LOCATION;
-            switch(1-1) {
-                case 0: //coin
-                    spawn_object(o, MODEL_BOWSER_BOMB, bhvEmuBomb);
-                break;
-                case 1: //motos
-                    spawn_object(o,MODEL_CHUCKYA,bhvChuckya);
-                break;
-                case 2: //star
-                    spawn_object(o,MODEL_BOWSER_BOMB, bhvBowserBomb);
-                break;
-                case 3: //flyguy
-                    spawn_object(o,MODEL_FLYGUY,bhvFlyGuy);
-                break;
-                case 4: //bomb
-                spawn_object(o,MODEL_BLACK_BOBOMB,bhvBobomb);
-                break;
-                }
+            if (mine == NULL) {spawn_object(o, MODEL_BOWSER_BOMB, bhvEmuBomb);}
+            else {spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);}
             o->oInteractStatus = 0;
             o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
-            o->oAction = 5;
-            o->oTimer = 0;
+            o->oAction = 6;
         break;
         case 5:
             if (o->oTimer >= 500){
                 o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
                 o->oAction = 0;
             } else {o->oTimer ++;}
-        }
-    
+        break;
+        case 6:
+    if (mine != NULL){
+                if (dist_between_objects(o, mine) > 100.0f) {
+                    o->oAction = 5;
+                    o->oTimer = 0;
+                }
+            }
+            else {
+            o->oAction = 5;
+            o->oTimer = 0;
+            }
+    }
     } else {
         /* Rovert's original code*/
  switch(o->oAction) {

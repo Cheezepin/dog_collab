@@ -68,10 +68,13 @@ void check_emu_amp_attack(void) {
      }
 }
 
-
 void attackable_amp_counter(void) {
     o->oMoveAngleYaw = obj_angle_to_object(o->parentObj, o);
     obj_turn_toward_object(o, o->parentObj, 16, DEGREES(180));
+    if (dist_between_objects(o, o->parentObj) < 200) {
+     o->oPiranhaPlantScale = o->oForwardVel;
+     o->oForwardVel = 99.0f;
+    }
  o->oInteractStatus = 0;
 }
 
@@ -92,6 +95,7 @@ void attackable_amp_appear_loop(void) {
 
 
 void attackable_amp_chase_loop(void) {
+    if (o->oPiranhaPlantScale > 10){o->oForwardVel = o->oPiranhaPlantScale;}
     if (o->oForwardVel > 60.0f) o->oForwardVel = 60.0f;
     if (o->childObj->oAction == EMU_DOG_RANDOM_LOCATION || o->childObj->oAction == EMU_DOG_RUN_AROUND){
         o->oAction = RETURN_TO_BOWSER;
@@ -125,7 +129,11 @@ void return_to_bowser(void){
  o->oMoveAngleYaw = obj_angle_to_object(o->parentObj, o);
     obj_turn_toward_object(o, o->parentObj, 16, DEGREES(180));
  o->oInteractStatus = 0;
- if (dist_between_objects(o, o->parentObj) < 100) {obj_mark_for_deletion(o); numberOfAmps--;}
+ o->parentObj->oAction = BOWSER_ACT_PRE_ATTACK;
+ if (dist_between_objects(o, o->parentObj) < 200) {
+     o->oForwardVel = 50.0f;
+    if (dist_between_objects(o, o->parentObj) < 100) {obj_mark_for_deletion(o); numberOfAmps--;}
+    }
 }
 void bhv_attackable_amp_loop(void) {
     switch (o->oAction) {

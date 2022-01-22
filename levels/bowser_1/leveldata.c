@@ -22,3 +22,5 @@
 #include "levels/bowser_1/electric_ring/collision.inc.c"
 #include "levels/bowser_1/electric_ring/model.inc.c"
 #include "levels/bowser_1/laser_ring/model.inc.c"
+#include "levels/bowser_1/circle/model.inc.c"
+#include "levels/bowser_1/lightning/model.inc.c"
