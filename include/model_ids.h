@@ -424,6 +424,8 @@
 #define MODEL_BOWSER_WAVE                 0x68        // invisible_bowser_accessory_geo
 #define MODEL_BOWSER_NO_SHADOW            0x69        // bowser_geo_no_shadow
 #define MODEL_BOWSER_ELECTRIC_RING        0x70        // electric_ring_geo
+#define MODEL_RED_CIRCLE                  0x71        // red circle
+#define MODEL_LIGHTNING                   0x72        // lightning
 
 // group 13
 #define MODEL_BUB                         0x64        // cheep_cheep_geo

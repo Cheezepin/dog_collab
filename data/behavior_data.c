@@ -1751,6 +1751,23 @@ const BehaviorScript bhvBowserElectricRing[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvBowserLightning[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_LONG(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
+    SET_INT(oOpacity, 255),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_bowser_lightning_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvStationaryLightning[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_LONG(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
+    SET_INT(oOpacity, 255),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_stationary_lightning_loop),
+    END_LOOP(),
+};
 const BehaviorScript bhvFireParticleSpawner[] = {
     BEGIN(OBJ_LIST_DEFAULT),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),

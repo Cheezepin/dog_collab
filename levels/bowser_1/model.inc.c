@@ -1266,7 +1266,7 @@ Vtx bowser_1_dl_Torus_001_mesh_layer_5_vtx_0[87] = {
 Gfx bowser_1_dl_Torus_001_mesh_layer_5_tri_0[] = {
 	gsDPPipeSync(),
 	gsDPTileSync(),
-	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b, 32, bowser_1_dl_water_big_chungus_defined_intensity2_i4),
+	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b, 32, bowser_1_dl_scrolling_texture_ci4),
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b, 4, 0, 7, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
 	gsDPLoadSync(),
 	gsDPLoadTile(7, 0, 0, 126, 252),

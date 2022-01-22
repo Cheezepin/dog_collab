@@ -27,4 +27,8 @@ extern const LevelScript level_bowser_1_entry[];
 
 #include "levels/bowser_1/laser_ring/geo_header.h"
 
+#include "levels/bowser_1/circle/geo_header.h"
+
+#include "levels/bowser_1/lightning/geo_header.h"
+
 #endif

@@ -6,6 +6,12 @@
  */
 s32 expansionPhase = 0;
 void bhv_bowser_electric_ring_loop(void) {
+    struct Object *bows;
+    bows = cur_obj_nearest_object_with_behavior(bhvBowser);
+    o->parentObj = bows;
+    if (o->parentObj->oAction != BOWSER_ACT_ELECTRIC_EXPANSION && o->parentObj->oAction != BOWSER_ACT_SKY_ATTACK){
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }
     if (expansionPhase == 0){
     o->header.gfx.scale[0] = o->header.gfx.scale[0] + 0.2f;
     o->header.gfx.scale[1] = o->header.gfx.scale[1] + 0.2f;
