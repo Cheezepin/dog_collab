@@ -33,6 +33,7 @@
 #include "spawn_sound.h"
 #include "rumble_init.h"
 #include "puppylights.h"
+#include "2639_defs.h"
 
 /**
  * @file obj_behaviors.c
@@ -819,3 +820,17 @@ s8 UNUSED debug_sequence_tracker(s16 debugInputSequence[]) {
 
 #include "behaviors/cephie.inc.c"
 #include "behaviors/emu/mine.inc.c"
+
+#include "behaviors/DogInLobby.inc.c"
+#include "behaviors/DogOutsideHotel.inc.c"
+#include "behaviors/DogFloor1.inc.c"
+#include "behaviors/DogFloor2.inc.c"
+#include "behaviors/DogFloor3.inc.c"
+#include "behaviors/DogFloor4.inc.c"
+#include "behaviors/DogBalcony.inc.c"
+#include "behaviors/2639cane.inc.c"
+#include "behaviors/2639glasses.inc.c"
+#include "behaviors/A2PushableCouch.inc.c"
+#include "behaviors/2639A2HiddenStar.inc.c"
+#include "behaviors/2639Elevator.inc.c"
+#include "behaviors/2639Soda.inc.c"

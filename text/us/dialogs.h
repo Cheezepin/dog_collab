@@ -1921,7 +1921,6 @@ Just make sure this\n\
 doesn't fall into their\n\
 hands.")
 
-
 //COMIT DIALOG
 DEFINE_DIALOG(COMIT_DIALOG_1, 1, 4, 30, 200, "\
 Welcome to the Cumulus\n\
@@ -2068,3 +2067,44 @@ DEFINE_DIALOG(COMIT_DIALOG_17, 1, 3, 30, 200, "\
 Want a neat tip?\n\
 Hold A while twirling to\n\
 descend slower!")
+
+#define C_NORMAL "@--------"
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 4, 30, 200, "\n\
+Hey you!\n\
+No pets allowed!\n\
+")
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, R"(
+Mario! I was
+looking for you!
+I see you brought your dog,
+but that angry
+@FF0000FFFront Desk Toad" C_NORMAL "
+isn't having any of it!
+But maybe there's a
+loophole in the law
+you could exploit?
+You're totally allowed
+to bring in
+service animals,
+so all we need to do
+is find a way to
+make you look like
+you're blind!
+See if you can grab a
+@00FF00FFCANE" C_NORMAL " and @34ebe1FFSUNGLASSES" C_NORMAL",
+Then talk to the
+@FF0000FFFront Desk Toad" C_NORMAL " again.
+Maybe he'll budge then.
+)")
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, "Hey you!
+You didn't tell me that was a service dog!
+Now I gotta get the exemption form!
+")
+
+

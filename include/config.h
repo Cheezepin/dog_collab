@@ -217,9 +217,9 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
- #define TEST_LEVEL LEVEL_BOWSER_1
+ #define TEST_LEVEL LEVEL_BOB
 // Enable debug level select
-//#define DEBUG_LEVEL_SELECT
+// #define DEBUG_LEVEL_SELECT
 // Enable debug free move (DPad up to enter, A to exit)
 #define ENABLE_DEBUG_FREE_MOVE
 // Custom debug mode. Press DPAD left to show the debug UI. Press DPAD right to enter the noclip mode.

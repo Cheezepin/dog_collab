@@ -182,3 +182,17 @@ void bhv_emu_bomb_loop(void);
 void bhv_emu_bomb_fuse_smoke_init(void);
 
 #endif // OBJ_BEHAVIORS_H
+
+void bhv_DogInLobby_init(void); void bhv_DogInLobby_loop(void);
+void bhv_DogOutsideHotel_init(void); void bhv_DogOutsideHotel_loop(void);
+void bhv_DogFloor1_init(void); void bhv_DogFloor1_loop(void);
+void bhv_DogFloor2_init(void); void bhv_DogFloor2_loop(void);
+void bhv_DogFloor3_init(void); void bhv_DogFloor3_loop(void);
+void bhv_DogFloor4_init(void); void bhv_DogFloor4_loop(void);
+void bhv_DogBalcony_init(void); void bhv_DogBalcony_loop(void);
+void bhv_2639cane_init(void); void bhv_2639cane_loop(void);
+void bhv_2639glasses_init(void); void bhv_2639glasses_loop(void);
+void bhv_A2PushableCouch_init(void); void bhv_A2PushableCouch_loop(void);
+void bhv_2639A2HiddenStar_init(void); void bhv_2639A2HiddenStar_loop(void);
+void bhv_2639Elevator_init(void); void bhv_2639Elevator_loop(void);
+void bhv_2639Soda_init(void); void bhv_2639Soda_loop(void);
