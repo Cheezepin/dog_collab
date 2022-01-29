@@ -1,0 +1,6 @@
+#include "sphere.inc.c"
+#include "palette_swap.inc.c"
+#include "emu_amp.inc.c"
+#include "emu_dog.inc.c"
+#include "electric_ring.inc.c"
+#include "lightning.inc.c"

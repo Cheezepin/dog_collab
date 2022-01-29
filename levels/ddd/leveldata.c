@@ -49,3 +49,6 @@
 #include "levels/ddd/aperature_door/collision.inc.c"
 #include "levels/ddd/aperature_door/anims/data.inc.c"
 #include "levels/ddd/aperature_door/anims/table.inc.c"
+#include "levels/ddd/floaty_rock/model.inc.c"
+#include "levels/ddd/floaty_rock/collision.inc.c"
+#include "levels/ddd/shyguy_scuba/model.inc.c"

@@ -173,6 +173,7 @@ enum DialogId {
     DIALOG_167,
     DIALOG_168,
     DIALOG_169,
+    
     COMIT_DIALOG_1,
     COMIT_DIALOG_2,
     COMIT_DIALOG_3,
@@ -190,6 +191,25 @@ enum DialogId {
     COMIT_DIALOG_15,
     COMIT_DIALOG_16,
     COMIT_DIALOG_17,
+
+    // someone2639 silly soliloquies
+    _2639DIAG_A1LobbyToadGreeter,
+    _2639DIAG_A1LobbyNPCSuggester,
+    _2639DIAG_A1LobbyToadStarGranter,
+
+    _2639DIAG_A2RoomPeachGreeter,
+    _2639DIAG_A2RoomPeachSuccess,
+    _2639DIAG_A2RoomPeachFailure,
+
+    _2639DIAG_A3RoomToadPartyGreeter,
+    _2639DIAG_A3RoomToadSuccess,
+    _2639DIAG_A3RoomToadGibSoda,
+    _2639DIAG_A3RoomToadPartyRocking1,
+    _2639DIAG_A3RoomToadPartyRocking2,
+    _2639DIAG_A3RoomToadPartyRocking3,
+
+    _2639DIAG_A4RoomToadRoomsFlooded,
+    
     DIALOG_COUNT
 };
 

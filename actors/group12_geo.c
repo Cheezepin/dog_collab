@@ -13,3 +13,4 @@
 #include "bowser/geo.inc.c"
 #include "bomb/geo.inc.c"
 #include "impact_smoke/geo.inc.c"
+#include "amp/geo.inc.c"

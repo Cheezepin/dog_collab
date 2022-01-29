@@ -124,10 +124,19 @@ void bhv_laser_ring_loop(void)
         interact_shock(gMarioState, INTERACT_SHOCK, o);
     }
 
+if (gCurrLevelNum == LEVEL_BOWSER_1){
+    if (o->oTimer > 200)
+    {
+        obj_mark_for_deletion(o);
+        return;
+    }
+    cur_obj_scale(o->oTimer * ZH_LASER_RING_GROWTH_RATE);
+} else {
     if (o->oTimer > ZH_LASER_RING_GROWTH_TIME)
     {
         obj_mark_for_deletion(o);
         return;
     }
     cur_obj_scale(o->oTimer * ZH_LASER_RING_GROWTH_RATE);
+}
 }

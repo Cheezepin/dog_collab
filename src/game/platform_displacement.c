@@ -39,7 +39,7 @@ void update_mario_platform(void) {
     marioZ = gMarioObject->oPosZ;
     floorHeight = find_floor(marioX, marioY, marioZ, &floor);
 
-    awayFromFloor =  (absf(marioY - floorHeight) >= 4.0f);
+    awayFromFloor =  absf(marioY - floorHeight) >= 4.0f;
 
     if (awayFromFloor) {
         gMarioPlatform = NULL;
@@ -72,6 +72,7 @@ void set_mario_pos(f32 x, f32 y, f32 z) {
     gMarioStates[0].pos[1] = y;
     gMarioStates[0].pos[2] = z;
 }
+
 #ifdef PLATFORM_DISPLACEMENT_2
 static struct PlatformDisplacementInfo sMarioDisplacementInfo;
 static Vec3f sMarioAmountDisplaced;
@@ -179,11 +180,15 @@ static u8 sInertiaFirstFrame = FALSE;
  */
 static void apply_mario_inertia(void) {
     // On the first frame of leaving the ground, boost Mario's y velocity
-  
-	if (sInertiaFirstFrame) {
-        if (sMarioAmountDisplaced[1] > 0)
-		    gMarioState->vel[1] += sMarioAmountDisplaced[1];
-	}
+    if (sInertiaFirstFrame && sMarioAmountDisplaced[1] > 0) {
+        // Long jump is the only player initiated jump that has less gravity, so apply less displacement
+        f32 yDisplacement = gMarioState->action == ACT_LONG_JUMP
+            ? sMarioAmountDisplaced[1] * 0.5f
+            : sMarioAmountDisplaced[1];
+        gMarioState->vel[1] += yDisplacement;
+        // Offset Y position to prevent platforms from colliding into Mario after jumping
+        gMarioState->pos[1] += sMarioAmountDisplaced[1];
+    }
 
     // Apply sideways inertia
     gMarioState->pos[0] += sMarioAmountDisplaced[0];
@@ -217,7 +222,9 @@ void apply_mario_platform_displacement(void) {
         }
     }
 }
+
 #else
+
 /**
  * Apply one frame of platform rotation to Mario or an object using the given
  * platform. If isMario is false, use gCurrentObject.
@@ -247,12 +254,14 @@ void apply_platform_displacement(u32 isMario, struct Object *platform) {
     z += platform->oVelZ;
 
     if (rotation[0] != 0 || rotation[1] != 0 || rotation[2] != 0) {
-        unused1 = rotation[0];
-        unused2 = rotation[2];
-        unused3 = platform->oFaceAngleYaw;
+        // unusedPitch = rotation[0];
+        // unusedRoll  = rotation[2];
+        // unusedYaw   = platform->oFaceAngleYaw;
+
         if (isMario) {
             gMarioStates[0].faceAngle[1] += rotation[1];
         }
+
         platformPosX = platform->oPosX;
         platformPosY = platform->oPosY;
         platformPosZ = platform->oPosZ;
@@ -274,10 +283,12 @@ void apply_platform_displacement(u32 isMario, struct Object *platform) {
 
         mtxf_rotate_zxy_and_translate(displaceMatrix, currentObjectOffset, rotation);
         linear_mtxf_mul_vec3f(displaceMatrix, newObjectOffset, relativeOffset);
+
         x = platformPosX + newObjectOffset[0];
         y = platformPosY + newObjectOffset[1];
         z = platformPosZ + newObjectOffset[2];
     }
+
     if (isMario) {
         set_mario_pos(x, y, z);
     } else {
@@ -287,10 +298,9 @@ void apply_platform_displacement(u32 isMario, struct Object *platform) {
     }
 }
 
-
 /**
-* If Mario's platform is not null, apply platform displacement.
-*/
+ * If Mario's platform is not null, apply platform displacement.
+ */
 void apply_mario_platform_displacement(void) {
     struct Object *platform = gMarioPlatform;
 

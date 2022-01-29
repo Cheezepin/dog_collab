@@ -1,0 +1,15 @@
+extern const GeoLayout lightning_geo[];
+extern Lights1 lightning_electricity_layer5_lights;
+extern u8 lightning_thunderBiri4_ia4[];
+extern u8 lightning_rk_thunder1_ia8[];
+extern u8 lightning_cloud_ia8[];
+extern Vtx lightning_Plane_mesh_layer_5_vtx_0[24];
+extern Gfx lightning_Plane_mesh_layer_5_tri_0[];
+extern Vtx lightning_Plane_001_mesh_layer_5_vtx_0[4];
+extern Gfx lightning_Plane_001_mesh_layer_5_tri_0[];
+extern Gfx mat_lightning_electricity_layer5[];
+extern Gfx mat_revert_lightning_electricity_layer5[];
+extern Gfx mat_lightning_cloud[];
+extern Gfx lightning_Plane_mesh_layer_5[];
+extern Gfx lightning_Plane_001_mesh_layer_5[];
+extern Gfx lightning_material_revert_render_settings[];

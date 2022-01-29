@@ -5,15 +5,11 @@
 #define PLASTERED "splattered"
 #define SCAM_ME "cheat!\n"
 #define SCRAM "get lost"
-#define YOU_CANT_SWIM_IN_IT "It is too heavy to\nswim with."
-#define GIVE_UP "give up"
 #else
 #define COMRADES "comrades"
 #define PLASTERED "plastered"
 #define SCAM_ME "scam\nME. "
 #define SCRAM "scram--"
-#define YOU_CANT_SWIM_IN_IT "You can't swim in it."
-#define GIVE_UP "give"
 #endif
 
 DEFINE_DIALOG(DIALOG_000, 1, 3, 30, 200, "\
@@ -742,8 +738,9 @@ by enemy attacks.\n\
 You don't even have to\n\
 breathe while wearing it.\n\
 \n\
-The only problem:\n"
-YOU_CANT_SWIM_IN_IT)
+The only problem:\n\
+It is too heavy to\n\
+swim with.")
 
 DEFINE_DIALOG(DIALOG_063, 1, 5, 30, 200, "\
 The Vanish Cap is inside\n\
@@ -1921,7 +1918,6 @@ Just make sure this\n\
 doesn't fall into their\n\
 hands.")
 
-
 //COMIT DIALOG
 DEFINE_DIALOG(COMIT_DIALOG_1, 1, 4, 30, 200, "\
 Welcome to the Cumulus\n\
@@ -2068,3 +2064,44 @@ DEFINE_DIALOG(COMIT_DIALOG_17, 1, 3, 30, 200, "\
 Want a neat tip?\n\
 Hold A while twirling to\n\
 descend slower!")
+
+#define C_NORMAL "@--------"
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 4, 30, 200, "\n\
+Hey you!\n\
+No pets allowed!\n\
+")
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, "(\n\
+Mario! I was\n\
+looking for you!\n\
+I see you brought your dog,\n\
+but that angry\n\
+@FF0000FFFront Desk Toad" C_NORMAL "\n\
+isn't having any of it!\n\
+But maybe there's a\n\
+loophole in the law\n\
+you could exploit?\n\
+You're totally allowed\n\
+to bring in\n\
+service animals,\n\
+so all we need to do\n\
+is find a way to\n\
+make you look like\n\
+you're blind!\n\
+See if you can grab a\n\
+@00FF00FFCANE" C_NORMAL " and @34ebe1FFSUNGLASSES" C_NORMAL",\n\
+Then talk to the\n\
+@FF0000FFFront Desk Toad" C_NORMAL " again.\n\
+Maybe he'll budge then.\n\
+)")
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, "Hey you!\n\
+You didn't tell me that was a service dog!\n\
+Now I gotta get the exemption form!\n\
+")
+
+

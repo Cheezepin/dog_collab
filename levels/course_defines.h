@@ -11,7 +11,7 @@
  *      4: Default, used for 100 coin stars, 8 red coin stars in bowser levels, and secret stars
  */
 DEFINE_COURSE(COURSE_NONE, 0x44444440) // (0)  Course Hub (Castle Grounds)
-DEFINE_COURSE(COURSE_BOB, 0x00022240) // (1)  Bob Omb Battlefield (someone2639, Hypnotizing High Rise)
+DEFINE_COURSE(COURSE_BOB, 0x44444440) // (1)  Bob Omb Battlefield (someone2639, Hypnotizing High Rise)
 DEFINE_COURSE(COURSE_WF, 0x00002040) // (2)  Whomp's Fortress (BernieBean, Mirror World Under the Ice)
 DEFINE_COURSE(COURSE_JRB, 0x20444440) // (3)  Jolly Rodger's Bay (CowQuack, Swirling Circus)
 DEFINE_COURSE(COURSE_CCM, 0x10102340) // (4)  Cool Cool Mountain (Rovert, Peach Ruins)
