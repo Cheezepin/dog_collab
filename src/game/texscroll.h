@@ -10,6 +10,7 @@
 #include "src/game/texscroll/ddd_texscroll.inc.h"
 #include "src/game/texscroll/hmc_texscroll.inc.h"
 #include "src/game/texscroll/bitfs_texscroll.inc.h"
+#include "src/game/texscroll/castle_grounds_texscroll.inc.h"
 extern void scroll_textures();
 
 #endif

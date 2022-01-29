@@ -2880,6 +2880,11 @@ void update_camera(struct Camera *c) {
 #endif
     sCButtonsPressed = find_c_buttons_pressed(sCButtonsPressed, gPlayer1Controller->buttonPressed, gPlayer1Controller->buttonDown);
 
+    //some cheeze code
+    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+        c->cutscene = CUTSCENE_HUB_WORLD;
+    }
+
     if (c->cutscene != 0) {
         sYawSpeed = 0;
         play_cutscene(c);
@@ -5747,6 +5752,9 @@ struct CameraTrigger sCamBitDW[] = {
 };
 
 struct CameraTrigger sCamDDD[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamCastleGrounds[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
@@ -8970,6 +8978,29 @@ void cutscene_credits_reset_spline(UNUSED struct Camera *c) {
     cutscene_reset_spline();
 }
 
+s32 gFocusID = -1;
+s32 orbitAngle = 0;
+
+Vec3f hubPosPoints[] = {
+    {0.0f, 5000.0f, 0.0f},
+};
+Vec3f hubFocusPoints[] = {
+    {0.0f, 0.0f, 0.0f},
+};
+void cutscene_hub_world(struct Camera *c) {
+    Vec3f pos, focus;
+    if(gFocusID == -1) {
+        vec3f_set(pos, 15000.0f*coss(orbitAngle), 3000.0f, 15000.0f*sins(orbitAngle));
+        vec3f_set(focus, 7500.0f*coss(orbitAngle + 0x2000), 2000.0f, 7500.0f*sins(orbitAngle + 0x2000));
+    } else {
+        vec3f_set(pos, hubPosPoints[gFocusID][0], hubPosPoints[gFocusID][1], hubPosPoints[gFocusID][2]);
+        vec3f_set(focus, hubFocusPoints[gFocusID][0], hubFocusPoints[gFocusID][1], hubFocusPoints[gFocusID][2]);
+    }
+    approach_vec3f_asymptotic(c->pos, pos, 0.25f, 0.25f, 0.25f);
+    approach_vec3f_asymptotic(c->focus, focus, 0.25f, 0.25f, 0.25f);
+    orbitAngle += 0x80;
+}
+
 extern struct CutsceneSplinePoint sBobCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sBobCreditsSplineFocus[];
 extern struct CutsceneSplinePoint sWfCreditsSplinePositions[];
@@ -9888,6 +9919,10 @@ struct Cutscene sCutsceneReadMessage[] = {
     { cutscene_read_message_end, 0 }
 };
 
+struct Cutscene sCutsceneHubWorld[] = {
+    { cutscene_hub_world, CUTSCENE_LOOP },
+};
+
 /* TODO:
  * The next two arrays are both related to levels, and they look generated.
  * These should be split into their own file.
@@ -10349,6 +10384,7 @@ void play_cutscene(struct Camera *c) {
         CUTSCENE(CUTSCENE_RACE_DIALOG,          sCutsceneDialog)
         CUTSCENE(CUTSCENE_ENTER_PYRAMID_TOP,    sCutsceneEnterPyramidTop)
         CUTSCENE(CUTSCENE_SSL_PYRAMID_EXPLODE,  sCutscenePyramidTopExplode)
+        CUTSCENE(CUTSCENE_HUB_WORLD,            sCutsceneHubWorld)
     }
 
 #undef CUTSCENE
