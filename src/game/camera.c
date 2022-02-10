@@ -2836,20 +2836,22 @@ void update_lakitu(struct Camera *c) {
         vec3f_get_dist_and_angle(gLakituState.pos, gLakituState.focus, &gLakituState.focusDistance,
                                  &gLakituState.oldPitch, &gLakituState.oldYaw);
 
-        gLakituState.roll = 0;
+        if(gCurrLevelNum != LEVEL_CASTLE_GROUNDS) {
+            gLakituState.roll = 0;
 
-        // Apply camera shakes
-        shake_camera_pitch(gLakituState.pos, gLakituState.focus);
-        shake_camera_yaw(gLakituState.pos, gLakituState.focus);
-        shake_camera_roll(&gLakituState.roll);
-        shake_camera_handheld(gLakituState.pos, gLakituState.focus);
+            // Apply camera shakes
+            shake_camera_pitch(gLakituState.pos, gLakituState.focus);
+            shake_camera_yaw(gLakituState.pos, gLakituState.focus);
+            shake_camera_roll(&gLakituState.roll);
+            shake_camera_handheld(gLakituState.pos, gLakituState.focus);
 
-        if (sMarioCamState->action == ACT_DIVE && gLakituState.lastFrameAction != ACT_DIVE) {
-            set_camera_shake_from_hit(SHAKE_HIT_FROM_BELOW);
+            if (sMarioCamState->action == ACT_DIVE && gLakituState.lastFrameAction != ACT_DIVE) {
+                set_camera_shake_from_hit(SHAKE_HIT_FROM_BELOW);
+            }
+
+            gLakituState.roll += sHandheldShakeRoll;
+            gLakituState.roll += gLakituState.keyDanceRoll;
         }
-
-        gLakituState.roll += sHandheldShakeRoll;
-        gLakituState.roll += gLakituState.keyDanceRoll;
 
         if (c->mode != CAMERA_MODE_C_UP && c->cutscene == CUTSCENE_NONE) {
             gCollisionFlags |= COLLISION_FLAG_CAMERA;
@@ -6058,7 +6060,7 @@ struct CameraTrigger sCamDDD[] = {
 };
 
 struct CameraTrigger sCamCastleGrounds[] = {
-    	NULL_TRIGGER
+	NULL_TRIGGER
 };
 
 struct CameraTrigger sCamBowser_1[] = {
@@ -9335,27 +9337,119 @@ void cutscene_credits_reset_spline(UNUSED struct Camera *c) {
     cutscene_reset_spline();
 }
 
-s32 gFocusID = -1;
 s32 orbitAngle = 0;
 
-Vec3f hubPosPoints[] = {
-    {0.0f, 5000.0f, 0.0f},
-};
-Vec3f hubFocusPoints[] = {
-    {0.0f, 0.0f, 0.0f},
-};
+extern struct HubSelection hubSelections[3][6];
+
+s32 gHubTargetYawPos = 0;
+s32 gHubTargetPitchPos = 0;
+f32 gHubTargetRadiusPos = 10000.0f;
+
+s32 gHubTargetYawFocus = 0;
+s32 gHubTargetPitchFocus = 0;
+f32 gHubTargetRadiusFocus = 5000.0f;
+
 void cutscene_hub_world(struct Camera *c) {
     Vec3f pos, focus;
-    if(gFocusID == -1) {
+    s16 roll;
+    Vec3f zero = {0, 0, 0};
+    set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+    if(gWorldID == -1) {
         vec3f_set(pos, 15000.0f*coss(orbitAngle), 3000.0f, 15000.0f*sins(orbitAngle));
         vec3f_set(focus, 7500.0f*coss(orbitAngle + 0x2000), 2000.0f, 7500.0f*sins(orbitAngle + 0x2000));
+        roll = 0;
+
+        approach_vec3f_asymptotic(c->pos, pos, 0.25f, 0.25f, 0.25f);
+        approach_vec3f_asymptotic(c->focus, focus, 0.25f, 0.25f, 0.25f);
+    } else if(gFocusID == -1) {
+        s16 targetYawPos, targetPitchPos;
+        f32 targetRadiusPos;
+        switch(gWorldID) {
+            case 0:
+                //vec3f_set(pos, 15000.0f, 4759.0f, 400.0f);
+                targetYawPos = 0x4000;
+                targetPitchPos = 0;
+                targetRadiusPos = 15000.0f;
+                orbitAngle = 0xEC00;
+                break;
+            case 1:
+                //vec3f_set(pos, -7560.0f, 5500.0f, -9428.0f);
+                targetYawPos = 0xC000;
+                targetPitchPos = 0;
+                targetRadiusPos = 15000.0f;
+                orbitAngle = 0x8800;
+                break;
+            case 2:
+                //vec3f_set(pos, -3779.0f, -15560.0f, 2788.0f);
+                targetYawPos = 0x0;
+                targetPitchPos = 0x4000;
+                targetRadiusPos = 15000.0f;
+                orbitAngle = 0x5000;
+                break;
+        }
+        vec3f_set(focus, 0.0f, 0.0f, 0.0f);
+        roll = 0;
+
+        gHubTargetYawPos = approach_s16_asymptotic(gHubTargetYawPos, targetYawPos, 4);
+        gHubTargetPitchPos = approach_s16_asymptotic(gHubTargetPitchPos, targetPitchPos, 4);
+        gHubTargetRadiusPos = approach_f32_asymptotic(gHubTargetRadiusPos, targetRadiusPos, 0.25f);
+
+        gHubTargetYawFocus = gHubTargetPitchFocus = gHubTargetRadiusFocus = 0;
+        // approach_vec3f_asymptotic(c->pos, pos, 0.25f, 0.25f, 0.25f);
+        vec3f_set_dist_and_angle(zero, c->pos, gHubTargetRadiusPos, gHubTargetPitchPos, gHubTargetYawPos);
+        approach_vec3f_asymptotic(c->focus, focus, 0.25f, 0.25f, 0.25f);
     } else {
-        vec3f_set(pos, hubPosPoints[gFocusID][0], hubPosPoints[gFocusID][1], hubPosPoints[gFocusID][2]);
-        vec3f_set(focus, hubFocusPoints[gFocusID][0], hubFocusPoints[gFocusID][1], hubFocusPoints[gFocusID][2]);
+        //Vec3f *targetPos = &hubSelections[gWorldID][gFocusID].camPos;
+        //Vec3f *targetFocus = &hubSelections[gWorldID][gFocusID].camFocus;
+        s32 addendum = (gPlayer1Controller->buttonDown & L_TRIG ? 0x10 : 0x100);
+
+        gHubTargetYawPos = approach_s16_asymptotic(gHubTargetYawPos, hubSelections[gWorldID][gFocusID].camYawPos, 4);
+        gHubTargetPitchPos = approach_s16_asymptotic(gHubTargetPitchPos, hubSelections[gWorldID][gFocusID].camPitchPos, 4);
+        gHubTargetRadiusPos = approach_f32_asymptotic(gHubTargetRadiusPos, hubSelections[gWorldID][gFocusID].camRadiusPos, 0.25f);
+        gHubTargetYawFocus = approach_s16_asymptotic(gHubTargetYawFocus, hubSelections[gWorldID][gFocusID].camYawFocus, 4);
+        gHubTargetPitchFocus = approach_s16_asymptotic(gHubTargetPitchFocus, hubSelections[gWorldID][gFocusID].camPitchFocus, 4);
+        gHubTargetRadiusFocus = approach_f32_asymptotic(gHubTargetRadiusFocus, hubSelections[gWorldID][gFocusID].camRadiusFocus, 0.25f);
+        //vec3f_set(targetPos, coss(gHubTargetYaw) * coss(gHubTargetPitch), sins(gHubTargetPitch), sins(gHubTargetYaw) * coss(gHubTargetPitch));
+        vec3f_set_dist_and_angle(zero, c->focus, gHubTargetRadiusFocus, gHubTargetPitchFocus, gHubTargetYawFocus);
+        vec3f_set_dist_and_angle(zero, c->pos, gHubTargetRadiusPos, gHubTargetPitchPos, gHubTargetYawPos);
+        //vec3f_mul(targetPos, radiusVec);
+
+        roll = hubSelections[gWorldID][gFocusID].roll;
+        
+        /* if(gPlayer1Controller->buttonDown & R_CBUTTONS) {gHubTargetYawPos += addendum;}
+        if(gPlayer1Controller->buttonDown & L_CBUTTONS) {gHubTargetYawPos -= addendum;}
+        if(gPlayer1Controller->buttonDown & U_CBUTTONS) {gHubTargetPitchPos += addendum;}
+        if(gPlayer1Controller->buttonDown & D_CBUTTONS) {gHubTargetPitchPos -= addendum;}
+        if(gPlayer1Controller->buttonDown & R_JPAD) {gHubTargetYawFocus += addendum;}
+        if(gPlayer1Controller->buttonDown & L_JPAD) {gHubTargetYawFocus -= addendum;}
+        if(gPlayer1Controller->buttonDown & U_JPAD) {gHubTargetPitchFocus += addendum;}
+        if(gPlayer1Controller->buttonDown & D_JPAD) {gHubTargetPitchFocus -= addendum;}
+        if(gPlayer1Controller->buttonDown & R_TRIG) {
+            if(gPlayer1Controller->buttonDown & START_BUTTON) {
+                gHubTargetRadiusFocus -= (f32)addendum;
+            } else {
+                gHubTargetRadiusPos -= (f32)addendum;
+            }
+        }
+        if(gPlayer1Controller->buttonDown & Z_TRIG) {
+            if(gPlayer1Controller->buttonDown & START_BUTTON) {
+                gHubTargetRadiusFocus += (f32)addendum;
+            } else {
+                gHubTargetRadiusPos += (f32)addendum;
+            }
+        } */
+
+        print_text_fmt_int(20, 60, "0x%x", (u16)gHubTargetYawPos);
+        print_text_fmt_int(20, 40, "0x%x", (u16)gHubTargetPitchPos);
+        print_text_fmt_int(20, 20, "%d", (s32)gHubTargetRadiusPos);
+
+        print_text_fmt_int(100, 60, "0x%x", (u16)gHubTargetYawFocus);
+        print_text_fmt_int(100, 40, "0x%x", (u16)gHubTargetPitchFocus);
+        print_text_fmt_int(100, 20, "%d", (s32)gHubTargetRadiusFocus);
     }
-    approach_vec3f_asymptotic(c->pos, pos, 0.25f, 0.25f, 0.25f);
-    approach_vec3f_asymptotic(c->focus, focus, 0.25f, 0.25f, 0.25f);
+    gLakituState.roll = approach_s16_asymptotic(gLakituState.roll, roll, 4);
     orbitAngle += 0x80;
+    orbitAngle %= 0x10000;
 }
 
 extern struct CutsceneSplinePoint sBobCreditsSplinePositions[];

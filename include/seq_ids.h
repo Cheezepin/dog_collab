@@ -53,6 +53,7 @@ enum SeqId {
     SEQ_LEVEL_PEACH_RUINS,            // 0x28
     SEQ_BOSS_PEACH_RUINS,             // 0x29
     SEQ_LEVEL_HYRULE_CASTLE,          // 0x2A
+    SEQ_OVERWORLD,                    // 0x2B
     SEQ_COUNT
 };
 

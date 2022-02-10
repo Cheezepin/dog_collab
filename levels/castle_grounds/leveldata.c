@@ -34,3 +34,5 @@
 
 #include "levels/castle_grounds/kb_bg/model.inc.c"
 #include "levels/castle_grounds/leveldata.inc.c"
+
+#include "levels/castle_grounds/bar/model.inc.c"

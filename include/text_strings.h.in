@@ -314,6 +314,37 @@
 #define TEXT_ENTER_DOG_NAME "Name this dog:"
 #define TEXT_KEYBOARD_DEFINES "\x84: Select  \x85: Delete\n\x88: Shift   START: Submit"
 
+#define TEXT_SELECT_WORLD "Select World:"
+#define TEXT_WORLD_1      "World 1"
+#define TEXT_WORLD_2      "World 2"
+#define TEXT_WORLD_3      "World 3"
+
+#define TEXT_SELECT_LEVEL "Select Level:"
+
+#define TEXT_C0I "Tutorial"
+#define TEXT_C0  "Peach's Castle"
+#define TEXT_C0A "Author: ???"
+
+#define TEXT_C1I "Course 1"
+#define TEXT_C1  "Maple Markindon"
+#define TEXT_C1A "Author: ashley"
+
+#define TEXT_C2I "Course 2"
+#define TEXT_C2  "Cumulus Correctional Center"
+#define TEXT_C2A "Author: MrComit"
+
+#define TEXT_C3I "Course 3"
+#define TEXT_C3  "Upturned Deeps"
+#define TEXT_C3A "Author: Axollyon"
+
+#define TEXT_C4I "Course 4"
+#define TEXT_C4  "Koopa Atoll"
+#define TEXT_C4A "Author: BernieBean"
+
+#define TEXT_B1I "Bowser 1"
+#define TEXT_B1  "Bowser's FUCKING Flying Fortress"
+#define TEXT_B1A "Author: Cheezepin"
+
 #endif
 
 
