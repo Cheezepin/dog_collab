@@ -2877,6 +2877,7 @@ void switch_puppycam_enabled(void) {
         // case YOUR_LEVEL:
         case LEVEL_COZIES:
         case LEVEL_BITFS:
+        case LEVEL_LLL:
             gPuppyCam.enabled = TRUE;
             break;
         default:
@@ -6052,6 +6053,9 @@ struct CameraTrigger sCamDDD[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger sCamBowser_1[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamLLL[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
@@ -10401,7 +10405,7 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // SA             | BITS
-	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // WF             | ENDING
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // COURTYARD      | PSS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // COTMC          | TOTWC
