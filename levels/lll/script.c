@@ -96,6 +96,7 @@ const LevelScript level_lll_entry[] = {
 		OBJECT(MODEL_BLUE_COIN, 6169, 984, -470, 0, 0, 0, 0x00000000, bhvHiddenBlueCoin),
 		OBJECT(MODEL_BLUE_COIN, 6994, 214, 2039, 0, 0, 0, 0x00000000, bhvHiddenBlueCoin),
 		OBJECT(MODEL_BLUE_COIN_SWITCH, 5878, 214, 4428, 0, 0, 0, 0x00000000, bhvBlueCoinSwitch),
+		OBJECT(MODEL_KOOPATROL, -171, 0, 3095, 0, 0, 0, 0x00000000, bhvKoopatrol),
 		OBJECT(MODEL_NONE, 6896, 649, -8949, 0, 0, 0, 0x01310000, bhvPoleGrabbing),
 		OBJECT(MODEL_PURPLE_SWITCH, 2328, 4169, -3127, 0, 0, 0, 0x00000000, bhvPurpleSwitchHiddenBoxes),
 		OBJECT(MODEL_BREAKABLE_BOX, 2328, 4365, -3697, 0, 0, 0, 0x00000000, bhvHiddenObject),

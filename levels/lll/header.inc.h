@@ -172,7 +172,7 @@ extern Vtx lll_dl_Castle_mesh_layer_1_vtx_23[5];
 extern Gfx lll_dl_Castle_mesh_layer_1_tri_23[];
 extern Vtx lll_dl_Castle_mesh_layer_1_vtx_24[55];
 extern Gfx lll_dl_Castle_mesh_layer_1_tri_24[];
-extern Vtx lll_dl_Castle_mesh_layer_1_vtx_25[104];
+extern Vtx lll_dl_Castle_mesh_layer_1_vtx_25[106];
 extern Gfx lll_dl_Castle_mesh_layer_1_tri_25[];
 extern Vtx lll_dl_Castle_mesh_layer_1_vtx_26[10];
 extern Gfx lll_dl_Castle_mesh_layer_1_tri_26[];
