@@ -345,6 +345,22 @@
 #define TEXT_B1  "Bowser's FUCKING Flying Fortress"
 #define TEXT_B1A "Author: Cheezepin"
 
+#define TEXT_C5I "Course 5"
+#define TEXT_C5  "Peach Ruins"
+#define TEXT_C5A "Author: Rovert"
+
+#define TEXT_C6I "Course 6"
+#define TEXT_C6  "Hypnotizing High Rise"
+#define TEXT_C6A "Author: someone2639"
+
+#define TEXT_C7I "Course 7"
+#define TEXT_C7  "Swirling Circus"
+#define TEXT_C7A "Author: CowQuack"
+
+#define TEXT_B2I "Bowser 2"
+#define TEXT_B2  "Bowser's Rainbow Rings"
+#define TEXT_B2A "Author: anundidenfiedemu"
+
 #endif
 
 

@@ -9355,9 +9355,22 @@ void cutscene_hub_world(struct Camera *c) {
     Vec3f zero = {0, 0, 0};
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
     if(gWorldID == -1) {
-        vec3f_set(pos, 15000.0f*coss(orbitAngle), 3000.0f, 15000.0f*sins(orbitAngle));
-        vec3f_set(focus, 7500.0f*coss(orbitAngle + 0x2000), 2000.0f, 7500.0f*sins(orbitAngle + 0x2000));
+        vec3f_set(pos, 15000.0f*coss(orbitAngle), 2000.0f, 15000.0f*sins(orbitAngle));
+        vec3f_set(focus, 7500.0f*coss(orbitAngle + 0x2000), 1000.0f, 7500.0f*sins(orbitAngle + 0x2000));
         roll = 0;
+
+/*         gHubTargetYawPos = approach_s16_asymptotic(gHubTargetYawPos, orbitAngle, 4);
+        gHubTargetPitchPos = approach_s16_asymptotic(gHubTargetPitchPos, 0x000, 4);
+        gHubTargetRadiusPos = approach_f32_asymptotic(gHubTargetRadiusPos, 16000.0f, 0.25f);
+
+        gHubTargetYawFocus = approach_s16_asymptotic(gHubTargetYawPos, orbitAngle - 0x1000, 4);
+        gHubTargetPitchFocus = approach_s16_asymptotic(gHubTargetPitchPos, 0x000, 4);
+        gHubTargetRadiusFocus = approach_f32_asymptotic(gHubTargetRadiusPos, 7500.0f, 0.25f);
+
+        vec3f_set_dist_and_angle(zero, c->pos, gHubTargetRadiusPos, gHubTargetPitchPos, gHubTargetYawPos);
+        vec3f_set_dist_and_angle(zero, c->focus, gHubTargetRadiusFocus, gHubTargetPitchFocus, gHubTargetYawFocus);
+ */
+        //print_text_fmt_int(20, 20, "0x%x", orbitAngle);
 
         approach_vec3f_asymptotic(c->pos, pos, 0.25f, 0.25f, 0.25f);
         approach_vec3f_asymptotic(c->focus, focus, 0.25f, 0.25f, 0.25f);
@@ -9370,20 +9383,20 @@ void cutscene_hub_world(struct Camera *c) {
                 targetYawPos = 0x4000;
                 targetPitchPos = 0;
                 targetRadiusPos = 15000.0f;
-                orbitAngle = 0xEC00;
+                orbitAngle = 0x1400;
                 break;
             case 1:
                 //vec3f_set(pos, -7560.0f, 5500.0f, -9428.0f);
-                targetYawPos = 0xC000;
-                targetPitchPos = 0;
-                targetRadiusPos = 15000.0f;
+                targetYawPos = 0x9F00;
+                targetPitchPos = 0x1400;
+                targetRadiusPos = 12500.0f;
                 orbitAngle = 0x8800;
                 break;
             case 2:
                 //vec3f_set(pos, -3779.0f, -15560.0f, 2788.0f);
-                targetYawPos = 0x0;
-                targetPitchPos = 0x4000;
-                targetRadiusPos = 15000.0f;
+                targetYawPos = 0xD100;
+                targetPitchPos = 0xD300;
+                targetRadiusPos = 12500.0f;
                 orbitAngle = 0x5000;
                 break;
         }
@@ -9410,8 +9423,6 @@ void cutscene_hub_world(struct Camera *c) {
         gHubTargetPitchFocus = approach_s16_asymptotic(gHubTargetPitchFocus, hubSelections[gWorldID][gFocusID].camPitchFocus, 4);
         gHubTargetRadiusFocus = approach_f32_asymptotic(gHubTargetRadiusFocus, hubSelections[gWorldID][gFocusID].camRadiusFocus, 0.25f);
         //vec3f_set(targetPos, coss(gHubTargetYaw) * coss(gHubTargetPitch), sins(gHubTargetPitch), sins(gHubTargetYaw) * coss(gHubTargetPitch));
-        vec3f_set_dist_and_angle(zero, c->focus, gHubTargetRadiusFocus, gHubTargetPitchFocus, gHubTargetYawFocus);
-        vec3f_set_dist_and_angle(zero, c->pos, gHubTargetRadiusPos, gHubTargetPitchPos, gHubTargetYawPos);
         //vec3f_mul(targetPos, radiusVec);
 
         roll = hubSelections[gWorldID][gFocusID].roll;
@@ -9446,6 +9457,9 @@ void cutscene_hub_world(struct Camera *c) {
         print_text_fmt_int(100, 60, "0x%x", (u16)gHubTargetYawFocus);
         print_text_fmt_int(100, 40, "0x%x", (u16)gHubTargetPitchFocus);
         print_text_fmt_int(100, 20, "%d", (s32)gHubTargetRadiusFocus);
+
+        vec3f_set_dist_and_angle(zero, c->focus, gHubTargetRadiusFocus, gHubTargetPitchFocus, gHubTargetYawFocus);
+        vec3f_set_dist_and_angle(zero, c->pos, gHubTargetRadiusPos, gHubTargetPitchPos, gHubTargetYawPos);
     }
     gLakituState.roll = approach_s16_asymptotic(gLakituState.roll, roll, 4);
     orbitAngle += 0x80;
