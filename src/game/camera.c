@@ -2879,6 +2879,7 @@ void switch_puppycam_enabled(void) {
         // case YOUR_LEVEL:
         case LEVEL_COZIES:
         case LEVEL_BITFS:
+        case LEVEL_BOWSER_2:
             gPuppyCam.enabled = TRUE;
             break;
         default:
@@ -6064,6 +6065,9 @@ struct CameraTrigger sCamCastleGrounds[] = {
 };
 
 struct CameraTrigger sCamBowser_1[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamBowser_2[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
