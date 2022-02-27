@@ -91,6 +91,7 @@ s32 check_if_mario_is_seen(void) {
     s32 searchAngle = o->oAngleToMario - o->oMoveAngleYaw;
     f32 distFromHit;
     f32 rayDist;
+    surf = NULL;
     
     while(searchAngle >= 0x10000) {searchAngle -= 0x10000;}
     while(searchAngle < 0x0) {searchAngle += 0x10000;}
@@ -105,7 +106,7 @@ s32 check_if_mario_is_seen(void) {
     if(o->oDistanceToMario < koopatrolViewRange) {
         rayDist = o->oDistanceToMario;
     } else {
-        rayDist = koopatrolViewRange;
+        return;
     }
     vec3f_set(dir, sins(o->oAngleToMario)*rayDist, 0, coss(o->oAngleToMario)*rayDist);
     vec3f_set(hitpos, 0, 0, 0);
@@ -156,7 +157,7 @@ void bhv_koopatrol_loop(void) {
         case 1:
             angle = atan2s((o->oKoopatrolTargetZ - o->oPosZ), (o->oKoopatrolTargetX - o->oPosX));
             o->oForwardVel = 20.0f;
-            cur_obj_init_animation_with_accel_and_sound(1, 2.1f);
+            //cur_obj_init_animation_with_accel_and_sound(1, 2.1f);
             koopa_play_footstep_sound(1, 21);
             o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, angle, 0x400);
             if(o->oMoveAngleYaw == angle) {
@@ -167,13 +168,13 @@ void bhv_koopatrol_loop(void) {
             if(sqrtf(POW2(o->oKoopatrolTargetZ - o->oPosZ) + POW2(o->oKoopatrolTargetX - o->oPosX)) < 25.0f || o->oMoveFlags & OBJ_MOVE_HIT_WALL || o->oTimer > 150) {
                 o->oAction = 2;
             }
-            if(check_if_mario_is_seen()) {
-                o->oAction = 3;
-                cur_obj_play_sound_2(SOUND_OBJ_KOOPA_TALK);
-            }
+            // if(check_if_mario_is_seen()) {
+            //     o->oAction = 3;
+            //     cur_obj_play_sound_2(SOUND_OBJ_KOOPA_TALK);
+            // }
             break;
         case 2:
-            cur_obj_init_animation_with_accel_and_sound(1, 1.0f);
+            //cur_obj_init_animation_with_accel_and_sound(1, 1.0f);
             if(o->oTimer > 150) {
                 if((random_u16() % 10 == 0)) {
                     o->oAction = 0;
@@ -181,13 +182,13 @@ void bhv_koopatrol_loop(void) {
             }
             //o->oMoveAngleYaw += 0x100;
             o->oForwardVel = 5.0f;
-            if(check_if_mario_is_seen()) {
-                o->oAction = 3;
-                cur_obj_play_sound_2(SOUND_OBJ_KOOPA_TALK);
-            }
+            // if(check_if_mario_is_seen()) {
+            //     o->oAction = 3;
+            //     cur_obj_play_sound_2(SOUND_OBJ_KOOPA_TALK);
+            // }
             break;
         case 3:
-            cur_obj_init_animation_with_accel_and_sound(2, 3.0f);
+            //cur_obj_init_animation_with_accel_and_sound(2, 3.0f);
             koopa_play_footstep_sound(1, 21);
             o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x200);
             o->oForwardVel = 52.0f;
