@@ -41,16 +41,17 @@ const LevelScript level_bowser_2_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOWSER_2, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x01, LEVEL_BOWSER_2, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_NONE, 0, 1000, 0, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
+		MARIO_POS(0x01, 0, 0, 1000, 0),
 		TERRAIN(bowser_2_area_1_collision),
 		MACRO_OBJECTS(bowser_2_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_BOSS_KOOPA),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
 		TERRAIN_TYPE(TERRAIN_SNOW),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(1, 0, 0, 0, 0),
+	MARIO_POS(0x01, 0, 0, 1000, 0),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),
