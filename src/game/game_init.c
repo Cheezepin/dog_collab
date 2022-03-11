@@ -29,6 +29,7 @@
 #include "puppycam2.h"
 #include "debug_box.h"
 #include "vc_check.h"
+#include "debug.h"
 
 
 f32 tank_treads;
@@ -433,6 +434,22 @@ void select_gfx_pool(void) {
     gGfxPoolEnd = (u8 *) (gGfxPool->buffer + GFX_POOL_SIZE);
 }
 
+s32 handle_wait_vblank(OSMesgQueue *mq) {
+    // returns true if it lasts longer than 3 seconds (3 * 1000us * 1000ms)
+    OSMesg msg;
+    OSTimer timer;
+    osSetTimer(&timer, OS_USEC_TO_CYCLES(3000000), 0, mq, (OSMesg)666);
+    osRecvMesg(mq, &msg, OS_MESG_BLOCK);
+    osStopTimer(&timer);
+
+    return msg == (OSMesg)666;
+}
+
+static void rcp_omg(void) {
+    osSyncPrintf("RCP is HUNG UP!! Oh! MY GOD!!");
+    assert(FALSE, "RCP is HUNG UP!! Oh! MY GOD!!");
+}
+
 /**
  * This function:
  * - Sends the current master display list out to be rendered.
@@ -441,19 +458,20 @@ void select_gfx_pool(void) {
  * - Selects which framebuffer will be rendered and displayed to next time.
  */
 void display_and_vsync(void) {
-    osRecvMesg(&gGfxVblankQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
+    if (handle_wait_vblank(&gGfxVblankQueue)) rcp_omg();
+
     if (gGoddardVblankCallback != NULL) {
         gGoddardVblankCallback();
         gGoddardVblankCallback = NULL;
     }
     exec_display_list(&gGfxPool->spTask);
-#ifndef UNLOCK_FPS
-    osRecvMesg(&gGameVblankQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
-#endif
+
+    if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
+
     osViSwapBuffer((void *) PHYSICAL_TO_VIRTUAL(gPhysicalFramebuffers[sRenderedFramebuffer]));
-#ifndef UNLOCK_FPS
-    osRecvMesg(&gGameVblankQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
-#endif
+
+    if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
+
     // Skip swapping buffers on emulator so that they display immediately as the Gfx task finishes
     if (gIsConsole || gIsVC) { // Read RDP Clock Register, has a value of zero on emulators
         if (++sRenderedFramebuffer == 3) {
