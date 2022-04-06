@@ -3296,7 +3296,7 @@ void init_camera(struct Camera *c) {
             }
             break;
         case LEVEL_BOWSER_2:
-            start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
+            //start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
             break;
         case LEVEL_BOWSER_3:
             start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
@@ -10087,6 +10087,14 @@ void cutscene_door_mode(struct Camera *c) {
     }
 }
 
+void cutscene_snow_hill(struct Camera *c) {
+    Vec3f marioPos;
+    vec3f_copy(marioPos, sMarioCamState->pos);
+    vec3f_set(c->pos, marioPos[0] - 1000.0f, marioPos[1] - 300.0f, marioPos[2]);
+    vec3f_set(c->focus, marioPos[0] + 1500.0f, marioPos[1] + 1200.0f, marioPos[2] / 2);
+    c->yaw = c->nextYaw = 0xC000;
+}
+
 /******************************************************************************************************
  * Cutscenes
  ******************************************************************************************************/
@@ -10488,6 +10496,10 @@ struct Cutscene sCutsceneReadMessage[] = {
 
 struct Cutscene sCutsceneHubWorld[] = {
     { cutscene_hub_world, CUTSCENE_LOOP },
+};
+
+struct Cutscene sCutsceneSnowHill[] = {
+    { cutscene_snow_hill, CUTSCENE_LOOP },
 };
 
 /* TODO:
@@ -10952,6 +10964,7 @@ void play_cutscene(struct Camera *c) {
         CUTSCENE(CUTSCENE_ENTER_PYRAMID_TOP,    sCutsceneEnterPyramidTop)
         CUTSCENE(CUTSCENE_SSL_PYRAMID_EXPLODE,  sCutscenePyramidTopExplode)
         CUTSCENE(CUTSCENE_HUB_WORLD,            sCutsceneHubWorld)
+        CUTSCENE(CUTSCENE_SNOW_HILL,            sCutsceneSnowHill)
     }
 
 #undef CUTSCENE

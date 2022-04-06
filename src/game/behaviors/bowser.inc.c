@@ -2283,3 +2283,33 @@ Gfx *geo_bits_bowser_coloring(s32 callContext, struct GraphNode *node, UNUSED s3
 
     return gfxHead;
 }
+
+void bhv_snow_bowser_init(void) {
+    s32 level;
+    o->oOpacity = 255;
+    o->oBowserTargetOpacity = 255;
+    o->oBehParams2ndByte = BOWSER_BP_BITFS;
+    o->oHealth = 3;
+    //cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
+    o->oAction = 0;
+    o->oBowserEyesTimer = 0;
+    o->oBowserEyesShut = FALSE;
+}
+
+void bhv_snow_bowser_loop(void) {
+    o->oMoveAngleYaw = o->oAngleToMario;
+    o->oPosZ = approach_f32_asymptotic(o->oPosZ, gMarioState->pos[2], 0.05f);
+    o->oMoveAngleRoll = (o->oMoveAngleYaw + 0x4000);
+    if (!(gCurrentObject->oActiveParticleFlags & ACTIVE_PARTICLE_SNOW)) {
+        struct Object *particle;
+        gCurrentObject->oActiveParticleFlags |= ACTIVE_PARTICLE_SNOW;
+        particle = spawn_object_at_origin(gCurrentObject, 0, MODEL_NONE, bhvBowserSnowParticleSpawner);
+        obj_copy_pos_and_angle(particle, gCurrentObject);
+        obj_scale(particle, 3.0f);
+        particle->oPosY += 200.0f;
+        particle->oPosX += 330.0f;
+    }
+    gCamera->cutscene = CUTSCENE_SNOW_HILL;
+    if(o->oTimer > 60)
+        set_mario_action(gMarioState, ACT_SKIING, 0);
+}

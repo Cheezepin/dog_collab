@@ -775,7 +775,9 @@ void bhv_entrance_gate_loop(void);
 void bhv_comit_dog_loop(void);
 void bhv_rainbow_cloud_spawner_loop(void);
 void bhv_spectator_lakitu_init(void);
-
+void bhv_snow_bowser_init(void);
+void bhv_snow_bowser_loop(void);
+void bhv_ground_bowser_snow_init(void);
 
 
 

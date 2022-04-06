@@ -1511,6 +1511,14 @@ const BehaviorScript bhvSnowParticleSpawner[] = {
     DEACTIVATE(),
 };
 
+const BehaviorScript bhvBowserSnowParticleSpawner[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE(bhv_ground_bowser_snow_init),
+    DELAY(1),
+    DEACTIVATE(),
+};
+
 const BehaviorScript bhvWind[] = {
     BEGIN(OBJ_LIST_UNIMPORTANT),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
@@ -2215,6 +2223,21 @@ const BehaviorScript bhvBowser[] = {
     CALL_NATIVE(bhv_bowser_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_bowser_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvBowserSnow[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_HOLDABLE | OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_INT(oInteractType, INTERACT_DAMAGE),
+    SET_HITBOX(/*Radius*/ 400, /*Height*/ 400),
+    SET_HOME(),
+    LOAD_ANIMATIONS(oAnimations, bowser_seg6_anims_06057690),
+    ANIMATE(27),
+    SET_INT(oOpacity, 255),
+    CALL_NATIVE(bhv_snow_bowser_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_snow_bowser_loop),
     END_LOOP(),
 };
 
@@ -7804,6 +7827,16 @@ const BehaviorScript bhvCheezeDog[] = {
         SET_INT(oIntangibleTimer, 0),
         SET_INT(oInteractStatus, 0),
         CALL_NATIVE(bhv_cheezedog_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvCheezeSkiDog[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO |OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    ANIMATE(0),
+    SET_HOME(),
+    BEGIN_LOOP(),
     END_LOOP(),
 };
 
