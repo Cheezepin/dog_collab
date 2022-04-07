@@ -45,7 +45,7 @@ extern u32   __n64Assert_LineNum;
 extern char *__n64Assert_Message;
 extern void __n64Assert(char *fileName, u32 lineNum, char *message);
 
-
+#define DEBUG
 #ifdef DEBUG
 #define assert(cond, message) do {\
     if ((cond) == FALSE) { \

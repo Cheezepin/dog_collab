@@ -21,7 +21,7 @@ extern Vtx koopatrol_Torso_mesh_layer_1_vtx_3[16];
 extern Gfx koopatrol_Torso_mesh_layer_1_tri_3[];
 extern Vtx koopatrol_Torso_mesh_layer_1_vtx_4[45];
 extern Gfx koopatrol_Torso_mesh_layer_1_tri_4[];
-extern Vtx koopatrol_Head_mesh_layer_1_vtx_0[74];
+extern Vtx koopatrol_Head_mesh_layer_1_vtx_0[72];
 extern Gfx koopatrol_Head_mesh_layer_1_tri_0[];
 extern Vtx koopatrol_Head_mesh_layer_1_vtx_1[16];
 extern Gfx koopatrol_Head_mesh_layer_1_tri_1[];

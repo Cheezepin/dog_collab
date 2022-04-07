@@ -38,6 +38,8 @@ const LevelScript level_bowser_1_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE, emu_ashpile_geo), 
     LOAD_MODEL_FROM_GEO(MODEL_ASHPILE2, emu_ashpile2_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_EMU_LASER_RING, laser_ring),
+	LOAD_MODEL_FROM_GEO(MODEL_RED_CIRCLE, circle_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING, lightning_geo),
 	/* Fast64 end persistent block [level commands] */
 
 	AREA(1, bowser_1_area_1),
