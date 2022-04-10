@@ -14,3 +14,5 @@ u64 aligner2639 = 14241823231;
 #include "elevator/model.inc.c"
 #include "elevator/collision.inc.c"
 #include "soder/model.inc.c"
+#include "turnstile/model.inc.c"
+#include "turnstile/collision.inc.c"

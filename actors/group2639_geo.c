@@ -9,3 +9,4 @@
 
 #include "elevator/geo.inc.c"
 #include "soder/geo.inc.c"
+#include "turnstile/geo.inc.c"
