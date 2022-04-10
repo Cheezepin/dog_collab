@@ -20,4 +20,8 @@
 
 #include "soder/geo_header.h"
 
+#include "turnstile/geo_header.h"
+
+#include "turnstile/collision_header.h"
+
 #endif

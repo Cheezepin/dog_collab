@@ -560,7 +560,7 @@ distclean: clean
 	$(MAKE) -C $(TOOLS_DIR) clean
 
 test: $(ROM)
-	$(EMULATOR) $(EMU_FLAGS) $<
+	~/Devel/m64p/mupen64plus/mupen64plus-gui $<
 
 test-pj64: $(ROM)
 	wine ~/Desktop/new64/Project64.exe $<
