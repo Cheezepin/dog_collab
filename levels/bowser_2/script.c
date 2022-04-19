@@ -12,6 +12,7 @@
 #include "levels/scripts.h"
 
 #include "actors/common1.h"
+#include "actors/group12.h"
 
 /* Fast64 begin persistent block [includes] */
 /* Fast64 end persistent block [includes] */
@@ -32,8 +33,13 @@ const LevelScript level_bowser_2_entry[] = {
 	LOAD_RAW(0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
-	JUMP_LINK(script_func_global_13), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_2_TILTING_ARENA, bowser_2_geo_000170), 
+	LOAD_MODEL_FROM_GEO(MODEL_BOWSER, bowser_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB_CHILD_OBJ, bowser_bomb_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB, bowser_bomb_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_SMOKE, bowser_impact_smoke_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_FLAMES, bowser_flames_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_WAVE, invisible_bowser_accessory_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_NO_SHADOW, bowser_geo_no_shadow), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
