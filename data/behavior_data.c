@@ -3684,9 +3684,9 @@ const BehaviorScript bhvMario[] = {
     OR_INT(oUnk94, 0x0001),
     SET_HITBOX(/*Radius*/ 37, /*Height*/ 160),
     BEGIN_LOOP(),
-#ifdef VANILLA_DEBUG
+// #ifdef VANILLA_DEBUG
         CALL_NATIVE(try_print_debug_mario_level_info),
-#endif
+// #endif
         CALL_NATIVE(bhv_mario_update),
 #ifdef VANILLA_DEBUG
         CALL_NATIVE(try_do_mario_debug_object_spawn),
@@ -7988,3 +7988,22 @@ const BehaviorScript bhv2639soda[] = {
 	END_LOOP(),
 };
 
+const BehaviorScript bhvEntranceturnstile[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(turnstile_collision),
+	CALL_NATIVE(bhv_EntranceTurnStile_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_EntranceTurnStile_loop),
+        CALL_NATIVE(load_object_collision_model),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639pc2_targetobj[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_2639PC2_TargetObj_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639PC2_TargetObj_loop),
+	END_LOOP(),
+};

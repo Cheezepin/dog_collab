@@ -431,21 +431,9 @@ void try_print_debug_mario_object_info(void) {
  * stageinfo)
  */
 void try_print_debug_mario_level_info(void) {
-    switch (sDebugPage) {
-        case DEBUG_PAGE_OBJECTINFO:
-            break; // no info list is printed for obj info.
-        case DEBUG_PAGE_CHECKSURFACEINFO:
-            print_checkinfo();
-            break;
-        case DEBUG_PAGE_MAPINFO:
-            print_mapinfo();
-            break;
-        case DEBUG_PAGE_STAGEINFO:
-            print_stageinfo();
-            break;
-        default:
-            break;
-    }
+    print_text_fmt_int(50, 50, "X %d", gMarioState->pos[0]);
+    print_text_fmt_int(50, 50, "Y %d", gMarioState->pos[1]);
+    print_text_fmt_int(50, 50, "Z %d", gMarioState->pos[2]);
 }
 
 /*

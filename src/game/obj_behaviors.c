@@ -800,3 +800,6 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/2639A2HiddenStar.inc.c"
 #include "behaviors/2639Elevator.inc.c"
 #include "behaviors/2639Soda.inc.c"
+
+#include "behaviors/EntranceTurnStile.inc.c"
+#include "behaviors/2639PC2_TargetObj.inc.c"

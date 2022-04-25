@@ -25,6 +25,10 @@
 #include "puppyprint.h"
 #include "debug_box.h"
 #include "main.h"
+#include "debug.h"
+
+#include "2639_defs.h"
+#include "enhancements/puppycam_angles.inc.c"
 
 #ifdef PUPPYCAM
 
@@ -1278,7 +1282,7 @@ static void puppycam_script(void) {
 
             // Last and probably least, check if there's a function attached, and call it, if so.
             if (volume.func) {
-                (volume.func)();
+                (volume.func)(gPuppyCam, &volume);
             }
         }
     }

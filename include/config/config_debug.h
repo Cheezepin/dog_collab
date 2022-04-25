@@ -23,7 +23,7 @@
 #define ENABLE_DEBUG_FREE_MOVE
 
 // Include a custom, enhanced performance profiler. (Enables PUPPYPRINT by default in config_safeguards).
-// #define PUPPYPRINT_DEBUG 1
+#define PUPPYPRINT_DEBUG 1
 
 // Use cycles instead of microseconds in Puppyprint debug output.
 // #define PUPPYPRINT_DEBUG_CYCLES
@@ -34,7 +34,7 @@
 
 // Visual debug enables some collision visuals. Tapping Right on the dpad will cycle between visual hitboxes, visual surfaces, both, and neither.
 // If puppyprint is enabled, then this can be cycled only while the screen is active.
-// #define VISUAL_DEBUG
+#define VISUAL_DEBUG
 
 // Open all courses and doors. Used for debugging purposes to unlock all content.
 #define UNLOCK_ALL

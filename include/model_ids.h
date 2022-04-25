@@ -709,6 +709,7 @@ enum _2639Models {
 	MODEL_2639COUCH = 0x100,
 	MODEL_ELEV2639,
 	MODEL_2639SODER,
+	MODEL_2639TURNSTILE,
 };
 
 //start cheeze model ids

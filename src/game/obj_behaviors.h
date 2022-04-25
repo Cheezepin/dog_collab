@@ -206,3 +206,5 @@ void bhv_A2PushableCouch_init(void); void bhv_A2PushableCouch_loop(void);
 void bhv_2639A2HiddenStar_init(void); void bhv_2639A2HiddenStar_loop(void);
 void bhv_2639Elevator_init(void); void bhv_2639Elevator_loop(void);
 void bhv_2639Soda_init(void); void bhv_2639Soda_loop(void);
+void bhv_EntranceTurnStile_init(void); void bhv_EntranceTurnStile_loop(void);
+void bhv_2639PC2_TargetObj_init(void); void bhv_2639PC2_TargetObj_loop(void);

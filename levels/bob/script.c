@@ -17,13 +17,6 @@
 #include "actors/group2639.h"
 #include "actors/group2639.h"
 #include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
 
 /* Fast64 begin persistent block [includes] */
 #include "actors/group2639.h"
@@ -52,66 +45,24 @@ const LevelScript level_bob_entry[] = {
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_16), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
@@ -119,6 +70,7 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 	/* Fast64 end persistent block [level commands] */
 
 	AREA(1, bob_area_1),
@@ -126,13 +78,15 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_DOG, 2726, -2592, 4711, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
-		OBJECT(MODEL_NONE, 0, -2373, 5064, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
-		MARIO_POS(0x01, 0, 0, -2373, 5064),
+		OBJECT(MODEL_2639TURNSTILE, -404, -1727, -1747, 0, 0, 0, 0x00000000, bhvEntranceturnstile),
+		OBJECT(MODEL_NONE, 0, -1308, -341, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		MARIO_POS(0x01, 0, 0, -1308, -341),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
+		PUPPYVOLUME_COMPAT(0),
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
@@ -176,7 +130,7 @@ const LevelScript level_bob_entry[] = {
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 0, 0, -2373, 5064),
+	MARIO_POS(0x01, 0, 0, -1308, -341),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),

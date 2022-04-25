@@ -817,6 +817,11 @@ s32 act_walking(struct MarioState *m) {
             break;
 
         case GROUND_STEP_HIT_WALL:
+            if (m->wall->object != NULL) {
+                if (m->wall->object->behavior == segmented_to_virtual(bhvEntranceturnstile)) {
+                    break;
+                }
+            }
             push_or_sidle_wall(m, startPos);
             m->actionTimer = 0;
             break;

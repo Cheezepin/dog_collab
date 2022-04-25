@@ -567,7 +567,7 @@ test-pj64: $(ROM)
 # someone2639
 
 load: $(ROM)
-	$(LOADER) $(LOADER_FLAGS) $<
+	cp $< /run/media/$(USER)/CF62-9261/
 
 libultra: $(BUILD_DIR)/libultra.a
 
