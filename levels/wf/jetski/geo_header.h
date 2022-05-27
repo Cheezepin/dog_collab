@@ -1,0 +1,14 @@
+extern const GeoLayout jetski_geo[];
+extern Lights1 jetski_jetski_leather_lights;
+extern Lights1 jetski_jetski_mario_lights;
+extern u8 jetski_jetski_mario_ci4[];
+extern u8 jetski_jetski_mario_ci4_pal_rgba16[];
+extern Vtx jetski_000_displaylist_mesh_layer_1_vtx_0[48];
+extern Gfx jetski_000_displaylist_mesh_layer_1_tri_0[];
+extern Vtx jetski_000_displaylist_mesh_layer_1_vtx_1[67];
+extern Gfx jetski_000_displaylist_mesh_layer_1_tri_1[];
+extern Gfx mat_jetski_jetski_leather[];
+extern Gfx mat_jetski_jetski_mario[];
+extern Gfx mat_revert_jetski_jetski_mario[];
+extern Gfx jetski_000_displaylist_mesh_layer_1[];
+extern Gfx jetski_material_revert_render_settings[];

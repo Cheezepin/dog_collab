@@ -67,3 +67,10 @@
 #include "levels/wf/areas/1/collision.inc.c"
 #include "levels/wf/areas/1/macro.inc.c"
 #include "levels/wf/areas/1/movtext.inc.c"
+
+#include "levels/wf/leveldata.inc.c"
+
+#include "levels/wf/wf_palm_tree/model.inc.c"
+#include "levels/wf/wf_palm_tree/anims/data.inc.c"
+#include "levels/wf/wf_palm_tree/anims/table.inc.c"
+#include "levels/wf/jetski/model.inc.c"

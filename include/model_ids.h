@@ -730,4 +730,10 @@ enum _2639Models {
 
 //CIAO BITCHES
 
+//bernie
+
+#define MODEL_WF_PALM_TREE 0x190
+
+//bean
+
 #endif // MODEL_IDS_H

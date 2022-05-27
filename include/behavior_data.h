@@ -700,6 +700,9 @@ extern const BehaviorScript bhvKoopatrol[];
 extern const BehaviorScript bhvWindSoundLoop[];
 //cheeze bhv ends
 
+//bernie
+extern const BehaviorScript bhvPalmTree[];
+//bean
 
 #endif // BEHAVIOR_DATA_H
 
