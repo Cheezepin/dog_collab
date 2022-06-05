@@ -76,34 +76,38 @@ Come back later...\n\
 When you're ready to\n\
 face the @00DD00FFGeneral@000000FF.")
 
-DEFINE_DIALOG(DIALOG_006, 1, 3, 30, 200, "\
-Hey!!! Don't try to " SCAM_ME
-"You've gotta run\n\
-the whole course.\n\
-Later. Look me up when\n\
-you want to race for\n\
-real.")
-
-DEFINE_DIALOG(DIALOG_007, 1, 5, 30, 200, "\
-Hufff...fff...pufff...\n\
-Whoa! You...really...are...\n\
-fast! A human blur!\n\
-Here you go--you've won\n\
-it, fair and square!")
-
-DEFINE_DIALOG(DIALOG_008, 1, 4, 30, 200, "\
-BEWARE OF CHAIN CHOMP\n\
-Extreme Danger!\n\
-Get close and press " TEXT_CBUTTON TEXT_CUP "\n\
-for a better look.\n\
-Scary, huh?\n\
-See the Red Coin on top\n\
-of the stake?\n\
+// Yoshi Milkman
+DEFINE_DIALOG(DIALOG_006, 1, 4, 30, 200, "\
+They say there's some\n\
+secrets hidden in this\n\
+town.\n\
 \n\
-When you collect eight of\n\
-them, a Power Star will\n\
-appear in the meadow\n\
-across the bridge.")
+I haven't seen any\n\
+myself, but if I were\n\
+you, I'd try the hard\n\
+to reach spots.")
+
+// Yoshi Milkman
+DEFINE_DIALOG(DIALOG_007, 1, 5, 30, 200, "\
+I heard there's a\n\
+hidden enterance\n\
+to the castle in\n\
+that big lake to\n\
+the right.\n\
+No one usually\n\
+gets let in, I\n\
+wonder what they're\n\
+hiding down there?")
+
+// Yoshi Milkman
+DEFINE_DIALOG(DIALOG_008, 1, 4, 30, 200, "\
+The castle's courtyard\n\
+has gotten quite chaotic\n\
+ever since those\n\
+Power Stars showed up.\n\
+Makes me want some\n\
+peace and quiet in\n\
+the forest...")
 
 DEFINE_DIALOG(DIALOG_009, 1, 5, 30, 200, "\
 Long time, no see! Wow,\n\
@@ -177,20 +181,30 @@ Do you want to Save?\n\
 \n\
 //You Bet//Not Now")
 
-DEFINE_DIALOG(DIALOG_015, 1, 4, 30, 200, "\
-You can punch enemies to\n\
-knock them down. Press " TEXT_ABUTTON "\n\
-to jump, " TEXT_BBUTTON " to punch.\n\
-Press " TEXT_ABUTTON " then " TEXT_BBUTTON " to Kick.\n\
-To pick something up,\n\
-press " TEXT_BBUTTON ", too. To throw\n\
-something you're holding,\n\
-press " TEXT_BBUTTON " again.")
+// Yoshi Milkman
+DEFINE_DIALOG(DIALOG_015, 1, 5, 30, 200, "\
+Like my raft?\n\
+It's quite nifty\n\
+if I do say so\n\
+myself!\n\
+\n\
+I made it to\n\
+search for that\n\
+secret enterance\n\
+everyone is talking\n\
+about...")
 
+// Yoshi Milkman
 DEFINE_DIALOG(DIALOG_016, 1, 3, 30, 200, "\
-Hop on the shiny shell and\n\
-ride wherever you want to\n\
-go! Shred those enemies!")
+Woof!\n\
+(I'm the shrine dog!)\n\
+\n\
+Arf!\n\
+(I've been keeping watch\n\
+of this star for you!)\n\
+Bark!\n\
+(Please take good care\n\
+of it!)")
 
 DEFINE_DIALOG(DIALOG_017, 1, 4, 30, 200, "\
 I'm the Big Bob-omb, lord\n\

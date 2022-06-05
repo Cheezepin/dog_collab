@@ -420,7 +420,8 @@ void update_walking_speed(struct MarioState *m) {
     f32 targetSpeed;
 
     if (m->floor != NULL && m->floor->type == SURFACE_SLOW) {
-        maxTargetSpeed = 24.0f;
+        // Yoshi Milkman: Make this slower
+        maxTargetSpeed = 18.0f;
     } else {
         maxTargetSpeed = 32.0f;
     }
