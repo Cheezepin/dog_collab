@@ -262,6 +262,7 @@ extern const Gfx mario_cap_wings[];
 extern const Gfx mario_cap_wings_transparent[];
 extern const Gfx mario_metal_cap_wings[];
 extern const Gfx mario_metal_cap_wings_transparent[];
+extern const Gfx ski_skinned_003_mesh[];
 
 // sparkle
 extern const GeoLayout sparkles_geo[];

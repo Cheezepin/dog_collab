@@ -13,6 +13,10 @@ const GeoLayout bowser_geo_0000D8[] = {
                   GEO_ANIMATED_PART(LAYER_OPAQUE, 85, 0, 0, NULL),
                   GEO_OPEN_NODE(),
                      GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, bowser_seg6_dl_0603D200),
+                     //snowboard
+                     GEO_OPEN_NODE(),
+                        GEO_DISPLAY_LIST(LAYER_OPAQUE, snowboard_board_mesh),
+                     GEO_CLOSE_NODE(),
                   GEO_CLOSE_NODE(),
                   GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, bowser_seg6_dl_0603E6B8),
                GEO_CLOSE_NODE(),

@@ -7832,11 +7832,13 @@ const BehaviorScript bhvCheezeDog[] = {
 
 const BehaviorScript bhvCheezeSkiDog[] = {
     BEGIN(OBJ_LIST_LEVEL),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO |OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_HOLDABLE)),
     LOAD_ANIMATIONS(oAnimations, dog_anims),
     ANIMATE(0),
     SET_HOME(),
+    SCALE(0, 50),
     BEGIN_LOOP(),
+        CALL_NATIVE(bhv_cheezeskidog_loop),
     END_LOOP(),
 };
 

@@ -1905,7 +1905,14 @@ __attribute__((noinline)) s32 act_skiing(struct MarioState *m) {
             set_mario_animation(m, MARIO_ANIM_SKI_LAND);
             if(is_anim_at_end(m)) {gSkiJumping = 0;}
         } else {
-            set_mario_animation(m, MARIO_ANIM_SKI);
+            if(m->actionArg == 2) {
+                set_mario_animation(m, MARIO_ANIM_SKI_THROW);
+                if(is_anim_at_end(m)) {
+                    m->actionArg = 0;
+                }
+            } else {
+                set_mario_animation(m, MARIO_ANIM_SKI);
+            }
         }
         m->particleFlags |= PARTICLE_SNOW;
     } else {
@@ -1931,16 +1938,26 @@ __attribute__((noinline)) s32 act_skiing(struct MarioState *m) {
             if(gSkiingMag > 0) {gSkiingMag = 0;}
         }
     }
+    //if(abss(gPlayer1Controller->stickY) > 0x4) {
+    if(m->pos[0] < 1200.0f) {
+        m->pos[0] += ((f32)/*gPlayer1Controller->stickY*/12.0f) * 0.75f;
+        m->pos[1] += ((f32)/*gPlayer1Controller->stickY*/12.0f) * 0.45f;
+    }
     if(gSkiingMag > 0x17F) {gSkiingMag = 0x17F;}
     if(gSkiingMag < -0x17F) {gSkiingMag = -0x17F;}
     m->pos[2] += 0.125f*((f32)gSkiingMag);
     vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
     vec3s_copy(m->marioObj->header.gfx.angle, m->faceAngle);
 
-    if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+    if((gPlayer1Controller->buttonPressed & A_BUTTON) && gSkiJumping == 0) {
         m->vel[1] = 32.0f;
         set_mario_animation(m, MARIO_ANIM_SKI_JUMP);
         gSkiJumping = 1;
+    }
+
+    if((gPlayer1Controller->buttonPressed & B_BUTTON) && gSkiJumping == 0) {
+        m->actionArg = 2;
+        mario_throw_held_object(m);
     }
 
     return FALSE;

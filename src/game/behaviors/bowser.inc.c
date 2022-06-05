@@ -2297,9 +2297,15 @@ void bhv_snow_bowser_init(void) {
 }
 
 void bhv_snow_bowser_loop(void) {
-    o->oMoveAngleYaw = o->oAngleToMario;
-    o->oPosZ = approach_f32_asymptotic(o->oPosZ, gMarioState->pos[2], 0.05f);
-    o->oMoveAngleRoll = (o->oMoveAngleYaw + 0x4000);
+    if(find_any_object_with_behavior(bhvCheezeSkiDog) != 0 && find_any_object_with_behavior(bhvCheezeSkiDog)->oAction == 2) {
+        gMarioState->pos[0] += ((f32)-50.0f) * 0.75f;
+        gMarioState->pos[1] += ((f32)-50.0f) * 0.45f;
+    } else {
+        o->oMoveAngleYaw = o->oAngleToMario;
+        o->oPosZ = approach_f32_asymptotic(o->oPosZ, gMarioState->pos[2], 0.05f);
+        o->oMoveAngleRoll = (o->oMoveAngleYaw + 0x4000);
+        cur_obj_init_animation(27);
+    }
     if (!(gCurrentObject->oActiveParticleFlags & ACTIVE_PARTICLE_SNOW)) {
         struct Object *particle;
         gCurrentObject->oActiveParticleFlags |= ACTIVE_PARTICLE_SNOW;
@@ -2310,6 +2316,10 @@ void bhv_snow_bowser_loop(void) {
         particle->oPosX += 330.0f;
     }
     gCamera->cutscene = CUTSCENE_SNOW_HILL;
-    if(o->oTimer > 60)
+    if(o->oTimer == 60) {
         set_mario_action(gMarioState, ACT_SKIING, 0);
+        // gMarioState->heldObj = find_any_object_with_behavior(bhvCheezeSkiDog);
+        // obj_set_held_state(gMarioState->heldObj, bhvCarrySomethingHeld);
+        // gMarioState->heldObj->oMoveAngleYaw = 0x4000;
+    }
 }

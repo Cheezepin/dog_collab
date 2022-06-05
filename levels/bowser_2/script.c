@@ -33,13 +33,7 @@ const LevelScript level_bowser_2_entry[] = {
 	LOAD_RAW(0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER, bowser_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB_CHILD_OBJ, bowser_bomb_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_BOMB, bowser_bomb_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_SMOKE, bowser_impact_smoke_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_FLAMES, bowser_flames_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_WAVE, invisible_bowser_accessory_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_NO_SHADOW, bowser_geo_no_shadow), 
+	JUMP_LINK(script_func_global_13), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -48,7 +42,7 @@ const LevelScript level_bowser_2_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOWSER_2, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x01, LEVEL_BOWSER_2, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_BOWSER, 1732, 1039, 0, 30, -90, 0, 0x00000000, bhvBowserSnow),
-		OBJECT(MODEL_DOG, 500, 300, 0, 31, -90, 0, 0x00000000, bhvCheezeSkiDog),
+		OBJECT(MODEL_DOG, -2000, -1200, 0, 31, -90, 0, 0x00000000, bhvCheezeSkiDog),
 		OBJECT(MODEL_NONE, 0, 1000, 0, 0, -90, 0, (0xA << 16), bhvSpinAirborneWarp),
 		MARIO_POS(0x01, -90, 0, 1000, 0),
 		TERRAIN(bowser_2_area_1_collision),
