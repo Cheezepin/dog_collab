@@ -5460,6 +5460,11 @@ void cam_bob_tower(struct Camera *c) {
     transition_to_camera_mode(c, CAMERA_MODE_RADIAL, 90);
 }
 
+void goto_parallelcam(struct Camera *c) {
+    sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
+    transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
+}
+
 /**
  * Unused. Changes the camera to free roam mode when Mario is not climbing the tower.
  *
@@ -6171,17 +6176,18 @@ s16 camera_course_processing(struct Camera *c) {
                         sCameraTriggers[level][b].event(c);
                         insideBounds = TRUE;
                     // }
-                } else {
-                    transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
                 }
+                // else {
+                //     goto_parallelcam(c);
+                // }
             }
 
             if ((sCameraTriggers[level])[b].area == -1) {
                 // Default triggers are only active if Mario is not already inside another trigger
                 if (!insideBounds) {
-                    // if (!(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
+                    if (!(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
                         sCameraTriggers[level][b].event(c);
-                    // }
+                    }
                 }
             }
 

@@ -66,25 +66,10 @@ void Cam2639_Elevator(struct Camera *c) {
 }
 
 void Cam2639_Main(struct Camera *c) {
-    // *(vs8*)0=0;
-
-    // if (gCurrAreaIndex == 1) {
-    //     // struct Object *t = NextObj_BParam(bhv2639pc2_targetobj, 1 << 16);
-    //     // assert(t != NULL, "oof");
-        
-    // 	// print_text_fmt_int(50, 90, "A %d", ((uintptr_t)t) & 0x7FFFFFFF);
-    //     // pc->targetObj = gMarioObject;
-    //     // pc->targetObj2 = t;
-    //     // a->zoom = 1;
-    // }
-    // if (gCurrAreaIndex == 2) {
-    //     Cam2639_CylinderCam(c);
-    // } else {
-        extern s16 sStatusFlags;
-        sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
-        transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
-        CDebug(c);
-    // }
+    extern s16 sStatusFlags;
+    sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
+    transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
+    CDebug(c);
 }
 
 
