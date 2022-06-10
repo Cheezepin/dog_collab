@@ -12,6 +12,7 @@
 #include "src/game/texscroll/bowser_1_texscroll.inc.h"
 #include "src/game/texscroll/bitfs_texscroll.inc.h"
 #include "src/game/texscroll/bowser_2_texscroll.inc.h"
+#include "src/game/texscroll/lll_texscroll.inc.h"
 extern void scroll_textures();
 
 #endif

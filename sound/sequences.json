@@ -42,5 +42,9 @@
     "27_CUSTOM_comit_cloud": ["26_comit"],
     "28_custom_ambi": ["12"],
     "29_custom_tank_boss": ["1A"],
-    "2A_CUSTOM_hyrule_castle": ["19"]
+    "2A_CUSTOM_hyrule_castle": ["19"],
+    "2B_custom_feudal_outside": ["25"],
+    "2C_custom_feudal_forest": ["25"],
+    "2D_custom_feudal_dungeon": ["25"],
+    "2E_custom_feudal_castle": ["1A"]
 }

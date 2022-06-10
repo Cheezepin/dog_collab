@@ -71,12 +71,3 @@ void Cam2639_Main(struct Camera *c) {
     transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
     CDebug(c);
 }
-
-
-// void try_print_debug_mario_level_info(void) {
-//     // print_text_fmt_int(50, 50, "X %d", (s32)gMarioState->pos[0]);
-//     // print_text_fmt_int(50, 30, "Y %d", (s32)gMarioState->pos[1]);
-//     // print_text_fmt_int(50, 10, "Z %d", (s32)gMarioState->pos[2]);
-//     // print_text_fmt_int(50, 90, "A %x", gMarioState->action);
-// }
-

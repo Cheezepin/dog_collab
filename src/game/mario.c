@@ -989,6 +989,12 @@ s32 set_jump_from_landing(struct MarioState *m) {
         }
     }
 
+    // Yoshi Milkman: Check if Mario is on SURFACE_SLOW. If he is, make him do quicksand jump.
+    if (m->floor != NULL && m->floor->type == SURFACE_SLOW){
+        return set_mario_action(m, ACT_QUICKSAND_JUMP_LAND, 0);
+        m->vel[1] = 8.0f;
+    }
+
     if (mario_floor_is_steep(m)) {
         set_steep_jump_action(m);
     } else {
@@ -1044,6 +1050,12 @@ s32 set_jumping_action(struct MarioState *m, u32 action, u32 actionArg) {
         } else {
             return set_mario_action(m, ACT_HOLD_QUICKSAND_JUMP_LAND, 0);
         }
+    }
+
+    // Yoshi Milkman: Check if Mario is on SURFACE_SLOW. If he is, make him do quicksand jump.
+    if (m->floor != NULL && m->floor->type == SURFACE_SLOW){
+        return set_mario_action(m, ACT_QUICKSAND_JUMP_LAND, 0);
+        m->vel[1] = 8.0f;
     }
 
     if (mario_floor_is_steep(m)) {
