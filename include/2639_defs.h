@@ -60,3 +60,6 @@ typedef struct newcam_hardpos {
 } PuppyCamVolume;
 
 extern struct newcam_hardpos newcam_fixedcam[];
+
+#define cNearestObj_Bhv cur_obj_find_nearest_object_with_behavior
+#define Obj_GetAnyObj find_any_object_with_behavior

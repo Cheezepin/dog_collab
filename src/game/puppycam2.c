@@ -1282,7 +1282,7 @@ static void puppycam_script(void) {
 
             // Last and probably least, check if there's a function attached, and call it, if so.
             if (volume.func) {
-                (volume.func)(gPuppyCam, &volume);
+                (volume.func)(&gPuppyCam, &volume);
             }
         }
     }

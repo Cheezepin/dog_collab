@@ -17,6 +17,55 @@
 #include "actors/group2639.h"
 #include "actors/group2639.h"
 #include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
 
 /* Fast64 begin persistent block [includes] */
 #include "actors/group2639.h"
@@ -45,11 +94,176 @@ const LevelScript level_bob_entry[] = {
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_16), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
@@ -77,16 +291,18 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(1, LEVEL_BOB, 2, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_DOG, 2726, -2592, 4711, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
+		OBJECT(MODEL_NONE, -476, -2125, -3381, 0, 0, 0, (0x30 << 24) | (01 << 16), bhvWarp),
 		OBJECT(MODEL_2639TURNSTILE, -404, -1727, -1747, 0, 0, 0, 0x00000000, bhvEntranceturnstile),
-		OBJECT(MODEL_NONE, 0, -1308, -341, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
-		MARIO_POS(0x01, 0, 0, -1308, -341),
+		OBJECT(MODEL_NONE, 1728, -2348, 4766, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		MARIO_POS(0x01, 0, 1728, -2348, 4766),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
-		PUPPYVOLUME_COMPAT(0),
+		// PUPPYVOLUME_COMPAT(0),
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
@@ -94,12 +310,16 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_DOG, 1021, -2592, 4711, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
+		WARP_NODE(0, LEVEL_BOB, 3, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_DOG, 1197, 2165, 1975, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
+		OBJECT(MODEL_ELEV2639, -17, 0, -2801, 0, 0, 0, 0x00000000, bhv2639elevator),
+		OBJECT(MODEL_NONE, -574, 116, 2647, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
 		TERRAIN(bob_area_2_collision),
 		MACRO_OBJECTS(bob_area_2_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
+		// PUPPYVOLUME_COMPAT(1),
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
@@ -130,7 +350,7 @@ const LevelScript level_bob_entry[] = {
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 0, 0, -1308, -341),
+	MARIO_POS(0x01, 0, 1728, -2348, 4766),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),

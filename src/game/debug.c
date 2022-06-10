@@ -431,9 +431,10 @@ void try_print_debug_mario_object_info(void) {
  * stageinfo)
  */
 void try_print_debug_mario_level_info(void) {
-    print_text_fmt_int(50, 50, "X %d", gMarioState->pos[0]);
-    print_text_fmt_int(50, 50, "Y %d", gMarioState->pos[1]);
-    print_text_fmt_int(50, 50, "Z %d", gMarioState->pos[2]);
+    print_text_fmt_int(50, 50, "A %d", gPuppyCam.enabled);
+    // print_text_fmt_int(50, 50, "X %d", gMarioState->pos[0]);
+    // print_text_fmt_int(50, 50, "Y %d", gMarioState->pos[1]);
+    // print_text_fmt_int(50, 50, "Z %d", gMarioState->pos[2]);
 }
 
 /*

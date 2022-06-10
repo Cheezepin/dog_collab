@@ -47,7 +47,7 @@
 // #define UNLOCK_FPS
 
 // Include vanilla debug functionality.
-// #define VANILLA_DEBUG
+#define VANILLA_DEBUG
 
 // Forces a crash when the game starts. Useful for debugging the crash screen.
 // #define DEBUG_FORCE_CRASH_ON_BOOT

@@ -30,6 +30,8 @@
 
 #define CBUTTON_MASK (U_CBUTTONS | D_CBUTTONS | L_CBUTTONS | R_CBUTTONS)
 
+extern void Cam2639_Main(struct Camera *c);
+
 /**
  * @file camera.c
  * Implements the camera system, including C-button input, camera modes, camera triggers, and cutscenes.
@@ -105,59 +107,7 @@ s16 sCreditsPlayer2Yaw;
  */
 u8 sFramesPaused;
 
-extern struct CameraFOVStatus sFOVState;
-extern struct TransitionInfo sModeTransition;
-extern struct PlayerGeometry sMarioGeometry;
-extern s16 sAvoidYawVel;
-extern s16 sCameraYawAfterDoorCutscene;
-extern struct HandheldShakePoint sHandheldShakeSpline[4];
-extern s16 sHandheldShakeMag;
-extern f32 sHandheldShakeTimer;
-extern f32 sHandheldShakeInc;
-extern s16 sHandheldShakePitch;
-extern s16 sHandheldShakeYaw;
-extern s16 sHandheldShakeRoll;
-extern s16 sSelectionFlags;
-extern s16 s2ndRotateFlags;
-extern s16 sCameraSoundFlags;
-extern u16 sCButtonsPressed;
-extern s16 sCutsceneDialogID;
-extern struct LakituState gLakituState;
-extern s16 sAreaYaw;
-extern s16 sAreaYawChange;
-extern s16 sLakituDist;
-extern s16 sLakituPitch;
-extern f32 sZoomAmount;
-extern s16 sCSideButtonYaw;
-extern s16 sBehindMarioSoundTimer;
-extern f32 sZeroZoomDist;
-extern s16 sCUpCameraPitch;
-extern s16 sModeOffsetYaw;
-extern s16 sSpiralStairsYawOffset;
-extern s16 s8DirModeBaseYaw;
-extern s16 s8DirModeYawOffset;
-extern f32 sPanDistance;
-extern f32 sCannonYOffset;
-extern struct ModeTransitionInfo sModeInfo;
-extern Vec3f sCastleEntranceOffset;
-extern u32 sParTrackIndex;
-extern struct ParallelTrackingPoint *sParTrackPath;
-extern struct CameraStoredInfo sParTrackTransOff;
-extern struct CameraStoredInfo sCameraStoreCUp;
-extern struct CameraStoredInfo sCameraStoreCutscene;
-extern s16 gCameraMovementFlags;
-extern s16 sStatusFlags;
-extern struct CutsceneSplinePoint sCurCreditsSplinePos[32];
-extern struct CutsceneSplinePoint sCurCreditsSplineFocus[32];
-extern s16 sCutsceneSplineSegment;
-extern f32 sCutsceneSplineSegmentProgress;
-extern s16 sCutsceneShot;
-extern s16 gCutsceneTimer;
-extern struct CutsceneVariable sCutsceneVars[10];
-extern s32 gObjCutsceneDone;
-extern u32 gCutsceneObjSpawn;
-extern struct Camera *gCamera;
-extern s8 gIsNearFerrisWheel;
+
 
 /**
  * Lakitu's position and focus.
@@ -411,22 +361,6 @@ u8 sCutsceneDialogResponse = DIALOG_RESPONSE_NONE;
 struct PlayerCameraState *sMarioCamState = &gPlayerCameraState[0];
 // struct PlayerCameraState *sLuigiCamState = &gPlayerCameraState[1];
 Vec3f sFixedModeBasePosition    = { 646.0f, 143.0f, -1513.0f };
-
-s32 update_radial_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_outward_radial_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_behind_mario_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_mario_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 unused_update_mode_5_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_c_up(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 nop_update_water_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_slide_or_0f_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_in_cannon(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_boss_fight_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_parallel_tracking_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_fixed_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_8_directions_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_slide_or_0f_camera(struct Camera *c, Vec3f focus, Vec3f pos);
-s32 update_spiral_stairs_camera(struct Camera *c, Vec3f focus, Vec3f pos);
 
 typedef s32 (*CameraTransition)(struct Camera *c, Vec3f focus, Vec3f pos);
 CameraTransition sModeTransitions[] = {
@@ -1089,7 +1023,7 @@ void mode_radial_camera(struct Camera *c) {
     radial_camera_move(c);
 
     if (c->mode == CAMERA_MODE_RADIAL) {
-        lakitu_zoom(400.f, 0x900);
+        // lakitu_zoom(400.f, 0x900);
     }
     c->nextYaw = update_radial_camera(c, c->focus, pos);
     c->pos[0] = pos[0];
@@ -1387,7 +1321,7 @@ s32 update_fixed_camera(struct Camera *c, Vec3f focus, UNUSED Vec3f pos) {
     f32 ceilHeight;
     f32 heightOffset;
     f32 distCamToFocus;
-    f32 scaleToMario = 0.5f;
+    f32 scaleToMario = 0.0f;
     s16 pitch;
     s16 yaw;
     Vec3s faceAngle;
@@ -1451,7 +1385,7 @@ s32 update_fixed_camera(struct Camera *c, Vec3f focus, UNUSED Vec3f pos) {
         if (goalHeight < sMarioCamState->pos[1] - 500.f) {
             goalHeight = sMarioCamState->pos[1] - 500.f;
         }
-        c->pos[1] = goalHeight;
+        c->pos[1] = sFixedModeBasePosition[1];
     }
 
     c->pos[0] = basePos[0] + (sMarioCamState->pos[0] - basePos[0]) * scaleToMario;
@@ -2877,7 +2811,6 @@ void switch_puppycam_enabled(void) {
         // case YOUR_LEVEL:
         case LEVEL_COZIES:
         case LEVEL_BITFS:
-        case LEVEL_BOB:
             gPuppyCam.enabled = TRUE;
             break;
         default:
@@ -5246,7 +5179,7 @@ s32 set_camera_mode_fixed(struct Camera *c, s16 x, s16 y, s16 z) {
     vec3f_set(sFixedModeBasePosition, posX, posY, posZ);
     if (c->mode != CAMERA_MODE_FIXED) {
         sStatusFlags &= ~CAM_FLAG_SMOOTH_MOVEMENT;
-        c->mode = CAMERA_MODE_FIXED;
+        transition_to_camera_mode(c, CAMERA_MODE_FIXED, 15);
         vec3f_set(c->pos, sFixedModeBasePosition[0], sMarioCamState->pos[1],
                   sFixedModeBasePosition[2]);
     }
@@ -5950,7 +5883,15 @@ struct CameraTrigger sCamRR[] = {
  * This table contains the only instance of a CameraTrigger with an area set to -1, and it sets the mode
  * to free_roam when Mario is not walking up the tower.
  */
+
+void Cam2639_CylinderCam();
+void Cam2639_Elevator();
+void Cam2639_LogoCam();
 struct CameraTrigger sCamBOB[] = {
+	{1, Cam2639_Main, -57, -404, 3930, 6996, 2388, 2388, 0xffff},
+	{1, Cam2639_LogoCam, -417, -2141, -3564, 889, 825, 2539, 0xffff},
+	{2, cam_bob_tower, -419, 2484, -2154, 2956, 5675, 3003, 0xffff},
+	{2, Cam2639_Elevator, -17, 3033, -2833, 644, 3055, 644, 0xffff},
 	NULL_TRIGGER
 };
 
@@ -6225,19 +6166,22 @@ s16 camera_course_processing(struct Camera *c) {
                                                    sCameraTriggers[level][b].boundsYaw) == TRUE) {
                     //! This should be checked before calling is_pos_in_bounds. (It doesn't belong
                     //! outside the while loop because some events disable area processing)
-                    if (!(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
+                    // if (!(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
+                        // *(vs8*)0=0;
                         sCameraTriggers[level][b].event(c);
                         insideBounds = TRUE;
-                    }
+                    // }
+                } else {
+                    transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
                 }
             }
 
             if ((sCameraTriggers[level])[b].area == -1) {
                 // Default triggers are only active if Mario is not already inside another trigger
                 if (!insideBounds) {
-                    if (!(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
+                    // if (!(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
                         sCameraTriggers[level][b].event(c);
-                    }
+                    // }
                 }
             }
 
