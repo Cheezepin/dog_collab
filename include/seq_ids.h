@@ -57,6 +57,7 @@ enum SeqId {
     SEQ_LEVEL_FEUDAL_FOREST,          // 0x2C
     SEQ_LEVEL_FEUDAL_DUNGEON,         // 0x2D
     SEQ_LEVEL_FEUDAL_CASTLE,          // 0x2E
+    SEQ_CUSTOM_MUSIC2639,             // 0x2F
     SEQ_COUNT
 };
 

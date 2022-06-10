@@ -135,7 +135,7 @@
             "envelope": "envelope0",
             "sound": "custom_16ch_stereo_C_L"
         },
-        "insr25": {
+        "inst25": {
             "release_rate": 10,
             "envelope": "envelope0",
             "sound": "custom_16ch_stereo_C_R"

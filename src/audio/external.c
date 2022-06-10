@@ -311,7 +311,8 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_LEVEL_FEUDAL_OUTSIDE
     70,  // SEQ_LEVEL_FEUDAL_FOREST
     70,  // SEQ_LEVEL_FEUDAL_DUNGEON
-    70   // SEQ_LEVEL_FEUDAL_CASTLE
+    70,   // SEQ_LEVEL_FEUDAL_CASTLE
+    70,   // SEQ_CUSTOM_MUSIC2639
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,

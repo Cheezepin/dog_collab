@@ -68,6 +68,7 @@
 #include "actors/group2639.h"
 #include "actors/group2639.h"
 #include "actors/group2639.h"
+#include "actors/group2639.h"
 
 /* Fast64 begin persistent block [includes] */
 #include "actors/group2639.h"
@@ -90,6 +91,8 @@ const LevelScript level_bob_entry[] = {
 	LOAD_RAW(0x0D, _group15_geoSegmentRomStart, _group15_geoSegmentRomEnd), 
 	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0F, _common0_geoSegmentRomStart, _common0_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
@@ -291,6 +294,10 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
@@ -313,8 +320,8 @@ const LevelScript level_bob_entry[] = {
 		MARIO_POS(0x01, 0, 1728, -2348, 4766),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
-		TERRAIN_TYPE(TERRAIN_GRASS),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_CUSTOM_MUSIC2639),
+		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		// PUPPYVOLUME_COMPAT(0),
 		/* Fast64 end persistent block [area commands] */
@@ -330,8 +337,8 @@ const LevelScript level_bob_entry[] = {
 		OBJECT(MODEL_NONE, -574, 116, 2647, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
 		TERRAIN(bob_area_2_collision),
 		MACRO_OBJECTS(bob_area_2_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
-		TERRAIN_TYPE(TERRAIN_GRASS),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_CUSTOM_MUSIC2639),
+		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		// PUPPYVOLUME_COMPAT(1),
 		/* Fast64 end persistent block [area commands] */
