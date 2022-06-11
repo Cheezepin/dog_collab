@@ -10,6 +10,33 @@
 #include "behavior_data.h"
 #include "2639_defs.h"
 #include "camera.h"
+#include "audio/external.h"
+#include "audio/load.h"
+
+
+enum SoundChannels {
+    KIDSHOW_STAGE3 = 0,
+    KIDSHOW_STAGE2,
+    KIDSHOW_MAIN,
+    PIANO,
+    PAD,
+    SUPERSAW,
+    STRINGS,
+    BASS,
+    CITYSOUND,
+
+    // drums
+    CYMBALRIDE,
+    CYMBALRIDE2,
+    _808SNARE,
+    KICK,
+    CLAPFILL,
+    MAINSNARE,
+
+    // unused but maybe i'll make this the background claps
+    CHF,
+};
+
 
 u32 _2639_BoB_A1_ToadTalkLatch = 0;
 u32 _2639_BoB_A1_CaneCollected = 0;
@@ -70,4 +97,69 @@ void Cam2639_Main(struct Camera *c) {
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
     transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
     CDebug(c);
+}
+void fade_channel_volume_scale(u8 player, u8 channelIndex, u8 targetScale, u16 fadeDuration);
+
+u32 curVolumes[16] = {0};
+
+void fadech(u32 ch, u32 vol) {
+    curVolumes[ch] = vol;
+    fade_channel_volume_scale(SEQ_PLAYER_LEVEL, ch, vol, 60);
+}
+
+void setch(u32 ch, u32 vol) {
+    curVolumes[ch] = vol;
+    fade_channel_volume_scale(SEQ_PLAYER_LEVEL, ch, vol, 0);
+}
+
+void setallch(u32 vol) {
+    for (int ch = 0; ch < 16; ch++) {
+        curVolumes[ch] = vol;
+        fade_channel_volume_scale(SEQ_PLAYER_LEVEL, ch, vol, 1);
+    }
+}
+#define BASEVOL 65
+
+void Sound2639_Main(void) {
+    static u32 state = 0;
+
+    enum Sound2639States {
+        STATE_INIT = 0,
+        STATE_LEVELCHECK,
+        STATE_OUTSIDEHOTEL,
+        STATE_INTROCUTSCENE,
+    };
+
+    switch (state) {
+        case STATE_INIT:
+            // TODO: if base volume is 50 then how to handle muted channels?
+            for (int i = 0; i < 16; i++) {
+                gSequencePlayers[SEQ_PLAYER_LEVEL].channels[i]->volumeScale = 0;
+                // fade_channel_volume_scale(SEQ_PLAYER_LEVEL, i, 1, 1);
+                curVolumes[i] = 0;
+            }
+            state = STATE_LEVELCHECK;
+            break;
+        case STATE_LEVELCHECK:
+            if (gCurrAreaIndex == 1) {
+                state = STATE_OUTSIDEHOTEL;
+            }
+            if (gCurrAreaIndex == 2) {
+                state = STATE_INTROCUTSCENE;
+            }
+            break;
+        case STATE_OUTSIDEHOTEL:
+            setallch(0);
+            fadech(PIANO, BASEVOL);
+            state = STATE_LEVELCHECK;
+            break;
+        case STATE_INTROCUTSCENE:
+            for (int i = 0; i < 16; i++) {
+                fadech(i, BASEVOL);
+            }
+            fadech(KIDSHOW_STAGE2, 0);
+            fadech(KIDSHOW_STAGE3, 0);
+            state = STATE_LEVELCHECK;
+            break;
+    }
 }

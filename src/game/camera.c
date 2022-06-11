@@ -755,6 +755,8 @@ void pan_ahead_of_player(struct Camera *c) {
     pan[0] = sPanDistance;
     yaw = -yaw;
     rotate_in_xz(pan, pan, yaw);
+
+    pan[1] += 100;
     vec3f_add(c->focus, pan);
 }
 
@@ -1032,7 +1034,7 @@ void mode_radial_camera(struct Camera *c) {
     if (sMarioCamState->action == ACT_RIDING_HOOT) {
         pos[1] += 500.f;
     }
-    set_camera_height(c, pos[1]);
+    set_camera_height(c, pos[1] + 300);
     pan_ahead_of_player(c);
 }
 
