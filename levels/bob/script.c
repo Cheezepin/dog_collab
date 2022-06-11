@@ -70,6 +70,9 @@
 #include "actors/group2639.h"
 #include "actors/group2639.h"
 #include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
 
 /* Fast64 begin persistent block [includes] */
 #include "actors/group2639.h"
@@ -92,6 +95,12 @@ const LevelScript level_bob_entry[] = {
 	LOAD_RAW(0x0D, _group15_geoSegmentRomStart, _group15_geoSegmentRomEnd), 
 	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0F, _common0_geoSegmentRomStart, _common0_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
@@ -305,6 +314,18 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODER, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
@@ -355,7 +376,8 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_DOG, 73, -2592, 4711, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
+		OBJECT(MODEL_DOG, 73, 736, 4711, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
+		OBJECT(MODEL_NONE, 0, 0, 0, 0, 0, 0, (10 << 16), bhvSpinAirborneWarp),
 		TERRAIN(bob_area_3_collision),
 		MACRO_OBJECTS(bob_area_3_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),

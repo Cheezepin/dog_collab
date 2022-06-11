@@ -1021,7 +1021,7 @@ void mode_radial_camera(struct Camera *c) {
         update_yaw_and_dist_from_c_up(c);
     }
 
-    radial_camera_input_default(c);
+    radial_camera_input(c);
     radial_camera_move(c);
 
     if (c->mode == CAMERA_MODE_RADIAL) {
@@ -1588,6 +1588,7 @@ void mode_fixed_camera(struct Camera *c) {
 #endif
     c->nextYaw = update_fixed_camera(c, c->focus, c->pos);
     c->yaw = c->nextYaw;
+
     pan_ahead_of_player(c);
     vec3_zero(sCastleEntranceOffset);
 }
@@ -5182,7 +5183,7 @@ s32 set_camera_mode_fixed(struct Camera *c, s16 x, s16 y, s16 z) {
     vec3f_set(sFixedModeBasePosition, posX, posY, posZ);
     if (c->mode != CAMERA_MODE_FIXED) {
         sStatusFlags &= ~CAM_FLAG_SMOOTH_MOVEMENT;
-        transition_to_camera_mode(c, CAMERA_MODE_FIXED, 15);
+        transition_to_camera_mode(c, CAMERA_MODE_FIXED, 45);
         vec3f_set(c->pos, sFixedModeBasePosition[0], sMarioCamState->pos[1],
                   sFixedModeBasePosition[2]);
     }

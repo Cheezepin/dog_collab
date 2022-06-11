@@ -86,7 +86,7 @@ void CDebug(struct Camera *c) {
 }
 
 void Cam2639_LogoCam(struct Camera *c) {
-    set_camera_mode_fixed(c, -534, 2252, 3328);
+    set_camera_mode_fixed(c, -534, 4075, 3328);
 }
 void Cam2639_Elevator(struct Camera *c) {
     set_camera_mode_fixed(c, -125, 958, -380);
@@ -104,7 +104,7 @@ u32 curVolumes[16] = {0};
 
 void fadech(u32 ch, u32 vol) {
     curVolumes[ch] = vol;
-    fade_channel_volume_scale(SEQ_PLAYER_LEVEL, ch, vol, 60);
+    fade_channel_volume_scale(SEQ_PLAYER_LEVEL, ch, vol, 30);
 }
 
 void setch(u32 ch, u32 vol) {

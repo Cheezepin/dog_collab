@@ -42,6 +42,10 @@ Lights1 bob_dl_wall_lights = gdSPDefLights1(
 	0x7F, 0x7F, 0x7F,
 	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
 
+Lights1 bob_dl_f3d_material_002_lights = gdSPDefLights1(
+	0x7F, 0x7F, 0x7F,
+	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
+
 Gfx bob_dl_ci4_matt_grass_ci4_aligner[] = {gsSPEndDisplayList()};
 u8 bob_dl_ci4_matt_grass_ci4[] = {
 	0x01, 0x23, 0x34, 0x42, 0x56, 0x54, 0x34, 0x44, 
@@ -3944,6 +3948,30 @@ Gfx bob_dl_glass_meme_mesh_layer_5_tri_0[] = {
 	gsSPEndDisplayList(),
 };
 
+Vtx bob_dl_Plane_mesh_layer_1_vtx_cull[8] = {
+	{{{-5000, 0, 5000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-5000, 0, 5000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-5000, 0, -5000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-5000, 0, -5000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{5000, 0, 5000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{5000, 0, 5000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{5000, 0, -5000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{5000, 0, -5000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+};
+
+Vtx bob_dl_Plane_mesh_layer_1_vtx_0[4] = {
+	{{{-5000, 0, 5000},0, {-16, 1008},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{5000, 0, 5000},0, {1008, 1008},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{5000, 0, -5000},0, {1008, -16},{0x0, 0x7F, 0x0, 0xFF}}},
+	{{{-5000, 0, -5000},0, {-16, -16},{0x0, 0x7F, 0x0, 0xFF}}},
+};
+
+Gfx bob_dl_Plane_mesh_layer_1_tri_0[] = {
+	gsSPVertex(bob_dl_Plane_mesh_layer_1_vtx_0 + 0, 4, 0),
+	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+	gsSPEndDisplayList(),
+};
+
 Gfx mat_bob_dl__2639_bottom[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, ENVIRONMENT, 0, 0, 0, ENVIRONMENT, 0, 0, 0, ENVIRONMENT, 0, 0, 0, ENVIRONMENT),
@@ -4251,6 +4279,14 @@ Gfx mat_bob_dl_wall[] = {
 	gsSPEndDisplayList(),
 };
 
+Gfx mat_bob_dl_f3d_material_002[] = {
+	gsDPPipeSync(),
+	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
+	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsSPSetLights1(bob_dl_f3d_material_002_lights),
+	gsSPEndDisplayList(),
+};
+
 Gfx bob_dl_Cube_mesh_layer_1[] = {
 	gsSPClearGeometryMode(G_LIGHTING),
 	gsSPVertex(bob_dl_Cube_mesh_layer_1_vtx_cull + 0, 8, 0),
@@ -4336,6 +4372,16 @@ Gfx bob_dl_floor_meme_mesh_layer_5[] = {
 Gfx bob_dl_glass_meme_mesh_layer_5[] = {
 	gsSPDisplayList(mat_bob_dl_wall),
 	gsSPDisplayList(bob_dl_glass_meme_mesh_layer_5_tri_0),
+	gsSPEndDisplayList(),
+};
+
+Gfx bob_dl_Plane_mesh_layer_1[] = {
+	gsSPClearGeometryMode(G_LIGHTING),
+	gsSPVertex(bob_dl_Plane_mesh_layer_1_vtx_cull + 0, 8, 0),
+	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPCullDisplayList(0, 7),
+	gsSPDisplayList(mat_bob_dl_f3d_material_002),
+	gsSPDisplayList(bob_dl_Plane_mesh_layer_1_tri_0),
 	gsSPEndDisplayList(),
 };
 
