@@ -687,6 +687,11 @@ void set_camera_height(struct Camera *c, f32 goalHeight) {
  * Pitch the camera down when the camera is facing down a slope
  */
 s16 look_down_slopes(s16 camYaw) {
+
+    if (gCurrLevelNum == LEVEL_BOB) { // someone2639
+        gCollisionFlags &= ~COLLISION_FLAG_CAMERA;
+    }
+
     struct Surface *floor;
     // Default pitch
     s16 pitch = 0x05B0;
@@ -705,6 +710,10 @@ s16 look_down_slopes(s16 camYaw) {
                 pitch += atan2s(40.f, floorDY);
             }
         }
+    }
+
+    if (gCurrLevelNum == LEVEL_BOB) { // someone2639
+        gCollisionFlags |= COLLISION_FLAG_CAMERA;
     }
 
     return pitch;
@@ -793,7 +802,7 @@ s32 update_radial_camera(struct Camera *c, Vec3f focus, Vec3f pos) {
     f32 baseDist = 1000.f;
 
     sAreaYaw = camYaw - sModeOffsetYaw;
-    calc_y_to_curr_floor(&posY, 1.f, 200.f, &focusY, 0.9f, 200.f);
+    calc_y_to_curr_floor(&posY, 1.f, 500.f, &focusY, 0.9f, 200.f);
     focus_on_mario(focus, pos, posY + yOff, focusY + yOff, sLakituDist + baseDist, pitch, camYaw);
 #ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
     camYaw = find_in_bounds_yaw_wdw_bob_thi(pos, focus, camYaw);
@@ -1034,7 +1043,7 @@ void mode_radial_camera(struct Camera *c) {
     if (sMarioCamState->action == ACT_RIDING_HOOT) {
         pos[1] += 500.f;
     }
-    set_camera_height(c, pos[1] + 300);
+    set_camera_height(c, pos[1]);
     pan_ahead_of_player(c);
 }
 
@@ -1115,7 +1124,7 @@ s32 update_outward_radial_camera(struct Camera *c, Vec3f focus, Vec3f pos) {
     f32 focusY;
 
     sAreaYaw = camYaw - sModeOffsetYaw - DEGREES(180);
-    calc_y_to_curr_floor(&posY, 1.f, 200.f, &focusY, 0.9f, 200.f);
+    calc_y_to_curr_floor(&posY, 1.f, 500.f, &focusY, 0.9f, 200.f);
     focus_on_mario(focus, pos, posY + yOff, focusY + yOff, sLakituDist + baseDist, pitch, camYaw);
 
     return camYaw;
@@ -5300,6 +5309,11 @@ void check_blocking_area_processing(const u8 *mode) {
          *mode == CAMERA_MODE_INSIDE_CANNON) {
         sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
     }
+
+    if (gCurrLevelNum == LEVEL_BOB) { // someone2639
+        sStatusFlags &= ~CAM_FLAG_BLOCK_AREA_PROCESSING;
+    }
+
 #else
 void check_blocking_area_processing(UNUSED const u8 *mode) {
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
@@ -6178,11 +6192,11 @@ s16 camera_course_processing(struct Camera *c) {
                                                    sCameraTriggers[level][b].boundsYaw) == TRUE) {
                     //! This should be checked before calling is_pos_in_bounds. (It doesn't belong
                     //! outside the while loop because some events disable area processing)
-                    // if (!(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
+                    if (!(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
                         // *(vs8*)0=0;
                         sCameraTriggers[level][b].event(c);
                         insideBounds = TRUE;
-                    // }
+                    }
                 }
                 // else {
                 //     goto_parallelcam(c);
