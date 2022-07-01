@@ -2300,11 +2300,46 @@ void bhv_snow_bowser_loop(void) {
     if(find_any_object_with_behavior(bhvCheezeSkiDog) != 0 && find_any_object_with_behavior(bhvCheezeSkiDog)->oAction == 2) {
         gMarioState->pos[0] += ((f32)-50.0f) * 0.75f;
         gMarioState->pos[1] += ((f32)-50.0f) * 0.45f;
+        cur_obj_init_animation(31);
+        o->oAction = 1;
+        o->oTimer = 0;
     } else {
-        o->oMoveAngleYaw = o->oAngleToMario;
-        o->oPosZ = approach_f32_asymptotic(o->oPosZ, gMarioState->pos[2], 0.05f);
-        o->oMoveAngleRoll = (o->oMoveAngleYaw + 0x4000);
-        cur_obj_init_animation(27);
+        switch(o->oAction) {
+            case 0:
+                gCamera->cutscene = CUTSCENE_SNOW_HILL;
+                if(o->oTimer == 60) {
+                    set_mario_action(gMarioState, ACT_SKIING, 0);
+                    o->oAction = 1;
+                    // gMarioState->heldObj = find_any_object_with_behavior(bhvCheezeSkiDog);
+                    // obj_set_held_state(gMarioState->heldObj, bhvCarrySomethingHeld);
+                    // gMarioState->heldObj->oMoveAngleYaw = 0x4000;
+                }
+                break;
+            case 1:
+                o->oMoveAngleYaw = o->oAngleToMario;
+                o->oPosZ = approach_f32_asymptotic(o->oPosZ, gMarioState->pos[2], 0.05f);
+                o->oMoveAngleRoll = (o->oMoveAngleYaw + 0x4000);
+                cur_obj_init_animation(27);
+                if(o->oTimer == 60) {
+                    o->oAction = 2;
+                }
+                break;
+            case 2:
+                o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, 0xC000, 0x1000);
+                o->oMoveAngleRoll = approach_s16_symmetric(o->oMoveAngleRoll, 0, 0x1000);
+                if(o->oTimer >= 50) {
+                    cur_obj_init_animation(30);
+                } else {
+                    cur_obj_init_animation(29);
+                }
+                if(o->oTimer == 12) {
+                    spawn_object(o, MODEL_SNOULDER, bhvBowserSnowball);
+                }
+                if(o->oTimer == 60) {
+                    o->oAction = 1;
+                }
+                break;
+        }
     }
     if (!(gCurrentObject->oActiveParticleFlags & ACTIVE_PARTICLE_SNOW)) {
         struct Object *particle;
@@ -2314,12 +2349,5 @@ void bhv_snow_bowser_loop(void) {
         obj_scale(particle, 3.0f);
         particle->oPosY += 200.0f;
         particle->oPosX += 330.0f;
-    }
-    gCamera->cutscene = CUTSCENE_SNOW_HILL;
-    if(o->oTimer == 60) {
-        set_mario_action(gMarioState, ACT_SKIING, 0);
-        // gMarioState->heldObj = find_any_object_with_behavior(bhvCheezeSkiDog);
-        // obj_set_held_state(gMarioState->heldObj, bhvCarrySomethingHeld);
-        // gMarioState->heldObj->oMoveAngleYaw = 0x4000;
     }
 }

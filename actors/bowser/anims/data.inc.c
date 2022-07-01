@@ -29,3 +29,4 @@
 #include "anim_backflip.inc.c"
 #include "anim_brake_start.inc.c"
 #include "anim_brake_end.inc.c"
+#include "anim_fall.inc.c"

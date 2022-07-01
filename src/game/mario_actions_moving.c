@@ -1964,6 +1964,15 @@ __attribute__((noinline)) s32 act_skiing(struct MarioState *m) {
     return FALSE;
 }
 
+__attribute__((noinline)) s32 act_rolled_up(struct MarioState *m) {
+    //vec3f_set(m->pos, m->usedObj->oPosX, m->usedObj->oPosY + 150.0f, m->usedObj->oPosZ);
+    m->pos[0] += (-64.0f) * 0.75f;
+    m->pos[1] += (-64.0f) * 0.45f;
+    vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+    vec3s_copy(m->marioObj->header.gfx.angle, m->faceAngle);
+    return FALSE;
+}
+
 s32 quicksand_jump_land_action(struct MarioState *m, s32 animation1, s32 animation2, u32 endAction,
                                u32 airAction) {
     if (m->actionTimer++ < 6) {
@@ -2078,6 +2087,7 @@ s32 mario_execute_moving_action(struct MarioState *m) {
         case ACT_HOLD_QUICKSAND_JUMP_LAND: cancel = act_hold_quicksand_jump_land(m); break;
         case ACT_LONG_JUMP_LAND:           cancel = act_long_jump_land(m);           break;
         case ACT_SKIING:                   cancel = act_skiing(m);                   break;
+        case ACT_ROLLED_UP:                cancel = act_rolled_up(m);                break;
     }
     /* clang-format on */
 

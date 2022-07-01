@@ -33,6 +33,7 @@ const LevelScript level_bowser_2_entry[] = {
 	LOAD_RAW(0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
+	LOAD_MODEL_FROM_GEO(MODEL_SNOULDER, snoulder_geo),
 	JUMP_LINK(script_func_global_13), 
 
 	/* Fast64 begin persistent block [level commands] */

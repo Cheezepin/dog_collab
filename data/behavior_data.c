@@ -7825,6 +7825,7 @@ const BehaviorScript bhvCheezeDog[] = {
     SET_HITBOX(/*Radius*/ 100, /*Height*/ 60),
     ANIMATE(0),
     SET_HOME(),
+    SCALE(0, 50),
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
         SET_INT(oInteractStatus, 0),
@@ -8023,5 +8024,16 @@ const BehaviorScript bhv2639soda[] = {
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_2639Soda_loop),
 	END_LOOP(),
+};
+
+const BehaviorScript bhvBowserSnowball[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SCALE(0, 0),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_bowser_snowball_loop),
+    END_LOOP(),
 };
 
