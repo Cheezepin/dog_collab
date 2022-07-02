@@ -108,4 +108,6 @@ extern const LevelScript level_wf_entry[];
 
 #include "levels/wf/jetski/geo_header.h"
 
+#include "levels/wf/atoll_skybox/header.h"
+
 #endif

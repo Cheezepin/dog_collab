@@ -74,3 +74,4 @@
 #include "levels/wf/wf_palm_tree/anims/data.inc.c"
 #include "levels/wf/wf_palm_tree/anims/table.inc.c"
 #include "levels/wf/jetski/model.inc.c"
+#include "levels/wf/atoll_skybox/model.inc.c"

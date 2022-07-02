@@ -79,13 +79,12 @@ void scroll_textures() {
 		scroll_textures_bowser_2();
 	}
 
-<<<<<<< HEAD
-	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_wf_segment_7SegmentRomStart)) {
-		scroll_textures_wf();
-=======
 	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_lll_segment_7SegmentRomStart)) {
 		scroll_textures_lll();
->>>>>>> f1a7d90354f8266664ccc596c56d0829de996a87
+	}
+
+	if(SCROLL_CONDITION(sSegmentROMTable[0x7] == (uintptr_t)_wf_segment_7SegmentRomStart)) {
+		scroll_textures_wf();
 	}
 
 }
