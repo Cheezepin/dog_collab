@@ -104,6 +104,7 @@ extern const BehaviorScript bhvWaterMist2[];
 extern const BehaviorScript bhvMistCircParticleSpawner[];
 extern const BehaviorScript bhvDirtParticleSpawner[];
 extern const BehaviorScript bhvSnowParticleSpawner[];
+extern const BehaviorScript bhvBowserSnowParticleSpawner[];
 extern const BehaviorScript bhvWind[];
 extern const BehaviorScript bhvEndToad[];
 extern const BehaviorScript bhvEndPeach[];
@@ -696,8 +697,11 @@ extern const BehaviorScript bhvMissile[];
 extern const BehaviorScript bhvCheezePlat[];
 extern const BehaviorScript bhvCheezeBombWall[];
 extern const BehaviorScript bhvCheezeDog[];
+extern const BehaviorScript bhvCheezeSkiDog[];
 extern const BehaviorScript bhvKoopatrol[];
 extern const BehaviorScript bhvWindSoundLoop[];
+extern const BehaviorScript bhvBowserSnow[];
+extern const BehaviorScript bhvBowserSnowball[];
 //cheeze bhv ends
 
 

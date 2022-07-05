@@ -2483,3 +2483,164 @@ void render_dog_keyboard(void) {
         set_mario_action(gMarioState, ACT_IDLE, 0);
     }
 }
+
+void render_bar(s16 y, char *str, u8 filled) {
+    s16 width = get_string_width(str);
+    create_dl_translation_matrix(MENU_MTX_PUSH, (f32)width, (f32)y, 0.0f);
+
+    if(filled) {
+        gDPSetEnvColor(gDisplayListHead++, 150, 150, 150, 175);
+        create_dl_translation_matrix(MENU_MTX_NOPUSH, 8.0f, 0.0f, 0.0f);
+    } else {
+        gDPSetEnvColor(gDisplayListHead++, 50, 50, 50, 175);
+    }
+
+    gSPDisplayList(gDisplayListHead++, bar_mesh_mesh);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+}
+
+s32 gWorldID = -1;
+s32 gFocusID = -1;
+
+#define NULL_ENTRY {{0, 0, 0}, {0, 0, 0}, 0, 0, 0, 0, 0}
+struct HubSelection hubSelections[3][6] = {
+    {
+        /* {{6466.0f, 2396.0f, 2919.0f},  {3521.0f, 2615.0f, 2711.0f},  0xF800, TEXT_C0I, TEXT_C0, TEXT_C0A, 0x1},
+        {{7362.0f, -1200.0f, 4084.0f}, {4580.0f, 306.0f, 2342.0f},   0x1000, TEXT_C1I, TEXT_C1, TEXT_C1A, 0x2},
+        {{8518.0f, 3824.0f, 1657.0f},  {3584.0f, 3655.0f, 349.0f},   0x0000, TEXT_C2I, TEXT_C2, TEXT_C2A, 0x3},
+        {{7182.0f, 1184.0f, 300.0f},   {0.0f, 0.0f, 0.0f},           0x0000, TEXT_C3I, TEXT_C3, TEXT_C3A, 0x4},
+        {{7092.0f, -3399.0f, 1039.0f}, {4687.0f, -2021.0f, 274.0f},  0x1000, TEXT_C4I, TEXT_C4, TEXT_C4A, 0x5},
+        {{8092.0f, -431.0f, -1894.0f}, {6292.0f, 2119.0f, -2359.0f}, 0x1C00, TEXT_B1I, TEXT_B1, TEXT_B1A, 0x6}, */
+
+        {0x2C00, 0x900,  7184.0f, 0x2600, 0x1B00, 5000.0f, 0xF800, TEXT_C0I, TEXT_C0, TEXT_C0A, 0x1},
+        {0x4000, 0x1100, 8795.0f, 0x3E00, 0x1F00, 5512.0f, 0x0000, TEXT_C1I, TEXT_C1, TEXT_C1A, 0x2},
+        {0x3E00, 0xEBC0, 7825.0f, 0xBC00, 0x3000, 7300.0f, 0x0000, TEXT_C2I, TEXT_C2, TEXT_C2A, 0x3},
+        {0x2C00, 0xEC00, 8400.0f, 0x2A00, 0x2C00, 7000.0f, 0x0000, TEXT_C3I, TEXT_C3, TEXT_C3A, 0x4},
+        {0x4700, 0x0,    8976.0f, 0x5200, 0x2100, 6536.0f, 0x1C00, TEXT_B1I, TEXT_B1, TEXT_B1A, 0x5},
+        NULL_ENTRY,
+    },
+    {
+        {0x9300, 0x1400, 6807.0f, 0x8B00, 0x2100, 5120.0f, 0xF800, TEXT_C4I, TEXT_C4, TEXT_C4A, 0x6},
+        {0xAE00, 0x400,  6551.0f, 0xAC00, 0xD00,  5120.0f, 0x0000, TEXT_C5I, TEXT_C5, TEXT_C5A, 0x7},
+        {0x9D50, 0xFDB0, 7680.0f, 0x0,    0x0,    0.0f,    0x0000, TEXT_C6I, TEXT_C6, TEXT_C6A, 0x8},
+        {0xB000, 0x1540, 7319.0f, 0xAE30, 0x2060, 5120.0f, 0x0000, TEXT_B2I, TEXT_B2, TEXT_B2A, 0x9},
+        NULL_ENTRY,
+        NULL_ENTRY,
+    },
+    {
+        {0xB100, 0xC000, 6870.0f, 0xAE00, 0x100,  6650.0f, 0x8000, TEXT_C7I, TEXT_C7, TEXT_C7A, 0xA},
+        {0x7E00, 0xB800, 6350.0f, 0xE600, 0x2500, 9999.0f, 0x8000, TEXT_C8I, TEXT_C8, TEXT_C8A, 0xB},
+        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_C9I, TEXT_C9, TEXT_C9A, 0xC},
+        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_B3I, TEXT_B3, TEXT_B3A, 0xD},
+        NULL_ENTRY,
+        NULL_ENTRY,
+    },
+};
+
+void render_hub_selection(void) {
+    u32 textColor = 0xFFFFFFFF;
+    u32 textDiscolor = 0xDFDFDFFF;
+    u8 joystickMovement = gDirectionsHeld;
+
+    if(gFocusID == -1) {
+        sDelayedWarpTimer = 0;
+        switch(gWorldID) {
+            case -1:
+                if((joystickMovement & (JOYSTICK_DOWN | JOYSTICK_UP)) || (gPlayer1Controller->buttonPressed & A_BUTTON)) {
+                    gWorldID = 0;
+                }
+                break;
+            default:
+                if(joystickMovement & JOYSTICK_UP) {
+                    gWorldID--;
+                    if(gWorldID < 0) {gWorldID = 2;}
+                }
+                if(joystickMovement & JOYSTICK_DOWN) {
+                    gWorldID++;
+                    if(gWorldID > 2) {gWorldID = 0;}
+                }
+
+                if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+                    gFocusID = 0;
+                } else if(gPlayer1Controller->buttonPressed & B_BUTTON) {
+                    gWorldID = -1;
+                }
+                break;
+        }
+
+        render_bar(220, TEXT_SELECT_WORLD, 0);
+        render_bar(200, TEXT_WORLD_1, gWorldID == 0 ? 1 : 0);
+        render_bar(180, TEXT_WORLD_2, gWorldID == 1 ? 1 : 0);
+        render_bar(160, TEXT_WORLD_3, gWorldID == 2 ? 1 : 0);
+
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+        print_string_with_shadow(8, 220, TEXT_SELECT_WORLD, textDiscolor);
+        print_string_with_shadow(gWorldID == 0 ? 16 : 8, 200, TEXT_WORLD_1, gWorldID == 0 ? textColor : textDiscolor);
+        print_string_with_shadow(gWorldID == 1 ? 16 : 8, 180, TEXT_WORLD_2, gWorldID == 1 ? textColor : textDiscolor);
+        print_string_with_shadow(gWorldID == 2 ? 16 : 8, 160, TEXT_WORLD_3, gWorldID == 2 ? textColor : textDiscolor);
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+
+    } else {
+        u8 i = 0;
+        for(i = 0; i < 6; i++) {
+            u8 filled = gFocusID == i ? 1 : 0;
+            if(hubSelections[gWorldID][i].warpID == 0) {
+                break;
+            } else {
+                render_bar(200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled);
+            }
+        }
+
+        render_bar(220, TEXT_SELECT_LEVEL, 0);
+
+        render_bar(48, hubSelections[gWorldID][gFocusID].levelIdentifierString, 0);
+        render_bar(28, hubSelections[gWorldID][gFocusID].levelNameString,       0);
+        render_bar(8,  hubSelections[gWorldID][gFocusID].levelAuthorString,     0);
+
+
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+
+        for(i = 0; i < 6; i++) {
+            u8 filled = gFocusID == i ? 8 : 0;
+            if(hubSelections[gWorldID][i].warpID == 0) {
+                break;
+            } else {
+                print_string_with_shadow(8 + filled, 200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled ? textColor : textDiscolor);
+            }
+        }
+
+        print_string_with_shadow(8, 220, TEXT_SELECT_LEVEL, textDiscolor);
+        print_string_with_shadow(8, 48, hubSelections[gWorldID][gFocusID].levelIdentifierString, textColor);
+        print_string_with_shadow(8, 28, hubSelections[gWorldID][gFocusID].levelNameString, textColor);
+        print_string_with_shadow(8, 8, hubSelections[gWorldID][gFocusID].levelAuthorString, textColor);
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+
+        if(sDelayedWarpTimer == 0) {
+            if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+                sDelayedWarpOp = 1;
+                sDelayedWarpArg = 0x00000002;
+                play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
+                sDelayedWarpTimer = 15;
+                sSourceWarpNodeId = hubSelections[gWorldID][gFocusID].warpID;
+            } else if(gPlayer1Controller->buttonPressed & B_BUTTON) {
+                gFocusID = -1;
+            } else if(joystickMovement & JOYSTICK_DOWN) {
+                gFocusID++;
+                if(gFocusID > 5 || hubSelections[gWorldID][gFocusID].warpID == 0) {
+                    gFocusID = 0;
+                }
+            } else if(joystickMovement & JOYSTICK_UP) {
+                gFocusID--;
+                if(gFocusID < 0) {
+                    u8 i;
+                    for(i = 5; i >= 0; i--) {
+                        if(hubSelections[gWorldID][i].warpID != 0) {
+                            gFocusID = i;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

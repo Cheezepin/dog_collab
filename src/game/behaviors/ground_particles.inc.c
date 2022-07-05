@@ -85,3 +85,23 @@ void bhv_ground_snow_init(void) {
     clear_particle_flags(ACTIVE_PARTICLE_SNOW);
     cur_obj_spawn_particles(&sSnowParticles);
 }
+
+static struct SpawnParticlesInfo sBowserSnowParticles = {
+    /* behParam:        */ 0,
+    /* count:           */ 5,
+    /* model:           */ MODEL_WHITE_PARTICLE_DL,
+    /* offsetY:         */ 0,
+    /* forwardVelBase:  */ 0,
+    /* forwardVelRange: */ 20,
+    /* velYBase:        */ 20,
+    /* velYRange:       */ 0,
+    /* gravity:         */ 252,
+    /* dragStrength:    */ 30,
+    /* sizeBase:        */ 8.0f,
+    /* sizeRange:       */ 4.0f,
+};
+
+void bhv_ground_bowser_snow_init(void) {
+    clear_particle_flags(ACTIVE_PARTICLE_SNOW);
+    cur_obj_spawn_particles(&sBowserSnowParticles);
+}

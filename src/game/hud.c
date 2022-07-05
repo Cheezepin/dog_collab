@@ -625,6 +625,11 @@ void render_hud(void) {
         if (gKeyboard) {
             render_dog_keyboard();
         }
+
+        if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+            render_hub_selection();
+        }
+
 #ifdef PUPPYPRINT
         print_set_envcolour(255, 255, 255, 255);
 #endif
