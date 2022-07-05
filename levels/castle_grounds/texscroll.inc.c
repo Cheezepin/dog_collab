@@ -1,4 +1,4 @@
-void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_6() {
+void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_7() {
 	int i = 0;
 	int count = 14;
 	int width = 32 * 0x20;
@@ -12,7 +12,7 @@ void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_6() {
 	float offsetX = 0.0;
 	static int currentY = 0;
 	int deltaY;
-	Vtx *vertices = segmented_to_virtual(castle_grounds_dl_Sphere_mesh_layer_1_vtx_6);
+	Vtx *vertices = segmented_to_virtual(castle_grounds_dl_Sphere_mesh_layer_1_vtx_7);
 
 	deltaX = (int)(amplitudeX * frequencyX * coss((frequencyX * timeX + offsetX) * (1024 * 16 - 1) / 6.28318530718) * 0x20);
 	deltaY = (int)(0.05000000074505806 * 0x20) % height;
@@ -31,7 +31,7 @@ void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_6() {
 	currentX += deltaX;	timeX += 1;	currentY += deltaY;
 }
 
-void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_53() {
+void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_54() {
 	int i = 0;
 	int count = 2592;
 	int width = 32 * 0x20;
@@ -39,7 +39,7 @@ void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_53() {
 
 	static int currentY = 0;
 	int deltaY;
-	Vtx *vertices = segmented_to_virtual(castle_grounds_dl_Sphere_mesh_layer_1_vtx_53);
+	Vtx *vertices = segmented_to_virtual(castle_grounds_dl_Sphere_mesh_layer_1_vtx_54);
 
 	deltaY = (int)(0.1899999976158142 * 0x20) % height;
 
@@ -52,6 +52,18 @@ void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_53() {
 	}
 	currentY += deltaY;
 }
+
+void scroll_sts_mat_castle_grounds_dl_water() {
+	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_water);
+	shift_s(mat, 18, PACK_TILESIZE(0, 1));
+	shift_t(mat, 18, PACK_TILESIZE(0, 1));
+};
+
+void scroll_sts_mat_castle_grounds_dl_darkwater() {
+	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_darkwater);
+	shift_s(mat, 17, PACK_TILESIZE(0, 1));
+	shift_t(mat, 17, PACK_TILESIZE(0, 1));
+};
 
 void scroll_sts_mat_castle_grounds_dl_f3d_material_036() {
 	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_f3d_material_036);
@@ -79,15 +91,30 @@ void scroll_sts_mat_castle_grounds_dl_electricity_layer5() {
 
 void scroll_sts_mat_castle_grounds_dl_cozieswater_top_emu__layer5() {
 	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_cozieswater_top_emu__layer5);
-	shift_t(mat, 14, PACK_TILESIZE(0, 1));
-	shift_s(mat, 22, PACK_TILESIZE(0, 1));
+	shift_t(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s(mat, 21, PACK_TILESIZE(0, 1));
+};
+
+void scroll_sts_mat_castle_grounds_dl_water_002_layer5() {
+	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_water_002_layer5);
+	shift_s_down(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s(mat, 21, PACK_TILESIZE(0, 1));
+};
+
+void scroll_sts_mat_castle_grounds_dl_laser() {
+	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_laser);
+	shift_t_down(mat, 11, PACK_TILESIZE(0, 1));
 };
 
 void scroll_castle_grounds() {
-	scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_6();
-	scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_53();
+	scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_7();
+	scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_54();
+	scroll_sts_mat_castle_grounds_dl_water();
+	scroll_sts_mat_castle_grounds_dl_darkwater();
 	scroll_sts_mat_castle_grounds_dl_f3d_material_036();
 	scroll_sts_mat_castle_grounds_dl_f3d_material_034();
 	scroll_sts_mat_castle_grounds_dl_electricity_layer5();
 	scroll_sts_mat_castle_grounds_dl_cozieswater_top_emu__layer5();
+	scroll_sts_mat_castle_grounds_dl_water_002_layer5();
+	scroll_sts_mat_castle_grounds_dl_laser();
 }

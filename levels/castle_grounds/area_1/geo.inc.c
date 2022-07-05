@@ -8,6 +8,7 @@ const GeoLayout castle_grounds_area_1_geo[] = {
 		GEO_DISPLAY_LIST(LAYER_ALPHA, castle_grounds_dl_Sphere_mesh_layer_4),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, castle_grounds_dl_Sphere_mesh_layer_6),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, castle_grounds_dl_Sphere_mesh_layer_5),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE_DECAL, castle_grounds_dl_Sphere_mesh_layer_2),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -34,6 +35,7 @@ const GeoLayout castle_grounds_area_1[] = {
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, castle_grounds_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE_DECAL, castle_grounds_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, castle_grounds_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, castle_grounds_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, castle_grounds_dl_material_revert_render_settings),

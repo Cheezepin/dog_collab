@@ -9403,7 +9403,7 @@ void cutscene_hub_world(struct Camera *c) {
             case 2:
                 //vec3f_set(pos, -3779.0f, -15560.0f, 2788.0f);
                 targetYawPos = 0xD100;
-                targetPitchPos = 0xD300;
+                targetPitchPos = 0xCC00;
                 targetRadiusPos = 12500.0f;
                 orbitAngle = 0x5000;
                 break;
@@ -9435,7 +9435,8 @@ void cutscene_hub_world(struct Camera *c) {
 
         roll = hubSelections[gWorldID][gFocusID].roll;
         
-        /* if(gPlayer1Controller->buttonDown & R_CBUTTONS) {gHubTargetYawPos += addendum;}
+        //debug world map cam
+        /*if(gPlayer1Controller->buttonDown & R_CBUTTONS) {gHubTargetYawPos += addendum;}
         if(gPlayer1Controller->buttonDown & L_CBUTTONS) {gHubTargetYawPos -= addendum;}
         if(gPlayer1Controller->buttonDown & U_CBUTTONS) {gHubTargetPitchPos += addendum;}
         if(gPlayer1Controller->buttonDown & D_CBUTTONS) {gHubTargetPitchPos -= addendum;}
@@ -9456,7 +9457,7 @@ void cutscene_hub_world(struct Camera *c) {
             } else {
                 gHubTargetRadiusPos += (f32)addendum;
             }
-        } */
+        }
 
         print_text_fmt_int(20, 60, "0x%x", (u16)gHubTargetYawPos);
         print_text_fmt_int(20, 40, "0x%x", (u16)gHubTargetPitchPos);
@@ -9464,7 +9465,7 @@ void cutscene_hub_world(struct Camera *c) {
 
         print_text_fmt_int(100, 60, "0x%x", (u16)gHubTargetYawFocus);
         print_text_fmt_int(100, 40, "0x%x", (u16)gHubTargetPitchFocus);
-        print_text_fmt_int(100, 20, "%d", (s32)gHubTargetRadiusFocus);
+        print_text_fmt_int(100, 20, "%d", (s32)gHubTargetRadiusFocus);*/
 
         vec3f_set_dist_and_angle(zero, c->focus, gHubTargetRadiusFocus, gHubTargetPitchFocus, gHubTargetYawFocus);
         vec3f_set_dist_and_angle(zero, c->pos, gHubTargetRadiusPos, gHubTargetPitchPos, gHubTargetYawPos);
