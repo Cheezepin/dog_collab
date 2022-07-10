@@ -202,13 +202,23 @@ enum DialogId {
     _2639DIAG_A2RoomPeachFailure,
 
     _2639DIAG_A3RoomToadPartyGreeter,
-    _2639DIAG_A3RoomToadSuccess,
-    _2639DIAG_A3RoomToadGibSoda,
+
+    _2639DIAG_A3RoomToadGibSoda, // Act 3: give soda to toad, he will be mad until a soda is in his radius
+    _2639DIAG_A3RoomToadSodaFailure,
+    _2639DIAG_A3RoomToadSodaSuccess,
+
     _2639DIAG_A3RoomToadPartyRocking1,
     _2639DIAG_A3RoomToadPartyRocking2,
     _2639DIAG_A3RoomToadPartyRocking3,
 
-    _2639DIAG_A4RoomToadRoomsFlooded,
+    _2639DIAG_A4RoomToadPoolBoy,
+    _2639DIAG_A4RoomToadPoolBoyThanks,
+
+    _2639DIAG_A5PentToad1,
+    _2639DIAG_A5PentToad2,
+    _2639DIAG_A5PentToad3,
+    
+    
     
     DIALOG_COUNT
 };

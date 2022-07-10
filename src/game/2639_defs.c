@@ -12,30 +12,8 @@
 #include "camera.h"
 #include "audio/external.h"
 #include "audio/load.h"
+extern s16 sStatusFlags;
 
-
-enum SoundChannels {
-    KIDSHOW_STAGE3 = 0,
-    KIDSHOW_STAGE2,
-    KIDSHOW_MAIN,
-    PIANO,
-    PAD,
-    SUPERSAW,
-    STRINGS,
-    BASS,
-    CITYSOUND,
-
-    // drums
-    CYMBALRIDE,
-    CYMBALRIDE2,
-    _808SNARE,
-    KICK,
-    CLAPFILL,
-    MAINSNARE,
-
-    // unused but maybe i'll make this the background claps
-    CHF,
-};
 
 
 u32 _2639_BoB_A1_ToadTalkLatch = 0;
@@ -91,13 +69,22 @@ void Cam2639_LogoCam(struct Camera *c) {
 void Cam2639_Elevator(struct Camera *c) {
     set_camera_mode_fixed(c, -125, 958, -380);
 }
+void Cam2639_CloseFocus(struct Camera *c) {
+    fadech(PAD, BASEVOL);
+    set_camera_mode_fixed2(c, -534, -600, -506);
+}
 
 void Cam2639_Main(struct Camera *c) {
-    extern s16 sStatusFlags;
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
     transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
     CDebug(c);
 }
+
+void Cam2639_OutwardSpiral(struct Camera *c) {
+    sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
+    transition_to_camera_mode(c, CAMERA_MODE_OUTWARD_RADIAL, 60);
+}
+
 void fade_channel_volume_scale(u8 player, u8 channelIndex, u8 targetScale, u16 fadeDuration);
 
 u32 curVolumes[16] = {0};
@@ -118,7 +105,21 @@ void setallch(u32 vol) {
         fade_channel_volume_scale(SEQ_PLAYER_LEVEL, ch, vol, 1);
     }
 }
-#define BASEVOL 65
+
+
+void outside_music() {
+    setallch(0);
+    fadech(PIANO, BASEVOL);
+}
+
+void introcutscene_music() {
+    for (int i = 0; i < 16; i++) {
+        fadech(i, BASEVOL);
+    }
+    fadech(KIDSHOW_STAGE2, 0);
+    fadech(KIDSHOW_STAGE3, 0);
+}
+
 
 void Sound2639_Main(void) {
     static u32 state = 0;
@@ -126,7 +127,7 @@ void Sound2639_Main(void) {
     enum Sound2639States {
         STATE_INIT = 0,
         STATE_LEVELCHECK,
-        STATE_OUTSIDEHOTEL,
+        STATE_CONTROLOBJ,
         STATE_INTROCUTSCENE,
     };
 
@@ -138,28 +139,9 @@ void Sound2639_Main(void) {
                 // fade_channel_volume_scale(SEQ_PLAYER_LEVEL, i, 1, 1);
                 curVolumes[i] = 0;
             }
-            state = STATE_LEVELCHECK;
+            state = STATE_CONTROLOBJ;
             break;
-        case STATE_LEVELCHECK:
-            if (gCurrAreaIndex == 1) {
-                state = STATE_OUTSIDEHOTEL;
-            }
-            if (gCurrAreaIndex == 2) {
-                state = STATE_INTROCUTSCENE;
-            }
-            break;
-        case STATE_OUTSIDEHOTEL:
-            setallch(0);
-            fadech(PIANO, BASEVOL);
-            state = STATE_LEVELCHECK;
-            break;
-        case STATE_INTROCUTSCENE:
-            for (int i = 0; i < 16; i++) {
-                fadech(i, BASEVOL);
-            }
-            fadech(KIDSHOW_STAGE2, 0);
-            fadech(KIDSHOW_STAGE3, 0);
-            state = STATE_LEVELCHECK;
+        case STATE_CONTROLOBJ:            
             break;
     }
 }

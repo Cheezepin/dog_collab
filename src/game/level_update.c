@@ -536,6 +536,22 @@ void do_the_vertical_instant_warp(void) {
     gMarioState->area->camera->yaw = cameraAngle;
 }
 
+// someone2639
+void teleportMario(f32 x, f32 y, f32 z) {
+    gMarioState->pos[0] = x;
+    gMarioState->pos[1] = y;
+    gMarioState->pos[2] = z;
+
+    gMarioState->marioObj->oPosX = gMarioState->pos[0];
+    gMarioState->marioObj->oPosY = gMarioState->pos[1];
+    gMarioState->marioObj->oPosZ = gMarioState->pos[2];
+
+    gMarioObject->header.gfx.pos[0] = gMarioState->pos[0];
+    gMarioObject->header.gfx.pos[1] = gMarioState->pos[1];
+    gMarioObject->header.gfx.pos[2] = gMarioState->pos[2];
+}
+
+
 void check_instant_warp(void) {
     s16 cameraAngle;
     struct Surface *floor;

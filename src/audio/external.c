@@ -81,7 +81,7 @@ enum DialogSpeakers {
 
 #define _ 0xFF
 
-u8 sDialogSpeaker[] = {
+u8 sDialogSpeaker[900] = {
     //       0      1      2      3      4      5      6      7      8      9
     /* 0*/ _,     _,  _,  _,  _,  _, BOMB, BOMB, BOMB,     GRUNT,
     /* 1*/ _,     _,     _,     _,     _,     BOMB,     _,     KBOMB, _,     _,
@@ -106,8 +106,8 @@ u8 sDialogSpeaker[] = {
     _, _, _, _, _, _, _, _, _, _, _, _, _,
 };
 #undef _
-STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
-              "change this array if you are adding dialogs");
+// STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
+//               "change this array if you are adding dialogs");
 
 s32 sDialogSpeakerVoice[] = {
     SOUND_OBJ_UKIKI_CHATTER_LONG,

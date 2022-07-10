@@ -144,13 +144,18 @@ static void toad_message_talking(void) {
                 o->oToadMessageDialogId = TOAD_STAR_3_DIALOG_AFTER;
                 bhv_spawn_star_no_level_exit(STAR_BP_ACT_3);
                 break;
-            // case _2639DIAG_A1LobbyToadGreeter:
-            //     o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
-            //     break;
+            case _2639DIAG_A3RoomToadGibSoda:
+                o->oToadMessageDialogId = _2639DIAG_A3RoomToadSodaSuccess;
+                break;
+            case _2639DIAG_A1LobbyToadGreeter:
+                o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
+                break;
+
+            
             case _2639DIAG_A1LobbyToadStarGranter:
                 if (_2639_BoB_A1_CaneCollected &&
                     _2639_BoB_A1_SunglassesCollected
-                    ) {
+                ) {
                     bhv_spawn_star_get_outta_here(0);
                 }
                 break;
@@ -180,10 +185,12 @@ void bhv_toad_message_loop(void) {
     }
 
     if (_2639_BoB_A1_CaneCollected &&
-                    _2639_BoB_A1_SunglassesCollected
+        _2639_BoB_A1_SunglassesCollected
     ) {
         o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
     }
+
+    // if ()
 
     if (gCurrentObject->header.gfx.node.flags & GRAPH_RENDER_ACTIVE) {
         gCurrentObject->oInteractionSubtype = 0;

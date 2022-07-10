@@ -1124,7 +1124,7 @@ s32 update_outward_radial_camera(struct Camera *c, Vec3f focus, Vec3f pos) {
     f32 focusY;
 
     sAreaYaw = camYaw - sModeOffsetYaw - DEGREES(180);
-    calc_y_to_curr_floor(&posY, 1.f, 500.f, &focusY, 0.9f, 200.f);
+    calc_y_to_curr_floor(&posY, 1.f, 500.f, &focusY, 0.9f, 500.f);
     focus_on_mario(focus, pos, posY + yOff, focusY + yOff, sLakituDist + baseDist, pitch, camYaw);
 
     return camYaw;
@@ -1142,7 +1142,7 @@ void mode_outward_radial_camera(struct Camera *c) {
     }
     radial_camera_input_default(c);
     radial_camera_move(c);
-    lakitu_zoom(400.f, 0x900);
+    // lakitu_zoom(400.f, 0x900);
     c->nextYaw = update_outward_radial_camera(c, c->focus, pos);
     c->pos[0] = pos[0];
     c->pos[2] = pos[2];
@@ -1586,6 +1586,23 @@ void mode_parallel_tracking_camera(struct Camera *c) {
  * Fixed camera mode, the camera rotates around a point and looks and zooms toward Mario.
  */
 void mode_fixed_camera(struct Camera *c) {
+#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
+    if (gCurrLevelNum == LEVEL_BBH) {
+        set_fov_function(CAM_FOV_BBH);
+    } else {
+        set_fov_function(CAM_FOV_APP_45);
+    }
+#else
+    set_fov_function(CAM_FOV_APP_45);
+#endif
+    c->nextYaw = update_fixed_camera(c, c->focus, c->pos);
+    c->yaw = c->nextYaw;
+
+    pan_ahead_of_player(c);
+    vec3_zero(sCastleEntranceOffset);
+}
+
+void mode_fixed_camera2(struct Camera *c) {
 #ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
     if (gCurrLevelNum == LEVEL_BBH) {
         set_fov_function(CAM_FOV_BBH);
@@ -2990,6 +3007,10 @@ void update_camera(struct Camera *c) {
 
                 case CAMERA_MODE_FIXED:
                     mode_fixed_camera(c);
+                    break;
+
+                case CAMERA_MODE_FIXED2:
+                    mode_fixed_camera2(c);
                     break;
 
                 case CAMERA_MODE_SPIRAL_STAIRS:
@@ -5199,6 +5220,27 @@ s32 set_camera_mode_fixed(struct Camera *c, s16 x, s16 y, s16 z) {
     return basePosSet;
 }
 
+s32 set_camera_mode_fixed2(struct Camera *c, s16 x, s16 y, s16 z) {
+    s32 basePosSet = FALSE;
+    f32 posX = x;
+    f32 posY = y;
+    f32 posZ = z;
+
+    if (sFixedModeBasePosition[0] != posX || sFixedModeBasePosition[1] != posY
+        || sFixedModeBasePosition[2] != posZ) {
+        basePosSet = TRUE;
+        sStatusFlags &= ~CAM_FLAG_SMOOTH_MOVEMENT;
+    }
+    vec3f_set(sFixedModeBasePosition, posX, posY, posZ);
+    if (c->mode != CAMERA_MODE_FIXED2) {
+        sStatusFlags &= ~CAM_FLAG_SMOOTH_MOVEMENT;
+        transition_to_camera_mode(c, CAMERA_MODE_FIXED2, 20);
+        vec3f_set(c->pos, sFixedModeBasePosition[0], sMarioCamState->pos[1],
+                  sFixedModeBasePosition[2]);
+    }
+    return basePosSet;
+}
+
 void set_camera_mode_8_directions(struct Camera *c) {
     if (c->mode != CAMERA_MODE_8_DIRECTIONS) {
         c->mode = CAMERA_MODE_8_DIRECTIONS;
@@ -5471,7 +5513,6 @@ void cam_thi_look_through_tunnel(UNUSED struct Camera *c) {
 /**
  * Unused. Changes the camera to radial mode when Mario is on the tower.
  *
- * @see sCamBOB for bounds.
  */
 void cam_bob_tower(struct Camera *c) {
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
@@ -5489,7 +5530,6 @@ void goto_parallelcam(struct Camera *c) {
  * This is the only CameraTrigger event that uses the area == -1 feature:
  * If this was used, it would be called by default in BoB.
  *
- * @see sCamBOB
  */
 void cam_bob_default_free_roam(struct Camera *c) {
     transition_to_camera_mode(c, CAMERA_MODE_FREE_ROAM, 90);
@@ -5910,10 +5950,16 @@ struct CameraTrigger sCamRR[] = {
 void Cam2639_CylinderCam();
 void Cam2639_Elevator();
 void Cam2639_LogoCam();
+void Cam2639_CloseFocus();
+void Cam2639_OutwardSpiral();
 struct CameraTrigger sCamBOB[] = {
 	{1, Cam2639_Main, -57, -404, 3930, 6996, 2388, 2388, 0xffff},
-	{1, Cam2639_LogoCam, -417, -2141, -3564, 889, 825, 2539, 0xffff},
-	{2, cam_bob_tower, -419, 2484, -2154, 2956, 5675, 3003, 0xffff},
+	{-1, Cam2639_Main, 0, 500, 0, 8192, 11500, 8192, 0xffff},
+	{1, Cam2639_LogoCam, -417, -2141, -4114, 889, 825, 1742, 0xffff},
+	{1, Cam2639_CloseFocus, -417, -2141, -1704, 889, 825, 620, 0xffff},
+	{2, cam_bob_tower, -419, 6375, -2154, 2956, 5675, 3003, 0xffff},
+	{2, Cam2639_OutwardSpiral, 121, -82, -2154, 2423, 788, 3003, 0xffff},
+	{2, cam_bob_tower, -2836, -96, -2160, 529, 802, 2992, 0xffff},
 	{2, Cam2639_Elevator, -17, 3033, -2833, 644, 3055, 644, 0xffff},
 	NULL_TRIGGER
 };
@@ -6192,7 +6238,7 @@ s16 camera_course_processing(struct Camera *c) {
                                                    sCameraTriggers[level][b].boundsYaw) == TRUE) {
                     //! This should be checked before calling is_pos_in_bounds. (It doesn't belong
                     //! outside the while loop because some events disable area processing)
-                    if (!(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
+                    if (gCurrLevelNum == LEVEL_BOB || !(sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING)) {
                         // *(vs8*)0=0;
                         sCameraTriggers[level][b].event(c);
                         insideBounds = TRUE;
@@ -6272,17 +6318,17 @@ s16 camera_course_processing(struct Camera *c) {
                 break;
 
             case AREA_BOB:
-                if (set_mode_if_not_set_by_surface(c, CAMERA_MODE_NONE) == 0) {
-                    if (sMarioGeometry.currFloorType == SURFACE_BOSS_FIGHT_CAMERA) {
-                        set_camera_mode_boss_fight(c);
-                    } else {
-                        if (c->mode == CAMERA_MODE_CLOSE) {
-                            transition_to_camera_mode(c, CAMERA_MODE_RADIAL, 60);
-                        } else {
-                            set_camera_mode_radial(c, 60);
-                        }
-                    }
-                }
+                // if (set_mode_if_not_set_by_surface(c, CAMERA_MODE_NONE) == 0) {
+                //     if (sMarioGeometry.currFloorType == SURFACE_BOSS_FIGHT_CAMERA) {
+                //         set_camera_mode_boss_fight(c);
+                //     } else {
+                //         if (c->mode == CAMERA_MODE_CLOSE) {
+                //             transition_to_camera_mode(c, CAMERA_MODE_RADIAL, 60);
+                //         } else {
+                //             set_camera_mode_radial(c, 60);
+                //         }
+                //     }
+                // }
                 break;
 
             case AREA_WDW_MAIN:

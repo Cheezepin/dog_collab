@@ -63,3 +63,29 @@ extern struct newcam_hardpos newcam_fixedcam[];
 
 #define cNearestObj_Bhv cur_obj_find_nearest_object_with_behavior
 #define Obj_GetAnyObj find_any_object_with_behavior
+
+#define BASEVOL 65
+enum SoundChannels {
+    KIDSHOW_STAGE3 = 0,
+    KIDSHOW_STAGE2,
+    KIDSHOW_MAIN,
+    PIANO,
+    PAD,
+    SUPERSAW,
+    STRINGS,
+    BASS,
+    CITYSOUND,
+
+    // drums
+    CYMBALRIDE,
+    CYMBALRIDE2,
+    _808SNARE,
+    KICK,
+    CLAPFILL,
+    MAINSNARE,
+
+    // unused but maybe i'll make this the background claps
+    CHF,
+};
+
+

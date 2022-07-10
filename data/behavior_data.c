@@ -7968,6 +7968,7 @@ const BehaviorScript bhv2639elevator[] = {
 	BEGIN(OBJ_LIST_SURFACE),
     LOAD_COLLISION_DATA(elevator_collision),
 	CALL_NATIVE(bhv_2639Elevator_init),
+    SET_HOME(),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_2639Elevator_loop),
         CALL_NATIVE(load_object_collision_model),
