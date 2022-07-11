@@ -7841,6 +7841,7 @@ const BehaviorScript bhvWindSoundLoop[] = {
 const BehaviorScript bhvDoginlobby[] = {
 	BEGIN(OBJ_LIST_DEFAULT),
     LOAD_ANIMATIONS(oAnimations, dog_anims),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
     SET_FLOAT(oGravity, 3.0f),
 	CALL_NATIVE(bhv_DogInLobby_init),
 	BEGIN_LOOP(),

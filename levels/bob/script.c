@@ -120,6 +120,12 @@
 #include "actors/group2639.h"
 #include "actors/group2639.h"
 #include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
+#include "actors/group2639.h"
 
 /* Fast64 begin persistent block [includes] */
 #include "actors/group2639.h"
@@ -142,6 +148,18 @@ const LevelScript level_bob_entry[] = {
 	LOAD_RAW(0x0D, _group15_geoSegmentRomStart, _group15_geoSegmentRomEnd), 
 	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0F, _common0_geoSegmentRomStart, _common0_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
@@ -369,6 +387,30 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
@@ -411,14 +453,14 @@ const LevelScript level_bob_entry[] = {
 		OBJECT_WITH_ACTS(MODEL_NONE, -1597, 117, -2849, 0, 0, 0, 0x00000000, bhv2639cane, ACT_1),
 		OBJECT_WITH_ACTS(MODEL_NONE, 1558, 117, -2861, 0, 0, 0, 0x00000000, bhv2639glasses, ACT_1),
 		OBJECT_WITH_ACTS(MODEL_TOAD, 1135, 1, 1058, 0, 0, 0, (_2639DIAG_A1LobbyToadGreeter << 24), bhvToadMessage, ACT_1),
-		OBJECT(MODEL_DOG, 1197, 2165, 1975, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
+		OBJECT(MODEL_DOG, -275, 0, 2726, 0, 0, 0, 0x00000000, bhvDoginlobby),
 		OBJECT(MODEL_NONE, -25, 1058, -280, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
 		OBJECT(MODEL_NONE, -8, 2, -1945, 0, 0, 0, (11 << 16), bhvInstantActiveWarp),
 		OBJECT(MODEL_2639SODA, 1689, 0, -1375, 0, 0, 0, 0x00000000, bhv2639soda),
 		OBJECT_WITH_ACTS(MODEL_ELEV2639, -5, 0, -2848, 0, 0, 0, 0x00000000, bhv2639elevator, ACT_2),
 		OBJECT_WITH_ACTS(MODEL_ELEV2639, -17, 0, -2801, 0, 0, 0, (1 << 16), bhv2639elevator, ACT_3),
 		OBJECT_WITH_ACTS(MODEL_ELEV2639, -17, 0, -2801, 0, 0, 0, (2 << 16), bhv2639elevator, ACT_4),
-		OBJECT(MODEL_NONE, -574, 116, 2647, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
+		OBJECT(MODEL_NONE, -489, 116, 2261, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
 		TERRAIN(bob_area_2_collision),
 		MACRO_OBJECTS(bob_area_2_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_CUSTOM_MUSIC2639),
@@ -453,6 +495,7 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(1, LEVEL_BOB, 2, 11, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_DOG, 1812, 956, 2277, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
 		OBJECT(MODEL_2639SODA, -2226, -2292, -1375, 0, 0, 0, 0x00000000, bhv2639soda),
 		OBJECT(MODEL_TOAD, -3262, -218, -1309, 0, 0, 0, (_2639DIAG_A3RoomToadGibSoda << 24), bhvToadMessage),
@@ -470,8 +513,9 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0, LEVEL_BOB, 0x01, 11, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_DOG, 342, 956, 4711, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
-		OBJECT(MODEL_NONE, 3546, 0, 2152, 0, 0, 0, (10 << 16), bhvSpinAirborneWarp),
+		OBJECT(MODEL_ELEV2639, 4830, -489, 535, 0, 0, 0, (1 << 24) | (0 << 16), bhv2639elevator),
 		TERRAIN(bob_area_5_collision),
 		MACRO_OBJECTS(bob_area_5_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_CUSTOM_MUSIC2639),

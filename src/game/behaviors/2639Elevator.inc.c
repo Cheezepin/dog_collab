@@ -100,5 +100,5 @@ void bhv_2639Elevator_loop(void) {
 
 
 
-    print_text_fmt_int(20, 100, "S %d", o->oAction);
+    // print_text_fmt_int(20, 100, "S %d", o->oAction);
 }
