@@ -126,6 +126,7 @@
 #include "actors/group2639.h"
 #include "actors/group2639.h"
 #include "actors/group2639.h"
+#include "actors/group2639.h"
 
 /* Fast64 begin persistent block [includes] */
 #include "actors/group2639.h"
@@ -232,9 +233,15 @@ const LevelScript level_bob_entry[] = {
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_16), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
@@ -499,7 +506,7 @@ const LevelScript level_bob_entry[] = {
 		OBJECT(MODEL_DOG, 1812, 956, 2277, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
 		OBJECT(MODEL_2639SODA, -2226, -2292, -1375, 0, 0, 0, 0x00000000, bhv2639soda),
 		OBJECT(MODEL_TOAD, -3262, -218, -1309, 0, 0, 0, (_2639DIAG_A3RoomToadGibSoda << 24), bhvToadMessage),
-		OBJECT(MODEL_ELEV2639, 3099, -229, 535, 0, 0, 0, (1 << 24), bhv2639elevator),
+		OBJECT(MODEL_ELEV2639, 3099, -229, 535, 0, 0, 0, (1 << 24) | (1 << 16), bhv2639elevator),
 		OBJECT(MODEL_NONE, 663, 661, 0, 0, 0, 0, (10 << 16), bhvSpinAirborneWarp),
 		TERRAIN(bob_area_4_collision),
 		MACRO_OBJECTS(bob_area_4_macro_objs),

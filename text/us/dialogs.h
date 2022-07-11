@@ -2114,8 +2114,24 @@ Maybe he'll budge then.\n\
 
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, "Hey you!\n\
-You didn't tell me that was a service dog!\n\
-Now I gotta get the exemption form!\n\
+You didn't tell me\n\
+that was a service dog!\n\
+Now I gotta get the\n\
+exemption form!\n\
 ")
+
+DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, "Heeeey, Mario!\n\
+I see you got a\n\
+new heckin\n\
+wholesome pupper!\n\
+I've got just the\n\
+treat, but I can't\n\
+give it to your for\n\
+free!\n\
+Grab me a soda from\n\
+the lobby real quick\n\
+and I'll think about it.\n\
+")
+
 
 
