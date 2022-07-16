@@ -189,8 +189,8 @@ void bhv_koopatrol_loop(void) {
         case 3:
             cur_obj_init_animation_with_accel_and_sound(2, 3.0f);
             koopa_play_footstep_sound(1, 21);
-            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x200);
-            o->oForwardVel = 52.0f;
+            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x400);
+            o->oForwardVel = 32.0f;
             vec3f_set(pos, o->oPosX, o->oPosY + 150.0f, o->oPosZ);
             vec3f_set(pos, o->oPosX, o->oPosY + 150.0f, o->oPosZ);
             if(o->oDistanceToMario < koopatrolViewRange) {
@@ -218,8 +218,31 @@ void bhv_koopatrol_loop(void) {
     }
     cur_obj_move_standard(78);
     cur_obj_update_floor_and_walls();
-    if (gCurrentObject->oMoveFlags & OBJ_MOVE_HIT_WALL) {
+    if ((gCurrentObject->oMoveFlags & OBJ_MOVE_HIT_WALL) && gCurrentObject->oAction != 3) {
         gCurrentObject->oMoveAngleYaw = 0x8000 + gCurrentObject->oWallAngle * 2 - gCurrentObject->oMoveAngleYaw;
     }
     mtxf_align_terrain_triangle(gCurrentObject->transform, &gCurrentObject->oPosX, gCurrentObject->oMoveAngleYaw, 60.f);
+}
+
+void bhv_bowser_snowball_loop(void) {
+    if(o->header.gfx.scale[0] < 0.5f) {
+        cur_obj_scale(o->header.gfx.scale[0] + 0.0625f);
+        o->oGraphYOffset = o->header.gfx.scale[0]*400.0f;
+    }
+    o->oPosX += (-64.0f) * 0.75f;
+    o->oPosY += (-64.0f) * 0.45f;
+    o->oMoveAnglePitch += 0x1000;
+    if(o->oTimer > 150) {
+        obj_mark_for_deletion(o);
+        spawn_triangle_break_particles(30, MODEL_DIRT_ANIMATION, 3.0f, TINY_DIRT_PARTICLE_ANIM_STATE_YELLOW);
+        return set_mario_action(gMarioState, ACT_SKIING, 0);
+    }
+    o->oPosY += o->oGraphYOffset;
+    print_text_fmt_int(20, 20, "%d", (s32)dist_between_objects(gMarioObject, o));
+    if(dist_between_objects(gMarioObject, o) < 250.0f && gMarioState->action != ACT_ROLLED_UP) {
+        o->oTimer = 120;
+        set_mario_action(gMarioState, ACT_ROLLED_UP, 0);
+        vec3f_set(gMarioState->pos, o->oPosX, o->oPosY - 150.0f, o->oPosZ);
+    }
+    o->oPosY -= o->oGraphYOffset;
 }

@@ -25,3 +25,8 @@
 #include "anim_06055984.inc.c"
 #include "anim_06056774.inc.c"
 #include "anim_06057678.inc.c"
+#include "anim_snow.inc.c"
+#include "anim_backflip.inc.c"
+#include "anim_brake_start.inc.c"
+#include "anim_brake_end.inc.c"
+#include "anim_fall.inc.c"

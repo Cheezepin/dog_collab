@@ -14,7 +14,7 @@
 #include "memory.h"
 #include "behavior_data.h"
 #include "rumble_init.h"
-
+#include "game_init.h"
 #include "config.h"
 
 struct LandingAction {
@@ -1895,6 +1895,84 @@ s32 act_backflip_land(struct MarioState *m) {
     return FALSE;
 }
 
+s32 gSkiingMag = 0;
+s32 gSkiJumping = 0;
+__attribute__((noinline)) s32 act_skiing(struct MarioState *m) {
+    m->pos[1] += m->vel[1];
+    if(m->pos[1] < m->floorHeight + 20.0f) {
+        m->vel[1] = 0;
+        m->pos[1] = m->floorHeight;
+        if(gSkiJumping == 1) {
+            set_mario_animation(m, MARIO_ANIM_SKI_LAND);
+            if(is_anim_at_end(m)) {gSkiJumping = 0;}
+        } else {
+            if(m->actionArg == 2) {
+                set_mario_animation(m, MARIO_ANIM_SKI_THROW);
+                if(is_anim_at_end(m)) {
+                    m->actionArg = 0;
+                }
+            } else {
+                set_mario_animation(m, MARIO_ANIM_SKI);
+            }
+        }
+        m->particleFlags |= PARTICLE_SNOW;
+    } else {
+        m->vel[1] -= 2.0f;
+        m->pos[1] += m->vel[1];
+        set_mario_animation(m, MARIO_ANIM_SKI_JUMP);
+        m->particleFlags &= ~PARTICLE_SNOW;
+    }
+
+    m->faceAngle[0] = 0x1000;
+    m->faceAngle[1] = 0xC000 + (gSkiingMag*0x14);
+    m->faceAngle[2] = m->faceAngle[1] + 0x4000;
+    m->faceAngle[0] -= abss(m->faceAngle[2]) / 0x3;
+    if(abss(gPlayer1Controller->stickX) > 0x10) {
+         gSkiingMag += gPlayer1Controller->stickX;
+    } else {
+        if(gSkiingMag > 0) {
+            gSkiingMag -= 20;
+            if(gSkiingMag < 0) {gSkiingMag = 0;}
+        }
+        if(gSkiingMag < 0) {
+            gSkiingMag += 20;
+            if(gSkiingMag > 0) {gSkiingMag = 0;}
+        }
+    }
+    //if(abss(gPlayer1Controller->stickY) > 0x4) {
+    if(m->pos[0] < 1200.0f) {
+        m->pos[0] += ((f32)/*gPlayer1Controller->stickY*/12.0f) * 0.75f;
+        m->pos[1] += ((f32)/*gPlayer1Controller->stickY*/12.0f) * 0.45f;
+    }
+    if(gSkiingMag > 0x17F) {gSkiingMag = 0x17F;}
+    if(gSkiingMag < -0x17F) {gSkiingMag = -0x17F;}
+    m->pos[2] += 0.125f*((f32)gSkiingMag);
+    vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+    vec3s_copy(m->marioObj->header.gfx.angle, m->faceAngle);
+
+    if((gPlayer1Controller->buttonPressed & A_BUTTON) && gSkiJumping == 0) {
+        m->vel[1] = 32.0f;
+        set_mario_animation(m, MARIO_ANIM_SKI_JUMP);
+        gSkiJumping = 1;
+    }
+
+    if((gPlayer1Controller->buttonPressed & B_BUTTON) && gSkiJumping == 0) {
+        m->actionArg = 2;
+        mario_throw_held_object(m);
+    }
+
+    return FALSE;
+}
+
+__attribute__((noinline)) s32 act_rolled_up(struct MarioState *m) {
+    //vec3f_set(m->pos, m->usedObj->oPosX, m->usedObj->oPosY + 150.0f, m->usedObj->oPosZ);
+    m->pos[0] += (-64.0f) * 0.75f;
+    m->pos[1] += (-64.0f) * 0.45f;
+    vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+    vec3s_copy(m->marioObj->header.gfx.angle, m->faceAngle);
+    return FALSE;
+}
+
 s32 quicksand_jump_land_action(struct MarioState *m, s32 animation1, s32 animation2, u32 endAction,
                                u32 airAction) {
     if (m->actionTimer++ < 6) {
@@ -2008,6 +2086,8 @@ s32 mario_execute_moving_action(struct MarioState *m) {
         case ACT_QUICKSAND_JUMP_LAND:      cancel = act_quicksand_jump_land(m);      break;
         case ACT_HOLD_QUICKSAND_JUMP_LAND: cancel = act_hold_quicksand_jump_land(m); break;
         case ACT_LONG_JUMP_LAND:           cancel = act_long_jump_land(m);           break;
+        case ACT_SKIING:                   cancel = act_skiing(m);                   break;
+        case ACT_ROLLED_UP:                cancel = act_rolled_up(m);                break;
     }
     /* clang-format on */
 

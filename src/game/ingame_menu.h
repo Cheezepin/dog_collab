@@ -176,6 +176,22 @@ enum DialogResponseDefines {
     DIALOG_RESPONSE_MAXIMUM = 32
 };
 
+struct HubSelection {
+    // Vec3f camPos;
+    // Vec3f camFocus;
+    s16 camYawPos;
+    s16 camPitchPos;
+    f32 camRadiusPos;
+    s16 camYawFocus;
+    s16 camPitchFocus;
+    f32 camRadiusFocus;
+    s16 roll;
+    char *levelIdentifierString;
+    char *levelNameString;
+    char *levelAuthorString;
+    u8 warpID;
+};
+
 extern s32 gDialogResponse;
 extern u16 gDialogColorFadeTimer;
 extern s8  gLastDialogLineNum;
@@ -214,5 +230,10 @@ void reset_red_coins_collected(void);
 s32 render_menus_and_dialogs(void);
 
 void render_dog_keyboard(void);
+void render_hub_selection(void);
+
+extern s32 gWorldID;
+extern s32 gFocusID;
+extern struct HubSelection hubSelections[3][6];
 
 #endif // INGAME_MENU_H

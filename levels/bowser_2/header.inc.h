@@ -7,6 +7,7 @@ extern Lights1 bowser_2_dl_trees_lights;
 extern u8 bowser_2_dl_krtd_ice_floor_ci4[];
 extern u8 bowser_2_dl_krtd_ice_floor_ci4_pal_rgba16[];
 extern u8 bowser_2_dl_snowtrees_rgba16[];
+extern Vtx bowser_2_dl_Plane_mesh_layer_5_vtx_cull[8];
 extern Vtx bowser_2_dl_Plane_mesh_layer_5_vtx_0[8];
 extern Gfx bowser_2_dl_Plane_mesh_layer_5_tri_0[];
 extern Vtx bowser_2_dl_Plane_mesh_layer_5_vtx_1[16];
