@@ -14,3 +14,5 @@
 #include "levels/bowser_2/areas/1/collision.inc.c"
 #include "levels/bowser_2/tilting_platform/collision.inc.c"
 #include "levels/bowser_2/leveldata.inc.c"
+
+#include "levels/bowser_2/snoulder/model.inc.c"

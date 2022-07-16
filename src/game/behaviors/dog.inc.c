@@ -188,3 +188,79 @@ void bhv_cheezedog_loop(void) {
             break;
     }
 }
+
+void bhv_cheezeskidog_loop(void) {
+    switch(o->oAction) {
+        case 0:
+            cur_obj_init_animation(DOG_ANIM_IDLE);
+            switch (o->oHeldState) {
+                case HELD_FREE:
+                    o->oPosZ = gMarioState->pos[2];
+                    if(gMarioState->action == ACT_SKIING) {
+                        o->oPosX += (128.0f) * 0.75f;
+                        o->oPosY += (128.0f) * 0.45f;
+                    }
+                    if(o->oPosX >= gMarioState->pos[0]) {
+                        gMarioState->heldObj = o;
+                        obj_set_held_state(gMarioState->heldObj, bhvCarrySomethingHeld);
+                        gMarioState->heldObj->oMoveAngleYaw = 0x4000;
+                    }
+                    break;
+
+                case HELD_HELD:
+                    cur_obj_disable_rendering();
+                    cur_obj_become_intangible();
+                    o->oVelY = 40.0f;
+                    o->oTimer = 0;
+                    break;
+
+                case HELD_THROWN:
+                    o->oMoveAngleYaw = 0x4000;
+                    o->oMoveAnglePitch = 0;
+                    cur_obj_become_tangible();
+                    cur_obj_enable_rendering();
+                    o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+                    o->oPosX += 40.0f;
+                    o->oPosY += o->oVelY;
+                    o->oVelY -= 2.0f;
+                    if(lateral_dist_between_objects(o, find_any_object_with_behavior(bhvBowserSnow)) < 250.0f) {
+                        o->oAction = 2;
+                        o->oHeldState = HELD_FREE;
+                    } else
+                    if(o->oTimer >= 20) {
+                        o->oAction = 1;
+                        o->oTimer = 0;
+                        o->oHeldState = HELD_FREE;
+                    }
+                    print_text_fmt_int(20, 20, "%d", o->oTimer);
+                    print_text_fmt_int(20, 40, "%d", (s32)lateral_dist_between_objects(o, find_any_object_with_behavior(bhvBowserSnow)));
+                    break;
+            }
+            break;
+        case 1:
+            if(o->oTimer < 45) {
+                o->oPosX += (-96.0f) * 0.75f;
+                o->oPosY += (-96.0f) * 0.45f;
+            } else {
+                o->oAction = 0;
+            }
+            break;
+        case 2:
+            o->oPosY = 0.6f*o->oPosX + 125.0f;
+            if(o->oTimer >= 45) {
+                cur_obj_init_animation(DOG_ANIM_IDLE);
+                o->oPosY = 0.6f*o->oPosX;
+                if(o->oTimer < 105) {
+                    o->oPosX += (-96.0f) * 0.75f;
+                    o->oPosY += (-96.0f) * 0.45f;
+                } else {
+                    o->oAction = 0;
+                }
+            } else {
+                cur_obj_init_animation(DOG_ANIM_DIG);
+            }
+            break;
+    }
+
+    o->oInteractStatus = INT_STATUS_NONE;
+}

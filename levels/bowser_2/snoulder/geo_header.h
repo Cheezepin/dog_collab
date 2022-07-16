@@ -1,0 +1,10 @@
+extern const GeoLayout snoulder_geo[];
+extern Lights1 snoulder_sm64_material_lights;
+extern u8 snoulder_ccm_snow_ci8[];
+extern u8 snoulder_ccm_snow_ci8_pal_rgba16[];
+extern Vtx snoulder_sm64_mesh_mesh_vtx_0[94];
+extern Gfx snoulder_sm64_mesh_mesh_tri_0[];
+extern Gfx mat_snoulder_sm64_material[];
+extern Gfx mat_revert_snoulder_sm64_material[];
+extern Gfx snoulder_sm64_mesh_mesh[];
+extern Gfx snoulder_material_revert_render_settings[];

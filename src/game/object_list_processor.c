@@ -257,6 +257,17 @@ void spawn_particle(u32 activeParticleFlag, ModelID16 model, const BehaviorScrip
     }
 }
 
+void spawn_particle_skiis(u32 activeParticleFlag, ModelID16 model, const BehaviorScript *behavior) {
+    if (!(gCurrentObject->oActiveParticleFlags & activeParticleFlag)) {
+        struct Object *particle;
+        gCurrentObject->oActiveParticleFlags |= activeParticleFlag;
+        particle = spawn_object_at_origin(gCurrentObject, 0, model, behavior);
+        obj_copy_pos_and_angle(particle, gCurrentObject);
+        particle->oPosX += 80.0f;
+        particle->oPosY += 48.0f;
+    }
+}
+
 /*#include "levels/bbh/header.h"
 extern u8 gIsConsole;
 void comit_console_clouds_check(void) {
@@ -286,8 +297,13 @@ void bhv_mario_update(void) {
     i = 0;
     while (sParticleTypes[i].particleFlag != 0) {
         if (particleFlags & sParticleTypes[i].particleFlag) {
-            spawn_particle(sParticleTypes[i].activeParticleFlag, sParticleTypes[i].model,
-                           sParticleTypes[i].behavior);
+            if(gCurrLevelNum == LEVEL_BOWSER_2) {
+                spawn_particle_skiis(sParticleTypes[i].activeParticleFlag, sParticleTypes[i].model,
+                            sParticleTypes[i].behavior);
+            } else {
+                spawn_particle(sParticleTypes[i].activeParticleFlag, sParticleTypes[i].model,
+                            sParticleTypes[i].behavior);
+            }
         }
 
         i++;

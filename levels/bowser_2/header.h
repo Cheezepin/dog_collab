@@ -20,4 +20,6 @@ extern const LevelScript level_bowser_2_entry[];
 
 #include "levels/bowser_2/header.inc.h"
 
+#include "levels/bowser_2/snoulder/geo_header.h"
+
 #endif

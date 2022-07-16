@@ -86,7 +86,6 @@ const GeoLayout bitfs_dl_g_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, bitfs_dl_nocola_mesh_layer_1),
-		GEO_DISPLAY_LIST(LAYER_ALPHA, bitfs_dl_nocola_mesh_layer_4),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, bitfs_dl_nocola_mesh_layer_5),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, bitfs_dl_opa_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, bitfs_dl_opa_mesh_layer_4),

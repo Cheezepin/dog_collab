@@ -625,7 +625,7 @@
 #define MODEL_SPIKE_BALL                  3
 #define MODEL_PODOBOO                     2
 
-
+#define MODEL_SNOULDER 0x150
 
 
 
