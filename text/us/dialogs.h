@@ -2088,37 +2088,36 @@ No pets allowed!\n\
 ")
 
 
-DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, "(\n\
-Mario! I was\n\
-looking for you!\n\
-I see you brought your dog,\n\
-but that angry\n\
-@FF0000FFFront Desk Toad" C_NORMAL "\n\
-isn't having any of it!\n\
-But maybe there's a\n\
-loophole in the law\n\
-you could exploit?\n\
-You're totally allowed\n\
-to bring in\n\
-service animals,\n\
-so all we need to do\n\
-is find a way to\n\
-make you look like\n\
-you're blind!\n\
-See if you can grab a\n\
-@00FF00FFCANE" C_NORMAL " and @34ebe1FFSUNGLASSES" C_NORMAL",\n\
-Then talk to the\n\
-@FF0000FFFront Desk Toad" C_NORMAL " again.\n\
-Maybe he'll budge then.\n\
+DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, R"(Mario! I was
+looking for you!
+I see you brought your dog,
+but that angry
+@FF0000FFFront Desk Toad@--------
+isn't having any of it!
+But maybe there's a
+loophole in the law
+you could exploit?
+You're totally allowed
+to bring in
+service animals,
+so all we need to do
+is find a way to
+make you look like
+you're blind!
+See if you can grab a
+@00FF00FFCANE@-------- and @34ebe1FFSUNGLASSES@--------,
+Then talk to the
+@FF0000FFFront Desk Toad@-------- again.
+Maybe he'll budge then.
 )")
 
 
-DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, "Hey you!\n\
-You didn't tell me\n\
-that was a service dog!\n\
-Now I gotta get the\n\
-exemption form!\n\
-")
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, R"(Hey you!
+You didn't tell me
+that was a service dog!
+Now I gotta get the
+exemption form!
+)")
 
 DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, "Heeeey, Mario!\n\
 I see you got a\n\
@@ -2126,7 +2125,7 @@ new heckin\n\
 wholesome pupper!\n\
 I've got just the\n\
 treat, but I can't\n\
-give it to your for\n\
+give it to you for\n\
 free!\n\
 Grab me a soda from\n\
 the lobby real quick\n\

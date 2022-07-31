@@ -8,7 +8,7 @@ void elvWarpMario(int node) {
     sDelayedWarpTimer = 0x13;
     sSourceWarpNodeId = node;
     sDelayedWarpOp = WARP_OP_WARP_OBJECT;
-    play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x16, 0,0,0);
+    play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x13, 0,0,0);
 }
 
 

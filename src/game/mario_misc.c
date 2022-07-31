@@ -121,9 +121,7 @@ static void toad_message_opaque(void) {
         if (o->oInteractStatus & INT_STATUS_INTERACTED) {
             o->oInteractStatus = INT_STATUS_NONE;
             o->oToadMessageState = TOAD_MESSAGE_TALKING;
-            if (gCurrLevelNum != LEVEL_BOB) {
-                play_toads_jingle();
-            }
+            play_toads_jingle();
         }
     }
 }
@@ -192,7 +190,13 @@ void bhv_toad_message_loop(void) {
         o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
     }
 
-    // if ()
+    struct Object *sodaObj = cur_obj_nearest_object_with_behavior(bhv2639soda);
+
+    if (sodaObj != NULL) {
+        if (dist_between_objects(o, sodaObj) < 300) {
+            bhv_spawn_star_get_outta_here(2);
+        }
+    }
 
     if (gCurrentObject->header.gfx.node.flags & GRAPH_RENDER_ACTIVE) {
         gCurrentObject->oInteractionSubtype = 0;

@@ -58,9 +58,9 @@ void CDebug(struct Camera *c) {
 
     sprintf(FFF, "MODE %d", sModeInfo.newMode);
 
-    print_text(10, 50, pstr);
-    print_text(10, 64, fstr);
-    print_text(10, 78, FFF);
+    // print_text(10, 50, pstr);
+    // print_text(10, 64, fstr);
+    // print_text(10, 78, FFF);
 }
 
 void Cam2639_LogoCam(struct Camera *c) {
