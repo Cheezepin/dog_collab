@@ -2756,3 +2756,32 @@ Gfx *geo_update_rain_cloud_rain(s32 callContext, struct GraphNode *node, UNUSED 
     return dlStart;
 }
 // thecozies end
+
+Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node) {
+    Gfx *dlStart, *dlHead;
+    struct Object *objectGraphNode;
+    struct GraphNodeGenerated *currentGraphNode;
+
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        u32 starColor = starColors[gCurrCourseNum - 1];
+        u8 starColorR = starColor >> 24;
+        u8 starColorG = (starColor >> 16) & 0xFF;
+        u8 starColorB = (starColor >> 8) & 0xFF;
+
+        objectGraphNode = (struct Object *) gCurGraphNodeObject;
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
+
+        dlHead = dlStart;
+
+        SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_OPAQUE);
+
+        gDPSetPrimColor(dlHead++, 0, 0, starColorR, starColorG, starColorB, 0xFF);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}

@@ -304,4 +304,6 @@ Gfx *geo_set_global_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
 Gfx *geo_update_rain_cloud_rain(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 // thecozies end
 
+Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node);
+
 #endif // OBJECT_HELPERS_H

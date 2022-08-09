@@ -190,6 +190,7 @@ struct HubSelection {
     char *levelNameString;
     char *levelAuthorString;
     u8 warpID;
+    u8 courseID;
 };
 
 extern s32 gDialogResponse;
@@ -200,6 +201,8 @@ extern u16 gDialogTextAlpha;
 extern s16 gCutsceneMsgXOffset;
 extern s16 gCutsceneMsgYOffset;
 extern s8  gRedCoinsCollected;
+
+extern u32 starColors[];
 
 void create_dl_identity_matrix(void);
 void create_dl_translation_matrix(s8 pushOp, f32 x, f32 y, f32 z);
@@ -231,9 +234,15 @@ s32 render_menus_and_dialogs(void);
 
 void render_dog_keyboard(void);
 void render_hub_selection(void);
+void render_hub_star_select(s32 cringeTimer);
+void end_results_loop(void);
 
 extern s32 gWorldID;
 extern s32 gFocusID;
+extern s32 gCustomStarSelectActive;
 extern struct HubSelection hubSelections[3][6];
+
+extern s32 gEndResultMenuChoice;
+extern s32 gEndResultMenuState;
 
 #endif // INGAME_MENU_H

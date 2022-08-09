@@ -28,6 +28,7 @@
 #include "puppycam2.h"
 #include "main.h"
 #include "puppyprint.h"
+#include "rendering_graph_node.h"
 
 #ifdef VERSION_EU
 #undef LANGUAGE_FUNCTION
@@ -2512,31 +2513,32 @@ struct HubSelection hubSelections[3][6] = {
         {{7092.0f, -3399.0f, 1039.0f}, {4687.0f, -2021.0f, 274.0f},  0x1000, TEXT_C4I, TEXT_C4, TEXT_C4A, 0x5},
         {{8092.0f, -431.0f, -1894.0f}, {6292.0f, 2119.0f, -2359.0f}, 0x1C00, TEXT_B1I, TEXT_B1, TEXT_B1A, 0x6}, */
 
-        {0x2C00, 0x900,  7184.0f, 0x2600, 0x1B00, 5000.0f, 0xF800, TEXT_C0I, TEXT_C0, TEXT_C0A, 0x1},
-        {0x4000, 0x1100, 8795.0f, 0x3E00, 0x1F00, 5512.0f, 0x0000, TEXT_C1I, TEXT_C1, TEXT_C1A, 0x2},
-        {0x3E00, 0xEBC0, 7825.0f, 0xBC00, 0x3000, 7300.0f, 0x0000, TEXT_C2I, TEXT_C2, TEXT_C2A, 0x3},
-        {0x2C00, 0xEC00, 8400.0f, 0x2A00, 0x2C00, 7000.0f, 0x0000, TEXT_C3I, TEXT_C3, TEXT_C3A, 0x4},
-        {0x4700, 0x0,    8976.0f, 0x5200, 0x2100, 6536.0f, 0x1C00, TEXT_B1I, TEXT_B1, TEXT_B1A, 0x5},
+        {0x2C00, 0x900,  7184.0f, 0x2600, 0x1B00, 5000.0f, 0xF800, TEXT_C0I, TEXT_C0, TEXT_C0A, 0x1, 1},
+        {0x4000, 0x1100, 8795.0f, 0x3E00, 0x1F00, 5512.0f, 0x0000, TEXT_C1I, TEXT_C1, TEXT_C1A, 0x2, 5},
+        {0x3E00, 0xEBC0, 7825.0f, 0xBC00, 0x3000, 7300.0f, 0x0000, TEXT_C2I, TEXT_C2, TEXT_C2A, 0x3, 2},
+        {0x2C00, 0xEC00, 8400.0f, 0x2A00, 0x2C00, 7000.0f, 0x0000, TEXT_C3I, TEXT_C3, TEXT_C3A, 0x4, 1},
+        {0x4700, 0x0,    8976.0f, 0x5200, 0x2100, 6536.0f, 0x1C00, TEXT_B1I, TEXT_B1, TEXT_B1A, 0x5, 17},
         NULL_ENTRY,
     },
     {
-        {0x9300, 0x1400, 6807.0f, 0x8B00, 0x2100, 5120.0f, 0xF800, TEXT_C4I, TEXT_C4, TEXT_C4A, 0x6},
-        {0xAE00, 0x400,  6551.0f, 0xAC00, 0xD00,  5120.0f, 0x0000, TEXT_C5I, TEXT_C5, TEXT_C5A, 0x7},
-        {0x9D50, 0xFDB0, 7680.0f, 0x0,    0x0,    0.0f,    0x0000, TEXT_C6I, TEXT_C6, TEXT_C6A, 0x8},
-        {0xB000, 0x1540, 7319.0f, 0xAE30, 0x2060, 5120.0f, 0x0000, TEXT_B2I, TEXT_B2, TEXT_B2A, 0x9},
+        {0x9300, 0x1400, 6807.0f, 0x8B00, 0x2100, 5120.0f, 0xF800, TEXT_C4I, TEXT_C4, TEXT_C4A, 0x6, 4},
+        {0xAE00, 0x400,  6551.0f, 0xAC00, 0xD00,  5120.0f, 0x0000, TEXT_C5I, TEXT_C5, TEXT_C5A, 0x7, 3},
+        {0x9D50, 0xFDB0, 7680.0f, 0x0,    0x0,    0.0f,    0x0000, TEXT_C6I, TEXT_C6, TEXT_C6A, 0x8, 1},
+        {0xB000, 0x1540, 7319.0f, 0xAE30, 0x2060, 5120.0f, 0x0000, TEXT_B2I, TEXT_B2, TEXT_B2A, 0x9, 16},
         NULL_ENTRY,
         NULL_ENTRY,
     },
     {
-        {0xB100, 0xC000, 6870.0f, 0xAE00, 0x100,  6650.0f, 0x8000, TEXT_C7I, TEXT_C7, TEXT_C7A, 0xA},
-        {0x7E00, 0xB800, 6350.0f, 0xE600, 0x2500, 9999.0f, 0x8000, TEXT_C8I, TEXT_C8, TEXT_C8A, 0xB},
-        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_C9I, TEXT_C9, TEXT_C9A, 0xC},
-        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_B3I, TEXT_B3, TEXT_B3A, 0xD},
+        {0xB100, 0xC000, 6870.0f, 0xAE00, 0x100,  6650.0f, 0x8000, TEXT_C7I, TEXT_C7, TEXT_C7A, 0xA, 7},
+        {0x7E00, 0xB800, 6350.0f, 0xE600, 0x2500, 9999.0f, 0x8000, TEXT_C8I, TEXT_C8, TEXT_C8A, 0xB, 6},
+        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_C9I, TEXT_C9, TEXT_C9A, 0xC, 9},
+        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_B3I, TEXT_B3, TEXT_B3A, 0xD, 18},
         NULL_ENTRY,
         NULL_ENTRY,
     },
 };
 
+s32 gCustomStarSelectActive = 0;
 void render_hub_selection(void) {
     u32 textColor = 0xFFFFFFFF;
     u32 textDiscolor = 0xDFDFDFFF;
@@ -2581,6 +2583,7 @@ void render_hub_selection(void) {
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
     } else {
+        create_dl_translation_matrix(MENU_MTX_PUSH, -(f32)(gHubStarSelectTimer*12), 0.0f, 0.0f);
         u8 i = 0;
         for(i = 0; i < 6; i++) {
             u8 filled = gFocusID == i ? 1 : 0;
@@ -2617,13 +2620,21 @@ void render_hub_selection(void) {
 
         if(sDelayedWarpTimer == 0) {
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
-                sDelayedWarpOp = 1;
-                sDelayedWarpArg = 0x00000002;
-                play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
-                sDelayedWarpTimer = 15;
-                sSourceWarpNodeId = hubSelections[gWorldID][gFocusID].warpID;
+                if(gCustomStarSelectActive || hubSelections[gWorldID][gFocusID].courseID > 15) {
+                    sDelayedWarpOp = 1;
+                    sDelayedWarpArg = 0x00000002;
+                    play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
+                    sDelayedWarpTimer = 15;
+                    sSourceWarpNodeId = hubSelections[gWorldID][gFocusID].warpID;
+                } else {
+                    gCustomStarSelectActive = 1;
+                }
             } else if(gPlayer1Controller->buttonPressed & B_BUTTON) {
-                gFocusID = -1;
+                if(!gCustomStarSelectActive) {
+                    gFocusID = -1;
+                } else {
+                    gCustomStarSelectActive = 0;
+                }
             } else if(joystickMovement & JOYSTICK_DOWN) {
                 gFocusID++;
                 if(gFocusID > 5 || hubSelections[gWorldID][gFocusID].warpID == 0) {
@@ -2642,5 +2653,328 @@ void render_hub_selection(void) {
                 }
             }
         }
+        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     }
+}
+
+void geo_clear_zbuffer(Gfx *dlHead) {
+    gDPPipeSync(dlHead++);
+    gDPSetCycleType(dlHead++, G_CYC_FILL);
+    gDPSetRenderMode(dlHead++, G_RM_NOOP, G_RM_NOOP2);
+    gDPSetDepthSource(dlHead++, G_ZS_PIXEL);
+    gDPSetDepthImage(dlHead++, gPhysicalZBuffer);
+    gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gPhysicalZBuffer);
+    gDPSetFillColor(dlHead++, GPACK_ZDZ(G_MAXFBZ, 0) << 16 | GPACK_ZDZ(G_MAXFBZ, 0));
+    gDPFillRectangle(dlHead++, 0, gBorderHeight, SCREEN_WIDTH - 1,
+                     SCREEN_HEIGHT - 1 - gBorderHeight);
+    gDPPipeSync(dlHead++);
+    gDPSetCycleType(dlHead++, G_CYC_1CYCLE);
+    gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH,
+                     gPhysicalFramebuffers[sRenderingFramebuffer]);
+    gDPSetScissor(dlHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
+                  SCREEN_HEIGHT - gBorderHeight);
+}
+
+Gfx star_hud_dl[] = {
+    gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
+    gsSPDisplayList(star_seg3_dl_body),
+    gsDPSetRenderMode(G_RM_TEX_EDGE, G_RM_TEX_EDGE2),
+    gsSPDisplayList(star_seg3_dl_eyes),
+    gsSPEndDisplayList(),
+};
+
+Gfx transparent_star_hud_dl[] = {
+    gsDPSetRenderMode(G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2),
+    gsSPDisplayList(transparent_star_seg3_dl_body),
+    gsSPEndDisplayList(),
+};
+
+Vtx bg_Plane_mesh_vtx_0[4] = {
+	{{{-2, 104, 0}, 0, {-16, 1008}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{322, 104, 0}, 0, {1008, 1008}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{322, 204, 0}, 0, {1008, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{-2, 204, 0}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+};
+
+Gfx bg_Plane_mesh_tri_0[] = {
+	gsSPVertex(bg_Plane_mesh_vtx_0 + 0, 4, 0),
+	gsSP1Triangle(0, 1, 2, 0),
+	gsSP1Triangle(0, 2, 3, 0),
+	gsSPEndDisplayList(),
+};
+
+Gfx mat_bg_f3dlite_material[] = {
+	gsDPPipeSync(),
+	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
+	gsSPClearGeometryMode(G_LIGHTING),
+	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsSPEndDisplayList(),
+};
+
+Gfx mat_revert_bg_f3dlite_material[] = {
+	gsDPPipeSync(),
+	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPEndDisplayList(),
+};
+
+Gfx bg_star_select_mesh[] = {
+	gsSPDisplayList(mat_bg_f3dlite_material),
+	gsSPDisplayList(bg_Plane_mesh_tri_0),
+	gsSPDisplayList(mat_revert_bg_f3dlite_material),
+	gsDPPipeSync(),
+	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPClearGeometryMode(G_TEXTURE_GEN),
+	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
+	gsSPTexture(65535, 65535, 0, 0, 0),
+	gsSPEndDisplayList(),
+};
+
+u32 starColors[] = {
+    0x00FFFFFF, //hynotizing high rise
+    0xF6ACA9FF, //koopa atoll
+    0xC90000FF, //swirling circus
+    0xFF7200FF, //peach ruins
+    0xFF42B0FF, //cumulus correctional center
+    0x932BC4FF, //forbidden factory
+    0xFFE800FF, //feudal fortress
+    0x808080FF, //empty
+    0xDDCEFFFF, //bowsers scuba tower
+};
+
+f32 rotVal = 0.0f;
+s32 selectedStar = 0;
+void render_hub_star_select(s32 cringeTimer) {
+    u8 **levelNameTbl = segmented_to_virtual(seg2_course_name_table);
+    u8 *currLevelName = segmented_to_virtual(levelNameTbl[COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID)]);
+    u8 **actNameTbl = segmented_to_virtual(seg2_act_name_table);
+    u8 *selectedActName;
+    s32 lvlNameX;
+    s32 actNameX;
+    s32 localTimer;
+    s32 fadeBarTimer;
+    s32 fadeTextTimer;
+    f32 centerX;
+    rotVal += 5.0f;
+    u8 i = 0;
+    u8 starNumbers[] = {TEXT_ZERO};
+    u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID));
+    u8 visibleStars;
+    u8 allStarsVisible = 1;
+    u8 lastSelectableNotCompletedStar;
+    u32 starColor;
+    u8 starColorR;
+    u8 starColorG;
+    u8 starColorB;
+
+    starColor = starColors[hubSelections[gWorldID][gFocusID].courseID - 1];
+    starColorR = starColor >> 24;
+    starColorG = (starColor >> 16) & 0xFF;
+    starColorB = (starColor >> 8) & 0xFF;
+
+    for(i = 1; i < 10; i++) {
+        save_file_set_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(i), 0x0F);
+    }
+
+    visibleStars = 1;
+    for(i = 0; i < 6; i++) {
+        if(stars & (1 << i)) {
+            if(allStarsVisible)
+                visibleStars = i + 2;
+            else
+                visibleStars = i + 1;
+        } else {
+            if(allStarsVisible == 1) {
+                lastSelectableNotCompletedStar = i;
+                allStarsVisible = 0;
+            }
+        }
+    }
+    if(visibleStars > 6) {visibleStars = 6;}
+    centerX = 160.0f - (((f32)(visibleStars - 1))*25.0f);
+
+    if(gDirectionsHeld & JOYSTICK_LEFT) {
+        u8 oS = selectedStar;
+        u8 j = 0;
+        selectedStar--;
+        while(j == 0 && selectedStar >= 0) {
+           if((stars & (1 << selectedStar)) || selectedStar == lastSelectableNotCompletedStar) {j = 1;}
+           else {selectedStar--;}
+        }
+        if(selectedStar < 0) {selectedStar = visibleStars - 1;}
+        if(oS != selectedStar) rotVal = 0;
+    }
+    if(gDirectionsHeld & JOYSTICK_RIGHT) {
+        u8 oS = selectedStar;
+        u8 j = 0;
+        selectedStar++;
+        while(j == 0 && selectedStar <= visibleStars - 1) {
+           if((stars & (1 << selectedStar)) || selectedStar == lastSelectableNotCompletedStar) {j = 1;}
+           else {selectedStar++;}
+        }
+        if(selectedStar > visibleStars - 1) {selectedStar = 0;}
+        if(oS != selectedStar) rotVal = 0;
+    }
+
+    gCurrActNum = gDialogCourseActNum = selectedStar + 1;
+
+    create_dl_ortho_matrix();
+    fadeBarTimer = fadeTextTimer = cringeTimer*25;
+    if(fadeBarTimer > 200) {fadeBarTimer = 200;}
+    if(fadeTextTimer > 255) {fadeTextTimer = 255;}
+    gDPSetRenderMode(gDisplayListHead++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, fadeBarTimer);
+    gSPDisplayList(gDisplayListHead++, bg_star_select_mesh);
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, fadeTextTimer);
+    lvlNameX = get_str_x_pos_from_center(160, currLevelName + 3, 10.0f);
+    print_generic_string(lvlNameX, 180, currLevelName + 3);
+
+    selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID) * 6 + selectedStar]);
+    actNameX = get_str_x_pos_from_center(160, selectedActName, 8.0f);
+    print_generic_string(actNameX, 108, selectedActName);
+
+    create_dl_translation_matrix(MENU_MTX_PUSH, centerX - 3.0f, 164.0f, 0.0f);
+    for(i = 0; i < visibleStars; i++) {
+        starNumbers[0] = 0x31 + i;
+        create_dl_translation_matrix(MENU_MTX_PUSH, 50.0f*i, 0.0f, 0.0f);
+        print_generic_string(0, 0, starNumbers);
+        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    }
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+    create_dl_translation_matrix(MENU_MTX_PUSH, centerX, 144.0f, 0.0f);
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
+    for(i = 0; i < visibleStars; i++) {
+        localTimer = cringeTimer - (i*2);
+        if(localTimer < 0) {localTimer = 0;}
+        create_dl_translation_matrix(MENU_MTX_PUSH, 800.0f*i, (200.0f / ((((f32)(localTimer)) / 10.0f) + 0.1f)), 0.0f);
+        create_dl_translation_matrix(MENU_MTX_PUSH, 0.0f, 0.0f, 0.0f);
+        geo_clear_zbuffer(gDisplayListHead++);
+        if(selectedStar == i) {
+            create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
+            create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.25f, 1.25f, 1.25f);
+        }
+        if(stars & (0x1 << i)) {
+            gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+            gSPDisplayList(gDisplayListHead++, star_hud_dl);
+        } else {
+            gSPDisplayList(gDisplayListHead++, transparent_star_hud_dl);
+        }
+        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+        if(selectedStar == i) {
+            create_dl_translation_matrix(MENU_MTX_NOPUSH, 00, 0.0f, 1000.0f);
+            gDPSetRenderMode(gDisplayListHead++, G_RM_CUSTOM_AA_ZB_XLU_SURF, G_RM_CUSTOM_AA_ZB_XLU_SURF);
+            gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+            gSPDisplayList(gDisplayListHead++, glow_circle_mesh);
+        }
+        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    }
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+}
+
+/* void new_star_select_loop(void) {
+    Mtx *mtx   = alloc_display_list(sizeof(Mtx));
+    Vec3f focusVec;
+    vec3f_set(focusVec, (gCamera->pos[0] - gCamera->focus[0]), (gCamera->pos[1] - gCamera->focus[1]), (gCamera->pos[2] - gCamera->focus[2]));
+    vec3f_normalize(focusVec);
+
+    if (mtx == NULL) {
+        return;
+    }
+
+    mtxf_to_mtx(mtx, gMatStack[0]);
+    create_dl_translation_matrix(MENU_MTX_NOPUSH, gCamera->pos[0] - focusVec[0]*10000.0f, gCamera->pos[1] - focusVec[1]*10000.0f, gCamera->pos[2] - focusVec[2]*10000.0f);
+    guScale(mtx, 0.0625f, 0.0625f, 0.0625f);
+    geo_clear_zbuffer(gDisplayListHead++);
+    gDPSetRenderMode(gDisplayListHead++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
+    gSPDisplayList(gDisplayListHead++, star_seg3_dl_body);
+    gDPSetRenderMode(gDisplayListHead++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+    gSPDisplayList(gDisplayListHead++, star_seg3_dl_eyes);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+} */
+
+u8 textYouGotAStar[] = { TEXT_YOU_GOT_A_STAR };
+u8 textSaveQuestion[] = { TEXT_SAVE_QUESTION };
+u8 textYesLC[] = { TEXT_YES_LC };
+u8 textNoLC[] = { TEXT_NO_LC };
+u8 textContinueToNextAct[] = { TEXT_CONTINUE_TO_NEXT_ACT };
+u8 textReplayLastAct[] = { TEXT_REPLAY_LAST_ACT };
+u8 textExitCourseLC[] = { TEXT_EXIT_COURSE_LC };
+u8 textExitGame[] = { TEXT_EXIT_GAME };
+
+s32 gEndResultMenuChoice = 0;
+s32 gEndResultMenuState = 0;
+void end_results_loop(void) {
+    if(gDirectionsHeld & JOYSTICK_UP) {
+        gEndResultMenuChoice--;
+        if(gEndResultMenuChoice < 0) {gEndResultMenuChoice = 1 + gEndResultMenuState;}
+    }
+    if(gDirectionsHeld & JOYSTICK_DOWN) {
+        gEndResultMenuChoice++;
+        if(gEndResultMenuChoice > 1 + gEndResultMenuState) {gEndResultMenuChoice = 0;}
+    }
+    gHudDisplay.flags = 0;
+    create_dl_ortho_matrix();
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
+        create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
+        print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 100, textYouGotAStar);
+        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    if(gEndResultMenuState == 1) {
+        if(gCurrActNum == 6) {
+            print_generic_string(110, 110, textContinueToNextAct);
+        } else {
+            print_generic_string(110, 110, textContinueToNextAct);
+        }
+        print_generic_string(110, 90, textExitCourseLC);
+        print_generic_string(110, 70, textExitGame);
+            create_dl_translation_matrix(MENU_MTX_PUSH, 90.0f, 110.0f - (gEndResultMenuChoice*20.0f), 0.0f);
+            gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+            gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+        
+        if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+            if(gEndResultMenuChoice == 0) {
+                if(gCurrActNum < 6) {
+                    gCurrActNum++;
+                    gDialogCourseActNum++;
+                }
+                sDelayedWarpOp = 1;
+                sDelayedWarpArg = 0x00000002;
+                sDelayedWarpTimer = 2;
+                sSourceWarpNodeId = 0xF0;
+            } else if(gEndResultMenuChoice == 1) {
+                initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAGS_NONE);
+                fade_into_special_warp(WARP_SPECIAL_NONE, 0);
+                gSavedCourseNum = COURSE_NONE;
+            } else {
+                fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
+            }
+            gEndResultMenuState = 2;
+            gEndResultMenuChoice = 0;
+            gEndResultsActive = 0;
+            gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
+        }
+    }
+    if(gEndResultMenuState == 0) {
+        print_generic_string(get_str_x_pos_from_center(160, textSaveQuestion, 2.0f), 140, textSaveQuestion);
+        print_generic_string(150, 100, textYesLC);
+        print_generic_string(150, 80, textNoLC);
+            create_dl_translation_matrix(MENU_MTX_PUSH, 130.0f, 100.0f - (gEndResultMenuChoice*20.0f), 0.0f);
+            gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+            gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+        if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+            if(gEndResultMenuChoice == 0) {
+                save_file_do_save(gCurrSaveFileNum - 1);
+            }
+            gEndResultMenuState = 1;
+            gEndResultMenuChoice = 0;
+        }
+    }
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }

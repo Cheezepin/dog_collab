@@ -23,6 +23,7 @@
 #include "moving_texture.h"
 #include "object_helpers.h"
 #include "object_list_processor.h"
+#include "rendering_graph_node.h"
 #include "save_file.h"
 #include "seq_ids.h"
 #include "sound_init.h"
@@ -602,15 +603,22 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                 play_sound(SOUND_MARIO_HERE_WE_GO, m->marioObj->header.gfx.cameraToObject);
                 break;
 
-            case 80:
+            case 70:
                 if (!(m->actionArg & 1)) {
-                    level_trigger_warp(m, WARP_OP_STAR_EXIT);
+                    play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 30, 255, 255, 255);
+                    //level_trigger_warp(m, WARP_OP_STAR_EXIT);
                 } else {
                     enable_time_stop();
                     create_dialog_box_with_response(gLastCompletedStarNum == 7 ? DIALOG_013 : DIALOG_014);
                     m->actionState = ACT_STATE_STAR_DANCE_DO_SAVE;
                 }
                 break;
+            case 105:
+                if (!(m->actionArg & 1)) {
+                    gEndResultsActive = 1;
+                    gEndResultMenuChoice = 0;
+                    gEndResultMenuState = 0;
+                }
         }
     } else if (m->actionState == ACT_STATE_STAR_DANCE_DO_SAVE && gDialogResponse != DIALOG_RESPONSE_NONE) {
         if (gDialogResponse == DIALOG_RESPONSE_YES) {

@@ -42,6 +42,8 @@ void debug_box_pos_rot(Vec3f pMin, Vec3f pMax, s16 yaw, s32 type);
 void render_debug_boxes(s32 type);
 extern void visual_surface_loop(void);
 
+extern void new_star_select_loop(void);
+
 #endif
 
 #endif /* DEBUG_BOX_H */

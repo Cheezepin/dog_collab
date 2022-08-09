@@ -36,3 +36,4 @@
 #include "levels/castle_grounds/leveldata.inc.c"
 
 #include "levels/castle_grounds/bar/model.inc.c"
+#include "levels/castle_grounds/glow/model.inc.c"

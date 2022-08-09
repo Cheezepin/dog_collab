@@ -1292,7 +1292,8 @@ s32 init_level(void) {
                 if(!save_file_exists(gCurrSaveFileNum - 1)) {
                     #ifndef TEST_LEVEL
                     save_file_set_dog_string(gCurrSaveFileNum - 1, &dogString);
-                    gKeyboard = 1;
+                    //gKeyboard = 1;
+                    //DEBUG REMOVE LATER
                     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
                     #endif
                 }
@@ -1408,15 +1409,17 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
 
     sWarpCheckpointActive = FALSE;
     gCurrLevelNum = levelNum;
+
+    
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
-	if (gCurrLevelNum == LEVEL_BOWSER_2) return 0;
+	/*if (gCurrLevelNum == LEVEL_BOWSER_2) return 0;
 	if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) return 0;
 	if (gCurrLevelNum == LEVEL_BITDW) return 0;
 	if (gCurrLevelNum == LEVEL_BITFS) return 0;
 
     if (gCurrDemoInput != NULL || gCurrCreditsEntry != NULL || gCurrCourseNum == COURSE_NONE) {
         return FALSE;
-    }
+    }*/
 
     if (gCurrLevelNum != LEVEL_BOWSER_1 && gCurrLevelNum != LEVEL_BOWSER_2 && gCurrLevelNum != LEVEL_BOWSER_3) {
         gMarioState->numCoins = 0;
@@ -1430,11 +1433,13 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
         disable_warp_checkpoint();
     }
 
-    if (gCurrCourseNum > COURSE_STAGES_MAX || warpCheckpointActive) {
+    /*if (gCurrCourseNum > COURSE_STAGES_MAX || warpCheckpointActive) {
         return FALSE;
     }
 
-    return !gDebugLevelSelect;
+    return !gDebugLevelSelect;*/
+
+    return FALSE;
 }
 
 /**
