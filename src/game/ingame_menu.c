@@ -2771,9 +2771,9 @@ void render_hub_star_select(s32 cringeTimer) {
     starColorG = (starColor >> 16) & 0xFF;
     starColorB = (starColor >> 8) & 0xFF;
 
-    for(i = 1; i < 10; i++) {
-        save_file_set_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(i), 0x0F);
-    }
+    // for(i = 1; i < 10; i++) {
+    //     save_file_set_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(i), 0x0F);
+    // }
 
     visibleStars = 1;
     for(i = 0; i < 6; i++) {
