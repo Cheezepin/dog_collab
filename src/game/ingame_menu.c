@@ -2755,6 +2755,7 @@ void render_hub_star_select(s32 cringeTimer) {
     s32 fadeTextTimer;
     f32 centerX;
     rotVal += 5.0f;
+    if(rotVal > 360.0f) {rotVal -= 360.0f;}
     u8 i = 0;
     u8 starNumbers[] = {TEXT_ZERO};
     u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID));
@@ -2909,6 +2910,22 @@ u8 textExitGame[] = { TEXT_EXIT_GAME };
 s32 gEndResultMenuChoice = 0;
 s32 gEndResultMenuState = 0;
 void end_results_loop(void) {
+    u8 **actNameTbl = segmented_to_virtual(seg2_act_name_table);
+    u8 *selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gDialogCourseActNum - 1]);
+    s32 actNameX;
+    u32 starColor;
+    u8 starColorR;
+    u8 starColorG;
+    u8 starColorB;
+
+    starColor = starColors[gCurrCourseNum - 1];
+    starColorR = starColor >> 24;
+    starColorG = (starColor >> 16) & 0xFF;
+    starColorB = (starColor >> 8) & 0xFF;
+
+    rotVal += 5.0f;
+    if(rotVal > 360.0f) {rotVal -= 360.0f;}
+
     if(gDirectionsHeld & JOYSTICK_UP) {
         gEndResultMenuChoice--;
         if(gEndResultMenuChoice < 0) {gEndResultMenuChoice = 1 + gEndResultMenuState;}
@@ -2918,63 +2935,75 @@ void end_results_loop(void) {
         if(gEndResultMenuChoice > 1 + gEndResultMenuState) {gEndResultMenuChoice = 0;}
     }
     gHudDisplay.flags = 0;
-    create_dl_ortho_matrix();
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
-    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
-        create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
-        print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 100, textYouGotAStar);
-        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
-    if(gEndResultMenuState == 1) {
-        if(gCurrActNum == 6) {
-            print_generic_string(110, 110, textContinueToNextAct);
-        } else {
-            print_generic_string(110, 110, textContinueToNextAct);
-        }
-        print_generic_string(110, 90, textExitCourseLC);
-        print_generic_string(110, 70, textExitGame);
-            create_dl_translation_matrix(MENU_MTX_PUSH, 90.0f, 110.0f - (gEndResultMenuChoice*20.0f), 0.0f);
-            gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+    if(gEndResultMenuState < 2) {
+        create_dl_ortho_matrix();
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+        gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
+            create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
+            print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 95, textYouGotAStar);
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
-        
-        if(gPlayer1Controller->buttonPressed & A_BUTTON) {
-            if(gEndResultMenuChoice == 0) {
-                if(gCurrActNum < 6) {
-                    gCurrActNum++;
-                    gDialogCourseActNum++;
-                }
-                sDelayedWarpOp = 1;
-                sDelayedWarpArg = 0x00000002;
-                sDelayedWarpTimer = 2;
-                sSourceWarpNodeId = 0xF0;
-            } else if(gEndResultMenuChoice == 1) {
-                initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAGS_NONE);
-                fade_into_special_warp(WARP_SPECIAL_NONE, 0);
-                gSavedCourseNum = COURSE_NONE;
-            } else {
-                fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
-            }
-            gEndResultMenuState = 2;
-            gEndResultMenuChoice = 0;
-            gEndResultsActive = 0;
-            gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
-        }
-    }
-    if(gEndResultMenuState == 0) {
-        print_generic_string(get_str_x_pos_from_center(160, textSaveQuestion, 2.0f), 140, textSaveQuestion);
-        print_generic_string(150, 100, textYesLC);
-        print_generic_string(150, 80, textNoLC);
-            create_dl_translation_matrix(MENU_MTX_PUSH, 130.0f, 100.0f - (gEndResultMenuChoice*20.0f), 0.0f);
-            gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+        actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
+        print_generic_string(actNameX + 15, 160, selectedActName);
+
+            create_dl_translation_matrix(MENU_MTX_PUSH, actNameX - 5.0f, 160.0f, 0.0f);
+            create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
+            create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
+            gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+            gSPDisplayList(gDisplayListHead++, star_hud_dl);
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
-        if(gPlayer1Controller->buttonPressed & A_BUTTON) {
-            if(gEndResultMenuChoice == 0) {
-                save_file_do_save(gCurrSaveFileNum - 1);
+        if(gEndResultMenuState == 1) {
+            if(gCurrActNum == 6) {
+                print_generic_string(110, 110, textReplayLastAct);
+            } else {
+                print_generic_string(110, 110, textContinueToNextAct);
             }
-            gEndResultMenuState = 1;
-            gEndResultMenuChoice = 0;
+            print_generic_string(110, 90, textExitCourseLC);
+            print_generic_string(110, 70, textExitGame);
+                create_dl_translation_matrix(MENU_MTX_PUSH, 90.0f, 110.0f - (gEndResultMenuChoice*20.0f), 0.0f);
+                gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+                gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+            
+            if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+                if(gEndResultMenuChoice == 0) {
+                    if(gCurrActNum < 6) {
+                        gCurrActNum++;
+                        gDialogCourseActNum++;
+                    }
+                    sDelayedWarpOp = 1;
+                    sDelayedWarpArg = 0x00000002;
+                    sDelayedWarpTimer = 2;
+                    sSourceWarpNodeId = 0xF0;
+                } else if(gEndResultMenuChoice == 1) {
+                    initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAGS_NONE);
+                    fade_into_special_warp(WARP_SPECIAL_NONE, 0);
+                    gSavedCourseNum = COURSE_NONE;
+                } else {
+                    fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
+                }
+                gEndResultMenuState = 2;
+                gEndResultMenuChoice = 0;
+                gEndResultsActive = 0;
+                gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
+            }
         }
+        if(gEndResultMenuState == 0) {
+            print_generic_string(get_str_x_pos_from_center(160, textSaveQuestion, 2.0f), 140, textSaveQuestion);
+            print_generic_string(150, 100, textYesLC);
+            print_generic_string(150, 80, textNoLC);
+                create_dl_translation_matrix(MENU_MTX_PUSH, 130.0f, 100.0f - (gEndResultMenuChoice*20.0f), 0.0f);
+                gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
+                gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+            if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+                if(gEndResultMenuChoice == 0) {
+                    save_file_do_save(gCurrSaveFileNum - 1);
+                }
+                gEndResultMenuState = 1;
+                gEndResultMenuChoice = 0;
+            }
+        }
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     }
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
-    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
