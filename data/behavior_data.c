@@ -8011,3 +8011,43 @@ const BehaviorScript bhv2639pc2_targetobj[] = {
 		CALL_NATIVE(bhv_2639PC2_TargetObj_loop),
 	END_LOOP(),
 };
+
+const BehaviorScript bhv2639_DRM[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    BREAK(),
+};
+
+extern const struct Animation *const peach2639_anims[];
+const BehaviorScript bhv2639peachNPC[] = {
+	BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, peach2639_anims),
+    ANIMATE(PEACH_ANIM_DIALOG_1_PART_1),
+    SET_INT(oOpacity, 255),
+    SET_FLOAT(oCollisionDistance, 150),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    SET_INT(oInteractionSubtype, INT_SUBTYPE_SIGN),
+    DROP_TO_FLOOR(),
+    SET_HITBOX(/*Radius*/ 150, /*Height*/ 300),
+    SET_INT(oWoodenPostTotalMarioAngle, 0),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        SET_INT(oInteractStatus, INT_STATUS_NONE),
+    END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639TrophyCase[] = {
+	BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_FLOAT(oCollisionDistance, 400),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    SET_INT(oInteractionSubtype, INT_SUBTYPE_SIGN),
+    DROP_TO_FLOOR(),
+    SET_HITBOX(/*Radius*/ 400, /*Height*/ 300),
+    SET_INT(oWoodenPostTotalMarioAngle, 0),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        SET_INT(oInteractStatus, INT_STATUS_NONE),
+    END_LOOP(),
+};

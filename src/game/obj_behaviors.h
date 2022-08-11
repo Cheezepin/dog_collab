@@ -208,3 +208,5 @@ void bhv_2639Elevator_init(void); void bhv_2639Elevator_loop(void);
 void bhv_2639Soda_init(void); void bhv_2639Soda_loop(void);
 void bhv_EntranceTurnStile_init(void); void bhv_EntranceTurnStile_loop(void);
 void bhv_2639PC2_TargetObj_init(void); void bhv_2639PC2_TargetObj_loop(void);
+void bhv_2639peachNPC_init(void); void bhv_2639peachNPC_loop(void);
+void bhv_2639TrophyCase_init(void); void bhv_2639TrophyCase_loop(void);

@@ -2,6 +2,7 @@
 
 #include "sm64.h"
 #include "area.h"
+#include "debug.h"
 #include "audio/external.h"
 #include "behavior_actions.h"
 #include "behavior_data.h"
@@ -121,14 +122,25 @@ static void toad_message_opaque(void) {
         if (o->oInteractStatus & INT_STATUS_INTERACTED) {
             o->oInteractStatus = INT_STATUS_NONE;
             o->oToadMessageState = TOAD_MESSAGE_TALKING;
-            play_toads_jingle();
+            if (!in2639Level(o)) {
+                play_toads_jingle();
+            }
         }
     }
 }
 
 static void toad_message_talking(void) {
-    if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_DOWN,
-        DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, o->oToadMessageDialogId)) {
+    s32 result;
+
+    if (in2639Level()) {
+        result = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_DOWN,
+            DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, o->oToadMessageDialogId);
+    } else {
+        result = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_DOWN,
+            DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, o->oBehParams >> 16);
+    }
+
+    if (result) {
         o->oToadMessageRecentlyTalked = TRUE;
         o->oToadMessageState = TOAD_MESSAGE_FADING;
         switch (o->oToadMessageDialogId) {
@@ -145,10 +157,7 @@ static void toad_message_talking(void) {
                 bhv_spawn_star_no_level_exit(STAR_BP_ACT_3);
                 break;
             case _2639DIAG_A3RoomToadGibSoda:
-                o->oToadMessageDialogId = _2639DIAG_A3RoomToadSodaSuccess;
-                break;
-            case _2639DIAG_A1LobbyToadGreeter:
-                o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
+                o->oToadMessageDialogId = _2639DIAG_A3RoomToadSodaFailure;
                 break;
 
             
@@ -159,9 +168,11 @@ static void toad_message_talking(void) {
                     bhv_spawn_star_get_outta_here(0);
                 }
                 break;
-
         }
     }
+
+    // print_text_fmt_int(32, 32, "T %d", o->oToadMessageDialogId);
+    // print_text_fmt_int(50, 50, "B %d", o->oBehParams >> 16);
 }
 
 static void toad_message_opacifying(void) {
@@ -178,14 +189,14 @@ static void toad_message_fading(void) {
 
 void bhv_toad_message_loop(void) {
     if (gCurrLevelNum = LEVEL_BOB && _2639_BoB_A1_ToadTalkLatch == 0
-        && ((o->oBehParams) == (_2639DIAG_A1LobbyToadGreeter << 24))
+        && ((o->oToadMessageDialogId) == _2639DIAG_A1LobbyToadGreeter)
     ) {
         gCurrentObject->oToadMessageState = TOAD_MESSAGE_TALKING;
         _2639_BoB_A1_ToadTalkLatch = 1;
     }
 
-    if (_2639_BoB_A1_CaneCollected &&
-        _2639_BoB_A1_SunglassesCollected
+    if (_2639_BoB_A1_CaneCollected == 1 &&
+        _2639_BoB_A1_SunglassesCollected == 1
     ) {
         o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
     }
@@ -195,6 +206,7 @@ void bhv_toad_message_loop(void) {
     if (sodaObj != NULL) {
         if (dist_between_objects(o, sodaObj) < 300) {
             bhv_spawn_star_get_outta_here(2);
+            obj_mark_for_deletion(sodaObj);
         }
     }
 
@@ -227,7 +239,13 @@ void bhv_toad_message_init(void) {
 #else
     s32 starCount = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
 #endif
-    s32 dialogId = GET_BPARAM1(o->oBehParams);
+
+    s32 dialogId = 0;
+    if (in2639Level()) {
+        dialogId = o->oBehParams >> 16;
+    } else {
+        dialogId = GET_BPARAM1(o->oBehParams);
+    }
     s32 enoughStars = TRUE;
 
     switch (dialogId) {

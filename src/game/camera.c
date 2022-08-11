@@ -5953,14 +5953,14 @@ void Cam2639_LogoCam();
 void Cam2639_CloseFocus();
 void Cam2639_OutwardSpiral();
 struct CameraTrigger sCamBOB[] = {
-	{1, Cam2639_Main, -57, -404, 3930, 6996, 2388, 2388, 0xffff},
-	{-1, Cam2639_Main, 0, 500, 0, 8192, 11500, 8192, 0xffff},
-	{1, Cam2639_LogoCam, -417, -2141, -4114, 889, 825, 1742, 0xffff},
-	{1, Cam2639_CloseFocus, -417, -2141, -1704, 889, 825, 620, 0xffff},
-	{2, cam_bob_tower, -419, 6375, -2154, 2956, 5675, 3003, 0xffff},
-	{2, Cam2639_OutwardSpiral, 121, -82, -2154, 2423, 788, 3003, 0xffff},
-	{2, cam_bob_tower, -2836, -96, -2160, 529, 802, 2992, 0xffff},
-	{2, Cam2639_Elevator, -17, 3033, -2833, 644, 3055, 644, 0xffff},
+	{1, Cam2639_Main, -57, -404, 3930, 6995, 6995, 6995, 0xffff},
+	{-1, Cam2639_Main, 0, 500, 0, 11500, 11500, 11500, 0xffff},
+	{1, Cam2639_LogoCam, -417, -2141, -4114, 1742, 1742, 1742, 0xffff},
+	{1, Cam2639_CloseFocus, -417, -2141, -1704, 889, 889, 889, 0xffff},
+	{2, cam_bob_tower, -419, 6375, -2154, 5675, 5675, 5675, 0xffff},
+	{2, Cam2639_OutwardSpiral, 121, -82, -2154, 3003, 3003, 3003, 0xffff},
+	{2, cam_bob_tower, -2836, -96, -2160, 2992, 2992, 2992, 0xffff},
+	{2, Cam2639_Elevator, -17, 3033, -2833, 3055, 3055, 3055, 0xffff},
 	NULL_TRIGGER
 };
 

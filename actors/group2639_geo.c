@@ -5,8 +5,10 @@
 #include "geo_commands.h"
 #include "actors/group2639.h"
 
+
 #include "couch/geo.inc.c"
 
 #include "elevator/geo.inc.c"
 #include "soder/geo.inc.c"
 #include "turnstile/geo.inc.c"
+#include "peach2639/geo.inc.c"

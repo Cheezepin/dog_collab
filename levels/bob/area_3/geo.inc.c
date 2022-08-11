@@ -3,7 +3,7 @@
 const GeoLayout bob_area_3_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -4659, -1217, 635, 0, 90, -45, bob_dl_Cube_001_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -4659, -1322, 635, 0, 90, -45, bob_dl_Cube_001_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -6125, -4376, 537, 0, -90, 0, bob_dl_ground_mesh_layer_1),
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, bob_dl_ground_mesh_layer_5),

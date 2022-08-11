@@ -718,3 +718,6 @@ extern const BehaviorScript bhv2639elevator[];
 extern const BehaviorScript bhv2639soda[];
 extern const BehaviorScript bhvEntranceturnstile[];
 extern const BehaviorScript bhv2639pc2_targetobj[];
+extern const BehaviorScript bhv2639_DRM[];
+extern const BehaviorScript bhv2639peachNPC[];
+extern const BehaviorScript bhv2639TrophyCase[];

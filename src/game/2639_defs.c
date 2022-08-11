@@ -18,7 +18,15 @@ extern s16 sStatusFlags;
 
 u32 _2639_BoB_A1_ToadTalkLatch = 0;
 u32 _2639_BoB_A1_CaneCollected = 0;
-u32 _2639_BoB_A1_SunglassesCollected = 1;
+u32 _2639_BoB_A1_SunglassesCollected = 0;
+
+s32 in2639Level(struct Object *co) {
+    f32 throw;
+    struct Object *oo = cNearestObj_Bhv(bhv2639_DRM, &throw);
+
+    return (oo != NULL);
+}
+
 
 struct Object *NextObj_BParam(const BehaviorScript *behavior, s32 bp) {
     uintptr_t *behaviorAddr = segmented_to_virtual(behavior);
@@ -47,6 +55,10 @@ struct Object *NextObj_BParam(const BehaviorScript *behavior, s32 bp) {
 }
 
 // GEO_CAMERA(CAMERA_MODE_RADIAL, -419, 2484, -2154, -419, 3484, -2154, geo_camera_main),
+
+am_i_stupid() {
+    *(vs8*)0=0;
+}
 
 void CDebug(struct Camera *c) {
     char pstr[50];

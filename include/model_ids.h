@@ -710,6 +710,7 @@ enum _2639Models {
 	MODEL_ELEV2639,
 	MODEL_2639SODA,
 	MODEL_2639TURNSTILE,
+	MODEL_2639PEACHNPC,
 };
 
 //start cheeze model ids

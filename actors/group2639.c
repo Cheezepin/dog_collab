@@ -5,6 +5,7 @@
 #include "actors/group2639.h"
 #include "make_const_nonconst.h"
 
+
 #include "couch/model.inc.c"
 
 #include "couch/collision.inc.c"
@@ -16,3 +17,8 @@ u64 aligner2639 = 14241823231;
 #include "soder/model.inc.c"
 #include "turnstile/model.inc.c"
 #include "turnstile/collision.inc.c"
+
+#include "peach2639/model.inc.c"
+#include "peach2639/anims/data.inc.c"
+#include "peach2639/anims/table.inc.c"
+

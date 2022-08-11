@@ -227,10 +227,10 @@ const Collision bob_area_5_collision[] = {
 	COL_TRI(83, 55, 58),
 	COL_TRI(58, 84, 83),
 	COL_TRI(86, 87, 40),
+	COL_TRI(88, 86, 40),
 	COL_TRI(36, 35, 88),
-	COL_TRI(86, 40, 37),
+	COL_TRI(88, 40, 37),
 	COL_TRI(37, 36, 88),
-	COL_TRI(37, 88, 86),
 	COL_TRI(60, 59, 89),
 	COL_TRI(60, 89, 90),
 	COL_TRI(74, 41, 91),
@@ -319,6 +319,6 @@ const Collision bob_area_5_collision[] = {
 	COL_TRI(100, 80, 110),
 	COL_TRI_STOP(),
 	COL_WATER_BOX_INIT(1),
-	COL_WATER_BOX(0x00, -3220, -2153, 473, 3230, -873),
+	COL_WATER_BOX(0x00, -4065, -2153, 1318, 3230, 176),
 	COL_END()
 };

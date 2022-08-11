@@ -2087,6 +2087,41 @@ Hey you!\n\
 No pets allowed!\n\
 ")
 
+DEFINE_DIALOG(_2639DIAG_A2LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+The Princess needs help
+on floor 2!
+Get your butt into that
+elevator and see what
+she wants!
+)")
+
+DEFINE_DIALOG(_2639DIAG_A3LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+There's a party on
+Floor 3!
+I don't mind because they
+don't make noise, but
+definitely go check it out!
+)")
+
+DEFINE_DIALOG(_2639DIAG_A4LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+Floor 4 is flooded!
+You're the plumber, right?
+Go fix it! I'm not paid
+enough for this...
+)")
+
+
+DEFINE_DIALOG(_2639DIAG_A6LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+I've seen you here a few
+times.
+Why not check out the roof?
+We have a really neat jewel
+that you should see.
+)")
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, R"(Mario! I was
 looking for you!
@@ -2108,8 +2143,7 @@ See if you can grab a
 @00FF00FFCANE@-------- and @34ebe1FFSUNGLASSES@--------,
 Then talk to the
 @FF0000FFFront Desk Toad@-------- again.
-Maybe he'll budge then.
-)")
+Maybe he'll budge then.)")
 
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, R"(Hey you!
@@ -2117,7 +2151,9 @@ You didn't tell me
 that was a service dog!
 Now I gotta get the
 exemption form!
-)")
+Let me also get
+something for the dog.
+Take it as my apology.)")
 
 DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, "Heeeey, Mario!\n\
 I see you got a\n\
@@ -2129,8 +2165,76 @@ give it to you for\n\
 free!\n\
 Grab me a soda from\n\
 the lobby real quick\n\
-and I'll think about it.\n\
-")
+and I'll think about it.")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Intro, 1, 4, 30, 200, R"(Inside our beautiful
+high-rise, we have an
+assortment of artifacts!
+Browse every big project
+someone2639 started instead
+of finishing his level!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Kirby64, 1, 4, 30, 200, R"(Kirby 64 Decomp:
+Hot off the heels of
+finding a debug cheat
+code in the game, more
+improvements to the base
+repository followed!
+We got a revamped asset
+system that could handle
+all the texture types
+in the game, along with
+a milestone 10%% completion!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_sUGGOH, 1, 4, 30, 200, R"(sUGGOH:
+someone2639's Ultra-
+Galactic Game of Horse!
+It's a homebrew made for
+the n64brew 2021 jam, and
+it features the first use
+of the Turbo3D graphics
+system in 20 years!
+It's also somewhat fun,
+so go play it!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_HVQM, 1, 4, 30, 200, R"(My Dress-up Darling 64:
+someone2639 made a hack
+that contained both the
+first ever use of HVQM
+compressed FMV in SM64,
+and the most sobering
+rants about anime yet,
+instead of working on his
+level.
+Devilish!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_AnimeFighter, 1, 4, 30, 200, R"(Anime Fighter 64:
+This one was a collaboration
+between procrastinators
+someone2639 and Cheezepin,
+putting a whole Tekken-like
+fighter into Mario 64!
+It will also eventually start
+getting updates whenever
+we figure out easier
+character imports!
+Stay tuned!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_1080Decomp, 1, 4, 30, 200, R"(1080 Snowboarding Decomp:
+As if someone2639 needed
+more things to work on,
+he started a brand new
+decompilation of a C++
+video game, along with
+piecing together the
+build system to handle
+such a feat!
+At this point, you'd think
+working on this level
+would have been easier...)")
+
+
+
 
 
 
