@@ -2081,91 +2081,7 @@ descend slower!")
 
 #define C_NORMAL "@--------"
 
-
-DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 4, 30, 200, "\n\
-Hey you!\n\
-No pets allowed!\n\
-")
-
-DEFINE_DIALOG(_2639DIAG_A2LobbyToadGreeter, 1, 3, 30, 200, \
-R"(Hey you!
-The Princess needs help
-on floor 2!
-Get your butt into that
-elevator and see what
-she wants!
-)")
-
-DEFINE_DIALOG(_2639DIAG_A3LobbyToadGreeter, 1, 3, 30, 200, \
-R"(Hey you!
-There's a party on
-Floor 3!
-I don't mind because they
-don't make noise, but
-definitely go check it out!
-)")
-
-DEFINE_DIALOG(_2639DIAG_A4LobbyToadGreeter, 1, 3, 30, 200, \
-R"(Hey you!
-Floor 4 is flooded!
-You're the plumber, right?
-Go fix it! I'm not paid
-enough for this...
-)")
-
-
-DEFINE_DIALOG(_2639DIAG_A6LobbyToadGreeter, 1, 3, 30, 200, \
-R"(Hey you!
-I've seen you here a few
-times.
-Why not check out the roof?
-We have a really neat jewel
-that you should see.
-)")
-
-DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, R"(Mario! I was
-looking for you!
-I see you brought your dog,
-but that angry
-@FF0000FFFront Desk Toad@--------
-isn't having any of it!
-But maybe there's a
-loophole in the law
-you could exploit?
-You're totally allowed
-to bring in
-service animals,
-so all we need to do
-is find a way to
-make you look like
-you're blind!
-See if you can grab a
-@00FF00FFCANE@-------- and @34ebe1FFSUNGLASSES@--------,
-Then talk to the
-@FF0000FFFront Desk Toad@-------- again.
-Maybe he'll budge then.)")
-
-
-DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, R"(Hey you!
-You didn't tell me
-that was a service dog!
-Now I gotta get the
-exemption form!
-Let me also get
-something for the dog.
-Take it as my apology.)")
-
-DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, "Heeeey, Mario!\n\
-I see you got a\n\
-new heckin\n\
-wholesome pupper!\n\
-I've got just the\n\
-treat, but I can't\n\
-give it to you for\n\
-free!\n\
-Grab me a soda from\n\
-the lobby real quick\n\
-and I'll think about it.")
+// someone2639 dialog..... スタート!!
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Intro, 1, 4, 30, 200, R"(Inside our beautiful
 high-rise, we have an
@@ -2232,6 +2148,98 @@ such a feat!
 At this point, you'd think
 working on this level
 would have been easier...)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 4, 30, 200, "\n\
+Hey you!\n\
+No pets allowed!\n\
+")
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, R"(Mario! I was
+looking for you!
+I see you brought your dog,
+but that angry
+@FF0000FFFront Desk Toad@--------
+isn't having any of it!
+But maybe there's a
+loophole in the law
+you could exploit?
+You're totally allowed
+to bring in
+service animals,
+so all we need to do
+is find a way to
+make you look like
+you're blind!
+See if you can grab a
+@00FF00FFCANE@-------- and @34ebe1FFSUNGLASSES@--------,
+Then talk to the
+@FF0000FFFront Desk Toad@-------- again.
+Maybe he'll budge then.)")
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, R"(Hey you!
+You didn't tell me
+that was a service dog!
+Now I gotta get the
+exemption form!
+Let me also get
+something for the dog.
+Take it as my apology.)")
+
+
+
+DEFINE_DIALOG(_2639DIAG_A2LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+The Princess needs help
+on floor 2!
+Get your butt into that
+elevator and see what
+she wants!
+)")
+
+DEFINE_DIALOG(_2639DIAG_A3LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+There's a party on
+Floor 3!
+I don't mind because they
+don't make noise, but
+definitely go check it out!
+)")
+
+DEFINE_DIALOG(_2639DIAG_A4LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+Floor 4 is flooded!
+You're the plumber, right?
+Go fix it! I'm not paid
+enough for this...
+)")
+
+
+DEFINE_DIALOG(_2639DIAG_A6LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+I've seen you here a few
+times.
+Why not check out the roof?
+We have a really neat jewel
+that you should see.
+)")
+
+
+
+DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, "Heeeey, Mario!\n\
+I see you got a\n\
+new heckin\n\
+wholesome pupper!\n\
+I've got just the\n\
+treat, but I can't\n\
+give it to you for\n\
+free!\n\
+Grab me a soda from\n\
+the lobby real quick\n\
+and I'll think about it.")
+
+
 
 
 

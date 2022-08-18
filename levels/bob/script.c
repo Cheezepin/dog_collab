@@ -183,6 +183,8 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639PEACHNPC, peach2639_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_CANE2639, cane_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_SUNGLASSES2639, sunglasses_geo), 
 
 
 	/* Fast64 begin persistent block [level commands] */

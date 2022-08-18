@@ -1,0 +1,11 @@
+extern const GeoLayout cane_geo[];
+extern Lights1 cane2639_f3dlite_material_lights;
+extern u8 cane2639_original_cane_ci4[];
+extern u8 cane2639_original_cane_ci4_pal_rgba16[];
+extern Vtx cane2639_Cube_mesh_layer_1_vtx_cull[8];
+extern Vtx cane2639_Cube_mesh_layer_1_vtx_0[406];
+extern Gfx cane2639_Cube_mesh_layer_1_tri_0[];
+extern Gfx mat_cane2639_f3dlite_material[];
+extern Gfx mat_revert_cane2639_f3dlite_material[];
+extern Gfx cane2639_Cube_mesh_layer_1[];
+extern Gfx cane2639_material_revert_render_settings[];

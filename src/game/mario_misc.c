@@ -84,6 +84,7 @@ struct GraphNodeObject gMirrorMario;  // copy of Mario's geo node for drawing mi
 // (message NPC related things, the Mario head geo, and Mario geo
 // functions)
 
+
 #ifdef KEEP_MARIO_HEAD
 /**
  * Geo node script that draws Mario's head on the title screen.

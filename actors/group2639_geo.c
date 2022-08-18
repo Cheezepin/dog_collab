@@ -12,3 +12,6 @@
 #include "soder/geo.inc.c"
 #include "turnstile/geo.inc.c"
 #include "peach2639/geo.inc.c"
+
+#include "cane2639/geo.inc.c"
+#include "sunglass2639/geo.inc.c"

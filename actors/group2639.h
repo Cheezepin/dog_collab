@@ -24,4 +24,8 @@
 
 #include "turnstile/collision_header.h"
 
+#include "cane2639/geo_header.h"
+
+#include "sunglass2639/geo_header.h"
+
 #endif

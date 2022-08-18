@@ -569,6 +569,18 @@ void obj_spawn_yellow_coins(struct Object *obj, s8 nCoins) {
     }
 }
 
+void MakeCoinWithModel(struct Object *obj, s8 nCoins, ModelID32 mdl) {
+    struct Object *coin;
+    s8 count;
+
+    for (count = 0; count < nCoins; count++) {
+        coin = spawn_object(obj, mdl, bhvMovingYellowCoin);
+        coin->oForwardVel = random_float() * 20;
+        coin->oVelY = random_float() * 40 + 20;
+        coin->oMoveAngleYaw = random_u16();
+    }
+}
+
 /**
  * Controls whether certain objects should flicker/when to despawn.
  */
