@@ -50,4 +50,11 @@
 
 #include "levels/bits/warpbox/geo.inc.c"
 
-#include "levels/bits/ashpile/geo.inc.c"
+#include "levels/bits/ashpile_bits/geo.inc.c"
+#include "levels/bits/ashpile2_bits/geo.inc.c"
+
+#include "levels/bits/propane_thrower_bits/geo.inc.c"
+
+#include "levels/bits/rmine_bits/geo.inc.c"
+
+#include "levels/bits/fade_cloud_bits/geo.inc.c"

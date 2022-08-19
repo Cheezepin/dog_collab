@@ -94,10 +94,15 @@ extern const LevelScript level_bits_entry[];
 
 #include "levels/bits/warpbox/geo_header.h"
 
-#include "levels/ccm/ashpile/geo_header.h"
+#include "levels/bits/ashpile_bits/geo_header.h"
+#include "levels/bits/ashpile_bits/collision_header.h"
+#include "levels/bits/ashpile2_bits/geo_header.h"
 
-//#include "levels/ccm/propane_thrower/geo_header.h"
+#include "levels/bits/propane_thrower_bits/geo_header.h"
 
-//#include "levels/ccm/rmine/geo_header.h"
+#include "levels/bits/rmine_bits/geo_header.h"
+
+#include "levels/bits/fade_cloud_bits/geo_header.h"
+#include "levels/bits/fade_cloud_bits/collision_header.h"
 
 #endif

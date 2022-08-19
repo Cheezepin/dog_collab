@@ -703,6 +703,8 @@ extern const BehaviorScript bhvWindSoundLoop[];
 extern const BehaviorScript bhvBowserSnow[];
 extern const BehaviorScript bhvBowserSnowball[];
 extern const BehaviorScript bhvWarpBox[];
+extern const BehaviorScript bhvAshpileBits[];
+extern const BehaviorScript bhvFadeCloudBits[];
 //cheeze bhv ends
 
 

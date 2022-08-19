@@ -250,6 +250,36 @@ void scroll_bits_dl_Torus_007_mesh_layer_1_vtx_0() {
 	currentY += deltaY;
 }
 
+void scroll_sts_mat_bits_dl_nebula_layer1() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_nebula_layer1);
+	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+};
+
+void scroll_sts_mat_bits_dl_nebula_not_slippery_layer1() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_nebula_not_slippery_layer1);
+	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+};
+
+void scroll_sts_mat_bits_dl_slide_layer1() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_slide_layer1);
+	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+};
+
+void scroll_sts_mat_bits_dl_nebula_hangable_001_layer1() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_nebula_hangable_001_layer1);
+	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+};
+
+void scroll_sts_mat_bits_dl_lava_layer1() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_lava_layer1);
+	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+};
+
 void scroll_bits() {
 	scroll_bits_dl_inner_torus_mesh_layer_1_vtx_0();
 	scroll_bits_dl_inner_torus_001_mesh_layer_1_vtx_0();
@@ -264,4 +294,9 @@ void scroll_bits() {
 	scroll_bits_dl_Torus_005_mesh_layer_1_vtx_0();
 	scroll_bits_dl_Torus_006_mesh_layer_1_vtx_0();
 	scroll_bits_dl_Torus_007_mesh_layer_1_vtx_0();
+	scroll_sts_mat_bits_dl_nebula_layer1();
+	scroll_sts_mat_bits_dl_nebula_not_slippery_layer1();
+	scroll_sts_mat_bits_dl_slide_layer1();
+	scroll_sts_mat_bits_dl_nebula_hangable_001_layer1();
+	scroll_sts_mat_bits_dl_lava_layer1();
 }

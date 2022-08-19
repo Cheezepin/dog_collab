@@ -61,4 +61,13 @@
 
 #include "levels/bits/warpbox/model.inc.c"
 
-#include "levels/bits/ashpile/model.inc.c"
+#include "levels/bits/ashpile_bits/model.inc.c"
+#include "levels/bits/ashpile_bits/collision.inc.c"
+#include "levels/bits/ashpile2_bits/model.inc.c"
+
+#include "levels/bits/propane_thrower_bits/model.inc.c"
+
+#include "levels/bits/rmine_bits/model.inc.c"
+
+#include "levels/bits/fade_cloud_bits/model.inc.c"
+#include "levels/bits/fade_cloud_bits/collision.inc.c"

@@ -51,6 +51,7 @@
 #include "levels/lll/header.h"
 #include "levels/sa/header.h"
 #include "levels/bitfs/header.h"
+#include "levels/bits/header.h"
 #include "levels/ddd/header.h"
 #include "levels/wf/header.h"
 #include "levels/bowser_1/header.h"
@@ -6966,6 +6967,12 @@ const BehaviorScript bhvAshpile[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvAshpileBits[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(ashpile_bits_collision),
+    GOTO(bhvAshpile + 1 + 2),
+};
+
 const BehaviorScript bhvAshpileEmu[] = {
     BEGIN(OBJ_LIST_SURFACE),
     LOAD_COLLISION_DATA(ashpile_collision_emu),
@@ -7212,8 +7219,8 @@ const BehaviorScript bhvCRainCloud[] = {
 
 const BehaviorScript bhvFadeCloud[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(fade_cloud_collision),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     SET_FLOAT(oDrawingDistance, 0x4000),
     SET_FLOAT(oCollisionDistance, 0x600),
     SET_HOME(),
@@ -7223,6 +7230,12 @@ const BehaviorScript bhvFadeCloud[] = {
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_fade_cloud_loop),
     END_LOOP(),
+};
+
+const BehaviorScript bhvFadeCloudBits[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(fade_cloud_bits_collision),
+    GOTO(bhvFadeCloud + 1 + 2),
 };
 
 
