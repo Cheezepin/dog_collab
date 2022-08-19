@@ -702,6 +702,7 @@ extern const BehaviorScript bhvKoopatrol[];
 extern const BehaviorScript bhvWindSoundLoop[];
 extern const BehaviorScript bhvBowserSnow[];
 extern const BehaviorScript bhvBowserSnowball[];
+extern const BehaviorScript bhvWarpBox[];
 //cheeze bhv ends
 
 

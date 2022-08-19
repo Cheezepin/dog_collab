@@ -8037,3 +8037,17 @@ const BehaviorScript bhvBowserSnowball[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvWarpBox[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oWarpBoxInnerScale, 0),
+    SET_HITBOX(/*Radius*/ 50, /*Height*/ 100),
+    SCALE(0, 50),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_warp_box_loop),
+    END_LOOP(),
+};
+

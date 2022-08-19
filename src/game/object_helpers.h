@@ -305,5 +305,6 @@ Gfx *geo_update_rain_cloud_rain(s32 callContext, struct GraphNode *node, UNUSED 
 // thecozies end
 
 Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node);
+Gfx *geo_warp_box_scale(s32 callContext, struct GraphNode *node);
 
 #endif // OBJECT_HELPERS_H

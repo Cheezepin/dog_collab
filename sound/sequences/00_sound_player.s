@@ -2794,6 +2794,8 @@ sound_ref .sound_general_grand_star_jump
 sound_ref .sound_general_boat_rock
 sound_ref .sound_CUSTOM_awooga
 sound_ref .sound_CUSTOM_cartoon_run
+sound_ref .sound_CUSTOM_warp_box_in
+sound_ref .sound_CUSTOM_warp_box_out
 sound_ref .sound_general_vanish_sfx
 sound_ref .sound_menu_enter_hole
 sound_ref .sound_general_red_coin
@@ -4820,6 +4822,18 @@ chan_end
 .sound_CUSTOM_cartoon_run:
 chan_setbank 0
 chan_setinstr 7
+chan_setlayer 0, .layer_clowning
+chan_end
+
+.sound_CUSTOM_warp_box_in:
+chan_setbank 5
+chan_setinstr 16
+chan_setlayer 0, .layer_clowning
+chan_end
+
+.sound_CUSTOM_warp_box_out:
+chan_setbank 5
+chan_setinstr 17
 chan_setlayer 0, .layer_clowning
 chan_end
 

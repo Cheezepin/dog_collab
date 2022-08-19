@@ -246,3 +246,90 @@ void bhv_bowser_snowball_loop(void) {
     }
     o->oPosY -= o->oGraphYOffset;
 }
+
+Vec3f warpBoxScaleFrames[] = {
+    {0.6f, 0.4f, 0.6f},
+    {0.525f, 0.475f, 0.525f},
+    {0.495f, 0.525f, 0.495f},
+    {0.45f, 0.575f, 0.45f},
+    {0.4625f, 0.5625f, 0.4625f},
+    {0.475f, 0.55f, 0.475f},
+    {0.525f, 0.525f, 0.525f},
+    {0.575f, 0.575f, 0.575f},
+    {0.625f, 0.625f, 0.625f},
+};
+
+void bhv_warp_box_loop(void) {
+
+    if((o->oBehParams >> 24) == 0) {
+        if(o->oAction == 1) {
+            gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            if(o->oPosY > o->oHomeY && o->oSubAction == 0) {
+                o->oSubAction = 1;
+            }
+            if(o->oSubAction == 1 && o->oPosY <= o->oHomeY - 20.0f) {
+                o->oVelY = 0;
+                o->oPosY = o->oHomeY - 20.0f;
+            } else {
+                o->oPosY += o->oVelY;
+                o->oVelY -= 4.0f;
+            }
+
+            if(o->oSubAction == 1) {
+                if(o->oWarpBoxInnerScale < 1.0f) {
+                    o->oWarpBoxInnerScale += .125f;
+                    o->oTimer = 0;
+                }
+                else {
+                    if(o->oTimer < 9) {
+                        vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
+                    }
+                    if(o->oTimer == 15) {
+                        sDelayedWarpOp = 1;
+                        sDelayedWarpArg = 0x00000002;
+                        sDelayedWarpTimer = 2;
+                        sSourceWarpNodeId = o->oBehParams2ndByte;
+                    }
+                }
+            }
+        }
+
+        if(o->collidedObjs[0] == gMarioObject && o->oAction == 0) {
+            gMarioState->action = ACT_WAITING_FOR_DIALOG;
+            gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            o->oAction = 1;
+            o->oTimer = 0;
+            o->oPosY -= 50.0f;
+            o->oVelY = 25.0f;
+            cur_obj_play_sound_2(SOUND_CUSTOM_WARP_BOX_IN);
+        }
+        if(o->oWarpBoxInnerScale >= 1.0f) {
+            o->oAnimState = 0;
+        } else {
+            o->oAnimState = 1;
+        }
+    } else {
+        if(o->oTimer < 9) {
+            vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
+            o->oWarpBoxInnerScale = 1.0f;
+        }
+        if(o->oTimer == 4) {
+            set_mario_action(gMarioState, ACT_EMERGE_FROM_PIPE, 1);
+        }
+        if(o->oTimer == 17) {
+            cur_obj_play_sound_2(SOUND_CUSTOM_WARP_BOX_OUT);
+        }
+        if(o->oTimer >= 15) {
+            if(o->oWarpBoxInnerScale > 0.0f) {
+                o->oWarpBoxInnerScale -= 0.125f;
+            }
+        } else {
+            gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+        }
+        if(o->oTimer == 30) {
+            struct Object *explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
+            explosion->oGraphYOffset += 100.0f;
+            obj_mark_for_deletion(o);
+        }
+    }
+}

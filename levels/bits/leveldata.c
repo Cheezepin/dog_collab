@@ -56,3 +56,9 @@
 #include "levels/bits/areas/1/30/collision.inc.c"
 #include "levels/bits/areas/1/31/collision.inc.c"
 #include "levels/bits/areas/1/32/collision.inc.c"
+
+#include "levels/bits/leveldata.inc.c"
+
+#include "levels/bits/warpbox/model.inc.c"
+
+#include "levels/bits/ashpile/model.inc.c"

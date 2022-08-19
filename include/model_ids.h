@@ -626,7 +626,7 @@
 #define MODEL_PODOBOO                     2
 
 #define MODEL_SNOULDER 0x150
-
+#define MODEL_WARP_BOX 0x151
 
 
 

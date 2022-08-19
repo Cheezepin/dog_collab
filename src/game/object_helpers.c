@@ -2785,3 +2785,14 @@ Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node) {
 
     return dlStart;
 }
+
+Gfx *geo_warp_box_scale(s32 callContext, struct GraphNode *node) {
+    struct GraphNodeScale *scaleNode = (struct GraphNodeScaleBetter *) node->next;
+    struct Object *objectGraphNode = (struct Object *) gCurGraphNodeObject;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        scaleNode->scale = objectGraphNode->oWarpBoxInnerScale;
+    }
+
+    return NULL;
+}

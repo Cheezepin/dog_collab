@@ -1331,6 +1331,8 @@
 #define /*0x0FC*/ oKoopatrolTargetZ                            OBJECT_FIELD_F32(0x1D)
 #define /*0x100*/ oKoopatrolCooldown                           OBJECT_FIELD_S32(0x1E)
 
+#define /*0x0F4*/ oWarpBoxInnerScale                           OBJECT_FIELD_F32(0x1B)
+
 // thecozies start
 #define oFloatyRockWaterSpout               OBJECT_FIELD_OBJ(0x1B)
 #define oFloatyRockPrevWaterLevel           OBJECT_FIELD_F32(0x1C)

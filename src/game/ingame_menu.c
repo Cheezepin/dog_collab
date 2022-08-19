@@ -2917,6 +2917,20 @@ void end_results_loop(void) {
     u8 starColorR;
     u8 starColorG;
     u8 starColorB;
+    u8 nextUnfinishedAct = 0;
+
+    u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(gCurrCourseNum));
+    u8 i;
+
+    for(i = 0; i < 6; i++) {
+        if(stars & (1 << i)) {
+
+        } else {
+            nextUnfinishedAct = i + 1;
+            i = 200;
+            break;
+        }
+    }
 
     starColor = starColors[gCurrCourseNum - 1];
     starColorR = starColor >> 24;
@@ -2943,19 +2957,13 @@ void end_results_loop(void) {
             print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 95, textYouGotAStar);
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
         actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
-        print_generic_string(actNameX + 15, 160, selectedActName);
-
-            create_dl_translation_matrix(MENU_MTX_PUSH, actNameX - 5.0f, 160.0f, 0.0f);
-            create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
-            create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
-            gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
-            gSPDisplayList(gDisplayListHead++, star_hud_dl);
-            gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+        print_generic_string(actNameX + 10, 160, selectedActName);
 
         if(gEndResultMenuState == 1) {
-            if(gCurrActNum == 6) {
+            if(nextUnfinishedAct == 0) {
                 print_generic_string(110, 110, textReplayLastAct);
             } else {
+                textContinueToNextAct[33] = 0x30 + nextUnfinishedAct;
                 print_generic_string(110, 110, textContinueToNextAct);
             }
             print_generic_string(110, 90, textExitCourseLC);
@@ -2966,9 +2974,9 @@ void end_results_loop(void) {
             
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
                 if(gEndResultMenuChoice == 0) {
-                    if(gCurrActNum < 6) {
-                        gCurrActNum++;
-                        gDialogCourseActNum++;
+                    if(nextUnfinishedAct > 0) {
+                        gCurrActNum = nextUnfinishedAct;
+                        gDialogCourseActNum = nextUnfinishedAct;
                     }
                     sDelayedWarpOp = 1;
                     sDelayedWarpArg = 0x00000002;
@@ -3004,6 +3012,14 @@ void end_results_loop(void) {
             }
         }
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+
+            create_dl_translation_matrix(MENU_MTX_PUSH, actNameX - 10.0f, 168.0f, 0.0f);
+            create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
+            create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
+            gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+            gSPDisplayList(gDisplayListHead++, star_hud_dl);
+            gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
         gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     }
 }

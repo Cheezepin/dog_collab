@@ -318,6 +318,9 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
         case MARIO_SPAWN_PRESERVE_POS:
             set_mario_action(m, ACT_IDLE, 0);
             break;
+        case MARIO_SPAWN_WARP_BOX:
+            set_mario_action(m, ACT_WAITING_FOR_DIALOG, 0);
+            break;
     }
 
 #ifdef PREVENT_DEATH_LOOP
@@ -393,6 +396,7 @@ void init_mario_after_warp(void) {
             play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x10, 0x00, 0x00, 0x00);
             break;
         case MARIO_SPAWN_PRESERVE_POS:
+        case MARIO_SPAWN_WARP_BOX:
             break;
         default:
             play_transition(WARP_TRANSITION_FADE_FROM_STAR, 0x10, 0x00, 0x00, 0x00);
@@ -1412,6 +1416,7 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
 
     
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
+	if (gCurrLevelNum == LEVEL_BITS) return 0;
 	/*if (gCurrLevelNum == LEVEL_BOWSER_2) return 0;
 	if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) return 0;
 	if (gCurrLevelNum == LEVEL_BITDW) return 0;

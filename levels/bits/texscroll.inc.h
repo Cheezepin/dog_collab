@@ -1,0 +1,14 @@
+extern void scroll_bits_dl_inner_torus_mesh_layer_1_vtx_0();
+extern void scroll_bits_dl_inner_torus_001_mesh_layer_1_vtx_0();
+extern void scroll_bits_dl_shock_mesh_layer_5_vtx_0();
+extern void scroll_sts_mat_bits_dl_electricity_layer5();
+extern void scroll_bits_dl_shock_001_mesh_layer_5_vtx_0();
+extern void scroll_sts_mat_bits_dl_f3d_material_v4_layer1();
+extern void scroll_sts_mat_bits_dl_former_metal_v4_001_layer5();
+extern void scroll_bits_dl_Torus_001_mesh_layer_1_vtx_0();
+extern void scroll_bits_dl_Torus_003_mesh_layer_1_vtx_0();
+extern void scroll_bits_dl_Torus_004_mesh_layer_1_vtx_0();
+extern void scroll_bits_dl_Torus_005_mesh_layer_1_vtx_0();
+extern void scroll_bits_dl_Torus_006_mesh_layer_1_vtx_0();
+extern void scroll_bits_dl_Torus_007_mesh_layer_1_vtx_0();
+extern void scroll_bits();

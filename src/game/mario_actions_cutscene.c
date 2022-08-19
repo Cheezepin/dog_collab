@@ -990,7 +990,8 @@ s32 act_emerge_from_pipe(struct MarioState *m) {
 
     marioObj->header.gfx.node.flags |= GRAPH_RENDER_ACTIVE;
 
-    play_sound_if_no_flag(m, SOUND_MARIO_YAHOO, MARIO_MARIO_SOUND_PLAYED);
+    if(gMarioState->actionArg == 0)
+        play_sound_if_no_flag(m, SOUND_MARIO_YAHOO, MARIO_MARIO_SOUND_PLAYED);
 #ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
     if (gCurrLevelNum == LEVEL_THI) {
         if (gCurrAreaIndex == 2) {
