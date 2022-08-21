@@ -258,7 +258,7 @@ extern Gfx bob_dl_floor_meme_001_mesh_layer_5_tri_0[];
 extern Vtx bob_dl_floor_meme_001_mesh_layer_5_vtx_1[25];
 extern Gfx bob_dl_floor_meme_001_mesh_layer_5_tri_1[];
 extern Vtx bob_dl_basement_mesh_layer_1_vtx_cull[8];
-extern Vtx bob_dl_basement_mesh_layer_1_vtx_0[24];
+extern Vtx bob_dl_basement_mesh_layer_1_vtx_0[309];
 extern Gfx bob_dl_basement_mesh_layer_1_tri_0[];
 extern Gfx mat_bob_dl__2639_bottom_v4[];
 extern Gfx mat_bob_dl__2639_top_v4[];

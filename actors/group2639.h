@@ -6,6 +6,9 @@
 #define G2639H
 
 
+extern void geo2639_ModulatePrim();
+
+
 
 #include "peach2639/geo_header.h"
 
@@ -27,5 +30,11 @@
 #include "cane2639/geo_header.h"
 
 #include "sunglass2639/geo_header.h"
+
+
+#include "vending2639/anim_header.h"
+#include "vending2639/geo_header.h"
+
+#include "vending/collision_header.h"
 
 #endif

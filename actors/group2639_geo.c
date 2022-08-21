@@ -15,3 +15,4 @@
 
 #include "cane2639/geo.inc.c"
 #include "sunglass2639/geo.inc.c"
+#include "vending2639/geo.inc.c"

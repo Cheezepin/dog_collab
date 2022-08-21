@@ -2113,17 +2113,6 @@ system in 20 years!
 It's also somewhat fun,
 so go play it!)")
 
-DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_HVQM, 1, 4, 30, 200, R"(My Dress-up Darling 64:
-someone2639 made a hack
-that contained both the
-first ever use of HVQM
-compressed FMV in SM64,
-and the most sobering
-rants about anime yet,
-instead of working on his
-level.
-Devilish!)")
-
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_AnimeFighter, 1, 4, 30, 200, R"(Anime Fighter 64:
 This one was a collaboration
 between procrastinators
@@ -2135,6 +2124,17 @@ getting updates whenever
 we figure out easier
 character imports!
 Stay tuned!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_HVQM, 1, 4, 30, 200, R"(My Dress-up Darling 64:
+someone2639 made a hack
+that contained both the
+first ever use of HVQM
+compressed FMV in SM64,
+and the most sobering
+rants about anime yet,
+instead of working on his
+level.
+Devilish!)")
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_1080Decomp, 1, 4, 30, 200, R"(1080 Snowboarding Decomp:
 As if someone2639 needed
@@ -2149,11 +2149,12 @@ At this point, you'd think
 working on this level
 would have been easier...)")
 
+// ACT 1
+
 DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 4, 30, 200, "\n\
 Hey you!\n\
 No pets allowed!\n\
 ")
-
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, R"(Mario! I was
 looking for you!
@@ -2187,7 +2188,7 @@ Let me also get
 something for the dog.
 Take it as my apology.)")
 
-
+// ACT 2
 
 DEFINE_DIALOG(_2639DIAG_A2LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you!
@@ -2198,6 +2199,29 @@ elevator and see what
 she wants!
 )")
 
+DEFINE_DIALOG(_2639DIAG_A2RoomPeachGreeter, 1, 4, 30, 200, \
+R"((pretend this is
+Princess Peach talking)
+Hey Mario! How's it
+been?
+I'm almost done setting
+up my room! All that's
+left is to get these
+couches organized.
+I'm not a fan of
+you bringing a
+dog here, but
+I'll let you by-
+On one condition.
+Don't let the dog
+destroy the couches.
+
+If you see the dog
+running towards a
+tasty couch, run
+into them and stop it!)")
+
+
 DEFINE_DIALOG(_2639DIAG_A3LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you!
 There's a party on
@@ -2205,6 +2229,28 @@ Floor 3!
 I don't mind because they
 don't make noise, but
 definitely go check it out!
+)")
+
+DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, \
+R"(Heeeey, Mario!
+I'm in charge of
+setting up a party
+and I think I'm-
+just about done.
+Now to wait for
+all the guests I
+invited to come.
+But Enough about me!
+I see you have a
+new heckin
+wholesome pupper!
+I've got just the
+treat, but I can't
+give it to you for
+free!
+Grab me a soda from
+the lobby real quick
+and I'll think about it.
 )")
 
 DEFINE_DIALOG(_2639DIAG_A4LobbyToadGreeter, 1, 3, 30, 200, \
@@ -2215,6 +2261,21 @@ Go fix it! I'm not paid
 enough for this...
 )")
 
+DEFINE_DIALOG(_2639DIAG_A4RoomToadPoolBoy, 1, 3, 30, 200, \
+R"(Hi Mario!
+Pool's broken.
+You know what to do.
+At least I hope
+you do...
+)")
+
+DEFINE_DIALOG(_2639DIAG_A5LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+Floor 4 is flooded!
+You're the plumber, right?
+Go fix it! I'm not paid
+enough for this...
+)")
 
 DEFINE_DIALOG(_2639DIAG_A6LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you!
@@ -2227,17 +2288,7 @@ that you should see.
 
 
 
-DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, "Heeeey, Mario!\n\
-I see you got a\n\
-new heckin\n\
-wholesome pupper!\n\
-I've got just the\n\
-treat, but I can't\n\
-give it to you for\n\
-free!\n\
-Grab me a soda from\n\
-the lobby real quick\n\
-and I'll think about it.")
+
 
 
 

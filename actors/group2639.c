@@ -25,3 +25,7 @@ u64 aligner2639 = 14241823231;
 
 #include "cane2639/model.inc.c"
 #include "sunglass2639/model.inc.c"
+#include "vending2639/anims/data.inc.c"
+#include "vending2639/anims/table.inc.c"
+#include "vending2639/model.inc.c"
+#include "vending/collision.inc.c"

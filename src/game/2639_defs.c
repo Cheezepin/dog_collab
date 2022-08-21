@@ -12,7 +12,41 @@
 #include "camera.h"
 #include "audio/external.h"
 #include "audio/load.h"
+#include "rendering_graph_node.h"
 extern s16 sStatusFlags;
+
+// MODEL FUNCS
+
+u8 envColor[][3] = {
+    {255, 0, 0},
+    {0, 255, 0},
+    {0, 0, 255},
+    {255, 255, 0},
+    {0, 255, 255},
+};
+
+Gfx *geo2639_ModulatePrim(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
+    Gfx *dl = NULL;
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct GraphNodeGenerated *generatedNode = (struct GraphNodeGenerated *) node;
+
+        dl = alloc_display_list(sizeof(Gfx) * 4);
+        Gfx *dlp = dl;
+        SET_GRAPH_NODE_LAYER(generatedNode->fnNode.node.flags, LAYER_OPAQUE);
+
+        gDPSetEnvColor(dlp++,
+            envColor[gCurGraphNodeObjectNode->oBehParams2ndByte][0], 
+            envColor[gCurGraphNodeObjectNode->oBehParams2ndByte][1], 
+            envColor[gCurGraphNodeObjectNode->oBehParams2ndByte][2], 
+            255
+        );
+        gSPEndDisplayList(dlp);
+
+
+    }
+    return dl;
+}
+
 
 
 

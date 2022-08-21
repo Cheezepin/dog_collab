@@ -721,3 +721,4 @@ extern const BehaviorScript bhv2639pc2_targetobj[];
 extern const BehaviorScript bhv2639_DRM[];
 extern const BehaviorScript bhv2639peachNPC[];
 extern const BehaviorScript bhv2639TrophyCase[];
+extern const BehaviorScript bhv2639Vending[];

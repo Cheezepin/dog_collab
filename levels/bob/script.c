@@ -13,148 +13,8 @@
 
 #include "actors/common1.h"
 #include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
-#include "actors/group2639.h"
 
 /* Fast64 begin persistent block [includes] */
-#include "actors/group2639.h"
 /* Fast64 end persistent block [includes] */
 
 #include "make_const_nonconst.h"
@@ -167,14 +27,13 @@ const LevelScript level_bob_entry[] = {
 	INIT_LEVEL(),
 	LOAD_YAY0(0x07, _bob_segment_7SegmentRomStart, _bob_segment_7SegmentRomEnd), 
 	LOAD_YAY0_TEXTURE(0x09, _generic_yay0SegmentRomStart, _generic_yay0SegmentRomEnd), 
-	LOAD_YAY0(0x0A, _water_skybox_yay0SegmentRomStart, _water_skybox_yay0SegmentRomEnd),  
+	LOAD_YAY0(0x0A, _water_skybox_yay0SegmentRomStart, _water_skybox_yay0SegmentRomEnd), 
 	LOAD_YAY0(0x06, _group15_yay0SegmentRomStart, _group15_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0D, _group15_geoSegmentRomStart, _group15_geoSegmentRomEnd), 
 	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0F, _common0_geoSegmentRomStart, _common0_geoSegmentRomEnd), 
 	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
-
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_16), 
@@ -185,7 +44,7 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_2639PEACHNPC, peach2639_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CANE2639, cane_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_SUNGLASSES2639, sunglasses_geo), 
-
+	LOAD_MODEL_FROM_GEO(MODEL_2639VENDING, vending_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -229,7 +88,7 @@ const LevelScript level_bob_entry[] = {
 		OBJECT_WITH_ACTS(MODEL_TOAD, -134, 1, 1772, 0, 0, 0, (_2639DIAG_A1LobbyNPCSuggester << 16), bhvToadMessage, ACT_1),
 		OBJECT(MODEL_NONE, -25, 1058, -280, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
 		OBJECT(MODEL_NONE, -8, 2, -1945, 0, 0, 0, (11 << 16), bhvInstantActiveWarp),
-		OBJECT(MODEL_2639SODA, 1689, 0, -1375, 0, 0, 0, 0x00000000, bhv2639soda),
+		OBJECT_WITH_ACTS(MODEL_2639VENDING, 1689, 0, -1375, 0, -133, 0, 0x00000000, bhv2639Vending, ACT_3),
 		OBJECT(MODEL_NONE, -2786, 0, -4573, 0, 0, 0, (_2639DIAG_A1LobbyHOF_Kirby64 << 16), bhv2639TrophyCase),
 		OBJECT(MODEL_NONE, -1295, 0, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_sUGGOH << 16), bhv2639TrophyCase),
 		OBJECT(MODEL_NONE, -121, 0, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_AnimeFighter << 16), bhv2639TrophyCase),
@@ -255,12 +114,12 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 2, 11, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_2639COUCH, -4462, -228, -742, 0, 0, 0, 0x00000000, bhvA2pushablecouch),
-		OBJECT(MODEL_2639COUCH, -2656, -228, -972, 0, 0, 0, 0x00000000, bhvA2pushablecouch),
-		OBJECT(MODEL_2639COUCH, -3734, -228, 1749, 0, 0, 0, 0x00000000, bhvA2pushablecouch),
-		OBJECT(MODEL_2639COUCH, -2026, -228, 789, 0, 0, 0, 0x00000000, bhvA2pushablecouch),
-		OBJECT(MODEL_2639COUCH, -3947, -228, 686, 0, 0, 0, 0x00000000, bhvA2pushablecouch),
-		OBJECT(MODEL_2639PEACHNPC, 44, -230, -1565, 0, 73, 0, 0x00000000, bhvEndPeach),
+		OBJECT(MODEL_2639COUCH, -3543, -228, -2359, 0, -51, 0, (0 << 16), bhvA2pushablecouch),
+		OBJECT(MODEL_2639COUCH, -1784, -228, -1301, 0, -93, 0, (1 << 16), bhvA2pushablecouch),
+		OBJECT(MODEL_2639COUCH, -3734, -228, 1749, 0, 45, 0, (2 << 16), bhvA2pushablecouch),
+		OBJECT(MODEL_2639COUCH, -1851, -228, 3693, 0, 87, 0, (3 << 16), bhvA2pushablecouch),
+		OBJECT(MODEL_2639COUCH, 2, -228, 2138, 0, 139, 0, (4 << 16), bhvA2pushablecouch),
+		OBJECT(MODEL_WOODEN_SIGNPOST, 44, -230, -1565, 0, 73, 0, 0x00000000, bhvMessagePanel),
 		OBJECT(MODEL_DOG, 2795, -229, 3759, 0, 0, 0, 0x00000000, bhvDogfloor1),
 		OBJECT(MODEL_NONE, -26197, 5065, -5165, 0, 0, 0, 0x00000000, bhv2639_DRM),
 		OBJECT(MODEL_NONE, -3528, 139, 195, 0, 0, 0, 0x00000000, bhv2639a2hiddenstar),

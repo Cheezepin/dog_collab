@@ -581,6 +581,15 @@ void MakeCoinWithModel(struct Object *obj, s8 nCoins, ModelID32 mdl) {
     }
 }
 
+void LaunchObject(struct Object *obj, void *behav, ModelID32 mdl) {
+    struct Object *myObject;
+
+    myObject = spawn_object(obj, mdl, behav);
+    myObject->oForwardVel = 10;
+    myObject->oVelY = 20;
+    // myObject->oMoveAngleYaw = obj->oFaceAngleYaw;
+}
+
 /**
  * Controls whether certain objects should flicker/when to despawn.
  */
@@ -817,3 +826,4 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/2639PC2_TargetObj.inc.c"
 #include "behaviors/2639peachNPC.inc.c"
 #include "behaviors/2639TrophyCase.inc.c"
+#include "behaviors/2639Vending.inc.c"

@@ -8051,3 +8051,17 @@ const BehaviorScript bhv2639TrophyCase[] = {
         SET_INT(oInteractStatus, INT_STATUS_NONE),
     END_LOOP(),
 };
+
+extern const struct Animation *const vending2639_anims[];
+const BehaviorScript bhv2639Vending[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_ANIMATIONS(oAnimations, vending2639_anims),
+    ANIMATE(0),
+    LOAD_COLLISION_DATA(vending_collision),
+	CALL_NATIVE(bhv_2639Vending_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639Vending_loop),
+        CALL_NATIVE(load_object_collision_model),
+	END_LOOP(),
+};
