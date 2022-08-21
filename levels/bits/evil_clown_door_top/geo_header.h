@@ -1,0 +1,17 @@
+extern const GeoLayout evil_clown_door_top_geo[];
+extern Lights1 evil_clown_door_top_f3d_material_030_lights;
+extern Lights1 evil_clown_door_top_f3d_material_031_lights;
+extern u8 evil_clown_door_top_clown_top_ci8[];
+extern u8 evil_clown_door_top_clown_top_ci8_pal_rgba16[];
+extern u8 evil_clown_door_top_cclowneyes_ci8[];
+extern u8 evil_clown_door_top_cclowneyes_ci8_pal_rgba16[];
+extern Vtx evil_clown_door_top_Cube_005_mesh_layer_1_vtx_0[144];
+extern Gfx evil_clown_door_top_Cube_005_mesh_layer_1_tri_0[];
+extern Vtx evil_clown_door_top_Cube_005_mesh_layer_1_vtx_1[24];
+extern Gfx evil_clown_door_top_Cube_005_mesh_layer_1_tri_1[];
+extern Gfx mat_evil_clown_door_top_f3d_material_030[];
+extern Gfx mat_revert_evil_clown_door_top_f3d_material_030[];
+extern Gfx mat_evil_clown_door_top_f3d_material_031[];
+extern Gfx mat_revert_evil_clown_door_top_f3d_material_031[];
+extern Gfx evil_clown_door_top_Cube_005_mesh_layer_1[];
+extern Gfx evil_clown_door_top_material_revert_render_settings[];

@@ -1,0 +1,15 @@
+extern const GeoLayout b3_clown_clock_geo[];
+extern Lights1 b3_clown_clock_f3d_material_119_lights;
+extern Lights1 b3_clown_clock_f3d_material_029_lights;
+extern u8 b3_clown_clock_glove_i8[];
+extern u8 b3_clown_clock_sadcarosuelplanks_ci4[];
+extern u8 b3_clown_clock_sadcarosuelplanks_ci4_pal_rgba16[];
+extern Vtx b3_clown_clock_Cube_065_mesh_layer_1_vtx_0[325];
+extern Gfx b3_clown_clock_Cube_065_mesh_layer_1_tri_0[];
+extern Vtx b3_clown_clock_Cube_065_mesh_layer_1_vtx_1[416];
+extern Gfx b3_clown_clock_Cube_065_mesh_layer_1_tri_1[];
+extern Gfx mat_b3_clown_clock_f3d_material_119[];
+extern Gfx mat_b3_clown_clock_f3d_material_029[];
+extern Gfx mat_revert_b3_clown_clock_f3d_material_029[];
+extern Gfx b3_clown_clock_Cube_065_mesh_layer_1[];
+extern Gfx b3_clown_clock_material_revert_render_settings[];

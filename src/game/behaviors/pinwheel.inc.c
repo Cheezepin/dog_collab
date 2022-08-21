@@ -48,8 +48,14 @@ void bhv_pinwheel_loop(void) {
 void bhv_balloon_init(void) {
     //switch (o->oBehParams2ndByte) {
             //case 0:
+            if (gCurrLevelNum == LEVEL_BITS) {
+                o->oObjBalloonCol = spawn_object_relative(0, 0, 0, 0, o, MODEL_NONE, bhvB3CircusBalloonCol);
+            o->oBalloonInitSide = o->oPosZ;
+            }
+            else {
             o->oObjBalloonCol = spawn_object_relative(0, 0, 0, 0, o, MODEL_NONE, bhvCircusBalloonCol);
             o->oBalloonInitSide = o->oPosZ;
+            }
     //break;
 
 }

@@ -585,6 +585,8 @@ extern const BehaviorScript bhvClownClock[];
 extern const BehaviorScript bhvClownDoorSpawner[];
 extern const BehaviorScript bhvClownDoorSegmentTop[];
 extern const BehaviorScript bhvClownDoorSegmentBottom[];
+extern const BehaviorScript bhvB3ClownDoorSegmentTop[];
+extern const BehaviorScript bhvB3ClownDoorSegmentBottom[];
 extern const BehaviorScript bhvCircusWheel[];
 extern const BehaviorScript bhvCircusWheelPlatform[];
 extern const BehaviorScript bhvWheelWind[];
@@ -595,6 +597,7 @@ extern const BehaviorScript bhvCircusPole[];
 extern const BehaviorScript bhvTrapeze[];
 extern const BehaviorScript bhvTrapezeHitbox[];
 extern const BehaviorScript bhvBalloonPlatform[];
+extern const BehaviorScript bhvB3BalloonPlatform[];
 extern const BehaviorScript bhvClownBoss[];
 extern const BehaviorScript bhvClownBowlingBall[];
 extern const BehaviorScript bhvBossCurtains[];
@@ -604,6 +607,9 @@ extern const BehaviorScript bhvPowerSwitch[];
 extern const BehaviorScript bhvClownToad[];
 extern const BehaviorScript bhvKidToad[];
 extern const BehaviorScript bhvCircusCannon[];
+extern const BehaviorScript bhvB3Carousel[];
+extern const BehaviorScript bhvB3ClownClock[];
+extern const BehaviorScript bhvB3CircusBalloonCol[];
 
 //emu start
 extern const BehaviorScript bhvRotatingTorus[];

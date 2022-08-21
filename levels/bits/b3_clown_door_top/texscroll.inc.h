@@ -1,0 +1,2 @@
+extern void scroll_sts_mat_b3_clown_door_top_f3d_material_031();
+extern void scroll_bits_level_geo_b3_clown_door_top();

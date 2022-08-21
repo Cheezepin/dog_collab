@@ -1,10 +1,35 @@
 void bhv_clown_door_spawner_init(void){
+    if (gCurrLevelNum == LEVEL_BITS) {
+        o->oObjClownDoorTop = spawn_object_relative(0, 0, 0, 0, o, MODEL_CLOWN_DOOR_TOP, bhvB3ClownDoorSegmentTop);
+    o->oObjClownDoorBottom = spawn_object_relative(0, 0, 0, 0, o, MODEL_CLOWN_DOOR_BOTTOM, bhvB3ClownDoorSegmentBottom);
+    
+    }
+    else {
     o->oObjClownDoorTop = spawn_object_relative(0, 0, 0, 0, o, MODEL_CLOWN_DOOR_TOP, bhvClownDoorSegmentTop);
     o->oObjClownDoorBottom = spawn_object_relative(0, 0, 0, 0, o, MODEL_CLOWN_DOOR_BOTTOM, bhvClownDoorSegmentBottom);
+    }
     
 }
 
 void bhv_clown_door_spawner_loop(void){
+
+    if (gCurrLevelNum == LEVEL_BITS) {
+        if (((o->oPosX - gMarioState->pos[0]) > 1300.0f || (o->oPosX - gMarioState->pos[0]) < 0.0f) && o->oDistanceToMario >= 200.0f && o->oTimer >= 30) {
+    if (o->oDoorState == 0) {
+        o->oDoorState = 1;
+        o->oTimer = 0;
+    }
+}
+else if ((o->oPosX - gMarioState->pos[0]) <= 1300.0f && (o->oPosX - gMarioState->pos[0]) > 0.0f && o->oTimer >= 30){
+    if (o->oDoorState == 1) {
+        o->oDoorState = 0;
+        o->oTimer = 0;
+    }
+}
+
+
+    }
+    else {
 
 if (o->oDistanceToMario > 300.0f && o->oTimer >= 30) {
     if (o->oDoorState == 0) {
@@ -18,6 +43,8 @@ else if (o->oDistanceToMario <= 300.0f && o->oTimer >= 30){
         o->oTimer = 0;
     }
 }
+
+    }
 switch (o->oDoorState) {
     case 0:
 if (o->oTimer < 30) {

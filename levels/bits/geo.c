@@ -58,3 +58,14 @@
 #include "levels/bits/rmine_bits/geo.inc.c"
 
 #include "levels/bits/fade_cloud_bits/geo.inc.c"
+
+#include "levels/bits/b3_carousel/geo.inc.c"
+#include "levels/bits/b3_clown_clock/geo.inc.c"
+#include "levels/bits/b3_balloon_platform/geo.inc.c"
+#include "levels/bits/b3_pinwheel/geo.inc.c"
+#include "levels/bits/b3_clown_door_top/geo.inc.c"
+#include "levels/bits/b3_clown_door_bottom/geo.inc.c"
+#include "levels/bits/evil_clown_door_top/geo.inc.c"
+#include "levels/bits/evil_clown_door_bottom/geo.inc.c"
+#include "levels/bits/b3_trapeze/geo.inc.c"
+#include "levels/bits/b3_balloon/geo.inc.c"

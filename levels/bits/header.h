@@ -105,4 +105,38 @@ extern const LevelScript level_bits_entry[];
 #include "levels/bits/fade_cloud_bits/geo_header.h"
 #include "levels/bits/fade_cloud_bits/collision_header.h"
 
+#include "levels/bits/b3_carousel/collision_header.h"
+
+#include "levels/bits/b3_carousel/geo_header.h"
+
+#include "levels/bits/b3_carousel/anim_header.h"
+
+#include "levels/bits/b3_clown_clock/geo_header.h"
+
+#include "levels/bits/b3_clown_clock/collision_header.h"
+
+#include "levels/bits/b3_balloon_platform/collision_header.h"
+
+#include "levels/bits/b3_balloon_platform/geo_header.h"
+
+#include "levels/bits/b3_pinwheel/geo_header.h"
+
+#include "levels/bits/b3_clown_door_top/geo_header.h"
+
+#include "levels/bits/b3_clown_door_bottom/geo_header.h"
+
+#include "levels/bits/evil_clown_door_top/geo_header.h"
+
+#include "levels/bits/evil_clown_door_bottom/geo_header.h"
+
+#include "levels/bits/b3_trapeze/geo_header.h"
+
+#include "levels/bits/b3_clown_door_bottom/collision_header.h"
+
+#include "levels/bits/b3_clown_door_top/collision_header.h"
+
+#include "levels/bits/b3_balloon/geo_header.h"
+
+#include "levels/bits/b3_balloon/collision_header.h"
+
 #endif
