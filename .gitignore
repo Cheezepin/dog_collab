@@ -116,3 +116,7 @@ lib/libs2d_engine.a
 
 # .orig files
 *.orig
+
+*Zone.Identifier
+
+coziestodo.md

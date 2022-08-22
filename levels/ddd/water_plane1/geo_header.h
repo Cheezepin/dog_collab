@@ -1,0 +1,10 @@
+extern const GeoLayout water_plane1_geo[];
+extern u8 water_plane1_water_pls_try_sharper_intensity_i4[];
+extern u8 water_plane1_water_big_chungus_defined_intensity_i4[];
+extern Vtx water_plane1_water_plane1_mesh_layer_7_vtx_cull[8];
+extern Vtx water_plane1_water_plane1_mesh_layer_7_vtx_0[25];
+extern Gfx water_plane1_water_plane1_mesh_layer_7_tri_0[];
+extern Gfx mat_water_plane1_foggy_wahwah_layer7[];
+extern Gfx mat_revert_water_plane1_foggy_wahwah_layer7[];
+extern Gfx water_plane1_water_plane1_mesh_layer_7[];
+extern Gfx water_plane1_material_revert_render_settings[];

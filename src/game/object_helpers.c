@@ -2555,7 +2555,7 @@ Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 m
         currentGraphNode = (struct GraphNodeGenerated *) node;
         if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, currentGraphNode->parameter);
 
-        dlStart = alloc_display_list(sizeof(Gfx) * 5);
+        dlStart = alloc_display_list(sizeof(Gfx) * 8);
         dlHead = dlStart;
 
         if (gReadyForLookAt) {
@@ -2569,10 +2569,10 @@ Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 m
 
             gSPSetLights2(dlHead++, water_top_lights);
         }
-        // gDPSetFogColor(dlHead++, ((0x90 + 0xFF) / 2), ((0x74 + 0xFF) / 2), ((0x47 + 0xFF) / 2), 0xFF);
+        gDPSetFogColor(dlHead++, ((0x90 + 0xFF) / 2), ((0x74 + 0xFF) / 2), ((0x47 + 0xFF) / 2), 0xFF);
         // gDPSetEnvColor(dlHead++, 0, 0, 0, 0);
         // gDPPipeSync(dlHead++);
-        // gSPFogPosition(dlHead++, 980, 1050);
+        gSPFogPosition(dlHead++, 980, 1050);
         gSPEndDisplayList(dlHead);
     }
 

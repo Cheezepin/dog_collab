@@ -230,7 +230,7 @@ static u32 perform_water_step(struct MarioState *m) {
     nextPos[2] = m->pos[2] + step[2];
 
     if (nextPos[1] > m->waterLevel - 80) {
-        if (!canExitWaterWithMomentum) {
+        if (!canExitWaterWithMomentum && nextPos[1] < m->waterLevel + 80) {
             // clamp to floor height for safety! (otherwise changed water levels can clip you through the floor)
             nextPos[1] = MAX(m->waterLevel - 80.0f, m->floorHeight);
             m->vel[1] = 0.0f;
@@ -1650,8 +1650,10 @@ static s32 act_hold_metal_water_fall_land(struct MarioState *m) {
     return FALSE;
 }
 
+#include "print.h"
 static s32 check_common_submerged_cancels(struct MarioState *m) {
-    s16 waterHeight = m->waterLevel - 80;
+    s32 waterHeight = (s32)m->waterLevel - 80;
+
     if (m->pos[1] > waterHeight) {
         if (waterHeight > m->floorHeight) {
             if (m->pos[1] - waterHeight < 50) {
@@ -1665,13 +1667,16 @@ static s32 check_common_submerged_cancels(struct MarioState *m) {
             // where your held object is the shell, but you are not in the
             // water shell swimming action. This allows you to hold the water
             // shell on land (used for cloning in DDD).
-            if (m->action == ACT_WATER_SHELL_SWIMMING && m->heldObj != NULL) {
-                m->heldObj->oInteractStatus = INT_STATUS_STOP_RIDING;
-                m->heldObj = NULL;
-                stop_shell_music();
-            }
+            // if (m->action == ACT_WATER_SHELL_SWIMMING && m->heldObj != NULL) {
+            //     m->heldObj->oInteractStatus = INT_STATUS_STOP_RIDING;
+            //     m->heldObj = NULL;
+            //     stop_shell_music();
+            // }
 
-            return transition_submerged_to_walking(m);
+            if (m->pos[1] < m->floorHeight + 100) {
+                return transition_submerged_to_walking(m);
+            }
+            return transition_submerged_to_airborne(m);
         }
     }
 

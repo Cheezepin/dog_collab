@@ -1,0 +1,3 @@
+extern void scroll_water_plane1_water_plane1_mesh_layer_7_vtx_0();
+extern void scroll_sts_mat_water_plane1_foggy_wahwah_layer7();
+extern void scroll_ddd_level_geo_water_plane1();

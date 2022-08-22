@@ -13,11 +13,11 @@
 
 #include "levels/ddd/header.h"
 
-#include "levels/ddd/pole/geo.inc.c"
-#include "levels/ddd/sub_door/geo.inc.c"
-#include "levels/ddd/submarine/geo.inc.c"
-#include "levels/ddd/areas/1/geo.inc.c"
-#include "levels/ddd/areas/2/geo.inc.c"
+// #include "levels/ddd/pole/geo.inc.c"
+// #include "levels/ddd/sub_door/geo.inc.c"
+// #include "levels/ddd/submarine/geo.inc.c"
+// #include "levels/ddd/areas/1/geo.inc.c"
+// #include "levels/ddd/areas/2/geo.inc.c"
 
 #include "levels/ddd/geo.inc.c"
 
@@ -27,3 +27,7 @@
 #include "levels/ddd/aperature_door/geo.inc.c"
 #include "levels/ddd/floaty_rock/geo.inc.c"
 #include "levels/ddd/shyguy_scuba/geo.inc.c"
+#include "levels/ddd/water_switch/geo.inc.c"
+#include "levels/ddd/flippy_bitch/geo.inc.c"
+
+#include "levels/ddd/water_plane1/geo.inc.c"
