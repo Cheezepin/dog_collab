@@ -157,9 +157,9 @@ static void toad_message_talking(void) {
                 o->oToadMessageDialogId = TOAD_STAR_3_DIALOG_AFTER;
                 bhv_spawn_star_no_level_exit(STAR_BP_ACT_3);
                 break;
-            case _2639DIAG_A3RoomToadGibSoda:
-                o->oToadMessageDialogId = _2639DIAG_A3RoomToadSodaFailure;
-                break;
+            // case _2639DIAG_A3RoomToadGibSoda:
+            //     o->oToadMessageDialogId = _2639DIAG_A3RoomToadSodaFailure;
+            //     break;
 
             
             case _2639DIAG_A1LobbyToadStarGranter:

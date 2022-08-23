@@ -20,7 +20,7 @@ const GeoLayout bob_area_2_geo[] = {
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(LAYER_ALPHA, bob_dl_TrophyCase_Fan_mesh_layer_4),
 		GEO_CLOSE_NODE(),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -2841, 321, -4540, 0, 180, 0, bob_dl_TrophyCase_Kirby_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, -2841, 321, -4540, 0, -111, 0, bob_dl_TrophyCase_Kirby_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 1097, 292, -4708, 90, 0, 18, bob_dl_TrophyCase_telebi_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

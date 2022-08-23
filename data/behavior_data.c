@@ -8065,3 +8065,15 @@ const BehaviorScript bhv2639Vending[] = {
         CALL_NATIVE(load_object_collision_model),
 	END_LOOP(),
 };
+
+
+const BehaviorScript bhv2639A4DrainScrew[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+	CALL_NATIVE(bhv_2639A4DrainScrew_init),
+    LOAD_COLLISION_DATA(Screw2639_collision),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639A4DrainScrew_loop),
+        CALL_NATIVE(load_object_collision_model),
+	END_LOOP(),
+};

@@ -37,4 +37,8 @@ extern void geo2639_ModulatePrim();
 
 #include "vending/collision_header.h"
 
+#include "Screw2639/collision_header.h"
+
+#include "Screw2639/geo_header.h"
+
 #endif

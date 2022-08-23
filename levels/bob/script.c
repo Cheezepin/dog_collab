@@ -45,6 +45,7 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_CANE2639, cane_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_SUNGLASSES2639, sunglasses_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639VENDING, vending_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SCREW, screw_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -157,9 +158,11 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0, LEVEL_BOB, 0x01, 11, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_DOG, 342, 956, 4711, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
+		OBJECT(MODEL_DOG, 3975, 956, 3209, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
+		OBJECT(MODEL_2639SCREW, -2419, -2429, 2481, 0, 0, 0, 0x00000000, bhv2639A4DrainScrew),
 		OBJECT(MODEL_NONE, -93508, 5065, -5165, 0, 0, 0, 0x00000000, bhv2639_DRM),
 		OBJECT(MODEL_ELEV2639, 4830, -489, 535, 0, 0, 0, (1 << 24) | (0 << 16), bhv2639elevator),
+		OBJECT(MODEL_NONE, 2993, -488, -2283, 0, 0, 0, (10 << 16), bhvSpinAirborneWarp),
 		TERRAIN(bob_area_5_collision),
 		MACRO_OBJECTS(bob_area_5_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_CUSTOM_MUSIC2639),

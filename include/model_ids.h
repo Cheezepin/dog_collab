@@ -716,6 +716,8 @@ enum _2639Models {
     MODEL_2639VENDING,
 	MODEL_2639TURNSTILE,
 	MODEL_2639PEACHNPC,
+
+    MODEL_2639SCREW,
 };
 
 //start cheeze model ids

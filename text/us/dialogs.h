@@ -2196,8 +2196,7 @@ The Princess needs help
 on floor 2!
 Get your butt into that
 elevator and see what
-she wants!
-)")
+she wants!)")
 
 DEFINE_DIALOG(_2639DIAG_A2RoomPeachGreeter, 1, 4, 30, 200, \
 R"((pretend this is
@@ -2228,8 +2227,7 @@ There's a party on
 Floor 3!
 I don't mind because they
 don't make noise, but
-definitely go check it out!
-)")
+definitely go check it out!)")
 
 DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, \
 R"(Heeeey, Mario!
@@ -2250,31 +2248,45 @@ give it to you for
 free!
 Grab me a soda from
 the lobby real quick
-and I'll think about it.
-)")
+and I'll think about it.)")
 
 DEFINE_DIALOG(_2639DIAG_A4LobbyToadGreeter, 1, 3, 30, 200, \
-R"(Hey you!
-Floor 4 is flooded!
+R"(Hey you! Floor 4's
+got a water problem!
 You're the plumber, right?
 Go fix it! I'm not paid
-enough for this...
-)")
+enough for this...)")
 
-DEFINE_DIALOG(_2639DIAG_A4RoomToadPoolBoy, 1, 3, 30, 200, \
+DEFINE_DIALOG(_2639DIAG_A4RoomToadPoolBoy, 1, 4, 30, 200, \
 R"(Hi Mario!
-Pool's broken.
-You know what to do.
-At least I hope
-you do...
-)")
+I'm trying to clean
+the pool for the new
+guests, but I just
+realized that I
+can't actually swim!
+Can you go down to
+the bottom and
+unscrew the drain?
+There's something
+for your dog
+waiting there too)")
 
-DEFINE_DIALOG(_2639DIAG_A5LobbyToadGreeter, 1, 3, 30, 200, \
+DEFINE_DIALOG(_2639DIAG_A5LobbyToadGreeter, 1, 4, 30, 200, \
 R"(Hey you!
-Floor 4 is flooded!
-You're the plumber, right?
-Go fix it! I'm not paid
-enough for this...
+What are you
+doing here?
+
+They want you in the
+basement!
+Get down there using
+the elevator!)")
+
+DEFINE_DIALOG(_2639DIAG_A5ToadBasement, 1, 4, 30, 200, \
+R"(Hi Mario!
+We apparently have
+a shopping center
+here.
+How weird!
 )")
 
 DEFINE_DIALOG(_2639DIAG_A6LobbyToadGreeter, 1, 3, 30, 200, \
@@ -2283,8 +2295,7 @@ I've seen you here a few
 times.
 Why not check out the roof?
 We have a really neat jewel
-that you should see.
-)")
+that you should see.)")
 
 
 

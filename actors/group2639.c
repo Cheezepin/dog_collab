@@ -29,3 +29,5 @@ u64 aligner2639 = 14241823231;
 #include "vending2639/anims/table.inc.c"
 #include "vending2639/model.inc.c"
 #include "vending/collision.inc.c"
+#include "Screw2639/collision.inc.c"
+#include "Screw2639/model.inc.c"

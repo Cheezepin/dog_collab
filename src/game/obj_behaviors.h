@@ -211,3 +211,4 @@ void bhv_2639PC2_TargetObj_init(void); void bhv_2639PC2_TargetObj_loop(void);
 void bhv_2639peachNPC_init(void); void bhv_2639peachNPC_loop(void);
 void bhv_2639TrophyCase_init(void); void bhv_2639TrophyCase_loop(void);
 void bhv_2639Vending_init(void); void bhv_2639Vending_loop(void);
+void bhv_2639A4DrainScrew_init(void); void bhv_2639A4DrainScrew_loop(void);

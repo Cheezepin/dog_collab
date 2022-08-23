@@ -722,3 +722,4 @@ extern const BehaviorScript bhv2639_DRM[];
 extern const BehaviorScript bhv2639peachNPC[];
 extern const BehaviorScript bhv2639TrophyCase[];
 extern const BehaviorScript bhv2639Vending[];
+extern const BehaviorScript bhv2639A4DrainScrew[];

@@ -100,6 +100,7 @@ static u32 perform_water_full_step(struct MarioState *m, Vec3f nextPos) {
 
     resolve_and_return_wall_collisions(nextPos, 10.0f, 110.0f, &wallData);
     struct Surface *wall = wallData.numWalls == 0 ? NULL : wallData.walls[0];
+    m->wall = wall;
     f32 floorHeight = find_floor(nextPos[0], nextPos[1], nextPos[2], &floor);
     f32 ceilHeight = find_mario_ceil(nextPos, floorHeight, &ceil);
 
@@ -225,24 +226,26 @@ static u32 perform_water_step(struct MarioState *m) {
         apply_water_current(m, step);
     }
 
-    nextPos[0] = m->pos[0] + step[0];
-    nextPos[1] = m->pos[1] + step[1];
-    nextPos[2] = m->pos[2] + step[2];
+    for (int i = 0; i < 4; i++) {
+        nextPos[0] = m->pos[0] + (step[0] / 4);
+        nextPos[1] = m->pos[1] + (step[1] / 4);
+        nextPos[2] = m->pos[2] + (step[2] / 4);
 
-    if (nextPos[1] > m->waterLevel - 80) {
-        if (!canExitWaterWithMomentum) {
-            // clamp to floor height for safety! (otherwise changed water levels can clip you through the floor)
-            nextPos[1] = MAX(m->waterLevel - 80.0f, m->floorHeight);
-            m->vel[1] = 0.0f;
+        if (nextPos[1] > m->waterLevel - 80) {
+            if (!canExitWaterWithMomentum) {
+                // clamp to floor height for safety! (otherwise changed water levels can clip you through the floor)
+                nextPos[1] = MAX(m->waterLevel - 80.0f, m->floorHeight);
+                m->vel[1] = 0.0f;
+            }
         }
-    }
 
-    if (nextPos[1] < m->waterBottomHeight + 25.0f && !canExitWaterWithMomentum) {
-        nextPos[1] += 3.0f;
-        m->vel[1] += 3.0f;
-    }
+        if (nextPos[1] < m->waterBottomHeight + 25.0f && !canExitWaterWithMomentum) {
+            nextPos[1] += 3.0f;
+            m->vel[1] += 3.0f;
+        }
 
-    stepResult = perform_water_full_step(m, nextPos);
+        stepResult = perform_water_full_step(m, nextPos);
+    }
 
     vec3f_copy(marioObj->header.gfx.pos, m->pos);
     vec3s_set(marioObj->header.gfx.angle, -m->faceAngle[0], m->faceAngle[1], m->faceAngle[2]);
