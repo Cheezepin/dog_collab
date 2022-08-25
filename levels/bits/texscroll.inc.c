@@ -1,3 +1,36 @@
+void scroll_sts_mat_bits_dl_f3d_material_062() {
+	static int intervalTex0 = 12;
+	static int curInterval0 = 12;
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_f3d_material_062);
+
+	if (--curInterval0 <= 0) {
+		shift_t_down(mat, 18, PACK_TILESIZE(0, 64));
+		curInterval0 = intervalTex0;
+	}
+};
+
+void scroll_sts_mat_bits_dl_f3d_material_015() {
+	static int intervalTex0 = 45;
+	static int curInterval0 = 45;
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_f3d_material_015);
+
+	if (--curInterval0 <= 0) {
+		shift_t(mat, 18, PACK_TILESIZE(0, 128));
+		curInterval0 = intervalTex0;
+	}
+};
+
+void scroll_sts_mat_bits_dl_f3d_material_021() {
+	static int intervalTex0 = 45;
+	static int curInterval0 = 45;
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_f3d_material_021);
+
+	if (--curInterval0 <= 0) {
+		shift_t(mat, 11, PACK_TILESIZE(0, 128));
+		curInterval0 = intervalTex0;
+	}
+};
+
 void scroll_bits_dl_inner_torus_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 360;
@@ -280,7 +313,18 @@ void scroll_sts_mat_bits_dl_lava_layer1() {
 	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
 };
 
+void scroll_sts_mat_bits_dl_Lava_layer1_area6() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_Lava_layer1_area6);
+	shift_s(mat, 16, PACK_TILESIZE(0, 1));
+	shift_t(mat, 16, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 24, PACK_TILESIZE(0, 1));
+	shift_t_down(mat, 24, PACK_TILESIZE(0, 1));
+};
+
 void scroll_bits() {
+	scroll_sts_mat_bits_dl_f3d_material_062();
+	scroll_sts_mat_bits_dl_f3d_material_015();
+	scroll_sts_mat_bits_dl_f3d_material_021();
 	scroll_bits_dl_inner_torus_mesh_layer_1_vtx_0();
 	scroll_bits_dl_inner_torus_001_mesh_layer_1_vtx_0();
 	scroll_bits_dl_shock_mesh_layer_5_vtx_0();
@@ -299,4 +343,5 @@ void scroll_bits() {
 	scroll_sts_mat_bits_dl_slide_layer1();
 	scroll_sts_mat_bits_dl_nebula_hangable_001_layer1();
 	scroll_sts_mat_bits_dl_lava_layer1();
+	scroll_sts_mat_bits_dl_Lava_layer1_area6();
 }

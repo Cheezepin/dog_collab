@@ -1,3 +1,6 @@
+extern void scroll_sts_mat_bits_dl_f3d_material_062();
+extern void scroll_sts_mat_bits_dl_f3d_material_015();
+extern void scroll_sts_mat_bits_dl_f3d_material_021();
 extern void scroll_bits_dl_inner_torus_mesh_layer_1_vtx_0();
 extern void scroll_bits_dl_inner_torus_001_mesh_layer_1_vtx_0();
 extern void scroll_bits_dl_shock_mesh_layer_5_vtx_0();
@@ -16,4 +19,5 @@ extern void scroll_sts_mat_bits_dl_nebula_not_slippery_layer1();
 extern void scroll_sts_mat_bits_dl_slide_layer1();
 extern void scroll_sts_mat_bits_dl_nebula_hangable_001_layer1();
 extern void scroll_sts_mat_bits_dl_lava_layer1();
+extern void scroll_sts_mat_bits_dl_Lava_layer1_area6();
 extern void scroll_bits();

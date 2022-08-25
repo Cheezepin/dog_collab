@@ -1,8 +1,8 @@
 // sliding_platform_2.inc.c
 
 static Collision const *sSlidingPlatformsCollisionData[] = {
-    bits_seg7_collision_0701A9A0,
-    bits_seg7_collision_0701AA0C,
+    0,
+    0,
     bitfs_seg7_collision_07015714,
     bitfs_seg7_collision_07015768,
     rr_seg7_collision_070295F8,
