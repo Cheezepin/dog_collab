@@ -17,3 +17,4 @@
 #include "sunglass2639/geo.inc.c"
 #include "vending2639/geo.inc.c"
 #include "Screw2639/geo.inc.c"
+#include "Ball2639/geo.inc.c"

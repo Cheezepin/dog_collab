@@ -828,3 +828,5 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/2639TrophyCase.inc.c"
 #include "behaviors/2639Vending.inc.c"
 #include "behaviors/2639A4DrainScrew.inc.c"
+#include "behaviors/2639SoccerBall.inc.c"
+#include "behaviors/2639BallEater.inc.c"

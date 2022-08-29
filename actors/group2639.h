@@ -41,4 +41,6 @@ extern void geo2639_ModulatePrim();
 
 #include "Screw2639/geo_header.h"
 
+#include "Ball2639/geo_header.h"
+
 #endif

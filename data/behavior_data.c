@@ -7902,8 +7902,10 @@ const BehaviorScript bhvDogfloor4[] = {
 	BEGIN(OBJ_LIST_DEFAULT),
     LOAD_ANIMATIONS(oAnimations, dog_anims),
     SET_FLOAT(oGravity, 3.0f),
+    SET_HOME(),
     OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
 	CALL_NATIVE(bhv_DogFloor4_init),
+    SET_FLOAT(oDrawingDistance, 20000),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_DogFloor4_loop),
 	END_LOOP(),
@@ -8071,9 +8073,31 @@ const BehaviorScript bhv2639A4DrainScrew[] = {
 	BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
 	CALL_NATIVE(bhv_2639A4DrainScrew_init),
+    SET_HOME(),
     LOAD_COLLISION_DATA(Screw2639_collision),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_2639A4DrainScrew_loop),
-        CALL_NATIVE(load_object_collision_model),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639SoccerBall[] = {
+	BEGIN(OBJ_LIST_GENACTOR),
+        OR_INT(oFlags, OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+        SET_HOME(),
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 100, /*Gravity*/ -400, /*Bounciness*/ 20, /*Drag strength*/ 0, /*Friction*/ 1, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
+	CALL_NATIVE(bhv_2639SoccerBall_init),
+    SET_FLOAT(oDrawingDistance, 20000),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639SoccerBall_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639BallEater[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_2639BallEater_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639BallEater_loop),
 	END_LOOP(),
 };

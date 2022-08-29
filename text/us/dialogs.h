@@ -2083,6 +2083,40 @@ descend slower!")
 
 // someone2639 dialog..... スタート!!
 
+DEFINE_DIALOG(_2639DIAG_LEVELINTRO, 1, 4, 30, 200, R"(Welcome to...
+The Hair-Raising
+High Rise!
+
+This luxurious space
+offers the latest in
+technology and design!
+Come on in!
+This building wouldn't
+have existed without
+credits, though!
+Let's roll them!
+ArcticJaguar725
+ - The 16 track streamed M64
+   that allowed me to make
+   this music
+The Dog Collab Team
+ - Making a great hack
+
+Special thanks to
+Arthurtilly for
+turnstile code and
+moving this hack
+along at a good pace.
+
+NO thanks to Lenovo,
+whose faulty nvme drives
+caused this level to be
+delayed a year
+
+
+)")
+
+
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Intro, 1, 4, 30, 200, R"(Inside our beautiful
 high-rise, we have an
 assortment of artifacts!
@@ -2140,11 +2174,7 @@ DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_1080Decomp, 1, 4, 30, 200, R"(1080 Snowboardi
 As if someone2639 needed
 more things to work on,
 he started a brand new
-decompilation of a C++
-video game, along with
-piecing together the
-build system to handle
-such a feat!
+game decompilation!
 At this point, you'd think
 working on this level
 would have been easier...)")
@@ -2283,11 +2313,21 @@ the elevator!)")
 
 DEFINE_DIALOG(_2639DIAG_A5ToadBasement, 1, 4, 30, 200, \
 R"(Hi Mario!
-We apparently have
-a shopping center
-here.
-How weird!
-)")
+Welcome to our
+sports center!
+
+It's a nice place
+with a ton of
+things to do,
+but right now
+we're closed.
+Would you help
+us out?
+
+There's 5 soccer
+balls in the field.
+Just kick them
+to the goal.)")
 
 DEFINE_DIALOG(_2639DIAG_A6LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you!

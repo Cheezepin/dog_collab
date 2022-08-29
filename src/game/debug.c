@@ -436,8 +436,10 @@ void try_print_debug_mario_level_info(void) {
     // print_text_fmt_int(50, 64, "M %d", sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING);
     // print_text_fmt_int(50, 50, "X %d", gMarioState->pos[0]);
     // print_text_fmt_int(50, 50, "Y %d", gMarioState->pos[1]);
-    // print_text_fmt_int(50, 50, "Z %d", gMarioState->pos[2]);
-    Sound2639_Main();
+    // print_text_fmt_int(50, 50, "Z %d", gMarioObject->oFaceAngleYaw);
+    if (in2639Level()) {
+        Sound2639_Main();
+    }
 }
 
 /*

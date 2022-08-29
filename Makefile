@@ -562,6 +562,9 @@ distclean: clean
 test: $(ROM)
 	~/Devel/m64p/mupen64plus/mupen64plus-gui $<
 
+test2: $(ROM)
+	~/Downloads/mupen64plus/mupen64plus-gui $<
+
 test-pj64: $(ROM)
 	wine ~/Desktop/new64/Project64.exe $<
 # someone2639

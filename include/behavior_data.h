@@ -723,3 +723,5 @@ extern const BehaviorScript bhv2639peachNPC[];
 extern const BehaviorScript bhv2639TrophyCase[];
 extern const BehaviorScript bhv2639Vending[];
 extern const BehaviorScript bhv2639A4DrainScrew[];
+extern const BehaviorScript bhv2639SoccerBall[];
+extern const BehaviorScript bhv2639BallEater[];
