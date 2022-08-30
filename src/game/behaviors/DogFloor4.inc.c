@@ -30,11 +30,15 @@ void bhv_DogFloor4_loop(void) {
 			}
 			break;
 		case DF4_APPROACH:
-			obj_turn_toward_object(o, yummyball, 16, 0xC00);
-			cur_obj_init_animation(DOG_ANIM_RUN);
-			o->oForwardVel = 50.0f;
-			if (ballDist <= 100) {
-				yummyball->oAction = 3;
+			if (yummyball) {
+				obj_turn_toward_object(o, yummyball, 16, 0xC00);
+				cur_obj_init_animation(DOG_ANIM_RUN);
+				o->oForwardVel = 50.0f;
+				if (ballDist <= 100) {
+					yummyball->oAction = 3;
+					o->oAction = DF4_HIT;
+				}
+			} else {
 				o->oAction = DF4_HIT;
 			}
 			break;

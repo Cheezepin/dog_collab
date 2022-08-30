@@ -1,6 +1,20 @@
 
+
+static struct ObjectHitbox sSoccerBallHitbox = {
+    .interactType =        INTERACT_COIN,
+    .downOffset =          0,
+    .damageOrCoinValue =   0,
+    .health =              0,
+    .numLootCoins =        0,
+    .radius =              140,
+    .height =              100,
+    .hurtboxRadius =       140,
+    .hurtboxHeight =       100,
+};
+
 void bhv_2639SoccerBall_init(void) {
 	o->oAction = 0;
+	obj_set_hitbox(o, &sSoccerBallHitbox);
 }
 void bhv_2639SoccerBall_loop(void) {
 	if (o->oBehParams2ndByte == 1) {
@@ -11,10 +25,11 @@ void bhv_2639SoccerBall_loop(void) {
 	// cur_obj_move_using_fvel_and_gravity();
 	// object_step();
 	cur_obj_update_floor_and_walls();
+	cur_obj_if_hit_wall_bounce_away();
 	cur_obj_resolve_wall_collisions();
 
 	// cur_obj_move_standard(78);
-	if (o->oDistanceToMario < 160.f){
+	if (o->oInteractStatus & INT_STATUS_INTERACTED){
 		o->oForwardVel = gMarioState->forwardVel * 4;
 		o->oMoveAngleYaw = gMarioObject->header.gfx.angle[1];
 		o->oFaceAngleYaw = gMarioObject->header.gfx.angle[1];
@@ -26,8 +41,8 @@ void bhv_2639SoccerBall_loop(void) {
 	// o->oVelY -= 5.f;
 	if (o->oForwardVel < 0.f)
 		o->oForwardVel = 0;
-	else
-		o->oFaceAnglePitch += 50;
+	// else
+	// 	o->oFaceAnglePitch += 50;
 
 	// if (o->oVelY <= 0.f)
 	// 	o->oVelY = 0.f;

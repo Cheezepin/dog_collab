@@ -8090,6 +8090,7 @@ const BehaviorScript bhv2639SoccerBall[] = {
     SET_FLOAT(oDrawingDistance, 20000),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_2639SoccerBall_loop),
+        SET_INT(oInteractStatus, INT_STATUS_NONE),
 	END_LOOP(),
 };
 
