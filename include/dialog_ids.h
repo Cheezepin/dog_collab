@@ -229,6 +229,8 @@ enum DialogId {
     _2639DIAG_A6PentToad3,
     _2639DIAG_A6PentToad4,
     _2639DIAG_A6PentToad5,
+    _2639DIAG_A6PentToad6,
+    _2639DIAG_A6PentToad7,
     
     
     

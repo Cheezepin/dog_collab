@@ -866,13 +866,7 @@ $(ELF): $(BUILD_DIR)/sm64_prelim.elf $(BUILD_DIR)/asm/debug/map.o $(O_FILES) $(Y
 # Build ROM
 $(ROM): $(ELF)
 	$(call print,Building ROM:,$<,$@)
-ifeq      ($(CONSOLE),n64)
 	$(V)$(OBJCOPY) --pad-to=0x101000 --gap-fill=0xFF $< $@ -O binary
-else ifeq ($(CONSOLE),bb)
-	$(V)$(OBJCOPY) --gap-fill=0x00 $< $@ -O binary
-	$(V)dd if=$@ of=tmp bs=16K conv=sync status=none
-	$(V)mv tmp $@
-endif
 	$(V)$(N64CKSUM) $@
 
 $(BUILD_DIR)/$(TARGET).objdump: $(ELF)

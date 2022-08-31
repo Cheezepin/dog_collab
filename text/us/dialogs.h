@@ -2250,6 +2250,7 @@ running towards a
 tasty couch, run
 into them and stop it!)")
 
+// ACT 3
 
 DEFINE_DIALOG(_2639DIAG_A3LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you!
@@ -2280,6 +2281,8 @@ Grab me a soda from
 the lobby real quick
 and I'll think about it.)")
 
+// Act 4
+
 DEFINE_DIALOG(_2639DIAG_A4LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you! Floor 4's
 got a water problem!
@@ -2300,6 +2303,8 @@ unscrew the drain?
 There's something
 for your dog
 waiting there too)")
+
+// Sct 5
 
 DEFINE_DIALOG(_2639DIAG_A5LobbyToadGreeter, 1, 4, 30, 200, \
 R"(Hey you!
@@ -2329,19 +2334,114 @@ balls in the field.
 Just kick them
 to the goal.)")
 
+
+
+
+// act 6
+
+
 DEFINE_DIALOG(_2639DIAG_A6LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you!
 I've seen you here a few
 times.
 Why not check out the roof?
-We have a really neat jewel
+We have a really neat
+@34ebe1FFJewel or whatever@--------
 that you should see.)")
 
+// SCAVENGER HUNT
+DEFINE_DIALOG(_2639DIAG_A6PentToad1, 1, 3, 30, 200, \
+R"(Mario! it's horrible!
+The @34ebe1FFJewel or whatever@-------- has
+gone missing! It was
+here like 5 minutes
+ago!
+The thief can't have
+gotten far! Take the
+elevator down and
+find out who did it!)")
 
+// POOL toad
+DEFINE_DIALOG(_2639DIAG_A6PentToad2, 1, 3, 30, 200, \
+R"(What? The @34ebe1FFJewel
+or whatever@-------- is gone?
+I didn't see
+anyone suspicious,
+but I can give you
+this pH meter in
+case it fell
+into some body of
+water...)")
+// PARTY TOAD
+DEFINE_DIALOG(_2639DIAG_A6PentToad3, 1, 3, 30, 200, \
+R"(A @34ebe1FFJewel or whatever@--------?
+Never even heard of it.
+I could give you the
+pump to this
+bouncehouse though,
+since the party just
+about ended.)")
+// SIGN toad
+DEFINE_DIALOG(_2639DIAG_A6PentToad4, 1, 3, 30, 200, \
+R"((Pretend this is
+Princess Peach)
+Man, dragging in these
+couches was kind of
+hard on my own, so
+I brought a rope with
+me to even the load.
+Maybe it works for you.)")
+// SPORTS TOAD
+DEFINE_DIALOG(_2639DIAG_A6PentToad5, 1, 3, 30, 200, \
+R"(Weren't you just
+here? Anyway, I'm
+in the basement of
+this place, so I
+havent seen this
+@34ebe1FFJewel or whatever@--------.
+But I can give you
+a comically large
+beach ball, just
+in case.)")
 
+// LOBBY TOAD AGAIN
 
+DEFINE_DIALOG(_2639DIAG_A6PentToad6, 1, 3, 30, 200, \
+R"(What the FUCK
+did all those
+toads give you??
+How am I
+supposed to work
+with all of this
+junk?! Am I
+expected to just
+use the PUMP to
+inflate the BEACH
+BALL, tie a ROPE
+around it and the
+pH METER, and just
+chuck it into the
+fountain over
+there? Is that
+supposed to help
+any of us?! Here,
+take it and just
+throw it in there.
+I give up.)")
 
-
+DEFINE_DIALOG(_2639DIAG_A6PentToad7, 1, 3, 30, 200, \
+R"(Well, whaddaya know?
+Your stupid dog had it
+the whole time!
+Now that you all
+technically found
+the @34ebe1FFJewel or whatever@--------,
+I should be giving
+you a reward!
+This feels like the
+ending to a
+Saturday morning
+cartoon!!)")
 
 
 

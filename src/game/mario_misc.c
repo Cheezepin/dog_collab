@@ -189,9 +189,69 @@ static void toad_message_fading(void) {
 }
 
 void bhv_toad_message_loop(void) {
-    if (gCurrLevelNum = LEVEL_BOB && _2639_BoB_A1_ToadTalkLatch == 0
-        && ((o->oToadMessageDialogId) == _2639DIAG_A1LobbyToadGreeter)
-    ) {
+
+    struct Object *sodaObj = cur_obj_nearest_object_with_behavior(bhv2639soda);
+
+    if (sodaObj != NULL) {
+        if (dist_between_objects(o, sodaObj) < 300) {
+            bhv_spawn_star_get_outta_here(2);
+            obj_mark_for_deletion(sodaObj);
+        }
+    }
+
+    if (gCurrentObject->header.gfx.node.flags & GRAPH_RENDER_ACTIVE) {
+        gCurrentObject->oInteractionSubtype = 0;
+        switch (gCurrentObject->oToadMessageState) {
+            case TOAD_MESSAGE_FADED:
+                toad_message_faded();
+                break;
+            case TOAD_MESSAGE_OPAQUE:
+                toad_message_opaque();
+                break;
+            case TOAD_MESSAGE_OPACIFYING:
+                toad_message_opacifying();
+                break;
+            case TOAD_MESSAGE_FADING:
+                toad_message_fading();
+                break;
+            case TOAD_MESSAGE_TALKING:
+                toad_message_talking();
+                break;
+        }
+    }
+}
+
+void bhv_angry_toad_message_init(void) {
+    s32 dialogId = 0;
+    static u32 AngryDialogTable[] = {
+        0,
+        _2639DIAG_A1LobbyToadGreeter,
+        _2639DIAG_A2LobbyToadGreeter,
+        _2639DIAG_A3LobbyToadGreeter,
+        _2639DIAG_A4LobbyToadGreeter,
+        _2639DIAG_A5LobbyToadGreeter,
+        _2639DIAG_A6LobbyToadGreeter,
+    };
+    dialogId = AngryDialogTable[gCurrActNum];
+
+    o->oToadMessageDialogId = dialogId;
+    o->oToadMessageRecentlyTalked = FALSE;
+    o->oToadMessageState = TOAD_MESSAGE_FADED;
+    o->oOpacity = 81;
+
+}
+
+void bhv_angry_toad_message_loop(void) {
+    static u32 AngryDialogTable[] = {
+        0,
+        _2639DIAG_A1LobbyToadGreeter,
+        _2639DIAG_A2LobbyToadGreeter,
+        _2639DIAG_A3LobbyToadGreeter,
+        _2639DIAG_A4LobbyToadGreeter,
+        _2639DIAG_A5LobbyToadGreeter,
+        _2639DIAG_A6LobbyToadGreeter,
+    };
+    if (in2639Level() && _2639_BoB_A1_ToadTalkLatch == 0) {
         gCurrentObject->oToadMessageState = TOAD_MESSAGE_TALKING;
         _2639_BoB_A1_ToadTalkLatch = 1;
     }
