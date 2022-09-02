@@ -117,7 +117,7 @@ void Cam2639_Elevator(struct Camera *c) {
 }
 void Cam2639_CloseFocus(struct Camera *c) {
     fadech(PAD, BASEVOL);
-    set_camera_mode_fixed2(c, -534, -600, -506);
+    set_camera_mode_fixed2(c, -534, -800, -506);
 }
 
 void Cam2639_Main(struct Camera *c) {

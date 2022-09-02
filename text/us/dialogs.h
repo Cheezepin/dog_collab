@@ -2429,19 +2429,22 @@ take it and just
 throw it in there.
 I give up.)")
 
+
 DEFINE_DIALOG(_2639DIAG_A6PentToad7, 1, 3, 30, 200, \
 R"(Well, whaddaya know?
 Your stupid dog had it
 the whole time!
-Now that you all
+Now that you
 technically found
 the @34ebe1FFJewel or whatever@--------,
 I should be giving
 you a reward!
+
 This feels like the
 ending to a
 Saturday morning
-cartoon!!)")
+cartoon!!! I need
+a day off...)")
 
 
 

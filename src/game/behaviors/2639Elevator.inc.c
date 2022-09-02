@@ -11,9 +11,17 @@ void elvWarpMario(int node) {
     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x13, 0,0,0);
 }
 
-
+#define oElevatorMovementMultiplier OBJECT_FIELD_F32(0x1B)
 void bhv_2639Elevator_init(void) {
     o->oAction = 0;
+
+    s8 multiplier = ((o->oBehParams >> 8) & 0xFF);
+
+    if (multiplier == 0) {
+        o->oElevatorMovementMultiplier = 1.0f;
+    } else {
+        o->oElevatorMovementMultiplier = -1.0f;
+    }
     // o->oHomeY = o->oPosY;
 }
 void bhv_2639Elevator_loop(void) {
@@ -41,19 +49,20 @@ void bhv_2639Elevator_loop(void) {
             }
         break;
         case 2:
-            o->oPosY += 8.0f;
+            o->oPosY += (8.0f * o->oElevatorMovementMultiplier);
             if (o->oTimer > 200) {
                 o->oAction++;
                 elvWarpMario(o->oBehParams2ndByte);
             }
         break;
         case 3:
-            o->oPosY += 8.0f;
+            o->oPosY += (8.0f * o->oElevatorMovementMultiplier);
+            o->oTimer = 0;
         break;
 
 
         case 5:
-            o->oPosY -= 200.0f;
+            o->oPosY -= (200.0f * o->oElevatorMovementMultiplier);
             extern void teleportMario(f32, f32, f32);
             teleportMario(o->oPosX, o->oPosY, o->oPosZ);
             // if (o->oTimer > 60) {
@@ -64,12 +73,22 @@ void bhv_2639Elevator_loop(void) {
         break;
 
         case 6:
-            o->oPosY += 8;
-            if (o->oPosY >= o->oHomeY) {
-                o->oPosY = o->oHomeY;
-                if (gMarioObject->platform != o) {
-                    o->oTimer = 0;
-                    o->oAction++;
+            o->oPosY += (8 * o->oElevatorMovementMultiplier);
+            if (o->oElevatorMovementMultiplier == -1.0f) {
+                if (o->oPosY <= o->oHomeY) {
+                    o->oPosY = o->oHomeY;
+                    if (gMarioObject->platform != o) {
+                        o->oTimer = 0;
+                        o->oAction++;
+                    }
+                }
+            } else {
+                if (o->oPosY >= o->oHomeY) {
+                    o->oPosY = o->oHomeY;
+                    if (gMarioObject->platform != o) {
+                        o->oTimer = 0;
+                        o->oAction++;
+                    }
                 }
             }
         break;
@@ -87,18 +106,19 @@ void bhv_2639Elevator_loop(void) {
             }
         break;
         case 9:
-            o->oPosY -= 8.0f;
+            o->oPosY -= (8.0f * o->oElevatorMovementMultiplier);
             if (o->oTimer > 200) {
                 o->oAction++;
                 elvWarpMario(o->oBehParams2ndByte);
             }
         break;
         case 10:
-            o->oPosY -= 8.0f;
+            o->oPosY -= (8.0f * o->oElevatorMovementMultiplier);
         break;
     }
 
 
 
-    // print_text_fmt_int(20, 100, "S %d", o->oAction);
+    print_text_fmt_int(20, 100, "S %d", o->oAction);
+    print_text_fmt_int(20, 80, "A %d", gCurrAreaIndex);
 }
