@@ -5958,9 +5958,9 @@ struct CameraTrigger sCamBOB[] = {
 	{1, Cam2639_LogoCam, -417, -2141, -4114, 1742, 1742, 1742, 0xffff},
 	{1, Cam2639_CloseFocus, -417, -2141, -1704, 889, 889, 889, 0xffff},
 	{2, cam_bob_tower, -419, 6375, -2154, 5675, 5675, 5675, 0xffff},
-	{2, Cam2639_OutwardSpiral, 121, -82, -2154, 3003, 3003, 3003, 0xffff},
+	{2, Cam2639_OutwardSpiral, 121, -5082, -2154, 3003, 3003, 3003, 0xffff},
 	{2, cam_bob_tower, -2836, -96, -2160, 2992, 2992, 2992, 0xffff},
-	{2, Cam2639_Elevator, -17, 3033, -2833, 3055, 3055, 3055, 0xffff},
+	{2, Cam2639_Elevator, -17, 3033, -2833, 803, 3055, 803, 0xffff},
 	NULL_TRIGGER
 };
 
