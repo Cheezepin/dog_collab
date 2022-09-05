@@ -90,6 +90,27 @@ struct Object *NextObj_BParam(const BehaviorScript *behavior, s32 bp) {
 
 // GEO_CAMERA(CAMERA_MODE_RADIAL, -419, 2484, -2154, -419, 3484, -2154, geo_camera_main),
 
+void Scavenger_DropGoods(struct Object *parent, u32 ID) {
+    static u32 _models[] = {
+        MODEL_2639PHMETER,
+        MODEL_2639PUMP,
+        MODEL_2639ROPE,
+        MODEL_2639BEACHBALL,
+    };
+    // static BehaviorScript *_behavs[] = {
+
+    // };
+
+    MakeCoinWithModel(o, 1, _models[ID]);
+}
+
+void StarXYZ(u32 bp, f32 x, f32 y, f32 z) {
+    struct Object *starObj = NULL;
+    starObj = spawn_star(starObj, x, y, z);
+    starObj->oBehParams = bp << 24;
+    starObj->oBehParams2ndByte = SPAWN_STAR_ARC_CUTSCENE_BP_DEFAULT_STAR;
+}
+
 am_i_stupid() {
     *(vs8*)0=0;
 }

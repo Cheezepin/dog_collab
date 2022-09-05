@@ -32,3 +32,8 @@ u64 aligner2639 = 14241823231;
 #include "Screw2639/collision.inc.c"
 #include "Screw2639/model.inc.c"
 #include "Ball2639/model.inc.c"
+#include "BeachBall2639/model.inc.c"
+#include "BouncePump2639/model.inc.c"
+#include "Rope2639/model.inc.c"
+#include "PHMeter2639/model.inc.c"
+#include "Jewel2639/model.inc.c"

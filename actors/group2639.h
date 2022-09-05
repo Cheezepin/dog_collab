@@ -43,4 +43,14 @@ extern void geo2639_ModulatePrim();
 
 #include "Ball2639/geo_header.h"
 
+#include "BeachBall2639/geo_header.h"
+
+#include "BouncePump2639/geo_header.h"
+
+#include "Rope2639/geo_header.h"
+
+#include "PHMeter2639/geo_header.h"
+
+#include "Jewel2639/geo_header.h"
+
 #endif

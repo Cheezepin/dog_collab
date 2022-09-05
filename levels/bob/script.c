@@ -47,6 +47,11 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_2639VENDING, vending_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SCREW, screw_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639BALL, ball2639_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639PUMP, bouncepump_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639PHMETER, phmeter_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639ROPE, epicrope_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639BEACHBALL, beachball_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639JEWEL, jewelwhatever_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */

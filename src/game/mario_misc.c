@@ -161,6 +161,10 @@ static void toad_message_talking(void) {
             //     o->oToadMessageDialogId = _2639DIAG_A3RoomToadSodaFailure;
             //     break;
 
+            case _2639DIAG_A6PentToad2 ... _2639DIAG_A6PentToad6:
+                Scavenger_DropGoods(o, o->oToadMessageDialogId - _2639DIAG_A6PentToad2);
+                break;
+
             
             case _2639DIAG_A1LobbyToadStarGranter:
                 if (_2639_BoB_A1_CaneCollected &&

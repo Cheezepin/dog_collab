@@ -14,6 +14,7 @@ void bhv_2639A4DrainScrew_loop(void) {
 		if (o->oTimer > 40) {
 			obj_explode_and_spawn_coins(46.0f, 0);
             create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
+            cur_obj_spawn_star_at_y_offset(o->oPosX, o->oPosY, o->oPosZ, 200.0f);
 		}
 
 		o->oTimer++;

@@ -3,7 +3,7 @@
 extern u32 _2639_BoB_A1_ToadTalkLatch;
 extern u32 _2639_BoB_A1_CaneCollected;
 extern u32 _2639_BoB_A1_SunglassesCollected;
-
+void StarXYZ(u32 bparam, f32 targetX, f32 targetY, f32 targetZ);
 // Spline defines
 #define NC_SPLINE_NORMAL 0x00 //Will face the direction that it's moving.
 #define NC_SPLINE_NOTURN 0x01 //Won't change direction at all.

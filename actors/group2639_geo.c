@@ -18,3 +18,8 @@
 #include "vending2639/geo.inc.c"
 #include "Screw2639/geo.inc.c"
 #include "Ball2639/geo.inc.c"
+#include "BeachBall2639/geo.inc.c"
+#include "BouncePump2639/geo.inc.c"
+#include "Rope2639/geo.inc.c"
+#include "PHMeter2639/geo.inc.c"
+#include "Jewel2639/geo.inc.c"
