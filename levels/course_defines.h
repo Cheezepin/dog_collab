@@ -12,7 +12,7 @@
  */
 DEFINE_COURSE(COURSE_NONE, 0x44444440) // (0)  Course Hub (Castle Grounds)
 DEFINE_COURSE(COURSE_BOB, 0x44444440) // (1)  Bob Omb Battlefield (someone2639, Hypnotizing High Rise)
-DEFINE_COURSE(COURSE_WF, 0x44444440) // (2)  Whomp's Fortress (BernieBean, Mirror World Under the Ice)
+DEFINE_COURSE(COURSE_WF, 0x01044440) // (2)  Whomp's Fortress (BernieBean, Mirror World Under the Ice)
 DEFINE_COURSE(COURSE_JRB, 0x20444440) // (3)  Jolly Rodger's Bay (CowQuack, Swirling Circus)
 DEFINE_COURSE(COURSE_CCM, 0x10102340) // (4)  Cool Cool Mountain (Rovert, Peach Ruins)
 DEFINE_COURSE(COURSE_BBH, 0x44444440) // (5)  Big Boo's Haunt (MrComit, Cumulus Correctional Center)

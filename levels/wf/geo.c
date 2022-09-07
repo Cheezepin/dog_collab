@@ -46,3 +46,6 @@
 
 #include "levels/wf/wf_palm_tree/geo.inc.c"
 #include "levels/wf/jetski/geo.inc.c"
+#include "levels/wf/koko/geo.inc.c"
+#include "levels/wf/crate/geo.inc.c"
+#include "levels/wf/sandpile/geo.inc.c"

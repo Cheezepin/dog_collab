@@ -730,10 +730,14 @@ enum _2639Models {
 
 //CIAO BITCHES
 
-//bernie
+//Koopa Atoll Models
 
 #define MODEL_WF_PALM_TREE 0x190
+#define MODEL_KOKO 0x191
+#define MODEL_JETSKI 0x192
+#define MODEL_WF_CRATE 0x193
+#define MODEL_SANDPILE 0x194
 
-//bean
+//Koopa Atoll Models ^
 
 #endif // MODEL_IDS_H

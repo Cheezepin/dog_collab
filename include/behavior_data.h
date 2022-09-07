@@ -704,9 +704,12 @@ extern const BehaviorScript bhvBowserSnow[];
 extern const BehaviorScript bhvBowserSnowball[];
 //cheeze bhv ends
 
-//bernie
+//Koopa Atoll Objects
 extern const BehaviorScript bhvPalmTree[];
-//bean
+extern const BehaviorScript bhvKokoTripletSpawner[];
+extern const BehaviorScript bhvJetski[];
+extern const BehaviorScript bhvSandPile[];
+//Koopa Atoll Objects ^
 
 #endif // BEHAVIOR_DATA_H
 

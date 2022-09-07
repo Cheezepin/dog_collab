@@ -110,4 +110,16 @@ extern const LevelScript level_wf_entry[];
 
 #include "levels/wf/atoll_skybox/header.h"
 
+#include "levels/wf/jetski/anim_header.h"
+
+#include "levels/wf/koko/geo_header.h"
+
+#include "levels/wf/atoll_ocean/header.h"
+
+#include "levels/wf/crate/geo_header.h"
+
+#include "levels/wf/sandpile/geo_header.h"
+
+#include "levels/wf/sandpile/collision_header.h"
+
 #endif

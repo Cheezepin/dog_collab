@@ -36,6 +36,7 @@ struct ExclamationBoxContents sExclamationBoxContents[] = {
     { EXCLAMATION_BOX_BP_STAR_4,           0, 3, MODEL_STAR,             bhvSpawnedStar           },
     { EXCLAMATION_BOX_BP_STAR_5,           0, 4, MODEL_STAR,             bhvSpawnedStar           },
     { EXCLAMATION_BOX_BP_STAR_6,           0, 5, MODEL_STAR,             bhvSpawnedStar           },
+    { EXCLAMATION_BOX_BP_JETSKI,           0, 0, MODEL_JETSKI,           bhvJetski            },
     { EXCLAMATION_BOX_BP_NULL,             0, 0, MODEL_NONE,             NULL                     }
 };
 
@@ -143,7 +144,7 @@ void exclamation_box_act_explode(void) {
     spawn_mist_particles_variable(0, 0, 46.0f);
     spawn_triangle_break_particles(20, MODEL_CARTOON_STAR, 0.3f, o->oAnimState);
     create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
-    if (o->oBehParams2ndByte < EXCLAMATION_BOX_BP_COINS_1) {
+    if (o->oBehParams2ndByte < EXCLAMATION_BOX_BP_COINS_1 || o->oBehParams2ndByte == EXCLAMATION_BOX_BP_JETSKI) {
         o->oAction = EXCLAMATION_BOX_ACT_WAIT_FOR_RESPAWN;
         cur_obj_hide();
     } else {
