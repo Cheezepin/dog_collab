@@ -307,4 +307,9 @@ Gfx *geo_update_rain_cloud_rain(s32 callContext, struct GraphNode *node, UNUSED 
 Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node);
 Gfx *geo_warp_box_scale(s32 callContext, struct GraphNode *node);
 
+Gfx *geo_is_level_b1(s32 callContext, struct GraphNode *node, UNUSED void *context);
+Gfx *geo_bowser_hand_location_update(s32 callContext, struct GraphNode *node, Mat4 *mtx);
+
+extern Vec3f bowserRightHandLocation;
+
 #endif // OBJECT_HELPERS_H

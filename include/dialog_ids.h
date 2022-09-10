@@ -209,7 +209,14 @@ enum DialogId {
     _2639DIAG_A3RoomToadPartyRocking3,
 
     _2639DIAG_A4RoomToadRoomsFlooded,
-    
+
+    CHEEZE_DIALOG_1,
+    CHEEZE_DIALOG_2,
+    CHEEZE_DIALOG_3,
+    CHEEZE_DIALOG_4,
+    CHEEZE_DIALOG_5,
+    CHEEZE_DIALOG_6,
+
     DIALOG_COUNT
 };
 

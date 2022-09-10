@@ -321,7 +321,7 @@
 
 #define TEXT_SELECT_LEVEL "Select Level:"
 
-#define TEXT_C0I "Tutorial"
+#define TEXT_C0I "Intro"
 #define TEXT_C0  "Peach's Castle"
 #define TEXT_C0A "Author: ???"
 

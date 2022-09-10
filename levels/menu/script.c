@@ -17,6 +17,7 @@
 
 #include "make_const_nonconst.h"
 #include "levels/menu/header.h"
+#include "src/engine/level_script.h"
 
 const LevelScript level_main_menu_entry_file_select[] = {
     INIT_LEVEL(),
@@ -53,7 +54,8 @@ const LevelScript level_main_menu_entry_file_select[] = {
     SLEEP(/*frames*/ 16),
     CLEAR_LEVEL(),
     SLEEP_BEFORE_EXIT(/*frames*/ 1),
-    SET_REG(LEVEL_CASTLE_GROUNDS),
+    //SET_REG(START_LEVEL),
+    CALL(0, determine_starting_level),
     EXIT_AND_EXECUTE(/*seg*/ SEGMENT_GLOBAL_LEVEL_SCRIPT, _scriptsSegmentRomStart, _scriptsSegmentRomEnd, level_main_scripts_entry),
 };
 

@@ -2118,4 +2118,46 @@ You didn't tell me that was a service dog!\n\
 Now I gotta get the exemption form!\n\
 ")
 
+DEFINE_DIALOG(CHEEZE_DIALOG_1, 1, 4, 30, 200, "\
+Mario, it's been a month\n\
+now. How are you liking life?\n\
+")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_2, 1, 3, 95, 200, "\
+"TEXT_DOG" is so cute!\n\
+I'm so glad we adopted\n\
+him.")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_3, 1, 3, 95, 200, "\
+Bwaaaar! You're not\n\
+getting away this time,\n\
+princess!")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_4, 1, 1, 95, 200, "\
+Kyaaa!!")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_5, 1, 6, 95, 200, "\
+Big fan of the dogs,\n\
+by the way. You two\n\
+are responsible. I\n\
+imagine that dog has\n\
+a great life at the\n\
+castle.\n\
+Too bad it'll be\n\
+without Peach!\n\
+Bwahaha!!")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_6, 1, 5, 95, 200, "\
+A mysterious globe,\n\
+in a mysterious attic\n\
+of the castle you've\n\
+never entered.\n\
+Text on the base reads:\n\
+『This relic can take\n\
+you anywhere in the\n\
+world with a single\n\
+touch!\n\
+\n\
+...provided you have\n\
+enough stars.』")
 

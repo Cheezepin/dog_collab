@@ -2360,7 +2360,8 @@ void render_dog_keyboard(void) {
 
     if(gPlayer1Controller->buttonPressed & R_TRIG)
         gKeyboardShifted ^= 0x1;
-    gSPDisplayList(gDisplayListHead++, kb_bg_Plane_mesh);
+
+    //gSPDisplayList(gDisplayListHead++, kb_bg_Plane_mesh);
 
     if(gDirectionsHeld & JOYSTICK_LEFT) {
         keyboardCursorX--;
@@ -2481,7 +2482,6 @@ void render_dog_keyboard(void) {
 
     if(length > -1 && gPlayer1Controller->buttonPressed & START_BUTTON) {
         gKeyboard = 0;
-        set_mario_action(gMarioState, ACT_IDLE, 0);
     }
 }
 
@@ -2513,7 +2513,7 @@ struct HubSelection hubSelections[3][6] = {
         {{7092.0f, -3399.0f, 1039.0f}, {4687.0f, -2021.0f, 274.0f},  0x1000, TEXT_C4I, TEXT_C4, TEXT_C4A, 0x5},
         {{8092.0f, -431.0f, -1894.0f}, {6292.0f, 2119.0f, -2359.0f}, 0x1C00, TEXT_B1I, TEXT_B1, TEXT_B1A, 0x6}, */
 
-        {0x2C00, 0x900,  7184.0f, 0x2600, 0x1B00, 5000.0f, 0xF800, TEXT_C0I, TEXT_C0, TEXT_C0A, 0x1, 1},
+        {0x2C00, 0x900,  7184.0f, 0x2600, 0x1B00, 5000.0f, 0xF800, TEXT_C0I, TEXT_C0, TEXT_C0A, 0x1, 0},
         {0x4000, 0x1100, 8795.0f, 0x3E00, 0x1F00, 5512.0f, 0x0000, TEXT_C1I, TEXT_C1, TEXT_C1A, 0x2, 5},
         {0x3E00, 0xEBC0, 7825.0f, 0xBC00, 0x3000, 7300.0f, 0x0000, TEXT_C2I, TEXT_C2, TEXT_C2A, 0x3, 2},
         {0x2C00, 0xEC00, 8400.0f, 0x2A00, 0x2C00, 7000.0f, 0x0000, TEXT_C3I, TEXT_C3, TEXT_C3A, 0x4, 1},
@@ -2620,12 +2620,13 @@ void render_hub_selection(void) {
 
         if(sDelayedWarpTimer == 0) {
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
-                if(gCustomStarSelectActive || hubSelections[gWorldID][gFocusID].courseID > 15) {
+                if(gCustomStarSelectActive || hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
                     sDelayedWarpOp = 1;
                     sDelayedWarpArg = 0x00000002;
                     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
                     sDelayedWarpTimer = 15;
                     sSourceWarpNodeId = hubSelections[gWorldID][gFocusID].warpID;
+                    gIntroCutsceneState = 0;
                 } else {
                     gCustomStarSelectActive = 1;
                 }
@@ -2988,6 +2989,9 @@ void end_results_loop(void) {
                     gSavedCourseNum = COURSE_NONE;
                 } else {
                     fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
+                    gWorldID = 0;
+                    gFocusID = 0;
+                    gCustomStarSelectActive = 0;
                 }
                 gEndResultMenuState = 2;
                 gEndResultMenuChoice = 0;

@@ -25,3 +25,5 @@
 #include "levels/ssl/eyerok_col/geo.inc.c"
 #include "levels/ssl/areas/2/geo.inc.c"
 #include "levels/ssl/areas/3/geo.inc.c"
+
+#include "levels/ssl/geo.inc.c"

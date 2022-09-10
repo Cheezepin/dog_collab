@@ -1050,10 +1050,10 @@ void load_erase_menu_from_submenu(s16 prevMenuButtonID, struct Object *sourceBut
 
 
 static const Vec3s sSaveFileButtonInitPositions[] = {
-    { -6400, 2800, 0 }, // SAVE_FILE_A
-    {  1500, 2800, 0 }, // SAVE_FILE_B
-    { -6400,    0, 0 }, // SAVE_FILE_C
-    {  1500,    0, 0 }, // SAVE_FILE_D
+    { -6400, 3900, 0 }, // SAVE_FILE_A
+    { -6400, 1800, 0 }, // SAVE_FILE_B
+    { -6400, -300, 0 }, // SAVE_FILE_C
+    { -6400,-2400, 0 }, // SAVE_FILE_D
 };
 
 #define SPAWN_FILE_SELECT_FILE_BUTTON_INIT(saveFile)                                                                                            \
@@ -1086,22 +1086,22 @@ void bhv_menu_button_manager_init(void) {
     // Score menu button
     sMainMenuButtons[MENU_BUTTON_SCORE] =
         spawn_object_rel_with_rot(o, MODEL_MAIN_MENU_GREEN_SCORE_BUTTON,
-                                  bhvMenuButton, -6400, -3500, 0, 0x0, 0x0, 0x0);
+                                  bhvMenuButton, -6400, -4500, 0, 0x0, 0x0, 0x0);
     sMainMenuButtons[MENU_BUTTON_SCORE]->oMenuButtonScale = 1.0f;
     // Copy menu button
     sMainMenuButtons[MENU_BUTTON_COPY] =
         spawn_object_rel_with_rot(o, MODEL_MAIN_MENU_BLUE_COPY_BUTTON,
-                                  bhvMenuButton, -2134, -3500, 0, 0x0, 0x0, 0x0);
+                                  bhvMenuButton, -2134, -4500, 0, 0x0, 0x0, 0x0);
     sMainMenuButtons[MENU_BUTTON_COPY]->oMenuButtonScale = 1.0f;
     // Erase menu button
     sMainMenuButtons[MENU_BUTTON_ERASE] =
         spawn_object_rel_with_rot(o, MODEL_MAIN_MENU_RED_ERASE_BUTTON,
-                                  bhvMenuButton,  2134, -3500, 0, 0x0, 0x0, 0x0);
+                                  bhvMenuButton,  2134, -4500, 0, 0x0, 0x0, 0x0);
     sMainMenuButtons[MENU_BUTTON_ERASE]->oMenuButtonScale = 1.0f;
     // Sound mode menu button (Option Mode in EU)
     sMainMenuButtons[MENU_BUTTON_SOUND_MODE] =
         spawn_object_rel_with_rot(o, MODEL_MAIN_MENU_PURPLE_SOUND_BUTTON,
-                                  bhvMenuButton,  6400, -3500, 0, 0x0, 0x0, 0x0);
+                                  bhvMenuButton,  6400, -4500, 0, 0x0, 0x0, 0x0);
     sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oMenuButtonScale = 1.0f;
 
     sTextBaseAlpha = 0;
@@ -1444,43 +1444,43 @@ void print_main_menu_strings(void) {
     // Print "SELECT FILE" text
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_hud_lut_string(HUD_LUT_DIFF, SELECT_FILE_X, 35, textSelectFile);
+    print_hud_lut_string(HUD_LUT_DIFF, SELECT_FILE_X, 30, textSelectFile);
     // Print file star counts
-    print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 78);
-    print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X2, 78);
-    print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 118);
-    print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X2, 118);
+    print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 62);
+    print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X1, 92);
+    print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 122);
+    print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X1, 152);
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
     // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_generic_string(SCORE_X, 39, textScore);
-    print_generic_string(COPY_X, 39, textCopy);
-    print_generic_string(ERASE_X, 39, textErase);
+    print_generic_string(SCORE_X, 26, textScore);
+    print_generic_string(COPY_X, 26, textCopy);
+    print_generic_string(ERASE_X, 26, textErase);
     sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
-    print_generic_string(sSoundTextX, 39, textSoundModes[sSoundMode]);
+    print_generic_string(sSoundTextX, 26, textSoundModes[sSoundMode]);
 
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
     for(i = 0; i < 4; i++) {
         switch(i) {
             case 0:
                 x = MARIOTEXT_X1;
-                y = 65;
+                y = 52;
                 string = &textMarioA;
                 break;
             case 1:
-                x = MARIOTEXT_X2;
-                y = 65;
+                x = MARIOTEXT_X1;
+                y = 82;
                 string = &textMarioB;
                 break;
             case 2:
                 x = MARIOTEXT_X1;
-                y = 105;
+                y = 112;
                 string = &textMarioC;
                 break;
             case 3:
-                x = MARIOTEXT_X2;
-                y = 105;
+                x = MARIOTEXT_X1;
+                y = 142;
                 string = &textMarioD;
                 break;
         }

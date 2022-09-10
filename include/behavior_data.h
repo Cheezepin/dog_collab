@@ -712,6 +712,11 @@ extern const BehaviorScript bhvBalloonPlatformBits[];
 extern const BehaviorScript bhvCircusBalloonBits[];
 extern const BehaviorScript bhvCircusBalloonColBits[];
 extern const BehaviorScript bhvClownClockBits[];
+extern const BehaviorScript bhvPeachCutscene[];
+extern const BehaviorScript bhvDogCutscene[];
+extern const BehaviorScript bhvBowserCutscene[];
+extern const BehaviorScript bhvDoorCutscene[];
+extern const BehaviorScript bhvGlobe[];
 //cheeze bhv ends
 
 
