@@ -626,7 +626,7 @@
 #define MODEL_PODOBOO                     2
 
 #define MODEL_SNOULDER 0x150
-
+#define MODEL_WARP_BOX 0x151
 
 
 
@@ -638,8 +638,8 @@
 #define MODEL_CLOUD_RAINBOW               0x103
 #define MODEL_C_RAIN_CLOUD                0x104
 #define MODEL_MIST_SECRET                 0x105
-#define MODEL_FADE_CLOUD                  0x106
-#define MODEL_BODY_LAKITU                 0x107
+#define MODEL_BODY_LAKITU                 0x106
+#define MODEL_FADE_CLOUD                  0x107
 #define MODEL_FWOOSH_BUTTON               0x108
 #define MODEL_METAL_CRATE                 0x109
 #define MODEL_LOWPOLY_KOOPA               0x10A

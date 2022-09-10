@@ -785,7 +785,7 @@ void bhv_spectator_lakitu_init(void);
 void bhv_snow_bowser_init(void);
 void bhv_snow_bowser_loop(void);
 void bhv_ground_bowser_snow_init(void);
-
+void bhv_warp_box_loop(void);
 
 
 

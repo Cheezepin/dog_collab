@@ -53,8 +53,8 @@ void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_54() {
 	currentY += deltaY;
 }
 
-void scroll_sts_mat_castle_grounds_dl_water() {
-	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_water);
+void scroll_sts_mat_castle_grounds_dl_water_001() {
+	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_water_001);
 	shift_s(mat, 18, PACK_TILESIZE(0, 1));
 	shift_t(mat, 18, PACK_TILESIZE(0, 1));
 };
@@ -95,26 +95,26 @@ void scroll_sts_mat_castle_grounds_dl_cozieswater_top_emu__layer5() {
 	shift_s(mat, 21, PACK_TILESIZE(0, 1));
 };
 
-void scroll_sts_mat_castle_grounds_dl_water_002_layer5() {
-	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_water_002_layer5);
+void scroll_sts_mat_castle_grounds_dl_water_003_layer5() {
+	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_water_003_layer5);
 	shift_s_down(mat, 13, PACK_TILESIZE(0, 1));
 	shift_s(mat, 21, PACK_TILESIZE(0, 1));
 };
 
-void scroll_sts_mat_castle_grounds_dl_laser() {
-	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_laser);
+void scroll_sts_mat_castle_grounds_dl_laser_001() {
+	Gfx *mat = segmented_to_virtual(mat_castle_grounds_dl_laser_001);
 	shift_t_down(mat, 11, PACK_TILESIZE(0, 1));
 };
 
 void scroll_castle_grounds() {
 	scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_7();
 	scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_54();
-	scroll_sts_mat_castle_grounds_dl_water();
+	scroll_sts_mat_castle_grounds_dl_water_001();
 	scroll_sts_mat_castle_grounds_dl_darkwater();
 	scroll_sts_mat_castle_grounds_dl_f3d_material_036();
 	scroll_sts_mat_castle_grounds_dl_f3d_material_034();
 	scroll_sts_mat_castle_grounds_dl_electricity_layer5();
 	scroll_sts_mat_castle_grounds_dl_cozieswater_top_emu__layer5();
-	scroll_sts_mat_castle_grounds_dl_water_002_layer5();
-	scroll_sts_mat_castle_grounds_dl_laser();
+	scroll_sts_mat_castle_grounds_dl_water_003_layer5();
+	scroll_sts_mat_castle_grounds_dl_laser_001();
 }

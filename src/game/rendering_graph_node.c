@@ -280,6 +280,8 @@ s32 gReadyForLookAt = FALSE;
 s32 gCameraIsUnderwater = FALSE;
 // thecozies end
 
+#include "actors/common1.h"
+
 /**
  * Process a master list node. This has been modified, so now it runs twice, for each microcode.
  * It iterates through the first 5 layers of if the first index using F3DLX2.Rej, then it switches
@@ -287,6 +289,7 @@ s32 gCameraIsUnderwater = FALSE;
  * 3. It does this, because layers 5-7 are non zbuffered, and just doing 0-7 of ZEX, then 0-7 of REJ
  * would make the ZEX 0-4 render on top of Rej's 5-7.
  */
+
 void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
     struct RenderPhase *renderPhase;
     struct DisplayListNode *currList;

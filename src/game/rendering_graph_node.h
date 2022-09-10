@@ -95,4 +95,8 @@ enum AnimType {
 void geo_process_node_and_siblings(struct GraphNode *firstNode);
 void geo_process_root(struct GraphNodeRoot *node, Vp *b, Vp *c, s32 clearColor);
 
+extern s16 gMatStackIndex;
+extern ALIGNED16 Mat4 gMatStack[32];
+extern ALIGNED16 Mtx *gMatStackFixed[32];
+
 #endif // RENDERING_GRAPH_NODE_H

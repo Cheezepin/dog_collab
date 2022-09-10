@@ -7,11 +7,11 @@ struct FloorSwitchTriggeredAnimationFrame {
 
 struct FloorSwitchTriggeredAnimationFrame sFloorSwitchTriggeredAnimationFrames[][5] = {
     {
-        { bits_seg7_collision_0701B734, MODEL_BITS_STAIRCASE_FRAME4 },
-        { bits_seg7_collision_0701B59C, MODEL_BITS_STAIRCASE_FRAME3 },
-        { bits_seg7_collision_0701B404, MODEL_BITS_STAIRCASE_FRAME2 },
-        { bits_seg7_collision_0701B26C, MODEL_BITS_STAIRCASE_FRAME1 },
-        { bits_seg7_collision_0701B0D4, MODEL_BITS_STAIRCASE },
+        { 0, MODEL_BITS_STAIRCASE_FRAME4 },
+        { 0, MODEL_BITS_STAIRCASE_FRAME3 },
+        { 0, MODEL_BITS_STAIRCASE_FRAME2 },
+        { 0, MODEL_BITS_STAIRCASE_FRAME1 },
+        { 0, MODEL_BITS_STAIRCASE },
     },
     {
         { bitdw_seg7_collision_0700FD9C, MODEL_BITDW_STAIRCASE },

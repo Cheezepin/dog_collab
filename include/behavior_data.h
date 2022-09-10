@@ -702,6 +702,16 @@ extern const BehaviorScript bhvKoopatrol[];
 extern const BehaviorScript bhvWindSoundLoop[];
 extern const BehaviorScript bhvBowserSnow[];
 extern const BehaviorScript bhvBowserSnowball[];
+extern const BehaviorScript bhvWarpBox[];
+extern const BehaviorScript bhvAshpileBits[];
+extern const BehaviorScript bhvFadeCloudBits[];
+extern const BehaviorScript bhvClownDoorSegmentTopBits[];
+extern const BehaviorScript bhvClownDoorSegmentBottomBits[];
+extern const BehaviorScript bhvCarouselBits[];
+extern const BehaviorScript bhvBalloonPlatformBits[];
+extern const BehaviorScript bhvCircusBalloonBits[];
+extern const BehaviorScript bhvCircusBalloonColBits[];
+extern const BehaviorScript bhvClownClockBits[];
 //cheeze bhv ends
 
 //Koopa Atoll Objects

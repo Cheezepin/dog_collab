@@ -1,0 +1,17 @@
+extern const GeoLayout ashpile2_bits_geo[];
+extern Lights1 ashpile2_bits_Ash_lights;
+extern u8 ashpile2_bits_ash_ci4[];
+extern u8 ashpile2_bits_ash_ci4_pal_rgba16[];
+extern Vtx ashpile2_bits_Cylinder_003_mesh_layer_1_vtx_cull[8];
+extern Vtx ashpile2_bits_Cylinder_003_mesh_layer_1_vtx_0[25];
+extern Gfx ashpile2_bits_Cylinder_003_mesh_layer_1_tri_0[];
+extern Vtx ashpile2_bits_Cylinder_003_mesh_layer_5_vtx_cull[8];
+extern Vtx ashpile2_bits_Cylinder_003_mesh_layer_5_vtx_0[25];
+extern Gfx ashpile2_bits_Cylinder_003_mesh_layer_5_tri_0[];
+extern Gfx mat_ashpile2_bits_Ash2[];
+extern Gfx mat_revert_ashpile2_bits_Ash2[];
+extern Gfx mat_ashpile2_bits_Ash[];
+extern Gfx mat_revert_ashpile2_bits_Ash[];
+extern Gfx ashpile2_bits_Cylinder_003_mesh_layer_1[];
+extern Gfx ashpile2_bits_Cylinder_003_mesh_layer_5[];
+extern Gfx ashpile2_bits_material_revert_render_settings[];
