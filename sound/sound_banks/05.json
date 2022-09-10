@@ -99,12 +99,12 @@
         "inst16": {
             "release_rate": 208,
             "envelope": "envelope0",
-            "sound": "CUSTOM_1D"
+            "sound": "custom_1D"
         },
         "inst17": {
             "release_rate": 208,
             "envelope": "envelope0",
-            "sound": "CUSTOM_1E"
+            "sound": "custom_1E"
         }
     },
     "instrument_list": [

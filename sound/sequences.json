@@ -47,5 +47,6 @@
     "2C_custom_feudal_forest": ["25"],
     "2D_custom_feudal_dungeon": ["25"],
     "2E_custom_feudal_castle": ["1A"],
-    "2F_custom_overworld": ["23"]
+    "2F_custom_overworld": ["23"],
+    "30_training": ["25"]
 }
