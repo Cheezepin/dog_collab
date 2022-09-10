@@ -103,7 +103,7 @@ u8 sDialogSpeaker[] = {
     /*17*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
     /*18*/ _,     _,     _,     _,     _,     _,     _,
     // the cozies: putting some extra blank spots in here to i can compile
-    _, _, _, _, _, _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _,
 };
 #undef _
 STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
@@ -312,7 +312,8 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_LEVEL_FEUDAL_FOREST
     70,  // SEQ_LEVEL_FEUDAL_DUNGEON
     70,  // SEQ_LEVEL_FEUDAL_CASTLE
-    70   // SEQ_OVERWORLD
+    70,  // SEQ_OVERWORLD
+    70,  // SEQ_TRAINING
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,

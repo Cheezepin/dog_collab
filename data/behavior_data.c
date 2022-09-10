@@ -7926,6 +7926,62 @@ const BehaviorScript bhvWindSoundLoop[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvPeachCutscene[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oOpacity, 255),
+    LOAD_ANIMATIONS(oAnimations, peach_seg5_anims_0501C41C),
+    ANIMATE(9),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_peach_cutscene_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvDogCutscene[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO |OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    ANIMATE(2),
+    SET_HOME(),
+    SCALE(0, 50),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_cutscenedog_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvBowserCutscene[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    SET_HOME(),
+    SET_INT(oOpacity, 255),
+    LOAD_ANIMATIONS(oAnimations, bowser_seg6_anims_06057690),
+    ANIMATE(BOWSER_ANIM_RUN_SLIP),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_bowser_cutscene_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvDoorCutscene[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_door_cutscene_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvGlobe[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 50),
+    SET_HOME(),
+    CALL_NATIVE(bhv_bobomb_buddy_init),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_bobomb_buddy_loop),
+    END_LOOP(),
+};
+
 //cheeze bhvs end
 
 // someone2638 scripts

@@ -695,6 +695,10 @@ void bhv_koopatrol_loop(void);
 void bhv_wind_sound_loop(void);
 void bhv_cheezeskidog_loop(void);
 void bhv_bowser_snowball_loop(void);
+void bhv_cutscenedog_loop(void);
+void bhv_peach_cutscene_loop(void);
+void bhv_bowser_cutscene_loop(void);
+void bhv_door_cutscene_loop(void);
 //cheeze end
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);

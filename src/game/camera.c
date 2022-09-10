@@ -5930,11 +5930,7 @@ struct CameraTrigger sCamHMC[] = {
  * radial.
  */
 struct CameraTrigger sCamSSL[] = {
-    { 1, cam_ssl_enter_pyramid_top, -2048, 1080, -1024, 150, 150, 150, 0 },
-    { 2, cam_ssl_pyramid_center, 0, -104, -104, 1248, 1536, 2950, 0 },
-    { 2, cam_ssl_pyramid_center, 0, 2500, 256, 515, 5000, 515, 0 },
-    { 3, cam_ssl_boss_room, 0, -1534, -2040, 1000, 800, 1000, 0 },
-    NULL_TRIGGER
+	NULL_TRIGGER
 };
 
 /**
@@ -5985,43 +5981,7 @@ struct CameraTrigger sCamCCM[] = {
  * and one trigger that starts the enter pool cutscene when Mario enters HMC.
  */
 struct CameraTrigger sCamCastle[] = {
-    { 1, cam_castle_close_mode, -1100, 657, -1346, 300, 150, 300, 0 },
-    { 1, cam_castle_enter_lobby, -1099, 657, -803, 300, 150, 300, 0 },
-    { 1, cam_castle_close_mode, -2304, -264, -4072, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -2304, 145, -1344, 140, 150, 140, 0 },
-    { 1, cam_castle_enter_lobby, -2304, 145, -802, 140, 150, 140, 0 },
-    //! Sets the camera mode when leaving secret aquarium
-    { 1, cam_castle_close_mode, 2816, 1200, -256, 100, 100, 100, 0 },
-    { 1, cam_castle_close_mode, 256, -161, -4226, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, 256, 145, -1344, 140, 150, 140, 0 },
-    { 1, cam_castle_enter_lobby, 256, 145, -802, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -1023, 44, -4870, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -459, 145, -1020, 140, 150, 140, 0x6000 },
-    { 1, cam_castle_enter_lobby, -85, 145, -627, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -1589, 145, -1020, 140, 150, 140, -0x6000 },
-    { 1, cam_castle_enter_lobby, -1963, 145, -627, 140, 150, 140, 0 },
-    { 1, cam_castle_leave_lobby_sliding_door, -2838, 657, -1659, 200, 150, 150, 0x2000 },
-    { 1, cam_castle_enter_lobby_sliding_door, -2319, 512, -1266, 300, 150, 300, 0x2000 },
-    { 1, cam_castle_close_mode, 844, 759, -1657, 40, 150, 40, -0x2000 },
-    { 1, cam_castle_enter_lobby, 442, 759, -1292, 140, 150, 140, -0x2000 },
-    { 2, cam_castle_enter_spiral_stairs, -1000, 657, 1740, 200, 300, 200, 0 },
-    { 2, cam_castle_enter_spiral_stairs, -996, 1348, 1814, 200, 300, 200, 0 },
-    { 2, cam_castle_close_mode, -946, 657, 2721, 50, 150, 50, 0 },
-    { 2, cam_castle_close_mode, -996, 1348, 907, 50, 150, 50, 0 },
-    { 2, cam_castle_close_mode, -997, 1348, 1450, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -4942, 452, -461, 140, 150, 140, 0x4000 },
-    { 1, cam_castle_close_mode, -3393, 350, -793, 140, 150, 140, 0x4000 },
-    { 1, cam_castle_enter_lobby, -2851, 350, -792, 140, 150, 140, 0x4000 },
-    { 1, cam_castle_enter_lobby, 803, 350, -228, 140, 150, 140, -0x4000 },
-    //! Duplicate camera trigger outside JRB door
-    { 1, cam_castle_enter_lobby, 803, 350, -228, 140, 150, 140, -0x4000 },
-    { 1, cam_castle_close_mode, 1345, 350, -229, 140, 150, 140, 0x4000 },
-    { 1, cam_castle_close_mode, -946, -929, 622, 300, 150, 300, 0 },
-    { 2, cam_castle_look_upstairs, -205, 1456, 2508, 210, 928, 718, 0 },
-    { 1, cam_castle_basement_look_downstairs, -1027, -587, -718, 318, 486, 577, 0 },
-    { 1, cam_castle_lobby_entrance, -1023, 376, 1830, 300, 400, 300, 0 },
-    { 3, cam_castle_hmc_start_pool_cutscene, 2485, -1689, -2659, 600, 50, 600, 0 },
-    NULL_TRIGGER
+	NULL_TRIGGER
 };
 
 /**
@@ -10103,6 +10063,30 @@ void cutscene_snow_hill(struct Camera *c) {
     c->yaw = c->nextYaw = 0xC000;
 }
 
+s32 gIntroCutsceneState = 0;
+void cutscene_intro(struct Camera *c) {
+    Vec3f focus;
+    Vec3f pos;
+    switch(gIntroCutsceneState) {
+        case 0:
+            vec3f_set(c->pos, 403.0f, 264.0f, -10.0f);
+            vec3f_set(c->focus, 1342.0f, 0.0f, -272.0f);
+            break;
+        case 3:
+            vec3f_set(pos, -546.0f, 521.0f, -740.0f);
+            vec3f_set(focus, 1342.0f, 0.0f, -272.0f);
+            approach_vec3f_asymptotic(c->pos, pos, .5f, .5f, .5f);
+            approach_vec3f_asymptotic(c->focus, focus, .5f, .5f, .5f);
+            break;
+        case 7:
+            vec3f_set(pos, 960.0f, 0.0f, 109.0f);
+            vec3f_set(focus, 860.0f, 800.0f, -1494.0f);
+            approach_vec3f_asymptotic(c->pos, pos, .5f, .5f, .5f);
+            approach_vec3f_asymptotic(c->focus, focus, .5f, .5f, .5f);
+            break;
+    }
+}
+
 /******************************************************************************************************
  * Cutscenes
  ******************************************************************************************************/
@@ -10510,6 +10494,10 @@ struct Cutscene sCutsceneSnowHill[] = {
     { cutscene_snow_hill, CUTSCENE_LOOP },
 };
 
+struct Cutscene sCutsceneIntro[] = {
+    { cutscene_intro, CUTSCENE_LOOP },
+};
+
 /* TODO:
  * The next two arrays are both related to levels, and they look generated.
  * These should be split into their own file.
@@ -10562,8 +10550,8 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // BBH            | CCM
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // CASTLE_INSIDE  | HMC
-	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 1, 1, 1), // SSL            | BOB
+	ZOOMOUT_AREA_MASK(1, 1, 0, 0, 0, 0, 0, 0), // CASTLE_INSIDE  | HMC
+	ZOOMOUT_AREA_MASK(1, 1, 1, 0, 1, 1, 1, 1), // SSL            | BOB
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SL             | WDW
 	ZOOMOUT_AREA_MASK(1, 1, 0, 0, 1, 1, 0, 0), // JRB            | THI
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
@@ -10973,6 +10961,7 @@ void play_cutscene(struct Camera *c) {
         CUTSCENE(CUTSCENE_SSL_PYRAMID_EXPLODE,  sCutscenePyramidTopExplode)
         CUTSCENE(CUTSCENE_HUB_WORLD,            sCutsceneHubWorld)
         CUTSCENE(CUTSCENE_SNOW_HILL,            sCutsceneSnowHill)
+        CUTSCENE(CUTSCENE_INTRO,                sCutsceneIntro)
     }
 
 #undef CUTSCENE

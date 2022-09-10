@@ -123,6 +123,21 @@ Gfx *geo_switch_anim_state(s32 callContext, struct GraphNode *node, UNUSED void 
     return NULL;
 }
 
+Gfx *geo_is_level_b1(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct Object *obj = gCurGraphNodeObjectNode;
+
+        // move to a local var because GraphNodes are passed in all geo functions.
+        // cast the pointer.
+        struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
+
+        // assign the case number for execution.
+        switchCase->selectedCase = (gCurrLevelNum == LEVEL_BOWSER_2) ? 1 : 0;
+    }
+
+    return NULL;
+}
+
 Gfx *geo_switch_area(s32 callContext, struct GraphNode *node, UNUSED void *context) {
     struct Surface *floor;
     struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
@@ -2792,6 +2807,19 @@ Gfx *geo_warp_box_scale(s32 callContext, struct GraphNode *node) {
 
     if (callContext == GEO_CONTEXT_RENDER) {
         scaleNode->scale = objectGraphNode->oWarpBoxInnerScale;
+    }
+
+    return NULL;
+}
+
+Vec3f bowserRightHandLocation = {0, 0, 0};
+Mat4 posMtx;
+Gfx *geo_bowser_hand_location_update(s32 callContext, struct GraphNode *node, Mat4 *mtx) {
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        create_transformation_from_matrices(posMtx, *mtx, *gCurGraphNodeCamera->matrixPtr);
+        print_text_fmt_int(20, 20, "%f", posMtx[3][0]);
+        vec3f_set(bowserRightHandLocation, posMtx[3][0], posMtx[3][1], posMtx[3][2]);
     }
 
     return NULL;
