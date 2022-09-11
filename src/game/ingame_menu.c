@@ -2538,7 +2538,17 @@ struct HubSelection hubSelections[3][6] = {
     },
 };
 
+struct HubAlert hubAlerts[] = {
+    {60, TEXT_HA_0},
+    {20, TEXT_HA_1},
+    {60, TEXT_HA_2},
+    {20, TEXT_HA_3},
+    {60, TEXT_HA_4},
+};
+
 s32 gCustomStarSelectActive = 0;
+s32 gHubAlertTimer = 0;
+s32 gHubAlertID = 0;
 void render_hub_selection(void) {
     u32 textColor = 0xFFFFFFFF;
     u32 textDiscolor = 0xDFDFDFFF;
@@ -2563,7 +2573,15 @@ void render_hub_selection(void) {
                 }
 
                 if(gPlayer1Controller->buttonPressed & A_BUTTON) {
-                    gFocusID = 0;
+                    if(gWorldID == 1 && !(save_file_get_flags() & (SAVE_FLAG_HAVE_KEY_2))) {
+                        gHubAlertTimer = 30;
+                        gHubAlertID = 1;
+                    } else if(gWorldID == 2 && !(save_file_get_flags() & (SAVE_FLAG_HAVE_KEY_1))) {
+                        gHubAlertTimer = 30;
+                        gHubAlertID = 3;
+                    } else {
+                        gFocusID = 0;
+                    }
                 } else if(gPlayer1Controller->buttonPressed & B_BUTTON) {
                     gWorldID = -1;
                 }
@@ -2620,7 +2638,17 @@ void render_hub_selection(void) {
 
         if(sDelayedWarpTimer == 0) {
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
-                if(gCustomStarSelectActive || hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
+                if(hubSelections[gWorldID][gFocusID].courseID == 17 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 5) {
+                    gHubAlertTimer = 30;
+                    gHubAlertID = 0;
+                } else if(hubSelections[gWorldID][gFocusID].courseID == 16 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 15) {
+                    gHubAlertTimer = 30;
+                    gHubAlertID = 2;
+                } else if(hubSelections[gWorldID][gFocusID].courseID == 18 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 30) {
+                    gHubAlertTimer = 30;
+                    gHubAlertID = 4;
+                }
+                else if(gCustomStarSelectActive || hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
                     sDelayedWarpOp = 1;
                     sDelayedWarpArg = 0x00000002;
                     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
@@ -2636,12 +2664,12 @@ void render_hub_selection(void) {
                 } else {
                     gCustomStarSelectActive = 0;
                 }
-            } else if(joystickMovement & JOYSTICK_DOWN) {
+            } else if((joystickMovement & JOYSTICK_DOWN) && gCustomStarSelectActive == 0) {
                 gFocusID++;
                 if(gFocusID > 5 || hubSelections[gWorldID][gFocusID].warpID == 0) {
                     gFocusID = 0;
                 }
-            } else if(joystickMovement & JOYSTICK_UP) {
+            } else if((joystickMovement & JOYSTICK_UP) && gCustomStarSelectActive == 0) {
                 gFocusID--;
                 if(gFocusID < 0) {
                     u8 i;
@@ -2655,6 +2683,17 @@ void render_hub_selection(void) {
             }
         }
         gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    }
+
+    if(gHubAlertTimer > 0) {
+        char *filledString = {TEXT_FILLEDSTRING};
+        create_dl_ortho_matrix();
+        render_bar(80, filledString, 0);
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+        print_string_with_shadow(hubAlerts[gHubAlertID].x, 80, hubAlerts[gHubAlertID].string, 0xFFFFFFFF);
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+        gHubAlertTimer--;
     }
 }
 

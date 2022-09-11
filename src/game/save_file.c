@@ -586,6 +586,8 @@ u32 save_file_get_flags(void) {
             SAVE_FLAG_UNLOCKED_BITDW_DOOR    |
             SAVE_FLAG_UNLOCKED_BITFS_DOOR    |
             SAVE_FLAG_UNLOCKED_50_STAR_DOOR  |
+            SAVE_FLAG_HAVE_KEY_1             |
+            SAVE_FLAG_HAVE_KEY_2             |
             SAVE_FLAG_COLLECTED_TOAD_STAR_1  |
             SAVE_FLAG_COLLECTED_TOAD_STAR_2  |
             SAVE_FLAG_COLLECTED_TOAD_STAR_3  |
