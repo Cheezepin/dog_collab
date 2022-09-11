@@ -193,6 +193,11 @@ struct HubSelection {
     u8 courseID;
 };
 
+struct HubAlert {
+    s32 x;
+    char *string;
+};
+
 extern s32 gDialogResponse;
 extern u16 gDialogColorFadeTimer;
 extern s8  gLastDialogLineNum;
