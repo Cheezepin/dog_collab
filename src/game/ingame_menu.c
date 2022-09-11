@@ -1203,7 +1203,7 @@ void render_dialog_entries(void) {
     void **dialogTable;
     struct DialogEntry *dialog;
     s8 lowerBound = 0;
-    dialogTable = segmented_to_virtual(levelDialogTable);
+    dialogTable = segmented_to_virtual(languageTable[gInGameLanguage][0]);
     dialog = segmented_to_virtual(dialogTable[gDialogID]);
     if (dialog->unused != 1) {
         dialogTable = segmented_to_virtual(languageTable[gInGameLanguage][0]);
