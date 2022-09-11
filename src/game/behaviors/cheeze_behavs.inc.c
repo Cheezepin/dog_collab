@@ -340,7 +340,7 @@ void bhv_peach_cutscene_loop(void) {
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
     switch(gIntroCutsceneState) {
         case 0:
-            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_1); o->oSubAction = 1;}
+            if(gDialogResponse == 0) {create_dialog_box(COMIT_DIALOG_1); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 gIntroCutsceneState++;
                 o->oSubAction = 0;
@@ -354,7 +354,7 @@ void bhv_peach_cutscene_loop(void) {
             }
             break;
         case 2:
-            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_2); o->oSubAction = 1;}
+            if(gDialogResponse == 0) {create_dialog_box(COMIT_DIALOG_2); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 struct Object *bows = spawn_object_abs_with_rot(o, 0, MODEL_BOWSER, bhvBowserCutscene, 2300, 0, -65, 0, 0xC000, 0);
                 bows->oForwardVel = 80.0f;
@@ -365,21 +365,21 @@ void bhv_peach_cutscene_loop(void) {
             }
             break;
         case 3:
-            if(gDialogResponse == 0 && o->oTimer > 15) {create_dialog_box(CHEEZE_DIALOG_3); o->oSubAction = 1;}
+            if(gDialogResponse == 0 && o->oTimer > 15) {create_dialog_box(COMIT_DIALOG_3); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 gIntroCutsceneState++;
                 o->oSubAction = 0;
             }
             break;
         case 4:
-            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_4); o->oSubAction = 1;}
+            if(gDialogResponse == 0) {create_dialog_box(COMIT_DIALOG_4); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 gIntroCutsceneState++;
                 o->oSubAction = 0;
             }
             break;
         case 5:
-            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_5); o->oSubAction = 1;}
+            if(gDialogResponse == 0) {create_dialog_box(COMIT_DIALOG_5); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 gIntroCutsceneState++;
                 o->oSubAction = 0;
