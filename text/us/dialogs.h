@@ -1384,94 +1384,25 @@ present for you. It's sure\n\
 to warm you up.")
 
 DEFINE_DIALOG(DIALOG_112, 1, 4, 30, 200, "\
-Collect as many coins as\n\
-possible! They'll refill\n\
-your Power Meter.\n\
-\n\
-You can check to see how\n\
-many coins you've\n\
-collected in each of the\n\
-15 enemy worlds.\n\
-You can also recover\n\
-power by touching the\n\
-Spinning Heart.\n\
-\n\
-The faster you run\n\
-through the heart, the\n\
-more power you'll recover.")
+")
 
 DEFINE_DIALOG(DIALOG_113, 1, 6, 30, 200, "\
-There are special Caps in\n\
-the red, green and blue\n\
-blocks. Step on the\n\
-switches in the hidden\n\
-courses to activate the\n\
-Cap Blocks.")
+")
 
 DEFINE_DIALOG(DIALOG_114, 1, 5, 95, 200, "\
-It makes me so mad! We\n\
-build your houses, your\n\
-castles. We pave your\n\
-roads, and still you\n\
-walk all over us.\n\
-Do you ever say thank\n\
-you? No! Well, you're not\n\
-going to wipe your feet\n\
-on me! I think I'll crush\n\
-you just for fun!\n\
-Do you have a problem\n\
-with that? Just try to\n\
-pound me, wimp! Ha!")
+")
 
 DEFINE_DIALOG(DIALOG_115, 1, 5, 95, 200, "\
-No! Crushed again!\n\
-I'm just a stepping stone,\n\
-after all. I won't gravel,\n\
-er, grovel. Here, you win.\n\
-Take this with you!")
+")
 
 DEFINE_DIALOG(DIALOG_116, 1, 5, 95, 200, "\
-Whaaa....Whaaat?\n\
-Can it be that a\n\
-pipsqueak like you has\n\
-defused the Bob-omb\n\
-king????\n\
-You might be fast enough\n\
-to ground me, but you'll\n\
-have to pick up the pace\n\
-if you want to take King\n\
-Bowser by the tail.\n\
-Methinks my troops could\n\
-learn a lesson from you!\n\
-Here is your Star, as I\n\
-promised, Mario.\n\
-\n\
-If you want to see me\n\
-again, select this Star\n\
-from the menu. For now,\n\
-farewell.")
+")
 
 DEFINE_DIALOG(DIALOG_117, 1, 1, 95, 200, "\
-Who...walk...here?\n\
-Who...break...seal?\n\
-Wake..ancient..ones?\n\
-We no like light...\n\
-Rrrrummbbble...\n\
-We no like...intruders!\n\
-Now battle...\n\
-...hand...\n\
-...to...\n\
-...hand!")
+")
 
 DEFINE_DIALOG(DIALOG_118, 1, 6, 95, 200, "\
-Grrrrumbbble!\n\
-What...happen?\n\
-We...crushed like pebble.\n\
-You so strong!\n\
-You rule ancient pyramid!\n\
-For today...\n\
-Now, take Star of Power.\n\
-We...sleep...darkness.")
+")
 
 DEFINE_DIALOG(DIALOG_119, 1, 6, 30, 200, "\
 Grrr! I was a bit\n\
@@ -1519,62 +1450,28 @@ the ending together!\n\
 Bwa ha ha!")
 
 DEFINE_DIALOG(DIALOG_122, 1, 4, 30, 200, "\
-The Black Hole\n\
-Right: Work Elevator\n\
-/// Cloudy Maze\n\
-Left: Underground Lake")
+")
 
 DEFINE_DIALOG(DIALOG_123, 1, 4, 30, 200, "\
-Metal Cavern\n\
-Right: To Waterfall\n\
-Left: Metal Cap Switch")
+")
 
 DEFINE_DIALOG(DIALOG_124, 1, 4, 30, 200, "\
-Work Elevator\n\
-Danger!!\n\
-Read instructions\n\
-thoroughly!\n\
-Elevator continues in the\n\
-direction of the arrow\n\
-activated.")
+")
 
 DEFINE_DIALOG(DIALOG_125, 1, 3, 30, 200, "\
-Hazy Maze-Exit\n\
-Danger! Closed.\n\
-Turn back now.")
+")
 
 DEFINE_DIALOG(DIALOG_126, 2, 3, 30, 200, "\
-Up: Black Hole\n\
-Right: Work Elevator\n\
-/// Hazy Maze")
+")
 
 DEFINE_DIALOG(DIALOG_127, 3, 4, 30, 200, "\
-Underground Lake\n\
-Right: Metal Cave\n\
-Left: Abandoned Mine\n\
-///(Closed)\n\
-A gentle sea dragon lives\n\
-here. Pound on his back to\n\
-make him lower his head.\n\
-Don't become his lunch.")
+")
 
 DEFINE_DIALOG(DIALOG_128, 1, 4, 95, 200, "\
-You must fight with\n\
-honor! It is against the\n\
-royal rules to throw the\n\
-king out of the ring!")
+")
 
 DEFINE_DIALOG(DIALOG_129, 1, 5, 30, 200, "\
-Welcome to the Vanish\n\
-Cap Switch Course! All of\n\
-the blue blocks you find\n\
-will become solid once you\n\
-step on the Cap Switch.\n\
-You'll disappear when you\n\
-put on the Vanish Cap, so\n\
-you'll be able to elude\n\
-enemies and walk through\n\
-many things. Try it out!")
+")
 
 DEFINE_DIALOG(DIALOG_130, 1, 4, 30, 200, "\
 Hey, you found our special\n\
@@ -2118,15 +2015,15 @@ You didn't tell me that was a service dog!\n\
 Now I gotta get the exemption form!\n\
 ")
 
-DEFINE_DIALOG(CHEEZE_DIALOG_1, 1, 4, 30, 200, "\
+DEFINE_DIALOG(CHEEZE_DIALOG_1, 1, 3, 30, 200, "\
 Mario, it's been a month\n\
-now. How are you liking life?\n\
-")
+now. Hasn't life with\n\
+the dog been fun?")
 
 DEFINE_DIALOG(CHEEZE_DIALOG_2, 1, 3, 95, 200, "\
-"TEXT_DOG" is so cute!\n\
-I'm so glad we adopted\n\
-him.")
+"TEXT_DOG" is so\n\
+cute! I'm so glad we\n\
+adopted him.")
 
 DEFINE_DIALOG(CHEEZE_DIALOG_3, 1, 3, 95, 200, "\
 Bwaaaar! You're not\n\
@@ -2137,7 +2034,7 @@ DEFINE_DIALOG(CHEEZE_DIALOG_4, 1, 1, 95, 200, "\
 Kyaaa!!")
 
 DEFINE_DIALOG(CHEEZE_DIALOG_5, 1, 6, 95, 200, "\
-Big fan of the dogs,\n\
+Big fan of the dog,\n\
 by the way. You two\n\
 are responsible. I\n\
 imagine that dog has\n\
@@ -2153,11 +2050,11 @@ in a mysterious attic\n\
 of the castle you've\n\
 never entered.\n\
 Text on the base reads:\n\
-『This relic can take\n\
+This relic can take\n\
 you anywhere in the\n\
 world with a single\n\
 touch!\n\
 \n\
 ...provided you have\n\
-enough stars.』")
+enough stars.")
 

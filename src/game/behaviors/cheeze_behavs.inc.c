@@ -340,7 +340,7 @@ void bhv_peach_cutscene_loop(void) {
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
     switch(gIntroCutsceneState) {
         case 0:
-            if(gDialogResponse == 0) {create_dialog_box(COMIT_DIALOG_1); o->oSubAction = 1;}
+            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_1); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 gIntroCutsceneState++;
                 o->oSubAction = 0;
@@ -354,7 +354,7 @@ void bhv_peach_cutscene_loop(void) {
             }
             break;
         case 2:
-            if(gDialogResponse == 0) {create_dialog_box(COMIT_DIALOG_2); o->oSubAction = 1;}
+            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_2); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 struct Object *bows = spawn_object_abs_with_rot(o, 0, MODEL_BOWSER, bhvBowserCutscene, 2300, 0, -65, 0, 0xC000, 0);
                 bows->oForwardVel = 80.0f;
@@ -362,24 +362,25 @@ void bhv_peach_cutscene_loop(void) {
                 o->oSubAction = 0;
                 o->oTimer = 0;
                 cur_obj_shake_screen(SHAKE_POS_MEDIUM);
+                play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(0, SEQ_LEVEL_BOSS_KOOPA), 0);
             }
             break;
         case 3:
-            if(gDialogResponse == 0 && o->oTimer > 15) {create_dialog_box(COMIT_DIALOG_3); o->oSubAction = 1;}
+            if(gDialogResponse == 0 && o->oTimer > 15) {create_dialog_box(CHEEZE_DIALOG_3); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 gIntroCutsceneState++;
                 o->oSubAction = 0;
             }
             break;
         case 4:
-            if(gDialogResponse == 0) {create_dialog_box(COMIT_DIALOG_4); o->oSubAction = 1;}
+            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_4); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 gIntroCutsceneState++;
                 o->oSubAction = 0;
             }
             break;
         case 5:
-            if(gDialogResponse == 0) {create_dialog_box(COMIT_DIALOG_5); o->oSubAction = 1;}
+            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_5); o->oSubAction = 1;}
             if(gDialogResponse != 0 && o->oSubAction == 1) {
                 gIntroCutsceneState++;
                 o->oSubAction = 0;
@@ -447,6 +448,8 @@ void bhv_bowser_cutscene_loop(void) {
     if(gIntroCutsceneState == 6) {
         if(o->oTimer < 35) {cur_obj_init_animation(BOWSER_ANIM_DANCE);}
         else {cur_obj_init_animation(BOWSER_ANIM_JUMP_START);}
+        if(o->oTimer == 30) {create_sound_spawner(SOUND_OBJ2_BOWSER_ROAR);}
+        if(o->oTimer == 60) {create_sound_spawner(SOUND_GENERAL2_BOBOMB_EXPLOSION);}
         if(o->oTimer > 45) {
             o->oPosY += 40.0f;
             o->oForwardVel = 10.0f;
@@ -462,7 +465,10 @@ void bhv_bowser_cutscene_loop(void) {
 
 void bhv_door_cutscene_loop(void) {
     if(gIntroCutsceneState == 3) {
-        if(o->oTimer == 5) {obj_mark_for_deletion(o);}
+        if(o->oTimer == 5) {
+            create_sound_spawner(SOUND_GENERAL2_BOBOMB_EXPLOSION);
+            obj_mark_for_deletion(o);
+        }
     } else {
         o->oTimer = 0;
     }
