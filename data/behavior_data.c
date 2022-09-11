@@ -1160,6 +1160,21 @@ const BehaviorScript bhvYellowCoin[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvYellowCoinNoBillboard[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 64),
+    SET_INT(oInteractType, INTERACT_COIN),
+    SET_INT(oIntangibleTimer, 0),
+    SET_INT(oAnimState, OBJ_ANIM_STATE_INIT_ANIM),
+    SET_INT(oBehParams2ndByte, 0x69), // dont flicker and die
+    CALL_NATIVE(bhv_moving_yellow_coin_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_moving_yellow_coin_loop),
+        ADD_INT(oFaceAngleYaw,   0x100),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvTemporaryYellowCoin[] = {
     BEGIN(OBJ_LIST_LEVEL),
     BILLBOARD(),
@@ -7986,13 +8001,14 @@ const BehaviorScript bhv2639a2hiddenstar[] = {
 
 const BehaviorScript bhv2639elevator[] = {
 	BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE| OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
     LOAD_COLLISION_DATA(elevator_collision),
 	CALL_NATIVE(bhv_2639Elevator_init),
     SET_FLOAT(oDrawingDistance, 20000),
     SET_HOME(),
 	BEGIN_LOOP(),
-		CALL_NATIVE(bhv_2639Elevator_loop),
         CALL_NATIVE(load_object_collision_model),
+		CALL_NATIVE(bhv_2639Elevator_loop),
 	END_LOOP(),
 };
 
@@ -8119,5 +8135,19 @@ const BehaviorScript bhv2639BallEater[] = {
 	CALL_NATIVE(bhv_2639BallEater_init),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_2639BallEater_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639FinalPresent[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_INT(oInteractType, INTERACT_GRABBABLE),
+    SET_INT(oInteractionSubtype, INT_SUBTYPE_HOLDABLE_NPC),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 50),
+    SET_HOME(),
+	CALL_NATIVE(bhv_2639FinalPresent_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639FinalPresent_loop),
 	END_LOOP(),
 };

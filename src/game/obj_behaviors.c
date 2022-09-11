@@ -574,7 +574,7 @@ void MakeCoinWithModel(struct Object *obj, s8 nCoins, ModelID32 mdl) {
     s8 count;
 
     for (count = 0; count < nCoins; count++) {
-        coin = spawn_object(obj, mdl, bhvMovingYellowCoin);
+        coin = spawn_object(obj, mdl, bhvYellowCoinNoBillboard);
         coin->oForwardVel = random_float() * 20;
         coin->oVelY = random_float() * 90 + 60;
         coin->oMoveAngleYaw = random_u16();
@@ -830,3 +830,4 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/2639A4DrainScrew.inc.c"
 #include "behaviors/2639SoccerBall.inc.c"
 #include "behaviors/2639BallEater.inc.c"
+#include "behaviors/2639FinalPresent.inc.c"

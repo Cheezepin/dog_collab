@@ -96,12 +96,20 @@ void Scavenger_DropGoods(struct Object *parent, u32 ID) {
         MODEL_2639PUMP,
         MODEL_2639ROPE,
         MODEL_2639BEACHBALL,
+
+
+
+        [10] = MODEL_2639EVERYTHINGABOVE,
     };
     // static BehaviorScript *_behavs[] = {
 
     // };
+    if (ID == 10) {
+        LaunchObject(o, bhv2639soda, _models[ID]);
+    } else {
+        MakeCoinWithModel(o, 1, _models[ID]);
+    }
 
-    MakeCoinWithModel(o, 1, _models[ID]);
 }
 
 void StarXYZ(u32 bp, f32 x, f32 y, f32 z) {
@@ -144,7 +152,7 @@ void Cam2639_CloseFocus(struct Camera *c) {
 void Cam2639_Main(struct Camera *c) {
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
     transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
-    CDebug(c);
+    // CDebug(c);
 }
 
 void Cam2639_OutwardSpiral(struct Camera *c) {

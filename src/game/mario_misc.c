@@ -161,10 +161,13 @@ static void toad_message_talking(void) {
             //     o->oToadMessageDialogId = _2639DIAG_A3RoomToadSodaFailure;
             //     break;
 
-            case _2639DIAG_A6PentToad2 ... _2639DIAG_A6PentToad6:
+            case _2639DIAG_A6PentToad2 ... _2639DIAG_A6PentToad5:
                 Scavenger_DropGoods(o, o->oToadMessageDialogId - _2639DIAG_A6PentToad2);
                 break;
 
+            case _2639DIAG_A6PentToad6:
+                Scavenger_DropGoods(o, 10);
+                break;
             
             case _2639DIAG_A1LobbyToadStarGranter:
                 if (_2639_BoB_A1_CaneCollected &&
@@ -223,8 +226,12 @@ void bhv_toad_message_loop(void) {
                 break;
         }
     }
+    // if (gCurrAreaIndex != 2 && gCurrActNum == 6) {
+    //     _2639_BoB_A1_ToadTalkLatch = 0;
+    // }
 }
 
+u32 _2639ToadAct6NeedsToChangeDialogue = 0;
 void bhv_angry_toad_message_init(void) {
     s32 dialogId = 0;
     static u32 AngryDialogTable[] = {
@@ -243,7 +250,13 @@ void bhv_angry_toad_message_init(void) {
     o->oToadMessageState = TOAD_MESSAGE_FADED;
     o->oOpacity = 81;
 
+    if (_2639ToadAct6NeedsToChangeDialogue) {
+         o->oToadMessageDialogId = _2639DIAG_A6PentToad6;
+         // _2639_BoB_A1_ToadTalkLatch = 0;
+     }
+
 }
+
 
 void bhv_angry_toad_message_loop(void) {
     static u32 AngryDialogTable[] = {
@@ -255,6 +268,16 @@ void bhv_angry_toad_message_loop(void) {
         _2639DIAG_A5LobbyToadGreeter,
         _2639DIAG_A6LobbyToadGreeter,
     };
+
+    struct Object *elv = cur_obj_nearest_object_with_behavior(bhv2639elevator);
+    if (elv && gCurrActNum == 6 && o->oToadMessageDialogId == _2639DIAG_A6LobbyToadGreeter) {
+        if (elv->oAction == 2 || elv->oAction == 9) {
+            _2639ToadAct6NeedsToChangeDialogue = 1;
+        }
+    }
+    
+
+
     if (in2639Level() && _2639_BoB_A1_ToadTalkLatch == 0) {
         gCurrentObject->oToadMessageState = TOAD_MESSAGE_TALKING;
         _2639_BoB_A1_ToadTalkLatch = 1;

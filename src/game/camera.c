@@ -4669,26 +4669,29 @@ void radial_camera_input(struct Camera *c) {
         }
     }
 
-    // Zoom in / enter C-Up
-    if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
-        if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
-            gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
-            play_sound_cbutton_up();
-        } else {
-            set_mode_c_up(c);
+    if (!in2639Level()) {
+        // Zoom in / enter C-Up
+        if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
+            if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
+                gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
+                play_sound_cbutton_up();
+            } else {
+                set_mode_c_up(c);
+            }
+        }
+
+        // Zoom out
+        if (gPlayer1Controller->buttonPressed & D_CBUTTONS) {
+            if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
+                gCameraMovementFlags |= CAM_MOVE_ALREADY_ZOOMED_OUT;
+                play_camera_buzz_if_cdown();
+            } else {
+                gCameraMovementFlags |= CAM_MOVE_ZOOMED_OUT;
+                play_sound_cbutton_down();
+            }
         }
     }
 
-    // Zoom out
-    if (gPlayer1Controller->buttonPressed & D_CBUTTONS) {
-        if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
-            gCameraMovementFlags |= CAM_MOVE_ALREADY_ZOOMED_OUT;
-            play_camera_buzz_if_cdown();
-        } else {
-            gCameraMovementFlags |= CAM_MOVE_ZOOMED_OUT;
-            play_sound_cbutton_down();
-        }
-    }
 }
 
 /**
@@ -4705,30 +4708,34 @@ void handle_c_button_movement(struct Camera *c) {
     s16 cSideYaw;
 
     // Zoom in
-    if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
-        if (c->mode != CAMERA_MODE_FIXED && (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT)) {
-            gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
-            play_sound_cbutton_up();
-        } else {
-            set_mode_c_up(c);
-            if (sZeroZoomDist > gCameraZoomDist) {
-                sZoomAmount = -gCameraZoomDist;
+    if (!in2639Level()) {
+        if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
+            if (c->mode != CAMERA_MODE_FIXED && (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT)) {
+                gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
+                play_sound_cbutton_up();
             } else {
-                sZoomAmount = gCameraZoomDist;
+                set_mode_c_up(c);
+                if (sZeroZoomDist > gCameraZoomDist) {
+                    sZoomAmount = -gCameraZoomDist;
+                } else {
+                    sZoomAmount = gCameraZoomDist;
+                }
             }
         }
     }
     if (c->mode != CAMERA_MODE_FIXED) {
         // Zoom out
-        if (gPlayer1Controller->buttonPressed & D_CBUTTONS) {
-            if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
-                gCameraMovementFlags |= CAM_MOVE_ALREADY_ZOOMED_OUT;
-                sZoomAmount = gCameraZoomDist + 400.f;
-                play_camera_buzz_if_cdown();
-            } else {
-                gCameraMovementFlags |= CAM_MOVE_ZOOMED_OUT;
-                sZoomAmount = gCameraZoomDist + 400.f;
-                play_sound_cbutton_down();
+        if (!in2639Level()) {
+            if (gPlayer1Controller->buttonPressed & D_CBUTTONS) {
+                if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
+                    gCameraMovementFlags |= CAM_MOVE_ALREADY_ZOOMED_OUT;
+                    sZoomAmount = gCameraZoomDist + 400.f;
+                    play_camera_buzz_if_cdown();
+                } else {
+                    gCameraMovementFlags |= CAM_MOVE_ZOOMED_OUT;
+                    sZoomAmount = gCameraZoomDist + 400.f;
+                    play_sound_cbutton_down();
+                }
             }
         }
 
@@ -5958,8 +5965,7 @@ struct CameraTrigger sCamBOB[] = {
 	{1, Cam2639_LogoCam, -417, -2141, -4114, 1742, 1742, 1742, 0xffff},
 	{1, Cam2639_CloseFocus, -417, -2141, -1704, 889, 889, 889, 0xffff},
 	{2, cam_bob_tower, -419, 6375, -2154, 5675, 5675, 5675, 0xffff},
-	{2, Cam2639_OutwardSpiral, 121, -5082, -2154, 3003, 3003, 3003, 0xffff},
-	{2, cam_bob_tower, -2836, -96, -2160, 2992, 2992, 2992, 0xffff},
+	{2, cam_bob_tower, -350, 2104, -2160, 3506, 2992, 2992, 0xffff},
 	{2, Cam2639_Elevator, -17, 3033, -2833, 803, 3055, 803, 0xffff},
 	NULL_TRIGGER
 };

@@ -2421,12 +2421,14 @@ BALL, tie a ROPE
 around it and the
 pH METER, and just
 chuck it into the
-fountain over
-there? Is that
-supposed to help
-any of us?! Here,
-take it and just
-throw it in there.
+fountain upstairs?
+Is that supposed
+to help any of us?!
+Here, I even gift
+wrapped it for you.
+Pick it up and just
+throw it in the
+fountain upstairs.
 I give up.)")
 
 

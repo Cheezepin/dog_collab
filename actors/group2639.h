@@ -53,4 +53,6 @@ extern void geo2639_ModulatePrim();
 
 #include "Jewel2639/geo_header.h"
 
+#include "epicpresent/geo_header.h"
+
 #endif
