@@ -2003,6 +2003,7 @@ const BehaviorScript bhvBreakableBox[] = {
     OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_DONT_CALC_COLL_DIST)),
     LOAD_COLLISION_DATA(breakable_box_seg8_collision),
     SET_FLOAT(oCollisionDistance, 1000),
+    SET_FLOAT(oDrawingDistance, 0x4000),
     CALL_NATIVE(bhv_init_room),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_breakable_box_loop),
@@ -2849,6 +2850,7 @@ const BehaviorScript bhvExclamationBox[] = {
     LOAD_COLLISION_DATA(exclamation_box_outline_seg8_collision_08025F78),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_FLOAT(oCollisionDistance, 300),
+    SET_FLOAT(oDrawingDistance, 0x4000),
     SET_HOME(),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_exclamation_box_loop),
@@ -3393,6 +3395,21 @@ const BehaviorScript bhvTree[] = {
     SET_INT(oInteractType, INTERACT_POLE),
     SET_HITBOX(/*Radius*/ 80, /*Height*/ 500),
     SET_INT(oIntangibleTimer, 0),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_pole_base_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvPalmTree[] = {
+    BEGIN(OBJ_LIST_POLELIKE),
+    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_OPACITY_FROM_CAMERA_DIST)),
+    LOAD_ANIMATIONS(oAnimations, wf_palm_tree_anims),
+    ANIMATE(0),
+    SET_INT(oInteractType, INTERACT_POLE),
+    SET_HITBOX(/*Radius*/ 80, /*Height*/ 1018),
+    SET_INT(oIntangibleTimer, 0),
+    SET_FLOAT(oDrawingDistance, 0x7fff),
+    CALL_NATIVE(bhv_init_room),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_pole_base_loop),
     END_LOOP(),
@@ -8149,6 +8166,15 @@ const BehaviorScript bhvBowserSnowball[] = {
     END_LOOP(),
 };
 
+// Koopa Atoll Objects
+const BehaviorScript bhvKokoTripletSpawner[] = {
+    BEGIN(OBJ_LIST_PUSHABLE),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    DROP_TO_FLOOR(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_koko_triplet_spawner_update),
+    END_LOOP(),
+};
 const BehaviorScript bhvWarpBox[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -8163,3 +8189,41 @@ const BehaviorScript bhvWarpBox[] = {
     END_LOOP(),
 };
 
+
+const BehaviorScript bhvJetski[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SILHOUETTE)), //! Silhouette doesn't show up in-game, due to combiner modes.
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 1000, /*Friction*/ 1000, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
+    LOAD_ANIMATIONS(oAnimations, jetski_anims),
+    ANIMATE(0),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_koopa_shell_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvSandPile[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(sandpile_collision),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
+    SCALE(/*Unused*/ 0, /*Field*/ 100),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 4000),
+    SET_FLOAT(oCollisionDistance, 500),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_sand_pile),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvSandPillar[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(sand_pillar_collision),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_DONT_CALC_COLL_DIST)),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 32000),
+    SET_FLOAT(oCollisionDistance, 32000),
+    CALL_NATIVE(bhv_sand_pillar_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_sand_pillar_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};

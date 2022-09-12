@@ -74,7 +74,7 @@ void bhv_koopa_shell_loop(void) {
                 o->oAction = KOOPA_SHELL_ACT_MARIO_RIDING;
             }
 
-            o->oFaceAngleYaw += 0x1000;
+            if (gCurrLevelNum != LEVEL_WF) { o->oFaceAngleYaw += 0x1000; }
             cur_obj_move_standard(-20);
             koopa_shell_spawn_sparkles(10.0f);
             shell_despawn();

@@ -701,6 +701,13 @@ void bhv_bowser_cutscene_loop(void);
 void bhv_door_cutscene_loop(void);
 //cheeze end
 
+//Koopa Atoll Objects
+void bhv_koko_triplet_spawner_update(void);
+void bhv_sand_pile(void);
+void bhv_sand_pillar_init(void);
+void bhv_sand_pillar_loop(void);
+//Koopa Atoll Objects ^
+
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 
 Gfx *geo_carousel_billboard(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx);

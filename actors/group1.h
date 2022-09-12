@@ -37,34 +37,6 @@ extern const Gfx heave_ho_seg5_dl_050149A8[];
 extern const Gfx heave_ho_seg5_dl_05014D80[];
 extern const struct Animation *const heave_ho_seg5_anims_0501534C[];
 
-// hoot
-extern const GeoLayout hoot_geo[];
-extern const Gfx hoot_seg5_dl_05001B80[];
-extern const Gfx hoot_seg5_dl_05001C00[];
-extern const Gfx hoot_seg5_dl_05001DF0[];
-extern const Gfx hoot_seg5_dl_05002EB0[];
-extern const Gfx hoot_seg5_dl_05002F10[];
-extern const Gfx hoot_seg5_dl_05002FD8[];
-extern const Gfx hoot_seg5_dl_05003038[];
-extern const Gfx hoot_seg5_dl_05003100[];
-extern const Gfx hoot_seg5_dl_05003160[];
-extern const Gfx hoot_seg5_dl_05003228[];
-extern const Gfx hoot_seg5_dl_05003288[];
-extern const Gfx hoot_seg5_dl_05003350[];
-extern const Gfx hoot_seg5_dl_050033B0[];
-extern const Gfx hoot_seg5_dl_05003478[];
-extern const Gfx hoot_seg5_dl_050034D8[];
-extern const Gfx hoot_seg5_dl_050035A0[];
-extern const Gfx hoot_seg5_dl_05003600[];
-extern const Gfx hoot_seg5_dl_050036C8[];
-extern const Gfx hoot_seg5_dl_05003728[];
-extern const Gfx hoot_seg5_dl_05004928[];
-extern const Gfx hoot_seg5_dl_05004A98[];
-extern const Gfx hoot_seg5_dl_05004B38[];
-extern const Gfx hoot_seg5_dl_05004CA8[];
-extern const Gfx hoot_seg5_dl_05004D48[];
-extern const struct Animation *const hoot_seg5_anims_05005768[];
-
 // thwomp
 extern const GeoLayout thwomp_geo[];
 extern const Gfx thwomp_seg5_dl_0500B570[];

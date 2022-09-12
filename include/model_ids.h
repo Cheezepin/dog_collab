@@ -343,7 +343,7 @@
 // group 1
 #define MODEL_BULLET_BILL                 0x54        // bullet_bill_geo
 #define MODEL_YELLOW_SPHERE               0x55        // yellow_sphere_geo
-#define MODEL_HOOT                        0x56        // hoot_geo
+#define MODEL_HOOT                        0x166        // hoot_geo
 #define MODEL_YOSHI_EGG                   0x57        // yoshi_egg_geo
 #define MODEL_THWOMP                      0x58        // thwomp_geo
 #define MODEL_HEAVE_HO                    0x59        // heave_ho_geo
@@ -729,5 +729,16 @@ enum _2639Models {
 #define MODEL_KOOPABOSS 0x145
 
 //CIAO BITCHES
+
+//Koopa Atoll Models
+
+#define MODEL_WF_PALM_TREE 0x190
+#define MODEL_KOKO 0x191
+#define MODEL_JETSKI 0x192
+#define MODEL_WF_CRATE 0x193
+#define MODEL_SANDPILE 0x194
+#define MODEL_SAND_PILLAR 0x195
+
+//Koopa Atoll Models ^
 
 #endif // MODEL_IDS_H

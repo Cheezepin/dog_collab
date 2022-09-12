@@ -13,6 +13,7 @@
 #include "src/game/texscroll/bitfs_texscroll.inc.h"
 #include "src/game/texscroll/castle_grounds_texscroll.inc.h"
 #include "src/game/texscroll/bowser_2_texscroll.inc.h"
+#include "src/game/texscroll/wf_texscroll.inc.h"
 #include "src/game/texscroll/lll_texscroll.inc.h"
 #include "src/game/texscroll/bits_texscroll.inc.h"
 #include "src/game/texscroll/ssl_texscroll.inc.h"

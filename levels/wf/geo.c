@@ -41,3 +41,12 @@
 #include "levels/wf/kickable_board/geo.inc.c"
 #include "levels/wf/tower_door/geo.inc.c"
 #include "levels/wf/areas/1/geo.inc.c"
+
+#include "levels/wf/geo.inc.c"
+
+#include "levels/wf/wf_palm_tree/geo.inc.c"
+#include "levels/wf/jetski/geo.inc.c"
+#include "levels/wf/koko/geo.inc.c"
+#include "levels/wf/crate/geo.inc.c"
+#include "levels/wf/sandpile/geo.inc.c"
+#include "levels/wf/sand_pillar/geo.inc.c"
