@@ -30,8 +30,9 @@ void bhv_sand_pile(void) {
             obj_mark_for_deletion(o->parentObj);
             spawn_object(o, MODEL_NONE, bhvStarKeyCollectionPuffSpawner);
             switch(o->oBehParams2ndByte) {
-                case 0: //coin
-                    spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);
+                case 0: //sand pillar
+                    sussy = spawn_object(o,MODEL_SAND_PILLAR,bhvSandPillar);
+                    sussy->oBehParams = o->oBehParams;
                 break;
                 case 1: //motos
                     spawn_object(o,MODEL_MOTOS,bhvMotos);
@@ -53,4 +54,13 @@ void bhv_sand_pile(void) {
                 }
         break;
         }
+}
+
+void bhv_sand_pillar_init(void) {
+    o->header.gfx.scale[1] = 0;
+}
+
+void bhv_sand_pillar_loop(void) {
+    f32 targetY = ((f32)((o->oBehParams >> 8) & 0xFF)) / 10.0f;
+    o->header.gfx.scale[1] = approach_f32_asymptotic(o->header.gfx.scale[1], targetY, 0.25f);
 }

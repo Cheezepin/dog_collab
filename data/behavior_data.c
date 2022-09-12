@@ -8213,3 +8213,17 @@ const BehaviorScript bhvSandPile[] = {
         CALL_NATIVE(bhv_sand_pile),
     END_LOOP(),
 };
+
+const BehaviorScript bhvSandPillar[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(sand_pillar_collision),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_DONT_CALC_COLL_DIST)),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 32000),
+    SET_FLOAT(oCollisionDistance, 32000),
+    CALL_NATIVE(bhv_sand_pillar_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_sand_pillar_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};

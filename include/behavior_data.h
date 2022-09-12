@@ -724,6 +724,7 @@ extern const BehaviorScript bhvPalmTree[];
 extern const BehaviorScript bhvKokoTripletSpawner[];
 extern const BehaviorScript bhvJetski[];
 extern const BehaviorScript bhvSandPile[];
+extern const BehaviorScript bhvSandPillar[];
 //Koopa Atoll Objects ^
 
 #endif // BEHAVIOR_DATA_H

@@ -49,3 +49,4 @@
 #include "levels/wf/koko/geo.inc.c"
 #include "levels/wf/crate/geo.inc.c"
 #include "levels/wf/sandpile/geo.inc.c"
+#include "levels/wf/sand_pillar/geo.inc.c"

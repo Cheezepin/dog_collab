@@ -75,7 +75,7 @@ static struct InteractionHandler sInteractionHandlers[] = {
     { INTERACT_DOOR,           interact_door },
     { INTERACT_CANNON_BASE,    interact_cannon_base },
     { INTERACT_IGLOO_BARRIER,  interact_igloo_barrier },
-    { INTERACT_TORNADO,        interact_tornado },
+    //{ INTERACT_TORNADO,        interact_tornado },
     { INTERACT_WHIRLPOOL,      interact_whirlpool },
     { INTERACT_STRONG_WIND,    interact_strong_wind },
     { INTERACT_PINWHEEL_WIND,    interact_pinwheel_wind },

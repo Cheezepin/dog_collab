@@ -82,3 +82,5 @@
 #include "levels/wf/crate/model.inc.c"
 #include "levels/wf/sandpile/model.inc.c"
 #include "levels/wf/sandpile/collision.inc.c"
+#include "levels/wf/sand_pillar/model.inc.c"
+#include "levels/wf/sand_pillar/collision.inc.c"

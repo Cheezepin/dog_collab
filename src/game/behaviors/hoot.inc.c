@@ -142,7 +142,7 @@ void hoot_act_ascent(f32 xPrev, f32 zPrev) {
         o->header.gfx.animInfo.animFrame = 1;
     }
 
-    if (o->oPosY > 6500.0f) {
+    if (o->oPosY > 4000.0f) {
         o->oAction = HOOT_ACT_CARRY;
     }
 
