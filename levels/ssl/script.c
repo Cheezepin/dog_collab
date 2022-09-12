@@ -85,7 +85,7 @@ const LevelScript level_ssl_entry[] = {
 		MARIO_POS(0x01, 30, -3, -7637, 6),
 		TERRAIN(ssl_area_1_collision),
 		MACRO_OBJECTS(ssl_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_SLIDE),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_METEOR_HERD),
 		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -110,7 +110,7 @@ const LevelScript level_ssl_entry[] = {
 		TERRAIN(ssl_area_2_collision),
 		ROOMS(ssl_area_2_collision_rooms),
 		MACRO_OBJECTS(ssl_area_2_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_SLIDE),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_METEOR_HERD),
 		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -135,7 +135,7 @@ const LevelScript level_ssl_entry[] = {
 		OBJECT(MODEL_NONE, 11076, -1639, -656, 0, 0, 0, 0x00000000, bhvHiddenRedCoinStar),
 		TERRAIN(ssl_area_3_collision),
 		MACRO_OBJECTS(ssl_area_3_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_SLIDE),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_METEOR_HERD),
 		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */

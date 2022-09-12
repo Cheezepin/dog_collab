@@ -2523,7 +2523,7 @@ struct HubSelection hubSelections[3][6] = {
     {
         {0x9300, 0x1400, 6807.0f, 0x8B00, 0x2100, 5120.0f, 0xF800, TEXT_C4I, TEXT_C4, TEXT_C4A, 0x6, 4},
         {0xAE00, 0x400,  6551.0f, 0xAC00, 0xD00,  5120.0f, 0x0000, TEXT_C5I, TEXT_C5, TEXT_C5A, 0x7, 3},
-        {0x9D50, 0xFDB0, 7680.0f, 0x0,    0x0,    0.0f,    0x0000, TEXT_C6I, TEXT_C6, TEXT_C6A, 0x8, 1},
+        {0x9D50, 0xFDB0, 7680.0f, 0x0,    0x0,    0.0f,    0x0000, TEXT_C6I, TEXT_C6, TEXT_C6A, 0x8, 8},
         {0xB000, 0x1540, 7319.0f, 0xAE30, 0x2060, 5120.0f, 0x0000, TEXT_B2I, TEXT_B2, TEXT_B2A, 0x9, 16},
         NULL_ENTRY,
         NULL_ENTRY,
@@ -2777,7 +2777,7 @@ u32 starColors[] = {
     0xFF42B0FF, //cumulus correctional center
     0x932BC4FF, //forbidden factory
     0xFFE800FF, //feudal fortress
-    0x808080FF, //empty
+    0x00007DFF, //awe-inspiring spires
     0xDDCEFFFF, //bowsers scuba tower
 };
 

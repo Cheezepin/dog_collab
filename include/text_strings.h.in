@@ -350,8 +350,8 @@
 #define TEXT_C5A "Author: CowQuack"
 
 #define TEXT_C6I "Course 6"
-#define TEXT_C6  "Upturned Deeps"
-#define TEXT_C6A "Author: Axollyon"
+#define TEXT_C6  "Awe-Inspiring Spires"
+#define TEXT_C6A "Author: KeyBlader"
 
 #define TEXT_B2I "Bowser 2"
 #define TEXT_B2  "Bowser's Rainbow Rings"

@@ -59,6 +59,7 @@ enum SeqId {
     SEQ_LEVEL_FEUDAL_CASTLE,          // 0x2E
     SEQ_OVERWORLD,                    // 0x2F
     SEQ_TRAINING,                     // 0x30
+    SEQ_METEOR_HERD,                  // 0x31
     SEQ_COUNT
 };
 

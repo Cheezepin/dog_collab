@@ -314,6 +314,7 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_LEVEL_FEUDAL_CASTLE
     70,  // SEQ_OVERWORLD
     70,  // SEQ_TRAINING
+    70,  // SEQ_METEOR_HERD
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,
