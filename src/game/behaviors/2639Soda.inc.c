@@ -32,4 +32,6 @@ void bhv_2639Soda_loop(void) {
     	o->o2639SodaLatch = 1;
     }
 
+    cur_obj_move_standard(78);
+
 }

@@ -9,7 +9,7 @@
  * You may also need to change sLevelsWithRooms in object_helpers.c
  * TODO: separate this into separate defines, behavior params, or make these mechanics otherwise dynamic
 */
-// #define ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
+#define ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
 
 // Disable lives and hide the lives counter
 #define DISABLE_LIVES

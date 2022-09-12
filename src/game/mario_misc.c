@@ -2,6 +2,7 @@
 
 #include "sm64.h"
 #include "area.h"
+#include "debug.h"
 #include "audio/external.h"
 #include "behavior_actions.h"
 #include "behavior_data.h"
@@ -83,6 +84,7 @@ struct GraphNodeObject gMirrorMario;  // copy of Mario's geo node for drawing mi
 // (message NPC related things, the Mario head geo, and Mario geo
 // functions)
 
+
 #ifdef KEEP_MARIO_HEAD
 /**
  * Geo node script that draws Mario's head on the title screen.
@@ -121,14 +123,25 @@ static void toad_message_opaque(void) {
         if (o->oInteractStatus & INT_STATUS_INTERACTED) {
             o->oInteractStatus = INT_STATUS_NONE;
             o->oToadMessageState = TOAD_MESSAGE_TALKING;
-            play_toads_jingle();
+            if (!in2639Level(o)) {
+                play_toads_jingle();
+            }
         }
     }
 }
 
 static void toad_message_talking(void) {
-    if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_DOWN,
-        DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, o->oToadMessageDialogId)) {
+    s32 result;
+
+    if (in2639Level()) {
+        result = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_DOWN,
+            DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, o->oToadMessageDialogId);
+    } else {
+        result = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_DOWN,
+            DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, o->oBehParams >> 16);
+    }
+
+    if (result) {
         o->oToadMessageRecentlyTalked = TRUE;
         o->oToadMessageState = TOAD_MESSAGE_FADING;
         switch (o->oToadMessageDialogId) {
@@ -144,19 +157,30 @@ static void toad_message_talking(void) {
                 o->oToadMessageDialogId = TOAD_STAR_3_DIALOG_AFTER;
                 bhv_spawn_star_no_level_exit(STAR_BP_ACT_3);
                 break;
-            // case _2639DIAG_A1LobbyToadGreeter:
-            //     o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
+            // case _2639DIAG_A3RoomToadGibSoda:
+            //     o->oToadMessageDialogId = _2639DIAG_A3RoomToadSodaFailure;
             //     break;
+
+            case _2639DIAG_A6PentToad2 ... _2639DIAG_A6PentToad5:
+                Scavenger_DropGoods(o, o->oToadMessageDialogId - _2639DIAG_A6PentToad2);
+                break;
+
+            case _2639DIAG_A6PentToad6:
+                Scavenger_DropGoods(o, 10);
+                break;
+            
             case _2639DIAG_A1LobbyToadStarGranter:
                 if (_2639_BoB_A1_CaneCollected &&
                     _2639_BoB_A1_SunglassesCollected
-                    ) {
+                ) {
                     bhv_spawn_star_get_outta_here(0);
                 }
                 break;
-
         }
     }
+
+    // print_text_fmt_int(32, 32, "T %d", o->oToadMessageDialogId);
+    // print_text_fmt_int(50, 50, "B %d", o->oBehParams >> 16);
 }
 
 static void toad_message_opacifying(void) {
@@ -172,17 +196,106 @@ static void toad_message_fading(void) {
 }
 
 void bhv_toad_message_loop(void) {
-    if (gCurrLevelNum = LEVEL_BOB && _2639_BoB_A1_ToadTalkLatch == 0
-        && ((o->oBehParams) == (_2639DIAG_A1LobbyToadGreeter << 24))
-    ) {
+
+    struct Object *sodaObj = cur_obj_nearest_object_with_behavior(bhv2639soda);
+
+    if (sodaObj != NULL) {
+        if (dist_between_objects(o, sodaObj) < 300) {
+            bhv_spawn_star_get_outta_here(2);
+            obj_mark_for_deletion(sodaObj);
+        }
+    }
+
+    if (gCurrentObject->header.gfx.node.flags & GRAPH_RENDER_ACTIVE) {
+        gCurrentObject->oInteractionSubtype = 0;
+        switch (gCurrentObject->oToadMessageState) {
+            case TOAD_MESSAGE_FADED:
+                toad_message_faded();
+                break;
+            case TOAD_MESSAGE_OPAQUE:
+                toad_message_opaque();
+                break;
+            case TOAD_MESSAGE_OPACIFYING:
+                toad_message_opacifying();
+                break;
+            case TOAD_MESSAGE_FADING:
+                toad_message_fading();
+                break;
+            case TOAD_MESSAGE_TALKING:
+                toad_message_talking();
+                break;
+        }
+    }
+    // if (gCurrAreaIndex != 2 && gCurrActNum == 6) {
+    //     _2639_BoB_A1_ToadTalkLatch = 0;
+    // }
+}
+
+u32 _2639ToadAct6NeedsToChangeDialogue = 0;
+void bhv_angry_toad_message_init(void) {
+    s32 dialogId = 0;
+    static u32 AngryDialogTable[] = {
+        0,
+        _2639DIAG_A1LobbyToadGreeter,
+        _2639DIAG_A2LobbyToadGreeter,
+        _2639DIAG_A3LobbyToadGreeter,
+        _2639DIAG_A4LobbyToadGreeter,
+        _2639DIAG_A5LobbyToadGreeter,
+        _2639DIAG_A6LobbyToadGreeter,
+    };
+    dialogId = AngryDialogTable[gCurrActNum];
+
+    o->oToadMessageDialogId = dialogId;
+    o->oToadMessageRecentlyTalked = FALSE;
+    o->oToadMessageState = TOAD_MESSAGE_FADED;
+    o->oOpacity = 81;
+
+    if (_2639ToadAct6NeedsToChangeDialogue) {
+         o->oToadMessageDialogId = _2639DIAG_A6PentToad6;
+         // _2639_BoB_A1_ToadTalkLatch = 0;
+     }
+
+}
+
+
+void bhv_angry_toad_message_loop(void) {
+    static u32 AngryDialogTable[] = {
+        0,
+        _2639DIAG_A1LobbyToadGreeter,
+        _2639DIAG_A2LobbyToadGreeter,
+        _2639DIAG_A3LobbyToadGreeter,
+        _2639DIAG_A4LobbyToadGreeter,
+        _2639DIAG_A5LobbyToadGreeter,
+        _2639DIAG_A6LobbyToadGreeter,
+    };
+
+    struct Object *elv = cur_obj_nearest_object_with_behavior(bhv2639elevator);
+    if (elv && gCurrActNum == 6 && o->oToadMessageDialogId == _2639DIAG_A6LobbyToadGreeter) {
+        if (elv->oAction == 2 || elv->oAction == 9) {
+            _2639ToadAct6NeedsToChangeDialogue = 1;
+        }
+    }
+    
+
+
+    if (in2639Level() && _2639_BoB_A1_ToadTalkLatch == 0) {
         gCurrentObject->oToadMessageState = TOAD_MESSAGE_TALKING;
         _2639_BoB_A1_ToadTalkLatch = 1;
     }
 
-    if (_2639_BoB_A1_CaneCollected &&
-                    _2639_BoB_A1_SunglassesCollected
+    if (_2639_BoB_A1_CaneCollected == 1 &&
+        _2639_BoB_A1_SunglassesCollected == 1
     ) {
         o->oToadMessageDialogId = _2639DIAG_A1LobbyToadStarGranter;
+    }
+
+    struct Object *sodaObj = cur_obj_nearest_object_with_behavior(bhv2639soda);
+
+    if (sodaObj != NULL) {
+        if (dist_between_objects(o, sodaObj) < 300) {
+            bhv_spawn_star_get_outta_here(2);
+            obj_mark_for_deletion(sodaObj);
+        }
     }
 
     if (gCurrentObject->header.gfx.node.flags & GRAPH_RENDER_ACTIVE) {
@@ -214,7 +327,13 @@ void bhv_toad_message_init(void) {
 #else
     s32 starCount = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
 #endif
-    s32 dialogId = GET_BPARAM1(o->oBehParams);
+
+    s32 dialogId = 0;
+    if (in2639Level()) {
+        dialogId = o->oBehParams >> 16;
+    } else {
+        dialogId = GET_BPARAM1(o->oBehParams);
+    }
     s32 enoughStars = TRUE;
 
     switch (dialogId) {

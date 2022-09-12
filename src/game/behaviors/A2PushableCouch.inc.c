@@ -39,6 +39,10 @@ f32 CouchXZDistSq(Vec3f x, Vec3f y) {
 
 void bhv_A2PushableCouch_loop(void) {
     o->oForwardVel = 0;
+    if (gCurrActNum == 6) {
+        return;
+    }
+
 	if (o->o2639SecretActivated) {
 		return;
 	}

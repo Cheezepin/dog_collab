@@ -406,6 +406,15 @@ void init_mario_after_warp(void) {
     if (gCurrDemoInput == NULL) {
         set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
 
+        // someone2639
+        if (gCurrentArea->musicParam == SEQ_CUSTOM_MUSIC2639) {
+            for (int i = 0; i < 16; i++) {
+                #include "audio/load.h"
+                // fade_channel_volume_scale(SEQ_PLAYER_LEVEL, i, 0, 0);
+                gSequencePlayers[SEQ_PLAYER_LEVEL].channels[i]->volumeScale = 0;;
+            }
+        }
+
         if (gMarioState->flags & MARIO_METAL_CAP) {
             play_cap_music(SEQUENCE_ARGS(4, SEQ_EVENT_METAL_CAP));
         }
@@ -530,6 +539,22 @@ void do_the_vertical_instant_warp(void) {
 
     gMarioState->area->camera->yaw = cameraAngle;
 }
+
+// someone2639
+void teleportMario(f32 x, f32 y, f32 z) {
+    gMarioState->pos[0] = x;
+    gMarioState->pos[1] = y;
+    gMarioState->pos[2] = z;
+
+    gMarioState->marioObj->oPosX = gMarioState->pos[0];
+    gMarioState->marioObj->oPosY = gMarioState->pos[1];
+    gMarioState->marioObj->oPosZ = gMarioState->pos[2];
+
+    gMarioObject->header.gfx.pos[0] = gMarioState->pos[0];
+    gMarioObject->header.gfx.pos[1] = gMarioState->pos[1];
+    gMarioObject->header.gfx.pos[2] = gMarioState->pos[2];
+}
+
 
 void check_instant_warp(void) {
     s16 cameraAngle;
@@ -1408,6 +1433,8 @@ s32 lvl_init_from_save_file(UNUSED s16 initOrUpdate, s32 levelNum) {
     return levelNum;
 }
 
+u32 hasVisitedBOB = 0;
+
 s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
     s32 warpCheckpointActive = sWarpCheckpointActive;
 
@@ -1416,13 +1443,21 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
 
     
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
+
 	if (gCurrLevelNum == LEVEL_CASTLE) return 0;
 	if (gCurrLevelNum == LEVEL_SSL) return 0;
 	if (gCurrLevelNum == LEVEL_BITS) return 0;
+    if (hasVisitedBOB == 1) return 0;
+
+    if (gCurrLevelNum == LEVEL_BOB) {
+        hasVisitedBOB = 1;
+    }
 	/*if (gCurrLevelNum == LEVEL_BOWSER_2) return 0;
 	if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) return 0;
+	if (gCurrLevelNum == LEVEL_BOWSER_2) return 0;
 	if (gCurrLevelNum == LEVEL_BITDW) return 0;
 	if (gCurrLevelNum == LEVEL_BITFS) return 0;
+
 
     if (gCurrDemoInput != NULL || gCurrCreditsEntry != NULL || gCurrCourseNum == COURSE_NONE) {
         return FALSE;

@@ -1978,42 +1978,376 @@ descend slower!")
 
 #define C_NORMAL "@--------"
 
+// someone2639 dialog..... スタート!!
+
+DEFINE_DIALOG(_2639DIAG_LEVELINTRO, 1, 4, 30, 200, R"(Welcome to...
+The Hair-Raising
+High Rise!
+
+This luxurious space
+offers the latest in
+technology and design!
+Come on in!
+This building wouldn't
+have existed without
+credits, though!
+Let's roll them!
+ArcticJaguar725
+ - The 16 track streamed M64
+   that allowed me to make
+   this music
+The Dog Collab Team
+ - Making a great hack
+
+Special thanks to
+Arthurtilly for
+turnstile code and
+moving this hack
+along at a good pace.
+
+NO thanks to Lenovo,
+whose faulty nvme drives
+caused this level to be
+delayed a year
+
+
+)")
+
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Intro, 1, 4, 30, 200, R"(Inside our beautiful
+high-rise, we have an
+assortment of artifacts!
+Browse every big project
+someone2639 started instead
+of finishing his level!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Kirby64, 1, 4, 30, 200, R"(Kirby 64 Decomp:
+Hot off the heels of
+finding a debug cheat
+code in the game, more
+improvements to the base
+repository followed!
+We got a revamped asset
+system that could handle
+all the texture types
+in the game, along with
+a milestone 10%% completion!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_sUGGOH, 1, 4, 30, 200, R"(sUGGOH:
+someone2639's Ultra-
+Galactic Game of Horse!
+It's a homebrew made for
+the n64brew 2021 jam, and
+it features the first use
+of the Turbo3D graphics
+system in 20 years!
+It's also somewhat fun,
+so go play it!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_AnimeFighter, 1, 4, 30, 200, R"(Anime Fighter 64:
+This one was a collaboration
+between procrastinators
+someone2639 and Cheezepin,
+putting a whole Tekken-like
+fighter into Mario 64!
+It will also eventually start
+getting updates whenever
+we figure out easier
+character imports!
+Stay tuned!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_HVQM, 1, 4, 30, 200, R"(My Dress-up Darling 64:
+someone2639 made a hack
+that contained both the
+first ever use of HVQM
+compressed FMV in SM64,
+and the most sobering
+rants about anime yet,
+instead of working on his
+level.
+Devilish!)")
+
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_1080Decomp, 1, 4, 30, 200, R"(1080 Snowboarding Decomp:
+As if someone2639 needed
+more things to work on,
+he started a brand new
+game decompilation!
+At this point, you'd think
+working on this level
+would have been easier...)")
+
+// ACT 1
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 4, 30, 200, "\n\
 Hey you!\n\
 No pets allowed!\n\
 ")
 
-
-DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, "(\n\
-Mario! I was\n\
-looking for you!\n\
-I see you brought your dog,\n\
-but that angry\n\
-@FF0000FFFront Desk Toad" C_NORMAL "\n\
-isn't having any of it!\n\
-But maybe there's a\n\
-loophole in the law\n\
-you could exploit?\n\
-You're totally allowed\n\
-to bring in\n\
-service animals,\n\
-so all we need to do\n\
-is find a way to\n\
-make you look like\n\
-you're blind!\n\
-See if you can grab a\n\
-@00FF00FFCANE" C_NORMAL " and @34ebe1FFSUNGLASSES" C_NORMAL",\n\
-Then talk to the\n\
-@FF0000FFFront Desk Toad" C_NORMAL " again.\n\
-Maybe he'll budge then.\n\
-)")
+DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, R"(Mario! I was
+looking for you!
+I see you brought your dog,
+but that angry
+@FF0000FFFront Desk Toad@--------
+isn't having any of it!
+But maybe there's a
+loophole in the law
+you could exploit?
+You're totally allowed
+to bring in
+service animals,
+so all we need to do
+is find a way to
+make you look like
+you're blind!
+See if you can grab a
+@00FF00FFCANE@-------- and @34ebe1FFSUNGLASSES@--------,
+Then talk to the
+@FF0000FFFront Desk Toad@-------- again.
+Maybe he'll budge then.)")
 
 
-DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, "Hey you!\n\
-You didn't tell me that was a service dog!\n\
-Now I gotta get the exemption form!\n\
-")
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, R"(Hey you!
+You didn't tell me
+that was a service dog!
+Now I gotta get the
+exemption form!
+Let me also get
+something for the dog.
+Take it as my apology.)")
+
+// ACT 2
+
+DEFINE_DIALOG(_2639DIAG_A2LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+The Princess needs help
+on floor 2!
+Get your butt into that
+elevator and see what
+she wants!)")
+
+DEFINE_DIALOG(_2639DIAG_A2RoomPeachGreeter, 1, 4, 30, 200, \
+R"((pretend this is
+Princess Peach talking)
+Hey Mario! How's it
+been?
+I'm almost done setting
+up my room! All that's
+left is to get these
+couches organized.
+I'm not a fan of
+you bringing a
+dog here, but
+I'll let you by-
+On one condition.
+Don't let the dog
+destroy the couches.
+
+If you see the dog
+running towards a
+tasty couch, run
+into them and stop it!)")
+
+// ACT 3
+
+DEFINE_DIALOG(_2639DIAG_A3LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+There's a party on
+Floor 3!
+I don't mind because they
+don't make noise, but
+definitely go check it out!)")
+
+DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, \
+R"(Heeeey, Mario!
+I'm in charge of
+setting up a party
+and I think I'm-
+just about done.
+Now to wait for
+all the guests I
+invited to come.
+But Enough about me!
+I see you have a
+new heckin
+wholesome pupper!
+I've got just the
+treat, but I can't
+give it to you for
+free!
+Grab me a soda from
+the lobby real quick
+and I'll think about it.)")
+
+// Act 4
+
+DEFINE_DIALOG(_2639DIAG_A4LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you! Floor 4's
+got a water problem!
+You're the plumber, right?
+Go fix it! I'm not paid
+enough for this...)")
+
+DEFINE_DIALOG(_2639DIAG_A4RoomToadPoolBoy, 1, 4, 30, 200, \
+R"(Hi Mario!
+I'm trying to clean
+the pool for the new
+guests, but I just
+realized that I
+can't actually swim!
+Can you go down to
+the bottom and
+unscrew the drain?
+There's something
+for your dog
+waiting there too)")
+
+// Sct 5
+
+DEFINE_DIALOG(_2639DIAG_A5LobbyToadGreeter, 1, 4, 30, 200, \
+R"(Hey you!
+What are you
+doing here?
+
+They want you in the
+basement!
+Get down there using
+the elevator!)")
+
+DEFINE_DIALOG(_2639DIAG_A5ToadBasement, 1, 4, 30, 200, \
+R"(Hi Mario!
+Welcome to our
+sports center!
+
+It's a nice place
+with a ton of
+things to do,
+but right now
+we're closed.
+Would you help
+us out?
+
+There's 5 soccer
+balls in the field.
+Just kick them
+to the goal.)")
+
+
+
+
+// act 6
+
+
+DEFINE_DIALOG(_2639DIAG_A6LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Hey you!
+I've seen you here a few
+times.
+Why not check out the roof?
+We have a really neat
+@34ebe1FFJewel or whatever@--------
+that you should see.)")
+
+// SCAVENGER HUNT
+DEFINE_DIALOG(_2639DIAG_A6PentToad1, 1, 3, 30, 200, \
+R"(Mario! it's horrible!
+The @34ebe1FFJewel or whatever@-------- has
+gone missing! It was
+here like 5 minutes
+ago!
+The thief can't have
+gotten far! Take the
+elevator down and
+find out who did it!)")
+
+// POOL toad
+DEFINE_DIALOG(_2639DIAG_A6PentToad2, 1, 3, 30, 200, \
+R"(What? The @34ebe1FFJewel
+or whatever@-------- is gone?
+I didn't see
+anyone suspicious,
+but I can give you
+this pH meter in
+case it fell
+into some body of
+water...)")
+// PARTY TOAD
+DEFINE_DIALOG(_2639DIAG_A6PentToad3, 1, 3, 30, 200, \
+R"(A @34ebe1FFJewel or whatever@--------?
+Never even heard of it.
+I could give you the
+pump to this
+bouncehouse though,
+since the party just
+about ended.)")
+// SIGN toad
+DEFINE_DIALOG(_2639DIAG_A6PentToad4, 1, 3, 30, 200, \
+R"((Pretend this is
+Princess Peach)
+Man, dragging in these
+couches was kind of
+hard on my own, so
+I brought a rope with
+me to even the load.
+Maybe it works for you.)")
+// SPORTS TOAD
+DEFINE_DIALOG(_2639DIAG_A6PentToad5, 1, 3, 30, 200, \
+R"(Weren't you just
+here? Anyway, I'm
+in the basement of
+this place, so I
+havent seen this
+@34ebe1FFJewel or whatever@--------.
+But I can give you
+a comically large
+beach ball, just
+in case.)")
+
+// LOBBY TOAD AGAIN
+
+DEFINE_DIALOG(_2639DIAG_A6PentToad6, 1, 3, 30, 200, \
+R"(What the FUCK
+did all those
+toads give you??
+How am I
+supposed to work
+with all of this
+junk?! Am I
+expected to just
+use the PUMP to
+inflate the BEACH
+BALL, tie a ROPE
+around it and the
+pH METER, and just
+chuck it into the
+fountain upstairs?
+Is that supposed
+to help any of us?!
+Here, I even gift
+wrapped it for you.
+Pick it up and just
+throw it in the
+fountain upstairs.
+I give up.)")
+
+
+DEFINE_DIALOG(_2639DIAG_A6PentToad7, 1, 3, 30, 200, \
+R"(Well, whaddaya know?
+Your stupid dog had it
+the whole time!
+Now that you
+technically found
+the @34ebe1FFJewel or whatever@--------,
+I should be giving
+you a reward!
+
+This feels like the
+ending to a
+Saturday morning
+cartoon!!! I need
+a day off...)")
+
+
+
+
 
 DEFINE_DIALOG(CHEEZE_DIALOG_1, 1, 3, 30, 200, "\
 Mario, it's been a month\n\

@@ -33,10 +33,10 @@ const BehaviorScript bhv%s[] = {
 		CALL_NATIVE(bhv_%s_loop),
 	END_LOOP(),
 };
-""" % (nm.capitalize(), nm, nm))
+""" % (nm, nm, nm))
 	with open(B_H, "a") as f:
 		f.write("\n")
-		f.write("extern const BehaviorScript bhv%s[];" % nm.capitalize())
+		f.write("extern const BehaviorScript bhv%s[];" % nm)
 
 import sys
 bname = sys.argv[1]

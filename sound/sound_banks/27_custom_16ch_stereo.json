@@ -1,0 +1,208 @@
+{
+    "date": "1996-03-19",
+    "sample_bank": "streamed_audio",
+    "envelopes": {
+        "envelope0": [
+            [1, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
+        ]
+    },
+    "instruments": {
+        "inst0": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_0_L"
+        },
+        "inst1": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_0_R"
+        },
+        "inst2": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_1_L"
+        },
+        "inst3": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_1_R"
+        },
+        "inst4": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_2_L"
+        },
+        "inst5": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_2_R"
+        },
+        "inst6": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_3_L"
+        },
+        "inst7": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_3_R"
+        },
+        "inst8": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_4_L"
+        },
+        "inst9": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_4_R"
+        },
+        "inst10": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_5_L"
+        },
+        "inst11": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_5_R"
+        },
+        "inst12": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_6_L"
+        },
+        "inst13": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_6_R"
+        },
+        "inst14": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_7_L"
+        },
+        "inst15": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_7_R"
+        },
+        "inst16": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_8_L"
+        },
+        "inst17": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_8_R"
+        },
+        "inst18": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_9_L"
+        },
+        "inst19": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_9_R"
+        },
+        "inst20": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_A_L"
+        },
+        "inst21": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_A_R"
+        },
+        "inst22": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_B_L"
+        },
+        "inst23": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_B_R"
+        },
+        "inst24": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_C_L"
+        },
+        "inst25": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_C_R"
+        },
+        "inst26": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_D_L"
+        },
+        "inst27": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_D_R"
+        },
+        "inst28": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_E_L"
+        },
+        "inst29": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_E_R"
+        },
+        "inst30": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_F_L"
+        },
+        "inst31": {
+            "release_rate": 10,
+            "envelope": "envelope0",
+            "sound": "custom_16ch_stereo_F_R"
+        }
+    },
+    "instrument_list": [
+        "inst0",
+        "inst1",
+        "inst2",
+        "inst3",
+        "inst4",
+        "inst5",
+        "inst6",
+        "inst7",
+        "inst8",
+        "inst9",
+        "inst10",
+        "inst11",
+        "inst12",
+        "inst13",
+        "inst14",
+        "inst15",
+        "inst16",
+        "inst17",
+        "inst18",
+        "inst19",
+        "inst20",
+        "inst21",
+        "inst22",
+        "inst23",
+        "inst24",
+        "inst25",
+        "inst26",
+        "inst27",
+        "inst28",
+        "inst29",
+        "inst30",
+        "inst31"
+    ]
+}

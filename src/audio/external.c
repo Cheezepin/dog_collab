@@ -81,7 +81,7 @@ enum DialogSpeakers {
 
 #define _ 0xFF
 
-u8 sDialogSpeaker[] = {
+u8 sDialogSpeaker[900] = {
     //       0      1      2      3      4      5      6      7      8      9
     /* 0*/ _,     _,  _,  _,  _,  _, BOMB, BOMB, BOMB,     GRUNT,
     /* 1*/ _,     _,     _,     _,     _,     BOMB,     _,     KBOMB, _,     _,
@@ -106,8 +106,8 @@ u8 sDialogSpeaker[] = {
     _, _, _, _, _, _, _, _, _,
 };
 #undef _
-STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
-              "change this array if you are adding dialogs");
+// STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
+//               "change this array if you are adding dialogs");
 
 s32 sDialogSpeakerVoice[] = {
     SOUND_OBJ_UKIKI_CHATTER_LONG,
@@ -265,55 +265,56 @@ u16 sLevelAcousticReaches[LEVEL_COUNT] = {
 
 // Default volume for background music sequences (playing on player 0).
 u8 sBackgroundMusicDefaultVolume[] = {
-    127, // SEQ_SOUND_PLAYER
-    80,  // SEQ_EVENT_CUTSCENE_COLLECT_STAR
-    80,  // SEQ_MENU_TITLE_SCREEN
-    75,  // SEQ_LEVEL_GRASS
-    70,  // SEQ_LEVEL_INSIDE_CASTLE
-    75,  // SEQ_LEVEL_WATER
-    75,  // SEQ_LEVEL_HOT
-    75,  // SEQ_LEVEL_BOSS_KOOPA
-    70,  // SEQ_LEVEL_SNOW
-    65,  // SEQ_LEVEL_SLIDE
-    80,  // SEQ_LEVEL_SPOOKY
-    65,  // SEQ_EVENT_PIRANHA_PLANT
-    85,  // SEQ_LEVEL_UNDERGROUND
-    75,  // SEQ_MENU_STAR_SELECT
-    65,  // SEQ_EVENT_POWERUP
-    70,  // SEQ_EVENT_METAL_CAP
-    65,  // SEQ_EVENT_KOOPA_MESSAGE
-    70,  // SEQ_LEVEL_KOOPA_ROAD
-    70,  // SEQ_EVENT_HIGH_SCORE
-    65,  // SEQ_EVENT_MERRY_GO_ROUND
-    80,  // SEQ_EVENT_RACE
-    70,  // SEQ_EVENT_CUTSCENE_STAR_SPAWN
-    85,  // SEQ_EVENT_BOSS
-    75,  // SEQ_EVENT_CUTSCENE_COLLECT_KEY
-    75,  // SEQ_EVENT_ENDLESS_STAIRS
-    85,  // SEQ_LEVEL_BOSS_KOOPA_FINAL
-    70,  // SEQ_EVENT_CUTSCENE_CREDITS
-    80,  // SEQ_EVENT_SOLVE_PUZZLE
-    80,  // SEQ_EVENT_TOAD_MESSAGE
-    70,  // SEQ_EVENT_PEACH_MESSAGE
-    75,  // SEQ_EVENT_CUTSCENE_INTRO
-    80,  // SEQ_EVENT_CUTSCENE_VICTORY
-    70,  // SEQ_EVENT_CUTSCENE_ENDING
-    65,  // SEQ_MENU_FILE_SELECT
-    0,   // SEQ_EVENT_CUTSCENE_LAKITU (not in JP)
-    70,  // SEQ_LEVEL_BOSS_JENOVA
-    100, // SEQ_LEVEL_STRIATION
-    70,  // SEQ_LEVEL_BOSS_CACKLETTA
-    70,  // SEQ_LEVEL_SAD_OLIVIA
-    70,  // SEQ_COMIT_CLOUD
-    70,  // SEQ_LEVEL_PEACH_RUINS
-    70,  // SEQ_BOSS_PEACH_RUINS
-    70,  // SEQ_LEVEL_HYRULE_CASTLE
-    70,  // SEQ_LEVEL_FEUDAL_OUTSIDE
-    70,  // SEQ_LEVEL_FEUDAL_FOREST
-    70,  // SEQ_LEVEL_FEUDAL_DUNGEON
-    70,  // SEQ_LEVEL_FEUDAL_CASTLE
-    70,  // SEQ_OVERWORLD
-    70,  // SEQ_TRAINING
+    [SEQ_SOUND_PLAYER] = 127,
+    [SEQ_EVENT_CUTSCENE_COLLECT_STAR] = 80,
+    [SEQ_MENU_TITLE_SCREEN] = 80,
+    [SEQ_LEVEL_GRASS] = 75,
+    [SEQ_LEVEL_INSIDE_CASTLE] = 70,
+    [SEQ_LEVEL_WATER] = 75,
+    [SEQ_LEVEL_HOT] = 75,
+    [SEQ_LEVEL_BOSS_KOOPA] = 75,
+    [SEQ_LEVEL_SNOW] = 70,
+    [SEQ_LEVEL_SLIDE] = 65,
+    [SEQ_LEVEL_SPOOKY] = 80,
+    [SEQ_EVENT_PIRANHA_PLANT] = 65,
+    [SEQ_LEVEL_UNDERGROUND] = 85,
+    [SEQ_MENU_STAR_SELECT] = 75,
+    [SEQ_EVENT_POWERUP] = 65,
+    [SEQ_EVENT_METAL_CAP] = 70,
+    [SEQ_EVENT_KOOPA_MESSAGE] = 65,
+    [SEQ_LEVEL_KOOPA_ROAD] = 70,
+    [SEQ_EVENT_HIGH_SCORE] = 70,
+    [SEQ_EVENT_MERRY_GO_ROUND] = 65,
+    [SEQ_EVENT_RACE] = 80,
+    [SEQ_EVENT_CUTSCENE_STAR_SPAWN] = 70,
+    [SEQ_EVENT_BOSS] = 85,
+    [SEQ_EVENT_CUTSCENE_COLLECT_KEY] = 75,
+    [SEQ_EVENT_ENDLESS_STAIRS] = 75,
+    [SEQ_LEVEL_BOSS_KOOPA_FINAL] = 85,
+    [SEQ_EVENT_CUTSCENE_CREDITS] = 70,
+    [SEQ_EVENT_SOLVE_PUZZLE] = 80,
+    [SEQ_EVENT_TOAD_MESSAGE] = 80,
+    [SEQ_EVENT_PEACH_MESSAGE] = 70,
+    [SEQ_EVENT_CUTSCENE_INTRO] = 75,
+    [SEQ_EVENT_CUTSCENE_VICTORY] = 80,
+    [SEQ_EVENT_CUTSCENE_ENDING] = 70,
+    [SEQ_MENU_FILE_SELECT] = 65,
+    [SEQ_EVENT_CUTSCENE_LAKITU] = 0, // not in jp
+    [SEQ_LEVEL_BOSS_JENOVA] = 70,
+    [SEQ_LEVEL_STRIATION] = 100,
+    [SEQ_LEVEL_BOSS_CACKLETTA] = 70,
+    [SEQ_LEVEL_SAD_OLIVIA] = 70,
+    [SEQ_COMIT_CLOUD] = 70,
+    [SEQ_LEVEL_PEACH_RUINS] = 70,
+    [SEQ_BOSS_PEACH_RUINS] = 70,
+    [SEQ_LEVEL_HYRULE_CASTLE] = 70,
+    [SEQ_LEVEL_FEUDAL_OUTSIDE] = 70,
+    [SEQ_LEVEL_FEUDAL_FOREST] = 70,
+    [SEQ_LEVEL_FEUDAL_DUNGEON] = 70,
+    [SEQ_LEVEL_FEUDAL_CASTLE] = 70,
+    [SEQ_OVERWORLD] = 70,
+    [SEQ_TRAINING] = 70,
+    [SEQ_CUSTOM_MUSIC2639] = 50,
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,
@@ -407,7 +408,7 @@ extern void func_802ad770(u32 bits, s8 arg);
 
 static void update_background_music_after_sound(u8 bank, u8 soundIndex);
 static void update_game_sound(void);
-static void fade_channel_volume_scale(u8 player, u8 channelId, u8 targetScale, u16 fadeTimer);
+void fade_channel_volume_scale(u8 player, u8 channelId, u8 targetScale, u16 fadeTimer);
 void process_level_music_dynamics(void);
 static u8 begin_background_music_fade(u16 fadeDuration);
 void func_80320ED8(void);
@@ -1555,6 +1556,10 @@ static void seq_player_play_sequence(u8 player, u8 seqId, u16 arg2) {
     u8 targetVolume;
     u8 i;
 
+    if (player == SEQ_PLAYER_ENV && gCurrLevelNum == LEVEL_BOB) {
+        return;
+    }
+
     if (player == SEQ_PLAYER_LEVEL) {
         sCurrentBackgroundMusicSeqId = seqId & SEQ_BASE_ID;
         sBackgroundMusicForDynamics = SEQUENCE_NONE;
@@ -1628,7 +1633,7 @@ void fade_volume_scale(u8 player, u8 targetScale, u16 fadeDuration) {
 /**
  * Called from threads: thread3_main, thread4_sound, thread5_game_loop
  */
-static void fade_channel_volume_scale(u8 player, u8 channelIndex, u8 targetScale, u16 fadeDuration) {
+void fade_channel_volume_scale(u8 player, u8 channelIndex, u8 targetScale, u16 fadeDuration) {
     struct ChannelVolumeScaleFade *temp;
 
     if (gSequencePlayers[player].channels[channelIndex] != &gSequenceChannelNone) {
@@ -2499,6 +2504,9 @@ void play_race_fanfare(void) {
  * Called from threads: thread5_game_loop
  */
 void play_toads_jingle(void) {
+    if (gCurrLevelNum == LEVEL_BOB) {
+        return;
+    }
     seq_player_play_sequence(SEQ_PLAYER_ENV, SEQ_EVENT_TOAD_MESSAGE, 0);
     sBackgroundMusicMaxTargetVolume = TARGET_VOLUME_IS_PRESENT_FLAG | 20;
 #if defined(VERSION_EU) || defined(VERSION_SH)

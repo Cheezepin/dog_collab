@@ -430,21 +430,16 @@ void try_print_debug_mario_object_info(void) {
  * Similar to above, but with level information. (checkinfo, mapinfo,
  * stageinfo)
  */
+#include "camera.h"
+#include "level_update.h"
 void try_print_debug_mario_level_info(void) {
-    switch (sDebugPage) {
-        case DEBUG_PAGE_OBJECTINFO:
-            break; // no info list is printed for obj info.
-        case DEBUG_PAGE_CHECKSURFACEINFO:
-            print_checkinfo();
-            break;
-        case DEBUG_PAGE_MAPINFO:
-            print_mapinfo();
-            break;
-        case DEBUG_PAGE_STAGEINFO:
-            print_stageinfo();
-            break;
-        default:
-            break;
+    // print_text_fmt_int(50, 50, "A %d", gPuppyCam.enabled);
+    // print_text_fmt_int(50, 64, "M %d", sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING);
+    // print_text_fmt_int(50, 50, "X %d", gMarioState->pos[0]);
+    // print_text_fmt_int(50, 70, "Z %d", gMarioState->pos[2]);
+    // print_text_fmt_int(50, 50, "Z %d", gCurrAreaIndex);
+    if (in2639Level()) {
+        Sound2639_Main();
     }
 }
 

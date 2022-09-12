@@ -1161,6 +1161,21 @@ const BehaviorScript bhvYellowCoin[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvYellowCoinNoBillboard[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 64),
+    SET_INT(oInteractType, INTERACT_COIN),
+    SET_INT(oIntangibleTimer, 0),
+    SET_INT(oAnimState, OBJ_ANIM_STATE_INIT_ANIM),
+    SET_INT(oBehParams2ndByte, 0x69), // dont flicker and die
+    CALL_NATIVE(bhv_moving_yellow_coin_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_moving_yellow_coin_loop),
+        ADD_INT(oFaceAngleYaw,   0x100),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvTemporaryYellowCoin[] = {
     BEGIN(OBJ_LIST_LEVEL),
     BILLBOARD(),
@@ -3708,9 +3723,9 @@ const BehaviorScript bhvMario[] = {
     OR_INT(oUnk94, 0x0001),
     SET_HITBOX(/*Radius*/ 37, /*Height*/ 160),
     BEGIN_LOOP(),
-#ifdef VANILLA_DEBUG
+// #ifdef VANILLA_DEBUG
         CALL_NATIVE(try_print_debug_mario_level_info),
-#endif
+// #endif
         CALL_NATIVE(bhv_mario_update),
 #ifdef VANILLA_DEBUG
         CALL_NATIVE(try_do_mario_debug_object_spawn),
@@ -3730,6 +3745,23 @@ const BehaviorScript bhvToadMessage[] = {
     CALL_NATIVE(bhv_toad_message_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_toad_message_loop),
+    END_LOOP(),
+};
+
+void bhv_angry_toad_message_loop();
+void bhv_angry_toad_message_init();
+const BehaviorScript bhvAngryToadMessage[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_PERSISTENT_RESPAWN | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, toad_seg6_anims_0600FB58),
+    ANIMATE(TOAD_ANIM_WEST_WAVING_BOTH_ARMS),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    SET_HITBOX(/*Radius*/ 80, /*Height*/ 100),
+    SET_INT(oIntangibleTimer, 0),
+    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(bhv_angry_toad_message_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_angry_toad_message_loop),
     END_LOOP(),
 };
 
@@ -7989,6 +8021,7 @@ const BehaviorScript bhvGlobe[] = {
 const BehaviorScript bhvDoginlobby[] = {
 	BEGIN(OBJ_LIST_DEFAULT),
     LOAD_ANIMATIONS(oAnimations, dog_anims),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
     SET_FLOAT(oGravity, 3.0f),
 	CALL_NATIVE(bhv_DogInLobby_init),
 	BEGIN_LOOP(),
@@ -8049,8 +8082,10 @@ const BehaviorScript bhvDogfloor4[] = {
 	BEGIN(OBJ_LIST_DEFAULT),
     LOAD_ANIMATIONS(oAnimations, dog_anims),
     SET_FLOAT(oGravity, 3.0f),
+    SET_HOME(),
     OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
 	CALL_NATIVE(bhv_DogFloor4_init),
+    SET_FLOAT(oDrawingDistance, 20000),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_DogFloor4_loop),
 	END_LOOP(),
@@ -8114,11 +8149,14 @@ const BehaviorScript bhv2639a2hiddenstar[] = {
 
 const BehaviorScript bhv2639elevator[] = {
 	BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE| OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
     LOAD_COLLISION_DATA(elevator_collision),
 	CALL_NATIVE(bhv_2639Elevator_init),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_HOME(),
 	BEGIN_LOOP(),
-		CALL_NATIVE(bhv_2639Elevator_loop),
         CALL_NATIVE(load_object_collision_model),
+		CALL_NATIVE(bhv_2639Elevator_loop),
 	END_LOOP(),
 };
 
@@ -8128,7 +8166,7 @@ const BehaviorScript bhv2639soda[] = {
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     SET_INT(oInteractType, INTERACT_GRABBABLE),
     SET_INT(oInteractionSubtype, INT_SUBTYPE_HOLDABLE_NPC),
-    SET_HITBOX(/*Radius*/ 40, /*Height*/ 40),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 50),
     SET_INT(oIntangibleTimer, 0),
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
     SET_HOME(),
@@ -8161,5 +8199,129 @@ const BehaviorScript bhvWarpBox[] = {
         SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(bhv_warp_box_loop),
     END_LOOP(),
+};
+
+const BehaviorScript bhvEntranceturnstile[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(turnstile_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+	CALL_NATIVE(bhv_EntranceTurnStile_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_EntranceTurnStile_loop),
+        CALL_NATIVE(load_object_collision_model),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639pc2_targetobj[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_2639PC2_TargetObj_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639PC2_TargetObj_loop),
+	END_LOOP(),
+};
+
+const BehaviorScript bhv2639_DRM[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    BREAK(),
+};
+
+extern const struct Animation *const peach2639_anims[];
+const BehaviorScript bhv2639peachNPC[] = {
+	BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, peach2639_anims),
+    ANIMATE(PEACH_ANIM_DIALOG_1_PART_1),
+    SET_INT(oOpacity, 255),
+    SET_FLOAT(oCollisionDistance, 150),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    SET_INT(oInteractionSubtype, INT_SUBTYPE_SIGN),
+    DROP_TO_FLOOR(),
+    SET_HITBOX(/*Radius*/ 150, /*Height*/ 300),
+    SET_INT(oWoodenPostTotalMarioAngle, 0),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        SET_INT(oInteractStatus, INT_STATUS_NONE),
+    END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639TrophyCase[] = {
+	BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_FLOAT(oCollisionDistance, 400),
+    SET_INTERACT_TYPE(INTERACT_TEXT),
+    SET_INT(oInteractionSubtype, INT_SUBTYPE_SIGN),
+    DROP_TO_FLOOR(),
+    SET_HITBOX(/*Radius*/ 400, /*Height*/ 300),
+    SET_INT(oWoodenPostTotalMarioAngle, 0),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        SET_INT(oInteractStatus, INT_STATUS_NONE),
+    END_LOOP(),
+};
+
+extern const struct Animation *const vending2639_anims[];
+const BehaviorScript bhv2639Vending[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_ANIMATIONS(oAnimations, vending2639_anims),
+    ANIMATE(0),
+    LOAD_COLLISION_DATA(vending_collision),
+	CALL_NATIVE(bhv_2639Vending_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639Vending_loop),
+        CALL_NATIVE(load_object_collision_model),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639A4DrainScrew[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+	CALL_NATIVE(bhv_2639A4DrainScrew_init),
+    SET_HOME(),
+    LOAD_COLLISION_DATA(Screw2639_collision),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639A4DrainScrew_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639SoccerBall[] = {
+	BEGIN(OBJ_LIST_GENACTOR),
+        OR_INT(oFlags, OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+        SET_HOME(),
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 100, /*Gravity*/ -400, /*Bounciness*/ 20, /*Drag strength*/ 0, /*Friction*/ 1, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
+	CALL_NATIVE(bhv_2639SoccerBall_init),
+    SET_FLOAT(oDrawingDistance, 20000),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639SoccerBall_loop),
+        SET_INT(oInteractStatus, INT_STATUS_NONE),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639BallEater[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_2639BallEater_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639BallEater_loop),
+	END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639FinalPresent[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    SET_INT(oInteractType, INTERACT_GRABBABLE),
+    SET_INT(oInteractionSubtype, INT_SUBTYPE_HOLDABLE_NPC),
+    SET_HITBOX(/*Radius*/ 100, /*Height*/ 50),
+    SET_HOME(),
+	CALL_NATIVE(bhv_2639FinalPresent_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639FinalPresent_loop),
+	END_LOOP(),
 };
 

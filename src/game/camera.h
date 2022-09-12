@@ -120,7 +120,8 @@ enum CameraModes {
     /*14*/ CAMERA_MODE_8_DIRECTIONS, // AKA Parallel Camera, Bowser Courses & Rainbow Ride
     /*15*/ CAMERA_MODE_0F,
     /*16*/ CAMERA_MODE_FREE_ROAM,
-    /*17*/ CAMERA_MODE_SPIRAL_STAIRS
+    /*17*/ CAMERA_MODE_SPIRAL_STAIRS,
+    /*18*/ CAMERA_MODE_FIXED2,
 };
 
 enum CameraMovementFlags {
@@ -717,7 +718,86 @@ extern struct Object *gCutsceneFocus;
 extern struct Object *gSecondCameraFocus;
 extern u8 gRecentCutscene;
 
+
+
+// externs from camera.c
+extern struct CameraFOVStatus sFOVState;
+extern struct TransitionInfo sModeTransition;
+extern struct PlayerGeometry sMarioGeometry;
+extern s16 sAvoidYawVel;
+extern s16 sCameraYawAfterDoorCutscene;
+extern struct HandheldShakePoint sHandheldShakeSpline[4];
+extern s16 sHandheldShakeMag;
+extern f32 sHandheldShakeTimer;
+extern f32 sHandheldShakeInc;
+extern s16 sHandheldShakePitch;
+extern s16 sHandheldShakeYaw;
+extern s16 sHandheldShakeRoll;
+extern s16 sSelectionFlags;
+extern s16 s2ndRotateFlags;
+extern s16 sCameraSoundFlags;
+extern u16 sCButtonsPressed;
+extern s16 sCutsceneDialogID;
+extern struct LakituState gLakituState;
+extern s16 sAreaYaw;
+extern s16 sAreaYawChange;
+extern s16 sLakituDist;
+extern s16 sLakituPitch;
+extern f32 sZoomAmount;
+extern s16 sCSideButtonYaw;
+extern s16 sBehindMarioSoundTimer;
+extern f32 sZeroZoomDist;
+extern s16 sCUpCameraPitch;
+extern s16 sModeOffsetYaw;
+extern s16 sSpiralStairsYawOffset;
+extern s16 s8DirModeBaseYaw;
+extern s16 s8DirModeYawOffset;
+extern f32 sPanDistance;
+extern f32 sCannonYOffset;
+extern struct ModeTransitionInfo sModeInfo;
+extern Vec3f sCastleEntranceOffset;
+extern u32 sParTrackIndex;
+extern struct ParallelTrackingPoint *sParTrackPath;
+extern struct CameraStoredInfo sParTrackTransOff;
+extern struct CameraStoredInfo sCameraStoreCUp;
+extern struct CameraStoredInfo sCameraStoreCutscene;
+extern s16 gCameraMovementFlags;
+extern s16 sStatusFlags;
+extern struct CutsceneSplinePoint sCurCreditsSplinePos[32];
+extern struct CutsceneSplinePoint sCurCreditsSplineFocus[32];
+extern s16 sCutsceneSplineSegment;
+extern f32 sCutsceneSplineSegmentProgress;
+extern s16 sCutsceneShot;
+extern s16 gCutsceneTimer;
+extern struct CutsceneVariable sCutsceneVars[10];
+extern s32 gObjCutsceneDone;
+extern u32 gCutsceneObjSpawn;
+extern struct Camera *gCamera;
+extern s8 gIsNearFerrisWheel;
+
+
+
+
 // TODO: sort all of this extremely messy shit out after the split
+
+s32 update_radial_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_outward_radial_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_behind_mario_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_mario_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 unused_update_mode_5_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_c_up(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 nop_update_water_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_slide_or_0f_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_in_cannon(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_boss_fight_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_parallel_tracking_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_fixed_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_8_directions_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_slide_or_0f_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+s32 update_spiral_stairs_camera(struct Camera *c, Vec3f focus, Vec3f pos);
+void set_camera_height(struct Camera *c, f32 goalHeight);
+void lakitu_zoom(f32 rangeDist, s16 rangePitch);
+
 
 void set_camera_shake_from_hit(s16 shake);
 void set_environmental_camera_shake(s16 shake);

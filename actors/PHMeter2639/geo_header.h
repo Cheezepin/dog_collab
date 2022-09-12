@@ -1,0 +1,16 @@
+extern const GeoLayout phmeter_geo[];
+extern Lights1 PHMeter2639_f3dlite_material_002_lights;
+extern Lights1 PHMeter2639_screen_lights;
+extern Lights1 PHMeter2639_BEEEMU_lights;
+extern Vtx PHMeter2639_Cube_mesh_layer_1_vtx_cull[8];
+extern Vtx PHMeter2639_Cube_mesh_layer_1_vtx_0[234];
+extern Gfx PHMeter2639_Cube_mesh_layer_1_tri_0[];
+extern Vtx PHMeter2639_Cube_mesh_layer_1_vtx_1[4];
+extern Gfx PHMeter2639_Cube_mesh_layer_1_tri_1[];
+extern Vtx PHMeter2639_Cube_mesh_layer_1_vtx_2[90];
+extern Gfx PHMeter2639_Cube_mesh_layer_1_tri_2[];
+extern Gfx mat_PHMeter2639_f3dlite_material_002[];
+extern Gfx mat_PHMeter2639_screen[];
+extern Gfx mat_PHMeter2639_BEEEMU[];
+extern Gfx PHMeter2639_Cube_mesh_layer_1[];
+extern Gfx PHMeter2639_material_revert_render_settings[];

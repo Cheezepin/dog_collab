@@ -72,7 +72,9 @@ void bhv_moving_yellow_coin_loop(void) {
             }
 
             if (o->oTimer > 300) {
-                o->oAction = MOV_YCOIN_ACT_BLINKING;
+                if (o->oBehParams2ndByte != 0x69) {
+                    o->oAction = MOV_YCOIN_ACT_BLINKING;
+                }
             }
             break;
 
