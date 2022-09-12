@@ -1,0 +1,17 @@
+extern u8 atoll_skybox_cloud_floor_rgba32[];
+extern u8 atoll_skybox_water_big_chungus_defined_intensity2_i4[];
+extern u8 atoll_skybox_water_pls_try_sharper_intensity2_i4[];
+extern Vtx atoll_skybox_backdrop_mesh_vtx_cull[8];
+extern Vtx atoll_skybox_backdrop_mesh_vtx_0[41];
+extern Gfx atoll_skybox_backdrop_mesh_tri_0[];
+extern Vtx atoll_skybox_backdrop_mesh_vtx_1[432];
+extern Gfx atoll_skybox_backdrop_mesh_tri_1[];
+extern Vtx atoll_skybox_backdrop_mesh_vtx_2[435];
+extern Gfx atoll_skybox_backdrop_mesh_tri_2[];
+extern Gfx mat_atoll_skybox_bright_white[];
+extern Gfx mat_revert_atoll_skybox_bright_white[];
+extern Gfx mat_atoll_skybox_cloudy_sky[];
+extern Gfx mat_revert_atoll_skybox_cloudy_sky[];
+extern Gfx mat_atoll_skybox_backdrop_water_layer1[];
+extern Gfx mat_revert_atoll_skybox_backdrop_water_layer1[];
+extern Gfx atoll_skybox_backdrop_mesh[];

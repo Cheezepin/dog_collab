@@ -168,7 +168,13 @@ void bully_step(void) {
 
     bully_backup_check(collisionFlags);
     bully_play_stomping_sound();
-    obj_check_floor_death(collisionFlags, sObjFloor);
+    if(gCurrLevelNum != LEVEL_WF) {
+        obj_check_floor_death(collisionFlags, sObjFloor);
+    } else {
+        if (o->oPosY < -2840.0f) {
+            o->oAction = OBJ_ACT_LAVA_DEATH;
+        }
+    }
 
     if (o->oBullySubtype & BULLY_STYPE_CHILL) {
         if (o->oPosY < 1030.0f) {
@@ -279,7 +285,7 @@ void bhv_big_bully_with_minions_init(void) {
 void big_bully_spawn_star(void) {
     if (obj_lava_death() == TRUE) {
         spawn_mist_particles();
-        spawn_default_star(3700.0f, 600.0f, -5500.0f);
+        spawn_default_star(590.0f, -550.0f, 0.0f);
     }
 }
 

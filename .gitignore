@@ -11,6 +11,9 @@
 *.gch
 *.pch
 
+#THESE LITTLE SHITS OOOOOH MY GOD
+*.Identifier
+
 # Libraries
 *.lib
 *.a

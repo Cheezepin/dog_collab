@@ -9,4 +9,8 @@
 #include "bully/model.inc.c"
 #include "bully/anims/data.inc.c"
 #include "bully/anims/table.inc.c"
+
+#include "hoot/model.inc.c"
+#include "hoot/anims/data.inc.c"
+#include "hoot/anims/table.inc.c"
 UNUSED static const u64 binid_0 = 0;
