@@ -195,13 +195,6 @@ enum DialogId {
     // start at 187
 
     // someone2639 silly soliloquies
-    CHEEZE_DIALOG_1,
-    CHEEZE_DIALOG_2,
-    CHEEZE_DIALOG_3,
-    CHEEZE_DIALOG_4,
-    CHEEZE_DIALOG_5,
-    CHEEZE_DIALOG_6,
-
 
     _2639DIAG_LEVELINTRO, // 187;
     _2639DIAG_A1LobbyHOF_Intro, // mark
@@ -238,6 +231,13 @@ enum DialogId {
     _2639DIAG_A6PentToad5,
     _2639DIAG_A6PentToad6,
     _2639DIAG_A6PentToad7,
+
+    CHEEZE_DIALOG_1,
+    CHEEZE_DIALOG_2,
+    CHEEZE_DIALOG_3,
+    CHEEZE_DIALOG_4,
+    CHEEZE_DIALOG_5,
+    CHEEZE_DIALOG_6,
     
     DIALOG_COUNT
 };

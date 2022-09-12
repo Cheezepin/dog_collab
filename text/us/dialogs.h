@@ -1992,26 +1992,26 @@ This building wouldn't
 have existed without
 credits, though!
 Let's roll them!
-ArcticJaguar725
- - The 16 track streamed M64
-   that allowed me to make
-   this music
+ArcticJaguar725 -
+The 16 track streamed M64
+that allowed me to make
+this music.
 The Dog Collab Team
- - Making a great hack
+- Making a great hack
+
 
 Special thanks to
 Arthurtilly for
-turnstile code and
+turnstile help and
 moving this hack
 along at a good pace.
+
+
 
 NO thanks to Lenovo,
 whose faulty nvme drives
 caused this level to be
-delayed a year
-
-
-)")
+delayed a year.)")
 
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Intro, 1, 4, 30, 200, R"(Inside our beautiful
@@ -2085,8 +2085,8 @@ No pets allowed!\n\
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, R"(Mario! I was
 looking for you!
-I see you brought your dog,
-but that angry
+I see you brought your
+dog, but that angry
 @FF0000FFFront Desk Toad@--------
 isn't having any of it!
 But maybe there's a
