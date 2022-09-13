@@ -2951,7 +2951,7 @@ s32 gEndResultMenuChoice = 0;
 s32 gEndResultMenuState = 0;
 void end_results_loop(void) {
     u8 **actNameTbl = segmented_to_virtual(seg2_act_name_table);
-    u8 *selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gDialogCourseActNum - 1]);
+    u8 *selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gLastCompletedStarNum - 1]);
     s32 actNameX;
     u32 starColor;
     u8 starColorR;

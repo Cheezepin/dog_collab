@@ -1,5 +1,6 @@
 // bully.inc.c
 
+struct Object *spawn_star(struct Object *starObj, f32 x, f32 y, f32 z);
 static struct ObjectHitbox sSmallBullyHitbox = {
     /* interactType:      */ INTERACT_BULLY,
     /* downOffset:        */ 0,
@@ -195,6 +196,7 @@ void bully_spawn_coin(void) {
 }
 
 void bully_act_level_death(void) {
+    struct Object *star;
     if (obj_lava_death() == TRUE) {
         if (o->oBehParams2ndByte == BULLY_BP_SIZE_SMALL) {
             if (o->oBullySubtype == BULLY_STYPE_MINION) {
@@ -207,9 +209,10 @@ void bully_act_level_death(void) {
             if (o->oBullySubtype == BULLY_STYPE_CHILL) {
                 spawn_default_star(130.0f, 1600.0f, -4335.0f);
             } else {
-                spawn_default_star(0, 950.0f, -6800.0f);
-                spawn_object_abs_with_rot(o, 0, MODEL_NONE, bhvLllTumblingBridge,
-                                          0, 154, -5631, 0, 0, 0);
+                star = spawn_star(o, 590.0f, -225.0f, 0.0f);
+                star->oBehParams = 0x02000000;
+                //spawn_object_abs_with_rot(o, 0, MODEL_NONE, bhvLllTumblingBridge,
+                                          //0, 154, -5631, 0, 0, 0);
             }
         }
     }

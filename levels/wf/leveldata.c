@@ -84,3 +84,6 @@
 #include "levels/wf/sandpile/collision.inc.c"
 #include "levels/wf/sand_pillar/model.inc.c"
 #include "levels/wf/sand_pillar/collision.inc.c"
+#include "levels/wf/sand_slope/model.inc.c"
+#include "levels/wf/sand_slope/collision.inc.c"
+#include "levels/wf/ktq_ring/model.inc.c"

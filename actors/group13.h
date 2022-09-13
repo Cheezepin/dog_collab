@@ -29,17 +29,17 @@ extern const Gfx cyan_fish_seg6_dl_0600DFC0[];
 extern const Gfx cyan_fish_seg6_dl_0600E038[];
 extern const struct Animation *const cyan_fish_seg6_anims_0600E264[];
 
-// seaweed
-extern const GeoLayout seaweed_geo[];
-extern const Gfx seaweed_seg6_dl_06009E50[];
-extern const Gfx seaweed_seg6_dl_06009E98[];
-extern const Gfx seaweed_seg6_dl_06009F48[];
-extern const Gfx seaweed_seg6_dl_06009F90[];
-extern const Gfx seaweed_seg6_dl_0600A040[];
-extern const Gfx seaweed_seg6_dl_0600A088[];
-extern const Gfx seaweed_seg6_dl_0600A138[];
-extern const Gfx seaweed_seg6_dl_0600A180[];
-extern const struct Animation *const seaweed_seg6_anims_0600A4D4[];
+// // seaweed
+// extern const GeoLayout seaweed_geo[];
+// extern const Gfx seaweed_seg6_dl_06009E50[];
+// extern const Gfx seaweed_seg6_dl_06009E98[];
+// extern const Gfx seaweed_seg6_dl_06009F48[];
+// extern const Gfx seaweed_seg6_dl_06009F90[];
+// extern const Gfx seaweed_seg6_dl_0600A040[];
+// extern const Gfx seaweed_seg6_dl_0600A088[];
+// extern const Gfx seaweed_seg6_dl_0600A138[];
+// extern const Gfx seaweed_seg6_dl_0600A180[];
+// extern const struct Animation *const seaweed_seg6_anims_0600A4D4[];
 
 // skeeter
 extern const GeoLayout skeeter_geo[];

@@ -35,10 +35,12 @@ void bhv_sand_pile(void) {
                     sussy->oBehParams = o->oBehParams;
                 break;
                 case 1: //motos
-                    spawn_object(o,MODEL_MOTOS,bhvMotos);
+                    sussy = spawn_object(o,MODEL_SAND_SLOPE,bhvSandSlope);
+                    sussy->oBehParams = o->oBehParams;
                 break;
                 case 2: //star
-                    spawn_default_star(o->oPosX,o->oPosY+200.0f,o->oPosZ);
+                    sussy = spawn_object(o,MODEL_SAND_PILLAR,bhvSandPillar);
+                    sussy->oBehParams = o->oBehParams;
                 break;
                 case 3: //a mother fucking flame thrower!!!!! holy shit!!!!
                     spawn_object(o,MODEL_PROPANE_THROWER,bhvPropaneThrower);
@@ -57,10 +59,60 @@ void bhv_sand_pile(void) {
 }
 
 void bhv_sand_pillar_init(void) {
+    o->header.gfx.scale[0] = 0;
     o->header.gfx.scale[1] = 0;
+    o->header.gfx.scale[2] = 0;
 }
 
 void bhv_sand_pillar_loop(void) {
-    f32 targetY = ((f32)((o->oBehParams >> 8) & 0xFF)) / 10.0f;
-    o->header.gfx.scale[1] = approach_f32_asymptotic(o->header.gfx.scale[1], targetY, 0.25f);
+    if(o->oSubAction == 0) {
+        f32 targetY = ((f32)((o->oBehParams >> 8) & 0xFF)) / 10.0f;
+        f32 targetLat = ((f32)(o->oBehParams & 0xFF)) / 10.0f;
+        o->header.gfx.scale[1] = approach_f32_asymptotic(o->header.gfx.scale[1], targetY, 0.25f);
+        o->header.gfx.scale[0] = o->header.gfx.scale[2] = approach_f32_asymptotic(o->header.gfx.scale[0], targetLat, 0.25f);
+        if(targetY - o->header.gfx.scale[1] < 0.01f) {
+            o->header.gfx.scale[1] = targetY;
+            o->header.gfx.scale[0] = o->header.gfx.scale[2] = targetLat;
+            o->oFlags &= ~OBJ_FLAG_DONT_CALC_COLL_DIST;
+            o->oSubAction = 1;
+            if((o->oBehParams >> 24) == 1) {
+                struct Object *star = spawn_star(o, o->oPosX,o->oPosY+2000.0f,o->oPosZ);
+                star->oBehParams = 0x00000000;
+            }
+        }
+    }
+}
+
+f32 ktq_ring_calc_mario_dist(void) {
+    f32 marioDistX = o->oPosX - gMarioObject->header.gfx.pos[0];
+    f32 marioDistY = o->oPosY - (gMarioObject->header.gfx.pos[1] + 80.0f);
+    f32 marioDistZ = o->oPosZ - gMarioObject->header.gfx.pos[2];
+    f32 marioDistInFront = marioDistX * o->oWaterRingNormalX + marioDistY * o->oWaterRingNormalY
+                           + marioDistZ * o->oWaterRingNormalZ;
+
+    return marioDistInFront;
+}
+
+void bhv_ktq_ring_init(void) {
+}
+
+void ktq_ring_check_collection() {
+    if (o->oInteractStatus != 0) {
+        struct Object *ktq = o->parentObj;
+
+        if (ktq) {
+                ktq->oWaterRingSpawnerRingsCollected++;
+                spawn_orange_number(ktq->oWaterRingSpawnerRingsCollected, 0, -40, 0);
+                play_sound(SOUND_MENU_COLLECT_SECRET
+                            + (((u8) ktq->oWaterRingSpawnerRingsCollected - 1) << 16),
+                            gGlobalSoundSource);
+
+        }
+
+        obj_mark_for_deletion(o);
+    }
+}
+
+void bhv_ktq_ring_loop(void) {
+    ktq_ring_check_collection();
 }

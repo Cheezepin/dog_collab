@@ -8227,3 +8227,23 @@ const BehaviorScript bhvSandPillar[] = {
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
+
+const BehaviorScript bhvSandSlope[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(sand_slope_collision),
+    GOTO(bhvSandPillar + 1 + 2),
+};
+
+const BehaviorScript bhvKTQRing[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_HITBOX_WITH_OFFSET(/*Radius*/ 200, /*Height*/ 800, /*Downwards offset*/ 0),
+    SET_INTERACT_TYPE(INTERACT_WATER_RING),
+    SET_INT(oDamageOrCoinValue, 2),
+    SET_INT(oIntangibleTimer, 0),
+    CALL_NATIVE(bhv_ktq_ring_init),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_ktq_ring_loop),
+    END_LOOP(),
+};

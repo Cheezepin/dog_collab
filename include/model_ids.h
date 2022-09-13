@@ -738,6 +738,8 @@ enum _2639Models {
 #define MODEL_WF_CRATE 0x193
 #define MODEL_SANDPILE 0x194
 #define MODEL_SAND_PILLAR 0x195
+#define MODEL_SAND_SLOPE 0x196
+#define MODEL_KTQ_RING 0x197
 
 //Koopa Atoll Models ^
 

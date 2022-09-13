@@ -126,4 +126,10 @@ extern const LevelScript level_wf_entry[];
 
 #include "levels/wf/sand_pillar/collision_header.h"
 
+#include "levels/wf/sand_slope/geo_header.h"
+
+#include "levels/wf/sand_slope/collision_header.h"
+
+#include "levels/wf/ktq_ring/geo_header.h"
+
 #endif

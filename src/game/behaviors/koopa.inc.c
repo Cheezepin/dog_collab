@@ -38,6 +38,9 @@ static u8 sKoopaUnshelledAttackHandlers[] = {
 /**
  * Attack handlers for regular sized shelled koopa.
  */
+
+#include "levels/wf/header.h"
+
 static u8 sKoopaShelledAttackHandlers[] = {
     /* ATTACK_PUNCH:                 */ ATTACK_HANDLER_SPECIAL_KOOPA_LOSE_SHELL,
     /* ATTACK_KICK_OR_TRIP:          */ ATTACK_HANDLER_SPECIAL_KOOPA_LOSE_SHELL,
@@ -61,7 +64,7 @@ struct KoopaTheQuickProperties {
  * Properties for the BoB race and the THI race.
  */
 static struct KoopaTheQuickProperties sKoopaTheQuickProperties[] = {
-    { DIALOG_005, DIALOG_007, bob_seg7_trajectory_koopa, { 3030, 4500, -4600 } },
+    { DIALOG_082, DIALOG_007, wf_area_1_spline_ktq, { 9520, 1306, 9069 } },
     { DIALOG_009, DIALOG_031, thi_seg7_trajectory_koopa, { 7100, -1300, -6000 } },
 };
 
@@ -457,8 +460,24 @@ static void koopa_unshelled_update(void) {
  * Wait 50 frames, then play the race starting sound, disable time stop, and
  * optionally begin the timer.
  */
+
+struct KoopaRingProperties {
+    f32 x;
+    f32 y;
+    f32 z;
+};
+
+struct KoopaRingProperties krp[] = {
+    {-1978.0f, 686.0f, -1519.0f},
+    {-2729.0f, 686.0f,  6150.0f},
+    {-393.0f,  686.0f,  1686.0f},
+    {-891.0f,  686.0f,  4237.0f},
+    {3215.0f,  686.0f,  2567.0f},
+};
+
 s32 obj_begin_race(s32 noTimer) {
     if (o->oTimer == 50) {
+        u8 i = 0;
         cur_obj_play_sound_2(SOUND_GENERAL_RACE_GUN_SHOT);
 
         if (!noTimer) {
@@ -473,6 +492,10 @@ s32 obj_begin_race(s32 noTimer) {
         // Unfreeze mario and disable time stop to begin the race
         set_mario_npc_dialog(MARIO_DIALOG_STOP);
         disable_time_stop_including_mario();
+
+        for(i = 0; i < 5; i++) {
+            spawn_object_abs_with_rot(o, 0, MODEL_KTQ_RING, bhvKTQRing, krp[i].x, krp[i].y, krp[i].z, 0, 0, 0);
+        }
     } else if (o->oTimer > 50) {
         return TRUE;
     }
@@ -580,6 +603,7 @@ static void koopa_the_quick_animate_footsteps(void) {
 static void koopa_the_quick_act_race(void) {
     if (obj_begin_race(FALSE)) {
         // Hitbox is slightly larger while racing
+        if(o->oWaterRingSpawnerRingsCollected > 99) {o->oWaterRingSpawnerRingsCollected = 0;}
         cur_obj_push_mario_away_from_cylinder(180.0f, 300.0f);
 
         if (cur_obj_follow_path() == PATH_REACHED_END) {
@@ -703,7 +727,7 @@ static void koopa_the_quick_act_after_race(void) {
                 if (o->parentObj->oKoopaRaceEndpointRaceStatus == KOOPA_RACE_ENDPOINT_STATUS_MARIO_CHEATED) {
                     // Mario cheated
                     o->parentObj->oKoopaRaceEndpointRaceStatus = KOOPA_RACE_ENDPOINT_STATUS_KOOPA_WON;
-                    o->parentObj->oKoopaRaceEndpointDialog = DIALOG_006;
+                    o->parentObj->oKoopaRaceEndpointDialog = DIALOG_081;
                 } else {
                     // Mario won
                     o->parentObj->oKoopaRaceEndpointDialog =
@@ -738,6 +762,7 @@ static void koopa_the_quick_act_after_race(void) {
 static void koopa_the_quick_update(void) {
     cur_obj_update_floor_and_walls();
     obj_update_blinking(&o->oKoopaBlinkTimer, 10, 15, 3);
+    o->oBuoyancy = 12.0f;
 
     switch (o->oAction) {
         case KOOPA_THE_QUICK_ACT_WAIT_BEFORE_RACE:
@@ -816,8 +841,10 @@ void bhv_koopa_race_endpoint_update(void) {
         level_control_timer(TIMER_CONTROL_STOP);
 
         if (!o->oKoopaRaceEndpointKoopaFinished) {
+            struct Object *ktq = find_any_object_with_behavior(bhvKoopa);
             play_race_fanfare();
-            o->oKoopaRaceEndpointRaceStatus = (gMarioShotFromCannon ? KOOPA_RACE_ENDPOINT_STATUS_MARIO_CHEATED : KOOPA_RACE_ENDPOINT_STATUS_MARIO_WON);
+            //o->oKoopaRaceEndpointRaceStatus = (gMarioShotFromCannon ? KOOPA_RACE_ENDPOINT_STATUS_MARIO_CHEATED : KOOPA_RACE_ENDPOINT_STATUS_MARIO_WON);
+            o->oKoopaRaceEndpointRaceStatus = (ktq->oWaterRingSpawnerRingsCollected < 5 ? KOOPA_RACE_ENDPOINT_STATUS_MARIO_CHEATED : KOOPA_RACE_ENDPOINT_STATUS_MARIO_WON);
         }
     }
 }
