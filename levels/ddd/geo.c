@@ -31,3 +31,7 @@
 #include "levels/ddd/flippy_bitch/geo.inc.c"
 
 #include "levels/ddd/water_plane1/geo.inc.c"
+#include "levels/ddd/water_plane2_ctrl_room/geo.inc.c"
+#include "levels/ddd/water_plane3_purp_room/geo.inc.c"
+#include "levels/ddd/tube_top/geo.inc.c"
+#include "levels/ddd/water_plane4_whirlpool/geo.inc.c"

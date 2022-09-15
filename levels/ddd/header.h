@@ -37,7 +37,7 @@
 // extern const struct MovtexQuadCollection ddd_movtex_area1_water[];
 // extern const struct MovtexQuadCollection ddd_movtex_area2_water[];
 #include "levels/ddd/frames/frames.h"
-#include "levels/ddd/misc_vars/misc_vars.h"
+
 
 // script
 extern const LevelScript level_ddd_entry[];
@@ -81,4 +81,21 @@ extern const LevelScript level_ddd_entry[];
 
 #include "levels/ddd/water_plane1/geo_header.h"
 
+#include "levels/ddd/water_plane2_ctrl_room/geo_header.h"
+
+#include "levels/ddd/water_plane2_ctrl_room/collision_header.h"
+
+#include "levels/ddd/water_plane3_purp_room/collision_header.h"
+
+#include "levels/ddd/water_plane3_purp_room/geo_header.h"
+
+#include "levels/ddd/tube_top/geo_header.h"
+
+#include "levels/ddd/tube_top/collision_header.h"
+
+#include "levels/ddd/water_plane4_whirlpool/collision_header.h"
+
+#include "levels/ddd/water_plane4_whirlpool/geo_header.h"
+
+#include "levels/ddd/misc_vars/misc_vars.h"
 #endif

@@ -1,6 +1,6 @@
 extern const GeoLayout water_plane4_whirlpool_geo[];
 extern Lights1 water_plane4_whirlpool_water_whirlpool_layer5_lights;
-extern u8 water_plane4_whirlpool_water_waves_upsidedown_i8[];
+extern u8 water_plane4_whirlpool_water_waves_45deg2_i8[];
 extern Vtx water_plane4_whirlpool_water_plane4_whirlpool_mesh_layer_5_vtx_cull[8];
 extern Vtx water_plane4_whirlpool_water_plane4_whirlpool_mesh_layer_5_vtx_0[131];
 extern Gfx water_plane4_whirlpool_water_plane4_whirlpool_mesh_layer_5_tri_0[];

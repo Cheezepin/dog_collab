@@ -60,3 +60,12 @@
 
 #include "levels/ddd/water_plane1/collision.inc.c"
 #include "levels/ddd/water_plane1/model.inc.c"
+
+#include "levels/ddd/water_plane2_ctrl_room/model.inc.c"
+#include "levels/ddd/water_plane2_ctrl_room/collision.inc.c"
+#include "levels/ddd/water_plane3_purp_room/collision.inc.c"
+#include "levels/ddd/water_plane3_purp_room/model.inc.c"
+#include "levels/ddd/tube_top/model.inc.c"
+#include "levels/ddd/tube_top/collision.inc.c"
+#include "levels/ddd/water_plane4_whirlpool/collision.inc.c"
+#include "levels/ddd/water_plane4_whirlpool/model.inc.c"
