@@ -467,6 +467,7 @@ enum oBobombBuddyHasTalkedToMarioStates {
     #define BOWSER_ACT_TELEPORT_HOME                        0x1A
     #define BOWSER_ACT_PRE_ATTACK                           0x1B
     #define BOWSER_ACT_LIGHTNING                            0x1C
+    #define BOWSER_ACT_LIGHTNING_2                          0x1D
     /* oAnimState */
     #define BOWSER_ANIM_STATE_OPAQUE                        TRANSPARENCY_ANIM_STATE_OPAQUE
     #define BOWSER_ANIM_STATE_TRANSPARENT                   TRANSPARENCY_ANIM_STATE_TRANSPARENT
