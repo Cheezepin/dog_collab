@@ -96,6 +96,8 @@ const GeoLayout ssl_area_1_geo[] = {
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2612, 449, 2012, 0, 14, 0, ssl_dl_Cylinder_056_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2612, 449, 2012, 0, 14, 0, ssl_dl_Cylinder_057_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2612, 3743, 2012, 0, 14, 0, ssl_dl_Cylinder_058_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 2128, -2380, 4852, 0, 12, 0, ssl_dl_Cylinder_059_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 978, -2148, 5050, 0, 12, 0, ssl_dl_Cylinder_060_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_ALPHA, 3919, -2605, 6830, 90, 0, -125, ssl_dl_Image_001_mesh_layer_4),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_ALPHA, -1182, -1085, -3863, 0, 60, 0, ssl_dl_Paw_print_001_mesh_layer_4),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_ALPHA, -1368, -486, -5297, 90, 0, 107, ssl_dl_Paw_print_002_mesh_layer_4),

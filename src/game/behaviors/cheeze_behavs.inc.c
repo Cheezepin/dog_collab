@@ -473,3 +473,48 @@ void bhv_door_cutscene_loop(void) {
         o->oTimer = 0;
     }
 }
+
+void bhv_spiresdog_loop(void) {
+    switch(o->oAction) {
+        s32 dialogResponse;
+        case 0:
+            if(lateral_dist_between_objects(gMarioObject, o) < 200.0f) {
+                dialogResponse = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, CHEEZE_DIALOG_7);
+                if(dialogResponse == 0x03) {
+                    o->oAction++;
+                    if(o->oBehParams2ndByte == 1) {
+                        o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(ssl_area_1_spline_dogpath2);
+                    } else {
+                        o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(ssl_area_1_spline_dogpath1);
+                    }
+                }
+            }
+            break;
+        case 1:
+            if (cur_obj_follow_path() == PATH_REACHED_END) {
+                o->oAction++;
+                cur_obj_init_animation(DOG_ANIM_IDLE);
+            } else {
+                o->oGravity = -4.0f;
+                cur_obj_update_floor_and_walls();
+                cur_obj_rotate_yaw_toward(o->oPathedTargetYaw, 0x800);
+                cur_obj_move_standard(-78);
+                if ((o->oMoveFlags & OBJ_MOVE_HIT_EDGE)) {
+                    o->oVelY = 60.0f;
+                    o->oSubAction = 1;
+                }
+                if (o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) {
+                    o->oSubAction = 0;
+                    o->oForwardVel = 12.0f;
+                } else {
+                    o->oForwardVel = 22.0f;
+                }
+                if(o->oSubAction == 0) {
+                    cur_obj_init_animation(DOG_ANIM_RUN);
+                } else {
+                    cur_obj_init_animation(DOG_ANIM_POUNCE);
+                }
+            }
+            break;
+    }
+}

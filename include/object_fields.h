@@ -1209,7 +1209,7 @@
 #define /*0x1AC*/ oWaterRingAvgScale               OBJECT_FIELD_F32(0x49)
 
 /* Water Ring Spawner (Jet Stream Ring Spawner and Manta Ray) */
-#define /*0x1AC*/ oWaterRingSpawnerRingsCollected OBJECT_FIELD_S32(0x49)
+#define /*0x1AC*/ oWaterRingSpawnerRingsCollected OBJECT_FIELD_S32(0x48)
 
 /* Water Ring Manager (Jet Stream Ring Spawner and Manta Ray Ring Manager) */
 #define /*0x0F4*/ oWaterRingMgrNextRingIndex     OBJECT_FIELD_S32(0x1B)
