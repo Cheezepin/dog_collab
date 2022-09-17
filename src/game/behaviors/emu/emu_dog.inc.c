@@ -66,7 +66,7 @@ struct Object *mario_find_nearest_object_with_behavior(const BehaviorScript *beh
 #define DOG_ANIM_POUNCE 4
 #define DOG_ANIM_KNOCKBACK 5
 s32 nextX, nextZ, nextXangle, nextZangle;
-u8 dogHealth = 3;
+u8 dogHealth;
 
 void rand_polar_coord(void){
     f32 theta;
@@ -107,6 +107,7 @@ void freedom (void) {
     else {
         floor_check++;
     }
+    dogHealth = 2;
 }
 
 void find_random_location(void) {
