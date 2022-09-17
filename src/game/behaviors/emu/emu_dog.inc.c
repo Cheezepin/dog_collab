@@ -66,7 +66,7 @@ struct Object *mario_find_nearest_object_with_behavior(const BehaviorScript *beh
 #define DOG_ANIM_POUNCE 4
 #define DOG_ANIM_KNOCKBACK 5
 s32 nextX, nextZ, nextXangle, nextZangle;
-u8 dogHealth = 3;
+u8 dogHealth;
 
 void rand_polar_coord(void){
     f32 theta;
@@ -102,19 +102,19 @@ void freedom (void) {
         cur_obj_init_animation(DOG_ANIM_IDLE);
         o->oForwardVel = 0.0f;
         o->oAction = EMU_DOG_RANDOM_LOCATION;
+        floor_check = 0;
     }
     else {
         floor_check++;
     }
+    dogHealth = 2;
 }
 
 void find_random_location(void) {
-    struct Object *bowser;
     f32 dist;
     f32 randCords;
     s16 turnSpeed = 0x100;
     rand_polar_coord();
-    bowser = cur_obj_find_nearest_object_with_behavior(bhvBowser, &dist);
     o->oMoveAngleYaw = atan2s(nextZangle, nextXangle);
     o->oForwardVel = 20.0f;
     o->oAction = EMU_DOG_RUN_AROUND;
@@ -156,10 +156,13 @@ UNUSED static void (*sEmuDogActions[])(void) = {
 };
 
 void bhv_idle_dog_init (void) {
+    struct Object *bowser;
+    bowser = cur_obj_nearest_object_with_behavior(bhvBowser);
+    o->prevObj = bowser;
    cur_obj_init_animation(DOG_ANIM_IDLE);
    o->oPosY -= 147;
    o->oFaceAngleYaw += DEGREES(180);
-   if (dogHealth > 3) {dogHealth = 3;}
+   if (dogHealth > 2) {dogHealth = 2;}
 }
 s32 initPosX, targetPosX, initPosZ, targetDist;
 void injured (void) {
@@ -169,7 +172,7 @@ void injured (void) {
     o->oPosY = (-targetDist)*(targetDist-95) + 95;
     o->oPosY /= 5;
     mark_obj_for_deletion(o->parentObj); //deletes the amp
-    numberOfAmps--;
+    o->parentObj->oCameraLakituBlinkTimer--;
     o->childObj->oAction = 1; //resets the ashpile
     if (dogHealth <= 0){
         gMarioState->health = 0x00FF;
@@ -195,7 +198,7 @@ void bhv_idle_dog_loop (void) {
         if (o->oAction == DIG && cur_obj_nearest_object_with_behavior(bhvAttackableAmp) != NULL){
             amp = cur_obj_nearest_object_with_behavior(bhvAttackableAmp);
             o->parentObj = amp;
-            if (dist_between_objects(o, o->parentObj) < 30 && o->oAction != INJURED){
+            if (dist_between_objects(o, o->parentObj) < 51 && o->oAction != INJURED){
                 o->oHomeX = 0;
                 o->oHomeY = 95;
                 o->oHomeZ = 0;
