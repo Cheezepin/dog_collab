@@ -717,6 +717,7 @@ extern const BehaviorScript bhvDogCutscene[];
 extern const BehaviorScript bhvBowserCutscene[];
 extern const BehaviorScript bhvDoorCutscene[];
 extern const BehaviorScript bhvGlobe[];
+extern const BehaviorScript bhvSpiresDog[];
 //cheeze bhv ends
 
 //Koopa Atoll Objects

@@ -11932,6 +11932,39 @@ Gfx wf_dl_Volcano__mesh_layer_1_tri_1[] = {
 	gsSPEndDisplayList(),
 };
 
+Vtx wf_dl_Volcano__mesh_layer_4_vtx_cull[8] = {
+	{{{1459, 424, -5003}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{1459, 2542, -5003}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{1459, 2542, -9224}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{1459, 424, -9224}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{5900, 424, -5003}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{5900, 2542, -5003}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{5900, 2542, -9224}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{5900, 424, -9224}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+};
+
+Vtx wf_dl_Volcano__mesh_layer_4_vtx_0[10] = {
+	{{{3923, 2507, -6768}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+	{{{4009, 2507, -6945}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+	{{{3985, 2507, -7198}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+	{{{3402, 2507, -7369}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+	{{{3637, 2507, -7389}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+	{{{3626, 2507, -6810}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+	{{{3338, 2507, -7080}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+	{{{3302, 2507, -7125}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+	{{{3491, 2507, -6935}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+	{{{3703, 2507, -6733}, 0, {-16, 1008}, {0x0, 0x7F, 0x0, 0xFF}}},
+};
+
+Gfx wf_dl_Volcano__mesh_layer_4_tri_0[] = {
+	gsSPVertex(wf_dl_Volcano__mesh_layer_4_vtx_0 + 0, 10, 0),
+	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+	gsSP2Triangles(2, 4, 3, 0, 3, 5, 0, 0),
+	gsSP2Triangles(3, 6, 5, 0, 3, 7, 6, 0),
+	gsSP2Triangles(6, 8, 5, 0, 5, 9, 0, 0),
+	gsSPEndDisplayList(),
+};
+
 Vtx wf_dl_water_mesh_layer_7_vtx_0[269] = {
 	{{{-13080, 0, 16350}, 0, {-16320, 30671}, {0x32, 0xA6, 0xA6, 0xFF}}},
 	{{{-16350, 0, 13080}, 0, {-26560, 20431}, {0x32, 0xA6, 0xA6, 0xFF}}},
@@ -14822,6 +14855,13 @@ Gfx mat_revert_wf_dl_rock_inverted_001_layer1[] = {
 	gsSPEndDisplayList(),
 };
 
+Gfx mat_wf_dl_invis[] = {
+	gsDPPipeSync(),
+	gsDPSetCombineLERP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsSPEndDisplayList(),
+};
+
 Gfx mat_wf_dl_atoll_water_layer7[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL1, 0, TEXEL0, 0, TEXEL1, 0, TEXEL0, 0, SHADE, COMBINED, PRIMITIVE, COMBINED, 1, COMBINED, PRIMITIVE, COMBINED),
@@ -15520,6 +15560,16 @@ Gfx wf_dl_Volcano__mesh_layer_1[] = {
 	gsSPDisplayList(mat_wf_dl_rock_inverted_001_layer1),
 	gsSPDisplayList(wf_dl_Volcano__mesh_layer_1_tri_1),
 	gsSPDisplayList(mat_revert_wf_dl_rock_inverted_001_layer1),
+	gsSPEndDisplayList(),
+};
+
+Gfx wf_dl_Volcano__mesh_layer_4[] = {
+	gsSPClearGeometryMode(G_LIGHTING),
+	gsSPVertex(wf_dl_Volcano__mesh_layer_4_vtx_cull + 0, 8, 0),
+	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPCullDisplayList(0, 7),
+	gsSPDisplayList(mat_wf_dl_invis),
+	gsSPDisplayList(wf_dl_Volcano__mesh_layer_4_tri_0),
 	gsSPEndDisplayList(),
 };
 

@@ -57,15 +57,15 @@ struct KoopaTheQuickProperties {
     s16 initText;
     s16 winText;
     Trajectory const *path;
-    Vec3s starPos;
+    Vec3f starPos;
 };
 
 /**
  * Properties for the BoB race and the THI race.
  */
 static struct KoopaTheQuickProperties sKoopaTheQuickProperties[] = {
-    { DIALOG_082, DIALOG_007, wf_area_1_spline_ktq, { 9520, 1306, 9069 } },
-    { DIALOG_009, DIALOG_031, thi_seg7_trajectory_koopa, { 7100, -1300, -6000 } },
+    { DIALOG_082, DIALOG_031, wf_area_1_spline_ktq, { 9520.0f, 2306.0f, 9069.0f } },
+    { DIALOG_009, DIALOG_031, thi_seg7_trajectory_koopa, { 9520.0f, 1306.0f, 9069.0f } },
 };
 
 /**
@@ -715,7 +715,7 @@ static void koopa_the_quick_act_stop(void) {
  * If mario got to the finish line first and didn't use the cannon, then spawn
  * the star.
  */
-static void koopa_the_quick_act_after_race(void) {
+void koopa_the_quick_act_after_race(void) {
     cur_obj_init_animation_with_sound(KOOPA_ANIM_STOPPED);
 
     if (o->parentObj->oKoopaRaceEndpointDialog == 0) {
@@ -748,9 +748,9 @@ static void koopa_the_quick_act_after_race(void) {
             o->oTimer = 0;
         }
     } else if (o->parentObj->oKoopaRaceEndpointRaceStatus != KOOPA_RACE_ENDPOINT_STATUS_KOOPA_WON) {
-        spawn_default_star(sKoopaTheQuickProperties[o->oKoopaTheQuickRaceIndex].starPos[0],
-                           sKoopaTheQuickProperties[o->oKoopaTheQuickRaceIndex].starPos[1],
-                           sKoopaTheQuickProperties[o->oKoopaTheQuickRaceIndex].starPos[2]);
+        spawn_default_star((f32)sKoopaTheQuickProperties[o->oKoopaTheQuickRaceIndex].starPos[0],
+                           (f32)sKoopaTheQuickProperties[o->oKoopaTheQuickRaceIndex].starPos[1],
+                           (f32)sKoopaTheQuickProperties[o->oKoopaTheQuickRaceIndex].starPos[2]);
 
         o->parentObj->oKoopaRaceEndpointRaceStatus = KOOPA_RACE_ENDPOINT_STATUS_KOOPA_WON;
     }

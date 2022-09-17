@@ -2045,3 +2045,6 @@ touch!\n\
 ...provided you have\n\
 enough stars.")
 
+DEFINE_DIALOG(CHEEZE_DIALOG_7, 1, 5, 95, 200, "\
+Ruff!")
+
