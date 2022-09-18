@@ -143,4 +143,23 @@ extern const Gfx dAmpEyeDl[];
 extern const Gfx dAmpMouthDl[];
 extern const Gfx dAmpBodyDl[];
 extern const struct Animation *const dAmpAnimsList[];
+
+// chain_chomp_bowser
+extern const GeoLayout chain_chomp_bowser_geo[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024000[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024040[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024240[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024700[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024900[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024940[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024AA8[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024B00[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024CF0[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024D60[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024F50[];
+extern const Gfx chain_chomp_bowser_seg6_dl_06024FC0[];
+extern const struct Animation *const chain_chomp_bowser_seg6_anims_06025178[];
+
+#include "chain_ball_bowser/geo_header.h"
+
 #endif

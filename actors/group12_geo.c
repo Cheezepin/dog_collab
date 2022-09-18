@@ -14,3 +14,5 @@
 #include "bomb/geo.inc.c"
 #include "impact_smoke/geo.inc.c"
 #include "amp/geo.inc.c"
+#include "chain_ball_bowser/geo.inc.c"
+#include "chain_chomp_bowser/geo.inc.c"

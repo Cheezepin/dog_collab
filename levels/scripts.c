@@ -322,6 +322,8 @@ const LevelScript script_func_global_13[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_NO_SHADOW,        bowser_geo_no_shadow),
     // LOAD_MODEL_FROM_GEO(MODEL_AMP,                     dAmpGeo),
     // LOAD_MODEL_FROM_GEO(MODEL_BOWSER_ELECTRIC_RING,    electric_ring_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_METALLIC_BALL_BOWSER,    metallic_ball_bowser_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CHAIN_CHOMP_BOWSER,      chain_chomp_bowser_geo),
     RETURN(),
 };
 

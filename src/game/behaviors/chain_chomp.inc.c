@@ -49,11 +49,16 @@ void bhv_chain_chomp_chain_part_update(void) {
 /**
  * When mario gets close enough, allocate chain segments and spawn their objects.
  */
+
+void cur_obj_set_bowser_hand_to_home(void) {
+    vec3f_copy(&o->oPosVec, bowserRightHandLocation);
+}
+
 static void chain_chomp_act_uninitialized(void) {
     struct ChainSegment *segments;
     s32 i;
 
-    if (o->oDistanceToMario < CHAIN_CHOMP_LOAD_DIST) {
+    if (/*o->oDistanceToMario < CHAIN_CHOMP_LOAD_DIST*/ find_any_object_with_behavior(bhvBowser) || find_any_object_with_behavior(bhvBowserSnow)) {
         segments = mem_pool_alloc(gObjectMemoryPool, CHAIN_CHOMP_NUM_SEGMENTS * sizeof(struct ChainSegment));
         if (segments != NULL) {
             // Each segment represents the offset of a chain part to the pivot.
@@ -65,7 +70,7 @@ static void chain_chomp_act_uninitialized(void) {
                 chain_segment_init(&segments[i]);
             }
 
-            cur_obj_set_pos_to_home();
+            cur_obj_set_bowser_hand_to_home();
 
             // Spawn the pivot and set to parent
             o->parentObj = spawn_object(o, CHAIN_CHOMP_CHAIN_PART_BP_PIVOT, bhvChainChompChainPart);
@@ -416,6 +421,7 @@ static void chain_chomp_act_unload_chain(void) {
  * Update function for chain chomp.
  */
 void bhv_chain_chomp_update(void) {
+    cur_obj_set_bowser_hand_to_home();
     switch (o->oAction) {
         case CHAIN_CHOMP_ACT_UNINITIALIZED:
             chain_chomp_act_uninitialized();
