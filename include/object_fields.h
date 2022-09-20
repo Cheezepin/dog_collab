@@ -1341,8 +1341,13 @@
 
 #define oWaterSpoutBobTimer                 OBJECT_FIELD_S32(0x1B)
 #define oWaterSpoutFloatyRock               OBJECT_FIELD_OBJ(0x1C)
-#define oWaterSpoutBottom                   OBJECT_FIELD_F32(0x1D)
+#define oWaterSpoutBottom                   OBJECT_FIELD_F32(0x1D) 
+#define oWaterSpoutActive                   OBJECT_FIELD_S32(0x1E)
+#define oWaterSpoutEndHome                  OBJECT_FIELD_F32(0x1F) 
+#define oWaterSpoutIsHome                   OBJECT_FIELD_S32(0x20) 
 
+#define oRainCloudRoom                      OBJECT_FIELD_S16(0x4, 0)
+#define oRainCloudMarioInRoom               OBJECT_FIELD_S16(0x4, 1)
 #define oRainCloudScaleVel                  OBJECT_FIELD_F32(0x1B)
 #define oRainCloudMarioIsStandingOnCloud    OBJECT_FIELD_S32(0x1C)
 #define oRainCloudPreservedMomentum         OBJECT_FIELD_F32(0x1D)
@@ -1355,6 +1360,14 @@
 
 #define oBubbleShellScaleVel                OBJECT_FIELD_F32(0x1B)
 #define oBubbleShellObj                     OBJECT_FIELD_OBJ(0x1C)
+
+#define oWaterSwitchActivated               OBJECT_FIELD_S32(0x1B)
+#define oWaterSwitchOffset                  OBJECT_FIELD_F32(0x1C)
+#define oWaterSwitchOffsetVel               OBJECT_FIELD_F32(0x1D)
+#define oWaterSwitchActiveState             OBJECT_FIELD_U32(0x1E)
+
+#define oWaterAtGoal                        OBJECT_FIELD_S32(0x1B)
+#define oWaterBobTimer                      OBJECT_FIELD_S32(0x1C)
 // thecozies end
 
 /*Custom general defines:

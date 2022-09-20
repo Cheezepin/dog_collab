@@ -69,3 +69,4 @@
 #include "levels/ddd/tube_top/collision.inc.c"
 #include "levels/ddd/water_plane4_whirlpool/collision.inc.c"
 #include "levels/ddd/water_plane4_whirlpool/model.inc.c"
+#include "levels/ddd/the_20_coin/model.inc.c"

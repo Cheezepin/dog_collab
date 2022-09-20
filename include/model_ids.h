@@ -283,12 +283,22 @@
 #define MODEL_LLL_VOLCANO_FALLING_TRAP            0x53        // lll_geo_000EA8
 
 // ddd
-#define MODEL_DDD_WATER_TOP                       0x36
-#define MODEL_DDD_WATER_SPOUT                     0x37
-#define MODEL_RAIN_CLOUD                          0x38
-#define MODEL_DDD_APERATURE_DOOR                  0x39
-#define MODEL_FLOATY_ROCK                         0x3A
-#define MODEL_SHYGUY_SCUBA                        0x3E
+enum CoziesLevelModels {
+	MODEL_DDD_WATER_TOP = 0x36,
+	MODEL_DDD_WATER_SPOUT,
+	MODEL_RAIN_CLOUD,
+	MODEL_DDD_APERATURE_DOOR,
+	MODEL_FLOATY_ROCK,
+	MODEL_SHYGUY_SCUBA,
+	MODEL_WATER_SWITCH,
+	MODEL_FLIPPY_BITCH,
+	MODEL_WATER_PLANE1,
+	MODEL_WATER_PLANE2_CTRL_ROOM,
+	MODEL_WATER_PLANE3_PURP_ROOM,
+	MODEL_WATER_PLANE4_WHIRLPOOL,
+	MODEL_TUBE_TOP,
+	MODEL_20_COIN,
+};
 
 // wf
 #define MODEL_WF_BREAKABLE_WALL_RIGHT             0x36        // wf_geo_000B78

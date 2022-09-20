@@ -98,4 +98,6 @@ extern const LevelScript level_ddd_entry[];
 #include "levels/ddd/water_plane4_whirlpool/geo_header.h"
 
 #include "levels/ddd/misc_vars/misc_vars.h"
+#include "levels/ddd/the_20_coin/geo_header.h"
+
 #endif

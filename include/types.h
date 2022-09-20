@@ -521,6 +521,72 @@ struct GlobalFog
     /*0x04*/ s16 low;
     /*0x04*/ s16 high;
 };
+
+/**
+ * Information for a control point in a spline segment.
+ */
+struct CutsceneSplinePoint {
+    /* The index of this point in the spline. Ignored except for -1, which ends the spline.
+       An index of -1 should come four points after the start of the last segment. */
+    s8 index;
+    /* Roughly controls the number of frames it takes to progress through the spline segment.
+       See move_point_along_spline() in camera.c */
+    u8 speed;
+    Vec3s point;
+};
+
+enum CozyVolTypes {
+    COZY_VOL_NONE,
+    COZY_VOL_MATCH_ROT,
+    COZY_VOL_SECOND_TARGET,
+    COZY_VOL_SECOND_TARGET_FULL,
+    COZY_VOL_FOCUS_POS_HINT,
+    COZY_VOL_HALLWAY_SPLINE,
+};
+
+enum CozyVolShapes {
+    COZY_VOL_SHAPE_BOX,
+    COZY_VOL_SHAPE_CYL,
+};
+
+typedef struct PosFocusFov {
+    Vec3f pos;
+    Vec3f *focus;
+    f32 fov;
+} PosFocusFov;
+
+typedef struct CozyVol
+{
+    Vec3f pos;
+    Vec3s rotation;
+    Vec3f scale;
+    union VolumeParams {
+        s32 dist;
+        Vec3f *secondTarget;
+        PosFocusFov *posFocus;
+        struct CutsceneSplinePoint **spline;
+    } param;
+    u8 type;
+    u8 shape;
+} CozyVol;
+
+enum CozyVolumeIds {
+    COZY_VOLUME_NONE,
+    COZY_VOLUME_FLIPPER_WALL,
+    COZY_VOLUME_SECRET_TUBE_ROOM,
+    COZY_VOLUME_ABOVE_SECRET_ROOM,
+    COZY_VOLUME_PURP_TO_SECRET_ROOM,
+    COZY_VOLUME_PURP_TO_SECRET_ROOM2,
+    COZY_VOLUME_PURP_TO_TRANSITIONAL,
+    COZY_VOLUME_DOWN_THA_TUBE,
+    COZY_VOLUME_2_THA_WHIRLPOOL,
+    COZY_VOLUME_2_THA_WHIRLPOOL_2,
+    COZY_VOLUME_2_THA_WHIRLPOOL_3_WALLJUMP,
+    COZY_VOLUME_2_FOCUS_TUBE,
+    COZY_VOLUME_2_FOCUS_TUBE_END,
+};
 // thecozies end
+
+#define DEGREES(x) ((x) * 0x2000 / 45)
 
 #endif // TYPES_H

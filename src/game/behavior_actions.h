@@ -142,6 +142,8 @@ void bhv_pushable_loop(void);
 void bhv_init_room(void);
 void bhv_small_water_wave_loop(void);
 void bhv_yellow_coin_init(void);
+void bhv_20_coin_init(void);
+void bhv_20_coin_loop(void);
 void bhv_yellow_coin_loop(void);
 void bhv_squarish_path_moving_loop(void);
 void bhv_heave_ho_loop(void);

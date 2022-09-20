@@ -72,6 +72,7 @@ extern const BehaviorScript bhvCoinFormationSpawnedCoin[];
 extern const BehaviorScript bhvCoinFormation[];
 extern const BehaviorScript bhvOneCoin[];
 extern const BehaviorScript bhvYellowCoin[];
+extern const BehaviorScript bvh20Coin[];
 extern const BehaviorScript bhvTemporaryYellowCoin[];
 extern const BehaviorScript bhvThreeCoinsSpawn[];
 extern const BehaviorScript bhvTenCoinsSpawn[];
@@ -668,6 +669,16 @@ extern const BehaviorScript bhvAperatureDoor[];
 extern const BehaviorScript bhvFloatyRock[];
 extern const BehaviorScript bhvShyguyScuba[];
 extern const BehaviorScript bhvBubbleShell[];
+extern const BehaviorScript bhvWaterSwitch[];
+extern const BehaviorScript bhvFlippyBitch[];
+extern const BehaviorScript bhvWaterSwitchWater1[];
+extern const BehaviorScript bhvWaterSwitchWater3[];
+extern const BehaviorScript bhvWaterPlane4Whirlpool[];
+extern const BehaviorScript bhvCoziesStaticWater[];
+extern const BehaviorScript bhvAdjacentRoomInitializer[];
+extern const BehaviorScript bhvTubeTop[];
+extern const BehaviorScript bhvSpinnyCloudSpawner[];
+extern const BehaviorScript bhvCoziesDog[];
 // thecozies bhvs end
 
 //START ROVERT BEHAVIOR

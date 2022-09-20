@@ -35,3 +35,4 @@
 #include "levels/ddd/water_plane3_purp_room/geo.inc.c"
 #include "levels/ddd/tube_top/geo.inc.c"
 #include "levels/ddd/water_plane4_whirlpool/geo.inc.c"
+#include "levels/ddd/the_20_coin/geo.inc.c"

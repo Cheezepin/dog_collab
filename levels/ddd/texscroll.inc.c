@@ -103,16 +103,9 @@ void scroll_sts_mat_ddd_dl_f3dlite_material_002_layer1() {
 };
 
 void scroll_sts_mat_ddd_dl_goooooooop_layer1() {
-	static int intervalTex0 = 2;
-	static int curInterval0 = 2;
 	Gfx *mat = segmented_to_virtual(mat_ddd_dl_goooooooop_layer1);
-
-	if (--curInterval0 <= 0) {
-		shift_s(mat, 13, PACK_TILESIZE(0, 1));
-		shift_t_down(mat, 13, PACK_TILESIZE(0, 1));
-		curInterval0 = intervalTex0;
-	}
-	shift_t(mat, 21, PACK_TILESIZE(0, 1));
+	shift_t_down(mat, 13, PACK_TILESIZE(0, 1));
+	shift_t_down(mat, 21, PACK_TILESIZE(0, 1));
 };
 
 void scroll_sts_mat_ddd_dl_f3dlite_material_003_layer5() {

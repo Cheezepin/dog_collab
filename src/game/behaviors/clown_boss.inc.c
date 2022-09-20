@@ -12,6 +12,17 @@ static struct ObjectHitbox sClownBossHitbox = {
 
 #include "src/audio/load.h"
 
+void clown_before_fight();
+void clown_inbetween_actions();
+void clown_charge_mario();
+void clown_throw_steel_balls(int bomb);
+void clown_stomp_mario();
+void clown_return_to_arena();
+void clown_awooga();
+void clown_end_awooga();
+void clown_hurt();
+void clown_death_cutscene();
+
 void bhv_clown_boss_init(void) {
     obj_set_hitbox(o, &sClownBossHitbox);
     o->oGravity = 5.5;
