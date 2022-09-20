@@ -5,6 +5,7 @@
 #include "main.h"
 #include "rumble_init.h"
 #include "config.h"
+#include "engine/math_util.h"
 
 #if ENABLE_RUMBLE
 
@@ -17,13 +18,15 @@ OSMesgQueue gRumblePakSchedulerMesgQueue;
 OSMesg gRumbleThreadVIMesgBuf[1];
 OSMesgQueue gRumbleThreadVIMesgQueue;
 
-struct RumbleData gRumbleDataQueue[3];
+struct RumbleData gRumbleDataQueue[NUM_RUMBLE_BUFFERS];
 struct RumbleSettings gCurrRumbleSettings;
 
 s32 sRumblePakThreadActive = FALSE;
 s32 sRumblePakActive = FALSE;
+s32 sRumblePakError = FALSE;
 s32 sRumblePakErrorCount = 0;
 s32 gRumblePakTimer = 0;
+
 
 void init_rumble_pak_scheduler_queue(void) {
     osCreateMesgQueue(&gRumblePakSchedulerMesgQueue, gRumblePakSchedulerMesgBuf, 1);
@@ -126,10 +129,17 @@ static void update_rumble_data_queue(void) {
         gCurrRumbleSettings.decay = gRumbleDataQueue[0].decay;
     }
 
+#if NUM_RUMBLE_BUFFERS == 1
+    gRumbleDataQueue[0].comm = 0;
+#elif NUM_RUMBLE_BUFFERS == 2
+    gRumbleDataQueue[0] = gRumbleDataQueue[1];
+    gRumbleDataQueue[1].comm = 0;
+#elif NUM_RUMBLE_BUFFERS == 3
     gRumbleDataQueue[0] = gRumbleDataQueue[1];
     gRumbleDataQueue[1] = gRumbleDataQueue[2];
 
     gRumbleDataQueue[2].comm = 0;
+#endif
 }
 
 void queue_rumble_data(s16 time, s16 level) {
@@ -138,18 +148,18 @@ void queue_rumble_data(s16 time, s16 level) {
     }
 
     if (level > 70) {
-        gRumbleDataQueue[2].comm = 1;
+        gRumbleDataQueue[NUM_RUMBLE_BUFFERS - 1].comm = 1;
     } else {
-        gRumbleDataQueue[2].comm = 2;
+        gRumbleDataQueue[NUM_RUMBLE_BUFFERS - 1].comm = 2;
     }
 
-    gRumbleDataQueue[2].level = level;
-    gRumbleDataQueue[2].time = time;
-    gRumbleDataQueue[2].decay = 0;
+    gRumbleDataQueue[NUM_RUMBLE_BUFFERS - 1].level = level;
+    gRumbleDataQueue[NUM_RUMBLE_BUFFERS - 1].time = time;
+    gRumbleDataQueue[NUM_RUMBLE_BUFFERS - 1].decay = 0;
 }
 
 void queue_rumble_decay(s16 decay) {
-    gRumbleDataQueue[2].decay = decay;
+    gRumbleDataQueue[NUM_RUMBLE_BUFFERS - 1].decay = decay;
 }
 
 u32 is_rumble_finished_and_queue_empty(void) {
@@ -158,8 +168,12 @@ u32 is_rumble_finished_and_queue_empty(void) {
     }
 
     if (gRumbleDataQueue[0].comm != 0) return FALSE;
+#if NUM_RUMBLE_BUFFERS > 1
     if (gRumbleDataQueue[1].comm != 0) return FALSE;
+#endif
+#if NUM_RUMBLE_BUFFERS > 2
     if (gRumbleDataQueue[2].comm != 0) return FALSE;
+#endif
 
     return TRUE;
 }
@@ -211,6 +225,34 @@ void queue_rumble_submerged(void) {
     gCurrRumbleSettings.vibrate = 4;
 }
 
+s32 handle_timeout(OSMesgQueue *mq, f32 seconds) {
+    // returns true if it lasts longer than 3 seconds (3 * 1000us * 1000ms)
+    OSMesg msg;
+    OSTimer timer;
+    osSetTimer(
+        &timer,
+        OS_USEC_TO_CYCLES(roundf(seconds * (1000.0f * 1000.0f))),
+        0,
+        mq,
+        (OSMesg)420
+    );
+    osRecvMesg(mq, &msg, OS_MESG_BLOCK);
+    osStopTimer(&timer);
+
+    return msg == (OSMesg)420;
+}
+
+s32 use_timeout(f32 seconds) {
+    static OSMesgQueue timeoutQueue;
+    static OSMesg timeoutQueueBuf[1];
+    static u8 init = TRUE;
+    if (init) {
+        init = FALSE;
+        osCreateMesgQueue(&timeoutQueue, timeoutQueueBuf, ARRAY_COUNT(timeoutQueueBuf));
+    }
+    return handle_timeout(&timeoutQueue, seconds);
+}
+
 static void thread6_rumble_loop(UNUSED void *arg) {
     OSMesg msg;
 
@@ -221,6 +263,22 @@ static void thread6_rumble_loop(UNUSED void *arg) {
 	osSyncPrintf("go motor thread\n");
 
     while (TRUE) {
+        osSyncPrintf("sRumblePakError = %d\n", sRumblePakError);
+        // if (sRumblePakError == PFS_ERR_NOPACK) {
+        if (sRumblePakError > 0) {
+            // osRecvMesg(&gRumbleThreadVIMesgQueue, &msg, OS_MESG_BLOCK);
+            sRumblePakThreadActive = FALSE;
+            stop_rumble();
+            // while (!sRumblePakThreadActive) {
+            // //     osSyncPrintf("Waiting 5s\n");
+            //     use_timeout(5.0f);
+            // //     osSyncPrintf("Done, try again\n");
+            // }
+
+            // sRumblePakError = osMotorInit(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port);
+            // sRumblePakThreadActive = sRumblePakActive = sRumblePakError < 1;
+            return;
+        }
         // Block until VI
         osRecvMesg(&gRumbleThreadVIMesgQueue, &msg, OS_MESG_BLOCK);
 
@@ -232,7 +290,8 @@ static void thread6_rumble_loop(UNUSED void *arg) {
                 sRumblePakActive = FALSE;
             }
         } else if (gNumVblanks % 60 == 0) {
-            sRumblePakActive = osMotorInit(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port) < 1;
+            sRumblePakError = osMotorInit(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port);
+            sRumblePakActive = sRumblePakError < 1;
             sRumblePakErrorCount = 0;
         }
 
@@ -243,15 +302,20 @@ static void thread6_rumble_loop(UNUSED void *arg) {
 }
 
 void cancel_rumble(void) {
-    sRumblePakActive = osMotorInit(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port) < 1;
+    sRumblePakError = osMotorInit(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port);
+    sRumblePakActive = sRumblePakError < 1;
 
     if (sRumblePakActive) {
         osMotorStop(&gRumblePakPfs);
     }
 
     gRumbleDataQueue[0].comm = 0;
+#if NUM_RUMBLE_BUFFERS > 1
     gRumbleDataQueue[1].comm = 0;
+#endif
+#if NUM_RUMBLE_BUFFERS > 2
     gRumbleDataQueue[2].comm = 0;
+#endif
 
     gCurrRumbleSettings.timer = 0;
     gCurrRumbleSettings.slip  = 0;

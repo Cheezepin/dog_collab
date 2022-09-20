@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <PR/os_internal_reg.h>
 
 #include "sm64.h"
 #include "gfx_dimensions.h"
@@ -49,6 +50,7 @@ OSContStatus gControllerStatuses[4];
 OSContPad gControllerPads[4];
 u8 gControllerBits;
 u8 gIsConsole = TRUE; // Needs to be initialized before audio_reset_session is called
+u8 gCacheEmulated = TRUE; // Needs to be initialized before audio_reset_session is called
 u8 gBorderHeight;
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG
 u8 gCustomDebugMode;
@@ -298,6 +300,11 @@ void create_gfx_task_structure(void) {
     gGfxSPTask->task.t.ucode_data = gspF3DZEX2_PosLight_fifoDataStart;
     gGfxSPTask->task.t.ucode_size = ((u8 *) gspF3DZEX2_PosLight_fifoTextEnd - (u8 *) gspF3DZEX2_PosLight_fifoTextStart);
     gGfxSPTask->task.t.ucode_data_size = ((u8 *) gspF3DZEX2_PosLight_fifoDataEnd - (u8 *) gspF3DZEX2_PosLight_fifoDataStart);
+#elif  F3DZEX_NON_GBI_2
+    gGfxSPTask->task.t.ucode = gspF3DZEX2_NoN_PosLight_fifoTextStart;
+    gGfxSPTask->task.t.ucode_data = gspF3DZEX2_NoN_PosLight_fifoDataStart;
+    gGfxSPTask->task.t.ucode_size = ((u8 *) gspF3DZEX2_NoN_PosLight_fifoTextEnd - (u8 *) gspF3DZEX2_NoN_PosLight_fifoTextStart);
+    gGfxSPTask->task.t.ucode_data_size = ((u8 *) gspF3DZEX2_NoN_PosLight_fifoDataEnd - (u8 *) gspF3DZEX2_NoN_PosLight_fifoDataStart);
 #elif   F3DEX2PL_GBI
     gGfxSPTask->task.t.ucode = gspF3DEX2_PosLight_fifoTextStart;
     gGfxSPTask->task.t.ucode_data = gspF3DEX2_PosLight_fifoDataStart;
@@ -389,6 +396,21 @@ void draw_reset_bars(void) {
     osRecvMesg(&gGameVblankQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
 }
 
+void check_cache_emulation() {
+    // Disable interrupts to ensure that nothing evicts the variable from cache while we're using it.
+    u32 saved = __osDisableInt();
+    // Create a variable with an initial value of 1. This value will remain cached.
+    volatile u8 sCachedValue = 1;
+    // Overwrite the variable directly in RDRAM without going through cache.
+    // This should preserve its value of 1 in dcache if dcache is emulated correctly.
+    *(u8*)(K0_TO_K1(&sCachedValue)) = 0;
+    // Read the variable back from dcache, if it's still 1 then cache is emulated correctly.
+    // If it's zero, then dcache is not emulated correctly.
+    gCacheEmulated = sCachedValue;
+    // Restore interrupts
+    __osRestoreInt(saved);
+}
+
 /**
  * Initial settings for the first rendered frame.
  */
@@ -400,6 +422,7 @@ void render_init(void) {
         gIsConsole = FALSE;
         gBorderHeight = BORDER_HEIGHT_EMULATOR;
         gIsVC = IS_VC();
+        check_cache_emulation();
     } else {
         gIsConsole = TRUE;
         gBorderHeight = BORDER_HEIGHT_CONSOLE;
@@ -417,7 +440,8 @@ void render_init(void) {
 
     // Skip incrementing the initial framebuffer index on emulators so that they display immediately as the Gfx task finishes
     // VC probably emulates osViSwapBuffer accurately so instant patch breaks VC compatibility
-    if (gIsConsole || gIsVC) { // Read RDP Clock Register, has a value of zero on emulators
+    // Currently, Ares passes the cache emulation test and has issues with single buffering so disable it there as well.
+    if (gIsConsole || gIsVC || gCacheEmulated) {
         sRenderingFramebuffer++;
     }
     gGlobalTimer++;
@@ -446,7 +470,8 @@ s32 handle_wait_vblank(OSMesgQueue *mq) {
 }
 
 static void rcp_omg(void) {
-    osSyncPrintf("RCP is HUNG UP!! Oh! MY GOD!!");
+    mark_spot
+    osSyncPrintf("RCP is HUNG UP!! Oh! MY GOD!!\n");
     assert(FALSE, "RCP is HUNG UP!! Oh! MY GOD!!");
 }
 
@@ -473,7 +498,7 @@ void display_and_vsync(void) {
     if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
 
     // Skip swapping buffers on emulator so that they display immediately as the Gfx task finishes
-    if (gIsConsole || gIsVC) { // Read RDP Clock Register, has a value of zero on emulators
+    if (gIsConsole || gIsVC || gCacheEmulated) {
         if (++sRenderedFramebuffer == 3) {
             sRenderedFramebuffer = 0;
         }
@@ -623,7 +648,11 @@ void read_controller_inputs(s32 threadID) {
     // If any controllers are plugged in, update the controller information.
     if (gControllerBits) {
         if (threadID == THREAD_5_GAME_LOOP) {
-            osRecvMesg(&gSIEventMesgQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
+            if (handle_wait_vblank(&gSIEventMesgQueue)) {
+                osSyncPrintf("Controller thread has HUNG UP YO\n");
+                return;
+            };
+            // osRecvMesg(&gSIEventMesgQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
         }
         osContGetReadData(&gControllerPads[0]);
 #if ENABLE_RUMBLE

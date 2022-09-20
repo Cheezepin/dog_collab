@@ -438,6 +438,10 @@ s32 bonk_or_hit_lava_wall(struct MarioState *m, struct WallCollisionData *wallDa
                 m->wall = wallData->walls[i];
                 return AIR_STEP_HIT_SHOCK_WALL;
             }
+            if (wallData->walls[i]->type == SURFACE_HURT_FLOOR_WITH_HEIGHT) {
+                set_mario_wall(m, wallData->walls[i]);
+                return AIR_STEP_HIT_HURT_WALL;
+            }
 
             // Update wall reference (bonked wall) only if the new wall has a better facing angle
             wallDYaw = abs_angle_diff(SURFACE_YAW(wallData->walls[i]), m->faceAngle[1]);

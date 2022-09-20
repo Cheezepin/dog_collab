@@ -934,7 +934,15 @@ void cur_obj_update(void) {
     // Handle visibility of object
     if (o->oRoom != -1) {
         // If the object is in a room, only show it when Mario is in the room.
-        cur_obj_enable_rendering_if_mario_in_room();
+        if (
+            (objFlags & OBJ_FLAG_ACTIVE_FROM_AFAR)
+            || distanceFromMario < o->oDrawingDistance
+        ) { 
+            cur_obj_enable_rendering_if_mario_in_room();
+        } else {
+            o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
+            o->activeFlags |= ACTIVE_FLAG_FAR_AWAY;
+        }
     } else if (
         o->collisionData == NULL
         &&  (objFlags & OBJ_FLAG_COMPUTE_DIST_TO_MARIO)

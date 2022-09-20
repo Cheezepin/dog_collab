@@ -14,6 +14,7 @@
 #include "game/object_list_processor.h"
 #include "surface_load.h"
 #include "game/puppyprint.h"
+#include "game/debug.h"
 
 #include "config.h"
 
@@ -28,8 +29,10 @@ struct CellCoords {
     u8 x;
     u8 partition;
 };
-struct CellCoords sCellsUsed[NUM_CELLS];
-u16 sNumCellsUsed;
+// cozies: increased the size of sCellsUsed here because it gave me a significant time save
+// my max number of cells used was 136
+struct CellCoords sCellsUsed[150];
+u16 sNumCellsUsed = 0;
 u8 sClearAllCells;
 
 /**
@@ -143,6 +146,12 @@ static void add_surface_to_cell(s32 dynamic, s32 cellX, s32 cellZ, struct Surfac
         list = &gDynamicSurfacePartition[cellZ][cellX][listIndex];
         if (sNumCellsUsed >= sizeof(sCellsUsed) / sizeof(struct CellCoords)) {
             sClearAllCells = TRUE;
+#ifdef DEBUG
+            // increase counter for debug assertion
+            if (list->next == NULL) {
+                sNumCellsUsed++;
+            }
+#endif
         } else {
             if (list->next == NULL) {
                 sCellsUsed[sNumCellsUsed].z = cellZ;
@@ -555,6 +564,14 @@ void clear_dynamic_surfaces(void) {
 
         if (sClearAllCells) {
             clear_spatial_partition(&gDynamicSurfacePartition[0][0]);
+            #ifdef DEBUG
+            if (sNumCellsUsed > ARRAY_COUNT(sCellsUsed)) {
+                static char warn_msg[128];
+                sprintf(warn_msg, "\nERROR!! Exceeded cell sCellsUsed capacity!\nUsed %d out of %d available.\n", sNumCellsUsed, ARRAY_COUNT(sCellsUsed));
+                osSyncPrintf(warn_msg);
+                assert(FALSE, warn_msg);
+            }
+            #endif
         } else {
             for (u32 i = 0; i < sNumCellsUsed; i++) {
                 gDynamicSurfacePartition[sCellsUsed[i].z][sCellsUsed[i].x][sCellsUsed[i].partition].next = NULL;

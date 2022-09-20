@@ -109,7 +109,7 @@ else ifeq ($(GRUCODE),l3dex2) # Line3DEX2
 else ifeq ($(GRUCODE),f3dex2pl) # Fast3DEX2_PosLight
   DEFINES += F3DEX2PL_GBI=1 F3DEX_GBI_2=1 F3DEX_GBI_SHARED=1
 else ifeq ($(GRUCODE),f3dzex) # Fast3DZEX (2.08J / Animal Forest - Dōbutsu no Mori)
-  DEFINES += F3DZEX_GBI_2=1 F3DEX_GBI_2=1 F3DEX_GBI_SHARED=1
+  DEFINES += F3DZEX_NON_GBI_2=1 F3DEX_GBI_2=1 F3DEX_GBI_SHARED=1
 else ifeq ($(GRUCODE),super3d) # Super3D
   $(warning Super3D is experimental. Try at your own risk.)
   DEFINES += SUPER3D_GBI=1 F3D_NEW=1
@@ -221,6 +221,8 @@ endif
 
 TARGET_STRING := dogcollab
 
+LOADER_FLAGS =
+
 # UNF - whether to use UNFLoader flashcart library
 #   1 - includes code in ROM
 #   0 - does not
@@ -230,6 +232,7 @@ ifeq ($(UNF),1)
   DEFINES += UNF=1
   SRC_DIRS += src/usb
   USE_DEBUG := 1
+  LOADER_FLAGS = -d -r
 endif
 
 # ISVPRINT - whether to fake IS-Viewer presence,
@@ -516,7 +519,6 @@ ENDIAN_BITWIDTH       := $(BUILD_DIR)/endian-and-bitwidth
 EMULATOR = wslview
 EMU_FLAGS =
 LOADER = ./UNFLoader.exe
-LOADER_FLAGS =
 SHA1SUM = sha1sum
 PRINT = printf
 

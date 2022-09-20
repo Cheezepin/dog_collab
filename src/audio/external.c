@@ -2017,6 +2017,15 @@ void get_currently_playing_sound(u8 bank, u8 *numPlayingSounds, u8 *numSoundsInB
     }
 }
 
+void set_pitch_change(f32 change) {
+    gPitchChange = change;
+}
+
+void approach_pitch_change(f32 change, f32 speed) {
+    gPitchChange = approach_f32_asymptotic(gPitchChange, change, speed);
+}
+
+
 /**
  * Called from threads: thread5_game_loop
  */

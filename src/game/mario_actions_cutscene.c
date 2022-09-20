@@ -2657,11 +2657,18 @@ s32 act_floor_checkpoint_warp_out(struct MarioState *m) {
         m->forwardVel = 0.0f;
         m->flags |= MARIO_TELEPORTING;
         m->fadeWarpOpacity = (u8)MIN_MAX(get_relative_position_between_ranges(m->actionTimer, 1.0f, SLOW_WARP_LEN, 255.0f, 0.0f), 0, 255);
-        m->vel[0] *= 0.8f; 
-        m->vel[1] *= 0.8f; 
-        m->vel[2] *= 0.8f;
-        vec3f_add(m->pos, m->vel);
-        vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+        if (m->pos[1] < m->floorHeight + 2.0f) {
+            m->vel[0] = CLAMP(m->vel[0], -2, 2); 
+            m->vel[1] = -3; 
+            m->vel[2] = CLAMP(m->vel[2], -2, 2);
+            vec3f_add(m->marioObj->header.gfx.pos, m->vel);
+        } else {
+            m->vel[0] *= 0.8f; 
+            m->vel[1] *= 0.8f; 
+            m->vel[2] *= 0.8f;
+            vec3f_add(m->pos, m->vel);
+            vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
+        }
         // TODO: Fade out audio or something?
         return FALSE;
     }
@@ -2692,6 +2699,7 @@ s32 act_floor_checkpoint_warp_in(struct MarioState *m) {
         m->fadeWarpOpacity = 255;
         vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
         vec3s_copy(m->marioObj->header.gfx.angle, m->faceAngle);
+        gMarioState->action = ACT_IDLE; // re-allow cancelling cutscene actions
         switch(get_checkpoint_action(m)) {
             case CHECKPOINT_ENDS_IN_WATER:
                 return set_mario_action(gMarioState, ACT_WATER_IDLE, 0);

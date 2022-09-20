@@ -193,6 +193,18 @@ void vec3i_sum(Vec3i dest, const Vec3i a, const Vec3i b) { vec3_sum_func(s32, de
 void vec3s_sum(Vec3s dest, const Vec3s a, const Vec3s b) { vec3_sum_func(s16, dest, a, b); }
 #undef vec3_sum_func
 
+void surface_center(Vec3f dest, Vec3s vtx1, Vec3s vtx2, Vec3s vtx3) {
+    dest[0] = ((f32)(vtx1[0] + vtx2[0] + vtx3[0])) * 0.33333333f;
+    dest[1] = ((f32)(vtx1[1] + vtx2[1] + vtx3[1])) * 0.33333333f;
+    dest[2] = ((f32)(vtx1[2] + vtx2[2] + vtx3[2])) * 0.33333333f;
+}
+
+void vec3f_center(Vec3f dest, Vec3f v1, Vec3f v2) {
+    dest[0] = (v1[0] + v2[0]) / 2.0f;
+    dest[1] = (v1[1] + v2[1]) / 2.0f;
+    dest[2] = (v1[2] + v2[2]) / 2.0f;
+}
+
 /// Subtract vector a from 'dest'
 #define vec3_sub_func(fmt, dest, a) {   \
     register fmt x = ((fmt *) a)[0];    \
@@ -1299,6 +1311,15 @@ f32 get_relative_position_between_ranges(f32 x, f32 fromA, f32 toA, f32 fromB, f
     return (x - fromA) / (toA - fromA) * (toB - fromB) + fromB;
 }
 
+f32 get_lerp(f32 cur, f32 from, f32 to) {
+    f32 amt = CLAMP(cur, from, to);
+    return get_relative_position_between_ranges(amt, from, to, 0.0f, 1.0f);
+}
+
+f32 lerp(f32 from, f32 to, f32 amt) {
+    return from + amt * (to - from);
+}
+
 s16 approach_yaw(s16 curYaw, s16 target, f32 speed) {
     return (s16) (target - approach_f32_asymptotic(
         (s16) (target - curYaw),
@@ -1336,11 +1357,11 @@ s32 ray_surface_intersect(Vec3f orig, Vec3f dir, f32 dir_length, struct Surface 
     // Get surface normal and extend it by RAY_OFFSET.
     Vec3f norm;
     surface_normal_to_vec3f(norm, surface);
-    vec3_mul_val(norm, RAY_OFFSET);
+    // vec3_mul_val(norm, RAY_OFFSET);
     // Move the face forward by RAY_OFFSET.
-    vec3f_add(v0, norm);
-    vec3f_add(v1, norm);
-    vec3f_add(v2, norm);
+    // vec3f_add(v0, norm);
+    // vec3f_add(v1, norm);
+    // vec3f_add(v2, norm);
     // Make 'e1' (edge 1) the vector from vertex 0 to vertex 1.
     Vec3f e1;
     vec3f_diff(e1, v1, v0);
@@ -1353,7 +1374,7 @@ s32 ray_surface_intersect(Vec3f orig, Vec3f dir, f32 dir_length, struct Surface 
     // Determine the cos(angle) difference between ray and surface normals.
     f32 det = vec3f_dot(e1, h);
     // Check if we're perpendicular from the surface.
-    if ((det > -NEAR_ZERO) && (det < NEAR_ZERO)) return FALSE;
+    if (det < NEAR_ZERO) return FALSE;
     // Check if we're making contact with the surface.
     // Make f the inverse of the cos(angle) between ray and surface normals.
     f32 f = 1.0f / det; // invDet
@@ -1582,4 +1603,18 @@ void mtxf_to_mtx_fast(s16* dst, float* src)
     // The low half was already set to zero in the loop, so we only need
     //  to set the top half.
     dst[15] = 1;
+}
+
+/**
+ * @brief Get a cycle multiplied by the extent
+ *
+ * @param cycleLength f32: time in seconds to complete a cycle
+ * @param cycleOffset f32: where the cycle should begin, 0.5 would be halfways through the cycle
+ * @param timer s32: the timer source that should increment once per frame (e.g. gGlobalTimer)
+ * @return f32: number between [-1, 1] for your cycle
+ */
+f32 get_cycle(f32 cycleLength, f32 cycleOffset, u32 timer) {
+    f32 rate = (f32)DEGREES(360/30) * (1.0f/cycleLength);
+    f32 offset = (f32)DEGREES(360) * cycleOffset;
+    return sins(roundf((rate * (f32)timer) + offset));
 }

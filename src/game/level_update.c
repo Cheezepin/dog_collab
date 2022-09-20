@@ -1077,7 +1077,7 @@ s32 play_mode_normal(void) {
     if (gCurrentArea != NULL) {
         update_camera(gCurrentArea->camera);
     }
-
+    
     initiate_painting_warp();
     initiate_delayed_warp();
 
@@ -1221,7 +1221,7 @@ s32 update_level(void) {
 
     switch (sCurrPlayMode) {
         case PLAY_MODE_NORMAL:
-            changeLevel = play_mode_normal(); scroll_textures();
+            changeLevel = play_mode_normal(); scroll_textures(); 
             break;
         case PLAY_MODE_PAUSED:
             changeLevel = play_mode_paused();
@@ -1346,7 +1346,7 @@ s32 init_level(void) {
 #ifdef PUPPYPRINT_DEBUG_CYCLES
     append_puppyprint_log("Level loaded in %dc", (s32)(osGetTime() - first));
 #else
-    append_puppyprint_log("Level loaded in %dus", (s32)(OS_CYCLES_TO_USEC(osGetTime() - first)));
+    osSyncPrintf("Level loaded in %dus\n", (s32)(OS_CYCLES_TO_USEC(osGetTime() - first)));
 #endif
 #endif
     return TRUE;
