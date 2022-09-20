@@ -2601,40 +2601,45 @@ void render_hub_selection(void) {
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
     } else {
-        create_dl_translation_matrix(MENU_MTX_PUSH, -(f32)(gHubStarSelectTimer*12), 0.0f, 0.0f);
-        u8 i = 0;
-        for(i = 0; i < 6; i++) {
-            u8 filled = gFocusID == i ? 1 : 0;
-            if(hubSelections[gWorldID][i].warpID == 0) {
-                break;
-            } else {
-                render_bar(200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled);
+        f32 translateAmt = gHubStarSelectTimer*-12;
+        translateAmt = CLAMP(translateAmt, -301, 0);
+        if (translateAmt > -300) {
+            create_dl_translation_matrix(MENU_MTX_PUSH, translateAmt, 0.0f, 0.0f);
+
+            u8 i = 0;
+            for(i = 0; i < 6; i++) {
+                u8 filled = gFocusID == i ? 1 : 0;
+                if(hubSelections[gWorldID][i].warpID == 0) {
+                    break;
+                } else {
+                    render_bar(200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled);
+                }
             }
-        }
 
-        render_bar(220, TEXT_SELECT_LEVEL, 0);
+            render_bar(220, TEXT_SELECT_LEVEL, 0);
 
-        render_bar(48, hubSelections[gWorldID][gFocusID].levelIdentifierString, 0);
-        render_bar(28, hubSelections[gWorldID][gFocusID].levelNameString,       0);
-        render_bar(8,  hubSelections[gWorldID][gFocusID].levelAuthorString,     0);
+            render_bar(48, hubSelections[gWorldID][gFocusID].levelIdentifierString, 0);
+            render_bar(28, hubSelections[gWorldID][gFocusID].levelNameString,       0);
+            render_bar(8,  hubSelections[gWorldID][gFocusID].levelAuthorString,     0);
 
+            gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
 
-        gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
-
-        for(i = 0; i < 6; i++) {
-            u8 filled = gFocusID == i ? 8 : 0;
-            if(hubSelections[gWorldID][i].warpID == 0) {
-                break;
-            } else {
-                print_string_with_shadow(8 + filled, 200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled ? textColor : textDiscolor);
+            for(i = 0; i < 6; i++) {
+                u8 filled = gFocusID == i ? 8 : 0;
+                if(hubSelections[gWorldID][i].warpID == 0) {
+                    break;
+                } else {
+                    print_string_with_shadow(8 + filled, 200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled ? textColor : textDiscolor);
+                }
             }
-        }
 
-        print_string_with_shadow(8, 220, TEXT_SELECT_LEVEL, textDiscolor);
-        print_string_with_shadow(8, 48, hubSelections[gWorldID][gFocusID].levelIdentifierString, textColor);
-        print_string_with_shadow(8, 28, hubSelections[gWorldID][gFocusID].levelNameString, textColor);
-        print_string_with_shadow(8, 8, hubSelections[gWorldID][gFocusID].levelAuthorString, textColor);
-        gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+            print_string_with_shadow(8, 220, TEXT_SELECT_LEVEL, textDiscolor);
+            print_string_with_shadow(8, 48, hubSelections[gWorldID][gFocusID].levelIdentifierString, textColor);
+            print_string_with_shadow(8, 28, hubSelections[gWorldID][gFocusID].levelNameString, textColor);
+            print_string_with_shadow(8, 8, hubSelections[gWorldID][gFocusID].levelAuthorString, textColor);
+            gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+            gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+        }
 
         if(sDelayedWarpTimer == 0) {
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
@@ -2682,7 +2687,6 @@ void render_hub_selection(void) {
                 }
             }
         }
-        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     }
 
     if(gHubAlertTimer > 0) {
@@ -2718,13 +2722,13 @@ void geo_clear_zbuffer(Gfx *dlHead) {
 Gfx star_hud_dl[] = {
     gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
     gsSPDisplayList(star_seg3_dl_body),
-    gsDPSetRenderMode(G_RM_TEX_EDGE, G_RM_TEX_EDGE2),
+    gsDPSetRenderMode(G_RM_AA_ZB_TEX_EDGE, G_RM_AA_ZB_TEX_EDGE2),
     gsSPDisplayList(star_seg3_dl_eyes),
     gsSPEndDisplayList(),
 };
 
 Gfx transparent_star_hud_dl[] = {
-    gsDPSetRenderMode(G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2),
+    gsDPSetRenderMode(G_RM_CUSTOM_AA_ZB_XLU_SURF, G_RM_CUSTOM_AA_ZB_XLU_SURF2),
     gsSPDisplayList(transparent_star_seg3_dl_body),
     gsSPEndDisplayList(),
 };
@@ -2864,6 +2868,8 @@ void render_hub_star_select(s32 cringeTimer) {
     if(fadeTextTimer > 255) {fadeTextTimer = 255;}
     gDPSetRenderMode(gDisplayListHead++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
     gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, fadeBarTimer);
+    gSPClearGeometryMode(gDisplayListHead, G_ZBUFFER);
+    gDPPipeSync(gDisplayListHead++);
     gSPDisplayList(gDisplayListHead++, bg_star_select_mesh);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
@@ -2889,32 +2895,48 @@ void render_hub_star_select(s32 cringeTimer) {
 
     create_dl_translation_matrix(MENU_MTX_PUSH, centerX, 144.0f, 0.0f);
     create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
+
+    geo_clear_zbuffer(gDisplayListHead);
+    gSPSetGeometryMode(gDisplayListHead++, G_ZBUFFER);
+    gDPPipeSync(gDisplayListHead++);
     for(i = 0; i < visibleStars; i++) {
         localTimer = cringeTimer - (i*2);
-        if(localTimer < 0) {localTimer = 0;}
+        if (localTimer < 0) { localTimer = 0; }
         create_dl_translation_matrix(MENU_MTX_PUSH, 800.0f*i, (200.0f / ((((f32)(localTimer)) / 10.0f) + 0.1f)), 0.0f);
-        create_dl_translation_matrix(MENU_MTX_PUSH, 0.0f, 0.0f, 0.0f);
-        geo_clear_zbuffer(gDisplayListHead++);
+
         if(selectedStar == i) {
             create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
             create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.25f, 1.25f, 1.25f);
         }
+
         if(stars & (0x1 << i)) {
             gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
             gSPDisplayList(gDisplayListHead++, star_hud_dl);
         } else {
             gSPDisplayList(gDisplayListHead++, transparent_star_hud_dl);
         }
-        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
-        if(selectedStar == i) {
-            create_dl_translation_matrix(MENU_MTX_NOPUSH, 00, 0.0f, 1000.0f);
-            gDPSetRenderMode(gDisplayListHead++, G_RM_CUSTOM_AA_ZB_XLU_SURF, G_RM_CUSTOM_AA_ZB_XLU_SURF);
-            gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
-            gSPDisplayList(gDisplayListHead++, glow_circle_mesh);
-        }
+
         gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     }
+
+    // render glow now that z buffer as been written to
+    {
+        gDPPipeSync(gDisplayListHead++);
+        gDPSetDepthSource(gDisplayListHead++, G_ZS_PRIM);
+        gDPSetPrimDepth(gDisplayListHead++, 0x6000 - 1, 0);
+        gDPPipeSync(gDisplayListHead++);
+        localTimer = cringeTimer - (selectedStar*2);
+        if (localTimer < 0) { localTimer = 0; }
+        create_dl_translation_matrix(MENU_MTX_PUSH, 800.0f*selectedStar, (200.0f / ((((f32)(localTimer)) / 10.0f) + 0.1f)), 0.0f);
+        gDPSetRenderMode(gDisplayListHead++, G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF);
+        gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+        gSPDisplayList(gDisplayListHead++, glow_circle_mesh);
+        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    }
+
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    gDPSetDepthSource(gDisplayListHead++, G_ZS_PIXEL);
+    gDPPipeSync(gDisplayListHead++);
 }
 
 /* void new_star_select_loop(void) {
