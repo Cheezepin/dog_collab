@@ -467,6 +467,7 @@ enum oBobombBuddyHasTalkedToMarioStates {
     #define BOWSER_ACT_TELEPORT_HOME                        0x1A
     #define BOWSER_ACT_PRE_ATTACK                           0x1B
     #define BOWSER_ACT_LIGHTNING                            0x1C
+    #define BOWSER_ACT_LIGHTNING_2                          0x1D
     /* oAnimState */
     #define BOWSER_ANIM_STATE_OPAQUE                        TRANSPARENCY_ANIM_STATE_OPAQUE
     #define BOWSER_ANIM_STATE_TRANSPARENT                   TRANSPARENCY_ANIM_STATE_TRANSPARENT
@@ -781,6 +782,7 @@ enum ExclamationBoxContentsList { // oBehParams2ndByte, ExclamationBoxContents->
     EXCLAMATION_BOX_BP_STAR_4,
     EXCLAMATION_BOX_BP_STAR_5,
     EXCLAMATION_BOX_BP_STAR_6,
+    EXCLAMATION_BOX_BP_JETSKI,
     EXCLAMATION_BOX_BP_NULL = 99
 };
 enum oBehParam1stByteExclamationBox {

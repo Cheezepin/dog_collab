@@ -43,4 +43,11 @@ extern const LevelScript level_castle_grounds_entry[];
 
 #include "levels/castle_grounds/kb_bg/header.h"
 
+
+#include "levels/castle_grounds/header.inc.h"
+
+#include "levels/castle_grounds/bar/header.h"
+
+#include "levels/castle_grounds/glow/header.h"
+
 #endif

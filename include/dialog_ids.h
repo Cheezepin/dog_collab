@@ -197,19 +197,14 @@ enum DialogId {
     _2639DIAG_A1LobbyNPCSuggester,
     _2639DIAG_A1LobbyToadStarGranter,
 
-    _2639DIAG_A2RoomPeachGreeter,
-    _2639DIAG_A2RoomPeachSuccess,
-    _2639DIAG_A2RoomPeachFailure,
+    CHEEZE_DIALOG_1,
+    CHEEZE_DIALOG_2,
+    CHEEZE_DIALOG_3,
+    CHEEZE_DIALOG_4,
+    CHEEZE_DIALOG_5,
+    CHEEZE_DIALOG_6,
+    CHEEZE_DIALOG_7,
 
-    _2639DIAG_A3RoomToadPartyGreeter,
-    _2639DIAG_A3RoomToadSuccess,
-    _2639DIAG_A3RoomToadGibSoda,
-    _2639DIAG_A3RoomToadPartyRocking1,
-    _2639DIAG_A3RoomToadPartyRocking2,
-    _2639DIAG_A3RoomToadPartyRocking3,
-
-    _2639DIAG_A4RoomToadRoomsFlooded,
-    
     DIALOG_COUNT
 };
 

@@ -123,6 +123,21 @@ Gfx *geo_switch_anim_state(s32 callContext, struct GraphNode *node, UNUSED void 
     return NULL;
 }
 
+Gfx *geo_is_level_b1(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct Object *obj = gCurGraphNodeObjectNode;
+
+        // move to a local var because GraphNodes are passed in all geo functions.
+        // cast the pointer.
+        struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
+
+        // assign the case number for execution.
+        switchCase->selectedCase = (gCurrLevelNum == LEVEL_BOWSER_2) ? 1 : 0;
+    }
+
+    return NULL;
+}
+
 Gfx *geo_switch_area(s32 callContext, struct GraphNode *node, UNUSED void *context) {
     struct Surface *floor;
     struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
@@ -2703,3 +2718,56 @@ Gfx *debug_geo_asm(s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 m
 }
 
 // thecozies end
+
+Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node) {
+    Gfx *dlStart, *dlHead;
+    struct Object *objectGraphNode;
+    struct GraphNodeGenerated *currentGraphNode;
+
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        u32 starColor = starColors[gCurrCourseNum - 1];
+        u8 starColorR = starColor >> 24;
+        u8 starColorG = (starColor >> 16) & 0xFF;
+        u8 starColorB = (starColor >> 8) & 0xFF;
+
+        objectGraphNode = (struct Object *) gCurGraphNodeObject;
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
+
+        dlHead = dlStart;
+
+        SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_OPAQUE);
+
+        gDPSetPrimColor(dlHead++, 0, 0, starColorR, starColorG, starColorB, 0xFF);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}
+
+Gfx *geo_warp_box_scale(s32 callContext, struct GraphNode *node) {
+    struct GraphNodeScale *scaleNode = (struct GraphNodeScaleBetter *) node->next;
+    struct Object *objectGraphNode = (struct Object *) gCurGraphNodeObject;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        scaleNode->scale = objectGraphNode->oWarpBoxInnerScale;
+    }
+
+    return NULL;
+}
+
+Vec3f bowserRightHandLocation = {0, 0, 0};
+Mat4 posMtx;
+Gfx *geo_bowser_hand_location_update(s32 callContext, struct GraphNode *node, Mat4 *mtx) {
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        create_transformation_from_matrices(posMtx, *mtx, *gCurGraphNodeCamera->matrixPtr);
+        print_text_fmt_int(20, 20, "%f", posMtx[3][0]);
+        vec3f_set(bowserRightHandLocation, posMtx[3][0], posMtx[3][1], posMtx[3][2]);
+    }
+
+    return NULL;
+}

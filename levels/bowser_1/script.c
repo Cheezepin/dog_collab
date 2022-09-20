@@ -34,6 +34,8 @@ const LevelScript level_bowser_1_entry[] = {
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_13),
+	LOAD_MODEL_FROM_GEO(MODEL_AMP,                     dAmpGeo),
+	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_ELECTRIC_RING,    electric_ring_geo),
 	LOAD_MODEL_FROM_GEO(MODEL_GODDARD_CAGE, cage_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE, emu_ashpile_geo), 
     LOAD_MODEL_FROM_GEO(MODEL_ASHPILE2, emu_ashpile2_geo), 

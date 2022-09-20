@@ -34,5 +34,6 @@ void set_hud_camera_status(s16 status);
 void render_hud(void);
 
 extern s32 gKeyboard;
+extern s32 gHubStarSelectTimer;
 
 #endif // HUD_H

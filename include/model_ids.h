@@ -216,6 +216,7 @@
 #define MODEL_BITDW_SPHERE                        0x1AD
 #define MODEL_GODDARD_CAGE                        0x1AF       // only used in Bowser battle 1, not ever used in bitdw
 #define MODEL_EMU_LASER_RING                      0x1B0
+#define MODEL_RAINBOW_STAR						  0x1B1
 
 // vcutm
 #define MODEL_VCUTM_SEESAW_PLATFORM               0x36        // vcutm_geo_0001F0
@@ -353,7 +354,7 @@ enum CoziesLevelModels {
 // group 1
 #define MODEL_BULLET_BILL                 0x54        // bullet_bill_geo
 #define MODEL_YELLOW_SPHERE               0x55        // yellow_sphere_geo
-#define MODEL_HOOT                        0x56        // hoot_geo
+#define MODEL_HOOT                        0x166        // hoot_geo
 #define MODEL_YOSHI_EGG                   0x57        // yoshi_egg_geo
 #define MODEL_THWOMP                      0x58        // thwomp_geo
 #define MODEL_HEAVE_HO                    0x59        // heave_ho_geo
@@ -635,8 +636,8 @@ enum CoziesLevelModels {
 #define MODEL_SPIKE_BALL                  3
 #define MODEL_PODOBOO                     2
 
-
-
+#define MODEL_SNOULDER 0x150
+#define MODEL_WARP_BOX 0x151
 
 
 
@@ -648,8 +649,8 @@ enum CoziesLevelModels {
 #define MODEL_CLOUD_RAINBOW               0x103
 #define MODEL_C_RAIN_CLOUD                0x104
 #define MODEL_MIST_SECRET                 0x105
-#define MODEL_FADE_CLOUD                  0x106
-#define MODEL_BODY_LAKITU                 0x107
+#define MODEL_BODY_LAKITU                 0x106
+#define MODEL_FADE_CLOUD                  0x107
 #define MODEL_FWOOSH_BUTTON               0x108
 #define MODEL_METAL_CRATE                 0x109
 #define MODEL_LOWPOLY_KOOPA               0x10A
@@ -739,5 +740,18 @@ enum _2639Models {
 #define MODEL_KOOPABOSS 0x145
 
 //CIAO BITCHES
+
+//Koopa Atoll Models
+
+#define MODEL_WF_PALM_TREE 0x190
+#define MODEL_KOKO 0x191
+#define MODEL_JETSKI 0x192
+#define MODEL_WF_CRATE 0x193
+#define MODEL_SANDPILE 0x194
+#define MODEL_SAND_PILLAR 0x195
+#define MODEL_SAND_SLOPE 0x196
+#define MODEL_KTQ_RING 0x197
+
+//Koopa Atoll Models ^
 
 #endif // MODEL_IDS_H

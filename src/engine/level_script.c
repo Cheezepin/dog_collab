@@ -360,6 +360,8 @@ static void level_cmd_clear_level(void) {
     clear_area_graph_nodes();
     clear_areas();
     main_pool_pop_state();
+    // the game does a push on level load and a pop on level unload, we need to add another push to store state after the level has been loaded, so one more pop is needed
+    main_pool_pop_state();
     unmap_tlbs();
 
     sCurrentCmd = CMD_NEXT;
@@ -386,6 +388,8 @@ static void level_cmd_free_level_pool(void) {
             break;
         }
     }
+
+    main_pool_push_state();
 
     sCurrentCmd = CMD_NEXT;
 }
@@ -961,4 +965,11 @@ struct LevelCommand *level_script_execute(struct LevelCommand *cmd) {
     alloc_display_list(0);
 
     return sCurrentCmd;
+}
+
+s32 determine_starting_level(void) {
+    if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) > 0)
+        return LEVEL_CASTLE_GROUNDS;
+    else
+        return LEVEL_CASTLE;
 }

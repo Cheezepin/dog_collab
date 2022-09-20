@@ -7,7 +7,7 @@
  */
 
 struct ObjectHitbox sTweesterHitbox = {
-    /* interactType:      */ INTERACT_TORNADO,
+    /* interactType:      */ INTERACT_STRONG_WIND,
     /* downOffset:        */ 0,
     /* damageOrCoinValue: */ 0,
     /* health:            */ 0,

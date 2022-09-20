@@ -2,7 +2,7 @@
 
 void bhv_hoot_init(void) {
     cur_obj_init_animation(HOOT_ANIM_DEFAULT);
-    Vec3f homeOffset = { 800.0f, -150.0f, 300.0f };
+    Vec3f homeOffset = { 800.0f, -300.0f, 300.0f };
     vec3f_sum(&o->oHomeVec, &o->oPosVec, homeOffset);
     o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
 
@@ -142,7 +142,7 @@ void hoot_act_ascent(f32 xPrev, f32 zPrev) {
         o->header.gfx.animInfo.animFrame = 1;
     }
 
-    if (o->oPosY > 6500.0f) {
+    if (o->oPosY > 4000.0f) {
         o->oAction = HOOT_ACT_CARRY;
     }
 

@@ -1,3 +1,5 @@
+#include "src/game/hud.h"
+
 void bhv_cheezeplat_loop(void) {
     if(cur_obj_is_mario_on_platform()) {
         o->oAction = 1;
@@ -189,8 +191,8 @@ void bhv_koopatrol_loop(void) {
         case 3:
             cur_obj_init_animation_with_accel_and_sound(2, 3.0f);
             koopa_play_footstep_sound(1, 21);
-            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x200);
-            o->oForwardVel = 52.0f;
+            o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x400);
+            o->oForwardVel = 32.0f;
             vec3f_set(pos, o->oPosX, o->oPosY + 150.0f, o->oPosZ);
             vec3f_set(pos, o->oPosX, o->oPosY + 150.0f, o->oPosZ);
             if(o->oDistanceToMario < koopatrolViewRange) {
@@ -218,8 +220,301 @@ void bhv_koopatrol_loop(void) {
     }
     cur_obj_move_standard(78);
     cur_obj_update_floor_and_walls();
-    if (gCurrentObject->oMoveFlags & OBJ_MOVE_HIT_WALL) {
+    if ((gCurrentObject->oMoveFlags & OBJ_MOVE_HIT_WALL) && gCurrentObject->oAction != 3) {
         gCurrentObject->oMoveAngleYaw = 0x8000 + gCurrentObject->oWallAngle * 2 - gCurrentObject->oMoveAngleYaw;
     }
     mtxf_align_terrain_triangle(gCurrentObject->transform, &gCurrentObject->oPosX, gCurrentObject->oMoveAngleYaw, 60.f);
+}
+
+void bhv_bowser_snowball_loop(void) {
+    if(o->header.gfx.scale[0] < 0.5f) {
+        cur_obj_scale(o->header.gfx.scale[0] + 0.0625f);
+        o->oGraphYOffset = o->header.gfx.scale[0]*400.0f;
+    }
+    o->oPosX += (-64.0f) * 0.75f;
+    o->oPosY += (-64.0f) * 0.45f;
+    o->oMoveAnglePitch += 0x1000;
+    if(o->oTimer > 150) {
+        obj_mark_for_deletion(o);
+        spawn_triangle_break_particles(30, MODEL_DIRT_ANIMATION, 3.0f, TINY_DIRT_PARTICLE_ANIM_STATE_YELLOW);
+        return set_mario_action(gMarioState, ACT_SKIING, 0);
+    }
+    o->oPosY += o->oGraphYOffset;
+    print_text_fmt_int(20, 20, "%d", (s32)dist_between_objects(gMarioObject, o));
+    if(dist_between_objects(gMarioObject, o) < 250.0f && gMarioState->action != ACT_ROLLED_UP) {
+        o->oTimer = 120;
+        set_mario_action(gMarioState, ACT_ROLLED_UP, 0);
+        vec3f_set(gMarioState->pos, o->oPosX, o->oPosY - 150.0f, o->oPosZ);
+    }
+    o->oPosY -= o->oGraphYOffset;
+}
+
+Vec3f warpBoxScaleFrames[] = {
+    {0.6f, 0.4f, 0.6f},
+    {0.525f, 0.475f, 0.525f},
+    {0.495f, 0.525f, 0.495f},
+    {0.45f, 0.575f, 0.45f},
+    {0.4625f, 0.5625f, 0.4625f},
+    {0.475f, 0.55f, 0.475f},
+    {0.525f, 0.525f, 0.525f},
+    {0.575f, 0.575f, 0.575f},
+    {0.625f, 0.625f, 0.625f},
+};
+
+void bhv_warp_box_loop(void) {
+
+    if((o->oBehParams >> 24) == 0) {
+        if(o->oAction == 1) {
+            gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            if(o->oPosY > o->oHomeY && o->oSubAction == 0) {
+                o->oSubAction = 1;
+            }
+            if(o->oSubAction == 1 && o->oPosY <= o->oHomeY - 20.0f) {
+                o->oVelY = 0;
+                o->oPosY = o->oHomeY - 20.0f;
+            } else {
+                o->oPosY += o->oVelY;
+                o->oVelY -= 4.0f;
+            }
+
+            if(o->oSubAction == 1) {
+                if(o->oWarpBoxInnerScale < 1.0f) {
+                    o->oWarpBoxInnerScale += .125f;
+                    o->oTimer = 0;
+                }
+                else {
+                    if(o->oTimer < 9) {
+                        vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
+                    }
+                    if(o->oTimer == 15) {
+                        sDelayedWarpOp = 1;
+                        sDelayedWarpArg = 0x00000002;
+                        sDelayedWarpTimer = 2;
+                        sSourceWarpNodeId = o->oBehParams2ndByte;
+                    }
+                }
+            }
+        }
+
+        if(o->collidedObjs[0] == gMarioObject && o->oAction == 0) {
+            gMarioState->action = ACT_WAITING_FOR_DIALOG;
+            gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            o->oAction = 1;
+            o->oTimer = 0;
+            o->oPosY -= 50.0f;
+            o->oVelY = 25.0f;
+            cur_obj_play_sound_2(SOUND_CUSTOM_WARP_BOX_IN);
+        }
+        if(o->oWarpBoxInnerScale >= 1.0f) {
+            o->oAnimState = 0;
+        } else {
+            o->oAnimState = 1;
+        }
+    } else {
+        if(o->oTimer < 9) {
+            vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
+            o->oWarpBoxInnerScale = 1.0f;
+        }
+        if(o->oTimer == 4) {
+            set_mario_action(gMarioState, ACT_EMERGE_FROM_PIPE, 1);
+        }
+        if(o->oTimer == 17) {
+            cur_obj_play_sound_2(SOUND_CUSTOM_WARP_BOX_OUT);
+        }
+        if(o->oTimer >= 15) {
+            if(o->oWarpBoxInnerScale > 0.0f) {
+                o->oWarpBoxInnerScale -= 0.125f;
+            }
+        } else {
+            gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+        }
+        if(o->oTimer == 30) {
+            struct Object *explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
+            explosion->oGraphYOffset += 100.0f;
+            obj_mark_for_deletion(o);
+        }
+    }
+}
+
+void bhv_peach_cutscene_loop(void) {
+    set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+    switch(gIntroCutsceneState) {
+        case 0:
+            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_1); o->oSubAction = 1;}
+            if(gDialogResponse != 0 && o->oSubAction == 1) {
+                gIntroCutsceneState++;
+                o->oSubAction = 0;
+                gKeyboard = 1;
+            }
+            break;
+        case 1:
+            if(gKeyboard == 0) {
+                gIntroCutsceneState++;
+                o->oSubAction = 0;
+            }
+            break;
+        case 2:
+            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_2); o->oSubAction = 1;}
+            if(gDialogResponse != 0 && o->oSubAction == 1) {
+                struct Object *bows = spawn_object_abs_with_rot(o, 0, MODEL_BOWSER, bhvBowserCutscene, 2300, 0, -65, 0, 0xC000, 0);
+                bows->oForwardVel = 80.0f;
+                gIntroCutsceneState++;
+                o->oSubAction = 0;
+                o->oTimer = 0;
+                cur_obj_shake_screen(SHAKE_POS_MEDIUM);
+                play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(0, SEQ_LEVEL_BOSS_KOOPA), 0);
+            }
+            break;
+        case 3:
+            if(gDialogResponse == 0 && o->oTimer > 15) {create_dialog_box(CHEEZE_DIALOG_3); o->oSubAction = 1;}
+            if(gDialogResponse != 0 && o->oSubAction == 1) {
+                gIntroCutsceneState++;
+                o->oSubAction = 0;
+            }
+            break;
+        case 4:
+            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_4); o->oSubAction = 1;}
+            if(gDialogResponse != 0 && o->oSubAction == 1) {
+                gIntroCutsceneState++;
+                o->oSubAction = 0;
+            }
+            break;
+        case 5:
+            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_5); o->oSubAction = 1;}
+            if(gDialogResponse != 0 && o->oSubAction == 1) {
+                gIntroCutsceneState++;
+                o->oSubAction = 0;
+                o->oTimer = 0;
+            }
+            break;
+        case 6:
+            if(o->oTimer >= 25) {vec3f_copy(&o->oPosX, bowserRightHandLocation);}
+            if(o->oTimer == 65) {
+                cur_obj_shake_screen(SHAKE_POS_MEDIUM);
+            }
+            if(o->oTimer >= 75) {
+                gIntroCutsceneState++;
+                o->oTimer = 0;
+            }
+            break;
+        case 7:
+            if(o->oTimer == 60) {
+                sDelayedWarpOp = 1;
+                sDelayedWarpArg = 0x00000002;
+                play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0x00, 0x00, 0x00);
+                sDelayedWarpTimer = 15;
+                sSourceWarpNodeId = 0x01;
+            }
+            break;
+    }
+}
+
+void bhv_cutscenedog_loop(void) {
+    gCamera->cutscene = CUTSCENE_INTRO;
+
+    if(gIntroCutsceneState < 3) {
+        o->oPosX = o->oHomeX + 125.0f*coss(o->oTimer * 0x400);
+        o->oPosZ = o->oHomeZ - 125.0f*sins(o->oTimer * 0x400);
+        o->oMoveAngleYaw = (o->oTimer * 0x400) - 0x7800;
+    } else {
+        f32 targetX = gMarioState->pos[0] + 125.0f*coss(gMarioState->faceAngle[1] + 0x4000);
+        f32 targetZ = gMarioState->pos[2] - 125.0f*sins(gMarioState->faceAngle[1] + 0x4000);
+        if(POW2(targetX - o->oPosX) + POW2(targetZ - o->oPosZ) < 400.0f) {
+            o->oMoveAngleYaw = 0x2000;
+            cur_obj_init_animation(DOG_ANIM_IDLE);
+            o->oPosX = targetX + 5.0f*(random_float() - 0.5f);
+            o->oPosZ = targetZ + 5.0f*(random_float() - 0.5f);
+        } else {
+            o->oMoveAngleYaw = atan2s(targetZ - o->oPosZ, targetX - o->oPosX);
+            o->oForwardVel = 40.0f;
+            cur_obj_compute_vel_xz();
+            cur_obj_move_xz_using_fvel_and_yaw();
+        }
+    }
+}
+
+void bhv_bowser_cutscene_loop(void) {
+    if(o->oForwardVel > 0.0f) {
+        cur_obj_compute_vel_xz();
+        cur_obj_move_xz_using_fvel_and_yaw();
+        o->oForwardVel -= 4.0f;
+        if(o->oForwardVel <= 0.0f) {
+            cur_obj_init_animation(BOWSER_ANIM_IDLE);
+        }
+    } else {
+        o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, 0xA000, 0x400);
+    }
+
+    if(gIntroCutsceneState == 6) {
+        if(o->oTimer < 35) {cur_obj_init_animation(BOWSER_ANIM_DANCE);}
+        else {cur_obj_init_animation(BOWSER_ANIM_JUMP_START);}
+        if(o->oTimer == 30) {create_sound_spawner(SOUND_OBJ2_BOWSER_ROAR);}
+        if(o->oTimer == 60) {create_sound_spawner(SOUND_GENERAL2_BOBOMB_EXPLOSION);}
+        if(o->oTimer > 45) {
+            o->oPosY += 40.0f;
+            o->oForwardVel = 10.0f;
+            cur_obj_compute_vel_xz();
+            cur_obj_move_xz_using_fvel_and_yaw();
+        }
+    } else if(gIntroCutsceneState == 7) {
+        o->oPosY = 50000.0f;
+    } else {
+        o->oTimer = 0;
+    }
+}
+
+void bhv_door_cutscene_loop(void) {
+    if(gIntroCutsceneState == 3) {
+        if(o->oTimer == 5) {
+            create_sound_spawner(SOUND_GENERAL2_BOBOMB_EXPLOSION);
+            obj_mark_for_deletion(o);
+        }
+    } else {
+        o->oTimer = 0;
+    }
+}
+
+void bhv_spiresdog_loop(void) {
+    switch(o->oAction) {
+        s32 dialogResponse;
+        case 0:
+            if(lateral_dist_between_objects(gMarioObject, o) < 200.0f) {
+                dialogResponse = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, CHEEZE_DIALOG_7);
+                if(dialogResponse == 0x03) {
+                    o->oAction++;
+                    if(o->oBehParams2ndByte == 1) {
+                        o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(ssl_area_1_spline_dogpath2);
+                    } else {
+                        o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(ssl_area_1_spline_dogpath1);
+                    }
+                }
+            }
+            break;
+        case 1:
+            if (cur_obj_follow_path() == PATH_REACHED_END) {
+                o->oAction++;
+                cur_obj_init_animation(DOG_ANIM_IDLE);
+            } else {
+                o->oGravity = -4.0f;
+                cur_obj_update_floor_and_walls();
+                cur_obj_rotate_yaw_toward(o->oPathedTargetYaw, 0x800);
+                cur_obj_move_standard(-78);
+                if ((o->oMoveFlags & OBJ_MOVE_HIT_EDGE)) {
+                    o->oVelY = 60.0f;
+                    o->oSubAction = 1;
+                }
+                if (o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) {
+                    o->oSubAction = 0;
+                    o->oForwardVel = 12.0f;
+                } else {
+                    o->oForwardVel = 22.0f;
+                }
+                if(o->oSubAction == 0) {
+                    cur_obj_init_animation(DOG_ANIM_RUN);
+                } else {
+                    cur_obj_init_animation(DOG_ANIM_POUNCE);
+                }
+            }
+            break;
+    }
 }

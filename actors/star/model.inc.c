@@ -55,7 +55,7 @@ const Gfx star_seg3_dl_body[] = {
     gsDPPipeSync(),
     gsSPSetGeometryMode(G_TEXTURE_GEN),
     gsDPSetEnvColor(255, 255, 255, 255),
-    gsDPSetCombineMode(G_CC_DECALFADE, G_CC_DECALFADE),
+    gsDPSetCombineLERP(1, PRIMITIVE, TEXEL0, PRIMITIVE, 0, 0, 0, ENVIRONMENT, 1, PRIMITIVE, TEXEL0, PRIMITIVE, 0, 0, 0, ENVIRONMENT),
     gsDPLoadTextureBlock(star_seg3_texture_0302A6F0, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, 5, 5, G_TX_NOLOD, G_TX_NOLOD),
     gsSPTexture(0x07C0, 0x07C0, 0, G_TX_RENDERTILE, G_ON),
     gsSPDisplayList(star_seg3_sub_dl_body),

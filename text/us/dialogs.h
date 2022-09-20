@@ -76,34 +76,38 @@ Come back later...\n\
 When you're ready to\n\
 face the @00DD00FFGeneral@000000FF.")
 
-DEFINE_DIALOG(DIALOG_006, 1, 3, 30, 200, "\
-Hey!!! Don't try to " SCAM_ME
-"You've gotta run\n\
-the whole course.\n\
-Later. Look me up when\n\
-you want to race for\n\
-real.")
-
-DEFINE_DIALOG(DIALOG_007, 1, 5, 30, 200, "\
-Hufff...fff...pufff...\n\
-Whoa! You...really...are...\n\
-fast! A human blur!\n\
-Here you go--you've won\n\
-it, fair and square!")
-
-DEFINE_DIALOG(DIALOG_008, 1, 4, 30, 200, "\
-BEWARE OF CHAIN CHOMP\n\
-Extreme Danger!\n\
-Get close and press " TEXT_CBUTTON TEXT_CUP "\n\
-for a better look.\n\
-Scary, huh?\n\
-See the Red Coin on top\n\
-of the stake?\n\
+// Yoshi Milkman
+DEFINE_DIALOG(DIALOG_006, 1, 4, 30, 200, "\
+They say there's some\n\
+secrets hidden in this\n\
+town.\n\
 \n\
-When you collect eight of\n\
-them, a Power Star will\n\
-appear in the meadow\n\
-across the bridge.")
+I haven't seen any\n\
+myself, but if I were\n\
+you, I'd try the hard\n\
+to reach spots.")
+
+// Yoshi Milkman
+DEFINE_DIALOG(DIALOG_007, 1, 5, 30, 200, "\
+I heard there's a\n\
+hidden enterance\n\
+to the castle in\n\
+that big lake to\n\
+the right.\n\
+No one usually\n\
+gets let in, I\n\
+wonder what they're\n\
+hiding down there?")
+
+// Yoshi Milkman
+DEFINE_DIALOG(DIALOG_008, 1, 4, 30, 200, "\
+The castle's courtyard\n\
+has gotten quite chaotic\n\
+ever since those\n\
+Power Stars showed up.\n\
+Makes me want some\n\
+peace and quiet in\n\
+the forest...")
 
 DEFINE_DIALOG(DIALOG_009, 1, 5, 30, 200, "\
 Long time, no see! Wow,\n\
@@ -177,20 +181,30 @@ Do you want to Save?\n\
 \n\
 //You Bet//Not Now")
 
-DEFINE_DIALOG(DIALOG_015, 1, 4, 30, 200, "\
-You can punch enemies to\n\
-knock them down. Press " TEXT_ABUTTON "\n\
-to jump, " TEXT_BBUTTON " to punch.\n\
-Press " TEXT_ABUTTON " then " TEXT_BBUTTON " to Kick.\n\
-To pick something up,\n\
-press " TEXT_BBUTTON ", too. To throw\n\
-something you're holding,\n\
-press " TEXT_BBUTTON " again.")
+// Yoshi Milkman
+DEFINE_DIALOG(DIALOG_015, 1, 5, 30, 200, "\
+Like my raft?\n\
+It's quite nifty\n\
+if I do say so\n\
+myself!\n\
+\n\
+I made it to\n\
+search for that\n\
+secret enterance\n\
+everyone is talking\n\
+about...")
 
+// Yoshi Milkman
 DEFINE_DIALOG(DIALOG_016, 1, 3, 30, 200, "\
-Hop on the shiny shell and\n\
-ride wherever you want to\n\
-go! Shred those enemies!")
+Woof!\n\
+(I'm the shrine dog!)\n\
+\n\
+Arf!\n\
+(I've been keeping watch\n\
+of this star for you!)\n\
+Bark!\n\
+(Please take good care\n\
+of it!)")
 
 DEFINE_DIALOG(DIALOG_017, 1, 4, 30, 200, "\
 I'm the Big Bob-omb, lord\n\
@@ -429,11 +443,8 @@ the camera in place while\n\
 holding " TEXT_RBUTTON ". Give it a try!")
 
 DEFINE_DIALOG(DIALOG_037, 1, 2, 30, 200, "\
-I win! You lose!\n\
-Ha ha ha ha!\n\
-You're no slouch, but I'm\n\
-a better sledder!\n\
-Better luck next time!")
+Ha! I got to the end\n\
+before you!")
 
 DEFINE_DIALOG(DIALOG_038, 1, 3, 95, 200, "\
 Reacting to the Star\n\
@@ -467,13 +478,9 @@ Warning!\n\
 Cold, Cold Crevasse\n\
 Below!")
 
-DEFINE_DIALOG(DIALOG_041, 1, 3, 30, 200, "\
-I win! You lose!\n\
-Ha ha ha!\n\
-\n\
-That's what you get for\n\
-messin' with Koopa the\n\
-Quick.\n\
+DEFINE_DIALOG(DIALOG_041, 1, 2, 30, 200, "\
+Ha! I got to the end\n\
+before you!\n\
 Better luck next time!")
 
 DEFINE_DIALOG(DIALOG_042, 1, 4, 30, 200, "\
@@ -1013,36 +1020,30 @@ So, how about it?\n\
 DEFINE_DIALOG(DIALOG_080, 1, 1, 30, 200, "\
 Eeeh hee hee hee!")
 
-DEFINE_DIALOG(DIALOG_081, 1, 4, 30, 200, "\
-The mystery is of Wet\n\
-or Dry.\n\
-And where does the\n\
-solution lie?\n\
-The city welcomes visitors\n\
-with the depth they bring\n\
-as they enter.")
+DEFINE_DIALOG(DIALOG_081, 1, 3, 30, 200, "\
+You got to the flag,\n\
+but you didn't hit\n\
+the five pillars.\n\
+Looks like I won\n\
+our bet!")
 
 DEFINE_DIALOG(DIALOG_082, 1, 4, 30, 200, "\
-Hold on to your hat! If\n\
-you lose it, you'll be\n\
-injured easily.\n\
+Hey, Mario! It's a\n\
+great day outside, so\n\
+I'd love to go on a\n\
+run, just like old times.\n\
+How about we race to\n\
+the little island across\n\
+the atoll?\n\
 \n\
-If you do lose your Cap,\n\
-you'll have to find it in\n\
-the course where you\n\
-lost it.\n\
-Oh, boy, it's not looking\n\
-good for Peach. She's\n\
-still trapped somewhere\n\
-inside the walls.\n\
-Please, Mario, you have\n\
-to help her! Did you know\n\
-that there are enemy\n\
-worlds inside the walls?\n\
-Yup. It's true. Bowser's\n\
-troops are there, too.\n\
-Oh, here, take this. I've\n\
-been keeping it for you.")
+Let's spice it up--hit\n\
+the five pillars in the\n\
+water, and then reach\n\
+the flag before me.\n\
+Whaddya say?\n\
+\n\
+\n\
+   Sure      Nope")
 
 DEFINE_DIALOG(DIALOG_083, 1, 6, 30, 200, "\
 There's something strange\n\
@@ -1370,94 +1371,25 @@ present for you. It's sure\n\
 to warm you up.")
 
 DEFINE_DIALOG(DIALOG_112, 1, 4, 30, 200, "\
-Collect as many coins as\n\
-possible! They'll refill\n\
-your Power Meter.\n\
-\n\
-You can check to see how\n\
-many coins you've\n\
-collected in each of the\n\
-15 enemy worlds.\n\
-You can also recover\n\
-power by touching the\n\
-Spinning Heart.\n\
-\n\
-The faster you run\n\
-through the heart, the\n\
-more power you'll recover.")
+")
 
 DEFINE_DIALOG(DIALOG_113, 1, 6, 30, 200, "\
-There are special Caps in\n\
-the red, green and blue\n\
-blocks. Step on the\n\
-switches in the hidden\n\
-courses to activate the\n\
-Cap Blocks.")
+")
 
 DEFINE_DIALOG(DIALOG_114, 1, 5, 95, 200, "\
-It makes me so mad! We\n\
-build your houses, your\n\
-castles. We pave your\n\
-roads, and still you\n\
-walk all over us.\n\
-Do you ever say thank\n\
-you? No! Well, you're not\n\
-going to wipe your feet\n\
-on me! I think I'll crush\n\
-you just for fun!\n\
-Do you have a problem\n\
-with that? Just try to\n\
-pound me, wimp! Ha!")
+")
 
 DEFINE_DIALOG(DIALOG_115, 1, 5, 95, 200, "\
-No! Crushed again!\n\
-I'm just a stepping stone,\n\
-after all. I won't gravel,\n\
-er, grovel. Here, you win.\n\
-Take this with you!")
+")
 
 DEFINE_DIALOG(DIALOG_116, 1, 5, 95, 200, "\
-Whaaa....Whaaat?\n\
-Can it be that a\n\
-pipsqueak like you has\n\
-defused the Bob-omb\n\
-king????\n\
-You might be fast enough\n\
-to ground me, but you'll\n\
-have to pick up the pace\n\
-if you want to take King\n\
-Bowser by the tail.\n\
-Methinks my troops could\n\
-learn a lesson from you!\n\
-Here is your Star, as I\n\
-promised, Mario.\n\
-\n\
-If you want to see me\n\
-again, select this Star\n\
-from the menu. For now,\n\
-farewell.")
+")
 
 DEFINE_DIALOG(DIALOG_117, 1, 1, 95, 200, "\
-Who...walk...here?\n\
-Who...break...seal?\n\
-Wake..ancient..ones?\n\
-We no like light...\n\
-Rrrrummbbble...\n\
-We no like...intruders!\n\
-Now battle...\n\
-...hand...\n\
-...to...\n\
-...hand!")
+")
 
 DEFINE_DIALOG(DIALOG_118, 1, 6, 95, 200, "\
-Grrrrumbbble!\n\
-What...happen?\n\
-We...crushed like pebble.\n\
-You so strong!\n\
-You rule ancient pyramid!\n\
-For today...\n\
-Now, take Star of Power.\n\
-We...sleep...darkness.")
+")
 
 DEFINE_DIALOG(DIALOG_119, 1, 6, 30, 200, "\
 Grrr! I was a bit\n\
@@ -1505,62 +1437,28 @@ the ending together!\n\
 Bwa ha ha!")
 
 DEFINE_DIALOG(DIALOG_122, 1, 4, 30, 200, "\
-The Black Hole\n\
-Right: Work Elevator\n\
-/// Cloudy Maze\n\
-Left: Underground Lake")
+")
 
 DEFINE_DIALOG(DIALOG_123, 1, 4, 30, 200, "\
-Metal Cavern\n\
-Right: To Waterfall\n\
-Left: Metal Cap Switch")
+")
 
 DEFINE_DIALOG(DIALOG_124, 1, 4, 30, 200, "\
-Work Elevator\n\
-Danger!!\n\
-Read instructions\n\
-thoroughly!\n\
-Elevator continues in the\n\
-direction of the arrow\n\
-activated.")
+")
 
 DEFINE_DIALOG(DIALOG_125, 1, 3, 30, 200, "\
-Hazy Maze-Exit\n\
-Danger! Closed.\n\
-Turn back now.")
+")
 
 DEFINE_DIALOG(DIALOG_126, 2, 3, 30, 200, "\
-Up: Black Hole\n\
-Right: Work Elevator\n\
-/// Hazy Maze")
+")
 
 DEFINE_DIALOG(DIALOG_127, 3, 4, 30, 200, "\
-Underground Lake\n\
-Right: Metal Cave\n\
-Left: Abandoned Mine\n\
-///(Closed)\n\
-A gentle sea dragon lives\n\
-here. Pound on his back to\n\
-make him lower his head.\n\
-Don't become his lunch.")
+")
 
 DEFINE_DIALOG(DIALOG_128, 1, 4, 95, 200, "\
-You must fight with\n\
-honor! It is against the\n\
-royal rules to throw the\n\
-king out of the ring!")
+")
 
 DEFINE_DIALOG(DIALOG_129, 1, 5, 30, 200, "\
-Welcome to the Vanish\n\
-Cap Switch Course! All of\n\
-the blue blocks you find\n\
-will become solid once you\n\
-step on the Cap Switch.\n\
-You'll disappear when you\n\
-put on the Vanish Cap, so\n\
-you'll be able to elude\n\
-enemies and walk through\n\
-many things. Try it out!")
+")
 
 DEFINE_DIALOG(DIALOG_130, 1, 4, 30, 200, "\
 Hey, you found our special\n\
@@ -2104,4 +2002,49 @@ You didn't tell me that was a service dog!\n\
 Now I gotta get the exemption form!\n\
 ")
 
+DEFINE_DIALOG(CHEEZE_DIALOG_1, 1, 3, 30, 200, "\
+Mario, it's been a month\n\
+now. Hasn't life with\n\
+the dog been fun?")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_2, 1, 3, 95, 200, "\
+"TEXT_DOG" is so\n\
+cute! I'm so glad we\n\
+adopted him.")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_3, 1, 3, 95, 200, "\
+Bwaaaar! You're not\n\
+getting away this time,\n\
+princess!")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_4, 1, 1, 95, 200, "\
+Kyaaa!!")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_5, 1, 6, 95, 200, "\
+Big fan of the dog,\n\
+by the way. You two\n\
+are responsible. I\n\
+imagine that dog has\n\
+a great life at the\n\
+castle.\n\
+Too bad it'll be\n\
+without Peach!\n\
+Bwahaha!!")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_6, 1, 5, 95, 200, "\
+A mysterious globe,\n\
+in a mysterious attic\n\
+of the castle you've\n\
+never entered.\n\
+Text on the base reads:\n\
+This relic can take\n\
+you anywhere in the\n\
+world with a single\n\
+touch!\n\
+\n\
+...provided you have\n\
+enough stars.")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_7, 1, 5, 95, 200, "\
+Ruff!")
 

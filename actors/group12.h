@@ -91,6 +91,7 @@ extern const Gfx bowser_seg6_dl_06043648[];
 extern const Gfx bowser_seg6_dl_06043698[];
 extern const struct Animation *const bowser_seg6_anims_06057690[];
 extern const s16 dBowserFlamesOrientationValues[];
+extern const Gfx snowboard_board_mesh[];
 
 // bowser_flame
 extern const GeoLayout bowser_flames_geo[];

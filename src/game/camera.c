@@ -3475,20 +3475,22 @@ void update_lakitu(struct Camera *c) {
         vec3f_get_dist_and_angle(gLakituState.pos, gLakituState.focus, &gLakituState.focusDistance,
                                  &gLakituState.oldPitch, &gLakituState.oldYaw);
 
-        gLakituState.roll = 0;
+        if(gCurrLevelNum != LEVEL_CASTLE_GROUNDS) {
+            gLakituState.roll = 0;
 
-        // Apply camera shakes
-        shake_camera_pitch(gLakituState.pos, gLakituState.focus);
-        shake_camera_yaw(gLakituState.pos, gLakituState.focus);
-        shake_camera_roll(&gLakituState.roll);
-        shake_camera_handheld(gLakituState.pos, gLakituState.focus);
+            // Apply camera shakes
+            shake_camera_pitch(gLakituState.pos, gLakituState.focus);
+            shake_camera_yaw(gLakituState.pos, gLakituState.focus);
+            shake_camera_roll(&gLakituState.roll);
+            shake_camera_handheld(gLakituState.pos, gLakituState.focus);
 
-        if (sMarioCamState->action == ACT_DIVE && gLakituState.lastFrameAction != ACT_DIVE) {
-            set_camera_shake_from_hit(SHAKE_HIT_FROM_BELOW);
+            if (sMarioCamState->action == ACT_DIVE && gLakituState.lastFrameAction != ACT_DIVE) {
+                set_camera_shake_from_hit(SHAKE_HIT_FROM_BELOW);
+            }
+
+            gLakituState.roll += sHandheldShakeRoll;
+            gLakituState.roll += gLakituState.keyDanceRoll;
         }
-
-        gLakituState.roll += sHandheldShakeRoll;
-        gLakituState.roll += gLakituState.keyDanceRoll;
 
         if (c->mode != CAMERA_MODE_C_UP && c->cutscene == CUTSCENE_NONE) {
             gCollisionFlags |= COLLISION_FLAG_CAMERA;
@@ -3522,6 +3524,8 @@ void switch_collision_enabled(struct Camera *c) {
         // case YOUR_LEVEL:
         case LEVEL_COZIES:
         case LEVEL_BITFS:
+        case LEVEL_BOWSER_2:
+        case LEVEL_LLL:
             enable_var = TRUE;
             break;
         default:
@@ -3607,6 +3611,11 @@ void update_camera(struct Camera *c) {
     if (gCurrDemoInput != NULL) camera_course_processing(c);
 #endif
     sCButtonsPressed = find_c_buttons_pressed(sCButtonsPressed, gPlayer1Controller->buttonPressed, gPlayer1Controller->buttonDown);
+
+    //some cheeze code
+    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+        c->cutscene = CUTSCENE_HUB_WORLD;
+    }
 
     if (c->cutscene != CUTSCENE_NONE) {
         sYawSpeed = 0;
@@ -3944,7 +3953,7 @@ void init_camera(struct Camera *c) {
             }
             break;
         case LEVEL_BOWSER_2:
-            start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
+            //start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
             break;
         case LEVEL_BOWSER_3:
             start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
@@ -6583,11 +6592,7 @@ struct CameraTrigger sCamHMC[] = {
  * radial.
  */
 struct CameraTrigger sCamSSL[] = {
-    { 1, cam_ssl_enter_pyramid_top, -2048, 1080, -1024, 150, 150, 150, 0 },
-    { 2, cam_ssl_pyramid_center, 0, -104, -104, 1248, 1536, 2950, 0 },
-    { 2, cam_ssl_pyramid_center, 0, 2500, 256, 515, 5000, 515, 0 },
-    { 3, cam_ssl_boss_room, 0, -1534, -2040, 1000, 800, 1000, 0 },
-    NULL_TRIGGER
+	NULL_TRIGGER
 };
 
 /**
@@ -6638,43 +6643,7 @@ struct CameraTrigger sCamCCM[] = {
  * and one trigger that starts the enter pool cutscene when Mario enters HMC.
  */
 struct CameraTrigger sCamCastle[] = {
-    { 1, cam_castle_close_mode, -1100, 657, -1346, 300, 150, 300, 0 },
-    { 1, cam_castle_enter_lobby, -1099, 657, -803, 300, 150, 300, 0 },
-    { 1, cam_castle_close_mode, -2304, -264, -4072, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -2304, 145, -1344, 140, 150, 140, 0 },
-    { 1, cam_castle_enter_lobby, -2304, 145, -802, 140, 150, 140, 0 },
-    //! Sets the camera mode when leaving secret aquarium
-    { 1, cam_castle_close_mode, 2816, 1200, -256, 100, 100, 100, 0 },
-    { 1, cam_castle_close_mode, 256, -161, -4226, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, 256, 145, -1344, 140, 150, 140, 0 },
-    { 1, cam_castle_enter_lobby, 256, 145, -802, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -1023, 44, -4870, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -459, 145, -1020, 140, 150, 140, 0x6000 },
-    { 1, cam_castle_enter_lobby, -85, 145, -627, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -1589, 145, -1020, 140, 150, 140, -0x6000 },
-    { 1, cam_castle_enter_lobby, -1963, 145, -627, 140, 150, 140, 0 },
-    { 1, cam_castle_leave_lobby_sliding_door, -2838, 657, -1659, 200, 150, 150, 0x2000 },
-    { 1, cam_castle_enter_lobby_sliding_door, -2319, 512, -1266, 300, 150, 300, 0x2000 },
-    { 1, cam_castle_close_mode, 844, 759, -1657, 40, 150, 40, -0x2000 },
-    { 1, cam_castle_enter_lobby, 442, 759, -1292, 140, 150, 140, -0x2000 },
-    { 2, cam_castle_enter_spiral_stairs, -1000, 657, 1740, 200, 300, 200, 0 },
-    { 2, cam_castle_enter_spiral_stairs, -996, 1348, 1814, 200, 300, 200, 0 },
-    { 2, cam_castle_close_mode, -946, 657, 2721, 50, 150, 50, 0 },
-    { 2, cam_castle_close_mode, -996, 1348, 907, 50, 150, 50, 0 },
-    { 2, cam_castle_close_mode, -997, 1348, 1450, 140, 150, 140, 0 },
-    { 1, cam_castle_close_mode, -4942, 452, -461, 140, 150, 140, 0x4000 },
-    { 1, cam_castle_close_mode, -3393, 350, -793, 140, 150, 140, 0x4000 },
-    { 1, cam_castle_enter_lobby, -2851, 350, -792, 140, 150, 140, 0x4000 },
-    { 1, cam_castle_enter_lobby, 803, 350, -228, 140, 150, 140, -0x4000 },
-    //! Duplicate camera trigger outside JRB door
-    { 1, cam_castle_enter_lobby, 803, 350, -228, 140, 150, 140, -0x4000 },
-    { 1, cam_castle_close_mode, 1345, 350, -229, 140, 150, 140, 0x4000 },
-    { 1, cam_castle_close_mode, -946, -929, 622, 300, 150, 300, 0 },
-    { 2, cam_castle_look_upstairs, -205, 1456, 2508, 210, 928, 718, 0 },
-    { 1, cam_castle_basement_look_downstairs, -1027, -587, -718, 318, 486, 577, 0 },
-    { 1, cam_castle_lobby_entrance, -1023, 376, 1830, 300, 400, 300, 0 },
-    { 3, cam_castle_hmc_start_pool_cutscene, 2485, -1689, -2659, 600, 50, 600, 0 },
-    NULL_TRIGGER
+	NULL_TRIGGER
 };
 
 /**
@@ -6713,7 +6682,24 @@ struct CameraTrigger sCamBitDW[] = {
 struct CameraTrigger sCamDDD[] = {
 	NULL_TRIGGER
 };
+
+struct CameraTrigger sCamCastleGrounds[] = {
+	NULL_TRIGGER
+};
+
 struct CameraTrigger sCamBowser_1[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamBowser_2[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamLLL[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamBitS[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamWF[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
@@ -9987,6 +9973,136 @@ void cutscene_credits_reset_spline(UNUSED struct Camera *c) {
     cutscene_reset_spline();
 }
 
+s32 orbitAngle = 0;
+
+extern struct HubSelection hubSelections[3][6];
+
+s32 gHubTargetYawPos = 0;
+s32 gHubTargetPitchPos = 0;
+f32 gHubTargetRadiusPos = 10000.0f;
+
+s32 gHubTargetYawFocus = 0;
+s32 gHubTargetPitchFocus = 0;
+f32 gHubTargetRadiusFocus = 5000.0f;
+
+void cutscene_hub_world(struct Camera *c) {
+    Vec3f pos, focus;
+    s16 roll;
+    Vec3f zero = {0, 0, 0};
+    set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+    if(gWorldID == -1) {
+        vec3f_set(pos, 15000.0f*coss(orbitAngle), 2000.0f, 15000.0f*sins(orbitAngle));
+        vec3f_set(focus, 7500.0f*coss(orbitAngle + 0x2000), 1000.0f, 7500.0f*sins(orbitAngle + 0x2000));
+        roll = 0;
+
+/*         gHubTargetYawPos = approach_s16_asymptotic(gHubTargetYawPos, orbitAngle, 4);
+        gHubTargetPitchPos = approach_s16_asymptotic(gHubTargetPitchPos, 0x000, 4);
+        gHubTargetRadiusPos = approach_f32_asymptotic(gHubTargetRadiusPos, 16000.0f, 0.25f);
+
+        gHubTargetYawFocus = approach_s16_asymptotic(gHubTargetYawPos, orbitAngle - 0x1000, 4);
+        gHubTargetPitchFocus = approach_s16_asymptotic(gHubTargetPitchPos, 0x000, 4);
+        gHubTargetRadiusFocus = approach_f32_asymptotic(gHubTargetRadiusPos, 7500.0f, 0.25f);
+
+        vec3f_set_dist_and_angle(zero, c->pos, gHubTargetRadiusPos, gHubTargetPitchPos, gHubTargetYawPos);
+        vec3f_set_dist_and_angle(zero, c->focus, gHubTargetRadiusFocus, gHubTargetPitchFocus, gHubTargetYawFocus);
+ */
+        //print_text_fmt_int(20, 20, "0x%x", orbitAngle);
+
+        approach_vec3f_asymptotic(c->pos, pos, 0.25f, 0.25f, 0.25f);
+        approach_vec3f_asymptotic(c->focus, focus, 0.25f, 0.25f, 0.25f);
+    } else if(gFocusID == -1) {
+        s16 targetYawPos, targetPitchPos;
+        f32 targetRadiusPos;
+        switch(gWorldID) {
+            case 0:
+                //vec3f_set(pos, 15000.0f, 4759.0f, 400.0f);
+                targetYawPos = 0x4000;
+                targetPitchPos = 0;
+                targetRadiusPos = 15000.0f;
+                orbitAngle = 0x1400;
+                break;
+            case 1:
+                //vec3f_set(pos, -7560.0f, 5500.0f, -9428.0f);
+                targetYawPos = 0x9F00;
+                targetPitchPos = 0x1400;
+                targetRadiusPos = 12500.0f;
+                orbitAngle = 0x8800;
+                break;
+            case 2:
+                //vec3f_set(pos, -3779.0f, -15560.0f, 2788.0f);
+                targetYawPos = 0xD100;
+                targetPitchPos = 0xCC00;
+                targetRadiusPos = 12500.0f;
+                orbitAngle = 0x5000;
+                break;
+        }
+        vec3f_set(focus, 0.0f, 0.0f, 0.0f);
+        roll = 0;
+
+        gHubTargetYawPos = approach_s16_asymptotic(gHubTargetYawPos, targetYawPos, 4);
+        gHubTargetPitchPos = approach_s16_asymptotic(gHubTargetPitchPos, targetPitchPos, 4);
+        gHubTargetRadiusPos = approach_f32_asymptotic(gHubTargetRadiusPos, targetRadiusPos, 0.25f);
+
+        gHubTargetYawFocus = gHubTargetPitchFocus = gHubTargetRadiusFocus = 0;
+        // approach_vec3f_asymptotic(c->pos, pos, 0.25f, 0.25f, 0.25f);
+        vec3f_set_dist_and_angle(zero, c->pos, gHubTargetRadiusPos, gHubTargetPitchPos, gHubTargetYawPos);
+        approach_vec3f_asymptotic(c->focus, focus, 0.25f, 0.25f, 0.25f);
+    } else {
+        //Vec3f *targetPos = &hubSelections[gWorldID][gFocusID].camPos;
+        //Vec3f *targetFocus = &hubSelections[gWorldID][gFocusID].camFocus;
+        s32 addendum = (gPlayer1Controller->buttonDown & L_TRIG ? 0x10 : 0x100);
+
+        gHubTargetYawPos = approach_s16_asymptotic(gHubTargetYawPos, hubSelections[gWorldID][gFocusID].camYawPos, 4);
+        gHubTargetPitchPos = approach_s16_asymptotic(gHubTargetPitchPos, hubSelections[gWorldID][gFocusID].camPitchPos, 4);
+        gHubTargetRadiusPos = approach_f32_asymptotic(gHubTargetRadiusPos, hubSelections[gWorldID][gFocusID].camRadiusPos, 0.25f);
+        gHubTargetYawFocus = approach_s16_asymptotic(gHubTargetYawFocus, hubSelections[gWorldID][gFocusID].camYawFocus, 4);
+        gHubTargetPitchFocus = approach_s16_asymptotic(gHubTargetPitchFocus, hubSelections[gWorldID][gFocusID].camPitchFocus, 4);
+        gHubTargetRadiusFocus = approach_f32_asymptotic(gHubTargetRadiusFocus, hubSelections[gWorldID][gFocusID].camRadiusFocus, 0.25f);
+        //vec3f_set(targetPos, coss(gHubTargetYaw) * coss(gHubTargetPitch), sins(gHubTargetPitch), sins(gHubTargetYaw) * coss(gHubTargetPitch));
+        //vec3f_mul(targetPos, radiusVec);
+
+        roll = hubSelections[gWorldID][gFocusID].roll;
+        
+        //debug world map cam
+        /*if(gPlayer1Controller->buttonDown & R_CBUTTONS) {gHubTargetYawPos += addendum;}
+        if(gPlayer1Controller->buttonDown & L_CBUTTONS) {gHubTargetYawPos -= addendum;}
+        if(gPlayer1Controller->buttonDown & U_CBUTTONS) {gHubTargetPitchPos += addendum;}
+        if(gPlayer1Controller->buttonDown & D_CBUTTONS) {gHubTargetPitchPos -= addendum;}
+        if(gPlayer1Controller->buttonDown & R_JPAD) {gHubTargetYawFocus += addendum;}
+        if(gPlayer1Controller->buttonDown & L_JPAD) {gHubTargetYawFocus -= addendum;}
+        if(gPlayer1Controller->buttonDown & U_JPAD) {gHubTargetPitchFocus += addendum;}
+        if(gPlayer1Controller->buttonDown & D_JPAD) {gHubTargetPitchFocus -= addendum;}
+        if(gPlayer1Controller->buttonDown & R_TRIG) {
+            if(gPlayer1Controller->buttonDown & START_BUTTON) {
+                gHubTargetRadiusFocus -= (f32)addendum;
+            } else {
+                gHubTargetRadiusPos -= (f32)addendum;
+            }
+        }
+        if(gPlayer1Controller->buttonDown & Z_TRIG) {
+            if(gPlayer1Controller->buttonDown & START_BUTTON) {
+                gHubTargetRadiusFocus += (f32)addendum;
+            } else {
+                gHubTargetRadiusPos += (f32)addendum;
+            }
+        }
+
+        print_text_fmt_int(20, 60, "0x%x", (u16)gHubTargetYawPos);
+        print_text_fmt_int(20, 40, "0x%x", (u16)gHubTargetPitchPos);
+        print_text_fmt_int(20, 20, "%d", (s32)gHubTargetRadiusPos);
+
+        print_text_fmt_int(100, 60, "0x%x", (u16)gHubTargetYawFocus);
+        print_text_fmt_int(100, 40, "0x%x", (u16)gHubTargetPitchFocus);
+        print_text_fmt_int(100, 20, "%d", (s32)gHubTargetRadiusFocus);*/
+
+        vec3f_set_dist_and_angle(zero, c->focus, gHubTargetRadiusFocus, gHubTargetPitchFocus, gHubTargetYawFocus);
+        vec3f_set_dist_and_angle(zero, c->pos, gHubTargetRadiusPos, gHubTargetPitchPos, gHubTargetYawPos);
+    }
+    gLakituState.roll = approach_s16_asymptotic(gLakituState.roll, roll, 4);
+    orbitAngle += 0x80;
+    orbitAngle %= 0x10000;
+}
+
 extern struct CutsceneSplinePoint sBobCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sBobCreditsSplineFocus[];
 extern struct CutsceneSplinePoint sWfCreditsSplinePositions[];
@@ -10604,6 +10720,38 @@ void cutscene_door_mode(struct Camera *c) {
     }
 }
 
+void cutscene_snow_hill(struct Camera *c) {
+    Vec3f marioPos;
+    vec3f_copy(marioPos, sMarioCamState->pos);
+    vec3f_set(c->pos, marioPos[0] - 1000.0f, marioPos[1] - 300.0f, marioPos[2]);
+    vec3f_set(c->focus, marioPos[0] + 1500.0f, marioPos[1] + 1200.0f, marioPos[2] / 2);
+    c->yaw = c->nextYaw = 0xC000;
+}
+
+s32 gIntroCutsceneState = 0;
+void cutscene_intro(struct Camera *c) {
+    Vec3f focus;
+    Vec3f pos;
+    switch(gIntroCutsceneState) {
+        case 0:
+            vec3f_set(c->pos, 403.0f, 264.0f, -10.0f);
+            vec3f_set(c->focus, 1342.0f, 0.0f, -272.0f);
+            break;
+        case 3:
+            vec3f_set(pos, -546.0f, 521.0f, -740.0f);
+            vec3f_set(focus, 1342.0f, 0.0f, -272.0f);
+            approach_vec3f_asymptotic(c->pos, pos, .5f, .5f, .5f);
+            approach_vec3f_asymptotic(c->focus, focus, .5f, .5f, .5f);
+            break;
+        case 7:
+            vec3f_set(pos, 960.0f, 0.0f, 109.0f);
+            vec3f_set(focus, 860.0f, 800.0f, -1494.0f);
+            approach_vec3f_asymptotic(c->pos, pos, .5f, .5f, .5f);
+            approach_vec3f_asymptotic(c->focus, focus, .5f, .5f, .5f);
+            break;
+    }
+}
+
 /******************************************************************************************************
  * Cutscenes
  ******************************************************************************************************/
@@ -11003,6 +11151,18 @@ struct Cutscene sCutsceneReadMessage[] = {
     { cutscene_read_message_end, 0 }
 };
 
+struct Cutscene sCutsceneHubWorld[] = {
+    { cutscene_hub_world, CUTSCENE_LOOP },
+};
+
+struct Cutscene sCutsceneSnowHill[] = {
+    { cutscene_snow_hill, CUTSCENE_LOOP },
+};
+
+struct Cutscene sCutsceneIntro[] = {
+    { cutscene_intro, CUTSCENE_LOOP },
+};
+
 /* TODO:
  * The next two arrays are both related to levels, and they look generated.
  * These should be split into their own file.
@@ -11055,16 +11215,16 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // BBH            | CCM
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // CASTLE_INSIDE  | HMC
-	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 1, 1, 1), // SSL            | BOB
+	ZOOMOUT_AREA_MASK(1, 1, 0, 0, 0, 0, 0, 0), // CASTLE_INSIDE  | HMC
+	ZOOMOUT_AREA_MASK(1, 1, 1, 0, 1, 1, 1, 1), // SSL            | BOB
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SL             | WDW
 	ZOOMOUT_AREA_MASK(1, 1, 0, 0, 1, 1, 0, 0), // JRB            | THI
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // SA             | BITS
-	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
-	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // WF             | ENDING
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 1, 1), // SA             | BITS
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
+	ZOOMOUT_AREA_MASK(1, 0, 1, 0, 0, 0, 0, 0), // WF             | ENDING
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // COURTYARD      | PSS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // COTMC          | TOTWC
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // BOWSER_1       | WMOTR
@@ -11464,6 +11624,9 @@ void play_cutscene(struct Camera *c) {
         CUTSCENE(CUTSCENE_RACE_DIALOG,          sCutsceneDialog)
         CUTSCENE(CUTSCENE_ENTER_PYRAMID_TOP,    sCutsceneEnterPyramidTop)
         CUTSCENE(CUTSCENE_SSL_PYRAMID_EXPLODE,  sCutscenePyramidTopExplode)
+        CUTSCENE(CUTSCENE_HUB_WORLD,            sCutsceneHubWorld)
+        CUTSCENE(CUTSCENE_SNOW_HILL,            sCutsceneSnowHill)
+        CUTSCENE(CUTSCENE_INTRO,                sCutsceneIntro)
     }
 
 #undef CUTSCENE

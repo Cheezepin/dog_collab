@@ -283,7 +283,10 @@ enum Cutscenes {
     CUTSCENE_CREDITS,
     CUTSCENE_EXIT_WATERFALL,
     CUTSCENE_EXIT_FALL_WMOTR,
-    CUTSCENE_ENTER_POOL
+    CUTSCENE_ENTER_POOL,
+    CUTSCENE_HUB_WORLD,
+    CUTSCENE_SNOW_HILL,
+    CUTSCENE_INTRO,
 };
 
 /**
@@ -806,5 +809,7 @@ void set_fov_shake_from_point_preset(u8 preset, f32 posX, f32 posY, f32 posZ);
 void obj_rotate_towards_point(struct Object *obj, Vec3f point, s16 pitchOff, s16 yawOff, s16 pitchDiv, s16 yawDiv);
 
 Gfx *geo_camera_fov(s32 callContext, struct GraphNode *g, UNUSED void *context);
+
+extern s32 gIntroCutsceneState;
 
 #endif // CAMERA_H

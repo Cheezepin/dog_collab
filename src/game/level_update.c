@@ -318,6 +318,9 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
         case MARIO_SPAWN_PRESERVE_POS:
             set_mario_action(m, ACT_IDLE, 0);
             break;
+        case MARIO_SPAWN_WARP_BOX:
+            set_mario_action(m, ACT_WAITING_FOR_DIALOG, 0);
+            break;
     }
 
 #ifdef PREVENT_DEATH_LOOP
@@ -393,6 +396,7 @@ void init_mario_after_warp(void) {
             play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x10, 0x00, 0x00, 0x00);
             break;
         case MARIO_SPAWN_PRESERVE_POS:
+        case MARIO_SPAWN_WARP_BOX:
             break;
         default:
             play_transition(WARP_TRANSITION_FADE_FROM_STAR, 0x10, 0x00, 0x00, 0x00);
@@ -619,7 +623,7 @@ s16 music_unchanged_through_warp(s16 arg) {
 void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags) {
     if (destWarpNode >= WARP_NODE_CREDITS_MIN) {
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
-    } else if (destLevel != gCurrLevelNum) {
+    } else if (destLevel != gCurrLevelNum || sSourceWarpNodeId == 0xF0) {
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
     } else if (destArea != gCurrentArea->index) {
         sWarpDest.type = WARP_TYPE_CHANGE_AREA;
@@ -776,18 +780,19 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                 break;
 
             case WARP_OP_WARP_FLOOR:
-                sSourceWarpNodeId = WARP_NODE_WARP_FLOOR;
-                if (area_get_warp_node(sSourceWarpNodeId) == NULL) {
-#ifndef DISABLE_LIVES
-                    if (m->numLives == 0) {
-                        sDelayedWarpOp = WARP_OP_GAME_OVER;
-                    } else {
-                        sSourceWarpNodeId = WARP_NODE_DEATH;
-                    }
-#else
-                    sSourceWarpNodeId = WARP_NODE_DEATH;
-#endif
+                 if (m->floor->type != SURFACE_DEATH_PLANE) {
+                    sSourceWarpNodeId = m->floor->force;
                 }
+                else{
+                    sSourceWarpNodeId = WARP_NODE_WARP_FLOOR;
+                    if (area_get_warp_node(sSourceWarpNodeId) == NULL) {
+                        if (m->numLives == 0) {
+                            sDelayedWarpOp = WARP_OP_GAME_OVER;
+                        } else {
+                            sSourceWarpNodeId = WARP_NODE_DEATH;
+                        }
+                    }
+                    }
 
                 sDelayedWarpTimer = 20;
                 play_transition(WARP_TRANSITION_FADE_INTO_CIRCLE, sDelayedWarpTimer, 0x00, 0x00, 0x00);
@@ -1291,7 +1296,8 @@ s32 init_level(void) {
                 if(!save_file_exists(gCurrSaveFileNum - 1)) {
                     #ifndef TEST_LEVEL
                     save_file_set_dog_string(gCurrSaveFileNum - 1, &dogString);
-                    gKeyboard = 1;
+                    //gKeyboard = 1;
+                    //DEBUG REMOVE LATER
                     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
                     #endif
                 }
@@ -1407,13 +1413,21 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
 
     sWarpCheckpointActive = FALSE;
     gCurrLevelNum = levelNum;
+
+    
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
-			if (gCurrLevelNum == LEVEL_BITDW) return 0;
+	if (gCurrLevelNum == LEVEL_WF) return 0;
+	if (gCurrLevelNum == LEVEL_CASTLE) return 0;
+	if (gCurrLevelNum == LEVEL_SSL) return 0;
+	if (gCurrLevelNum == LEVEL_BITS) return 0;
+	/*if (gCurrLevelNum == LEVEL_BOWSER_2) return 0;
+	if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) return 0;
+	if (gCurrLevelNum == LEVEL_BITDW) return 0;
 	if (gCurrLevelNum == LEVEL_BITFS) return 0;
 
     if (gCurrDemoInput != NULL || gCurrCreditsEntry != NULL || gCurrCourseNum == COURSE_NONE) {
         return FALSE;
-    }
+    }*/
 
     if (gCurrLevelNum != LEVEL_BOWSER_1 && gCurrLevelNum != LEVEL_BOWSER_2 && gCurrLevelNum != LEVEL_BOWSER_3) {
         gMarioState->numCoins = 0;
@@ -1427,11 +1441,13 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
         disable_warp_checkpoint();
     }
 
-    if (gCurrCourseNum > COURSE_STAGES_MAX || warpCheckpointActive) {
+    /*if (gCurrCourseNum > COURSE_STAGES_MAX || warpCheckpointActive) {
         return FALSE;
     }
 
-    return !gDebugLevelSelect;
+    return !gDebugLevelSelect;*/
+
+    return FALSE;
 }
 
 /**

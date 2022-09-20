@@ -105,6 +105,7 @@ extern const BehaviorScript bhvWaterMist2[];
 extern const BehaviorScript bhvMistCircParticleSpawner[];
 extern const BehaviorScript bhvDirtParticleSpawner[];
 extern const BehaviorScript bhvSnowParticleSpawner[];
+extern const BehaviorScript bhvBowserSnowParticleSpawner[];
 extern const BehaviorScript bhvWind[];
 extern const BehaviorScript bhvEndToad[];
 extern const BehaviorScript bhvEndPeach[];
@@ -707,10 +708,38 @@ extern const BehaviorScript bhvMissile[];
 extern const BehaviorScript bhvCheezePlat[];
 extern const BehaviorScript bhvCheezeBombWall[];
 extern const BehaviorScript bhvCheezeDog[];
+extern const BehaviorScript bhvCheezeSkiDog[];
 extern const BehaviorScript bhvKoopatrol[];
 extern const BehaviorScript bhvWindSoundLoop[];
+extern const BehaviorScript bhvBowserSnow[];
+extern const BehaviorScript bhvBowserSnowball[];
+extern const BehaviorScript bhvWarpBox[];
+extern const BehaviorScript bhvAshpileBits[];
+extern const BehaviorScript bhvFadeCloudBits[];
+extern const BehaviorScript bhvClownDoorSegmentTopBits[];
+extern const BehaviorScript bhvClownDoorSegmentBottomBits[];
+extern const BehaviorScript bhvCarouselBits[];
+extern const BehaviorScript bhvBalloonPlatformBits[];
+extern const BehaviorScript bhvCircusBalloonBits[];
+extern const BehaviorScript bhvCircusBalloonColBits[];
+extern const BehaviorScript bhvClownClockBits[];
+extern const BehaviorScript bhvPeachCutscene[];
+extern const BehaviorScript bhvDogCutscene[];
+extern const BehaviorScript bhvBowserCutscene[];
+extern const BehaviorScript bhvDoorCutscene[];
+extern const BehaviorScript bhvGlobe[];
+extern const BehaviorScript bhvSpiresDog[];
 //cheeze bhv ends
 
+//Koopa Atoll Objects
+extern const BehaviorScript bhvPalmTree[];
+extern const BehaviorScript bhvKokoTripletSpawner[];
+extern const BehaviorScript bhvJetski[];
+extern const BehaviorScript bhvSandPile[];
+extern const BehaviorScript bhvSandPillar[];
+extern const BehaviorScript bhvSandSlope[];
+extern const BehaviorScript bhvKTQRing[];
+//Koopa Atoll Objects ^
 
 #endif // BEHAVIOR_DATA_H
 

@@ -416,7 +416,7 @@ void render_debug_mode(void) {
  * Renders the amount of coins collected.
  */
 void render_hud_coins(void) {
-    print_text(168, HUD_TOP_Y, "$"); // 'Coin' glyph
+    print_text(168, HUD_TOP_Y, "+"); // 'Coin' glyph
     print_text(184, HUD_TOP_Y, "*"); // 'X' glyph
     print_text_fmt_int(198, HUD_TOP_Y, "%d", gHudDisplay.coins);
 }
@@ -430,10 +430,10 @@ void render_hud_coins(void) {
 void render_hud_stars(void) {
     if (gHudFlash == HUD_FLASH_STARS && gGlobalTimer & 0x8) return;
     s8 showX = (gHudDisplay.stars < 100);
-    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X), HUD_TOP_Y, "^"); // 'Star' glyph
-    if (showX) print_text((GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X) + 16), HUD_TOP_Y, "*"); // 'X' glyph
-    print_text_fmt_int((showX * 14) + GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X - 16),
-                       HUD_TOP_Y, "%d", gHudDisplay.stars);
+        print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X), HUD_TOP_Y, "-"); // 'Star' glyph
+        if (showX) print_text((GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X) + 16), HUD_TOP_Y, "*"); // 'X' glyph
+        print_text_fmt_int((showX * 14) + GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X - 16),
+                        HUD_TOP_Y, "%d", gHudDisplay.stars);
 }
 
 /**
@@ -444,7 +444,7 @@ void render_hud_keys(void) {
     s16 i;
 
     for (i = 0; i < gHudDisplay.keys; i++) {
-        print_text((i * 16) + 220, 142, "|"); // unused glyph - beta key
+        print_text((i * 16) + 220, 142, "/"); // unused glyph - beta key
     }
 }
 
@@ -532,6 +532,7 @@ void render_hud_camera_status(void) {
  */
 
 s32 gKeyboard = 0;
+s32 gHubStarSelectTimer = 0;
 
 void render_hud(void) {
     s16 hudDisplayFlags = gHudDisplay.flags;
@@ -619,12 +620,26 @@ void render_hud(void) {
             render_hud_timer();
         }
 
-        if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_SURFACES) print_text(10, 40, "SURFACE POOL FULL");
-        if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_NODES) print_text(10, 60, "SURFACE NODE POOL FULL");
+        //if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_SURFACES) print_text(10, 40, "SURFACE POOL FULL");
+        //if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_NODES) print_text(10, 60, "SURFACE NODE POOL FULL");
 
         if (gKeyboard) {
             render_dog_keyboard();
         }
+
+        if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+            render_hub_selection();
+            if(gCustomStarSelectActive) {
+                gHubStarSelectTimer++;
+            } else {
+                if(gHubStarSelectTimer > 0) {gHubStarSelectTimer--;}
+                if(gHubStarSelectTimer > 15) {gHubStarSelectTimer = 15;}
+            }
+            if(gHubStarSelectTimer > 0) {
+                render_hub_star_select(gHubStarSelectTimer);
+            }
+        }
+
 #ifdef PUPPYPRINT
         print_set_envcolour(255, 255, 255, 255);
 #endif

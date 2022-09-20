@@ -380,6 +380,14 @@ void bobomb_buddy_act_talk(void) {
                     {
                         koopa_boss_spawn();
                     }
+                    if(o->behavior == segmented_to_virtual(bhvGlobe)) {
+                        sDelayedWarpOp = 1;
+                        sDelayedWarpArg = 0x00000002;
+                        play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0x00, 0x00, 0x00);
+                        sDelayedWarpTimer = 15;
+                        sSourceWarpNodeId = 0x02;
+                        o->oSubAction = 1;
+                    }
                 }
                 break;
 
@@ -397,7 +405,7 @@ void bobomb_buddy_act_talk(void) {
 void bobomb_buddy_act_turn_to_talk(void) {
     s16 animFrame = o->header.gfx.animInfo.animFrame;
 
-    if (animFrame == 5 || animFrame == 16) {
+    if (animFrame == 5 || animFrame == 16 && o->behavior != segmented_to_virtual(bhvGlobe)) {
         cur_obj_play_sound_2(SOUND_OBJ_BOBOMB_WALK);
     }
 

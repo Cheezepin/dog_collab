@@ -11,9 +11,9 @@
 #include "skeeter/anims/table.inc.c"
 UNUSED static const u64 binid_0 = 0;
 
-#include "seaweed/model.inc.c"
-#include "seaweed/anims/data.inc.c"
-#include "seaweed/anims/table.inc.c"
+// #include "seaweed/model.inc.c"
+// #include "seaweed/anims/data.inc.c"
+// #include "seaweed/anims/table.inc.c"
 UNUSED static const u64 binid_1 = 1;
 
 #include "water_mine/model.inc.c"

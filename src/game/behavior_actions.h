@@ -695,7 +695,23 @@ void bhv_cheezedog_loop(void);
 void bhv_koopatrol_init(void);
 void bhv_koopatrol_loop(void);
 void bhv_wind_sound_loop(void);
+void bhv_cheezeskidog_loop(void);
+void bhv_bowser_snowball_loop(void);
+void bhv_cutscenedog_loop(void);
+void bhv_peach_cutscene_loop(void);
+void bhv_bowser_cutscene_loop(void);
+void bhv_door_cutscene_loop(void);
+void bhv_spiresdog_loop(void);
 //cheeze end
+
+//Koopa Atoll Objects
+void bhv_koko_triplet_spawner_update(void);
+void bhv_sand_pile(void);
+void bhv_sand_pillar_init(void);
+void bhv_sand_pillar_loop(void);
+void bhv_ktq_ring_init(void);
+void bhv_ktq_ring_loop(void);
+//Koopa Atoll Objects ^
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 
@@ -777,8 +793,10 @@ void bhv_entrance_gate_loop(void);
 void bhv_comit_dog_loop(void);
 void bhv_rainbow_cloud_spawner_loop(void);
 void bhv_spectator_lakitu_init(void);
-
-
+void bhv_snow_bowser_init(void);
+void bhv_snow_bowser_loop(void);
+void bhv_ground_bowser_snow_init(void);
+void bhv_warp_box_loop(void);
 
 
 

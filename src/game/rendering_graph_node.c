@@ -283,6 +283,8 @@ s32 gCameraIsUnderwater = FALSE;
 extern struct GlobalFog gGlobalFog;
 // thecozies end
 
+#include "actors/common1.h"
+
 /**
  * Process a master list node. This has been modified, so now it runs twice, for each microcode.
  * It iterates through the first 5 layers of if the first index using F3DLX2.Rej, then it switches
@@ -290,6 +292,7 @@ extern struct GlobalFog gGlobalFog;
  * 3. It does this, because layers 5-7 are non zbuffered, and just doing 0-7 of ZEX, then 0-7 of REJ
  * would make the ZEX 0-4 render on top of Rej's 5-7.
  */
+
 void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
     struct RenderPhase *renderPhase;
     struct DisplayListNode *currList;
@@ -1182,7 +1185,14 @@ void geo_process_held_object(struct GraphNodeHeldObject *node) {
     if (node->objNode != NULL && node->objNode->header.gfx.sharedChild != NULL) {
         vec3_prod_val(translation, node->translation, 0.25f);
 
-        mtxf_translate(mat, translation);
+        if(gCurrLevelNum == LEVEL_BOWSER_2) {
+            Vec3s rotation = {0, 0x4000, 0};
+            vec3f_set(translation, 30.0f, -35.0f, -5.0f);
+            mtxf_translate(mat, translation);
+            //rotate 90 deg
+        } else {
+            mtxf_translate(mat, translation);
+        }
         mtxf_copy(gMatStack[gMatStackIndex + 1], *gCurGraphNodeObject->throwMatrix);
         vec3f_copy(gMatStack[gMatStackIndex + 1][3], gMatStack[gMatStackIndex][3]);
         mtxf_copy(tempMtx, gMatStack[gMatStackIndex + 1]);

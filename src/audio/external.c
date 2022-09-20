@@ -83,8 +83,8 @@ enum DialogSpeakers {
 
 u8 sDialogSpeaker[] = {
     //       0      1      2      3      4      5      6      7      8      9
-    /* 0*/ _,     _,  _,  _,  _,  _, KOOPA, KOOPA, _,     KOOPA,
-    /* 1*/ _,     _,     _,     _,     _,     _,     _,     KBOMB, _,     _,
+    /* 0*/ _,     _,  _,  _,  _,  _, BOMB, BOMB, BOMB,     GRUNT,
+    /* 1*/ _,     _,     _,     _,     _,     BOMB,     _,     KBOMB, _,     _,
     /* 2*/ _,     BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1, BOWS1,
     /* 3*/ _,     _,     _,     _,     _,     _,     _,     TUXIE, _,     _,
     /* 4*/ _,     KOOPA, _,     _,     _,     _,     _,     BOMB,  _,     _,
@@ -103,7 +103,7 @@ u8 sDialogSpeaker[] = {
     /*17*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
     /*18*/ _,     _,     _,     _,     _,     _,     _,
     // the cozies: putting some extra blank spots in here to i can compile
-    _, _, _, _, _, _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _, _, _,
 };
 #undef _
 STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
@@ -308,6 +308,13 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_LEVEL_PEACH_RUINS
     70,  // SEQ_BOSS_PEACH_RUINS
     70,  // SEQ_LEVEL_HYRULE_CASTLE
+    70,  // SEQ_LEVEL_FEUDAL_OUTSIDE
+    70,  // SEQ_LEVEL_FEUDAL_FOREST
+    70,  // SEQ_LEVEL_FEUDAL_DUNGEON
+    70,  // SEQ_LEVEL_FEUDAL_CASTLE
+    70,  // SEQ_OVERWORLD
+    70,  // SEQ_TRAINING
+    70,  // SEQ_METEOR_HERD
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,

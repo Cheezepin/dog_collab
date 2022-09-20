@@ -219,7 +219,7 @@ const LevelScript script_func_global_1[] = {
 const LevelScript script_func_global_2[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BULLET_BILL,             bullet_bill_geo),
     LOAD_MODEL_FROM_GEO(MODEL_YELLOW_SPHERE,           yellow_sphere_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_HOOT,                    hoot_geo),
+    //LOAD_MODEL_FROM_GEO(MODEL_HOOT,                    hoot_geo),
     LOAD_MODEL_FROM_GEO(MODEL_YOSHI_EGG,               yoshi_egg_geo),
     LOAD_MODEL_FROM_GEO(MODEL_THWOMP,                  thwomp_geo),
     LOAD_MODEL_FROM_GEO(MODEL_HEAVE_HO,                heave_ho_geo),
@@ -230,6 +230,8 @@ const LevelScript script_func_global_3[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BLARGG,                  blargg_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BULLY,                   bully_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BULLY_BOSS,              bully_boss_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_HOOT,                    hoot_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_SEAWEED,                 seaweed_geo),
     RETURN(),
 };
 
@@ -318,8 +320,8 @@ const LevelScript script_func_global_13[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_FLAMES,           bowser_flames_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_WAVE,             invisible_bowser_accessory_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_NO_SHADOW,        bowser_geo_no_shadow),
-    LOAD_MODEL_FROM_GEO(MODEL_AMP,                     dAmpGeo),
-    LOAD_MODEL_FROM_GEO(MODEL_BOWSER_ELECTRIC_RING,    electric_ring_geo),
+    // LOAD_MODEL_FROM_GEO(MODEL_AMP,                     dAmpGeo),
+    // LOAD_MODEL_FROM_GEO(MODEL_BOWSER_ELECTRIC_RING,    electric_ring_geo),
     RETURN(),
 };
 
@@ -330,7 +332,7 @@ const LevelScript script_func_global_14[] = {
     LOAD_MODEL_FROM_GEO(MODEL_CYAN_FISH,               cyan_fish_geo),
     LOAD_MODEL_FROM_GEO(MODEL_WATER_RING,              water_ring_geo),
     LOAD_MODEL_FROM_GEO(MODEL_WATER_MINE,              water_mine_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_SEAWEED,                 seaweed_geo),
+    // LOAD_MODEL_FROM_GEO(MODEL_SEAWEED,                 seaweed_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SKEETER,                 skeeter_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SHELL_BUBBLE,            shell_bubble_geo),
     RETURN(),
