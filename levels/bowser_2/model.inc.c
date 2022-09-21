@@ -1,11 +1,3 @@
-Lights1 bowser_2_dl_snow_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
-
-Lights1 bowser_2_dl_trees_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
-
 Gfx bowser_2_dl_krtd_ice_floor_ci4_aligner[] = {gsSPEndDisplayList()};
 u8 bowser_2_dl_krtd_ice_floor_ci4[] = {
 	0x00, 0x01, 0x22, 0x23, 0x11, 0x14, 0x43, 0x00, 
@@ -344,25 +336,25 @@ u8 bowser_2_dl_snowtrees_rgba16[] = {
 };
 
 Vtx bowser_2_dl_Plane_mesh_layer_5_vtx_cull[8] = {
-	{{{-13674, -7587, -1000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-13674, -7587, 1000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-13674, 9302, 1000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-13674, 9302, -1000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{12645, -7587, -1000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{12645, -7587, 1000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{12645, 9302, 1000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{12645, 9302, -1000},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+	{{{-13674, -7587, 1000}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{-13674, 9302, 1000}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{-13674, 9302, -1000}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{-13674, -7587, -1000}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{12645, -7587, 1000}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{12645, 9302, 1000}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{12645, 9302, -1000}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{12645, -7587, -1000}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
 };
 
 Vtx bowser_2_dl_Plane_mesh_layer_5_vtx_0[8] = {
-	{{{7500, 4500, -1000},0, {-13328, 2032},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{12645, 7587, 125},0, {-22544, -1040},{0xFF, 0xFF, 0xFF, 0x0}}},
-	{{{12645, 7587, -125},0, {-22544, 2032},{0xFF, 0xFF, 0xFF, 0x6}}},
-	{{{7500, 4500, 1000},0, {-13328, -1040},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-7500, -4500, 1000},0, {14320, -1040},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-7500, -4500, -1000},0, {14320, 2032},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-12645, -7587, -150},0, {23536, 2032},{0xFF, 0xFF, 0xFF, 0x0}}},
-	{{{-12645, -7587, 100},0, {23536, -1040},{0xFF, 0xFF, 0xFF, 0x5}}},
+	{{{7500, 4500, -1000}, 0, {-13328, 2032}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{12645, 7587, 125}, 0, {-22544, -1040}, {0xFF, 0xFF, 0xFF, 0x0}}},
+	{{{12645, 7587, -125}, 0, {-22544, 2032}, {0xFF, 0xFF, 0xFF, 0x6}}},
+	{{{7500, 4500, 1000}, 0, {-13328, -1040}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-7500, -4500, 1000}, 0, {14320, -1040}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-7500, -4500, -1000}, 0, {14320, 2032}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-12645, -7587, -150}, 0, {23536, 2032}, {0xFF, 0xFF, 0xFF, 0x0}}},
+	{{{-12645, -7587, 100}, 0, {23536, -1040}, {0xFF, 0xFF, 0xFF, 0x5}}},
 };
 
 Gfx bowser_2_dl_Plane_mesh_layer_5_tri_0[] = {
@@ -374,22 +366,22 @@ Gfx bowser_2_dl_Plane_mesh_layer_5_tri_0[] = {
 };
 
 Vtx bowser_2_dl_Plane_mesh_layer_5_vtx_1[16] = {
-	{{{-7500, -4500, 1000},0, {5104, 1008},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-12645, -7587, 100},0, {8176, 1008},{0xFF, 0xFF, 0xFF, 0x5}}},
-	{{{-13674, -5872, 100},0, {8176, -16},{0xFF, 0xFF, 0xFF, 0x5}}},
-	{{{-8529, -2785, 1000},0, {5104, -16},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{7500, 4500, 1000},0, {-4112, 1008},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{6471, 6215, 1000},0, {-4112, -16},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{12645, 7587, 125},0, {-7184, 1008},{0xFF, 0xFF, 0xFF, 0x0}}},
-	{{{11616, 9302, 125},0, {-7184, -16},{0xFF, 0xFF, 0xFF, 0x0}}},
-	{{{-7500, -4500, -1000},0, {5104, 1008},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-13674, -5872, -150},0, {8176, -16},{0xFF, 0xFF, 0xFF, 0x5}}},
-	{{{-12645, -7587, -150},0, {8176, 1008},{0xFF, 0xFF, 0xFF, 0x5}}},
-	{{{-8529, -2785, -1000},0, {5104, -16},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{7500, 4500, -1000},0, {-4112, 1008},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{6471, 6215, -1000},0, {-4112, -16},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{12645, 7587, -125},0, {-7184, 1008},{0xFF, 0xFF, 0xFF, 0x0}}},
-	{{{11616, 9302, -125},0, {-7184, -16},{0xFF, 0xFF, 0xFF, 0x0}}},
+	{{{-7500, -4500, 1000}, 0, {5104, 1008}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-12645, -7587, 100}, 0, {8176, 1008}, {0xFF, 0xFF, 0xFF, 0x5}}},
+	{{{-13674, -5872, 100}, 0, {8176, -16}, {0xFF, 0xFF, 0xFF, 0x5}}},
+	{{{-8529, -2785, 1000}, 0, {5104, -16}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{7500, 4500, 1000}, 0, {-4112, 1008}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{6471, 6215, 1000}, 0, {-4112, -16}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{12645, 7587, 125}, 0, {-7184, 1008}, {0xFF, 0xFF, 0xFF, 0x0}}},
+	{{{11616, 9302, 125}, 0, {-7184, -16}, {0xFF, 0xFF, 0xFF, 0x0}}},
+	{{{-7500, -4500, -1000}, 0, {5104, 1008}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-13674, -5872, -150}, 0, {8176, -16}, {0xFF, 0xFF, 0xFF, 0x5}}},
+	{{{-12645, -7587, -150}, 0, {8176, 1008}, {0xFF, 0xFF, 0xFF, 0x5}}},
+	{{{-8529, -2785, -1000}, 0, {5104, -16}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{7500, 4500, -1000}, 0, {-4112, 1008}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{6471, 6215, -1000}, 0, {-4112, -16}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{12645, 7587, -125}, 0, {-7184, 1008}, {0xFF, 0xFF, 0xFF, 0x0}}},
+	{{{11616, 9302, -125}, 0, {-7184, -16}, {0xFF, 0xFF, 0xFF, 0x0}}},
 };
 
 Gfx bowser_2_dl_Plane_mesh_layer_5_tri_1[] = {
@@ -403,10 +395,10 @@ Gfx bowser_2_dl_Plane_mesh_layer_5_tri_1[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_bowser_2_dl_snow[] = {
+Gfx mat_bowser_2_dl_snow_001[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0, 0, 0, 0, SHADE),
-	gsSPClearGeometryMode(G_LIGHTING),
+	gsSPGeometryMode(G_LIGHTING, 0),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, bowser_2_dl_krtd_ice_floor_ci4_pal_rgba16),
@@ -423,21 +415,20 @@ Gfx mat_bowser_2_dl_snow[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 5, 0, G_TX_WRAP | G_TX_NOMIRROR, 5, 0),
 	gsDPSetTileSize(0, 0, 0, 124, 124),
-	gsSPSetLights1(bowser_2_dl_snow_lights),
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_revert_bowser_2_dl_snow[] = {
+Gfx mat_revert_bowser_2_dl_snow_001[] = {
 	gsDPPipeSync(),
-	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPGeometryMode(0, G_LIGHTING),
 	gsDPSetTextureLUT(G_TT_NONE),
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_bowser_2_dl_trees[] = {
+Gfx mat_bowser_2_dl_trees_001[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, TEXEL0, 0, SHADE, 0, TEXEL0, 0, SHADE, 0, TEXEL0, 0, SHADE, 0),
-	gsSPClearGeometryMode(G_LIGHTING),
+	gsSPGeometryMode(G_LIGHTING, 0),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPTileSync(),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b_LOAD_BLOCK, 1, bowser_2_dl_snowtrees_rgba16),
@@ -447,13 +438,12 @@ Gfx mat_bowser_2_dl_trees[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 5, 0, G_TX_WRAP | G_TX_NOMIRROR, 5, 0),
 	gsDPSetTileSize(0, 0, 0, 124, 124),
-	gsSPSetLights1(bowser_2_dl_trees_lights),
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_revert_bowser_2_dl_trees[] = {
+Gfx mat_revert_bowser_2_dl_trees_001[] = {
 	gsDPPipeSync(),
-	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPGeometryMode(0, G_LIGHTING),
 	gsSPEndDisplayList(),
 };
 
@@ -462,12 +452,12 @@ Gfx bowser_2_dl_Plane_mesh_layer_5[] = {
 	gsSPVertex(bowser_2_dl_Plane_mesh_layer_5_vtx_cull + 0, 8, 0),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPCullDisplayList(0, 7),
-	gsSPDisplayList(mat_bowser_2_dl_snow),
+	gsSPDisplayList(mat_bowser_2_dl_snow_001),
 	gsSPDisplayList(bowser_2_dl_Plane_mesh_layer_5_tri_0),
-	gsSPDisplayList(mat_revert_bowser_2_dl_snow),
-	gsSPDisplayList(mat_bowser_2_dl_trees),
+	gsSPDisplayList(mat_revert_bowser_2_dl_snow_001),
+	gsSPDisplayList(mat_bowser_2_dl_trees_001),
 	gsSPDisplayList(bowser_2_dl_Plane_mesh_layer_5_tri_1),
-	gsSPDisplayList(mat_revert_bowser_2_dl_trees),
+	gsSPDisplayList(mat_revert_bowser_2_dl_trees_001),
 	gsSPEndDisplayList(),
 };
 

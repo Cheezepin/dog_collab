@@ -33,8 +33,8 @@ const LevelScript level_bowser_2_entry[] = {
 	LOAD_RAW(0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
-	LOAD_MODEL_FROM_GEO(MODEL_SNOULDER, snoulder_geo),
 	JUMP_LINK(script_func_global_13), 
+	LOAD_MODEL_FROM_GEO(MODEL_SNOULDER, snoulder_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -43,6 +43,7 @@ const LevelScript level_bowser_2_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOWSER_2, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x01, LEVEL_BOWSER_2, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_BOWSER, 1732, 1039, 0, 30, -90, 0, 0x00000000, bhvBowserSnow),
+		OBJECT(MODEL_CHAIN_CHOMP_BOWSER, 1732, 1039, 0, 30, -90, 0, 0x00000000, bhvChainChompBowser),
 		OBJECT(MODEL_DOG, -3500, -2100, 0, 31, -90, 0, 0x00000000, bhvCheezeSkiDog),
 		OBJECT(MODEL_NONE, -1500, 100, 0, 0, -90, 0, (0xA << 16), bhvSpinAirborneWarp),
 		MARIO_POS(0x01, -90, -1500, 100, 0),
