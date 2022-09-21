@@ -30,9 +30,3 @@ UNUSED static const u64 binid_5 = 5;
 #include "amp/model.inc.c"
 #include "amp/anims/data.inc.c"
 #include "amp/anims/table.inc.c"
-
-#include "chain_ball_bowser/model.inc.c"
-
-#include "chain_chomp_bowser/model.inc.c"
-#include "chain_chomp_bowser/anims/data.inc.c"
-#include "chain_chomp_bowser/anims/table.inc.c"

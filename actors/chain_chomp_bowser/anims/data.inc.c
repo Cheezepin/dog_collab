@@ -1,1 +1,1 @@
-#include "anim_06025160.inc.c"
+#include "anim_ArmatureObjAction.inc.c"

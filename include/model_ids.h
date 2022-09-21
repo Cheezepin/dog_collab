@@ -427,8 +427,8 @@
 #define MODEL_BOWSER_ELECTRIC_RING        0x70        // electric_ring_geo
 #define MODEL_RED_CIRCLE                  0x71        // red circle
 #define MODEL_LIGHTNING                   0x72        // lightning
-#define MODEL_METALLIC_BALL_BOWSER        0x2E        // metallic_ball_geo
-#define MODEL_CHAIN_CHOMP_BOWSER          0x2F        // chain_chomp
+#define MODEL_METALLIC_BALL_BOWSER        0x12D        // metallic_ball_geo
+#define MODEL_CHAIN_CHOMP_BOWSER          0x12C        // chain_chomp
 
 // group 13
 #define MODEL_BUB                         0x64        // cheep_cheep_geo

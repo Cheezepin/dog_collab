@@ -128,6 +128,8 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_SPIKE_BALL,              spike_ball_geo),
     LOAD_MODEL_FROM_GEO(MODEL_PODOBOO,                 podoboo_geo),
     LOAD_MODEL_FROM_GEO(MODEL_KOOPATROL,               koopatrol_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_METALLIC_BALL_BOWSER,    metallic_ball_bowser_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CHAIN_CHOMP_BOWSER,      chain_chomp_bowser_geo),
 #ifdef IA8_30FPS_COINS
     LOAD_MODEL_FROM_GEO(MODEL_SILVER_COIN,             silver_coin_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SILVER_COIN_NO_SHADOW,   silver_coin_no_shadow_geo),
@@ -322,8 +324,6 @@ const LevelScript script_func_global_13[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_NO_SHADOW,        bowser_geo_no_shadow),
     // LOAD_MODEL_FROM_GEO(MODEL_AMP,                     dAmpGeo),
     // LOAD_MODEL_FROM_GEO(MODEL_BOWSER_ELECTRIC_RING,    electric_ring_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_METALLIC_BALL_BOWSER,    metallic_ball_bowser_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_CHAIN_CHOMP_BOWSER,      chain_chomp_bowser_geo),
     RETURN(),
 };
 
