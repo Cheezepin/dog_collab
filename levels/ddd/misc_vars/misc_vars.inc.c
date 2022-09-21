@@ -136,3 +136,51 @@ CozyVol cozies_area2CamVol12 = {
     .shape = COZY_VOL_SHAPE_CYL,
 };
 
+f32 CamAct1Focus[3] = {  1300.0000000000f, -9000.0015258789f, -2000.0000000000f };
+
+PosFocusFov CamAct1Pos = {
+    {  -100.0000000000f, -9300.0015258789f, -4300.0000000000f },
+    .focus = &CamAct1Focus,
+    .fov = FOV_24MM,
+};
+
+f32 CamAct2Focus[3] = {  1400.0000000000f, -8400.0015258789f, -2200.0000000000f };
+
+PosFocusFov CamAct2Pos = {
+    {   400.0000000000f, -8700.0015258789f,  -300.0000000000f },
+    .focus = &CamAct2Focus,
+    .fov = FOV_24MM,
+};
+
+f32 CamAct3Focus[3] = { -5700.0000000000f, -3900.0015258789f, -1100.0000000000f };
+
+PosFocusFov CamAct3Pos = {
+    { -2000.0000000000f, -4050.0015258789f, -1900.0000000000f },
+    .focus = &CamAct3Focus,
+    .fov = FOV_75MM,
+};
+
+f32 CamAct4Focus[3] = {  4108.5796356201f,  -502.5939941406f, -6185.4450225830f };
+
+PosFocusFov CamAct4Pos = {
+    {  3379.9999237061f,  -900.0015258789f, -7019.9996948242f },
+    .focus = &CamAct4Focus,
+    .fov = FOV_24MM,
+};
+
+f32 CamAct5Focus[3] = {  7500.0000000000f,  2876.6632080078f, -1296.5400695801f };
+
+PosFocusFov CamAct5Pos = {
+    {  7500.0000000000f,  2789.9986267090f, -2839.9999618530f },
+    .focus = &CamAct5Focus,
+    .fov = FOV_18MM,
+};
+
+f32 CamAct6Focus[3] = {  -101.1964440346f,  3399.9984741211f, -1299.3271827698f };
+
+PosFocusFov CamAct6Pos = {
+    {   700.0000000000f,  4670.0298309326f, -2600.0000000000f },
+    .focus = &CamAct6Focus,
+    .fov = FOV_12MM,
+};
+

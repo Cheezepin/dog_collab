@@ -3429,6 +3429,36 @@ void update_lakitu(struct Camera *c) {
     f32 distToFloor;
     s16 newYaw;
 
+    if (c->init_view_timer > 0) {
+        c->init_view_timer -= 1.0f;
+
+        if (gMarioState->controller->buttonPressed & C_BUTTONS) {
+            c->init_view_timer *= 0.1f;
+        }
+        if (gMarioState->intendedMag > 8.0f) {
+            c->init_view_timer *= 0.95f;
+        }
+
+        if (c->init_view_timer > 0) {
+            f32 fac = smooth_fac(get_lerp(c->init_view_timer, CAM_INIT_TIMER_LERP_START, 0));
+
+            gLakituState.posHSpeed = gLakituState.posVSpeed = fac * 0.3f;
+            
+            // flip lerp so it goes from 1 to 0
+            fac = 1.0f - fac;
+            
+            lerp_vec3f(c->pos, c->init_view_pos, fac);
+            lerp_vec3f(c->focus, c->init_view_focus, fac);
+            sCameraFov = lerp(45.0f, c->init_view_fov, fac);
+            
+            if (sFOVState.fovFunc != CAM_FOV_APP_MISC)
+                set_fov_function(CAM_FOV_APP_MISC);
+        } else {
+            gLakituState.posHSpeed = gLakituState.posVSpeed = 0.3f;
+            set_fov_function(CAM_FOV_DEFAULT);
+        }
+    }
+
     if (!(gCameraMovementFlags & CAM_MOVE_PAUSE_SCREEN)) {
         newYaw = next_lakitu_state(newPos, newFoc, c->pos, c->focus, sOldPosition, sOldFocus,
                                    c->nextYaw);
@@ -3936,6 +3966,7 @@ void init_camera(struct Camera *c) {
     marioOffset[0] = 0.f;
     marioOffset[1] = 125.f;
     marioOffset[2] = 400.f;
+    c->init_view_timer = -1;
 
     // Set the camera's starting position or start a cutscene for certain levels
     switch (gCurrLevelNum) {
@@ -3958,38 +3989,18 @@ void init_camera(struct Camera *c) {
         case LEVEL_BOWSER_3:
             start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
             break;
-
-#ifdef ENABLE_VANILLA_CAM_PROCESSING
-        //! Hardcoded position checks determine which cutscene to play when Mario enters castle grounds.
-        case LEVEL_CASTLE_GROUNDS:
-            if (is_within_100_units_of_mario(-1328.f, 260.f, 4664.f) != 1) {
-                marioOffset[0] = -400.f;
-                marioOffset[2] = -800.f;
+        case LEVEL_COZIES: {
+            if (gMarioState->action != ACT_FLOOR_CHECKPOINT_WARP_OUT && gMarioState->action != ACT_FLOOR_CHECKPOINT_WARP_IN) {
+                set_cur_act_pos_focus_fov(c);
+                s8DirModeBaseYaw = 0;
+                vec3f_get_yaw(c->init_view_focus, c->init_view_pos, &s8DirModeYawOffset);
+                c->init_view_timer = CAM_INIT_TIMER_START;
+                vec3f_copy(c->pos, c->init_view_pos);
+                vec3f_copy(c->focus, c->init_view_focus);
+                sFOVState.fov = c->init_view_fov;
             }
-            if (is_within_100_units_of_mario(-6901.f, 2376.f, -6509.f) == 1) {
-                start_cutscene(c, CUTSCENE_EXIT_WATERFALL);
-            }
-            if (is_within_100_units_of_mario(5408.f, 4500.f, 3637.f) == 1) {
-                start_cutscene(c, CUTSCENE_EXIT_FALL_WMOTR);
-            }
-            gLakituState.mode = CAMERA_MODE_FREE_ROAM;
             break;
-        case LEVEL_SA:
-            marioOffset[2] = 200.f;
-            break;
-        case LEVEL_CASTLE_COURTYARD:
-            marioOffset[2] = -300.f;
-            break;
-        case LEVEL_LLL:
-            gCameraMovementFlags |= CAM_MOVE_ZOOMED_OUT;
-            break;
-        case LEVEL_CASTLE:
-            marioOffset[2] = 150.f;
-            break;
-        case LEVEL_RR:
-            vec3f_set(sFixedModeBasePosition, -2985.f, 478.f, -5568.f);
-            break;
-#endif
+        }
     }
     if (c->mode == CAMERA_MODE_8_DIRECTIONS) {
         gCameraMovementFlags |= CAM_MOVE_ZOOMED_OUT;

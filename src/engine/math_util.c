@@ -1312,7 +1312,9 @@ f32 get_relative_position_between_ranges(f32 x, f32 fromA, f32 toA, f32 fromB, f
 }
 
 f32 get_lerp(f32 cur, f32 from, f32 to) {
-    f32 amt = CLAMP(cur, from, to);
+    f32 min = MIN(from, to);
+    f32 max = MAX(from, to);
+    f32 amt = CLAMP(cur, min, max);
     return get_relative_position_between_ranges(amt, from, to, 0.0f, 1.0f);
 }
 

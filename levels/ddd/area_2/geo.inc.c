@@ -34,6 +34,7 @@ const GeoLayout ddd_dl_Room1_geo[] = {
 		GEO_DISPLAY_LIST(LAYER_ALPHA, ddd_dl_MainArea_mesh_layer_4),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, ddd_dl_ObservingGlass_mesh_layer_5),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE_INTER, -574, -4000, -3129, 0, -45, 0, ddd_dl_TubeToArea3_mesh_layer_3),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 0, 6000, 0, ddd_dl_TunnelBetween_005_mesh_layer_5),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_MainAreaConnectOut_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

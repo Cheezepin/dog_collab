@@ -555,6 +555,18 @@ typedef struct PosFocusFov {
     f32 fov;
 } PosFocusFov;
 
+#define FOV_12MM  90.0f
+#define FOV_18MM  67.4f
+#define FOV_24MM  53.1f
+#define FOV_35MM  63.44f
+#define FOV_50MM  37.8f
+#define FOV_60MM  22.6f
+#define FOV_75MM  18.2f
+#define FOV_100MM 13.7f
+#define FOV_120MM 11.4f
+#define FOV_150MM 9.1f
+#define FOV_200MM 6.9f
+
 typedef struct CozyVol
 {
     Vec3f pos;

@@ -23,8 +23,12 @@ f32 bstWaterLevels[] = {
     [BST_LEVEL_LAST] = 0,
 };
 
+#define WATER_SWITCH_OFFSET -26
+#define WATER_SWITCH_OFFSET_MARIO (WATER_SWITCH_OFFSET - 8)
+
 void water_switch_init(void) {
-    if (gCurrActNum > BPARAM1) { // x star in DDD complete
+    o->oWaterSwitchOffset = WATER_SWITCH_OFFSET;
+    if (gCurrActNum > (s16)(u8)BPARAM1) { // x star in DDD complete
         o->oWaterSwitchActivated = TRUE;
     }
 } 
@@ -61,8 +65,6 @@ void translate_water_switch_col(struct Object *obj) {
     }
 }
 
-#define WATER_SWITCH_OFFSET -26
-#define WATER_SWITCH_OFFSET_MARIO (WATER_SWITCH_OFFSET - 8)
 
 void water_switch_loop(void) {
     f32 goalOffset = 0;
@@ -87,15 +89,6 @@ void water_switch_loop(void) {
     if (o->oWaterSwitchActivated && o->oWaterSwitchOffset > WATER_SWITCH_OFFSET + 2) {
         o->oWaterSwitchOffset = WATER_SWITCH_OFFSET + 2;
         o->oWaterSwitchOffsetVel = 0;
-    }
-
-    if (
-        o->oWaterSwitchActivated
-        && gPlayer1Controller->buttonPressed & Z_TRIG
-        && gPlayer1Controller->buttonDown & L_TRIG
-    ) {
-        o->oWaterSwitchActivated = FALSE;
-        o->oWaterSwitchActiveState = 0;
     }
 
     translate_water_switch_col(o);
@@ -202,7 +195,7 @@ enum WaterLevelBehaviors {
 };
 
 void set_water_level_goal(struct Object *obj) {
-    s32 behavior = BPARAM1;
+    u8 behavior = (u8)BPARAM1;
     s32 id = BPARAM2;
     switch (behavior) {
         case WATER_LEVEL_BHV_STATIC: // static water, might be act specific

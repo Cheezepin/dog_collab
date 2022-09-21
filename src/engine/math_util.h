@@ -619,4 +619,9 @@ f32 get_cycle(f32 cycleLength, f32 cycleOffset, u32 timer);
 
 #define copy_vec3(vec) { vec[0], vec[1], vec[2] }
 
+// fac should be between 0 and 1
+ALWAYS_INLINE f32 smooth_fac(f32 fac) {
+    return sqr(fac) * (3.0f - (2.0f * fac));
+}
+
 #endif // MATH_UTIL_H

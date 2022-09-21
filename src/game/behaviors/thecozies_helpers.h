@@ -23,11 +23,6 @@ void elastic_approach_vec3s(Vec3s cur, Vec3s curVel, Vec3s goal, f32 speedDown, 
 struct Object *find_any_object_with_behavior_and_bparam2(const BehaviorScript *behavior, u32 bparam);
 s32 check_mario_on_object(struct MarioState *m);
 
-ALWAYS_INLINE s32 check_water(void) {
-    return gCurrActNum > 1;
-    // return save_file_get_star_flags((gCurrSaveFileNum - 1), COURSE_NUM_TO_INDEX(COURSE_DDD)) & STAR_FLAG_ACT_1;
-}
-
 ALWAYS_INLINE struct Object *get_water_switch(s32 sID) {
     return find_any_object_with_behavior_and_bparam2(bhvWaterSwitch, sID);
 }

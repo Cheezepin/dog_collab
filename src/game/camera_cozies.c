@@ -1,6 +1,27 @@
 #include <types.h>
 #include "engine/math_util.h"
+#include "levels/ddd/header.h"
+#include "area.h"
 #include "camera_cozies.h"
+#include "camera.h"
+
+PosFocusFov *cozies_init_views[] = {
+    NULL,
+    &CamAct1Pos,
+    &CamAct2Pos,
+    &CamAct3Pos,
+    &CamAct4Pos,
+    &CamAct5Pos,
+    &CamAct6Pos,
+};
+
+void set_cur_act_pos_focus_fov(struct Camera *c) {
+    PosFocusFov *view = segmented_to_virtual(cozies_init_views[gCurrActNum]);
+    vec3f_copy(c->init_view_pos, view->pos);
+    f32 *foc = segmented_to_virtual(view->focus);
+    vec3f_copy(c->init_view_focus, foc);
+    c->init_view_fov = view->fov;
+}
 
 void ClosestPointOnLineSegment(Vec3f A, Vec3f B, Vec3f Point, Vec3f res)
 {

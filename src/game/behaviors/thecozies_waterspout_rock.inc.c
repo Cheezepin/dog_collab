@@ -214,6 +214,9 @@ s32 check_mario_groundpound_float(void) {
 void floaty_rock_init(void) {
     f32 delta = floater_is_tube_top(o) ? 0.0f : 50.0f;
     o->oFloatyRockFloorHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, &o->oFloor) + delta;
+
+    f32 colHeight = get_floater_height(o);
+    o->oPosY = o->oFloatyRockFloorHeight + colHeight;
 }
 
 void add_floaty_rock_jump_bonus(f32 bonus) {

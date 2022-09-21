@@ -609,6 +609,11 @@ struct Camera {
     // thecozies: spline tracking
     s8 splineDir; // -1 / 1
     u8 splineLen; // length of spline
+    // thecozies: first view when starting an act
+    Vec3f init_view_pos;
+    Vec3f init_view_focus;
+    f32 init_view_fov;
+    f32 init_view_timer;
 };
 
 /**

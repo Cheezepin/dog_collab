@@ -45,6 +45,16 @@ struct GlobalFog sDDDFogRoom4_5_6_7 = {
     .high = 1002
 };
 
+struct GlobalFog sDDDFogRoom4_see_outside = {
+    // [172, 170, 188]
+    .r    = 172,
+    .g    = 170,
+    .b    = 188,
+    .a    = 0xFF,
+    .low  = 900,
+    .high = 1200
+};
+
 struct GlobalFog sDDDFogRoom8 = {
     .r    = 100,
     .g    = 62,
@@ -188,7 +198,16 @@ void update_global_fog_ddd(void) {
             break;
         case 2: {
             switch (gMarioCurrentRoom) {
-                case 4:
+                case 4: {
+                    if (
+                        gLakituState.curPos[2] > -2210
+                        && abs_angle_diff(gCamera->yaw, DEGREES(90)) < DEGREES(47)
+                    ) {
+                        // when yer lookin at the little windah
+                        goalFog = &sDDDFogRoom4_see_outside;
+                        break;
+                    }
+                }
                 case 5:
                 case 6:
                 case 7:
@@ -226,4 +245,5 @@ void update_global_fog_ddd(void) {
     gGlobalFog.a    = approach_s16_asymptotic(gGlobalFog.a,    goalFog->a,    GLOBAL_FOG_UPDATE_RATE_DIVISOR);
     gGlobalFog.low  = approach_s16_asymptotic(gGlobalFog.low,  goalFog->low,  GLOBAL_FOG_UPDATE_RATE_DIVISOR);
     gGlobalFog.high = approach_s16_asymptotic(gGlobalFog.high, goalFog->high, GLOBAL_FOG_UPDATE_RATE_DIVISOR);
+    if (gGlobalFog.high < gGlobalFog.low + 5) gGlobalFog.high = gGlobalFog.low + 5;
 }
