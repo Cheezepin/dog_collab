@@ -8051,6 +8051,12 @@ const BehaviorScript bhvChainChompChainPartBowser[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvNothing[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BREAK(),
+};
+
 //cheeze bhvs end
 
 // someone2638 scripts

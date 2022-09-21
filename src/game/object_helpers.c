@@ -132,7 +132,7 @@ Gfx *geo_is_level_b1(s32 callContext, struct GraphNode *node, UNUSED void *conte
         struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
 
         // assign the case number for execution.
-        switchCase->selectedCase = (gCurrLevelNum == LEVEL_BOWSER_2) ? 1 : 0;
+        switchCase->selectedCase = (gCurrLevelNum == LEVEL_BOWSER_2 && !find_any_object_with_behavior(bhvNothing)) ? 1 : 0;
     }
 
     return NULL;

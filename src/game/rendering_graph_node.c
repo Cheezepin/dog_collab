@@ -1176,14 +1176,14 @@ void geo_process_held_object(struct GraphNodeHeldObject *node) {
     if (node->objNode != NULL && node->objNode->header.gfx.sharedChild != NULL) {
         vec3_prod_val(translation, node->translation, 0.25f);
 
-        if(gCurrLevelNum == LEVEL_BOWSER_2) {
+        /*if(gCurrLevelNum == LEVEL_BOWSER_2) {
             Vec3s rotation = {0, 0x4000, 0};
             vec3f_set(translation, 30.0f, -35.0f, -5.0f);
             mtxf_translate(mat, translation);
             //rotate 90 deg
-        } else {
+        } else {*/ //dog debug
             mtxf_translate(mat, translation);
-        }
+        //}
         mtxf_copy(gMatStack[gMatStackIndex + 1], *gCurGraphNodeObject->throwMatrix);
         vec3f_copy(gMatStack[gMatStackIndex + 1][3], gMatStack[gMatStackIndex][3]);
         mtxf_copy(tempMtx, gMatStack[gMatStackIndex + 1]);

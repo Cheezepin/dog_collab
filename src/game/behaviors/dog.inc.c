@@ -190,7 +190,7 @@ void bhv_cheezedog_loop(void) {
 }
 
 void bhv_cheezeskidog_loop(void) {
-    switch(o->oAction) {
+    /*switch(o->oAction) {
         case 0:
             cur_obj_init_animation(DOG_ANIM_IDLE);
             switch (o->oHeldState) {
@@ -262,5 +262,14 @@ void bhv_cheezeskidog_loop(void) {
             break;
     }
 
-    o->oInteractStatus = INT_STATUS_NONE;
+    o->oInteractStatus = INT_STATUS_NONE;*/
+
+    o->oGravity = -4.0f;
+    if(lateral_dist_between_objects(gMarioObject, o) > 350.0f) {
+        o->oForwardVel = 20.0f;
+        o->oMoveAngleYaw = o->oAngleToMario;
+    } else {
+        o->oForwardVel = 0.0f;
+    }
+    cur_obj_move_standard(78);
 }

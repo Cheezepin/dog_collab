@@ -10,7 +10,7 @@
  */
 
 #define CHAIN_CHOMP_CHAIN_MAX_DIST_BETWEEN_PARTS 180.0f
-#define CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS 360.0f
+#define CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS 180.0f
 
 #define CHAIN_CHOMP_LOAD_DIST   (3000.0f + (CHAIN_CHOMP_NUM_SEGMENTS * CHAIN_CHOMP_CHAIN_MAX_DIST_BETWEEN_PARTS))
 #define CHAIN_CHOMP_UNLOAD_DIST (4000.0f + (CHAIN_CHOMP_NUM_SEGMENTS * CHAIN_CHOMP_CHAIN_MAX_DIST_BETWEEN_PARTS))
@@ -29,6 +29,19 @@ static struct ObjectHitbox sChainChompHitbox = {
     /* hurtboxRadius:     */ 80,
     /* hurtboxHeight:     */ 160,
 };
+
+static struct ObjectHitbox sChainChompBowserHitbox = {
+    /* interactType:      */ INTERACT_MR_BLIZZARD,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 1,
+    /* health:            */ 1,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 70,
+    /* height:            */ 140,
+    /* hurtboxRadius:     */ 70,
+    /* hurtboxHeight:     */ 140,
+};
+
 
 /**
  * Update function for chain chomp part / pivot.
@@ -54,9 +67,9 @@ void bhv_chain_chomp_chain_part_update(void) {
 void cur_obj_set_bowser_hand_to_home(void) {
     if(find_any_object_with_behavior(bhvBowser) || find_any_object_with_behavior(bhvBowserSnow)) {
         vec3f_copy(&o->parentObj->oPosX, bowserRightHandLocation);
-    } else {
+    }/*  else {
         vec3f_copy(&o->parentObj->oPosX, &o->oHomeX);
-    }
+    } */
 }
 
 static void chain_chomp_act_uninitialized(void) {
@@ -104,7 +117,7 @@ static void chain_chomp_act_uninitialized(void) {
  * Apply gravity to each chain part, and cap its distance to the previous
  * part as well as from the pivot.
  */
-static void chain_chomp_update_chain_segments(void) {
+void chain_chomp_update_chain_segments(void) {
     // Segment 0 connects the pivot to the chain chomp itself, and segment i>0
     // connects the pivot to chain part i (1 is closest to the chain chomp).
     s32 i;
@@ -136,7 +149,7 @@ static void chain_chomp_update_chain_segments(void) {
  * Lunging increases the maximum distance from the pivot and changes the maximum
  * distance between chain parts. Restore these values to normal.
  */
-static void chain_chomp_restore_normal_chain_lengths(void) {
+void chain_chomp_restore_normal_chain_lengths(void) {
     // approach_f32_ptr(&o->oChainChompMaxDistFromPivotPerChainPart, 750.0f / CHAIN_CHOMP_NUM_SEGMENTS, 4.0f);
     approach_f32_ptr(&o->oChainChompMaxDistFromPivotPerChainPart, 150.0f, 4.0f);
     o->oChainChompMaxDistBetweenChainParts = o->oChainChompMaxDistFromPivotPerChainPart;
@@ -420,7 +433,7 @@ void chain_chomp_bowser_sub_act_turn(void) {
     chain_chomp_restore_normal_chain_lengths();
     obj_move_pitch_approach(0, 0x100);
 
-    if (o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) {
+    if ((o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) && gCamera->cutscene == 0) {
         cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x400);
         if (abs_angle_diff(o->oAngleToMario, o->oMoveAngleYaw) < 0x800) {
             if (o->oTimer > 30) {
@@ -457,7 +470,7 @@ void chain_chomp_bowser_sub_act_turn(void) {
 }
 
 void chain_chomp_bowser_sub_act_lunge(void) {
-    obj_face_pitch_approach(o->oChainChompTargetPitch, 0x400);
+    obj_face_pitch_approach(o->oChainChompTargetPitch, 0x100);
 
     if (o->oForwardVel != 0.0f) {
         // f32 val04;
@@ -519,6 +532,10 @@ static void chain_chomp_bowser_act_move(void) {
                 break;
         }
 
+        if(o->oPosY < -1000.0f) {
+            o->oVelY = 100.0f;
+        }
+
         cur_obj_move_standard(78);
 
         // Segment 0 connects the pivot to the chain chomp itself
@@ -552,7 +569,7 @@ static void chain_chomp_bowser_act_move(void) {
         chain_chomp_update_chain_segments();
 
         // Begin a lunge if mario tries to attack
-        if (obj_check_attacks(&sChainChompHitbox, o->oAction) != 0) {
+        if (obj_check_attacks(&sChainChompBowserHitbox, o->oAction) != 0) {
             o->oSubAction = CHAIN_CHOMP_SUB_ACT_LUNGE;
             // o->oChainChompMaxDistFromPivotPerChainPart = (900.0f / CHAIN_CHOMP_NUM_SEGMENTS);
             o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS; // ((CHAIN_CHOMP_NUM_SEGMENTS * CHAIN_CHOMP_CHAIN_MAX_DIST_BETWEEN_PARTS) / CHAIN_CHOMP_NUM_SEGMENTS);
@@ -598,7 +615,6 @@ void bhv_chain_chomp_update(void) {
 
 void bhv_chain_chomp_bowser_update(void) {
     if(gCurrLevelNum == LEVEL_BOWSER_1 || gCurrLevelNum == LEVEL_BOWSER_2 || gCurrLevelNum == LEVEL_BOWSER_3) {
-        if(o->oTimer > 60)
         cur_obj_set_bowser_hand_to_home();
     }
     switch (o->oAction) {
