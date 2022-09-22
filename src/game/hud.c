@@ -632,13 +632,13 @@ void render_hud(void) {
         //if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_NODES) print_text(10, 60, "SURFACE NODE POOL FULL");
 
         if (gKeyboard) {
-            shadeFade = approach_s16_asymptotic(shadeFade, 255/3, 10);
+            shadeFade = approach_s16_asymptotic(shadeFade, 255*0.75f, 4);
         } else {
-            shadeFade = approach_s16_asymptotic(shadeFade, 0, 10);
+            shadeFade = approach_s16_asymptotic(shadeFade, 0, 4);
         }
 
         if (shadeFade > 0) {
-            shade_screen_amount(shadeFade);
+            shade_screen_col(0, 0x8D, 0xC7, shadeFade);
         }
 
         if (gKeyboard) {

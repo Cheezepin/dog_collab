@@ -242,6 +242,7 @@ void render_hub_selection(void);
 void render_hub_star_select(s32 cringeTimer);
 void end_results_loop(void);
 void shade_screen_amount(int amount);
+void shade_screen_col(int r, int g, int b, int a);
 
 extern s32 gWorldID;
 extern s32 gFocusID;
