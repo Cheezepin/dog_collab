@@ -2687,8 +2687,10 @@ void render_hub_selection(void) {
             } else if(gPlayer1Controller->buttonPressed & B_BUTTON) {
                 if(gLevelEntryConfirmationActive) {
                     gLevelEntryConfirmationActive = 0;
-                } else {
+                } else if(gCustomStarSelectActive){
                     gCustomStarSelectActive = 0;
+                } else {
+                    gFocusID = -1;
                 }
             } else if((joystickMovement & JOYSTICK_DOWN) && gCustomStarSelectActive == 0) {
                 gFocusID++;

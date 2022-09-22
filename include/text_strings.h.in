@@ -358,7 +358,7 @@
 #define TEXT_B2A "Author: anundidenfiedemu"
 
 #define TEXT_C7I "Course 7"
-#define TEXT_C7  "Feudal Fortress"
+#define TEXT_C7  "Sakura Stronghold"
 #define TEXT_C7A "Author: Yoshi Milkman"
 
 #define TEXT_C8I "Course 8"
