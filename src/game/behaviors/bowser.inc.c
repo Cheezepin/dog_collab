@@ -93,7 +93,7 @@ s8 sBowserRainbowLight[] = { FALSE, FALSE, TRUE };
 /**
  * Set how much health Bowser has on each stage
  */
-s8 sBowserHealth[] = { 1, 4, 3 };
+s8 sBowserHealth[] = { 2, 4, 3 };
 /**
  * Checks whenever the Bowser and his tail should be intangible or not
  * By default it starts tangible
