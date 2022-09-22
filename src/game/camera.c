@@ -3618,6 +3618,8 @@ void update_camera(struct Camera *c) {
     if (gCurrLevelNum == LEVEL_COZIES) {
         s32 res = check_cozy_volumes(c, gMarioState);
         // print_text(20, 20, res ? "YES" : "NO");
+    } else {
+        c->curVolume = NULL;
     }
 
     s32 cozy_blocks_input = cozy_vol_blocks_input(c);
@@ -4006,6 +4008,7 @@ void init_camera(struct Camera *c) {
     marioOffset[1] = 125.f;
     marioOffset[2] = 400.f;
     c->init_view_timer = -1;
+    c->curVolume = NULL;
 
     // Set the camera's starting position or start a cutscene for certain levels
     switch (gCurrLevelNum) {
