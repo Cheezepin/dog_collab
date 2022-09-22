@@ -543,6 +543,7 @@ s32 gHubStarSelectTimer = 0;
 
 void render_hud(void) {
     s16 hudDisplayFlags = gHudDisplay.flags;
+    static int shadeFade = 0;
 
     if (hudDisplayFlags == HUD_DISPLAY_NONE) {
         sPowerMeterHUD.animation = POWER_METER_HIDDEN;
@@ -629,6 +630,16 @@ void render_hud(void) {
 
         //if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_SURFACES) print_text(10, 40, "SURFACE POOL FULL");
         //if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_NODES) print_text(10, 60, "SURFACE NODE POOL FULL");
+
+        if (gKeyboard) {
+            shadeFade = approach_s16_asymptotic(shadeFade, 255/3, 10);
+        } else {
+            shadeFade = approach_s16_asymptotic(shadeFade, 0, 10);
+        }
+
+        if (shadeFade > 0) {
+            shade_screen_amount(shadeFade);
+        }
 
         if (gKeyboard) {
             render_dog_keyboard();

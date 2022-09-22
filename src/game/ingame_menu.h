@@ -241,6 +241,7 @@ void render_dog_keyboard(void);
 void render_hub_selection(void);
 void render_hub_star_select(s32 cringeTimer);
 void end_results_loop(void);
+void shade_screen_amount(int amount);
 
 extern s32 gWorldID;
 extern s32 gFocusID;

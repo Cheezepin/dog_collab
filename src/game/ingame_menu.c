@@ -2389,6 +2389,8 @@ void render_dog_keyboard(void) {
     }
 
     create_dl_translation_matrix(MENU_MTX_PUSH, 18.0f + (keyboardCursorX*24.0f), 128.0f - (keyboardCursorY*28.0f), 0.0f);
+    gDPSetRenderMode(gDisplayListHead++, G_RM_AA_OPA_SURF, G_RM_AA_OPA_SURF2);
+    gSPClearGeometryMode(gDisplayListHead++, G_ZBUFFER);
     gSPDisplayList(gDisplayListHead++, &icon_mesh);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
