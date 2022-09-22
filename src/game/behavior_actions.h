@@ -797,6 +797,7 @@ void bhv_snow_bowser_init(void);
 void bhv_snow_bowser_loop(void);
 void bhv_ground_bowser_snow_init(void);
 void bhv_warp_box_loop(void);
+void bhv_chain_chomp_bowser_update(void);
 
 
 

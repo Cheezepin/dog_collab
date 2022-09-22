@@ -93,7 +93,7 @@ s8 sBowserRainbowLight[] = { FALSE, FALSE, TRUE };
 /**
  * Set how much health Bowser has on each stage
  */
-s8 sBowserHealth[] = { 1, 1, 4 };
+s8 sBowserHealth[] = { 1, 4, 3 };
 /**
  * Checks whenever the Bowser and his tail should be intangible or not
  * By default it starts tangible
@@ -103,7 +103,7 @@ void bowser_tail_anchor_act_default(void) {
     cur_obj_become_tangible();
     cur_obj_scale(1.0f);
 
-    if (bowser->oHealth <= 3) {
+    if (bowser->oBehParams2ndByte == BOWSER_BP_BITFS && bowser->oHealth <= 3) {
         // Bowser cannot be touched when he tilts BITFS platform
         bowser->oIntangibleTimer = -1;
     } else if (obj_check_if_collided_with_object(o, gMarioObject)) {
@@ -242,22 +242,22 @@ void bhv_bowser_body_anchor_loop(void) {
  */
 s32 bowser_spawn_shockwave(void) {
     struct Object *wave;
-    if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
+    //if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
         wave = spawn_object(o, MODEL_BOWSER_WAVE, bhvBowserShockWave);
         wave->oPosY = o->oFloorHeight;
         return TRUE;
-    }
-    return FALSE;
+    //}
+    //return FALSE;
 }
 
 s32 bowser_spawn_electric_ring(void) {
     struct Object *ring;
-    if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
+    //if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
         ring = spawn_object(o, MODEL_BOWSER_ELECTRIC_RING, bhvBowserElectricRing);
         ring->oPosY += 100.0f;
         return TRUE;
-    }
-    return FALSE;
+    //}
+    //return FALSE;
 }
 
 s32 bowser_spawn_lightning(void){
@@ -338,9 +338,9 @@ void bowser_init_camera_actions(void) {
     } else if (o->oBowserCamAct == BOWSER_CAM_ACT_WALK) {
         o->oAction = BOWSER_ACT_INTRO_WALK;
     // Start with a big jump in BITFS to do a platform tilt
-    } else if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
+    } /*else if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
         o->oAction = BOWSER_ACT_BIG_JUMP;
-    } else {
+    }*/ else {
         o->oAction = BOWSER_ACT_DEFAULT;
     }
 }
@@ -635,8 +635,12 @@ void bowser_act_default(void) {
     //} else if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
     //    bowser_bitfs_actions();
     //} else { // BOWSER_BP_BITS
+    if(o->oBehParams2ndByte == BOWSER_BP_BITFS) {
         if (o->oHealth == 4 || mine == NULL) {bowser_bits_actions(); }
         else {bowser_emu_actions();}
+    } else {
+        bowser_bits_actions();
+    }
    // }
     count = 0;
 }
@@ -907,6 +911,60 @@ void bowser_act_lightning_pt2(void){
      bowser_spawn_lightning();   
     }
 }
+
+void bowser_act_snow(void) {
+    gCamera->cutscene = CUTSCENE_SNOW_BOWSER_INTRO;
+    if(o->oTimer == 15) {set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);}
+    if(o->oTimer > 50) {
+        o->oHomeY = 0.0f;
+        if(o->oTimer < 202) {
+            o->oPosZ = (sins(o->oTimer * 0x400)*5.0f)*o->oAngleVelRoll;
+            o->oMoveAngleYaw = (atan2s(0 - o->oPosZ, 0 - o->oPosX)*0x8 - 0x4000);
+            if (!(gCurrentObject->oActiveParticleFlags & ACTIVE_PARTICLE_SNOW)) {
+                struct Object *particle;
+                gCurrentObject->oActiveParticleFlags |= ACTIVE_PARTICLE_SNOW;
+                particle = spawn_object_at_origin(gCurrentObject, 0, MODEL_NONE, bhvBowserSnowParticleSpawner);
+                obj_copy_pos_and_angle(particle, gCurrentObject);
+                obj_scale(particle, 3.0f);
+                particle->oPosY += 2.0f*o->oAngleVelRoll;
+                particle->oPosX += 3.3f*o->oAngleVelRoll;
+            }
+            if(o->oSubAction == 0 && o->oFloor != 0 && o->oPosY - o->oFloorHeight > 100.0f) {
+                o->oVelY = 100.0f;
+                o->oSubAction = 1;
+            }
+            o->oPosX -= o->oAngleVelRoll * 0.75f;
+            o->oPosY -= o->oAngleVelRoll * 0.45f;
+        }
+        if(o->oTimer < 142) {
+            o->oAngleVelRoll = 160.0f;
+            cur_obj_init_animation(BOWSER_ANIM_SNOWBOARD);
+        } else if(o->oTimer < 190) {
+            if(o->oAngleVelRoll > 0.0f) {o->oAngleVelRoll -= 4.0f;}
+            cur_obj_init_animation(BOWSER_ANIM_SNOWBOARD_BRAKE_START);
+        } else if(o->oTimer < 202) {
+            if(o->oAngleVelRoll > 0.0f) {o->oAngleVelRoll -= 4.0f;}
+            if(o->oTimer == 190) {
+                spawn_object(o, MODEL_BOWSER_SNOWBOARD, bhvNothing);
+            }
+            cur_obj_init_animation(BOWSER_ANIM_IDLE);
+        } else {
+            o->oAngleVelRoll = 0;
+            cur_obj_rotate_yaw_toward(o->oAngleToMario, 4000);
+            cur_obj_init_animation(BOWSER_ANIM_IDLE);
+            if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 1) {
+                o->oSubAction = 2;
+                create_dialog_box(DIALOG_067);
+            }
+            if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 2) {
+                gCamera->cutscene = 0;
+                o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+                set_mario_action(gMarioState, ACT_IDLE, 0);
+            }
+        }
+    }
+}
+
 /**
  * Makes Bowser do a fire split into the sky
  */
@@ -944,7 +1002,7 @@ void bowser_act_hit_mine(void) {
         o->oVelY = 100.0f;
         o->oMoveAngleYaw = o->oBowserAngleToCenter + 0x8000;
         o->oBowserEyesShut = TRUE; // close eyes
-        if (phase ==0) o->oBowserRainbowLight = sBowserRainbowLight[BOWSER_BP_BITS];
+        if (o->oBehParams2ndByte == BOWSER_BP_BITFS && phase ==0) o->oBowserRainbowLight = sBowserRainbowLight[BOWSER_BP_BITS];
     }
     // Play flip animation
     if (o->oSubAction == BOWSER_SUB_ACT_HIT_MINE_START) {
@@ -1005,13 +1063,13 @@ s32 bowser_land(void) {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_JUMP);
         // Set status attacks in BITDW since the other levels
         // have different attacks defined
-        if (o->oBehParams2ndByte == BOWSER_BP_BITDW) {
+        /*if (o->oBehParams2ndByte == BOWSER_BP_BITDW) {
             if (o->oDistanceToMario < 850.0f) {
                 gMarioObject->oInteractStatus |= INT_STATUS_MARIO_KNOCKBACK_DMG;
             } else {
                 gMarioObject->oInteractStatus |= INT_STATUS_MARIO_STUNNED;
             }
-        }
+        }*/
         return TRUE;
     } else {
         return FALSE;
@@ -1022,7 +1080,7 @@ s32 bowser_land(void) {
  * Makes Bowser do a second hop speed only in BITS
  */
 void bowser_short_second_hop(void) {
-    if (o->oBehParams2ndByte == BOWSER_BP_BITS && o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
+    if (/*o->oBehParams2ndByte == BOWSER_BP_BITS &&*/ o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
         if (o->oBowserDistToCenter > 1000.0f) {
             o->oForwardVel = 60.0f;
         }
@@ -1037,7 +1095,7 @@ void bowser_act_big_jump(void) {
         // Set jump animation
         if (bowser_set_anim_jump()) {
             // Set vel depending of the stage and status
-            if (o->oBehParams2ndByte == BOWSER_BP_BITS && o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
+            if (/*o->oBehParams2ndByte == BOWSER_BP_BITS &&*/ o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
                 o->oVelY = 70.0f;
             } else {
                 o->oVelY = 80.0f;
@@ -1048,7 +1106,7 @@ void bowser_act_big_jump(void) {
         }
     } else if (o->oSubAction == 1) {
         // Reset Bowser back on stage in BITS if he doesn't land properly
-        if (o->oBehParams2ndByte == BOWSER_BP_BITS && o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
+        if (/*o->oBehParams2ndByte == BOWSER_BP_BITS &&*/ o->oBowserStatus & BOWSER_STATUS_BIG_JUMP) {
             bowser_reset_fallen_off_stage();
         }
         // Land on stage, reset status jump and velocity
@@ -1059,9 +1117,9 @@ void bowser_act_big_jump(void) {
             // Spawn shockwave (BITS only) if is not on a platform
             bowser_spawn_shockwave();
             // Tilt platform in BITFS
-            if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
+            /*if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
                 o->oAction = BOWSER_ACT_TILT_LAVA_PLATFORM;
-            }
+            }*/
         }
     // Set to default action when the animation is over
     } else if (cur_obj_check_if_near_animation_end()) {
@@ -1346,11 +1404,11 @@ void bowser_act_charge_mario(void) {
             cur_obj_init_animation_with_sound(BOWSER_ANIM_RUN_STOP);
             if (cur_obj_check_if_near_animation_end()) {
                 // Set time delay to go to default action
-                if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
+                //if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
                     time = 10;
-                } else {
+                /*} else {
                     time = 30;
-                }
+                }*/
                 if (o->oBowserTimer > time) {
                     o->oAction = BOWSER_ACT_DEFAULT;
                 }
@@ -1372,17 +1430,24 @@ s32 bowser_check_hit_mine(void) {
     struct Object *mine;
     f32 dist;
 
-    mine = cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist);
-    if (mine != NULL && dist < 800.0f && o->oAction == BOWSER_ACT_THROWN) {
-        mine->oInteractStatus |= INT_STATUS_HIT_MINE;
-        return TRUE;
-    }
-    else {
-        mine = cur_obj_find_nearest_object_with_behavior(bhvEmuBomb, &dist);
+    if(o->oBehParams2ndByte == BOWSER_BP_BITFS) {
+        mine = cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist);
+        if (mine != NULL && dist < 800.0f && o->oAction == BOWSER_ACT_THROWN) {
+            mine->oInteractStatus |= INT_STATUS_HIT_MINE;
+            return TRUE;
+        } else {
+            mine = cur_obj_find_nearest_object_with_behavior(bhvEmuBomb, &dist);
+            if (mine != NULL && dist < 800.0f) {
+                mine->oInteractStatus |= INT_STATUS_HIT_MINE;
+                return TRUE;
+            }
+        }
+    } else {
+        struct Object *mine = cur_obj_find_nearest_object_with_behavior(bhvBowserBomb, &dist);
         if (mine != NULL && dist < 800.0f) {
-        mine->oInteractStatus |= INT_STATUS_HIT_MINE;
-        return TRUE;
-    }
+            mine->oInteractStatus |= INT_STATUS_HIT_MINE;
+            return TRUE;
+        }
     }
     return FALSE;
 }
@@ -1495,13 +1560,13 @@ void bowser_act_jump_onto_stage(void) {
                     bowser_spawn_shockwave();
                 // If is on a dynamic floor in BITS, then jump
                 // because of the falling platform
-                } else if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
+                } else /*if (o->oBehParams2ndByte == BOWSER_BP_BITS)*/ {
                     o->oAction = BOWSER_ACT_BIG_JUMP;
                 }
                 // If is on a dynamic floor in BITFS, then tilt platform
-                if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
+                /*if (o->oBehParams2ndByte == BOWSER_BP_BITFS) {
                     o->oAction = BOWSER_ACT_TILT_LAVA_PLATFORM;
-                }
+                }*/
             }
             // Reset him back on stage if he still didn't landed yet
             // Post-JP made this check as a separate function
@@ -1918,7 +1983,8 @@ void (*sBowserActions[])(void) = {
     bowser_act_teleport_home,
     bowser_act_pre_attack,
     bowser_act_lightning,
-    bowser_act_lightning_pt2
+    bowser_act_lightning_pt2,
+    bowser_act_snow
 };
 
 /**
@@ -2179,15 +2245,26 @@ void bhv_bowser_init(void) {
     o->oOpacity = 0xFF;
     o->oBowserTargetOpacity = 0xFF;
     // Set Bowser B-param depending of the stage
-    level = BOWSER_BP_BITS;
+    if (gCurrLevelNum == LEVEL_BOWSER_1) {
+        level = BOWSER_BP_BITFS;
+    } else if (gCurrLevelNum == LEVEL_BOWSER_3) {
+        level = BOWSER_BP_BITS;
+    } else { // LEVEL_BOWSER_2
+        level = BOWSER_BP_BITDW;
+    }
     o->oBehParams2ndByte = level;
     // Set health and rainbow light depending of the level
     o->oBowserRainbowLight = sBowserRainbowLight[BOWSER_BP_BITDW]; //sets bowser to not have rainbow
     o->oHealth = sBowserHealth[level];
     // Start camera event, this event is not defined so maybe
     // the "start arena" cutscene was originally called this way
-    cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
-    o->oAction = BOWSER_ACT_WAIT;
+    if(gCurrLevelNum == LEVEL_BOWSER_2) {
+        gCamera->cutscene = CUTSCENE_SNOW_BOWSER_INTRO;
+        o->oAction = BOWSER_ACT_SNOW;
+    } else {
+        cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
+        o->oAction = BOWSER_ACT_WAIT;
+    }
     // Set eyes status
     o->oBowserEyesTimer = 0;
     o->oBowserEyesShut = FALSE;

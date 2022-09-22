@@ -437,6 +437,8 @@ enum CoziesLevelModels {
 #define MODEL_BOWSER_ELECTRIC_RING        0x70        // electric_ring_geo
 #define MODEL_RED_CIRCLE                  0x71        // red circle
 #define MODEL_LIGHTNING                   0x72        // lightning
+#define MODEL_METALLIC_BALL_BOWSER        0x12D        // metallic_ball_geo
+#define MODEL_CHAIN_CHOMP_BOWSER          0x12C        // chain_chomp
 
 // group 13
 #define MODEL_BUB                         0x64        // cheep_cheep_geo
@@ -638,6 +640,7 @@ enum CoziesLevelModels {
 
 #define MODEL_SNOULDER 0x150
 #define MODEL_WARP_BOX 0x151
+#define MODEL_BOWSER_SNOWBOARD 0x152
 
 
 

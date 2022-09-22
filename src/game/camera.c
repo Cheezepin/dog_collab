@@ -3587,7 +3587,6 @@ void switch_collision_enabled(struct Camera *c) {
         // case YOUR_LEVEL:
         case LEVEL_COZIES:
         case LEVEL_BITFS:
-        case LEVEL_BOWSER_2:
         case LEVEL_LLL:
             enable_var = TRUE;
             break;
@@ -6763,6 +6762,9 @@ struct CameraTrigger sCamBitS[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger sCamWF[] = {
+	NULL_TRIGGER
+};
+struct CameraTrigger sCamBowser_3[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
@@ -10815,6 +10817,24 @@ void cutscene_intro(struct Camera *c) {
     }
 }
 
+void cutscene_bowser_snow_arena(struct Camera *c) {
+    Vec3f bowserPos;
+    struct Object *bowser = find_any_object_with_behavior(bhvBowser);
+    if(bowser) {
+        vec3f_copy(bowserPos, &bowser->oPosX);
+        if(bowser->oTimer > 202) {
+            vec3f_set(c->pos, bowserPos[0] + 2000.0f, bowserPos[1] + 300.0f, bowserPos[2] - 1500.0f);
+            vec3f_set(c->focus, bowserPos[0] + 1000.0f, bowserPos[1], bowserPos[2]);
+        } else if(bowser->oTimer < 52) {
+            vec3f_set(c->pos, gMarioState->pos[0] - 750.0f, gMarioState->pos[1] + 300.0f, gMarioState->pos[2]);
+            vec3f_set(c->focus, gMarioState->pos[0], gMarioState->pos[1] + 100.0f, gMarioState->pos[2]);
+        } else {
+            vec3f_set(c->pos, bowserPos[0] - 2000.0f, bowserPos[1] + 300.0f, bowserPos[2]);
+            vec3f_set(c->focus, bowserPos[0], bowserPos[1], bowserPos[2]);
+        }
+    }
+}
+
 /******************************************************************************************************
  * Cutscenes
  ******************************************************************************************************/
@@ -11104,6 +11124,10 @@ struct Cutscene sCutsceneEnterBowserArena[] = {
     { cutscene_bowser_arena, 180 },
     { cutscene_bowser_arena_dialog, CUTSCENE_LOOP },
     { cutscene_bowser_arena_end, 0 }
+};
+
+struct Cutscene sCutsceneSnowBowserIntro[] = {
+    { cutscene_bowser_snow_arena, CUTSCENE_LOOP },
 };
 
 // The dance cutscenes are automatically stopped since reset_camera() is called after Mario warps.
@@ -11690,6 +11714,7 @@ void play_cutscene(struct Camera *c) {
         CUTSCENE(CUTSCENE_HUB_WORLD,            sCutsceneHubWorld)
         CUTSCENE(CUTSCENE_SNOW_HILL,            sCutsceneSnowHill)
         CUTSCENE(CUTSCENE_INTRO,                sCutsceneIntro)
+        CUTSCENE(CUTSCENE_SNOW_BOWSER_INTRO,    sCutsceneSnowBowserIntro)
     }
 
 #undef CUTSCENE

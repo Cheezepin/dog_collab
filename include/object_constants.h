@@ -468,6 +468,7 @@ enum oBobombBuddyHasTalkedToMarioStates {
     #define BOWSER_ACT_PRE_ATTACK                           0x1B
     #define BOWSER_ACT_LIGHTNING                            0x1C
     #define BOWSER_ACT_LIGHTNING_2                          0x1D
+    #define BOWSER_ACT_SNOW                                 0x1E
     /* oAnimState */
     #define BOWSER_ANIM_STATE_OPAQUE                        TRANSPARENCY_ANIM_STATE_OPAQUE
     #define BOWSER_ANIM_STATE_TRANSPARENT                   TRANSPARENCY_ANIM_STATE_TRANSPARENT
@@ -500,6 +501,10 @@ enum oBobombBuddyHasTalkedToMarioStates {
     #define BOWSER_ANIM_EDGE_STOP                           0x18
     #define BOWSER_ANIM_FLIP                                0x19
     #define BOWSER_ANIM_STAND_UP_FROM_FLIP                  0x1A
+    #define BOWSER_ANIM_SNOWBOARD                           0x1B
+    #define BOWSER_ANIM_UNK1                                0x1C
+    #define BOWSER_ANIM_SNOWBOARD_BRAKE_START               0x1D
+    #define BOWSER_ANIM_SNOWBOARD_BRAKE_STOP                0x1E
     /* oBowserCamAct */
     #define BOWSER_CAM_ACT_IDLE                             0x0
     #define BOWSER_CAM_ACT_WALK                             0x1

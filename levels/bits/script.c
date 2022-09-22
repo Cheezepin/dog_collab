@@ -73,6 +73,7 @@ const LevelScript level_bits_entry[] = {
 		OBJECT(MODEL_FADE_CLOUD, 2971, -850, 131, 0, -26, 0, 0x00000000, bhvFadeCloudBits),
 		OBJECT(MODEL_FADE_CLOUD, 4708, -850, -88, 0, -86, 0, 0x00000000, bhvFadeCloudBits),
 		OBJECT(MODEL_WARP_BOX, 16661, -120, 4058, 0, 0, 0, (1 << 16), bhvWarpBox),
+		OBJECT(MODEL_CHAIN_CHOMP_BOWSER, -14388, -2888, -3881, 0, 0, 0, 0x00000000, bhvChainChompBowser),
 		TERRAIN(bits_area_1_collision),
 		ROOMS(bits_area_1_collision_rooms),
 		MACRO_OBJECTS(bits_area_1_macro_objs),
