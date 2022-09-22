@@ -75,7 +75,7 @@ void set_mario_pos(f32 x, f32 y, f32 z) {
 
 #ifdef PLATFORM_DISPLACEMENT_2
 static struct PlatformDisplacementInfo sMarioDisplacementInfo;
-static Vec3f sMarioAmountDisplaced;
+Vec3f sMarioAmountDisplaced;
 
 extern s32 gGlobalTimer;
 
@@ -172,7 +172,7 @@ void apply_platform_displacement(struct PlatformDisplacementInfo *displaceInfo, 
 // Doesn't change in the code, set this to FALSE if you don't want inertia
 u8 gDoInertia = TRUE;
 
-static u8 sShouldApplyInertia = FALSE;
+u8 sShouldApplyInertia = FALSE;
 static u8 sInertiaFirstFrame = FALSE;
 
 /**

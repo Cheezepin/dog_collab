@@ -146,17 +146,15 @@ Gfx *geo_switch_area(s32 callContext, struct GraphNode *node, UNUSED void *conte
         if (gMarioObject == NULL) {
             switchCase->selectedCase = 0;
         } else {
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
-            if (gCurrLevelNum == LEVEL_BBH) {
+
+            if (gCurrLevelNum == LEVEL_COZIES) {
                 // In BBH, check for a floor manually, since there is an intangible floor. In custom hacks this can be removed.
                 find_room_floor(gMarioObject->oPosX, gMarioObject->oPosY, gMarioObject->oPosZ, &floor);
             } else {
                 // Since no intangible floors are nearby, use Mario's floor instead.
                 floor = gMarioState->floor;
             }
-#else
-            floor = gMarioState->floor;
-#endif
+
             if (floor) {
                 gMarioCurrentRoom = floor->room;
                 s16 roomCase = floor->room - 1;
@@ -1370,6 +1368,10 @@ void obj_spawn_loot_yellow_coins(struct Object *obj, s32 numCoins, f32 baseYVel)
     obj_spawn_loot_coins(obj, numCoins, baseYVel, bhvSingleCoinGetsSpawned, 0, MODEL_YELLOW_COIN);
 }
 
+void cur_obj_spawn_loot_20_coins(s32 numCoins, f32 baseYVel) {
+    obj_spawn_loot_coins(o, numCoins, baseYVel, bvh20Coin, 0, MODEL_20_COIN);
+}
+
 void cur_obj_spawn_loot_coin_at_mario_pos(void) {
     if (o->oNumLootCoins <= 0) {
         return;
@@ -1994,7 +1996,7 @@ s32 is_item_in_array(s8 item, s8 *array) {
 
 void bhv_init_room(void) {
     struct Surface *floor = NULL;
-    if (is_item_in_array(gCurrLevelNum, sLevelsWithRooms)) {
+    if (gCurrentArea->surfaceRooms != NULL) {
         find_room_floor(o->oPosX, o->oPosY, o->oPosZ, &floor);
 
         if (floor != NULL) {
@@ -2500,23 +2502,6 @@ Gfx *geo_update_laser_ring_spawner_top(s32 run, struct GraphNode *node, UNUSED v
 
 
 // thecozies start
-// 102b29
-#define WATER_BASE_R 0x10
-#define WATER_BASE_G 0x2B
-#define WATER_BASE_B 0x29
-
-#define WATER_BASE_RA (WATER_BASE_R * 2)
-#define WATER_BASE_GA (WATER_BASE_G * 2)
-#define WATER_BASE_BA (WATER_BASE_B * 2)
-#define WATER_BASE_STRENGTH 2.f
-#define WATER_BASE_R1 (WATER_BASE_R * WATER_BASE_STRENGTH)
-#define WATER_BASE_G1 (WATER_BASE_G * WATER_BASE_STRENGTH)
-#define WATER_BASE_B1 (WATER_BASE_B * WATER_BASE_STRENGTH)
-
-#define SUNSET_STRENGTH 0.4f
-#define WATER_BASE_R2 (0xA1 * SUNSET_STRENGTH) // WATER_BASE_R A17891
-#define WATER_BASE_G2 (0x78 * SUNSET_STRENGTH) // WATER_BASE_G
-#define WATER_BASE_B2 (0x91 * SUNSET_STRENGTH) // WATER_BASE_B
 
 struct GlobalFog gGlobalFog = {
     0xA1,
@@ -2527,30 +2512,7 @@ struct GlobalFog gGlobalFog = {
     1010
 };
 
-struct GlobalFog sDDDWaterFog = {
-    WATER_BASE_RA,
-    WATER_BASE_GA,
-    WATER_BASE_BA,
-    0xFF,
-    920,
-    1000
-};
-struct GlobalFog sDDDFogArea1 = {
-    0xB3,
-    0xBC,
-    0xDD,
-    0xFF,
-    950,
-    1000
-};
-struct GlobalFog sDDDFogArea3 = {
-    0xB3,
-    0xBC,
-    0xCD,
-    0xFF,
-    980,
-    1050
-};
+
 
 Lights2 water_top_lights = gdSPDefLights2(
     WATER_BASE_RA, WATER_BASE_GA, WATER_BASE_BA,
@@ -2570,7 +2532,7 @@ Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 m
         currentGraphNode = (struct GraphNodeGenerated *) node;
         if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, currentGraphNode->parameter);
 
-        dlStart = alloc_display_list(sizeof(Gfx) * 5);
+        dlStart = alloc_display_list(sizeof(Gfx) * 8);
         dlHead = dlStart;
 
         if (gReadyForLookAt) {
@@ -2584,10 +2546,10 @@ Gfx *geo_set_water_lights(s32 callContext, struct GraphNode *node, UNUSED Mat4 m
 
             gSPSetLights2(dlHead++, water_top_lights);
         }
-        // gDPSetFogColor(dlHead++, ((0x90 + 0xFF) / 2), ((0x74 + 0xFF) / 2), ((0x47 + 0xFF) / 2), 0xFF);
+        gDPSetFogColor(dlHead++, ((0x90 + 0xFF) / 2), ((0x74 + 0xFF) / 2), ((0x47 + 0xFF) / 2), 0xFF);
         // gDPSetEnvColor(dlHead++, 0, 0, 0, 0);
         // gDPPipeSync(dlHead++);
-        // gSPFogPosition(dlHead++, 980, 1050);
+        gSPFogPosition(dlHead++, 980, 1050);
         gSPEndDisplayList(dlHead);
     }
 
@@ -2661,7 +2623,7 @@ Gfx *move_water_top(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
 Gfx *geo_backdrop_move_cozies(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
     if (callContext == GEO_CONTEXT_RENDER) {
         ((struct GraphNodeTranslation *) node->next)->translation[0] = gLakituState.pos[0] * 0.95f;
-        ((struct GraphNodeTranslation *) node->next)->translation[1] = gLakituState.pos[1] * 0.95f;
+        ((struct GraphNodeTranslation *) node->next)->translation[1] = (gLakituState.pos[1] * 0.95f) + (gCurrentArea->index == 2 ? -500 : 0);
         ((struct GraphNodeTranslation *) node->next)->translation[2] = gLakituState.pos[2] * 0.95f;
     }
     return 0;
@@ -2678,7 +2640,7 @@ Gfx *geo_mountain_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) 
 
         u8 strength = (currentGraphNode->parameter >> 8) & 0xFF;
 
-        dlStart = alloc_display_list(sizeof(Gfx) * 2);
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
         dlHead = dlStart;
         gDPSetEnvColor(
             dlHead++,
@@ -2687,13 +2649,13 @@ Gfx *geo_mountain_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) 
             strength,
             255
         );
+        gDPPipeSync(dlHead++);
         gSPEndDisplayList(dlHead);
     }
 
     return dlStart;
 }
 
-#define GLOBAL_FOG_UPDATE_RATE_DIVISOR 10
 Gfx *geo_set_global_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
     static u32 curUpdateFrame = 0;
     struct GraphNodeGenerated *currentGraphNode;
@@ -2703,31 +2665,6 @@ Gfx *geo_set_global_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx
     if (callContext == GEO_CONTEXT_RENDER) {
         currentGraphNode = (struct GraphNodeGenerated *) node;
         if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, currentGraphNode->parameter & 0xFF);
-
-        if (curUpdateFrame != gGlobalTimer) {
-            struct GlobalFog *goalFog;
-            curUpdateFrame = gGlobalTimer;
-            if (gCameraIsUnderwater) goalFog = &sDDDWaterFog;
-            else {
-                switch (gCurrAreaIndex)
-                {
-                case 3:
-                case 2:
-                    goalFog = &sDDDFogArea3;
-                    break;
-                case 1:
-                default:
-                    goalFog = &sDDDFogArea1;
-                    break;
-                }
-            }
-            gGlobalFog.r    = approach_s16_asymptotic(gGlobalFog.r,    goalFog->r,    GLOBAL_FOG_UPDATE_RATE_DIVISOR);
-            gGlobalFog.g    = approach_s16_asymptotic(gGlobalFog.g,    goalFog->g,    GLOBAL_FOG_UPDATE_RATE_DIVISOR);
-            gGlobalFog.b    = approach_s16_asymptotic(gGlobalFog.b,    goalFog->b,    GLOBAL_FOG_UPDATE_RATE_DIVISOR);
-            gGlobalFog.a    = approach_s16_asymptotic(gGlobalFog.a,    goalFog->a,    GLOBAL_FOG_UPDATE_RATE_DIVISOR);
-            gGlobalFog.low  = approach_s16_asymptotic(gGlobalFog.low,  goalFog->low,  GLOBAL_FOG_UPDATE_RATE_DIVISOR);
-            gGlobalFog.high = approach_s16_asymptotic(gGlobalFog.high, goalFog->high, GLOBAL_FOG_UPDATE_RATE_DIVISOR);
-        }
 
         dlStart = alloc_display_list(sizeof(Gfx) * 3);
         dlHead = dlStart;
@@ -2770,6 +2707,16 @@ Gfx *geo_update_rain_cloud_rain(s32 callContext, struct GraphNode *node, UNUSED 
 
     return dlStart;
 }
+
+#include "print.h"
+Gfx *debug_geo_asm(s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 mtx) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        print_text_fmt_int(20, 200, "ROOM %d", gMarioCurrentRoom);
+    }
+
+    return NULL;
+}
+
 // thecozies end
 
 Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node) {

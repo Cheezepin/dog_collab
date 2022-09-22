@@ -20,6 +20,25 @@ extern f32 gWorldScale;
 extern Mat4 *viewMat;
 extern s32 gReadyForLookAt;
 extern s32 gCameraIsUnderwater;
+
+// 102b29
+#define WATER_BASE_R 0x10
+#define WATER_BASE_G 0x2B
+#define WATER_BASE_B 0x29
+
+#define WATER_BASE_RA (WATER_BASE_R * 2)
+#define WATER_BASE_GA (WATER_BASE_G * 2)
+#define WATER_BASE_BA (WATER_BASE_B * 2)
+#define WATER_BASE_STRENGTH 2.f
+#define WATER_BASE_R1 (WATER_BASE_R * WATER_BASE_STRENGTH)
+#define WATER_BASE_G1 (WATER_BASE_G * WATER_BASE_STRENGTH)
+#define WATER_BASE_B1 (WATER_BASE_B * WATER_BASE_STRENGTH)
+
+#define SUNSET_STRENGTH 0.4f
+#define WATER_BASE_R2 (0xA1 * SUNSET_STRENGTH) // WATER_BASE_R A17891
+#define WATER_BASE_G2 (0x78 * SUNSET_STRENGTH) // WATER_BASE_G
+#define WATER_BASE_B2 (0x91 * SUNSET_STRENGTH) // WATER_BASE_B
+
 // thecozies end
 
 enum AnimType {

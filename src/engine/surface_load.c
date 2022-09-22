@@ -14,6 +14,7 @@
 #include "game/object_list_processor.h"
 #include "surface_load.h"
 #include "game/puppyprint.h"
+#include "game/debug.h"
 
 #include "config.h"
 
@@ -23,6 +24,16 @@
  */
 SpatialPartitionCell gStaticSurfacePartition[NUM_CELLS][NUM_CELLS];
 SpatialPartitionCell gDynamicSurfacePartition[NUM_CELLS][NUM_CELLS];
+struct CellCoords {
+    u8 z;
+    u8 x;
+    u8 partition;
+};
+// cozies: increased the size of sCellsUsed here because it gave me a significant time save
+// my max number of cells used was 136
+struct CellCoords sCellsUsed[150];
+u16 sNumCellsUsed = 0;
+u8 sClearAllCells;
 
 /**
  * Pools of data that can contain either surface nodes or surfaces.
@@ -134,6 +145,22 @@ static void add_surface_to_cell(s32 dynamic, s32 cellX, s32 cellZ, struct Surfac
 
     if (dynamic) {
         list = &gDynamicSurfacePartition[cellZ][cellX][listIndex];
+        if (sNumCellsUsed >= sizeof(sCellsUsed) / sizeof(struct CellCoords)) {
+            sClearAllCells = TRUE;
+#ifdef DEBUG
+            // increase counter for debug assertion
+            if (list->next == NULL) {
+                sNumCellsUsed++;
+            }
+#endif
+        } else {
+            if (list->next == NULL) {
+                sCellsUsed[sNumCellsUsed].z = cellZ;
+                sCellsUsed[sNumCellsUsed].x = cellX;
+                sCellsUsed[sNumCellsUsed].partition = listIndex;
+                sNumCellsUsed++;
+            }
+        }
     } else {
         list = &gStaticSurfacePartition[cellZ][cellX][listIndex];
     }
@@ -478,6 +505,9 @@ void load_area_terrain(s32 index, TerrainData *data, RoomData *surfaceRooms, s16
     gEnvironmentRegions = NULL;
     gSurfaceNodesAllocated = 0;
     gSurfacesAllocated = 0;
+    bzero(&sCellsUsed, sizeof(sCellsUsed));
+    sNumCellsUsed = 0;
+    sClearAllCells = TRUE;
 
     clear_static_surfaces();
 
@@ -537,9 +567,24 @@ void clear_dynamic_surfaces(void) {
         gSurfacesAllocated = gNumStaticSurfaces;
         gSurfaceNodesAllocated = gNumStaticSurfaceNodes;
 
+        if (sClearAllCells) {
+            clear_spatial_partition(&gDynamicSurfacePartition[0][0]);
+            #ifdef DEBUG
+            if (sNumCellsUsed > ARRAY_COUNT(sCellsUsed)) {
+                static char warn_msg[128];
+                sprintf(warn_msg, "\nERROR!! Exceeded cell sCellsUsed capacity!\nUsed %d out of %d available.\n", sNumCellsUsed, ARRAY_COUNT(sCellsUsed));
+                osSyncPrintf(warn_msg);
+                assert(FALSE, warn_msg);
+            }
+            #endif
+        } else {
+            for (u32 i = 0; i < sNumCellsUsed; i++) {
+                gDynamicSurfacePartition[sCellsUsed[i].z][sCellsUsed[i].x][sCellsUsed[i].partition].next = NULL;
+            }
+        }
+        sNumCellsUsed = 0;
+        sClearAllCells = FALSE;
         gDynamicSurfacePoolEnd = gDynamicSurfacePool;
-
-        clear_spatial_partition(&gDynamicSurfacePartition[0][0]);
     }
 }
 

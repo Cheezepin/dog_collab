@@ -6,6 +6,9 @@ flashcarts.
 https://github.com/buu342/N64-UNFLoader
 ***************************************************************/
 #include "debug.h"
+#include "farcall.h"
+#include "sm64.h"
+
 #ifndef LIBDRAGON
     #include <ultra64.h> 
     #include <PR/os_internal.h> // Needed for Crash's Linux toolchain
@@ -883,6 +886,43 @@ https://github.com/buu342/N64-UNFLoader
                 }
                 debug_printf(">\n");
             }
+
+            extern far char *parse_map(u32 pc);
+            extern far void map_data_init(void);
+            extern far char *find_function_in_stack(u32 *sp);
+
+            static void print_stacktrace(OSThread *thread) {
+                __OSThreadContext *tc = &thread->context;
+                u32 temp_sp = (tc->sp + 0x14);
+                debug_printf("HAHA OK\n");
+
+                debug_printf("STACK TRACE FROM %08X:\n", temp_sp);
+                if ((u32) parse_map == MAP_PARSER_ADDRESS) {
+                    debug_printf("CURRFUNC: NONE\n");
+                } else {
+                    debug_printf("CURRFUNC: %s\n", parse_map(tc->pc));
+                }
+
+                osWritebackDCacheAll();
+
+                for (int i = 0; i < 18; i++) {
+                    if ((u32) find_function_in_stack == MAP_PARSER_ADDRESS) {
+                        debug_printf("STACK TRACE DISABLED\n");
+                        break;
+                    } else {
+                        if ((u32) find_function_in_stack == MAP_PARSER_ADDRESS) {
+                            return;
+                        }
+
+                        char *fname = find_function_in_stack(&temp_sp);
+                        if ((fname == NULL) || ((*(u32*)temp_sp & 0x80000000) == 0)) {
+                            debug_printf("%08X: UNKNOWN\n", temp_sp);
+                        } else {
+                            debug_printf("%08X: %s\n", temp_sp, fname);
+                        }
+                    }
+                }
+            }
             
             
             /*==============================
@@ -911,6 +951,10 @@ https://github.com/buu342/N64-UNFLoader
                     if (curr != NULL) 
                     {
                         __OSThreadContext* context = &curr->context;
+
+                        if ((u32) map_data_init != MAP_PARSER_ADDRESS) {
+                            map_data_init();
+                        }
 
                         // Print the basic info
                         debug_printf("Fault in thread: %d\n\n", curr->id);
@@ -945,6 +989,8 @@ https://github.com/buu342/N64-UNFLoader
                         debug_printf("d20 %.15e\td22 %.15e\n", context->fp20.d, context->fp22.d);
                         debug_printf("d24 %.15e\td26 %.15e\n", context->fp24.d, context->fp26.d);
                         debug_printf("d28 %.15e\td30 %.15e\n", context->fp28.d, context->fp30.d);
+                        debug_printf("\n\nStacktrace:\n");
+                        print_stacktrace(curr);
                     }
                 }
             }

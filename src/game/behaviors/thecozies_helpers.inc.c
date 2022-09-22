@@ -50,4 +50,35 @@ void audio_meter_approach(f32 *cur, f32 next, f32 reduction, s32 timeout, s32 *m
     else *cur = approach_f32_symmetric(*cur, next, reduction);
 }
 
+struct Object *find_any_object_with_behavior_and_bparam2(const BehaviorScript *behavior, u32 bparam) {
+    uintptr_t *behaviorAddr = segmented_to_virtual(behavior);
+    struct Object *obj = NULL;
+    struct ObjectNode *listHead;
+
+    listHead = &gObjectLists[get_object_list_from_behavior(behaviorAddr)];
+
+    obj = (struct Object *) listHead->next;
+
+    while (obj != (struct Object *) listHead) {
+        if (obj->behavior == behaviorAddr
+            && GET_BPARAM2(obj->oBehParams) == bparam
+            && obj->activeFlags != ACTIVE_FLAG_DEACTIVATED)
+        {
+            return obj;
+        }
+    
+        obj = (struct Object *) obj->header.next;
+    }
+
+    return obj;
+}
+
+s32 check_mario_on_object(struct MarioState *m) {
+    return (
+        (gMarioState->action & ACT_GROUP_MASK) <= ACT_GROUP_MOVING
+        && gMarioObject->platform == o
+    )
+    && m->vel[1] <= 0.0f;
+}
+
 #endif

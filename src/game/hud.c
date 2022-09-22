@@ -500,27 +500,34 @@ void render_hud_camera_status(void) {
     }
 
     gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
-    render_hud_tex_lut(x, y, (*cameraLUT)[GLYPH_CAM_CAMERA]);
 
-    switch (sCameraHUD.status & CAM_STATUS_MODE_GROUP) {
-        case CAM_STATUS_MARIO:
-            render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_MARIO_HEAD]);
-            break;
-        case CAM_STATUS_LAKITU:
-            render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_LAKITU_HEAD]);
-            break;
-        case CAM_STATUS_FIXED:
-            render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_FIXED]);
-            break;
-    }
 
-    switch (sCameraHUD.status & CAM_STATUS_C_MODE_GROUP) {
-        case CAM_STATUS_C_DOWN:
-            render_hud_small_tex_lut(x + 4, y + 16, (*cameraLUT)[GLYPH_CAM_ARROW_DOWN]);
-            break;
-        case CAM_STATUS_C_UP:
-            render_hud_small_tex_lut(x + 4, y - 8, (*cameraLUT)[GLYPH_CAM_ARROW_UP]);
-            break;
+    if (sCameraHUD.status & CAM_STATUS_HALLWAY) {
+        render_hud_small_tex_lut(x + 4, y + 8, (*cameraLUT)[GLYPH_CAM_ARROW_DOWN]);
+        render_hud_small_tex_lut(x + 4, y, (*cameraLUT)[GLYPH_CAM_ARROW_UP]);
+        render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_FIXED]);
+    } else {
+        render_hud_tex_lut(x, y, (*cameraLUT)[GLYPH_CAM_CAMERA]);
+        switch (sCameraHUD.status & CAM_STATUS_MODE_GROUP) {
+            case CAM_STATUS_MARIO:
+                render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_MARIO_HEAD]);
+                break;
+            case CAM_STATUS_LAKITU:
+                render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_LAKITU_HEAD]);
+                break;
+            case CAM_STATUS_FIXED:
+                render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_FIXED]);
+                break;
+        }
+
+        switch (sCameraHUD.status & CAM_STATUS_C_MODE_GROUP) {
+            case CAM_STATUS_C_DOWN:
+                render_hud_small_tex_lut(x + 4, y + 16, (*cameraLUT)[GLYPH_CAM_ARROW_DOWN]);
+                break;
+            case CAM_STATUS_C_UP:
+                render_hud_small_tex_lut(x + 4, y - 8, (*cameraLUT)[GLYPH_CAM_ARROW_UP]);
+                break;
+        }
     }
 
     gSPDisplayList(gDisplayListHead++, dl_hud_img_end);

@@ -27,7 +27,7 @@ extern Vec3s gVec3sOne;
  * This should be used mainly to make camera code clearer at first glance.
  */
 // #define DEGREES(x) ((x) * 0x10000 / 360)
-#define DEGREES(x) ((x) * 0x2000 / 45)
+
 // #define DEGREES(x) (((x) << 13) / 45)
 
 /*
@@ -608,8 +608,20 @@ void spline_get_weights(Vec4f result, f32 t, UNUSED s32 c);
 void anim_spline_init(Vec4s *keyFrames);
 s32 anim_spline_poll(Vec3f result);
 f32 get_relative_position_between_ranges(f32 x, f32 fromA, f32 toA, f32 fromB, f32 toB);
+f32 get_lerp(f32 cur, f32 from, f32 to);
+f32 lerp(f32 from, f32 to, f32 amt);
 s16 approach_yaw(s16 curYaw, s16 target, f32 speed);
 void mtxf_rot_trans_mul(Vec3s rot, Vec3f trans, Mat4 dest, Mat4 src);
 void find_surface_on_ray(Vec3f orig, Vec3f dir, struct Surface **hit_surface, Vec3f hit_pos, s32 flags);
+void surface_center(Vec3f dest, Vec3s vtx1, Vec3s vtx2, Vec3s vtx3);
+void vec3f_center(Vec3f dest, Vec3f v1, Vec3f v2);
+f32 get_cycle(f32 cycleLength, f32 cycleOffset, u32 timer);
+
+#define copy_vec3(vec) { vec[0], vec[1], vec[2] }
+
+// fac should be between 0 and 1
+ALWAYS_INLINE f32 smooth_fac(f32 fac) {
+    return sqr(fac) * (3.0f - (2.0f * fac));
+}
 
 #endif // MATH_UTIL_H

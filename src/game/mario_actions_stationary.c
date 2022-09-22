@@ -1052,7 +1052,12 @@ s32 act_first_person(struct MarioState *m) {
         }
     }
 
-    stationary_ground_step(m);
+    if (perform_ground_step(m) == GROUND_STEP_LEFT_GROUND) {
+        raise_background_noise(2);
+        // Go back to the last camera mode
+        set_camera_mode(m->area->camera, -1, 1);
+        return set_mario_action(m, ACT_FREEFALL, 0);
+    }
     set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
     return FALSE;
 }
