@@ -4,7 +4,9 @@
  * DEBUG SETTINGS *
  ******************/
 
+#ifndef DEBUG
 #define DEBUG
+#endif
 
 // Enables most debug options, including PUPPYPRINT_DEBUG.
 // #define DEBUG_ALL
