@@ -2547,6 +2547,7 @@ struct HubAlert hubAlerts[] = {
 };
 
 s32 gCustomStarSelectActive = 0;
+s32 gLevelEntryConfirmationActive = 0;
 s32 gHubAlertTimer = 0;
 s32 gHubAlertID = 0;
 void render_hub_selection(void) {
@@ -2652,20 +2653,21 @@ void render_hub_selection(void) {
                 } else if(hubSelections[gWorldID][gFocusID].courseID == 18 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 30) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 4;
-                }
-                else if(gCustomStarSelectActive || hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
+                } else if(gCustomStarSelectActive || gLevelEntryConfirmationActive) {
                     sDelayedWarpOp = 1;
                     sDelayedWarpArg = 0x00000002;
                     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
                     sDelayedWarpTimer = 15;
                     sSourceWarpNodeId = hubSelections[gWorldID][gFocusID].warpID;
                     gIntroCutsceneState = 0;
+                } else if(hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
+                    gLevelEntryConfirmationActive = 1;
                 } else {
                     gCustomStarSelectActive = 1;
                 }
             } else if(gPlayer1Controller->buttonPressed & B_BUTTON) {
-                if(!gCustomStarSelectActive) {
-                    gFocusID = -1;
+                if(gLevelEntryConfirmationActive) {
+                    gLevelEntryConfirmationActive = 0;
                 } else {
                     gCustomStarSelectActive = 0;
                 }
@@ -2937,6 +2939,17 @@ void render_hub_star_select(s32 cringeTimer) {
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     gDPSetDepthSource(gDisplayListHead++, G_ZS_PIXEL);
     gDPPipeSync(gDisplayListHead++);
+}
+
+u8 levelConfString[] = { TEXT_LEVEL_CONFIRMATION };
+void render_hub_level_confirmation() {
+    char *filledString = {TEXT_FILLEDSTRING};
+    create_dl_ortho_matrix();
+    render_bar(80, filledString, 0);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    print_string_with_shadow(40, 80, levelConfString, 0xFFFFFFFF);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
 
 /* void new_star_select_loop(void) {

@@ -240,11 +240,13 @@ s32 render_menus_and_dialogs(void);
 void render_dog_keyboard(void);
 void render_hub_selection(void);
 void render_hub_star_select(s32 cringeTimer);
+void render_hub_level_confirmation();
 void end_results_loop(void);
 
 extern s32 gWorldID;
 extern s32 gFocusID;
 extern s32 gCustomStarSelectActive;
+extern s32 gLevelEntryConfirmationActive;
 extern struct HubSelection hubSelections[3][6];
 
 extern s32 gEndResultMenuChoice;

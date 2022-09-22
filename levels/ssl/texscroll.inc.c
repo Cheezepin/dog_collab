@@ -122,7 +122,7 @@ void scroll_ssl_dl_Plane_001_mesh_layer_1_vtx_0() {
 	currentX += deltaX;	currentY += deltaY;
 }
 
-void scroll_ssl_dl_Plane_002_mesh_layer_1_vtx_0() {
+void scroll_ssl_dl_Plane_002_mesh_layer_0_vtx_0() {
 	int i = 0;
 	int count = 157;
 	int width = 64 * 0x20;
@@ -132,7 +132,7 @@ void scroll_ssl_dl_Plane_002_mesh_layer_1_vtx_0() {
 	int deltaX;
 	static int currentY = 0;
 	int deltaY;
-	Vtx *vertices = segmented_to_virtual(ssl_dl_Plane_002_mesh_layer_1_vtx_0);
+	Vtx *vertices = segmented_to_virtual(ssl_dl_Plane_002_mesh_layer_0_vtx_0);
 
 	deltaX = (int)(0.12999999523162842 * 0x20) % width;
 	deltaY = (int)(0.03999999910593033 * 0x20) % height;
@@ -179,6 +179,6 @@ void scroll_ssl() {
 	scroll_ssl_dl_Beam2_001_mesh_layer_5_vtx_0();
 	scroll_ssl_dl_Plane_mesh_layer_1_vtx_0();
 	scroll_ssl_dl_Plane_001_mesh_layer_1_vtx_0();
-	scroll_ssl_dl_Plane_002_mesh_layer_1_vtx_0();
+	scroll_ssl_dl_Plane_002_mesh_layer_0_vtx_0();
 	scroll_ssl_dl_Cylinder_014_mesh_layer_5_vtx_0();
 }

@@ -197,6 +197,7 @@ enum WaterLevelBehaviors {
 void set_water_level_goal(struct Object *obj) {
     u8 behavior = (u8)BPARAM1;
     s32 id = BPARAM2;
+    struct Object *water_switch;
     switch (behavior) {
         case WATER_LEVEL_BHV_STATIC: // static water, might be act specific
             break;
@@ -205,7 +206,7 @@ void set_water_level_goal(struct Object *obj) {
             break;
         case WATER_LEVEL_BHV_WHIRLPOOL: // whirlpool
         default:
-            struct Object *water_switch = get_water_switch(id);
+            water_switch = get_water_switch(id);
             if (water_switch && water_switch->oWaterSwitchActivated) {
                 obj->oHomeY = get_goal_ptr(id)[1];
                 obj->oWaterAtGoal = TRUE;

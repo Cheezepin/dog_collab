@@ -645,6 +645,9 @@ void render_hud(void) {
             if(gHubStarSelectTimer > 0) {
                 render_hub_star_select(gHubStarSelectTimer);
             }
+            if(gLevelEntryConfirmationActive > 0) {
+                render_hub_level_confirmation();
+            }
         }
 
 #ifdef PUPPYPRINT
