@@ -26,7 +26,7 @@ enum WATER_SPOUT_PLATFORM_STATES {
 
 // #define WATER_SPOUT_SNAP_STRENGTH_UP   0.045f
 // #define WATER_SPOUT_SNAP_STRENGTH_DOWN 0.035f
-#define WATER_SPOUT_MAX_VEL         100.0f
+#define WATER_SPOUT_MAX_VEL         80.0f
 #define WATER_SPOUT_VEL_INC         2.0f
 #define WATER_SPOUT_MAX_VEL_DECEL   -70.0f
 #define WATER_SPOUT_VEL_DEC         3.0f
@@ -69,7 +69,7 @@ void determine_water_spout_height_from_platform(void) {
         }
         case WATER_SPOUT_GOING_TO_TOP: {
             f32 floaterHeight = get_floater_height(o->oWaterSpoutFloatyRock);
-            f32 maxVel = WATER_SPOUT_PARAM_HOLD_TOP ? WATER_SPOUT_MAX_VEL / 2 : WATER_SPOUT_MAX_VEL;
+            f32 maxVel = WATER_SPOUT_PARAM_HOLD_TOP ? WATER_SPOUT_MAX_VEL * 0.5f : WATER_SPOUT_MAX_VEL;
             f32 newVel = approach_f32_symmetric(o->oVelY, maxVel, WATER_SPOUT_VEL_INC);
 
             f32 overVel = (o->oPosY + newVel) - (o->oWaterSpoutFloatyRock->oPosY + floaterHeight);
@@ -246,8 +246,17 @@ void floaty_rock_loop(void) {
         if (water_floor && water_floor->object) {
             o->oFloatyRockWaterSpout = water_floor->object;
             water_floor->object->oWaterSpoutFloatyRock = o;
+            water_floor->object->oPosY = water_floor->object->oWaterSpoutBottom;
+            water_floor->object->oVelY = 0;
+            water_floor->object->oSubAction = WATER_SPOUT_AT_BOTTOM;
             o->oFloatyRockPrevWaterLevel = waterlevel;
             o->oVelY = 0.0f;
+            return;
+        } else {
+            // normally this should just float on the water but yeah
+            o->oPosY = o->oFloatyRockFloorHeight;
+            o->oVelY = 0.0f;
+            return;
         }
     }
 
@@ -261,20 +270,17 @@ void floaty_rock_loop(void) {
     // ) return;
 
     f32 targetY = MAX(waterlevel, o->oFloatyRockFloorHeight);
-    f32 waterVel = waterlevel - o->oFloatyRockPrevWaterLevel;
     if (o->oFloatyRockWaterSpout) {
-        targetY = o->oFloatyRockWaterSpout->oPosY;
-        waterVel = o->oFloatyRockWaterSpout->oVelY;
+        targetY = MAX(o->oFloatyRockFloorHeight, o->oFloatyRockWaterSpout->oPosY);
     }
 
     if (targetY > o->oPosY) {
-        f32 amt = targetY - o->oPosY / colHeight;
-        f32 fac = approach_f32_asymptotic(0.316227766f, 0.8f, CLAMP(amt, 0, 1));
-        o->oVelY = approach_f32_asymptotic(o->oVelY, waterVel, sqr(fac));
-        elastic_approach(
-            &o->oPosY, &o->oVelY,
-            targetY,
-            FLOATY_ROCK_WATER_ELASTIC_UP, FLOATY_ROCK_WATER_ELASTIC_UP);
+        f32 goalDiff = targetY - o->oPosY;
+
+        f32 fac = smooth_fac(get_lerp(goalDiff, 0, colHeight));
+        f32 additionalVel = fac * colHeight;
+        o->oVelY = MAX(o->oVelY, additionalVel);
+        o->oVelY = MIN(100, o->oVelY);
     } else {
         o->oVelY -= FLOATY_ROCK_GRAV;
     }
@@ -282,13 +288,10 @@ void floaty_rock_loop(void) {
     if (o->oVelY < FLOATY_ROCK_TERMINAL) o->oVelY = FLOATY_ROCK_TERMINAL;
 
     o->oPosY += o->oVelY;
-    // if (targetY - o->oPosY > FLOATY_ROCK_WATER_DEPTH_STRETCH_BACK) {
-    //     o->oVelY += 10.0f;
-    // }
 
-    if (o->oPosY < targetY - colHeight) {
-        o->oPosY = targetY - colHeight;
-    }
+    // if (o->oPosY < targetY - colHeight) {
+        // o->oPosY = targetY - colHeight;
+    // }
 
     if (o->oPosY < o->oFloatyRockFloorHeight) {
         if (o->oVelY < -10.0f) cur_obj_play_sound_2(SOUND_OBJ_BOWSER_WALK);
