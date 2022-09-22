@@ -66,7 +66,7 @@ void scroll_ssl_dl_Beam2_001_mesh_layer_5_vtx_0() {
 
 void scroll_ssl_dl_Plane_002_mesh_layer_0_vtx_0() {
 	int i = 0;
-	int count = 157;
+	int count = 141;
 	int width = 64 * 0x20;
 	int height = 64 * 0x20;
 
@@ -95,7 +95,7 @@ void scroll_ssl_dl_Plane_002_mesh_layer_0_vtx_0() {
 
 void scroll_ssl_dl_Cylinder_014_mesh_layer_5_vtx_0() {
 	int i = 0;
-	int count = 41;
+	int count = 39;
 	int width = 256 * 0x20;
 	int height = 8 * 0x20;
 
