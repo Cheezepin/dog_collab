@@ -689,6 +689,9 @@ void focus_on_mario(Vec3f focus, Vec3f pos, f32 posYOff, f32 focYOff, f32 dist, 
     focus[2] = sMarioCamState->pos[2];
 }
 
+extern struct Object *gMarioPlatform;
+extern Vec3f sMarioAmountDisplaced;
+
 /**
  * Set the camera's y coordinate to goalHeight, respecting floors and ceilings in the way
  */
@@ -727,6 +730,12 @@ void set_camera_height(struct Camera *c, f32 goalHeight) {
             goalHeight = camFloorHeight;
             c->pos[1] = goalHeight;
         }
+
+        if (gMarioPlatform && sMarioAmountDisplaced[1] > 0) {
+            goalHeight += sMarioAmountDisplaced[1];
+            c->pos[1] = MAX(c->pos[1], goalHeight);
+        }
+
         // Warp camera to goalHeight if further than 1000 and Mario is stuck in the ground
         if (sMarioCamState->action == ACT_BUTT_STUCK_IN_GROUND ||
             sMarioCamState->action == ACT_HEAD_STUCK_IN_GROUND ||
@@ -737,7 +746,7 @@ void set_camera_height(struct Camera *c, f32 goalHeight) {
         }
 
 #ifdef FAST_VERTICAL_CAMERA_MOVEMENT
-        approachRate += ABS(c->pos[1] - goalHeight) / 20;
+        approachRate += absf(c->pos[1] - goalHeight) / 20.0f;
         approach_camera_height(c, goalHeight, approachRate);
 #else
         approach_camera_height(c, goalHeight, 20.f);
@@ -1230,6 +1239,30 @@ CozyVol *get_cozy_vol(s32 id) {
     return segmented_to_virtual(cozyVolumes[id]);
 }
 
+s16 get_cozy_vol_camera_status(struct Camera *c) {
+    if (gCurrLevelNum != LEVEL_COZIES || c->cozyVolId == 0 || !c->curVolume) return CAM_STATUS_NONE;
+
+    switch (c->curVolume->type) {
+        case COZY_VOL_MATCH_ROT:
+        case COZY_VOL_FOCUS_POS_HINT:
+            return CAM_STATUS_FIXED;
+
+        case COZY_VOL_HALLWAY_SPLINE:
+            return CAM_STATUS_HALLWAY;
+
+        case COZY_VOL_SECOND_TARGET:
+        case COZY_VOL_SECOND_TARGET_FULL:
+            return CAM_STATUS_LAKITU; // CHANGE TO NEW ICON
+    }
+
+    return CAM_STATUS_NONE;
+}
+
+s32 cozy_vol_blocks_input(struct Camera *c) {
+    return get_cozy_vol_camera_status(c) & (CAM_STATUS_FIXED | CAM_STATUS_HALLWAY);
+}
+
+
 static s32 val_in_bounds(f32 val, f32 bcenter, f32 bradius) {
     return val >= bcenter - bradius && val <= bcenter + bradius;
 }
@@ -1240,7 +1273,7 @@ s32 check_cozy_volumes(struct Camera *c, struct MarioState *m) {
         c->cozyVolId = 0;
         c->curVolume = NULL;
         c->splineDir = 0;
-        return FALSE; // waIT FIZ YUIDSAYHOFU
+        return FALSE;
     }
     for (s32 i = 1; i < ARRAY_COUNT(cozyVolumes); i++) {
         CozyVol *cv = get_cozy_vol(i);
@@ -3588,8 +3621,12 @@ void update_camera(struct Camera *c) {
         // print_text(20, 20, res ? "YES" : "NO");
     }
 
+    s32 cozy_blocks_input = cozy_vol_blocks_input(c);
+
     update_camera_hud_status(c);
-    if (c->cutscene == CUTSCENE_NONE
+    if (
+        c->cutscene == CUTSCENE_NONE
+        && !cozy_blocks_input
 #ifdef PUPPYCAM
         && !gPuppyCam.enabled
 #endif
@@ -3665,7 +3702,10 @@ void update_camera(struct Camera *c) {
     if (c->cutscene == CUTSCENE_NONE) {
         sYawSpeed = 0x400;
 
-        if (sSelectionFlags & CAM_MODE_MARIO_ACTIVE) {
+        if (cozy_blocks_input) {
+            // cozy volumes processed in 8dir cam
+            mode_8_directions_camera(c);
+        } else if (sSelectionFlags & CAM_MODE_MARIO_ACTIVE) {
             switch (c->mode) {
                 case CAMERA_MODE_BEHIND_MARIO:
                     mode_behind_mario_camera(c);
@@ -4472,10 +4512,22 @@ s32 find_c_buttons_pressed(u16 currentState, u16 buttonsPressed, u16 buttonsDown
  * Determine which icon to show on the HUD
  */
 s32 update_camera_hud_status(struct Camera *c) {
-    s16 status = CAM_STATUS_NONE;
+    s16 status = get_cozy_vol_camera_status(c);
+
+    // status is only one of these if in a cozy volume
+    if (status & (CAM_STATUS_FIXED | CAM_STATUS_HALLWAY)) {
+        set_hud_camera_status(status);
+        return status;
+    }
+
+    // reset and allow user control
+    if (status & CAM_STATUS_LAKITU) {
+        status = CAM_STATUS_NONE;
+    }
 
     if (c->cutscene != CUTSCENE_NONE
-        || ((gPlayer1Controller->buttonDown & R_TRIG) && cam_select_alt_mode(0) == CAM_SELECTION_FIXED)) {
+        || ((gPlayer1Controller->buttonDown & R_TRIG) && cam_select_alt_mode(0) == CAM_SELECTION_FIXED)
+    ) {
         status |= CAM_STATUS_FIXED;
     } else if (set_cam_angle(0) == CAM_ANGLE_MARIO) {
         status |= CAM_STATUS_MARIO;

@@ -175,12 +175,13 @@ enum CameraFlags {
 };
 
 enum CameraStatus {
-    CAM_STATUS_NONE   = (0 << 0), // 0x00
-    CAM_STATUS_MARIO  = (1 << 0), // 0x01
-    CAM_STATUS_LAKITU = (1 << 1), // 0x02
-    CAM_STATUS_FIXED  = (1 << 2), // 0x04
-    CAM_STATUS_C_DOWN = (1 << 3), // 0x08
-    CAM_STATUS_C_UP   = (1 << 4), // 0x10
+    CAM_STATUS_NONE    =  (0 << 0), // 0x00
+    CAM_STATUS_MARIO   =  (1 << 0), // 0x01
+    CAM_STATUS_LAKITU  =  (1 << 1), // 0x02
+    CAM_STATUS_FIXED   =  (1 << 2), // 0x04
+    CAM_STATUS_C_DOWN  =  (1 << 3), // 0x08
+    CAM_STATUS_C_UP    =  (1 << 4), // 0x10
+    CAM_STATUS_HALLWAY =  (1 << 5), // 0x20
 
     CAM_STATUS_MODE_GROUP   = (CAM_STATUS_MARIO | CAM_STATUS_LAKITU | CAM_STATUS_FIXED),
     CAM_STATUS_C_MODE_GROUP = (CAM_STATUS_C_DOWN | CAM_STATUS_C_UP),
