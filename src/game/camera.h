@@ -289,6 +289,8 @@ enum Cutscenes {
     CUTSCENE_SNOW_HILL,
     CUTSCENE_INTRO,
     CUTSCENE_SNOW_BOWSER_INTRO,
+    // thecozies
+    CUTSCENE_COZIES_ACTIVATE_SWITCH
 };
 
 /**
@@ -565,6 +567,12 @@ struct CutsceneVariable {
     s16 unused2;
 };
 
+typedef struct CozyCutscenePosFocusFov {
+    Vec3f pos;
+    Vec3f focus;
+    f32 fov;
+} CozyCutscenePosFocusFov;
+
 /**
  * The main camera struct. Gets updated by the active camera mode and the current level/area. In
  * update_lakitu, its pos and focus are used to calculate lakitu's next position and focus, which are
@@ -814,6 +822,7 @@ void set_fov_function(u8 func);
 void cutscene_set_fov_shake_preset(u8 preset);
 void set_fov_shake_from_point_preset(u8 preset, f32 posX, f32 posY, f32 posZ);
 void obj_rotate_towards_point(struct Object *obj, Vec3f point, s16 pitchOff, s16 yawOff, s16 pitchDiv, s16 yawDiv);
+void start_cozies_switch_cutscene(u8 switchId);
 
 Gfx *geo_camera_fov(s32 callContext, struct GraphNode *g, UNUSED void *context);
 

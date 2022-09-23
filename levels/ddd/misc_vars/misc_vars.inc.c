@@ -184,3 +184,27 @@ PosFocusFov CamAct6Pos = {
     .fov = FOV_12MM,
 };
 
+f32 CamSwitch1Focus[3] = {  1300.0000000000f, -8500.0015258789f, -2200.0000000000f };
+
+PosFocusFov CamSwitch1Pos = {
+    {     0.0000000000f, -9400.0015258789f, -1700.0000000000f },
+    .focus = &CamSwitch1Focus,
+    .fov = FOV_18MM,
+};
+
+f32 CamSwitch3Focus[3] = { -4100.0000000000f, -6700.0015258789f, -4100.0000000000f };
+
+PosFocusFov CamSwitch3Pos = {
+    { -2400.0000000000f, -3300.0015258789f, -6600.0000000000f },
+    .focus = &CamSwitch3Focus,
+    .fov = FOV_18MM,
+};
+
+f32 CamSwitch4Focus[3] = {  2000.0000000000f, -1400.0015258789f, -1900.0000000000f };
+
+PosFocusFov CamSwitch4Pos = {
+    { -1500.0000000000f,  4799.9984741211f, -1500.0000000000f },
+    .focus = &CamSwitch4Focus,
+    .fov = FOV_18MM,
+};
+

@@ -1,28 +1,5 @@
 #include "game/behaviors/thecozies_helpers.h"
 
-
-enum BST_WATER_LEVELS {
-    BST_LEVEL0,
-    BST_LEVEL1,
-    BST_LEVEL2,
-    BST_LEVEL3,
-    BST_LEVEL4,
-    BST_LEVEL5,
-    BST_LEVEL6,
-    BST_LEVEL_LAST,
-};
-
-f32 bstWaterLevels[] = {
-    [BST_LEVEL0] = 0,
-    [BST_LEVEL1] = 0,
-    [BST_LEVEL2] = 0,
-    [BST_LEVEL3] = 0,
-    [BST_LEVEL4] = 0,
-    [BST_LEVEL5] = 0,
-    [BST_LEVEL6] = 0,
-    [BST_LEVEL_LAST] = 0,
-};
-
 #define WATER_SWITCH_OFFSET -26
 #define WATER_SWITCH_OFFSET_MARIO (WATER_SWITCH_OFFSET - 8)
 
@@ -77,7 +54,11 @@ void water_switch_loop(void) {
 
     elastic_approach(&o->oWaterSwitchOffset, &o->oWaterSwitchOffsetVel, goalOffset, 0.2f, 0.2f);
 
-    if (o->oWaterSwitchOffset <= WATER_SWITCH_OFFSET + 1) {
+    if (!o->oWaterSwitchActivated && o->oWaterSwitchOffset <= WATER_SWITCH_OFFSET + 1) {
+        gMarioState->paralyzed = TRUE;
+        start_cozies_switch_cutscene(BPARAM2);
+        cur_obj_play_sound_2(SOUND_GENERAL2_PURPLE_SWITCH);
+        play_puzzle_jingle();
         o->oWaterSwitchActivated = TRUE;
     }
 

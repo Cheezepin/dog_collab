@@ -509,6 +509,7 @@ struct MarioState
     f32 waterForce;
     s16 prevWaterLevel;
     struct FloorCheckpoint floorCheckpoint;
+    s8 paralyzed;
 };
 
 // thecozies start

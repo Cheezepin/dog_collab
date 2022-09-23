@@ -1788,6 +1788,15 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
 
         gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
         mario_reset_bodystate(gMarioState);
+
+        if (gMarioState->paralyzed) {
+            struct Controller *cont = gMarioState->controller;
+            cont->buttonDown = cont->buttonPressed = 0;
+            cont->stickX = cont->stickY = cont->stickMag = 0;
+            cont->rawStickX = cont->rawStickY = 0;
+            vec3_zero(gMarioState->vel);
+            gMarioState->forwardVel = 0;
+        }
         update_mario_inputs(gMarioState);
 
 #ifdef PUPPYCAM
@@ -1941,6 +1950,7 @@ void init_mario(void) {
     gMarioState->framesSinceB = 0xFF;
 
     gMarioState->invincTimer = 0;
+    gMarioState->paralyzed = 0;
 
     if (save_file_get_flags()
         & (SAVE_FLAG_CAP_ON_GROUND | SAVE_FLAG_CAP_ON_KLEPTO | SAVE_FLAG_CAP_ON_UKIKI
