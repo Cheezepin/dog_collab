@@ -107,7 +107,6 @@ void bhv_goddard_cageCOL_loop(void) {
 #define DOG_ANIM_POUNCE 4
 #define DOG_ANIM_KNOCKBACK 5
 s32 nextX, nextZ, nextXangle, nextZangle;
-u8 dogHealth = 3;
 
 void rand_polar_coord(void){
     f32 theta;
@@ -201,27 +200,16 @@ void bhv_idle_dog_init (void) {
 
 void injured (void) {
     cur_obj_init_animation(DOG_ANIM_POUNCE);
-    dogHealth--;
     mark_obj_for_deletion(o->parentObj); //deletes the amp
     o->childObj->oAction = 0; //resets the ashpile
-    if (dogHealth <= 0){
-        gMarioState->health = 0x00FF;
-        gMarioState->hurtCounter = 0;
-        spawn_object(gMarioObject, MODEL_NONE, bhvExplosion);
-        level_trigger_warp(gMarioState, WARP_OP_DEATH);
-        // woosh, he's gone!
-        set_mario_action(gMarioState, ACT_DISAPPEARED, 0);
-    } else {
-        //if (cur_obj_init_animation_and_check_if_near_end(DOG_ANIM_POUNCE)){
-            o->oPosY = 95;
-            o->oAction = EMU_DOG_RANDOM_LOCATION;
-        //}
-    }
+   
+     o->oPosY = 95;
+     o->oAction = EMU_DOG_RANDOM_LOCATION;
+ 
 }
 void bhv_idle_dog_loop (void) {
     f32 dist;
     if (cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist) == NULL){
-        print_text_fmt_int(0, 0, "Dog Health = %d", dogHealth);
         struct Object *amp;
         if (o->oAction == DIG && cur_obj_nearest_object_with_behavior(bhvAttackableAmp) != NULL){
             amp = cur_obj_nearest_object_with_behavior(bhvAttackableAmp);
