@@ -355,7 +355,7 @@
 
 #define TEXT_B2I "Bowser 2"
 #define TEXT_B2  "Bowser's Rainbow Rings"
-#define TEXT_B2A "Author: anundidenfiedemu"
+#define TEXT_B2A "Author: Emu"
 
 #define TEXT_C7I "Course 7"
 #define TEXT_C7  "Sakura Stronghold"
