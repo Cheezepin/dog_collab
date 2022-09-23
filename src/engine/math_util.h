@@ -461,6 +461,8 @@ ALWAYS_INLINE s32 roundf(f32 in) {
 }
 // backwards compatibility
 #define round_float(in) roundf(in)
+// forwards compatibility
+#define lroundf(in) roundf(in)
 
 /// Absolute value
 ALWAYS_INLINE f32 absf(f32 in) {

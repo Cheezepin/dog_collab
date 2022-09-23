@@ -23,6 +23,25 @@ void set_cur_act_pos_focus_fov(struct Camera *c) {
     c->init_view_fov = view->fov;
 }
 
+
+PosFocusFov *cozies_switch_cutscene_views[] = {
+    NULL,
+    &CamSwitch1Pos,
+    NULL,
+    &CamSwitch3Pos,
+    &CamSwitch4Pos,
+};
+
+
+void set_switch_cutscene_pos_focus_fov(CozyCutscenePosFocusFov *cutscene, u8 switchId) {
+    PosFocusFov *view = segmented_to_virtual(cozies_switch_cutscene_views[switchId]);
+    vec3f_copy(cutscene->pos, view->pos);
+    f32 *foc = segmented_to_virtual(view->focus);
+    vec3f_copy(cutscene->focus, foc);
+    cutscene->fov = view->fov;
+}
+
+
 void ClosestPointOnLineSegment(Vec3f A, Vec3f B, Vec3f Point, Vec3f res)
 {
     Vec3f AB;

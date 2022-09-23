@@ -25,6 +25,7 @@
 #include "paintings.h"
 #include "engine/graph_node.h"
 #include "level_table.h"
+#include "mario.h"
 #include "config.h"
 #include "puppyprint.h"
 #include "levels/ddd/header.h"
@@ -414,6 +415,8 @@ u8 sCutsceneDialogResponse = DIALOG_RESPONSE_NONE;
 struct PlayerCameraState *sMarioCamState = &gPlayerCameraState[0];
 // struct PlayerCameraState *sLuigiCamState = &gPlayerCameraState[1];
 Vec3f sFixedModeBasePosition    = { 646.0f, 143.0f, -1513.0f };
+
+CozyCutscenePosFocusFov sCozyCutsceneState = {{0,0,0}, {0,0,0}, 0};
 
 f32 sCameraFov = 45.0f;
 
@@ -7253,6 +7256,20 @@ void start_object_cutscene(u8 cutscene, struct Object *obj) {
     gObjCutsceneDone = FALSE;
 }
 
+
+void start_cozies_switch_cutscene(u8 switchId) {
+    struct Camera *c = gCamera;
+    if (c->cutscene == 0) {
+        if (gRecentCutscene != CUTSCENE_COZIES_ACTIVATE_SWITCH) {
+            c->cutscene = CUTSCENE_COZIES_ACTIVATE_SWITCH;
+            gRecentCutscene = CUTSCENE_NONE;
+            vec3f_copy(sCameraStoreCutscene.pos, c->pos);
+            vec3f_copy(sCameraStoreCutscene.focus, c->focus);
+            set_switch_cutscene_pos_focus_fov(&sCozyCutsceneState, switchId);
+        }
+    }
+}
+
 /**
  * Start a low-priority cutscene without focusing on an object
  * This will play if nothing else happened in the same frame, like exiting or warping.
@@ -10838,6 +10855,55 @@ void cutscene_bowser_snow_arena(struct Camera *c) {
     }
 }
 
+
+#define COZY_SWITPART2_
+void cutscene_cozies_activate_switch(struct Camera *c) {
+    static s32 part2 = 0;
+
+    // on the first frame decide if the camera can interpolate between the two positions or not
+    if (gCutsceneTimer == 0) {
+        struct Surface *surf = NULL;
+        Vec3f origin, dir, surfHitpos;
+        vec3f_copy(origin, sCameraStoreCutscene.pos);
+        vec3f_diff(dir, sCozyCutsceneState.pos, origin);
+
+        find_surface_on_ray(origin, dir, &surf, surfHitpos, (RAYCAST_FIND_FLOOR | RAYCAST_FIND_WALL | RAYCAST_FIND_CEIL));
+        if (surf) {
+            part2 = 0;
+        } else {
+            part2 = COZY_SWITCH_CUTSCENE_PART2;
+        }
+    }
+
+    if (gCutsceneTimer < part2) {
+        f32 bfac = smooth_fac(get_lerp(gCutsceneTimer, 0, part2));
+        sFOVState.fov = sCameraFov = lerp(45.0f, sCozyCutsceneState.fov, bfac); // subtle zoom out
+
+        vec3f_copy(c->pos, sCameraStoreCutscene.pos);
+        lerp_vec3f(c->pos, sCozyCutsceneState.pos, bfac);
+
+        vec3f_copy(c->focus, sCameraStoreCutscene.focus);
+        lerp_vec3f(c->focus, sCozyCutsceneState.focus, bfac);
+    } else {
+        f32 tfac = get_lerp(gCutsceneTimer, part2, COZY_SWITCH_CUTSCENE_LENGTH);
+        sFOVState.fov = sCameraFov = sCozyCutsceneState.fov + (tfac * 2.0f); // subtle zoom out
+        tfac *= 0.1f; // move 1/10 the way to focus over time
+        vec3f_copy(c->pos, sCozyCutsceneState.pos);
+        lerp_vec3f(c->pos, sCozyCutsceneState.focus, tfac);
+
+        vec3f_copy(c->focus, sCozyCutsceneState.focus);
+    }
+
+    if (gCutsceneTimer >= COZY_SWITCH_CUTSCENE_LENGTH - 1) {
+        set_fov_function(CAM_FOV_DEFAULT);
+        sFOVState.fov = 45.0f;
+        stop_cutscene_and_retrieve_stored_info(c);
+        gMarioState->paralyzed = FALSE;
+    } else if (sFOVState.fovFunc != CAM_FOV_APP_MISC) {
+        set_fov_function(CAM_FOV_APP_MISC);
+    }
+}
+
 /******************************************************************************************************
  * Cutscenes
  ******************************************************************************************************/
@@ -11131,6 +11197,11 @@ struct Cutscene sCutsceneEnterBowserArena[] = {
 
 struct Cutscene sCutsceneSnowBowserIntro[] = {
     { cutscene_bowser_snow_arena, CUTSCENE_LOOP },
+};
+
+
+struct Cutscene sCutsceneCoziesActivateSwitch[] = {
+    { cutscene_cozies_activate_switch, COZY_SWITCH_CUTSCENE_LENGTH },
 };
 
 // The dance cutscenes are automatically stopped since reset_camera() is called after Mario warps.
@@ -11718,6 +11789,7 @@ void play_cutscene(struct Camera *c) {
         CUTSCENE(CUTSCENE_SNOW_HILL,            sCutsceneSnowHill)
         CUTSCENE(CUTSCENE_INTRO,                sCutsceneIntro)
         CUTSCENE(CUTSCENE_SNOW_BOWSER_INTRO,    sCutsceneSnowBowserIntro)
+        CUTSCENE(CUTSCENE_COZIES_ACTIVATE_SWITCH, sCutsceneCoziesActivateSwitch)
     }
 
 #undef CUTSCENE
