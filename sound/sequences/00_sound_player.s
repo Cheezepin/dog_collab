@@ -2724,7 +2724,7 @@ sound_ref .sound_general_bobomb_explosion
 sound_ref .sound_general_bowser_bomb_explosion
 sound_ref .sound_general_coin_spurt
 sound_ref .sound_general_explosion6
-sound_ref .chan_13D4
+sound_ref .sound_general_cozies_flippy_bitch_click
 sound_ref .sound_general_coin
 sound_ref .sound_general_boat_tilt1
 sound_ref .sound_general_boat_tilt2
@@ -3523,6 +3523,12 @@ chan_setinstr 9
 chan_setlayer 0, .layer_1539
 chan_end
 
+.sound_general_cozies_flippy_bitch_click:
+chan_setbank 4
+chan_setinstr 9
+chan_setlayer 0, .layer_cozies_flippy_bitch_click
+chan_end
+
 .layer_1537:
 layer_transpose -3
 
@@ -3532,6 +3538,14 @@ layer_portamento 0x81, 15, 255
 layer_note1 8, 0xc, 120
 layer_portamento 0x81, 27, 255
 layer_note1 3, 0x18, 120
+layer_end
+
+.layer_cozies_flippy_bitch_click:
+# layer_note1 12, 0x20, 120
+layer_note1 20, 0x8, 100
+layer_note1 32, 0x8, 100
+# layer_portamento 0x81, 15, 255
+# layer_portamento 0x81, 27, 255
 layer_end
 
 .sound_general_cage_open:

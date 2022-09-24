@@ -28,7 +28,7 @@ void flippy_bitch_init(void) {
 
 
 void flippy_bitch_wait(struct Object *obj) {
-    if (obj->oSubAction != 1 && check_mario_on_object(gMarioState)) {
+    if (obj->oSubAction == 0 && check_mario_on_object(gMarioState)) {
         obj->oSubAction = 1;
         obj->oTimer = 0;
         if (gMarioState->action == ACT_GROUND_POUND_LAND) {
@@ -38,14 +38,40 @@ void flippy_bitch_wait(struct Object *obj) {
             return;
         }
     }
-    if (obj->oSubAction == 1) {
-        obj->oAngleVelPitch += (FLIPPY_VEL/8.0f);
-        obj->oFaceAnglePitch += obj->oAngleVelPitch;
-        if (obj->oTimer > 15) {
-            cur_obj_change_action(FLIPPY_BITCH_FLIPPIN);
-        }
-    } else {
-        obj->oAngleVelPitch = 0;
+
+
+    switch (obj->oSubAction) {
+        case 0:
+        default:
+            obj->oAngleVelPitch = 0;
+            return;
+        case 1:
+            obj->oAngleVelPitch += (FLIPPY_VEL/2);
+            obj->oFaceAnglePitch += obj->oAngleVelPitch;
+
+            if (obj->oFaceAnglePitch < DEGREES(-5)) {
+                obj->oAngleVelPitch = -obj->oAngleVelPitch;
+                obj->oFaceAnglePitch += obj->oAngleVelPitch;
+                obj->oSubAction = 2;
+                cur_obj_play_sound_2(SOUND_GENERAL_COZIES_FLIPPER_CLICK);
+            }
+            break;
+        case 2:
+            obj->oAngleVelPitch += (FLIPPY_VEL/3);
+            obj->oFaceAnglePitch += obj->oAngleVelPitch;
+            if (obj->oFaceAnglePitch > 0) {
+                obj->oSubAction = 3;
+            }
+            break;
+        case 3:
+            obj->oAngleVelPitch += (FLIPPY_VEL/4);
+            obj->oFaceAnglePitch += obj->oAngleVelPitch;
+            if (obj->oFaceAnglePitch < 0) {
+                cur_obj_change_action(FLIPPY_BITCH_FLIPPIN);
+            }
+            if (obj->oTimer > 20) {
+            }
+            break;
     }
 }
 
@@ -82,6 +108,7 @@ void flippy_bitch_flippin(struct Object *obj) {
 
     if (obj->oFaceAnglePitch < FLIPPY_DEG_MAX) {
         // TODO: Play clink sound
+        cur_obj_play_sound_2(SOUND_ACTION_METAL_BONK);
         if (abs_angle_diff(obj->oAngleVelPitch, FLIPPY_VEL) < (100*4)) {
             obj->oFaceAnglePitch = FLIPPY_DEG_MAX;
             cur_obj_change_action(FLIPPY_BITCH_FLIPPED);
@@ -112,6 +139,7 @@ void flippy_bitch_flipped(struct Object *obj) {
     if (obj->oFaceAnglePitch > 0) {
         obj->oFaceAnglePitch = 0;
         obj->oAngleVelPitch = 0;
+        cur_obj_play_sound_2(SOUND_GENERAL_COZIES_FLIPPER_CLICK);
         cur_obj_change_action(FLIPPY_BITCH_WAIT);
     }
 }
