@@ -15,6 +15,12 @@ void elastic_approach(f32 *cur, f32 *curVel, f32 goal, f32 speedDown, f32 speedU
     *cur = *cur + *curVel;
 }
 
+void spring_towards(f32 *cur, f32 *curVel, f32 goal, f32 speed, f32 dampen) {
+    f32 diff = goal - *cur;
+    *curVel = (*curVel + (diff * speed)) * dampen;
+    *cur = *cur + *curVel;
+}
+
 s16 approach_dir(s16 curYaw, s16 target, f32 speed) {
     return (s16) (target - approach_f32_asymptotic(
         (s16) (target - curYaw),

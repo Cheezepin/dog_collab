@@ -52,7 +52,8 @@ void water_switch_loop(void) {
         goalOffset = WATER_SWITCH_OFFSET;
     }
 
-    elastic_approach(&o->oWaterSwitchOffset, &o->oWaterSwitchOffsetVel, goalOffset, 0.2f, 0.2f);
+    spring_towards(&o->oWaterSwitchOffset, &o->oWaterSwitchOffsetVel, goalOffset, 0.15f, 0.92f);
+    // elastic_approach(&o->oWaterSwitchOffset, &o->oWaterSwitchOffsetVel, goalOffset, 0.2f, 0.2f);
 
     if (!o->oWaterSwitchActivated && o->oWaterSwitchOffset <= WATER_SWITCH_OFFSET + 1) {
         gMarioState->paralyzed = TRUE;

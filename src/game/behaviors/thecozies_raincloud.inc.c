@@ -29,9 +29,13 @@ const Trajectory *ddd_trajectories[] = {
     ddd_area_2_spline_CloudInTheHolePath,
 };
 
-#define RAIN_CLOUD_WAYPOINT_FOLLOW_SPEED 0.01f
+#define RAIN_CLOUD_WAYPOINT_FOLLOW_SPEED 0.016f
 #define RAIN_CLOUD_WAYPOINT_BAND_SPEED_DOWN 0.015f
 #define RAIN_CLOUD_WAYPOINT_BAND_SPEED_UP   0.015f
+
+#define RAIN_CLOUD_WAYPOINT_BAND_SPEED 0.018f
+#define RAIN_CLOUD_WAYPOINT_BAND_SPEED_DAMP 0.9f
+
 void set_rain_cloud_waypoints(struct Waypoint *startWaypoint, struct Waypoint **prevWaypoint, struct Waypoint **nextWaypoint) {
     *prevWaypoint = (startWaypoint + o->oRainCloudWaypointIndex);
     *nextWaypoint = (startWaypoint + o->oRainCloudNextWaypointIndex);   
@@ -96,8 +100,22 @@ void rain_cloud_follow_trajectory(int mario_on_cloud) {
         o->oHomeZ = approach_f32_asymptotic(prevWaypoint->pos[2], nextWaypoint->pos[2], o->oRainCloudWaypointProgress);
     }
 
-    elastic_approach(&o->oPosX, &o->oVelX, o->oHomeX, RAIN_CLOUD_WAYPOINT_BAND_SPEED_DOWN, RAIN_CLOUD_WAYPOINT_BAND_SPEED_UP);
-    elastic_approach(&o->oPosZ, &o->oVelZ, o->oHomeZ, RAIN_CLOUD_WAYPOINT_BAND_SPEED_DOWN, RAIN_CLOUD_WAYPOINT_BAND_SPEED_UP);
+    spring_towards(
+        &o->oPosX,
+        &o->oVelX,
+        o->oHomeX,
+        RAIN_CLOUD_WAYPOINT_BAND_SPEED,
+        RAIN_CLOUD_WAYPOINT_BAND_SPEED_DAMP
+    );
+    spring_towards(
+        &o->oPosZ,
+        &o->oVelZ,
+        o->oHomeZ,
+        RAIN_CLOUD_WAYPOINT_BAND_SPEED,
+        RAIN_CLOUD_WAYPOINT_BAND_SPEED_DAMP
+    );
+    // elastic_approach(&o->oPosX, &o->oVelX, o->oHomeX, RAIN_CLOUD_WAYPOINT_BAND_SPEED_DOWN, RAIN_CLOUD_WAYPOINT_BAND_SPEED_UP);
+    // elastic_approach(&o->oPosZ, &o->oVelZ, o->oHomeZ, RAIN_CLOUD_WAYPOINT_BAND_SPEED_DOWN, RAIN_CLOUD_WAYPOINT_BAND_SPEED_UP);
 }
 
 void add_rain_cloud_jump_bonus(f32 cloudAffect) {
