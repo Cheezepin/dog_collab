@@ -9,6 +9,7 @@
 #include "game/print.h"
 #include "game/save_file.h"
 #include "game/tile_scroll.h"
+#include "game/spawn_sound.h"
 #include "engine/math_util.h"
 #include "levels/ddd/header.h"
 #include "behavior_data.h"
@@ -17,6 +18,7 @@
 #define THECOZIES_HELPERS_H
 
 void elastic_approach(f32 *cur, f32 *curVel, f32 goal, f32 speedDown, f32 speedUp);
+void spring_towards(f32 *cur, f32 *curVel, f32 goal, f32 speed, f32 dampen);
 void elastic_approach_vec3f(Vec3f cur, Vec3f curVel, Vec3f goal, f32 speedDown, f32 speedUp);
 void audio_meter_approach(f32 *cur, f32 next, f32 reduction, s32 timeout, s32 *momentumTimer);
 void elastic_approach_vec3s(Vec3s cur, Vec3s curVel, Vec3s goal, f32 speedDown, f32 speedUp);

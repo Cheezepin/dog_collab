@@ -136,6 +136,12 @@ void scroll_sts_mat_ddd_dl_cementwhirlpool_layer1() {
 	shift_t_down(mat, 13, PACK_TILESIZE(0, 1));
 };
 
+void scroll_sts_mat_ddd_dl_f3dlite_material_004_layer5() {
+	Gfx *mat = segmented_to_virtual(mat_ddd_dl_f3dlite_material_004_layer5);
+	shift_s_down(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s(mat, 21, PACK_TILESIZE(0, 1));
+};
+
 void scroll_sts_mat_ddd_dl_pillarspoot_002_layer1() {
 	Gfx *mat = segmented_to_virtual(mat_ddd_dl_pillarspoot_002_layer1);
 	shift_t(mat, 21, PACK_TILESIZE(0, 5));
@@ -183,6 +189,7 @@ void scroll_ddd() {
 	scroll_sts_mat_ddd_dl_water_material_number_4080_layer5();
 	scroll_sts_mat_ddd_dl_waterfallin_near_the_whirlpool_layer5();
 	scroll_sts_mat_ddd_dl_cementwhirlpool_layer1();
+	scroll_sts_mat_ddd_dl_f3dlite_material_004_layer5();
 	scroll_sts_mat_ddd_dl_pillarspoot_002_layer1();
 	scroll_sts_mat_ddd_dl_opaque_water_001_layer3();
 	scroll_sts_mat_ddd_dl_waterfallfog_001_layer7();

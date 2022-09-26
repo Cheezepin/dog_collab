@@ -171,14 +171,16 @@ const GeoLayout ddd_dl_ZRoom10_whirlpool_geo[] = {
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 1, 6000, 0, ddd_dl_TunnelBetween_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_ZZZZZZZZZZZZZwhirlpoolroom_001_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_tothewhirlpoolmesh_tinysteppies_mesh_layer_1),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_whirlpoolroom_002_mesh_layer_1),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_whirlpoolroom_004_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout ddd_dl_ZZRoom11_doge_room_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 0, 0, 600, ddd_dl_whirlpoolroom_001_mesh_layer_5),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_whirlpoolroom_002_mesh_layer_1),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_whirlpoolroom_004_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_ZZZZZZZZZZZZZwhirlpoolroom_001_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

@@ -11,6 +11,7 @@ extern void scroll_sts_mat_ddd_dl_f3dlite_material_003_layer5();
 extern void scroll_sts_mat_ddd_dl_water_material_number_4080_layer5();
 extern void scroll_sts_mat_ddd_dl_waterfallin_near_the_whirlpool_layer5();
 extern void scroll_sts_mat_ddd_dl_cementwhirlpool_layer1();
+extern void scroll_sts_mat_ddd_dl_f3dlite_material_004_layer5();
 extern void scroll_sts_mat_ddd_dl_pillarspoot_002_layer1();
 extern void scroll_sts_mat_ddd_dl_opaque_water_001_layer3();
 extern void scroll_sts_mat_ddd_dl_waterfallfog_001_layer7();

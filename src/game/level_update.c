@@ -524,6 +524,10 @@ void do_the_vertical_instant_warp(void) {
     s16 cameraAngle = gMarioState->area->camera->yaw;
 
     change_area(warp->area);
+    // cozies: should not be allowed to exit area 3 to area 2 in my level
+    if (warp->area == 3) {
+        set_mario_action(gMarioState, ACT_SPAWN_SPIN_AIRBORNE, 0);
+    }
     gMarioState->area = gCurrentArea;
 
     warp_camera(warp->displacement[0], warp->displacement[1], warp->displacement[2]);
