@@ -1936,13 +1936,18 @@ s32 warp_to_checkpoint(struct MarioState *m, s32 damage) {
  *                  INITIALIZATION                *
  **************************************************/
 
-void init_floor_checkpoint(struct MarioState *m) {
-    vec3f_copy(m->floorCheckpoint.pos, m->pos);
-    m->floorCheckpoint.yaw = m->faceAngle[1];
+void manual_set_checkpoint(struct MarioState *m, Vec3f pos, s16 angle) {
+    vec3f_copy(m->floorCheckpoint.pos, pos);
+    m->floorCheckpoint.yaw = angle;
     m->floorCheckpoint.level = gCurrLevelNum;
     m->floorCheckpoint.area = gCurrAreaIndex;
     m->floorCheckpoint.floor = NULL;
 }
+
+void init_floor_checkpoint(struct MarioState *m) {
+    manual_set_checkpoint(m, m->pos, m->faceAngle[1]);
+}
+
 
 void init_mario(void) {
     gMarioState->actionTimer = 0;

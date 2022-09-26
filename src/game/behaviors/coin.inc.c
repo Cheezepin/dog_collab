@@ -83,11 +83,11 @@ void bhv_yellow_coin_init(void) {
 }
 
 void bhv_20_coin_init(void) {
-    o->oPosY += 100.0f;
-    o->oVelY = random_float() * 10.0f + 40 + o->oCoinBaseYVel;
-    o->oForwardVel = random_float() * 10.0f + 10.0f;
+    o->oPosY += 50.0f;
+    o->oVelY = random_float() * 10.0f + 30 + o->oCoinBaseYVel;
+    o->oForwardVel = random_float() * 6.0f + 5.0f;
     o->oFaceAngleYaw = random_u16();
-    o->oMoveAngleYaw = approach_yaw(o->oFaceAngleYaw, obj_angle_to_object(o, gMarioObject), 0.7f);
+    o->oMoveAngleYaw = approach_yaw(o->oFaceAngleYaw, obj_angle_to_object(o, gMarioObject), 0.8f);
 
     obj_set_hitbox(o, &s20CoinHitbox);
     cur_obj_update_floor_height();
@@ -143,7 +143,7 @@ void bhv_20_coin_loop(void) {
         f32 sparkleScale = random_float() + 1.0f;
         vec3_same(sparkleObj->header.gfx.scale, sparkleScale);
 
-        lerp_vec3f(o->header.gfx.scale, almostZero, 0.33f);
+        lerp_vec3f(o->header.gfx.scale, almostZero, 0.4f);
         if (o->header.gfx.scale[0] < 0.01f) {
             obj_mark_for_deletion(o);
         }
