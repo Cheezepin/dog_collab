@@ -79,6 +79,12 @@
             [1, 32700],
             [32700, 29430],
             "hang"
+        ],
+        "envelope13": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
         ]
     },
     "instruments": {
@@ -223,6 +229,15 @@
             "sound_lo": "1E_closed_triangle",
             "sound": "1F_open_triangle",
             "sound_hi": "20_cabasa"
+        },
+        "inst12": {
+            "release_rate": 19,
+            "normal_range_lo": 29,
+            "normal_range_hi": 63,
+            "envelope": "envelope0",
+            "sound_lo": "3B_banjo_2",
+            "sound": "3C_acoustic_guitar",
+            "sound_hi": "3D"
         }
     },
     "instrument_list": [
@@ -239,6 +254,7 @@
         "inst8",
         "inst9",
         "inst10",
-        "inst11"
+        "inst11",
+        "inst12"
     ]
 }

@@ -39,6 +39,85 @@ const Texture *const flower_bubbles_textures_ptr_0B002008[] = {
     effect_0B000808,
 };
 
+// Petals
+ALIGNED8 static const Texture effect_petal_1[] = {
+#include "textures/effect/custom_petal1.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_2[] = {
+#include "textures/effect/custom_petal2.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_3[] = {
+#include "textures/effect/custom_petal3.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_4[] = {
+#include "textures/effect/custom_petal4.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_5[] = {
+#include "textures/effect/custom_petal5.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_6[] = {
+#include "textures/effect/custom_petal6.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_7[] = {
+#include "textures/effect/custom_petal7.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_8[] = {
+#include "textures/effect/custom_petal8.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_9[] = {
+#include "textures/effect/custom_petal9.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_10[] = {
+#include "textures/effect/custom_petal10.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_11[] = {
+#include "textures/effect/custom_petal11.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_12[] = {
+#include "textures/effect/custom_petal12.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_13[] = {
+#include "textures/effect/custom_petal13.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_14[] = {
+#include "textures/effect/custom_petal14.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture effect_petal_15[] = {
+#include "textures/effect/custom_petal15.rgba16.inc.c"
+};
+
+const Texture *const effect_petal_textures[] = {
+    effect_petal_1,
+    effect_petal_2,
+    effect_petal_3,
+    effect_petal_4,
+    effect_petal_5,
+    effect_petal_6,
+    effect_petal_7,
+    effect_petal_8,
+    effect_petal_9,
+    effect_petal_10,
+    effect_petal_11,
+    effect_petal_12,
+    effect_petal_13,
+    effect_petal_14,
+    effect_petal_15,
+};
+
 // Lava Bubble
 // 0x0B002020
 ALIGNED8 static const Texture effect_0B002020[] = {

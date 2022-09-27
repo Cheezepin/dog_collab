@@ -613,6 +613,10 @@ void bhv_stationary_lightning_loop(void);
 //emu end
 
 //CowQuack start
+void bhv_cherry_tree_loop(void);
+void bhv_tree_nut_loop(void);
+void bhv_tree_nut_init(void);
+
 void bhv_carousel_init(void);
 void bhv_carousel_loop(void);
 

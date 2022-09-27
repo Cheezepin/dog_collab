@@ -580,6 +580,10 @@ extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
 
+extern const BehaviorScript bhvCherryTree[];
+extern const BehaviorScript bhvTreeNut[];
+extern const BehaviorScript bhvDirtPile[];
+
 extern const BehaviorScript bhvDogForSC[];
 extern const BehaviorScript bhvCarousel[];
 extern const BehaviorScript bhvClownClock[];
