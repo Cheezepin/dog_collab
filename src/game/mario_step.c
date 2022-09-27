@@ -9,6 +9,8 @@
 #include "game_init.h"
 #include "interaction.h"
 #include "mario_step.h"
+#include "level_table.h"
+#include "area.h"
 
 #include "config.h"
 
@@ -670,7 +672,7 @@ void apply_vertical_wind(struct MarioState *m) {
     if (m->action != ACT_GROUND_POUND) {
         f32 offsetY = m->pos[1] /*- -1500.0f*/;
 
-        if (m->floor->type == SURFACE_VERTICAL_WIND && 7500.0f < offsetY /*&& offsetY < 2000.0f*/) {
+        if (m->floor->type == SURFACE_VERTICAL_WIND && ((gCurrLevelNum == LEVEL_BITFS && 7500.0f < offsetY) || (gCurrLevelNum == LEVEL_BITS && 16000.0f > offsetY)) /*&& offsetY < 2000.0f*/) {
             // if (offsetY >= 0.0f) {
             //     maxVelY = 10000.0f / (offsetY + 200.0f);
             // } else {

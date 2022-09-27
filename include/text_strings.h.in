@@ -326,12 +326,12 @@
 #define TEXT_C0A "Author: ???"
 
 #define TEXT_C1I "Course 1"
-#define TEXT_C1  "Cumulus Correctional Center"
-#define TEXT_C1A "Author: MrComit"
+#define TEXT_C1  "Maple Markindon"
+#define TEXT_C1A "Author: Ashley"
 
 #define TEXT_C2I "Course 2"
-#define TEXT_C2  "Koopa Atoll"
-#define TEXT_C2A "Author: BernieBean"
+#define TEXT_C2  "Cumulus Correctional Center"
+#define TEXT_C2A "Author: MrComit"
 
 #define TEXT_C3I "Course 3"
 #define TEXT_C3  "Hypnotizing High Rise"
@@ -342,32 +342,36 @@
 #define TEXT_B1A "Author: Cheezepin"
 
 #define TEXT_C4I "Course 4"
-#define TEXT_C4  "Peach Ruins"
-#define TEXT_C4A "Author: Rovert"
+#define TEXT_C4  "Koopa Atoll"
+#define TEXT_C4A "Author: BeverlyBean"
 
 #define TEXT_C5I "Course 5"
-#define TEXT_C5  "Swirling Circus"
-#define TEXT_C5A "Author: CowQuack"
+#define TEXT_C5  "Peach Ruins"
+#define TEXT_C5A "Author: Rovert"
 
 #define TEXT_C6I "Course 6"
-#define TEXT_C6  "Awe-Inspiring Spires"
-#define TEXT_C6A "Author: KeyBlader"
+#define TEXT_C6  "Swirling Circus"
+#define TEXT_C6A "Author: CowQuack"
+
+#define TEXT_C7I "Course 7"
+#define TEXT_C7  "Awe-Inspiring Spires"
+#define TEXT_C7A "Author: KeyBlader"
 
 #define TEXT_B2I "Bowser 2"
 #define TEXT_B2  "Bowser's Rainbow Rings"
 #define TEXT_B2A "Author: Emu"
 
-#define TEXT_C7I "Course 7"
-#define TEXT_C7  "Sakura Stronghold"
-#define TEXT_C7A "Author: Yoshi Milkman"
-
 #define TEXT_C8I "Course 8"
-#define TEXT_C8  "Forbidden Factory"
-#define TEXT_C8A "Author: Fazana"
+#define TEXT_C8  "Sakura Stronghold"
+#define TEXT_C8A "Author: Yoshi Milkman"
 
 #define TEXT_C9I "Course 9"
-#define TEXT_C9  "Bowser's Scuba Tower"
-#define TEXT_C9A "Author: thecozies"
+#define TEXT_C9  "Forbidden Factory"
+#define TEXT_C9A "Author: Fazana"
+
+#define TEXT_C10I "Course 10"
+#define TEXT_C10  "Bowser's Scuba Tower"
+#define TEXT_C10A "Author: thecozies"
 
 #define TEXT_B3I "Bowser 3"
 #define TEXT_B3  "Bowser's Flaming Finale"

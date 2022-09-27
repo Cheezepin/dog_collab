@@ -20,4 +20,5 @@ extern void scroll_sts_mat_bits_dl_slide_layer1();
 extern void scroll_sts_mat_bits_dl_nebula_hangable_001_layer1();
 extern void scroll_sts_mat_bits_dl_lava_layer1();
 extern void scroll_sts_mat_bits_dl_Lava_layer1_area6();
+extern void scroll_sts_mat_bits_dl_laser_002();
 extern void scroll_bits();

@@ -181,7 +181,7 @@ const LevelScript level_wf_entry[] = {
 		TERRAIN(wf_area_1_collision),
 		ROOMS(wf_area_1_collision_rooms),
 		MACRO_OBJECTS(wf_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_WATERSONG_REGGAE),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -190,7 +190,7 @@ const LevelScript level_wf_entry[] = {
 	AREA(2, wf_area_2),
 		WARP_NODE(0x0D, LEVEL_WF, 0x02, 0x0D, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_WF, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF1, LEVEL_WF, 0x02, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_WF, 0x02, 0x0D, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_BULLY_BOSS, 590, -438, 0, 0, 0, 0, 0x020D0000, bhvBigBully),
 		OBJECT(MODEL_EXCLAMATION_BOX, -5563, -2562, 0, 0, 0, 0, (EXCLAMATION_BOX_BP_JETSKI << 16), bhvExclamationBox),
 		OBJECT(MODEL_NONE, -5942, -2697, -6, 0, 0, 0, 0x000D0000, bhvSpinAirborneWarp),
@@ -205,7 +205,7 @@ const LevelScript level_wf_entry[] = {
 	AREA(3, wf_area_3),
 		WARP_NODE(0x0B, LEVEL_WF, 0x03, 0x0B, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_WF, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF1, LEVEL_WF, 0x03, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_WF, 0x03, 0x0B, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_NONE, 0, 1696, 0, 0, 0, 0, 0x000B0000, bhvSpinAirborneWarp),
 		TERRAIN(wf_area_3_collision),
 		MACRO_OBJECTS(wf_area_3_macro_objs),

@@ -76,6 +76,7 @@ static void chain_chomp_act_uninitialized(void) {
     struct ChainSegment *segments;
     s32 i;
     s32 j;
+    s32 numSegments = (gCurrLevelNum == LEVEL_BOWSER_1 || gCurrLevelNum == LEVEL_BOWSER_2 || gCurrLevelNum == LEVEL_BOWSER_3) ? CHAIN_CHOMP_BOWSER_NUM_SEGMENTS : CHAIN_CHOMP_NUM_SEGMENTS;
 
     if(gCurrLevelNum == LEVEL_BOWSER_1 || gCurrLevelNum == LEVEL_BOWSER_2 || gCurrLevelNum == LEVEL_BOWSER_3) {
         j = find_any_object_with_behavior(bhvBowser) || find_any_object_with_behavior(bhvBowserSnow) ? 1 : 0;
@@ -84,14 +85,14 @@ static void chain_chomp_act_uninitialized(void) {
     }
 
     if (j) {
-        segments = mem_pool_alloc(gObjectMemoryPool, CHAIN_CHOMP_NUM_SEGMENTS * sizeof(struct ChainSegment));
+        segments = mem_pool_alloc(gObjectMemoryPool, numSegments * sizeof(struct ChainSegment));
         if (segments != NULL) {
             // Each segment represents the offset of a chain part to the pivot.
             // Segment 0 connects the pivot to the chain chomp itself. Segment
             // 1 connects the pivot to the chain part next to the chain chomp
             // (chain part 1), etc.
             o->oChainChompSegments = segments;
-            for (i = 0; i < CHAIN_CHOMP_NUM_SEGMENTS; i++) {
+            for (i = 0; i < numSegments; i++) {
                 chain_segment_init(&segments[i]);
             }
 
@@ -102,7 +103,7 @@ static void chain_chomp_act_uninitialized(void) {
             if (o->parentObj != NULL) {
                 // Spawn the non-pivot chain parts, starting from the chain
                 // chomp and moving toward the pivot
-                for (i = 1; i < CHAIN_CHOMP_NUM_SEGMENTS; i++) {
+                for (i = 1; i < numSegments; i++) {
                     spawn_object_relative(i, 0, 0, 0, o, MODEL_METALLIC_BALL_BOWSER, bhvChainChompChainPartBowser);
                 }
 
@@ -121,7 +122,8 @@ void chain_chomp_update_chain_segments(void) {
     // Segment 0 connects the pivot to the chain chomp itself, and segment i>0
     // connects the pivot to chain part i (1 is closest to the chain chomp).
     s32 i;
-    for (i = 1; i < CHAIN_CHOMP_NUM_SEGMENTS; i++) {
+    s32 numSegments = (gCurrLevelNum == LEVEL_BOWSER_1 || gCurrLevelNum == LEVEL_BOWSER_2 || gCurrLevelNum == LEVEL_BOWSER_3) ? CHAIN_CHOMP_BOWSER_NUM_SEGMENTS : CHAIN_CHOMP_NUM_SEGMENTS;
+    for (i = 1; i < numSegments; i++) {
         struct ChainSegment *prevSegment = &o->oChainChompSegments[i - 1];
         struct ChainSegment *segment     = &o->oChainChompSegments[i];
 
@@ -138,7 +140,7 @@ void chain_chomp_update_chain_segments(void) {
 
         // Cap distance to pivot (so that it stretches when the chomp moves far from the wooden post)
         vec3f_add(offset, prevSegment->pos);
-        f32 maxTotalDist = o->oChainChompMaxDistFromPivotPerChainPart * (CHAIN_CHOMP_NUM_SEGMENTS - i);
+        f32 maxTotalDist = o->oChainChompMaxDistFromPivotPerChainPart * (numSegments - i);
         vec3_normalize_max(offset, maxTotalDist);
 
         vec3f_copy(segment->pos, offset);
@@ -544,7 +546,7 @@ static void chain_chomp_bowser_act_move(void) {
         o->oChainChompDistToPivot = vec3_mag(o->oChainChompSegments[0].pos);
 
         // If the chain is fully stretched
-        maxDistToPivot = o->oChainChompMaxDistFromPivotPerChainPart * CHAIN_CHOMP_NUM_SEGMENTS;
+        maxDistToPivot = o->oChainChompMaxDistFromPivotPerChainPart * CHAIN_CHOMP_BOWSER_NUM_SEGMENTS;
         if (o->oChainChompDistToPivot > maxDistToPivot) {
             f32 ratio = maxDistToPivot / o->oChainChompDistToPivot;
             o->oChainChompDistToPivot = maxDistToPivot;
