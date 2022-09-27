@@ -670,6 +670,11 @@ enum CoziesLevelModels {
 #define MODEL_FWOOSH_STEP_BUTTON          0x115
 
 //CowQuack start (play DTL64)
+
+#define MODEL_CHERRY_TREE	0x130
+#define MODEL_TREE_NUT	0x131
+#define MODEL_DIRT_PILE	0x132
+
 #define MODEL_CAROUSEL                    0x130
 #define MODEL_CIRCUS_POLE                    0x131
 #define MODEL_CLOWN_CLOCK                    0x132

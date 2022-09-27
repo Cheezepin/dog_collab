@@ -258,6 +258,7 @@ extern const Texture water_0900A800[];
 extern const Texture water_0900B800[];
 
 // effect
+extern const Texture *const effect_petal_textures[];
 extern const Texture *const flower_bubbles_textures_ptr_0B002008[];
 extern const Texture *const lava_bubble_ptr_0B006020[];
 extern const Texture *const bubble_ptr_0B006848[];

@@ -7,6 +7,9 @@ void bhv_sand_pile(void) {
 
             sussy = cur_obj_nearest_object_with_behavior(bhvDogRovert);
             if ((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (!sussy)) {
+                if (o->oBehParams2ndByte == 4) {
+                    return;
+                }
                 play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
                 sussy = spawn_object(o,MODEL_DOG,bhvDogRovert);
                 sussy->oPosY += 1000.0f;
@@ -44,6 +47,9 @@ void bhv_sand_pile(void) {
                 break;
                 case 3: //a mother fucking flame thrower!!!!! holy shit!!!!
                     spawn_object(o,MODEL_PROPANE_THROWER,bhvPropaneThrower);
+                break;
+                case 4: //a mother fucking cheerrry tree holy shit!!!!
+                    spawn_object(o,MODEL_CHERRY_TREE,bhvCherryTree);
                 break;
                 }
             obj_mark_for_deletion(o);
