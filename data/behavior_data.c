@@ -7829,6 +7829,7 @@ const BehaviorScript bhvRainCloud[] = {
     CALL_NATIVE(rain_cloud_init),
     CALL_NATIVE(load_object_collision_model),
     SET_FLOAT(oDrawingDistance, BASE_DRAW_DIST),
+    SET_FLOAT(oCollisionDistance, 1200),
     BEGIN_LOOP(),
         ADD_INT(oMoveAngleYaw, 0x10),
         CALL_NATIVE(rain_cloud_loop),

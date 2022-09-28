@@ -15,8 +15,8 @@ const Trajectory ddd_area_2_spline_CloudInTheHolePath[] = {
 	TRAJECTORY_POS( 1, 7800, -100, -4200),
 	TRAJECTORY_POS( 2, 7900, -900, -2900),
 	TRAJECTORY_POS( 3, 7900, -1050, -1600),
-	TRAJECTORY_POS( 4, 7900, -5400, -1600),
-	TRAJECTORY_POS( 5, 7900, -7800, -1600),
+	TRAJECTORY_POS( 4, 7898, -5394, -1593),
+	TRAJECTORY_POS( 5, 7854, -7695, -1459),
 	TRAJECTORY_END(),
 };
 struct CutsceneSplinePoint ddd_area_2_spline_FunnyCameraPathDownTheTube[] = {

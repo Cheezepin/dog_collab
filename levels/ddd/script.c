@@ -181,7 +181,7 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_RAIN_CLOUD, 612, 4314, -7531, 0, 34, 0, (4 << 24) | (1 << 8), bhvRainCloud),
 		OBJECT(MODEL_RAIN_CLOUD, 6005, 1745, -471, 0, 167, 0, (0), bhvRainCloud),
 		OBJECT(MODEL_RAIN_CLOUD, 6963, 2013, -439, 0, 79, 0, 0x00000000, bhvRainCloud),
-		OBJECT(MODEL_RAIN_CLOUD, 10733, 2126, -2950, 0, 90, 0, (3 << 24) | (255 << 16), bhvRainCloud),
+		OBJECT(MODEL_RAIN_CLOUD, 10733, 2126, -2950, 0, 90, 0, (3 << 24) | (200 << 16), bhvRainCloud),
 		OBJECT(MODEL_DDD_WATER_SPOUT, -13488, -3089, -2599, 0, 0, 0, 0x00000000, bhvWaterSpout),
 		OBJECT(MODEL_FLOATY_ROCK, -11125, -3089, -3206, 0, 0, 0, 0x00000000, bhvFloatyRock),
 		OBJECT(MODEL_DDD_WATER_SPOUT, -11125, -3823, -3206, 0, 0, 0, 0x00000000, bhvWaterSpout),

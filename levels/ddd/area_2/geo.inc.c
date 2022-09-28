@@ -132,6 +132,7 @@ const GeoLayout ddd_dl_Room8_SemiCircle_geo[] = {
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(LAYER_ALPHA, ddd_dl_A1_SemiCircleTube_002_mesh_layer_4),
 		GEO_CLOSE_NODE(),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 7670, 1500, -5720, ddd_dl_CloudInTheHolePath_001_mesh_layer_5),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_ZSemiCircleRoom_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_ZSemiCircleRoom_purpfloor_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, ddd_dl_ZSemiCircleRoom_purpwall_mesh_layer_1),
