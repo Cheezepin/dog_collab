@@ -51,6 +51,9 @@
 #define SURFACE_HARD_VERY_SLIPPERY           0x0036 // Hard and very slippery (Always has fall damage)
 #define SURFACE_HARD_NOT_SLIPPERY            0x0037 // Hard and Non-slippery (Always has fall damage)
 #define SURFACE_VERTICAL_WIND                0x0038 // Death at bottom with vertical wind
+#define SURFACE_SHADOW_OFFSET                0x0039 // COZIES: param is shadow distance above floor, scales if floor is an object
+#define SURFACE_SHADOW_OFFSET_TRANSPARENT    0x003A // COZIES: param is shadow distance above floor, scales if floor is an object, renders as transparent inter
+#define SURFACE_SHADOW_NO_SLIP               0x003B // COZIES: param is shadow distance above floor, scales if floor is an object, renders as transparent inter, not slippery
 #define SURFACE_BOSS_FIGHT_CAMERA            0x0065 // Wide camera for BOB and WF bosses
 #define SURFACE_CAMERA_FREE_ROAM             0x0066 // Free roam camera for THI and TTC
 #define SURFACE_THI3_WALLKICK                0x0068 // Surface where there's a wall kick section in THI 3rd area, has no action defined

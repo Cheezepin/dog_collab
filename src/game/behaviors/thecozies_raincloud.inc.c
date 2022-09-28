@@ -214,7 +214,7 @@ void rain_cloud_loop(void) {
         &o->header.gfx.scale[1], &o->oRainCloudScaleVel, scaleGoal,
         RAIN_CLOUD_SNAP_STRENGTH_SCALE_UP, RAIN_CLOUD_SNAP_STRENGTH_SCALE_DOWN);
 
-    if (gMarioState->vel[1] > 0.0f && gMarioState->pos[1] < o->oPosY + 180.0f) {
+    if (gMarioState->vel[1] > 0.0f && gMarioState->pos[1] < o->oPosY + (138.0f*o->header.gfx.scale[1])) {
         o->activeFlags |= ACTIVE_FLAG_IN_DIFFERENT_ROOM;
     }
 
