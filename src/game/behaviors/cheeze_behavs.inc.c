@@ -213,6 +213,8 @@ void bhv_koopatrol_loop(void) {
             o->oPosX = o->oHomeX;
             o->oPosY = o->oHomeY;
             o->oPosZ = o->oHomeZ;
+            print_text_fmt_int(20, 20, "%d", o->oRoom);
+            print_text_fmt_int(20, 40, "%d", gMarioCurrentRoom);
             if(gMarioCurrentRoom == o->oRoom || !(o->activeFlags & ACTIVE_FLAG_FAR_AWAY)) {
                 o->oAction = 0;
             }

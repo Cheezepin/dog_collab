@@ -24,7 +24,7 @@ void bhv_sand_pile(void) {
                 }
             if (o->header.gfx.scale[1] > 0.2f) {
                 o->parentObj->oPosY = o->oHomeY+((o->header.gfx.scale[1]/255.0f)*100.0f);
-                o->header.gfx.scale[1] -= 0.04f;
+                o->header.gfx.scale[1] -= 0.06f;
             } else {
                 o->oAction = 2;
             }

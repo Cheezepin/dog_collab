@@ -272,7 +272,7 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
                 cur_obj_play_sound_2(SOUND_ACTION_QUICKSAND_STEP);
                 }
             if (o->oOpacity  > 20.0f) {
-                o->oOpacity -= 2.0f;
+                o->oOpacity -= 5.0f;
                 obj_scale(o,o->oOpacity/255.0f);
                 o->parentObj->oPosY = o->oHomeY+((o->oOpacity/255.0f)*100.0f);
                 }
