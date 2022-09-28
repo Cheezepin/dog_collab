@@ -102,6 +102,13 @@ void scroll_sts_mat_ddd_dl_f3dlite_material_002_layer1() {
 	shift_t(mat, 21, PACK_TILESIZE(0, 1));
 };
 
+void scroll_sts_mat_ddd_dl_whispy_layer5() {
+	Gfx *mat = segmented_to_virtual(mat_ddd_dl_whispy_layer5);
+	shift_s(mat, 15, PACK_TILESIZE(0, 2));
+	shift_t(mat, 15, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 23, PACK_TILESIZE(0, 2));
+};
+
 void scroll_sts_mat_ddd_dl_goooooooop_layer1() {
 	Gfx *mat = segmented_to_virtual(mat_ddd_dl_goooooooop_layer1);
 	shift_t_down(mat, 13, PACK_TILESIZE(0, 1));
@@ -184,6 +191,7 @@ void scroll_ddd() {
 	scroll_sts_mat_ddd_dl_rains_001_layer7();
 	scroll_ddd_dl_AcrossTheGap_001_mesh_layer_1_vtx_0();
 	scroll_sts_mat_ddd_dl_f3dlite_material_002_layer1();
+	scroll_sts_mat_ddd_dl_whispy_layer5();
 	scroll_sts_mat_ddd_dl_goooooooop_layer1();
 	scroll_sts_mat_ddd_dl_f3dlite_material_003_layer5();
 	scroll_sts_mat_ddd_dl_water_material_number_4080_layer5();

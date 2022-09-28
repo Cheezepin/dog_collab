@@ -6,6 +6,7 @@ extern void scroll_sts_mat_ddd_dl_monitors_001_v5_layer5();
 extern void scroll_sts_mat_ddd_dl_rains_001_layer7();
 extern void scroll_ddd_dl_AcrossTheGap_001_mesh_layer_1_vtx_0();
 extern void scroll_sts_mat_ddd_dl_f3dlite_material_002_layer1();
+extern void scroll_sts_mat_ddd_dl_whispy_layer5();
 extern void scroll_sts_mat_ddd_dl_goooooooop_layer1();
 extern void scroll_sts_mat_ddd_dl_f3dlite_material_003_layer5();
 extern void scroll_sts_mat_ddd_dl_water_material_number_4080_layer5();

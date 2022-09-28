@@ -21,6 +21,12 @@ void spring_towards(f32 *cur, f32 *curVel, f32 goal, f32 speed, f32 dampen) {
     *cur = *cur + *curVel;
 }
 
+void spring_towards_vec3f(Vec3f cur, Vec3f curVel, Vec3f goal, f32 speed, f32 dampen) {
+    spring_towards(&cur[0], &curVel[0], goal[0], speed, dampen);
+    spring_towards(&cur[1], &curVel[1], goal[1], speed, dampen);
+    spring_towards(&cur[2], &curVel[2], goal[2], speed, dampen);
+}
+
 s16 approach_dir(s16 curYaw, s16 target, f32 speed) {
     return (s16) (target - approach_f32_asymptotic(
         (s16) (target - curYaw),

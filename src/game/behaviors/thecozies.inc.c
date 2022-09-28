@@ -34,10 +34,35 @@ s16 water_top_cumulative_y(Waters *frames, s32 group, s32 frame) {
 
 // called from mario_actions_submerged
 void set_water_top_force(struct MarioState *m) {
+    struct Object *watertop = m->water->object;
+
     f32 distFromWaterTop = m->pos[1] - (m->waterLevel - 80.0f);
     f32 waterVel = (f32)(m->waterLevel - m->prevWaterLevel);
     f32 maxdist = waterVel > 0.0f ? UP_THRESHOLD : DOWN_THRESHOLD;
-    
+
+    if (TRUE) {
+        Vec3f centerPos = {
+            watertop->oPosX,
+            watertop->oPosY + watertop->oWaterTopY - 80.0f,
+            watertop->oPosZ
+        };
+        f32 dX = centerPos[0] - m->pos[0];
+        f32 dY = centerPos[1] - m->pos[1];
+        f32 dZ = centerPos[2] - m->pos[2];
+        f32 distFromCenterSqr = sqr(dX) + sqr(dY) + sqr(dZ);
+
+        if (distFromCenterSqr < sqr(2000)) {
+            f32 fac = smooth_fac(get_lerp(sqrtf(distFromCenterSqr), 2000, 0));
+            f32 speed = fac * 0.15f;
+            f32 dampen = lerp(1.0f, 0.5f, fac);
+
+            // using dummy because pos will be updated soon enough
+            Vec3f posDummy;
+            vec3f_copy(posDummy, m->pos);
+            spring_towards_vec3f(posDummy, m->vel, centerPos, speed, dampen);
+        }
+    }
+
     // check if mario is too far from the surface to be affected
     if (distFromWaterTop < maxdist)
     {
@@ -93,6 +118,7 @@ void water_top_loop(void) {
 
     while (numVertices && group < 6) {
         s16 cum = water_top_cumulative_y(frames, group, frame);
+        if (group == 0) o->oWaterTopY = (f32)cum;
         while (left-- > 0) {
             struct WaterColVertex *vert = &vertices[i];
             vert->y = cum;
