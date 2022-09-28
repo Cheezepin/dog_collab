@@ -13151,7 +13151,7 @@ Gfx mat_revert_ssl_dl_Brick_slip_layer1_area1[] = {
 
 Gfx mat_ssl_dl_Paw_print_walk_001[] = {
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, TEXEL0, 0, 0, 0, TEXEL0, 0, SHADE, 0, TEXEL0, 0, 0, 0),
+	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, TEXEL0, TEXEL0, 0, SHADE, 0, 0, 0, 0, TEXEL0),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, ssl_dl_Brown_paw_ci4_pal_rgba16),

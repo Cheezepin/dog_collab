@@ -939,6 +939,7 @@ void cur_obj_update(void) {
             || distanceFromMario < o->oDrawingDistance
         ) { 
             cur_obj_enable_rendering_if_mario_in_room();
+            o->activeFlags &= ~ACTIVE_FLAG_FAR_AWAY;
         } else {
             o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
             o->activeFlags |= ACTIVE_FLAG_FAR_AWAY;

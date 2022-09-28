@@ -8119,7 +8119,7 @@ const BehaviorScript bhvKoopatrol[] = {
     SET_HOME(),
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 50, /*Gravity*/ -400, /*Bounciness*/ 0, /*Drag strength*/ 0, /*Friction*/ 1000, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
     SCALE(/*Unused*/ 0, /*Field*/ 150),
-    SET_FLOAT(oDrawingDistance, 4000),
+    SET_FLOAT(oDrawingDistance, 16000),
     SET_FLOAT(oKoopaAgility, 1),
     CALL_NATIVE(bhv_init_room),
     CALL_NATIVE(bhv_koopatrol_init),
