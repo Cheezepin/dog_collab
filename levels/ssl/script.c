@@ -35,15 +35,6 @@ const LevelScript level_ssl_entry[] = {
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_1), 
 	JUMP_LINK(script_func_global_6), 
-	LOAD_MODEL_FROM_GEO(MODEL_SSL_PALM_TREE, palm_tree_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_LEVEL_GEOMETRY_03, ssl_geo_0005C0), 
-	LOAD_MODEL_FROM_GEO(MODEL_LEVEL_GEOMETRY_04, ssl_geo_0005D8), 
-	LOAD_MODEL_FROM_GEO(MODEL_SSL_PYRAMID_TOP, ssl_geo_000618), 
-	LOAD_MODEL_FROM_GEO(MODEL_SSL_GRINDEL, ssl_geo_000734), 
-	LOAD_MODEL_FROM_GEO(MODEL_SSL_SPINDEL, ssl_geo_000764), 
-	LOAD_MODEL_FROM_GEO(MODEL_SSL_MOVING_PYRAMID_WALL, ssl_geo_000794), 
-	LOAD_MODEL_FROM_GEO(MODEL_SSL_PYRAMID_ELEVATOR, ssl_geo_0007AC), 
-	LOAD_MODEL_FROM_GEO(MODEL_SSL_TOX_BOX, ssl_geo_000630), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -76,7 +67,7 @@ const LevelScript level_ssl_entry[] = {
 		OBJECT(MODEL_NONE, -5296, 5334, 286, 0, 0, 0, (2 << 16), bhvCoinFormation),
 		OBJECT(MODEL_NONE, 7277, 4153, 427, 0, -62, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 7867, 4675, 112, 0, 0, 0, (1 << 16), bhvCoinFormation),
-		OBJECT(MODEL_DOG, 3961, -2563, 6546, 0, 129, 0, 0x00000000, bhvSpiresDog),
+		OBJECT(MODEL_DOG, 3961, -2590, 6546, 0, 129, 0, 0x00000000, bhvSpiresDog),
 		OBJECT(MODEL_DOG, -9408, 3023, 3022, 0, 129, 0, (1 << 16), bhvSpiresDog),
 		OBJECT(MODEL_STAR, 2605, 7235, 1978, 0, 0, 0, 0x00000000, bhvStar),
 		OBJECT(MODEL_STAR, -15915, 3570, -2063, 0, 0, 0, (1 << 24), bhvStar),
