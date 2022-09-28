@@ -893,6 +893,10 @@ struct Object *ashpile;
         o->oAction = BOWSER_ACT_LIGHTNING_2;
         o->oForwardVel = 0.0f;
         }}
+    if (o->oBowserDistToCenter > 3200.0f){
+        o->oPosX = ashpile->oPosX;
+        o->oPosZ = ashpile ->oPosZ;
+    }
 }
 void bowser_act_lightning_pt2(void){
     struct Object *lightning;
@@ -1146,6 +1150,10 @@ void bowser_act_multi_jump (void){
         o->oAction = BOWSER_ACT_ELECTRIC_EXPANSION;
         o->oForwardVel = 0.0f;
         }}
+    if (o->oBowserDistToCenter > 3200.0f){
+        o->oPosX = ashpile->oPosX;
+        o->oPosZ = ashpile ->oPosZ;
+    }
 }
 
 
