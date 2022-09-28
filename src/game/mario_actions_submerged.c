@@ -246,7 +246,10 @@ static u32 perform_water_step(struct MarioState *m) {
         if (ABS(m->waterForce) > 0.1f) {
             m->vel[1] += m->waterForce;
             m->vel[1] = MAX(m->vel[1], -75.0f);
-            if (m->waterForce > EXIT_VEL) canExitWaterWithMomentum = TRUE;
+            if (m->waterForce > EXIT_VEL) {
+                m->vel[1] = MIN(m->vel[1], 320.0f);
+                canExitWaterWithMomentum = TRUE;
+            }
         }
     }
 

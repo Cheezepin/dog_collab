@@ -1370,6 +1370,8 @@
 
 #define oWaterAtGoal                        OBJECT_FIELD_S32(0x1B)
 #define oWaterBobTimer                      OBJECT_FIELD_S32(0x1C)
+
+#define oWaterTopY                          OBJECT_FIELD_F32(0x1B)
 // thecozies end
 
 /*Custom general defines:
