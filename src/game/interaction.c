@@ -1999,10 +1999,10 @@ void check_hurt_floor(struct MarioState *m) {
                 take_damage_from_no_interact_object(m, 2);
             }
             else {
-                if (level_trigger_warp(m, WARP_OP_WARP_FLOOR) == 20 && !(m->flags & MARIO_FALL_SOUND_PLAYED)) {
+                //if (level_trigger_warp(m, WARP_OP_WARP_FLOOR) == 20 && !(m->flags & MARIO_FALL_SOUND_PLAYED)) {
                     take_damage_from_no_interact_object(m, 2);
                     play_sound(SOUND_MARIO_WAAAOOOW, m->marioObj->header.gfx.cameraToObject);
-                }
+                //}
             }
         }
         

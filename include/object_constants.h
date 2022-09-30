@@ -1555,6 +1555,7 @@ enum animIDsSwoop {
     /* oAction */
     #define GOOMBA_TRIPLET_SPAWNER_ACT_UNLOADED             0x0
     #define GOOMBA_TRIPLET_SPAWNER_ACT_LOADED               0x1
+    #define GALOOMBA_TRIPLET_SPAWNER_ACT_UNLOAD             0x69
 
 /* Goomba */
     /* oBehParams2ndByte */

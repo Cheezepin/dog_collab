@@ -7,7 +7,7 @@ void bhv_koko_triplet_spawner_update(void) {
 
     // If mario is close enough and the Kokos aren't currently loaded, then
     // spawn them
-    if (o->oAction == GOOMBA_TRIPLET_SPAWNER_ACT_UNLOADED) {
+    if (o->oAction == GALOOMBA_TRIPLET_SPAWNER_ACT_UNLOAD) {
         if (o->oDistanceToMario < 3000.0f) {
             // The spawner is capable of spawning more than 3 Kokos, but this
             // is not used in the game
@@ -25,11 +25,11 @@ void bhv_koko_triplet_spawner_update(void) {
                 }
             }
 
-            o->oAction++;
+            o->oAction = 1;
         }
     } else if (o->oDistanceToMario > 4000.0f) {
         // If mario is too far away, enter the unloaded action. The Kokos
         // will detect this and unload themselves
-        o->oAction = GOOMBA_TRIPLET_SPAWNER_ACT_UNLOADED;
+        o->oAction = GALOOMBA_TRIPLET_SPAWNER_ACT_UNLOAD;
     }
 }
