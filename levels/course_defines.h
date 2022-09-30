@@ -21,7 +21,7 @@ DEFINE_COURSE(COURSE_LLL, 0x44444440) // (7)  Lethal Lava Land (Yoshi Milkman, F
 DEFINE_COURSE(COURSE_SSL, 0x44444440) // (8)  Shifting Sand Land (Reonu, Floating Lava Lands)
 DEFINE_COURSE(COURSE_DDD, 0x22222240) // (9)  Dire Dire Docks (thecozies, Bowser's Scuba Tower)
 DEFINE_COURSE(COURSE_SL, 0x44444440) // (10) Snowman's Land (axollyon, Upside-Down Ocean)
-DEFINE_COURSE(COURSE_WDW, 0x22102240) // (11) Wet Dry World (ashley, Mapel Markindon)
+DEFINE_COURSE(COURSE_WDW, 0x44444440) // (11) Wet Dry World (ashley, Mapel Markindon)
 DEFINE_COURSE(COURSE_TTM, 0x00000040) // (12) Tall Tall Mountain
 DEFINE_COURSE(COURSE_THI, 0x11112140) // (13) Tiny Huge Island
 DEFINE_COURSE(COURSE_TTC, 0x22222240) // (14) Tick Tock Clock

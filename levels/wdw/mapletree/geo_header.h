@@ -1,0 +1,14 @@
+extern const GeoLayout mapletree_geo[];
+extern u8 mapletree__0_ci8[];
+extern u8 mapletree__0_ci8_pal_rgba16[];
+extern u8 mapletree_TreeLeaves_rgba16[];
+extern Vtx mapletree_Tree_mesh_layer_1_vtx_0[148];
+extern Gfx mapletree_Tree_mesh_layer_1_tri_0[];
+extern Vtx mapletree_Tree_mesh_layer_1_vtx_1[128];
+extern Gfx mapletree_Tree_mesh_layer_1_tri_1[];
+extern Gfx mat_mapletree__0_f3d[];
+extern Gfx mat_revert_mapletree__0_f3d[];
+extern Gfx mat_mapletree_vleaves_001[];
+extern Gfx mat_revert_mapletree_vleaves_001[];
+extern Gfx mapletree_Tree_mesh_layer_1[];
+extern Gfx mapletree_material_revert_render_settings[];

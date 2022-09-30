@@ -22,3 +22,8 @@
 #include "levels/wdw/rotating_platform/geo.inc.c"
 #include "levels/wdw/areas/1/geo.inc.c"
 #include "levels/wdw/areas/2/geo.inc.c"
+
+#include "levels/wdw/geo.inc.c"
+
+#include "levels/wdw/mapletree/geo.inc.c"
+#include "levels/wdw/sakseed/geo.inc.c"
