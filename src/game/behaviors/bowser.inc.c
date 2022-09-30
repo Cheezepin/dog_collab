@@ -963,6 +963,7 @@ void bowser_act_snow(void) {
             if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 2) {
                 gCamera->cutscene = 0;
                 o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+                o->oMoveAnglePitch = o->oMoveAngleRoll = o->oFaceAnglePitch = o->oFaceAngleRoll = 0;
                 set_mario_action(gMarioState, ACT_IDLE, 0);
             }
         }

@@ -1320,7 +1320,9 @@ s32 check_cozy_volumes(struct Camera *c, struct MarioState *m) {
         return TRUE;
     }
 
-    set_fov_function(CAM_FOV_DEFAULT); // also reset from focus/pos volumes
+    if (sFOVState.fovFunc != CAM_FOV_DEFAULT) {
+        set_fov_function(CAM_FOV_DEFAULT); // also reset from focus/pos volumes
+    }
 
     c->cozyVolId = 0;
     c->curVolume = NULL;

@@ -7926,6 +7926,19 @@ const BehaviorScript bhvTubeTop[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvCozyWarpPad[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(cozy_warp_pad_collision),
+    SET_FLOAT(oDrawingDistance, BASE_DRAW_DIST),
+    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(bhv_cozy_warp_pad_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+        CALL_NATIVE(bhv_cozy_warp_pad_loop),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvShyguyScuba[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),

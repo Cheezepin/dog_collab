@@ -5,9 +5,7 @@
 
 void water_switch_init(void) {
     o->oWaterSwitchOffset = WATER_SWITCH_OFFSET;
-    if (gCurrActNum > (s16)(u8)BPARAM1) { // x star in DDD complete
-        o->oWaterSwitchActivated = TRUE;
-    }
+    o->oWaterSwitchActivated = check_min_star_collected((u8)BPARAM1);
 } 
 
 s16 original_water_col_positions[] = {
@@ -85,7 +83,7 @@ Gfx *geo_water_switch_activation(s32 callContext, struct GraphNode *node, UNUSED
         struct Object *obj = (struct Object *) gCurGraphNodeObject;
         if (currentGraphNode->parameter != 0) SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, currentGraphNode->parameter);
 
-        dlStart = alloc_display_list(sizeof(Gfx) * 2);
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
         dlHead = dlStart;
 
         ((struct GraphNodeTranslation *) node->next)->translation[1] = roundf(obj->oWaterSwitchOffset);
@@ -95,6 +93,7 @@ Gfx *geo_water_switch_activation(s32 callContext, struct GraphNode *node, UNUSED
         } else {
             gDPSetEnvColor(dlHead++, 255*(2.0f/3.0f), 123*(2.0f/3.0f), 10*(2.0f/3.0f), 255);
         }
+        gDPPipeSync(dlHead++);
         gSPEndDisplayList(dlHead);
     }
 
