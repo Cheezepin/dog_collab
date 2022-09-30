@@ -704,6 +704,8 @@ void bhv_door_cutscene_loop(void);
 //Koopa Atoll Objects
 void bhv_koko_triplet_spawner_update(void);
 void bhv_sand_pile(void);
+void bhv_sand_pillar_init(void);
+void bhv_sand_pillar_loop(void);
 //Koopa Atoll Objects ^
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);

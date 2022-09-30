@@ -8,7 +8,6 @@
 #include "group1.h"
 
 #include "yellow_sphere_small/geo.inc.c"
-#include "hoot/geo.inc.c"
 #include "yoshi_egg/geo.inc.c"
 #include "thwomp/geo.inc.c"
 #include "bullet_bill/geo.inc.c"

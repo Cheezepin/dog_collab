@@ -8,7 +8,7 @@ const GeoLayout jetski_geo[] = {
 			GEO_SCALE(LAYER_FORCE, 65536),
 			GEO_OPEN_NODE(),
 				GEO_DISPLAY_LIST(LAYER_OPAQUE, jetski_000_displaylist_mesh_layer_1),
-				GEO_TRANSLATE_ROTATE(LAYER_OPAQUE, 0, 98, 103, -1, 180, 0),
+				GEO_TRANSLATE_ROTATE(LAYER_OPAQUE, 0, 0, 0, -1, 180, 0),
 				GEO_OPEN_NODE(),
 					GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, jetski_head_mesh_layer_1),
 				GEO_CLOSE_NODE(),

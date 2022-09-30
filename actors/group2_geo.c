@@ -8,3 +8,4 @@
 #include "group2.h"
 
 #include "bully/geo.inc.c"
+#include "hoot/geo.inc.c"
