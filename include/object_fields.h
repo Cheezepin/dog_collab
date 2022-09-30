@@ -1372,6 +1372,10 @@
 #define oWaterBobTimer                      OBJECT_FIELD_S32(0x1C)
 
 #define oWaterTopY                          OBJECT_FIELD_F32(0x1B)
+
+#define oWarpPadNext                        OBJECT_FIELD_OBJ(0x1B)
+#define oWarpPadActive                      OBJECT_FIELD_S32(0x1C)
+#define oWarpPadWarpOpa                     OBJECT_FIELD_S32(0x1D)
 // thecozies end
 
 /*Custom general defines:

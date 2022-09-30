@@ -31,7 +31,7 @@ struct CellCoords {
 };
 // cozies: increased the size of sCellsUsed here because it gave me a significant time save
 // my max number of cells used was 136
-struct CellCoords sCellsUsed[150];
+struct CellCoords sCellsUsed[180];
 u16 sNumCellsUsed = 0;
 u8 sClearAllCells;
 

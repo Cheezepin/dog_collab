@@ -1,3 +1,4 @@
+#include "levels/ddd/cozy_warp_pad/texscroll.inc.h"
 #include "levels/ddd/water_plane2_ctrl_room/texscroll.inc.h"
 #include "levels/ddd/water_plane1/texscroll.inc.h"
 #include "levels/ddd/water_switch/texscroll.inc.h"
