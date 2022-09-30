@@ -100,4 +100,8 @@ extern const LevelScript level_ddd_entry[];
 #include "levels/ddd/misc_vars/misc_vars.h"
 #include "levels/ddd/the_20_coin/geo_header.h"
 
+#include "levels/ddd/cozy_warp_pad/geo_header.h"
+
+#include "levels/ddd/cozy_warp_pad/collision_header.h"
+
 #endif

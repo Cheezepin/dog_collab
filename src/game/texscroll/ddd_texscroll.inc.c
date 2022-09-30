@@ -9,6 +9,7 @@
 #include "levels/ddd/water_plane2_ctrl_room/texscroll.inc.c"
 #include "levels/ddd/water_plane3_purp_room/texscroll.inc.c"
 #include "levels/ddd/water_plane4_whirlpool/texscroll.inc.c"
+#include "levels/ddd/cozy_warp_pad/texscroll.inc.c"
 void scroll_textures_ddd() {
 		scroll_ddd();
 	scroll_ddd_level_geo_water_top();
@@ -20,4 +21,5 @@ void scroll_textures_ddd() {
 	scroll_ddd_level_geo_water_plane2_ctrl_room();
 	scroll_ddd_level_geo_water_plane3_purp_room();
 	scroll_ddd_level_geo_water_plane4_whirlpool();
+	scroll_ddd_level_geo_cozy_warp_pad();
 }
