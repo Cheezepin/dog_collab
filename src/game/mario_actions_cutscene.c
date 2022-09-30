@@ -2675,6 +2675,7 @@ s32 act_floor_checkpoint_warp_out(struct MarioState *m) {
         m->fadeWarpOpacity = (u8)MIN_MAX(get_relative_position_between_ranges(m->actionTimer, 1.0f, SLOW_WARP_LEN, 255.0f, 0.0f), 0, 255);
         if (m->actionArg == 0) {
             vec3_zero(m->vel);
+            vec3f_copy(m->marioObj->header.gfx.pos, m->pos);
         }
         else if (m->pos[1] < m->floorHeight + 2.0f) {
             m->vel[0] = CLAMP(m->vel[0], -2, 2); 
