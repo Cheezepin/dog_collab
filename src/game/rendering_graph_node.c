@@ -18,6 +18,7 @@
 #include "string.h"
 #include "behaviors/thecozies_helpers.h"
 #include "color_presets.h"
+#include "render_fog.h"
 
 #include "config.h"
 #include "config/config_world.h"
@@ -278,6 +279,8 @@ void switch_ucode(s32 ucode) {
 Mat4 *viewMat;
 s32 gReadyForLookAt = FALSE;
 s32 gCameraIsUnderwater = FALSE;
+
+extern struct GlobalFog gGlobalFog;
 // thecozies end
 
 #include "actors/common1.h"
@@ -307,11 +310,11 @@ void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
     // As a result, environment mapping is broken on Fast3DEX2 without the
     // changes below.
     Mtx lMtx;
- #ifdef FIX_REFLECT_MTX
-    guLookAtReflect(&lMtx, &lookAt, 0.0f, 0.0f, 0.0f, /* eye */ 0.0f, 0.0f, 1.0f, /* at */ 0.0f, -1.0f, 0.0f /* up */);
- #else
-    guLookAtReflect(&lMtx, &lookAt, 0.0f, 0.0f, 0.0f, /* eye */ 0.0f, 0.0f, 1.0f, /* at */ 1.0f, 0.0f, 0.0f /* up */);
- #endif
+    if (gCurrLevelNum == LEVEL_COZIES) {
+        guLookAtReflect(&lMtx, &lookAt, 0.0f, 0.0f, 0.0f, /* eye */ 0.0f, 0.0f, 1.0f, /* at */ 0.0f, -1.0f, 0.0f /* up */);
+    } else {
+        guLookAtReflect(&lMtx, &lookAt, 0.0f, 0.0f, 0.0f, /* eye */ 0.0f, 0.0f, 1.0f, /* at */ 1.0f, 0.0f, 0.0f /* up */);
+    }
 #endif // F3DEX_GBI_2
 
     // Loop through the render phases
@@ -351,6 +354,11 @@ void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
                                                      mode2List->modes[currLayer]);
             }
 #endif
+            if (gCurrLevelNum == LEVEL_COZIES) {
+                gDPSetFogColor(gDisplayListHead++, gGlobalFog.r, gGlobalFog.g, gGlobalFog.b, gGlobalFog.a);
+                gSPFogPosition(gDisplayListHead++, gGlobalFog.low, gGlobalFog.high);
+            }
+
             // Iterate through all the displaylists on the current layer.
             while (currList != NULL) {
                 // Add the display list's transformation to the master list.
@@ -593,6 +601,7 @@ void geo_process_camera(struct GraphNodeCamera *node) {
         gCollisionFlags |= COLLISION_FLAG_CAMERA;
         gCameraIsUnderwater = find_water_level(gCamera->pos[0], gCamera->pos[2]) > gCamera->pos[1];
         gCollisionFlags = checkingTemp;
+        update_global_fog_ddd();
     }
     // thecozies end
 
@@ -1123,7 +1132,7 @@ void geo_process_object(struct Object *node) {
 
             if (node->header.gfx.sharedChild != NULL) {
 #ifdef VISUAL_DEBUG
-                if (hitboxView) visualise_object_hitbox(node);
+                // if (hitboxView) visualise_object_hitbox(node);
 #endif
                 gCurGraphNodeObject = (struct GraphNodeObject *) node;
                 node->header.gfx.sharedChild->parent = &node->header.gfx.node;
@@ -1176,14 +1185,14 @@ void geo_process_held_object(struct GraphNodeHeldObject *node) {
     if (node->objNode != NULL && node->objNode->header.gfx.sharedChild != NULL) {
         vec3_prod_val(translation, node->translation, 0.25f);
 
-        if(gCurrLevelNum == LEVEL_BOWSER_2) {
+        /*if(gCurrLevelNum == LEVEL_BOWSER_2) {
             Vec3s rotation = {0, 0x4000, 0};
             vec3f_set(translation, 30.0f, -35.0f, -5.0f);
             mtxf_translate(mat, translation);
             //rotate 90 deg
-        } else {
+        } else {*/ //dog debug
             mtxf_translate(mat, translation);
-        }
+        //}
         mtxf_copy(gMatStack[gMatStackIndex + 1], *gCurGraphNodeObject->throwMatrix);
         vec3f_copy(gMatStack[gMatStackIndex + 1][3], gMatStack[gMatStackIndex][3]);
         mtxf_copy(tempMtx, gMatStack[gMatStackIndex + 1]);

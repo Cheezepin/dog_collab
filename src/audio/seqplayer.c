@@ -7,6 +7,8 @@
 #include "load.h"
 #include "seqplayer.h"
 
+f32 gPitchChange = 1.0f;
+
 #ifdef VERSION_SH
 void seq_channel_layer_process_script_part1(struct SequenceChannelLayer *layer);
 s32 seq_channel_layer_process_script_part2(struct SequenceChannelLayer *layer);

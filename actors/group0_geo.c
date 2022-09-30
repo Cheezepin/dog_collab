@@ -35,3 +35,5 @@
 #include "podoboo/geo.inc.c"
 #include "cephie/geo.inc.c"
 #include "koopatrol/geo.inc.c"
+#include "chain_chomp_bowser/geo.inc.c"
+#include "chain_ball_bowser/geo.inc.c"

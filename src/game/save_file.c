@@ -570,7 +570,7 @@ void save_file_clear_flags(u32 flags) {
 }
 
 u32 save_file_get_flags(void) {
-#ifdef COMPLETE_SAVE_FILE
+#if defined(COMPLETE_SAVE_FILE) || defined(UNLOCK_ALL)
     return (SAVE_FLAG_FILE_EXISTS            |
             SAVE_FLAG_HAVE_WING_CAP          |
             SAVE_FLAG_HAVE_METAL_CAP         |

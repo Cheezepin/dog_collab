@@ -14,10 +14,11 @@
 #define SURFACE_SLOW                         0x0009 // Slow down Mario, unused
 #define SURFACE_DEATH_PLANE                  0x000A // Death floor
 #define SURFACE_CLOSE_CAMERA                 0x000B // Close camera
-#define SURFACE_INTERACT_SHOCK               0x000C // Surface with INTERACT_SHOCK incomplete rn
+#define SURFACE_INTERACT_SHOCK               0x000C // Surface with INTERACT_SHOCK
 #define SURFACE_WATER                        0x000D // Water, has no action, used on some waterboxes below
 #define SURFACE_FLOWING_WATER                0x000E // Water (flowing), has parameters
 #define SURFACE_HURT_FLOOR                   0x000F // Force controls the amount of damage it gives
+#define SURFACE_HURT_FLOOR_WITH_HEIGHT       0x0010 // Force controls the height above the floor where it works, damage is 0x100
 #define SURFACE_INTANGIBLE                   0x0012 // Intangible (Separates BBH mansion from merry-go-round, for room usage)
 #define SURFACE_VERY_SLIPPERY                0x0013 // Very slippery, mostly used for slides
 #define SURFACE_SLIPPERY                     0x0014 // Slippery
@@ -50,6 +51,9 @@
 #define SURFACE_HARD_VERY_SLIPPERY           0x0036 // Hard and very slippery (Always has fall damage)
 #define SURFACE_HARD_NOT_SLIPPERY            0x0037 // Hard and Non-slippery (Always has fall damage)
 #define SURFACE_VERTICAL_WIND                0x0038 // Death at bottom with vertical wind
+#define SURFACE_SHADOW_OFFSET                0x0039 // COZIES: param is shadow distance above floor, scales if floor is an object
+#define SURFACE_SHADOW_OFFSET_TRANSPARENT    0x003A // COZIES: param is shadow distance above floor, scales if floor is an object, renders as transparent inter
+#define SURFACE_SHADOW_NO_SLIP               0x003B // COZIES: param is shadow distance above floor, scales if floor is an object, renders as transparent inter, not slippery
 #define SURFACE_BOSS_FIGHT_CAMERA            0x0065 // Wide camera for BOB and WF bosses
 #define SURFACE_CAMERA_FREE_ROAM             0x0066 // Free roam camera for THI and TTC
 #define SURFACE_THI3_WALLKICK                0x0068 // Surface where there's a wall kick section in THI 3rd area, has no action defined
@@ -250,7 +254,7 @@ enum TerrainType {
 
 // Floor Checkpoint
 #define FLOOR_CHECKPOINT_FORCE 0xFCE
-#define SURFACE_IS_WARP_PLANE(surfType) (surfType == SURFACE_DEATH_PLANE || surfType == SURFACE_HURT_FLOOR /*|| surfType == SURFACE_VERTICAL_WIND*/)
+#define SURFACE_IS_WARP_PLANE(surfType) (surfType == SURFACE_DEATH_PLANE || surfType == SURFACE_HURT_FLOOR || surfType == SURFACE_HURT_FLOOR_WITH_HEIGHT)
 
 // Custom Reonu surface types
 #define SURFACE_SUPER_SLIPPERY 0x0017

@@ -18,3 +18,4 @@
 #include "levels/bowser_2/geo.inc.c"
 
 #include "levels/bowser_2/snoulder/geo.inc.c"
+#include "levels/bowser_2/bowser_snowboard/geo.inc.c"

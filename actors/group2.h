@@ -49,4 +49,16 @@ extern const Gfx hoot_seg5_dl_05004CA8[];
 extern const Gfx hoot_seg5_dl_05004D48[];
 extern const struct Animation *const hoot_seg5_anims_05005768[];
 
+// seaweed
+extern const GeoLayout seaweed_geo[];
+extern const Gfx seaweed_seg6_dl_06009E50[];
+extern const Gfx seaweed_seg6_dl_06009E98[];
+extern const Gfx seaweed_seg6_dl_06009F48[];
+extern const Gfx seaweed_seg6_dl_06009F90[];
+extern const Gfx seaweed_seg6_dl_0600A040[];
+extern const Gfx seaweed_seg6_dl_0600A088[];
+extern const Gfx seaweed_seg6_dl_0600A138[];
+extern const Gfx seaweed_seg6_dl_0600A180[];
+extern const struct Animation *const seaweed_seg6_anims_0600A4D4[];
+
 #endif

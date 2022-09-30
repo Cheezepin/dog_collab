@@ -88,7 +88,7 @@ void bubble_shell_wait_for_collection(void) {
         && (gMarioState->action & ACT_FLAG_SWIMMING)
         && !(gMarioState->action & ACT_FLAG_METAL_WATER)
         && ((gMarioState->action & ACT_ID_MASK) < (ACT_HOLD_BREASTSTROKE & ACT_ID_MASK))
-        && !gMarioState->usedObj
+        // && !gMarioState->usedObj
         && !gMarioState->heldObj
     ) {
         cur_obj_change_action(BUBBLE_SHELL_WAIT_FOR_RESPAWN);

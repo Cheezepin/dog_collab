@@ -8,7 +8,7 @@
 #include "group13.h"
 
 #include "skeeter/geo.inc.c"
-#include "seaweed/geo.inc.c"
+// #include "seaweed/geo.inc.c"
 #include "water_mine/geo.inc.c"
 #include "cyan_fish/geo.inc.c"
 #include "bub/geo.inc.c"

@@ -216,6 +216,7 @@
 #define MODEL_BITDW_SPHERE                        0x1AD
 #define MODEL_GODDARD_CAGE                        0x1AF       // only used in Bowser battle 1, not ever used in bitdw
 #define MODEL_EMU_LASER_RING                      0x1B0
+#define MODEL_RAINBOW_STAR						  0x1B1
 
 // vcutm
 #define MODEL_VCUTM_SEESAW_PLATFORM               0x36        // vcutm_geo_0001F0
@@ -283,12 +284,22 @@
 #define MODEL_LLL_VOLCANO_FALLING_TRAP            0x53        // lll_geo_000EA8
 
 // ddd
-#define MODEL_DDD_WATER_TOP                       0x36
-#define MODEL_DDD_WATER_SPOUT                     0x37
-#define MODEL_RAIN_CLOUD                          0x38
-#define MODEL_DDD_APERATURE_DOOR                  0x39
-#define MODEL_FLOATY_ROCK                         0x3A
-#define MODEL_SHYGUY_SCUBA                        0x3E
+enum CoziesLevelModels {
+	MODEL_DDD_WATER_TOP = 0x36,
+	MODEL_DDD_WATER_SPOUT,
+	MODEL_RAIN_CLOUD,
+	MODEL_DDD_APERATURE_DOOR,
+	MODEL_FLOATY_ROCK,
+	MODEL_SHYGUY_SCUBA,
+	MODEL_WATER_SWITCH,
+	MODEL_FLIPPY_BITCH,
+	MODEL_WATER_PLANE1,
+	MODEL_WATER_PLANE2_CTRL_ROOM,
+	MODEL_WATER_PLANE3_PURP_ROOM,
+	MODEL_WATER_PLANE4_WHIRLPOOL,
+	MODEL_TUBE_TOP,
+	MODEL_20_COIN,
+};
 
 // wf
 #define MODEL_WF_BREAKABLE_WALL_RIGHT             0x36        // wf_geo_000B78
@@ -426,6 +437,8 @@
 #define MODEL_BOWSER_ELECTRIC_RING        0x70        // electric_ring_geo
 #define MODEL_RED_CIRCLE                  0x71        // red circle
 #define MODEL_LIGHTNING                   0x72        // lightning
+#define MODEL_METALLIC_BALL_BOWSER        0x12D        // metallic_ball_geo
+#define MODEL_CHAIN_CHOMP_BOWSER          0x12C        // chain_chomp
 
 // group 13
 #define MODEL_BUB                         0x64        // cheep_cheep_geo
@@ -627,6 +640,7 @@
 
 #define MODEL_SNOULDER 0x150
 #define MODEL_WARP_BOX 0x151
+#define MODEL_BOWSER_SNOWBOARD 0x152
 
 
 
@@ -656,6 +670,11 @@
 #define MODEL_FWOOSH_STEP_BUTTON          0x115
 
 //CowQuack start (play DTL64)
+
+#define MODEL_CHERRY_TREE	0x130
+#define MODEL_TREE_NUT	0x131
+#define MODEL_DIRT_PILE	0x132
+
 #define MODEL_CAROUSEL                    0x130
 #define MODEL_CIRCUS_POLE                    0x131
 #define MODEL_CLOWN_CLOCK                    0x132
@@ -740,6 +759,8 @@ enum _2639Models {
 #define MODEL_WF_CRATE 0x193
 #define MODEL_SANDPILE 0x194
 #define MODEL_SAND_PILLAR 0x195
+#define MODEL_SAND_SLOPE 0x196
+#define MODEL_KTQ_RING 0x197
 
 //Koopa Atoll Models ^
 

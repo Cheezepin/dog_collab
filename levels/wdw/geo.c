@@ -27,3 +27,6 @@
 
 #include "levels/wdw/mapletree/geo.inc.c"
 #include "levels/wdw/sakseed/geo.inc.c"
+#include "levels/wdw/tree_seed/geo.inc.c"
+#include "levels/wdw/cherry_tree/geo.inc.c"
+#include "levels/wdw/dirt_patch/geo.inc.c"

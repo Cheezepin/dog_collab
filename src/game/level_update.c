@@ -165,7 +165,7 @@ u16 level_control_timer(s32 timerOp) {
 
 u32 pressed_pause(void) {
     u32 dialogActive = get_dialog_id() >= 0;
-    u32 intangible = (gMarioState->action & ACT_FLAG_INTANGIBLE) != 0;
+    u32 intangible = (gMarioState->action & ACT_FLAG_INTANGIBLE) != 0 && !gMarioState->paralyzed;
 
     if (!intangible && !dialogActive && !gWarpTransition.isActive && sDelayedWarpOp == WARP_OP_NONE
         && (gPlayer1Controller->buttonPressed & START_BUTTON)) {
@@ -524,6 +524,10 @@ void do_the_vertical_instant_warp(void) {
     s16 cameraAngle = gMarioState->area->camera->yaw;
 
     change_area(warp->area);
+    // cozies: should not be allowed to exit area 3 to area 2 in my level
+    if (warp->area == 3) {
+        set_mario_action(gMarioState, ACT_SPAWN_SPIN_AIRBORNE, 0);
+    }
     gMarioState->area = gCurrentArea;
 
     warp_camera(warp->displacement[0], warp->displacement[1], warp->displacement[2]);
@@ -623,7 +627,7 @@ s16 music_unchanged_through_warp(s16 arg) {
 void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags) {
     if (destWarpNode >= WARP_NODE_CREDITS_MIN) {
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
-    } else if (destLevel != gCurrLevelNum || sSourceWarpNodeId == 0xF0) {
+    } else if (destLevel != gCurrLevelNum || sSourceWarpNodeId == 0xF0 || sSourceWarpNodeId == 0xF1) {
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
     } else if (destArea != gCurrentArea->index) {
         sWarpDest.type = WARP_TYPE_CHANGE_AREA;
@@ -1082,7 +1086,7 @@ s32 play_mode_normal(void) {
     if (gCurrentArea != NULL) {
         update_camera(gCurrentArea->camera);
     }
-
+    
     initiate_painting_warp();
     initiate_delayed_warp();
 
@@ -1226,7 +1230,7 @@ s32 update_level(void) {
 
     switch (sCurrPlayMode) {
         case PLAY_MODE_NORMAL:
-            changeLevel = play_mode_normal(); scroll_textures();
+            changeLevel = play_mode_normal(); scroll_textures(); 
             break;
         case PLAY_MODE_PAUSED:
             changeLevel = play_mode_paused();
@@ -1352,7 +1356,7 @@ s32 init_level(void) {
 #ifdef PUPPYPRINT_DEBUG_CYCLES
     append_puppyprint_log("Level loaded in %dc", (s32)(osGetTime() - first));
 #else
-    append_puppyprint_log("Level loaded in %dus", (s32)(OS_CYCLES_TO_USEC(osGetTime() - first)));
+    osSyncPrintf("Level loaded in %dus\n", (s32)(OS_CYCLES_TO_USEC(osGetTime() - first)));
 #endif
 #endif
     return TRUE;
@@ -1416,6 +1420,7 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
 
     
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
+	if (gCurrLevelNum == LEVEL_BOWSER_3) return 0;
 	if (gCurrLevelNum == LEVEL_WF) return 0;
 	if (gCurrLevelNum == LEVEL_CASTLE) return 0;
 	if (gCurrLevelNum == LEVEL_SSL) return 0;

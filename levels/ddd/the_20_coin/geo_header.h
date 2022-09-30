@@ -1,0 +1,17 @@
+extern const GeoLayout the_20_coin_geo[];
+extern Lights1 the_20_coin_thenumber20itself_lights;
+extern u8 the_20_coin_lila_env_mapp_ci4[];
+extern u8 the_20_coin_lila_env_mapp_ci4_pal_rgba16[];
+extern u8 the_20_coin__20_i8[];
+extern Vtx the_20_coin_The20Coin_mesh_layer_1_vtx_cull[8];
+extern Vtx the_20_coin_The20Coin_mesh_layer_1_vtx_0[86];
+extern Gfx the_20_coin_The20Coin_mesh_layer_1_tri_0[];
+extern Vtx the_20_coin_The20Coin_mesh_layer_6_vtx_cull[8];
+extern Vtx the_20_coin_The20Coin_mesh_layer_6_vtx_0[22];
+extern Gfx the_20_coin_The20Coin_mesh_layer_6_tri_0[];
+extern Gfx mat_the_20_coin_the20coinmat_layer1[];
+extern Gfx mat_revert_the_20_coin_the20coinmat_layer1[];
+extern Gfx mat_the_20_coin_thenumber20itself[];
+extern Gfx the_20_coin_The20Coin_mesh_layer_1[];
+extern Gfx the_20_coin_The20Coin_mesh_layer_6[];
+extern Gfx the_20_coin_material_revert_render_settings[];

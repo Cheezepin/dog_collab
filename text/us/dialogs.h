@@ -443,11 +443,8 @@ the camera in place while\n\
 holding " TEXT_RBUTTON ". Give it a try!")
 
 DEFINE_DIALOG(DIALOG_037, 1, 2, 30, 200, "\
-I win! You lose!\n\
-Ha ha ha ha!\n\
-You're no slouch, but I'm\n\
-a better sledder!\n\
-Better luck next time!")
+Ha! I got to the end\n\
+before you!")
 
 DEFINE_DIALOG(DIALOG_038, 1, 3, 95, 200, "\
 Reacting to the Star\n\
@@ -481,13 +478,9 @@ Warning!\n\
 Cold, Cold Crevasse\n\
 Below!")
 
-DEFINE_DIALOG(DIALOG_041, 1, 3, 30, 200, "\
-I win! You lose!\n\
-Ha ha ha!\n\
-\n\
-That's what you get for\n\
-messin' with Koopa the\n\
-Quick.\n\
+DEFINE_DIALOG(DIALOG_041, 1, 2, 30, 200, "\
+Ha! I got to the end\n\
+before you!\n\
 Better luck next time!")
 
 DEFINE_DIALOG(DIALOG_042, 1, 4, 30, 200, "\
@@ -1027,36 +1020,30 @@ So, how about it?\n\
 DEFINE_DIALOG(DIALOG_080, 1, 1, 30, 200, "\
 Eeeh hee hee hee!")
 
-DEFINE_DIALOG(DIALOG_081, 1, 4, 30, 200, "\
-The mystery is of Wet\n\
-or Dry.\n\
-And where does the\n\
-solution lie?\n\
-The city welcomes visitors\n\
-with the depth they bring\n\
-as they enter.")
+DEFINE_DIALOG(DIALOG_081, 1, 3, 30, 200, "\
+You got to the flag,\n\
+but you didn't hit\n\
+the five pillars.\n\
+Looks like I won\n\
+our bet!")
 
 DEFINE_DIALOG(DIALOG_082, 1, 4, 30, 200, "\
-Hold on to your hat! If\n\
-you lose it, you'll be\n\
-injured easily.\n\
+Hey, Mario! It's a\n\
+great day outside, so\n\
+I'd love to go on a\n\
+run, just like old times.\n\
+How about we race to\n\
+the little island across\n\
+the atoll?\n\
 \n\
-If you do lose your Cap,\n\
-you'll have to find it in\n\
-the course where you\n\
-lost it.\n\
-Oh, boy, it's not looking\n\
-good for Peach. She's\n\
-still trapped somewhere\n\
-inside the walls.\n\
-Please, Mario, you have\n\
-to help her! Did you know\n\
-that there are enemy\n\
-worlds inside the walls?\n\
-Yup. It's true. Bowser's\n\
-troops are there, too.\n\
-Oh, here, take this. I've\n\
-been keeping it for you.")
+Let's spice it up--hit\n\
+the five pillars in the\n\
+water, and then reach\n\
+the flag before me.\n\
+Whaddya say?\n\
+\n\
+\n\
+   Sure      Nope")
 
 DEFINE_DIALOG(DIALOG_083, 1, 6, 30, 200, "\
 There's something strange\n\
@@ -2057,4 +2044,7 @@ touch!\n\
 \n\
 ...provided you have\n\
 enough stars.")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_7, 1, 5, 95, 200, "\
+Ruff!")
 

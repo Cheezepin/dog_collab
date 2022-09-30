@@ -143,4 +143,5 @@ extern const Gfx dAmpEyeDl[];
 extern const Gfx dAmpMouthDl[];
 extern const Gfx dAmpBodyDl[];
 extern const struct Animation *const dAmpAnimsList[];
+
 #endif

@@ -1567,6 +1567,23 @@ void shade_screen_amount(int amount) {
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
 
+void shade_screen_col(int r, int g, int b, int a) {
+    create_dl_translation_matrix(MENU_MTX_PUSH, GFX_DIMENSIONS_FROM_LEFT_EDGE(0), SCREEN_HEIGHT, 0);
+
+    // This is a bit weird. It reuses the dialog text box (width 130, height -80),
+    // so scale to at least fit the screen.
+#ifndef WIDESCREEN
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 2.6f, 3.4f, 1.0f);
+#else
+    create_dl_scale_matrix(MENU_MTX_NOPUSH,
+                           GFX_DIMENSIONS_ASPECT_RATIO * SCREEN_HEIGHT / 130.0f, 3.0f, 1.0f);
+#endif
+
+    gDPSetEnvColor(gDisplayListHead++, r, g, b, a);
+    gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+}
+
 void print_animated_red_coin(s16 x, s16 y) {
     s32 globalTimer = gGlobalTimer;
 
@@ -2389,6 +2406,8 @@ void render_dog_keyboard(void) {
     }
 
     create_dl_translation_matrix(MENU_MTX_PUSH, 18.0f + (keyboardCursorX*24.0f), 128.0f - (keyboardCursorY*28.0f), 0.0f);
+    gDPSetRenderMode(gDisplayListHead++, G_RM_AA_OPA_SURF, G_RM_AA_OPA_SURF2);
+    gSPClearGeometryMode(gDisplayListHead++, G_ZBUFFER);
     gSPDisplayList(gDisplayListHead++, &icon_mesh);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
@@ -2514,25 +2533,26 @@ struct HubSelection hubSelections[3][6] = {
         {{8092.0f, -431.0f, -1894.0f}, {6292.0f, 2119.0f, -2359.0f}, 0x1C00, TEXT_B1I, TEXT_B1, TEXT_B1A, 0x6}, */
 
         {0x2C00, 0x900,  7184.0f, 0x2600, 0x1B00, 5000.0f, 0xF800, TEXT_C0I, TEXT_C0, TEXT_C0A, 0x1, 0},
-        {0x4000, 0x1100, 8795.0f, 0x3E00, 0x1F00, 5512.0f, 0x0000, TEXT_C1I, TEXT_C1, TEXT_C1A, 0x2, 5},
-        {0x3E00, 0xEBC0, 7825.0f, 0xBC00, 0x3000, 7300.0f, 0x0000, TEXT_C2I, TEXT_C2, TEXT_C2A, 0x3, 2},
+        {0x4000, 0x1100, 8795.0f, 0x3E00, 0x1F00, 5512.0f, 0x0000, TEXT_C1I, TEXT_C1, TEXT_C1A, 0x2, 11},
+        {0x4000, 0x1100, 8795.0f, 0x3E00, 0x1F00, 5512.0f, 0x0000, TEXT_C2I, TEXT_C2, TEXT_C2A, 0x3, 5},
         {0x2C00, 0xEC00, 8400.0f, 0x2A00, 0x2C00, 7000.0f, 0x0000, TEXT_C3I, TEXT_C3, TEXT_C3A, 0x4, 1},
         {0x4700, 0x0,    8976.0f, 0x5200, 0x2100, 6536.0f, 0x1C00, TEXT_B1I, TEXT_B1, TEXT_B1A, 0x5, 17},
         NULL_ENTRY,
     },
     {
-        {0x9300, 0x1400, 6807.0f, 0x8B00, 0x2100, 5120.0f, 0xF800, TEXT_C4I, TEXT_C4, TEXT_C4A, 0x6, 4},
-        {0xAE00, 0x400,  6551.0f, 0xAC00, 0xD00,  5120.0f, 0x0000, TEXT_C5I, TEXT_C5, TEXT_C5A, 0x7, 3},
-        {0x9D50, 0xFDB0, 7680.0f, 0x0,    0x0,    0.0f,    0x0000, TEXT_C6I, TEXT_C6, TEXT_C6A, 0x8, 1},
-        {0xB000, 0x1540, 7319.0f, 0xAE30, 0x2060, 5120.0f, 0x0000, TEXT_B2I, TEXT_B2, TEXT_B2A, 0x9, 16},
+        {0x9300, 0x1400, 6807.0f, 0x8B00, 0x2100, 5120.0f, 0xF800, TEXT_C4I, TEXT_C4, TEXT_C4A, 0x6, 2},
+        {0x9300, 0x1400, 6807.0f, 0x8B00, 0x2100, 5120.0f, 0xF800, TEXT_C5I, TEXT_C5, TEXT_C5A, 0x7, 4},
+        {0xAE00, 0x400,  6551.0f, 0xAC00, 0xD00,  5120.0f, 0x0000, TEXT_C6I, TEXT_C6, TEXT_C6A, 0x8, 3},
+        {0x9D50, 0xFDB0, 7680.0f, 0x0,    0x0,    0.0f,    0x0000, TEXT_C7I, TEXT_C7, TEXT_C7A, 0x9, 8},
+        {0xB000, 0x1540, 7319.0f, 0xAE30, 0x2060, 5120.0f, 0x0000, TEXT_B2I, TEXT_B2, TEXT_B2A, 0xA, 16},
         NULL_ENTRY,
         NULL_ENTRY,
     },
     {
-        {0xB100, 0xC000, 6870.0f, 0xAE00, 0x100,  6650.0f, 0x8000, TEXT_C7I, TEXT_C7, TEXT_C7A, 0xA, 7},
-        {0x7E00, 0xB800, 6350.0f, 0xE600, 0x2500, 9999.0f, 0x8000, TEXT_C8I, TEXT_C8, TEXT_C8A, 0xB, 6},
-        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_C9I, TEXT_C9, TEXT_C9A, 0xC, 9},
-        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_B3I, TEXT_B3, TEXT_B3A, 0xD, 18},
+        {0xB100, 0xC000, 6870.0f, 0xAE00, 0x100,  6650.0f, 0x8000, TEXT_C8I, TEXT_C8, TEXT_C8A, 0xB, 7},
+        {0x7E00, 0xB800, 6350.0f, 0xE600, 0x2500, 9999.0f, 0x8000, TEXT_C9I, TEXT_C9, TEXT_C9A, 0xC, 6},
+        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_C10I, TEXT_C10, TEXT_C10A, 0xD, 9},
+        {0x5100, 0xB400, 7890.0f, 0xD000, 0x2C00, 9200.0f, 0x8000, TEXT_B3I, TEXT_B3, TEXT_B3A, 0xE, 18},
         NULL_ENTRY,
         NULL_ENTRY,
     },
@@ -2546,7 +2566,9 @@ struct HubAlert hubAlerts[] = {
     {60, TEXT_HA_4},
 };
 
+s32 selectedStar = 0;
 s32 gCustomStarSelectActive = 0;
+s32 gLevelEntryConfirmationActive = 0;
 s32 gHubAlertTimer = 0;
 s32 gHubAlertID = 0;
 void render_hub_selection(void) {
@@ -2601,40 +2623,45 @@ void render_hub_selection(void) {
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
     } else {
-        create_dl_translation_matrix(MENU_MTX_PUSH, -(f32)(gHubStarSelectTimer*12), 0.0f, 0.0f);
-        u8 i = 0;
-        for(i = 0; i < 6; i++) {
-            u8 filled = gFocusID == i ? 1 : 0;
-            if(hubSelections[gWorldID][i].warpID == 0) {
-                break;
-            } else {
-                render_bar(200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled);
+        f32 translateAmt = gHubStarSelectTimer*-12;
+        translateAmt = CLAMP(translateAmt, -301, 0);
+        if (translateAmt > -300) {
+            create_dl_translation_matrix(MENU_MTX_PUSH, translateAmt, 0.0f, 0.0f);
+
+            u8 i = 0;
+            for(i = 0; i < 6; i++) {
+                u8 filled = gFocusID == i ? 1 : 0;
+                if(hubSelections[gWorldID][i].warpID == 0) {
+                    break;
+                } else {
+                    render_bar(200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled);
+                }
             }
-        }
 
-        render_bar(220, TEXT_SELECT_LEVEL, 0);
+            render_bar(220, TEXT_SELECT_LEVEL, 0);
 
-        render_bar(48, hubSelections[gWorldID][gFocusID].levelIdentifierString, 0);
-        render_bar(28, hubSelections[gWorldID][gFocusID].levelNameString,       0);
-        render_bar(8,  hubSelections[gWorldID][gFocusID].levelAuthorString,     0);
+            render_bar(48, hubSelections[gWorldID][gFocusID].levelIdentifierString, 0);
+            render_bar(28, hubSelections[gWorldID][gFocusID].levelNameString,       0);
+            render_bar(8,  hubSelections[gWorldID][gFocusID].levelAuthorString,     0);
 
+            gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
 
-        gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
-
-        for(i = 0; i < 6; i++) {
-            u8 filled = gFocusID == i ? 8 : 0;
-            if(hubSelections[gWorldID][i].warpID == 0) {
-                break;
-            } else {
-                print_string_with_shadow(8 + filled, 200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled ? textColor : textDiscolor);
+            for(i = 0; i < 6; i++) {
+                u8 filled = gFocusID == i ? 8 : 0;
+                if(hubSelections[gWorldID][i].warpID == 0) {
+                    break;
+                } else {
+                    print_string_with_shadow(8 + filled, 200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled ? textColor : textDiscolor);
+                }
             }
-        }
 
-        print_string_with_shadow(8, 220, TEXT_SELECT_LEVEL, textDiscolor);
-        print_string_with_shadow(8, 48, hubSelections[gWorldID][gFocusID].levelIdentifierString, textColor);
-        print_string_with_shadow(8, 28, hubSelections[gWorldID][gFocusID].levelNameString, textColor);
-        print_string_with_shadow(8, 8, hubSelections[gWorldID][gFocusID].levelAuthorString, textColor);
-        gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+            print_string_with_shadow(8, 220, TEXT_SELECT_LEVEL, textDiscolor);
+            print_string_with_shadow(8, 48, hubSelections[gWorldID][gFocusID].levelIdentifierString, textColor);
+            print_string_with_shadow(8, 28, hubSelections[gWorldID][gFocusID].levelNameString, textColor);
+            print_string_with_shadow(8, 8, hubSelections[gWorldID][gFocusID].levelAuthorString, textColor);
+            gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+            gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+        }
 
         if(sDelayedWarpTimer == 0) {
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
@@ -2647,22 +2674,26 @@ void render_hub_selection(void) {
                 } else if(hubSelections[gWorldID][gFocusID].courseID == 18 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 30) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 4;
-                }
-                else if(gCustomStarSelectActive || hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
+                } else if(gCustomStarSelectActive || gLevelEntryConfirmationActive) {
                     sDelayedWarpOp = 1;
                     sDelayedWarpArg = 0x00000002;
                     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
                     sDelayedWarpTimer = 15;
                     sSourceWarpNodeId = hubSelections[gWorldID][gFocusID].warpID;
                     gIntroCutsceneState = 0;
+                } else if(hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
+                    gLevelEntryConfirmationActive = 1;
                 } else {
+                    selectedStar = 0;
                     gCustomStarSelectActive = 1;
                 }
             } else if(gPlayer1Controller->buttonPressed & B_BUTTON) {
-                if(!gCustomStarSelectActive) {
-                    gFocusID = -1;
-                } else {
+                if(gLevelEntryConfirmationActive) {
+                    gLevelEntryConfirmationActive = 0;
+                } else if(gCustomStarSelectActive){
                     gCustomStarSelectActive = 0;
+                } else {
+                    gFocusID = -1;
                 }
             } else if((joystickMovement & JOYSTICK_DOWN) && gCustomStarSelectActive == 0) {
                 gFocusID++;
@@ -2682,7 +2713,6 @@ void render_hub_selection(void) {
                 }
             }
         }
-        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     }
 
     if(gHubAlertTimer > 0) {
@@ -2718,13 +2748,13 @@ void geo_clear_zbuffer(Gfx *dlHead) {
 Gfx star_hud_dl[] = {
     gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
     gsSPDisplayList(star_seg3_dl_body),
-    gsDPSetRenderMode(G_RM_TEX_EDGE, G_RM_TEX_EDGE2),
+    gsDPSetRenderMode(G_RM_AA_ZB_TEX_EDGE, G_RM_AA_ZB_TEX_EDGE2),
     gsSPDisplayList(star_seg3_dl_eyes),
     gsSPEndDisplayList(),
 };
 
 Gfx transparent_star_hud_dl[] = {
-    gsDPSetRenderMode(G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2),
+    gsDPSetRenderMode(G_RM_CUSTOM_AA_ZB_XLU_SURF, G_RM_CUSTOM_AA_ZB_XLU_SURF2),
     gsSPDisplayList(transparent_star_seg3_dl_body),
     gsSPEndDisplayList(),
 };
@@ -2777,12 +2807,13 @@ u32 starColors[] = {
     0xFF42B0FF, //cumulus correctional center
     0x932BC4FF, //forbidden factory
     0xFFE800FF, //feudal fortress
-    0x808080FF, //empty
+    0x00007DFF, //awe-inspiring spires
     0xDDCEFFFF, //bowsers scuba tower
+    0xFFFFFFFF, //upturned deeps
+    0xA9FF4FFF, //maple markindon
 };
 
 f32 rotVal = 0.0f;
-s32 selectedStar = 0;
 void render_hub_star_select(s32 cringeTimer) {
     u8 **levelNameTbl = segmented_to_virtual(seg2_course_name_table);
     u8 *currLevelName = segmented_to_virtual(levelNameTbl[COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID)]);
@@ -2864,6 +2895,8 @@ void render_hub_star_select(s32 cringeTimer) {
     if(fadeTextTimer > 255) {fadeTextTimer = 255;}
     gDPSetRenderMode(gDisplayListHead++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
     gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, fadeBarTimer);
+    gSPClearGeometryMode(gDisplayListHead, G_ZBUFFER);
+    gDPPipeSync(gDisplayListHead++);
     gSPDisplayList(gDisplayListHead++, bg_star_select_mesh);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
@@ -2889,31 +2922,58 @@ void render_hub_star_select(s32 cringeTimer) {
 
     create_dl_translation_matrix(MENU_MTX_PUSH, centerX, 144.0f, 0.0f);
     create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
+
+    geo_clear_zbuffer(gDisplayListHead);
+    gSPSetGeometryMode(gDisplayListHead++, G_ZBUFFER);
+    gDPPipeSync(gDisplayListHead++);
     for(i = 0; i < visibleStars; i++) {
         localTimer = cringeTimer - (i*2);
-        if(localTimer < 0) {localTimer = 0;}
+        if (localTimer < 0) { localTimer = 0; }
         create_dl_translation_matrix(MENU_MTX_PUSH, 800.0f*i, (200.0f / ((((f32)(localTimer)) / 10.0f) + 0.1f)), 0.0f);
-        create_dl_translation_matrix(MENU_MTX_PUSH, 0.0f, 0.0f, 0.0f);
-        geo_clear_zbuffer(gDisplayListHead++);
+
         if(selectedStar == i) {
             create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
             create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.25f, 1.25f, 1.25f);
         }
+
         if(stars & (0x1 << i)) {
             gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
             gSPDisplayList(gDisplayListHead++, star_hud_dl);
         } else {
             gSPDisplayList(gDisplayListHead++, transparent_star_hud_dl);
         }
-        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
-        if(selectedStar == i) {
-            create_dl_translation_matrix(MENU_MTX_NOPUSH, 00, 0.0f, 1000.0f);
-            gDPSetRenderMode(gDisplayListHead++, G_RM_CUSTOM_AA_ZB_XLU_SURF, G_RM_CUSTOM_AA_ZB_XLU_SURF);
-            gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
-            gSPDisplayList(gDisplayListHead++, glow_circle_mesh);
-        }
+
         gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     }
+
+    // render glow now that z buffer as been written to
+    {
+        gDPPipeSync(gDisplayListHead++);
+        gDPSetDepthSource(gDisplayListHead++, G_ZS_PRIM);
+        gDPSetPrimDepth(gDisplayListHead++, 0x6000 - 1, 0);
+        gDPPipeSync(gDisplayListHead++);
+        localTimer = cringeTimer - (selectedStar*2);
+        if (localTimer < 0) { localTimer = 0; }
+        create_dl_translation_matrix(MENU_MTX_PUSH, 800.0f*selectedStar, (200.0f / ((((f32)(localTimer)) / 10.0f) + 0.1f)), 0.0f);
+        gDPSetRenderMode(gDisplayListHead++, G_RM_ZB_CLD_SURF, G_RM_ZB_CLD_SURF);
+        gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+        gSPDisplayList(gDisplayListHead++, glow_circle_mesh);
+        gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    }
+
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    gDPSetDepthSource(gDisplayListHead++, G_ZS_PIXEL);
+    gDPPipeSync(gDisplayListHead++);
+}
+
+u8 levelConfString[] = { TEXT_LEVEL_CONFIRMATION };
+void render_hub_level_confirmation() {
+    char *filledString = {TEXT_FILLEDSTRING};
+    create_dl_ortho_matrix();
+    render_bar(80, filledString, 0);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    print_string_with_shadow(40, 80, levelConfString, 0xFFFFFFFF);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
 
@@ -2951,7 +3011,7 @@ s32 gEndResultMenuChoice = 0;
 s32 gEndResultMenuState = 0;
 void end_results_loop(void) {
     u8 **actNameTbl = segmented_to_virtual(seg2_act_name_table);
-    u8 *selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gDialogCourseActNum - 1]);
+    u8 *selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gLastCompletedStarNum - 1]);
     s32 actNameX;
     u32 starColor;
     u8 starColorR;

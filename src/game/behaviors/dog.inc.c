@@ -43,7 +43,9 @@ void bhv_dog_control_loop(void) {
     if(gPlayer1Controller->buttonPressed & L_TRIG) {
         gCurrentCharacter ^= 0x1;
         if(gCurrentCharacter == 0) {
+#ifdef PUPPYCAM
             gPuppyCam.targetObj = gMarioObject;
+#endif
             set_mario_action(gMarioState, ACT_IDLE, 0);
         }
     }
@@ -51,13 +53,15 @@ void bhv_dog_control_loop(void) {
 
     if(gCurrentCharacter == 0x1) {
         f32 controllerMagnitude = sqrtf(POW2(gPlayer1Controller->stickX) + POW2(gPlayer1Controller->stickY));
+#ifdef PUPPYCAM
         gPuppyCam.targetObj = o;
+#endif
         set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
 
         switch(o->oAction) {
             case 0:
                 if(controllerMagnitude > 5.0f) {
-                    o->oMoveAngleYaw = dog_rotate_to_intended_yaw(atan2s(-gPlayer1Controller->stickY, gPlayer1Controller->stickX) + gPuppyCam.yaw);
+                    o->oMoveAngleYaw = dog_rotate_to_intended_yaw(atan2s(-gPlayer1Controller->stickY, gPlayer1Controller->stickX) + gMarioState->area->camera->yaw);
                     o->oForwardVel = controllerMagnitude / 1.5f;
                     cur_obj_init_animation_with_accel_and_sound(DOG_ANIM_RUN, o->oForwardVel / 20.0f);
                 } else {
@@ -190,7 +194,7 @@ void bhv_cheezedog_loop(void) {
 }
 
 void bhv_cheezeskidog_loop(void) {
-    switch(o->oAction) {
+    /*switch(o->oAction) {
         case 0:
             cur_obj_init_animation(DOG_ANIM_IDLE);
             switch (o->oHeldState) {
@@ -262,5 +266,14 @@ void bhv_cheezeskidog_loop(void) {
             break;
     }
 
-    o->oInteractStatus = INT_STATUS_NONE;
+    o->oInteractStatus = INT_STATUS_NONE;*/
+
+    o->oGravity = -4.0f;
+    if(lateral_dist_between_objects(gMarioObject, o) > 350.0f) {
+        o->oForwardVel = 20.0f;
+        o->oMoveAngleYaw = o->oAngleToMario;
+    } else {
+        o->oForwardVel = 0.0f;
+    }
+    cur_obj_move_standard(78);
 }

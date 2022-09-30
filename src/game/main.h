@@ -68,7 +68,8 @@ extern OSMesgQueue gSIEventMesgQueue;
 extern OSMesg gRumblePakSchedulerMesgBuf[1];
 extern OSMesg gRumbleThreadVIMesgBuf[1];
 
-extern struct RumbleData gRumbleDataQueue[3];
+#define NUM_RUMBLE_BUFFERS 2
+extern struct RumbleData gRumbleDataQueue[NUM_RUMBLE_BUFFERS];
 extern struct RumbleSettings gCurrRumbleSettings;
 #endif
 

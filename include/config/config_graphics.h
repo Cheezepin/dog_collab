@@ -31,7 +31,7 @@
 // #define PUPPYPRINT
 
 // Disable AA (Improves console performance but causes visible seams between unconnected geometry).
-#define DISABLE_AA
+// #define DISABLE_AA
 
 // Makes the coins ia8 64x64 instead of ia16 32x32. Uses new ia8 textures so that vanilla coins look better.
 #define IA8_COINS
@@ -73,7 +73,7 @@
 // Uses the correct "up" vector for the guLookAtReflect call in geo_process_master_list_sub.
 // It is sideways in vanilla, and since vanilla's environment map textures are sideways too, they will appear as sideways in-game if this is enabled.
 // Make sure your custom environment map textures are the correct orientation.
-// #define FIX_REFLECT_MTX
+#define FIX_REFLECT_MTX
 
 // This improves performance a bit, and does not seem to break anything.
 // #define DISABLE_GRAPH_NODE_TYPE_FUNCTIONAL

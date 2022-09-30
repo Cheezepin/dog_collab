@@ -646,6 +646,7 @@ void obj_check_floor_death(s16 collisionFlags, struct Surface *floor) {
             case SURFACE_VERTICAL_WIND:
             case SURFACE_DEATH_PLANE:
             case SURFACE_HURT_FLOOR:
+            case SURFACE_HURT_FLOOR_WITH_HEIGHT:
                 o->oAction = OBJ_ACT_DEATH_PLANE_DEATH;
                 break;
             default:

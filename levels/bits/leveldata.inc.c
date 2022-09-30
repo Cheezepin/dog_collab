@@ -18,4 +18,8 @@
 #include "levels/bits/area_6/room.inc.c"
 #include "levels/bits/area_6/macro.inc.c"
 #include "levels/bits/area_6/spline.inc.c"
+#include "levels/bits/area_7/collision.inc.c"
+#include "levels/bits/area_7/room.inc.c"
+#include "levels/bits/area_7/macro.inc.c"
+#include "levels/bits/area_7/spline.inc.c"
 #include "levels/bits/model.inc.c"

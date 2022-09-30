@@ -24,16 +24,20 @@ void koopa_shell_underwater_get_thrown(void) {
     o->oHeldState = 0;
     o->oAction = 1;
     o->oForwardVel = 50.0f;
-    o->oVelY = 20.0f;
-    obj_set_angle(o, gMarioState->faceAngle[0], gMarioState->faceAngle[1], gMarioState->faceAngle[2]);
-    o->oVelX = o->oForwardVel * coss(gMarioState->faceAngle[0]) * sins(gMarioState->faceAngle[1]);
-    o->oVelY = o->oForwardVel * sins(gMarioState->faceAngle[0]);
-    o->oVelZ = o->oForwardVel * coss(gMarioState->faceAngle[0]) * coss(gMarioState->faceAngle[1]);
+
+    if ((gMarioState->action & ACT_GROUP_MASK) == ACT_GROUP_SUBMERGED) {
+        obj_set_angle(o, gMarioState->faceAngle[0], gMarioState->faceAngle[1], gMarioState->faceAngle[2]);
+        o->oVelX = o->oForwardVel * coss(gMarioState->faceAngle[0]) * sins(gMarioState->faceAngle[1]);
+        o->oVelY = o->oForwardVel * sins(gMarioState->faceAngle[0]);
+        o->oVelZ = o->oForwardVel * coss(gMarioState->faceAngle[0]) * coss(gMarioState->faceAngle[1]);
+    } else {
+        obj_set_angle(o, 0, gMarioState->faceAngle[1], 0);
+        o->oVelX = o->oForwardVel * coss(0) * sins(gMarioState->faceAngle[1]);
+        o->oVelY = o->oForwardVel * sins(0);
+        o->oVelZ = o->oForwardVel * coss(0) * coss(gMarioState->faceAngle[1]);
+    }
 
     cur_obj_move_using_vel();
-
-    // o->oMoveAngleYaw = gMarioObject->header.gfx.angle[1];
-    // o->activeFlags &= ~ACTIVE_FLAG_DESTRUCTIVE_OBJ_DONT_DESTROY;
 }
 
 s32 koopa_shell_check_walls(void) {
@@ -89,7 +93,7 @@ void koopa_shell_underwater_thrown(void) {
             o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
         }
     }
-    
+
 }
 
 void bhv_koopa_shell_underwater_loop(void) {
@@ -113,10 +117,10 @@ void bhv_koopa_shell_underwater_loop(void) {
             break;
     }
 
-    if (o->oInteractStatus & INT_STATUS_STOP_RIDING) {
-        spawn_mist_particles();
-        obj_mark_for_deletion(o);
-    }
+    // if (o->oInteractStatus & INT_STATUS_STOP_RIDING) {
+    //     spawn_mist_particles();
+    //     obj_mark_for_deletion(o);
+    // }
 
     o->oInteractStatus = INT_STATUS_NONE;
 }

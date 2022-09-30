@@ -272,6 +272,7 @@ void enable_time_stop_including_mario(void);
 void disable_time_stop_including_mario(void);
 s32 cur_obj_check_interacted(void);
 void cur_obj_spawn_loot_blue_coin(void);
+void cur_obj_spawn_loot_20_coins(s32 numCoins, f32 baseYVel);
 
 void cur_obj_spawn_star_at_y_offset(f32 targetX, f32 targetY, f32 targetZ, f32 offsetY);
 
@@ -302,6 +303,7 @@ Gfx *geo_backdrop_move_cozies(s32 callContext, struct GraphNode *node, UNUSED Ma
 Gfx *geo_mountain_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 Gfx *geo_set_global_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 Gfx *geo_update_rain_cloud_rain(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
+Gfx *debug_geo_asm(s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 mtx);
 // thecozies end
 
 Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node);

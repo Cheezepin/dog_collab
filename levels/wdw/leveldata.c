@@ -37,8 +37,14 @@
 #include "levels/wdw/areas/1/movtext.inc.c"
 #include "levels/wdw/areas/2/movtext.inc.c"
 
-#include "levels/wdw/wdw_backdrop/model.inc.c"
+#include "levels/wdw/tree_seed/model.inc.c"
+#include "levels/wdw/cherry_tree/model.inc.c"
+#include "levels/wdw/dirt_patch/collision.inc.c"
+#include "levels/wdw/cherry_tree/collision.inc.c"
 #include "levels/wdw/leveldata.inc.c"
+
+#include "levels/wdw/dirt_patch/model.inc.c"
+#include "levels/wdw/wdw_backdrop/model.inc.c"
 
 #include "levels/wdw/mapletree/model.inc.c"
 #include "levels/wdw/sakseed/model.inc.c"

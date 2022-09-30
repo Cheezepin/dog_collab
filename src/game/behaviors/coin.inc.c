@@ -1,4 +1,5 @@
 // coin.inc.c
+#include "game/behaviors/thecozies_helpers.h"
 
 struct ObjectHitbox sYellowCoinHitbox = {
     /* interactType:      */ INTERACT_COIN,
@@ -8,6 +9,18 @@ struct ObjectHitbox sYellowCoinHitbox = {
     /* numLootCoins:      */ 0,
     /* radius:            */ 100,
     /* height:            */ 64,
+    /* hurtboxRadius:     */ 0,
+    /* hurtboxHeight:     */ 0,
+};
+
+struct ObjectHitbox s20CoinHitbox = {
+    /* interactType:      */ INTERACT_COIN,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 20,
+    /* health:            */ 0,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 160,
+    /* height:            */ 160,
     /* hurtboxRadius:     */ 0,
     /* hurtboxHeight:     */ 0,
 };
@@ -67,6 +80,79 @@ void bhv_yellow_coin_init(void) {
     if (o->oFloorHeight < FLOOR_LOWER_LIMIT_MISC) {
         obj_mark_for_deletion(o);
     }
+}
+
+void bhv_20_coin_init(void) {
+    o->oPosY += 50.0f;
+    o->oVelY = random_float() * 10.0f + 30 + o->oCoinBaseYVel;
+    o->oForwardVel = random_float() * 6.0f + 5.0f;
+    o->oFaceAngleYaw = random_u16();
+    o->oMoveAngleYaw = approach_yaw(o->oFaceAngleYaw, obj_angle_to_object(o, gMarioObject), 0.8f);
+
+    obj_set_hitbox(o, &s20CoinHitbox);
+    cur_obj_update_floor_height();
+    o->oDamageOrCoinValue = 20;
+
+    vec3_same(o->header.gfx.scale, 0.001f);
+}
+
+void update_20_coin_movement() {
+    cur_obj_update_floor_and_walls();
+    cur_obj_if_hit_wall_bounce_away();
+    cur_obj_move_standard(-62);
+
+    struct Surface *floor = o->oFloor;
+
+    if (floor != NULL) {
+        if (o->oMoveFlags & OBJ_MOVE_ON_GROUND) {
+            o->oAction = BOUNCING_COIN_ACT_BOUNCING;
+        }
+        if (o->oAction == BOUNCING_COIN_ACT_BOUNCING) {
+            o->oBounciness = 0;
+            if (floor->normal.y < 0.9f) {
+                s16 targetYaw = SURFACE_YAW(floor);
+                cur_obj_rotate_yaw_toward(targetYaw, 0x400);
+            }
+        }
+    }
+
+    if (o->oTimer == 0) {
+        cur_obj_play_sound_2(SOUND_GENERAL_BOWSER_KEY_LAND);
+    }
+
+    if (o->oVelY < 0) {
+        cur_obj_become_tangible();
+    }
+
+    if (o->oMoveFlags & OBJ_MOVE_BOUNCE) {
+        if (o->oCoinBounceTimer < 5) {
+            cur_obj_play_sound_2(SOUND_GENERAL_COIN_DROP);
+        }
+        o->oCoinBounceTimer++;
+    }
+}
+
+void bhv_20_coin_loop(void) {
+    if (o->oInteractStatus & INT_STATUS_INTERACTED
+        && !(o->oInteractStatus & INT_STATUS_TOUCHED_BOB_OMB)) {
+        static Vec3f almostZero = { 0.001f, 0.001f, 0.001f };
+
+        struct Object *sparkleObj = spawn_object(o, MODEL_SPARKLES, bhvCoinSparkles);
+        sparkleObj->oPosX += random_float() * 80.0f - 40.0f;
+        sparkleObj->oPosZ += random_float() * 80.0f - 40.0f;
+        f32 sparkleScale = random_float() + 1.0f;
+        vec3_same(sparkleObj->header.gfx.scale, sparkleScale);
+
+        lerp_vec3f(o->header.gfx.scale, almostZero, 0.4f);
+        if (o->header.gfx.scale[0] < 0.01f) {
+            obj_mark_for_deletion(o);
+        }
+        return;
+    }
+    lerp_vec3f(o->header.gfx.scale, gVec3fOne, 0.33f);
+    update_20_coin_movement();
+
+    o->oInteractStatus = INT_STATUS_NONE;
 }
 
 void bhv_yellow_coin_loop(void) {

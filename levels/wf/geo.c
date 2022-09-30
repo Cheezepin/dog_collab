@@ -50,3 +50,5 @@
 #include "levels/wf/crate/geo.inc.c"
 #include "levels/wf/sandpile/geo.inc.c"
 #include "levels/wf/sand_pillar/geo.inc.c"
+#include "levels/wf/sand_slope/geo.inc.c"
+#include "levels/wf/ktq_ring/geo.inc.c"

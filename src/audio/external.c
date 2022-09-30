@@ -103,7 +103,7 @@ u8 sDialogSpeaker[] = {
     /*17*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
     /*18*/ _,     _,     _,     _,     _,     _,     _,
     // the cozies: putting some extra blank spots in here to i can compile
-    _, _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _, _, _,
 };
 #undef _
 STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
@@ -314,6 +314,9 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_LEVEL_FEUDAL_CASTLE
     70,  // SEQ_OVERWORLD
     70,  // SEQ_TRAINING
+    70,  // SEQ_METEOR_HERD
+    70,  // SEQ_WATERSONG_REGGAE
+    70,  // SEQ_ROUTE_47
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,
@@ -2022,6 +2025,15 @@ void get_currently_playing_sound(u8 bank, u8 *numPlayingSounds, u8 *numSoundsInB
         *soundId = 0xff;
     }
 }
+
+void set_pitch_change(f32 change) {
+    gPitchChange = change;
+}
+
+void approach_pitch_change(f32 change, f32 speed) {
+    gPitchChange = approach_f32_asymptotic(gPitchChange, change, speed);
+}
+
 
 /**
  * Called from threads: thread5_game_loop

@@ -26,4 +26,7 @@ void process_sequences(s32 iterationsRemaining);
 void init_sequence_player(u32 player);
 void init_sequence_players(void);
 
+
+extern f32 gPitchChange;
+
 #endif // AUDIO_SEQPLAYER_H
