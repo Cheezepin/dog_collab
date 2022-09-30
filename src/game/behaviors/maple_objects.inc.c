@@ -46,6 +46,7 @@ void bhv_tree_nut_init(void) {
 
 void bhv_tree_nut_loop(void) {
     switch (o->oHeldState) {
+            case HELD_DROPPED:
             case HELD_FREE:
             case HELD_THROWN:
                 o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
@@ -79,6 +80,7 @@ void bhv_tree_nut_loop(void) {
 
             case HELD_HELD:
             cur_obj_become_intangible();
+            obj_copy_pos(o, gMarioObject);
             o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
                 break;
     
