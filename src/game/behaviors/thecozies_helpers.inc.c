@@ -93,4 +93,16 @@ s32 check_mario_on_object(struct MarioState *m) {
     && m->vel[1] <= 0.0f;
 }
 
+s32 check_min_star_collected(u32 minStar) {
+    u32 starFlags = save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(gCurrCourseNum));
+    u32 lastActStarCollected = 0;
+    for (int i = 0; i <= 5; i++) {
+        if (starFlags & (1 << i)) lastActStarCollected = i + 1;
+        if (lastActStarCollected >= minStar) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
 #endif

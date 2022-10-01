@@ -24,6 +24,7 @@ enum SkyBackgroundParams {
 };
 
 #define BACKGROUND_CUSTOM_COMIT_CLOUDS 3
+#define BACKGROUND_CUSTOM_SPACE 3
 
 enum GeoLayoutCommands {
     /*0x00*/ GEO_CMD_BRANCH_AND_LINK,

@@ -136,10 +136,12 @@ static void galoomba_act_flipped_init(void) {
     //o->activeFlags |= ACTIVE_FLAG_UNK9;
     o->oAction = GALOOMBA_ACT_FLIPPED;
     cur_obj_init_animation(2);
+    //o->parentObj = o;
 }
 static void galoomba_act_flipped(void) {
                     //spawn_object(o, MODEL_GALOOMBA, bhvGaloombaBox);
                     //mark_obj_for_deletion(o);
+
                     if(o->header.gfx.animInfo.animFrame >= 4) {
                         cur_obj_init_animation(1);
                     }
@@ -161,16 +163,43 @@ void galoomba_box_act_move(void) {
         spawn_mist_particles();
         obj_spawn_yellow_coins(o, 3);
         create_sound_spawner(SOUND_OBJ_STOMPED);
+        mark_galoomba_as_dead();
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
 
     obj_check_floor_death(sp1E, o->oFloor);
 }
 
+void mark_galoomba_as_dead(void) {
+    if (o->parentObj != o) {
+        set_object_respawn_info_bits(
+            o->parentObj, (o->oBehParams2ndByte & GOOMBA_BP_TRIPLET_FLAG_MASK) >> 2);
+
+        o->parentObj->oBehParams =
+            o->parentObj->oBehParams | (o->oBehParams2ndByte & GOOMBA_BP_TRIPLET_FLAG_MASK) << 6;
+    }
+}
+
 void bhv_galoomba_update(void) {
     // PARTIAL_UPDATE
 
     f32 animSpeed;
+
+    if (o->parentObj != o) {
+            if (o->parentObj->oAction == GALOOMBA_TRIPLET_SPAWNER_ACT_UNLOAD) {
+                obj_mark_for_deletion(o);
+            }
+        }
+
+    if (o->oGaloombaSquishTimer > 0) {
+        if (o->oGaloombaSquishTimer++ >= 20) {
+            spawn_mist_particles();
+        obj_spawn_yellow_coins(o, 3);
+        create_sound_spawner(SOUND_OBJ_STOMPED);
+        mark_galoomba_as_dead();
+        o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+        }
+    }
 
     if (gMarioState->heldObj != o && o->oGaloombaGrabbed == 1) {
         cur_obj_become_tangible();
@@ -183,6 +212,7 @@ void bhv_galoomba_update(void) {
     }
     if (gMarioState->heldObj == o) {
        o->oGaloombaGrabbed = 1;
+       //o->parentObj = o;
        o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
        cur_obj_become_intangible();
     }
@@ -234,13 +264,17 @@ if(o->oAction < GALOOMBA_ACT_FLIPPED) {
                 case ATTACK_HANDLER_KNOCKBACK:
                     //obj_set_knockback_action(attackType);
                     o->oAction = GALOOMBA_ACT_FLIPPED_INIT;
+                    mark_galoomba_as_dead();
                     break;
 
                 case ATTACK_HANDLER_SQUISHED:
                     o->oAction = GALOOMBA_ACT_FLIPPED_INIT;
+                    mark_galoomba_as_dead();
                     break;
                 case ATTACK_HANDLER_GPD_ON:
                     obj_set_squished_action();
+                    o->oGaloombaSquishTimer = 1;
+                    mark_galoomba_as_dead();
                     break;
         }
         }

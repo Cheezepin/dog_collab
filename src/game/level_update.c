@@ -629,6 +629,8 @@ void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags)
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
     } else if (destLevel != gCurrLevelNum || sSourceWarpNodeId == 0xF0 || sSourceWarpNodeId == 0xF1) {
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
+        gCustomStarSelectActive = 0;
+        gLevelEntryConfirmationActive = 0;
     } else if (destArea != gCurrentArea->index) {
         sWarpDest.type = WARP_TYPE_CHANGE_AREA;
     } else {

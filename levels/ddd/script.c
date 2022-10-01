@@ -56,6 +56,7 @@ const LevelScript level_ddd_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_WATER_PLANE4_WHIRLPOOL, water_plane4_whirlpool_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_TUBE_TOP, tube_top_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_20_COIN, the_20_coin_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_COZY_WARP_PAD, cozy_warp_pad_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -108,7 +109,7 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_FLIPPY_BITCH, 500, -6900, 300, 0, 0, 0, 0x00000000, bhvFlippyBitch),
 		OBJECT(MODEL_WATER_SWITCH, -1100, -7100, -300, 0, 0, 0, (1 << 24) | (1 << 16), bhvWaterSwitch),
 		OBJECT(MODEL_WATER_SWITCH, -3100, -4100, -6400, 0, 0, 0, (2 << 24) | (3 << 16), bhvWaterSwitch),
-		OBJECT(MODEL_WATER_SWITCH, 0, 3500, -3231, 0, 0, 0, (8 << 24) | (4 << 16), bhvWaterSwitch),
+		OBJECT(MODEL_WATER_SWITCH, 0, 3500, -3231, 0, 0, 0, (5 << 24) | (4 << 16), bhvWaterSwitch),
 		MARIO_POS(0x02, 0, 400, -9300, -3700),
 		OBJECT_WITH_ACTS(MODEL_NONE, 405, -9500, -2200, 0, 90, 0, (0x0A << 16), bhvSpinAirborneWarp, ACT_1),
 		OBJECT_WITH_ACTS(MODEL_NONE, 1800, -8800, -2200, 0, -65, 0, (0x0A << 16), bhvSpinAirborneWarp, ACT_2),
@@ -120,6 +121,12 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_NONE, 3490, -9040, -2257, 0, -45, 0, (2 << 16) | (5), bhvVerticalInstantWarp),
 		OBJECT(MODEL_NONE, 400, -8500, -1000, 0, 0, 0, (2 << 24), bhvAdjacentRoomInitializer),
 		OBJECT(MODEL_NONE, -1900, -5700, -2200, 0, 0, 0, (1 << 24) | (4 << 16), bhvAdjacentRoomInitializer),
+		OBJECT(MODEL_COZY_WARP_PAD, -2000, -5900, -2200, 0, -90, 0, (1 << 16), bhvCozyWarpPad),
+		OBJECT(MODEL_COZY_WARP_PAD, -2800, -4100, 0, 0, -180, 0, (2 << 16), bhvCozyWarpPad),
+		OBJECT(MODEL_COZY_WARP_PAD, 300, -2300, -7100, 0, 90, 0, (3 << 16), bhvCozyWarpPad),
+		OBJECT(MODEL_COZY_WARP_PAD, 6800, 2700, 400, 0, 90, 0, (4 << 16), bhvCozyWarpPad),
+		OBJECT(MODEL_COZY_WARP_PAD, 0, 3500, -1330, 0, 0, 0, (5 << 16), bhvCozyWarpPad),
+		OBJECT(MODEL_COZY_WARP_PAD, 0, -2307, 0, 0, 0, 0, (5 << 16), bhvCozyWarpPad),
 		OBJECT(MODEL_RAIN_CLOUD, -3100, -3980, -1300, 0, 0, 0, (0 << 16), bhvRainCloud),
 		OBJECT(MODEL_DDD_WATER_SPOUT, -3100, -4100, -1300, 0, 0, 0, (1 << 16), bhvWaterSpout),
 		OBJECT(MODEL_NONE, -2900, -5500, -500, 0, 0, 0, (2 << 24) | (4 << 16), bhvAdjacentRoomInitializer),

@@ -41,5 +41,10 @@ void spinny_cloud_spawner_loop(void);
 void bhv_cozies_dog_init(void);
 void bhv_cozies_dog_loop(void);
 
+// warp pad
+void bhv_cozy_warp_pad_init(void);
+void bhv_cozy_warp_pad_loop(void);
+Gfx *geo_warp_pad_env_alpha(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
+
 // misc
 Gfx *geo_reflect_light_panel(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);

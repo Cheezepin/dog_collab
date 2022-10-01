@@ -25,6 +25,7 @@ void audio_meter_approach(f32 *cur, f32 next, f32 reduction, s32 timeout, s32 *m
 void elastic_approach_vec3s(Vec3s cur, Vec3s curVel, Vec3s goal, f32 speedDown, f32 speedUp);
 struct Object *find_any_object_with_behavior_and_bparam2(const BehaviorScript *behavior, u32 bparam);
 s32 check_mario_on_object(struct MarioState *m);
+s32 check_min_star_collected(u32 minStar);
 
 ALWAYS_INLINE struct Object *get_water_switch(s32 sID) {
     return find_any_object_with_behavior_and_bparam2(bhvWaterSwitch, sID);

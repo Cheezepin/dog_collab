@@ -1260,6 +1260,7 @@
 #define /*0x100*/ oYoshiTargetYaw  OBJECT_FIELD_S32(0x1E)
 
 #define /*0x0F4*/ oGaloombaGrabbed                        OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oGaloombaSquishTimer                        OBJECT_FIELD_S32(0x1C)
 #define /*0x0F4*/ oSpawnerTopOffset      OBJECT_FIELD_F32(0x1B)
 #define /*0x094*/ oShotDelay                  OBJECT_FIELD_S32(0x03)    // overwrites oUnk94
 #define /*0x0BC*/ oMaxShotDelay               OBJECT_FIELD_S32(0x0D)    // overwrites oUnkBC
@@ -1372,6 +1373,10 @@
 #define oWaterBobTimer                      OBJECT_FIELD_S32(0x1C)
 
 #define oWaterTopY                          OBJECT_FIELD_F32(0x1B)
+
+#define oWarpPadNext                        OBJECT_FIELD_OBJ(0x1B)
+#define oWarpPadActive                      OBJECT_FIELD_S32(0x1C)
+#define oWarpPadWarpOpa                     OBJECT_FIELD_S32(0x1D)
 // thecozies end
 
 /*Custom general defines:

@@ -1320,7 +1320,9 @@ s32 check_cozy_volumes(struct Camera *c, struct MarioState *m) {
         return TRUE;
     }
 
-    set_fov_function(CAM_FOV_DEFAULT); // also reset from focus/pos volumes
+    if (sFOVState.fovFunc != CAM_FOV_DEFAULT) {
+        set_fov_function(CAM_FOV_DEFAULT); // also reset from focus/pos volumes
+    }
 
     c->cozyVolId = 0;
     c->curVolume = NULL;
@@ -3806,8 +3808,9 @@ void update_camera(struct Camera *c) {
         // trigger is held
         if ((c->cutscene == CUTSCENE_NONE &&
             (gPlayer1Controller->buttonDown & R_TRIG) && cam_select_alt_mode(0) == CAM_SELECTION_FIXED)
-            || (gCameraMovementFlags & CAM_MOVE_FIX_IN_PLACE)
-            || (sMarioCamState->action) == ACT_GETTING_BLOWN) {
+            || (gCameraMovementFlags & CAM_MOVE_FIX_IN_PLACE) 
+            ){
+           // || (sMarioCamState->action) == ACT_GETTING_BLOWN) {
 
             // If this is the first frame that R_TRIG is held, play the "click" sound
             if (c->cutscene == CUTSCENE_NONE && (gPlayer1Controller->buttonPressed & R_TRIG)

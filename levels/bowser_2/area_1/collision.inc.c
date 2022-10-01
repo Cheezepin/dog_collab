@@ -1,6 +1,6 @@
 const Collision bowser_2_area_1_collision[] = {
 	COL_INIT(),
-	COL_VERTEX_INIT(87),
+	COL_VERTEX_INIT(91),
 	COL_VERTEX(-6929, 0, 2870),
 	COL_VERTEX(-7500, 0, 0),
 	COL_VERTEX(-7500, 1715, 0),
@@ -88,6 +88,10 @@ const Collision bowser_2_area_1_collision[] = {
 	COL_VERTEX(6929, 1667, 2870),
 	COL_VERTEX(7310, 5333, 957),
 	COL_VERTEX(7325, 0, 879),
+	COL_VERTEX(-5000, -2000, 5000),
+	COL_VERTEX(5000, -2000, 5000),
+	COL_VERTEX(5000, -2000, -5000),
+	COL_VERTEX(-5000, -2000, -5000),
 	COL_TRI_INIT(SURFACE_DEFAULT, 145),
 	COL_TRI(0, 1, 2),
 	COL_TRI(0, 2, 3),
@@ -234,6 +238,9 @@ const Collision bowser_2_area_1_collision[] = {
 	COL_TRI(56, 82, 84),
 	COL_TRI(86, 56, 84),
 	COL_TRI(86, 84, 74),
+	COL_TRI_INIT(SURFACE_DEATH_PLANE, 2),
+	COL_TRI(87, 88, 89),
+	COL_TRI(87, 89, 90),
 	COL_TRI_STOP(),
 	COL_END()
 };
