@@ -62,6 +62,7 @@ enum SeqId {
     SEQ_METEOR_HERD,                  // 0x31
     SEQ_WATERSONG_REGGAE,                  // 0x32
     SEQ_ROUTE_47,                  // 0x33
+    SEQ_COMIT_FACILITY,               // 0x34
     SEQ_COUNT
 };
 
