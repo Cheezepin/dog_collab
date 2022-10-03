@@ -763,6 +763,10 @@ void set_camera_height(struct Camera *c, f32 goalHeight) {
                 c->pos[1] = camCeilHeight;
             }
         }
+
+        // FAILSAFE! make sure that the camera never gets too far
+        // blame cozies if this makes the camera jank
+        c->pos[1] = CLAMP(c->pos[1], goalHeight - 1000.0f, goalHeight + 1000.0f);
     }
 }
 
@@ -5756,6 +5760,7 @@ void warp_camera(f32 displacementX, f32 displacementY, f32 displacementZ) {
     vec3f_add(gLakituState.curFocus, displacement);
     vec3f_add(gLakituState.goalPos, displacement);
     vec3f_add(gLakituState.goalFocus, displacement);
+
     marioStates->waterLevel += displacementY;
 
     vec3f_add(start->focus, displacement);

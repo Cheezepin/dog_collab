@@ -1904,9 +1904,9 @@ s32 warp_to_checkpoint(struct MarioState *m, s32 damage) {
         gMarioState->area = gCurrentArea;
         warp_camera(displacement[0], displacement[1], displacement[2]);
         gMarioState->area->camera->yaw = cameraAngle;
-    } else {
-        reset_camera(gCurrentArea->camera);
     }
+
+    reset_camera(gCurrentArea->camera);
 
     switch(get_checkpoint_action(m)) {
         case CHECKPOINT_ENDS_IN_WATER:
