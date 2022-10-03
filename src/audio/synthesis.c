@@ -1639,6 +1639,7 @@ void note_init_volume(struct Note *note) {
 void note_set_vel_pan_reverb(struct Note *note, f32 velocity, f32 pan, u8 reverbVol) {
     f32 volLeft, volRight;
     s32 panIndex = (s32)(pan * 127.5f) & 127;
+#ifndef DISABLE_STEREO_HEADSET_EFFECTS
     if (note->stereoHeadsetEffects && gSoundMode == SOUND_MODE_HEADSET) {
         s8 smallPanIndex;
         s8 temp = (s8)(pan * 10.0f);
@@ -1670,6 +1671,9 @@ void note_set_vel_pan_reverb(struct Note *note, f32 velocity, f32 pan, u8 reverb
         note->stereoStrongRight = strongRight;
         note->stereoStrongLeft = strongLeft;
     } else if (gSoundMode == SOUND_MODE_MONO) {
+#else
+    if (gSoundMode == SOUND_MODE_MONO) {
+#endif
         volLeft = 0.707f;
         volRight = 0.707f;
     } else {

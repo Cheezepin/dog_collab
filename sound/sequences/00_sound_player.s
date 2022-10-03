@@ -4474,33 +4474,33 @@ layer_jump .layer_1B56
 .sound_env_waterfall2:
 chan_setbank 5
 chan_setinstr 1
-chan_setval 25
+chan_setval 50
 chan_call .set_reverb
 chan_setenvelope .envelope_32C4
 chan_setlayer 2, .layer_waterfall2_3
 chan_setlayer 1, .layer_waterfall2_2
-chan_setlayer 0, .layer_waterfall2
+chan_setlayer 0, .layer_waterfall2_LOW
 chan_end
 
-.layer_waterfall2:
+.layer_waterfall2_LOW:
 layer_somethingon
 layer_delay 0x4
-.layer_waterfall2_note:
+.layer_waterfall2_LOW_note:
 layer_note1 10, 0x12c, 127
-layer_jump .layer_waterfall2_note
+layer_jump .layer_waterfall2_LOW_note
 
 .layer_waterfall2_2:
 layer_somethingon
 layer_delay 0x4
 .layer_waterfall2_2_note:
-layer_note1 22, 0x12c, 80
+layer_note1 22, 0x12c, 127
 layer_jump .layer_waterfall2_2_note
 
 .layer_waterfall2_3:
 layer_somethingon
 layer_delay 0x4
 .layer_waterfall2_3_note:
-layer_note1 34, 0x12c, 60
+layer_note1 34, 0x12c, 80
 layer_jump .layer_waterfall2_3_note
 
 .sound_env_elevator1:

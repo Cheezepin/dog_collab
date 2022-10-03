@@ -9,6 +9,7 @@
 #include "game/behaviors/thecozies_spinny_cloud_spawner.inc.c"
 #include "game/behaviors/thecozies_dog.inc.c"
 #include "game/behaviors/thecozies_warp_pad.inc.c"
+#include "game/behaviors/thecozies_ambience.inc.c"
 
 
 /**

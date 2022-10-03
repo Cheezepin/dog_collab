@@ -7860,6 +7860,14 @@ const BehaviorScript bhvWaterTop[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvCoziesAmbientSound[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_LONG(oFlags, 0),
+    BEGIN_LOOP(),
+        CALL_NATIVE(cozies_ambient_sound_loop),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvWaterSpout[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),

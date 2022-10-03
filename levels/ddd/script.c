@@ -181,6 +181,7 @@ const LevelScript level_ddd_entry[] = {
 	AREA(3, ddd_area_3),
 		WARP_NODE(0xF0, LEVEL_DDD, 0x02, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_DDD, 0x02, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_NONE, 6801, -6100, -2950, 0, 0, 0, (0 << 16), bhvCoziesAmbientSound),
 		OBJECT(MODEL_RAIN_CLOUD, -6196, -3162, -8787, 0, 158, 0, (0x2A << 16), bhvRainCloud),
 		OBJECT(MODEL_RAIN_CLOUD, -5138, -2961, -8444, 0, 46, 0, (0x2A << 16), bhvRainCloud),
 		OBJECT(MODEL_RAIN_CLOUD, -4236, -2811, -7568, 0, 158, 0, (1 << 24) | (0x50 << 16), bhvRainCloud),
