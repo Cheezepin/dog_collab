@@ -518,3 +518,30 @@ void bhv_spiresdog_loop(void) {
             break;
     }
 }
+
+void bhv_cheeze_lightning_init(void) {
+    o->oAnimState = o->oBehParams2ndByte;
+    if(gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+        cur_obj_scale(0.125f);
+        if((o->oBehParams & 0xFF) == 1) {
+            cur_obj_scale(0.05f);
+        }
+    } else {
+        obj_set_billboard(o);
+    }
+}
+
+void bhv_cheeze_lightning_loop(void) {
+    o->oMoveAngleYaw = o->oAngleToMario;
+    if((gGlobalTimer % 3) == 0) {
+        o->oAnimState++;
+    }
+    if(o->oAnimState == 3) {
+        cur_obj_hide();
+    }
+    if(o->oAnimState == 25) {
+        o->oAnimState = 0;
+        cur_obj_unhide();
+    }
+}
+

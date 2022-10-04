@@ -8269,6 +8269,15 @@ const BehaviorScript bhvNothing[] = {
     BREAK(),
 };
 
+const BehaviorScript bhvCheezeLightning[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+    CALL_NATIVE(bhv_cheeze_lightning_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_cheeze_lightning_loop),
+    END_LOOP(),
+};
+
 //cheeze bhvs end
 
 // someone2638 scripts
