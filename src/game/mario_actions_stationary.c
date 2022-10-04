@@ -1052,6 +1052,8 @@ s32 act_first_person(struct MarioState *m) {
         }
     }
 
+    approach_vec3f_asymptotic(m->vel, gVec3fZero, 0.5f, 0.5f, 0.5f);
+
     if (perform_ground_step(m) == GROUND_STEP_LEFT_GROUND) {
         raise_background_noise(2);
         // Go back to the last camera mode
