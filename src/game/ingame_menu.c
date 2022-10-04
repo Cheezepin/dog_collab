@@ -2703,7 +2703,7 @@ void render_hub_selection(void) {
             } else if((joystickMovement & JOYSTICK_UP) && gHubStarSelectTimer == 0 && gLevelEntryConfirmationActive == 0) {
                 gFocusID--;
                 if(gFocusID < 0) {
-                    u8 i;
+                    s8 i;
                     for(i = 5; i >= 0; i--) {
                         if(hubSelections[gWorldID][i].warpID != 0) {
                             gFocusID = i;
@@ -2832,7 +2832,7 @@ void render_hub_star_select(s32 cringeTimer) {
     u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID));
     u8 visibleStars;
     u8 allStarsVisible = 1;
-    u8 lastSelectableNotCompletedStar;
+    u8 lastSelectableNotCompletedStar = 0;
     u32 starColor;
     u8 starColorR;
     u8 starColorG;
@@ -3006,6 +3006,8 @@ u8 textContinueToNextAct[] = { TEXT_CONTINUE_TO_NEXT_ACT };
 u8 textReplayLastAct[] = { TEXT_REPLAY_LAST_ACT };
 u8 textExitCourseLC[] = { TEXT_EXIT_COURSE_LC };
 u8 textExitGame[] = { TEXT_EXIT_GAME };
+
+extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
 s32 gEndResultMenuChoice = 0;
 s32 gEndResultMenuState = 0;
