@@ -1337,6 +1337,8 @@ s32 process_match_rot_volume(struct Camera *c, CozyVol *vol) {
     s16 oldAreaYaw = sAreaYaw;
     s8DirModeYawOffset = vol->rotation[1];
 
+    radial_camera_input(c);
+
     lakitu_zoom(vol->param.dist, 0x900);
     Vec3f pos;
     c->nextYaw = update_8_directions_camera(c, c->focus, pos);
@@ -1357,6 +1359,7 @@ s32 process_match_second_target(struct Camera *c, CozyVol *vol) {
     f32 *targetp = segmented_to_virtual(vol->param.secondTarget);
     s32 fullTarget = vol->type == COZY_VOL_SECOND_TARGET_FULL;
     Vec3f target = { targetp[0], targetp[1], targetp[2] };
+    radial_camera_input(c);
     set_fov_function(CAM_FOV_APP_MISC);
 
     lerp_vec3f(target, gMarioState->pos, 0.3333f);
@@ -1447,6 +1450,7 @@ s32 process_pos_focus_hint_vol(struct Camera *c, CozyVol *vol) {
     Vec3f camPos = { targetpf->pos[0], targetpf->pos[1], targetpf->pos[2] };
     Vec3f focus = { targetfocp[0], targetfocp[1], targetfocp[2] };
     sCameraFov = targetpf->fov;
+
     set_fov_function(CAM_FOV_APP_MISC);
 
     Vec3f marioPos = {
@@ -1521,6 +1525,8 @@ s32 process_hallway_spline_vol(struct Camera *c, CozyVol *vol) {
     struct CutsceneSplinePoint *splineArray = segmented_to_virtual(vol->param.spline);
     sCameraFov = 60.0f;
     set_fov_function(CAM_FOV_APP_MISC);
+
+    radial_camera_input(c);
 
     // if spline dir needs to be set
     // also sets splineLen as a loop index variable
@@ -1816,10 +1822,10 @@ void mode_8_directions_camera(struct Camera *c) {
     Vec3f pos;
     s16 oldAreaYaw = sAreaYaw;
 
-    radial_camera_input(c);
-
     if (c->curVolume) {
         if (process_cozy_volumes(c)) return;
+    } else {
+        radial_camera_input(c);
     }
 
     process_8dir_inputs(c);
@@ -3712,7 +3718,7 @@ void update_camera(struct Camera *c) {
     if (c->cutscene == CUTSCENE_NONE) {
         sYawSpeed = 0x400;
 
-        if (cozy_blocks_input) {
+        if (cozy_blocks_input && c->mode != CAMERA_MODE_C_UP) {
             // cozy volumes processed in 8dir cam
             mode_8_directions_camera(c);
         } else if (sSelectionFlags & CAM_MODE_MARIO_ACTIVE) {
