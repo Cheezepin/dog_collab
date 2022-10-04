@@ -48,3 +48,5 @@ Gfx *geo_warp_pad_env_alpha(s32 callContext, struct GraphNode *node, UNUSED Mat4
 
 // misc
 Gfx *geo_reflect_light_panel(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
+
+void cozies_ambient_sound_loop(void);

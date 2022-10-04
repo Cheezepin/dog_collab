@@ -10,6 +10,7 @@
 #include "game/save_file.h"
 #include "game/tile_scroll.h"
 #include "game/spawn_sound.h"
+#include "audio/external.h"
 #include "engine/math_util.h"
 #include "levels/ddd/header.h"
 #include "behavior_data.h"

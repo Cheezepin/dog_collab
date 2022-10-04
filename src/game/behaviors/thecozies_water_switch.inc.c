@@ -6,6 +6,11 @@
 void water_switch_init(void) {
     o->oWaterSwitchOffset = WATER_SWITCH_OFFSET;
     o->oWaterSwitchActivated = check_min_star_collected((u8)BPARAM1);
+
+    // dont auto fire first switch if on act 1
+    if (o->oWaterSwitchActivated && gCurrActNum == 1 && BPARAM1 == 1 && BPARAM2 == 1) {
+        o->oWaterSwitchActivated = FALSE;
+    }
 } 
 
 s16 original_water_col_positions[] = {

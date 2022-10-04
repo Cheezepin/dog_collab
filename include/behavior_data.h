@@ -685,6 +685,7 @@ extern const BehaviorScript bhvTubeTop[];
 extern const BehaviorScript bhvSpinnyCloudSpawner[];
 extern const BehaviorScript bhvCoziesDog[];
 extern const BehaviorScript bhvCozyWarpPad[];
+extern const BehaviorScript bhvCoziesAmbientSound[];
 // thecozies bhvs end
 
 //START ROVERT BEHAVIOR

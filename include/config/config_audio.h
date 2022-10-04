@@ -13,3 +13,5 @@
 // Use a much better implementation of reverb over vanilla's fake echo reverb. Great for caves or eerie levels, as well as just a better audio experience in general.
 // Reverb parameters can be configured in audio/synthesis.c to meet desired aesthetic/performance needs. Currently US/JP only. Hurts emulator and console performance.
 //#define BETTER_REVERB
+
+#define DISABLE_STEREO_HEADSET_EFFECTS
