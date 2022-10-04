@@ -1325,7 +1325,7 @@ const BehaviorScript bhvDoor[] = {
 const BehaviorScript bhvGrindel[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(ssl_seg7_collision_grindel),
+    //LOAD_COLLISION_DATA(ssl_seg7_collision_grindel),
     DROP_TO_FLOOR(),
     ADD_FLOAT(oPosY, 1),
     SET_HOME(),
@@ -2693,7 +2693,7 @@ const BehaviorScript bhvKoopaShellFlame[] = {
 const BehaviorScript bhvToxBox[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(ssl_seg7_collision_tox_box),
+    //LOAD_COLLISION_DATA(ssl_seg7_collision_tox_box),
     ADD_FLOAT(oPosY, 256),
     SET_FLOAT(oDrawingDistance, 8000),
     SET_HOME(),
@@ -4643,7 +4643,7 @@ const BehaviorScript bhvRrCruiserWing[] = {
 const BehaviorScript bhvSpindel[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(ssl_seg7_collision_spindel),
+    //LOAD_COLLISION_DATA(ssl_seg7_collision_spindel),
     CALL_NATIVE(bhv_spindel_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_spindel_loop),
@@ -4654,7 +4654,7 @@ const BehaviorScript bhvSpindel[] = {
 const BehaviorScript bhvSslMovingPyramidWall[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(ssl_seg7_collision_0702808C),
+    //LOAD_COLLISION_DATA(ssl_seg7_collision_0702808C),
     CALL_NATIVE(bhv_ssl_moving_pyramid_wall_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_ssl_moving_pyramid_wall_loop),
@@ -4665,7 +4665,7 @@ const BehaviorScript bhvSslMovingPyramidWall[] = {
 const BehaviorScript bhvPyramidElevator[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(ssl_seg7_collision_pyramid_elevator),
+    //LOAD_COLLISION_DATA(ssl_seg7_collision_pyramid_elevator),
     SET_HOME(),
     SET_FLOAT(oDrawingDistance, 20000),
     SET_FLOAT(oCollisionDistance, 20000),
@@ -4688,7 +4688,7 @@ const BehaviorScript bhvPyramidElevatorTrajectoryMarkerBall[] = {
 const BehaviorScript bhvPyramidTop[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_COLLISION_DATA(ssl_seg7_collision_pyramid_top),
+    //LOAD_COLLISION_DATA(ssl_seg7_collision_pyramid_top),
     SET_HOME(),
     SET_FLOAT(oDrawingDistance, 20000),
     SET_FLOAT(oCollisionDistance, 20000),
@@ -6160,7 +6160,7 @@ const BehaviorScript bhvSnufitBalls[] = {
 
 const BehaviorScript bhvHorizontalGrindel[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    LOAD_COLLISION_DATA(ssl_seg7_collision_grindel),
+    //LOAD_COLLISION_DATA(ssl_seg7_collision_grindel),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     DROP_TO_FLOOR(),
     SET_HOME(),
