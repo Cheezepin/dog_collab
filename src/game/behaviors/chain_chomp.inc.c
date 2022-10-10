@@ -444,15 +444,19 @@ void chain_chomp_bowser_sub_act_turn(void) {
                     if (o->oTimer > 40) {
                         // Increase the maximum distance from the pivot and enter
                         // the lunging sub-action.
-                        cur_obj_play_sound_2(SOUND_GENERAL_CHAIN_CHOMP2);
+                        if(find_any_object_with_behavior(bhvBowser)->oHeldState == HELD_FREE) {
+                            cur_obj_play_sound_2(SOUND_GENERAL_CHAIN_CHOMP2);
 
-                        o->oSubAction = CHAIN_CHOMP_SUB_ACT_LUNGE;
-                        // o->oChainChompMaxDistFromPivotPerChainPart = 900.0f / CHAIN_CHOMP_NUM_SEGMENTS;
-                        o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS;
-                        o->oForwardVel = 140.0f;
-                        o->oVelY = 20.0f;
-                        o->oGravity = 0.0f;
-                        o->oChainChompTargetPitch = obj_get_pitch_from_vel();
+                            o->oSubAction = CHAIN_CHOMP_SUB_ACT_LUNGE;
+                            // o->oChainChompMaxDistFromPivotPerChainPart = 900.0f / CHAIN_CHOMP_NUM_SEGMENTS;
+                            o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS;
+                            o->oForwardVel = 140.0f;
+                            o->oVelY = 20.0f;
+                            o->oGravity = 0.0f;
+                            o->oChainChompTargetPitch = obj_get_pitch_from_vel();
+                        } else {
+                            o->oTimer = 0;
+                        }
                     }
                 } else {
                     o->oTimer--;

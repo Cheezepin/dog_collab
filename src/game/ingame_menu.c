@@ -3003,6 +3003,7 @@ void render_hub_level_confirmation() {
 } */
 
 u8 textYouGotAStar[] = { TEXT_YOU_GOT_A_STAR };
+u8 textYouGotAKey[] = { TEXT_YOU_GOT_A_KEY };
 u8 textSaveQuestion[] = { TEXT_SAVE_QUESTION };
 u8 textYesLC[] = { TEXT_YES_LC };
 u8 textNoLC[] = { TEXT_NO_LC };
@@ -3060,7 +3061,11 @@ void end_results_loop(void) {
         gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
         gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
             create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
-            print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 95, textYouGotAStar);
+            if(gCurrCourseNum > 0 && gCurrCourseNum < 16) {
+                print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 95, textYouGotAStar);
+            } else {
+                print_generic_string(get_str_x_pos_from_center(80, textYouGotAKey, 2.0f), 95, textYouGotAKey);
+            }
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
         actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
         print_generic_string(actNameX + 10, 160, selectedActName);
@@ -3140,11 +3145,19 @@ void end_results_loop(void) {
         }
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
-            create_dl_translation_matrix(MENU_MTX_PUSH, actNameX - 10.0f, 168.0f, 0.0f);
-            create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
-            create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
-            gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
-            gSPDisplayList(gDisplayListHead++, star_hud_dl);
+            if(gCurrCourseNum > 0 && gCurrCourseNum < 16) {
+                create_dl_translation_matrix(MENU_MTX_PUSH, actNameX - 10.0f, 168.0f, 0.0f);
+                create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
+                create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
+                gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+                gSPDisplayList(gDisplayListHead++, star_hud_dl);
+            } else {
+                create_dl_translation_matrix(MENU_MTX_PUSH, 160.0f, 180.0f, 0.0f);
+                create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
+                create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
+                create_dl_rotation_matrix(MENU_MTX_NOPUSH, -90.0f, 0.0f, 0.0f, 1.0f);
+                gSPDisplayList(gDisplayListHead++, bowser_key_dl);
+            }
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
         gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
