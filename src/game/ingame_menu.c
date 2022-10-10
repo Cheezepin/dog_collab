@@ -1668,6 +1668,10 @@ void render_widescreen_setting(void) {
     #define MYSCORE_X         62
 #endif
 
+u8 coursesFixed[] = {
+    0, 3, 4, 6, 5, 2, 9, 8, 7, 10, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
 void render_pause_my_score_coins(void) {
     u8 textCourse[] = { TEXT_COURSE };
     u8 textMyScore[] = { TEXT_MY_SCORE };
@@ -1704,7 +1708,7 @@ void render_pause_my_score_coins(void) {
 
     if (courseIndex <= COURSE_NUM_TO_INDEX(COURSE_STAGES_MAX)) {
         print_generic_string(TXT_COURSE_X, 157, LANGUAGE_ARRAY(textCourse));
-        int_to_str(gCurrCourseNum, strCourseNum);
+        int_to_str(coursesFixed[gCurrCourseNum], strCourseNum);
         print_generic_string(CRS_NUM_X1, 157, strCourseNum);
 
         u8 *actName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gDialogCourseActNum - 1]);
@@ -3063,9 +3067,10 @@ void end_results_loop(void) {
 
         if(gEndResultMenuState == 1) {
             if(nextUnfinishedAct == 0) {
+                textReplayLastAct[11] = 0x30 + gDialogCourseActNum;
                 print_generic_string(110, 110, textReplayLastAct);
             } else {
-                textContinueToNextAct[33] = 0x30 + nextUnfinishedAct;
+                textContinueToNextAct[16] = 0x30 + nextUnfinishedAct;
                 print_generic_string(110, 110, textContinueToNextAct);
             }
             print_generic_string(110, 90, textExitCourseLC);
@@ -3088,11 +3093,16 @@ void end_results_loop(void) {
                     initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAGS_NONE);
                     fade_into_special_warp(WARP_SPECIAL_NONE, 0);
                     gSavedCourseNum = COURSE_NONE;
+                    gHubStarSelectTimer = 0;
+                    gCustomStarSelectActive = 0;
+                    gLevelEntryConfirmationActive = 0;
                 } else {
                     fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
                     gWorldID = 0;
                     gFocusID = 0;
                     gCustomStarSelectActive = 0;
+                    gHubStarSelectTimer = 0;
+                    gLevelEntryConfirmationActive = 0;
                 }
                 gEndResultMenuState = 2;
                 gEndResultMenuChoice = 0;
@@ -3112,7 +3122,19 @@ void end_results_loop(void) {
                 if(gEndResultMenuChoice == 0) {
                     save_file_do_save(gCurrSaveFileNum - 1);
                 }
-                gEndResultMenuState = 1;
+                if(gCurrCourseNum > 0 && gCurrCourseNum < 16) {
+                    gEndResultMenuState = 1;
+                } else {
+                    initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAGS_NONE);
+                    fade_into_special_warp(WARP_SPECIAL_NONE, 0);
+                    gSavedCourseNum = COURSE_NONE;
+                    gHubStarSelectTimer = 0;
+                    gCustomStarSelectActive = 0;
+                    gLevelEntryConfirmationActive = 0;
+                    gEndResultMenuState = 2;
+                    gEndResultsActive = 0;
+                    gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
+                }
                 gEndResultMenuChoice = 0;
             }
         }
