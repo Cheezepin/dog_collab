@@ -88,7 +88,7 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_NONE, 0, -4000, 0, 0, 0, 0, (2 << 16), bhvVerticalInstantWarp),
 		TERRAIN(ddd_area_1_collision),
 		MACRO_OBJECTS(ddd_area_1_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_COZIES),
 		TERRAIN_TYPE(TERRAIN_WATER),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -172,7 +172,7 @@ const LevelScript level_ddd_entry[] = {
 		TERRAIN(ddd_area_2_collision),
 		ROOMS(ddd_area_2_collision_rooms),
 		MACRO_OBJECTS(ddd_area_2_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_COZIES),
 		TERRAIN_TYPE(TERRAIN_WATER),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -196,7 +196,7 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_STAR, 12413, 7082, -2950, 0, 0, 0, (0 << 24), bhvStar),
 		TERRAIN(ddd_area_3_collision),
 		MACRO_OBJECTS(ddd_area_3_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_COZIES),
 		TERRAIN_TYPE(TERRAIN_WATER),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */

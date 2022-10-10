@@ -15,3 +15,7 @@
 //#define BETTER_REVERB
 
 #define DISABLE_STEREO_HEADSET_EFFECTS
+
+// cozies: the effect is a little too strong rn but its kinda interesting
+// maybe it can be figured out or toned down
+// #define USE_DOPPLER_EFFECT
