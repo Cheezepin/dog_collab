@@ -515,6 +515,12 @@ void chain_chomp_bowser_sub_act_lunge(void) {
     }
 }
 
+void chain_chomp_bowser_sub_act_jump(void) {
+    obj_face_pitch_approach(o->oChainChompTargetPitch, 0x3C00);
+
+    o->oForwardVel = 10.0f;
+}
+
 static void chain_chomp_bowser_act_move(void) {
     f32 maxDistToPivot;
 
@@ -533,6 +539,9 @@ static void chain_chomp_bowser_act_move(void) {
                         break;
                     case CHAIN_CHOMP_SUB_ACT_LUNGE:
                         chain_chomp_bowser_sub_act_lunge();
+                        break;
+                    case CHAIN_CHOMP_SUB_ACT_JUMP:
+                        chain_chomp_bowser_sub_act_jump();
                         break;
                 }
                 break;
@@ -575,14 +584,16 @@ static void chain_chomp_bowser_act_move(void) {
         chain_chomp_update_chain_segments();
 
         // Begin a lunge if mario tries to attack
-        if (obj_check_attacks(&sChainChompBowserHitbox, o->oAction) != 0) {
-            o->oSubAction = CHAIN_CHOMP_SUB_ACT_LUNGE;
-            // o->oChainChompMaxDistFromPivotPerChainPart = (900.0f / CHAIN_CHOMP_NUM_SEGMENTS);
-            o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS; // ((CHAIN_CHOMP_NUM_SEGMENTS * CHAIN_CHOMP_CHAIN_MAX_DIST_BETWEEN_PARTS) / CHAIN_CHOMP_NUM_SEGMENTS);
-            o->oForwardVel = 0.0f;
-            o->oVelY = 300.0f;
-            o->oGravity = -4.0f;
-            o->oChainChompTargetPitch = -0x3000;
+        if(o->oSubAction < CHAIN_CHOMP_SUB_ACT_JUMP) {
+            if (obj_check_attacks(&sChainChompBowserHitbox, o->oAction) != 0) {
+                o->oSubAction = CHAIN_CHOMP_SUB_ACT_LUNGE;
+                // o->oChainChompMaxDistFromPivotPerChainPart = (900.0f / CHAIN_CHOMP_NUM_SEGMENTS);
+                o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS; // ((CHAIN_CHOMP_NUM_SEGMENTS * CHAIN_CHOMP_CHAIN_MAX_DIST_BETWEEN_PARTS) / CHAIN_CHOMP_NUM_SEGMENTS);
+                o->oForwardVel = 0.0f;
+                o->oVelY = 300.0f;
+                o->oGravity = -4.0f;
+                o->oChainChompTargetPitch = -0x3000;
+            }
         }
     }
 }

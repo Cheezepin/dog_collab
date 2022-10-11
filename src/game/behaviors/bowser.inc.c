@@ -490,10 +490,17 @@ void bowser_bitfs_actions(void) {
 /**
  * List of actions (and attacks) for "Bowser in the Sky"
  */
+
+//cc stomp
+//cc charge
+//bowser throws cc
+//firebreath
+//???
+
 void bowser_bits_action_list(void) {
     f32 rand = random_float();
     if (o->oBowserStatus & BOWSER_STATUS_ANGLE_MARIO) {
-        if (o->oDistanceToMario < 1000.0f) { // nearby
+        /*if (o->oDistanceToMario < 1000.0f) { // nearby
             if (rand < 0.4f) {
                 o->oAction = BOWSER_ACT_SPIT_FIRE_ONTO_FLOOR; // 40% chance
             } else if (rand < 0.8f) {
@@ -505,7 +512,9 @@ void bowser_bits_action_list(void) {
             o->oAction = BOWSER_ACT_BIG_JUMP; // 50% chance
         } else {
             o->oAction = BOWSER_ACT_CHARGE_MARIO;
-        }
+        }*/
+        o->oAction = BOWSER_ACT_CC_JUMP;
+        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
     } else {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;
@@ -968,6 +977,10 @@ void bowser_act_snow(void) {
             }
         }
     }
+}
+
+void bowser_act_cc_jump(void) {
+    cur_obj_init_animation(BOWSER_ANIM_IDLE);
 }
 
 /**
@@ -1993,7 +2006,8 @@ void (*sBowserActions[])(void) = {
     bowser_act_pre_attack,
     bowser_act_lightning,
     bowser_act_lightning_pt2,
-    bowser_act_snow
+    bowser_act_snow,
+    bowser_act_cc_jump,
 };
 
 /**
@@ -2247,6 +2261,7 @@ void bhv_bowser_loop(void) {
  */
 void bhv_bowser_init(void) {
     s32 level;
+    struct Object *cc = find_any_object_with_behavior(bhvChainChompBowser);
     // Set "reaction" value
     // It goes true when Bowser is a non-walking state
     o->oBowserIsReacting = TRUE;
@@ -2273,6 +2288,9 @@ void bhv_bowser_init(void) {
     } else {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
         o->oAction = BOWSER_ACT_WAIT;
+    }
+    if(cc) {
+        o->oBowserCCObj = cc;
     }
     // Set eyes status
     o->oBowserEyesTimer = 0;
