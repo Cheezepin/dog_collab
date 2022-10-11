@@ -355,6 +355,16 @@ void bowser_act_wait(void) {
     bowser_init_camera_actions();
 }
 
+void bowser_act_wait_for_mario(void) {
+    o->oForwardVel = 0.0f;
+    cur_obj_init_animation_with_sound(BOWSER_ANIM_IDLE);
+    if(o->oDistanceToMario < 1000.0f) {
+        start_cutscene(gCamera, CUTSCENE_ENTER_BOWSER_ARENA);
+        o->oAction = BOWSER_ACT_WAIT;
+        cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
+    }
+}
+
 /**
  * Bowser's cutscene walk that last a few seconds to introduce itself
  * Do subactions until the animation ends, then go to next subaction
@@ -2007,6 +2017,7 @@ void (*sBowserActions[])(void) = {
     bowser_act_lightning,
     bowser_act_lightning_pt2,
     bowser_act_snow,
+    bowser_act_wait_for_mario,
     bowser_act_cc_jump,
 };
 
@@ -2285,6 +2296,8 @@ void bhv_bowser_init(void) {
     if(gCurrLevelNum == LEVEL_BOWSER_2) {
         gCamera->cutscene = CUTSCENE_SNOW_BOWSER_INTRO;
         o->oAction = BOWSER_ACT_SNOW;
+    } else if(gCurrLevelNum == LEVEL_BOWSER_3) {
+        o->oAction = BOWSER_ACT_WAIT_FOR_MARIO;
     } else {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
         o->oAction = BOWSER_ACT_WAIT;

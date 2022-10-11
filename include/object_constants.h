@@ -469,10 +469,11 @@ enum oBobombBuddyHasTalkedToMarioStates {
     #define BOWSER_ACT_LIGHTNING                            0x1C
     #define BOWSER_ACT_LIGHTNING_2                          0x1D
     #define BOWSER_ACT_SNOW                                 0x1E
-    #define BOWSER_ACT_CC_JUMP                              0x1F
-    #define BOWSER_ACT_CC_CHARGE                            0x20
-    #define BOWSER_ACT_CC_WHIRL                             0x21
-    #define BOWSER_ACT_CC_UNK1                              0x22
+    #define BOWSER_ACT_WAIT_FOR_MARIO                       0x1F
+    #define BOWSER_ACT_CC_JUMP                              0x20
+    #define BOWSER_ACT_CC_CHARGE                            0x21
+    #define BOWSER_ACT_CC_WHIRL                             0x22
+    #define BOWSER_ACT_CC_UNK1                              0x23
     /* oAnimState */
     #define BOWSER_ANIM_STATE_OPAQUE                        TRANSPARENCY_ANIM_STATE_OPAQUE
     #define BOWSER_ANIM_STATE_TRANSPARENT                   TRANSPARENCY_ANIM_STATE_TRANSPARENT

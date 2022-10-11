@@ -516,9 +516,9 @@ void chain_chomp_bowser_sub_act_lunge(void) {
 }
 
 void chain_chomp_bowser_sub_act_jump(void) {
-    obj_face_pitch_approach(o->oChainChompTargetPitch, 0x3C00);
-
     o->oForwardVel = 10.0f;
+    o->oVelY = 40.0f;
+    print_text_fmt_int(20, 20, "%d", (s32)o->oPosY);
 }
 
 static void chain_chomp_bowser_act_move(void) {

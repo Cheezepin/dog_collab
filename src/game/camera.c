@@ -4045,7 +4045,7 @@ void init_camera(struct Camera *c) {
             //start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
             break;
         case LEVEL_BOWSER_3:
-            start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
+            //start_cutscene(c, CUTSCENE_ENTER_BOWSER_ARENA);
             break;
         case LEVEL_COZIES: {
             if (gMarioState->action != ACT_FLOOR_CHECKPOINT_WARP_OUT && gMarioState->action != ACT_FLOOR_CHECKPOINT_WARP_IN) {
