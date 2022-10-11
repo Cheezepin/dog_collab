@@ -1027,6 +1027,7 @@ s32 act_ground_pound_land(struct MarioState *m) {
 
 s32 act_first_person(struct MarioState *m) {
     s32 exit = (m->input & (INPUT_OFF_FLOOR | INPUT_ABOVE_SLIDE | INPUT_STOMPED)) != 0;
+    m->flags |= MARIO_TELEPORTING;
 
     if (m->actionState == ACT_STATE_FIRST_PERSON_SET_MODE) {
         lower_background_noise(2);
@@ -1036,6 +1037,8 @@ s32 act_first_person(struct MarioState *m) {
         raise_background_noise(2);
         // Go back to the last camera mode
         set_camera_mode(m->area->camera, -1, 1);
+        m->fadeWarpOpacity = 255;
+        m->flags &= ~MARIO_TELEPORTING;
         return set_mario_action(m, ACT_IDLE, 0);
     }
 
@@ -1058,6 +1061,8 @@ s32 act_first_person(struct MarioState *m) {
         raise_background_noise(2);
         // Go back to the last camera mode
         set_camera_mode(m->area->camera, -1, 1);
+        m->fadeWarpOpacity = 255;
+        m->flags &= ~MARIO_TELEPORTING;
         return set_mario_action(m, ACT_FREEFALL, 0);
     }
     set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
