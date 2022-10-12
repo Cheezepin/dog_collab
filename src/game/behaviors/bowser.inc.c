@@ -525,6 +525,8 @@ void bowser_bits_action_list(void) {
         }*/
         o->oAction = BOWSER_ACT_CC_JUMP;
         o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
+        o->oBowserCCObj->oVelY = 100.0f;
+        o->oBowserCCObj->oChainChompSubAction = 0;
     } else {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;
@@ -990,7 +992,16 @@ void bowser_act_snow(void) {
 }
 
 void bowser_act_cc_jump(void) {
-    cur_obj_init_animation(BOWSER_ANIM_IDLE);
+    cur_obj_init_animation(BOWSER_ANIM_SLOW_GAIT);
+    cur_obj_rotate_yaw_toward(o->oAngleToMario, 2000);
+    o->oForwardVel = 10.0f;
+    if(o->oBowserCCObj->oChainChompSubAction == 3) {
+        if(o->oTimer == 10) {
+            o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+        }
+    } else {
+        o->oTimer = 0;
+    }
 }
 
 /**

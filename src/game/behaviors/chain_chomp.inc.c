@@ -518,24 +518,57 @@ void chain_chomp_bowser_sub_act_lunge(void) {
 }
 
 void chain_chomp_bowser_sub_act_jump(void) {
+    o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS + 180.0f;
+    o->oFaceAnglePitch = o->oMoveAnglePitch = 0;
     switch(o->oChainChompSubAction) {
-        case 0:
-            cur_obj_rotate_yaw_toward(o->oAngleToMario, 800);
-            o->oForwardVel = 10.0f;
-            o->oVelY = 80.0f;
-            if(o->oPosY > 1600.0f) {
-                o->oChainChompSubAction = 1;
-                o->oVelY = 0.0f;
+        /*case 0:
+        case 2:
+        case 4:
+            cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x2000);
+            o->oForwardVel = 30.0f;
+            o->oVelY = 120.0f;
+            if(o->oPosY > 1400.0f) {
+                o->oChainChompSubAction++;
+                o->oVelY = -20.0f;
                 o->oGravity = -4.0f;
             }
             break;
+        case 5:
+            if(o->oPosY == o->oFloorHeight) {
+                o->oChainChompSubAction = 6;
+                o->oVelY = 20.0f;
+            }
         case 1:
+        case 3:
+            cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x2000);
             if(o->oPosY == o->oFloorHeight) {
                 struct Object *wave;
                 wave = spawn_object(o, MODEL_BOWSER_WAVE, bhvBowserShockWave);
                 wave->oPosY = o->oFloorHeight;
-                o->oChainChompSubAction = 0;
+                o->oChainChompSubAction++;
             }
+            break;
+        case 6:
+            o->oForwardVel = 0;
+            break;*/
+        default:
+            cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x2000);
+            o->oForwardVel = 20.0f;
+            o->oGravity = -6.0f;
+            if(o->oPosY == o->oFloorHeight) {
+                struct Object *wave;
+                wave = spawn_object(o, MODEL_BOWSER_WAVE, bhvBowserShockWave);
+                wave->oPosY = o->oFloorHeight;
+                o->oChainChompSubAction++;
+                if(o->oChainChompSubAction == 3) {
+                    o->oVelY = 20.0f;
+                } else {
+                    o->oVelY = 100.0f;
+                }
+            }
+            break;
+        case 3:
+            o->oForwardVel = 0;
             break;
     }
     print_text_fmt_int(20, 20, "%d", (s32)o->oPosY);
