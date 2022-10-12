@@ -473,6 +473,7 @@ void chain_chomp_bowser_sub_act_turn(void) {
        cur_obj_rotate_yaw_toward(o->oAngleToMario, 400);
        o->oTimer = 0;
     }
+    o->oChainChompSubAction = 0;
 }
 
 void chain_chomp_bowser_sub_act_lunge(void) {
@@ -513,11 +514,30 @@ void chain_chomp_bowser_sub_act_lunge(void) {
     if (o->oTimer < 30) {
         cur_obj_reverse_animation();
     }
+    o->oChainChompSubAction = 0;
 }
 
 void chain_chomp_bowser_sub_act_jump(void) {
-    o->oForwardVel = 10.0f;
-    o->oVelY = 40.0f;
+    switch(o->oChainChompSubAction) {
+        case 0:
+            cur_obj_rotate_yaw_toward(o->oAngleToMario, 800);
+            o->oForwardVel = 10.0f;
+            o->oVelY = 80.0f;
+            if(o->oPosY > 1600.0f) {
+                o->oChainChompSubAction = 1;
+                o->oVelY = 0.0f;
+                o->oGravity = -4.0f;
+            }
+            break;
+        case 1:
+            if(o->oPosY == o->oFloorHeight) {
+                struct Object *wave;
+                wave = spawn_object(o, MODEL_BOWSER_WAVE, bhvBowserShockWave);
+                wave->oPosY = o->oFloorHeight;
+                o->oChainChompSubAction = 0;
+            }
+            break;
+    }
     print_text_fmt_int(20, 20, "%d", (s32)o->oPosY);
 }
 
