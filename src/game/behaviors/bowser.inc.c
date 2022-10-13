@@ -523,10 +523,18 @@ void bowser_bits_action_list(void) {
         } else {
             o->oAction = BOWSER_ACT_CHARGE_MARIO;
         }*/
-        o->oAction = BOWSER_ACT_CC_JUMP;
+        
+        /*o->oAction = BOWSER_ACT_CC_JUMP;
         o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
         o->oBowserCCObj->oVelY = 100.0f;
         o->oBowserCCObj->oChainChompSubAction = 0;
+        o->oBowserCCObj->oPosY += 10.0f;*/
+
+        o->oAction = BOWSER_ACT_CC_CHARGE;
+        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_CHARGE;
+        o->oBowserCCObj->oChainChompSubAction = 0;
+        o->oBowserCCObj->oMoveAngleYaw = o->oBowserCCObj->oAngleToMario;
+        o->oBowserCCObj->oPosY = 200.0f;
     } else {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;
@@ -994,14 +1002,20 @@ void bowser_act_snow(void) {
 void bowser_act_cc_jump(void) {
     cur_obj_init_animation(BOWSER_ANIM_SLOW_GAIT);
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 2000);
-    o->oForwardVel = 10.0f;
+    o->oForwardVel = 20.0f;
     if(o->oBowserCCObj->oChainChompSubAction == 3) {
         if(o->oTimer == 10) {
             o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+            o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
         }
     } else {
         o->oTimer = 0;
     }
+}
+
+void bowser_act_cc_charge(void) {
+    cur_obj_init_animation(BOWSER_ANIM_IDLE);
+    approach_f32_signed(&o->oForwardVel, 0, -4.0f);
 }
 
 /**
@@ -2030,6 +2044,7 @@ void (*sBowserActions[])(void) = {
     bowser_act_snow,
     bowser_act_wait_for_mario,
     bowser_act_cc_jump,
+    bowser_act_cc_charge,
 };
 
 /**

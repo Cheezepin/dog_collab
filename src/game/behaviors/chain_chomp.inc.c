@@ -100,6 +100,9 @@ static void chain_chomp_act_uninitialized(void) {
 
             // Spawn the pivot and set to parent
             o->parentObj = spawn_object(o, CHAIN_CHOMP_CHAIN_PART_BP_PIVOT, bhvChainChompChainPartBowser);
+            if(gCurrLevelNum == LEVEL_BOWSER_3) {
+                o->parentObj->oBowserCCObj = find_any_object_with_behavior(bhvBowser);
+            }
             if (o->parentObj != NULL) {
                 // Spawn the non-pivot chain parts, starting from the chain
                 // chomp and moving toward the pivot
@@ -435,7 +438,7 @@ void chain_chomp_bowser_sub_act_turn(void) {
     chain_chomp_restore_normal_chain_lengths();
     obj_move_pitch_approach(0, 0x100);
 
-    if ((o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) && gCamera->cutscene == 0) {
+    if ((o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) && gCamera->cutscene == 0 && find_any_object_with_behavior(bhvBowser)->oAction != BOWSER_ACT_WAIT_FOR_MARIO) {
         cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x400);
         if (abs_angle_diff(o->oAngleToMario, o->oMoveAngleYaw) < 0x800) {
             if (o->oTimer > 30) {
@@ -518,42 +521,11 @@ void chain_chomp_bowser_sub_act_lunge(void) {
 }
 
 void chain_chomp_bowser_sub_act_jump(void) {
-    o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS + 180.0f;
     o->oFaceAnglePitch = o->oMoveAnglePitch = 0;
     switch(o->oChainChompSubAction) {
-        /*case 0:
-        case 2:
-        case 4:
-            cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x2000);
-            o->oForwardVel = 30.0f;
-            o->oVelY = 120.0f;
-            if(o->oPosY > 1400.0f) {
-                o->oChainChompSubAction++;
-                o->oVelY = -20.0f;
-                o->oGravity = -4.0f;
-            }
-            break;
-        case 5:
-            if(o->oPosY == o->oFloorHeight) {
-                o->oChainChompSubAction = 6;
-                o->oVelY = 20.0f;
-            }
-        case 1:
-        case 3:
-            cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x2000);
-            if(o->oPosY == o->oFloorHeight) {
-                struct Object *wave;
-                wave = spawn_object(o, MODEL_BOWSER_WAVE, bhvBowserShockWave);
-                wave->oPosY = o->oFloorHeight;
-                o->oChainChompSubAction++;
-            }
-            break;
-        case 6:
-            o->oForwardVel = 0;
-            break;*/
         default:
             cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x2000);
-            o->oForwardVel = 20.0f;
+            o->oForwardVel = 30.0f;
             o->oGravity = -6.0f;
             if(o->oPosY == o->oFloorHeight) {
                 struct Object *wave;
@@ -572,6 +544,11 @@ void chain_chomp_bowser_sub_act_jump(void) {
             break;
     }
     print_text_fmt_int(20, 20, "%d", (s32)o->oPosY);
+}
+
+void chain_chomp_bowser_sub_act_charge(void) {
+    o->oForwardVel = 60.0f;
+    cur_obj_rotate_yaw_toward(o->oAngleToMario, 400);
 }
 
 static void chain_chomp_bowser_act_move(void) {
@@ -596,6 +573,9 @@ static void chain_chomp_bowser_act_move(void) {
                     case CHAIN_CHOMP_SUB_ACT_JUMP:
                         chain_chomp_bowser_sub_act_jump();
                         break;
+                    case CHAIN_CHOMP_SUB_ACT_CHARGE:
+                        chain_chomp_bowser_sub_act_charge();
+                        break;
                 }
                 break;
         }
@@ -619,7 +599,7 @@ static void chain_chomp_bowser_act_move(void) {
 
             vec3_mul_val(o->oChainChompSegments[0].pos, ratio);
 
-            if (o->oChainChompReleaseStatus == CHAIN_CHOMP_NOT_RELEASED) {
+            if (o->oChainChompReleaseStatus == CHAIN_CHOMP_NOT_RELEASED && o->oSubAction != CHAIN_CHOMP_SUB_ACT_CHARGE) {
                 // Restrict chain chomp position
                 vec3f_sum(&o->oPosVec, &o->parentObj->oPosVec, o->oChainChompSegments[0].pos);
 
@@ -629,6 +609,11 @@ static void chain_chomp_bowser_act_move(void) {
                 f32 oldPivotY = o->parentObj->oPosY;
                 vec3_diff(&o->parentObj->oPosVec, &o->oPosVec, o->oChainChompSegments[0].pos);
                 o->parentObj->oVelY = o->parentObj->oPosY - oldPivotY;
+
+                if(o->parentObj->oBowserCCObj) {
+                    o->parentObj->oBowserCCObj->oMoveAngleYaw = obj_angle_to_object(o->parentObj->oBowserCCObj, o);
+                    o->parentObj->oBowserCCObj->oForwardVel = o->oForwardVel;
+                }
             }
         } else {
             o->oChainChompRestrictedByChain = FALSE;
