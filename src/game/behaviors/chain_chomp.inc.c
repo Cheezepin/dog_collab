@@ -547,8 +547,16 @@ void chain_chomp_bowser_sub_act_jump(void) {
 }
 
 void chain_chomp_bowser_sub_act_charge(void) {
-    o->oForwardVel = 60.0f;
-    cur_obj_rotate_yaw_toward(o->oAngleToMario, 400);
+    approach_f32_ptr(&o->oForwardVel, 150.0f, 10.0f);
+    o->oGravity = -4.0f;
+    if(o->oPosY == o->oFloorHeight) {
+        o->oVelY = 40.0f;
+    }
+    if(o->oFloorHeight < -5.0f) {
+        cur_obj_rotate_yaw_toward(o->oAngleToMario, 4000);
+    } else {
+        cur_obj_rotate_yaw_toward(o->oAngleToMario, 1000);
+    }
 }
 
 static void chain_chomp_bowser_act_move(void) {

@@ -524,17 +524,17 @@ void bowser_bits_action_list(void) {
             o->oAction = BOWSER_ACT_CHARGE_MARIO;
         }*/
         
-        /*o->oAction = BOWSER_ACT_CC_JUMP;
+        o->oAction = BOWSER_ACT_CC_JUMP;
         o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
         o->oBowserCCObj->oVelY = 100.0f;
         o->oBowserCCObj->oChainChompSubAction = 0;
-        o->oBowserCCObj->oPosY += 10.0f;*/
+        o->oBowserCCObj->oPosY += 10.0f;
 
-        o->oAction = BOWSER_ACT_CC_CHARGE;
+        /*o->oAction = BOWSER_ACT_CC_CHARGE;
         o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_CHARGE;
         o->oBowserCCObj->oChainChompSubAction = 0;
         o->oBowserCCObj->oMoveAngleYaw = o->oBowserCCObj->oAngleToMario;
-        o->oBowserCCObj->oPosY = 200.0f;
+        o->oBowserCCObj->oPosY = 200.0f;*/
     } else {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;

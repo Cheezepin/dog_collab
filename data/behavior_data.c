@@ -8248,6 +8248,7 @@ const BehaviorScript bhvChainChompBowser[] = {
     // SPAWN_CHILD_WITH_PARAM(/*Bhv param*/ 0, /*Model*/ MODEL_WOODEN_POST, /*Behavior*/ bhvWoodenPost),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_chain_chomp_bowser_update),
+        SET_INT(oInteractStatus, 0),
     END_LOOP(),
 };
 
