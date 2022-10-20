@@ -738,6 +738,7 @@ enum _2639Models {
 #define MODEL_CHEEZE_PLAT       0x180
 #define MODEL_CHEEZE_BOMB_WALL  0x181
 #define MODEL_CHEEZE_BOMB_WALL2 0x182
+#define MODEL_CHEEZE_LIGHTNING  0x183
 
 //end cheeze model ids
 

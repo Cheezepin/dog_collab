@@ -1668,6 +1668,10 @@ void render_widescreen_setting(void) {
     #define MYSCORE_X         62
 #endif
 
+u8 coursesFixed[] = {
+    0, 3, 4, 6, 5, 2, 9, 8, 7, 10, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
+
 void render_pause_my_score_coins(void) {
     u8 textCourse[] = { TEXT_COURSE };
     u8 textMyScore[] = { TEXT_MY_SCORE };
@@ -1704,7 +1708,7 @@ void render_pause_my_score_coins(void) {
 
     if (courseIndex <= COURSE_NUM_TO_INDEX(COURSE_STAGES_MAX)) {
         print_generic_string(TXT_COURSE_X, 157, LANGUAGE_ARRAY(textCourse));
-        int_to_str(gCurrCourseNum, strCourseNum);
+        int_to_str(coursesFixed[gCurrCourseNum], strCourseNum);
         print_generic_string(CRS_NUM_X1, 157, strCourseNum);
 
         u8 *actName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gDialogCourseActNum - 1]);
@@ -2703,7 +2707,7 @@ void render_hub_selection(void) {
             } else if((joystickMovement & JOYSTICK_UP) && gHubStarSelectTimer == 0 && gLevelEntryConfirmationActive == 0) {
                 gFocusID--;
                 if(gFocusID < 0) {
-                    u8 i;
+                    s8 i;
                     for(i = 5; i >= 0; i--) {
                         if(hubSelections[gWorldID][i].warpID != 0) {
                             gFocusID = i;
@@ -2832,7 +2836,7 @@ void render_hub_star_select(s32 cringeTimer) {
     u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID));
     u8 visibleStars;
     u8 allStarsVisible = 1;
-    u8 lastSelectableNotCompletedStar;
+    u8 lastSelectableNotCompletedStar = 0;
     u32 starColor;
     u8 starColorR;
     u8 starColorG;
@@ -2999,6 +3003,7 @@ void render_hub_level_confirmation() {
 } */
 
 u8 textYouGotAStar[] = { TEXT_YOU_GOT_A_STAR };
+u8 textYouGotAKey[] = { TEXT_YOU_GOT_A_KEY };
 u8 textSaveQuestion[] = { TEXT_SAVE_QUESTION };
 u8 textYesLC[] = { TEXT_YES_LC };
 u8 textNoLC[] = { TEXT_NO_LC };
@@ -3006,6 +3011,8 @@ u8 textContinueToNextAct[] = { TEXT_CONTINUE_TO_NEXT_ACT };
 u8 textReplayLastAct[] = { TEXT_REPLAY_LAST_ACT };
 u8 textExitCourseLC[] = { TEXT_EXIT_COURSE_LC };
 u8 textExitGame[] = { TEXT_EXIT_GAME };
+
+extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
 s32 gEndResultMenuChoice = 0;
 s32 gEndResultMenuState = 0;
@@ -3054,16 +3061,21 @@ void end_results_loop(void) {
         gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
         gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
             create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
-            print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 95, textYouGotAStar);
+            if(gCurrCourseNum > 0 && gCurrCourseNum < 16) {
+                print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 95, textYouGotAStar);
+            } else {
+                print_generic_string(get_str_x_pos_from_center(80, textYouGotAKey, 2.0f), 95, textYouGotAKey);
+            }
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
         actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
         print_generic_string(actNameX + 10, 160, selectedActName);
 
         if(gEndResultMenuState == 1) {
             if(nextUnfinishedAct == 0) {
+                textReplayLastAct[11] = 0x30 + gDialogCourseActNum;
                 print_generic_string(110, 110, textReplayLastAct);
             } else {
-                textContinueToNextAct[33] = 0x30 + nextUnfinishedAct;
+                textContinueToNextAct[16] = 0x30 + nextUnfinishedAct;
                 print_generic_string(110, 110, textContinueToNextAct);
             }
             print_generic_string(110, 90, textExitCourseLC);
@@ -3086,11 +3098,16 @@ void end_results_loop(void) {
                     initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAGS_NONE);
                     fade_into_special_warp(WARP_SPECIAL_NONE, 0);
                     gSavedCourseNum = COURSE_NONE;
+                    gHubStarSelectTimer = 0;
+                    gCustomStarSelectActive = 0;
+                    gLevelEntryConfirmationActive = 0;
                 } else {
                     fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
                     gWorldID = 0;
                     gFocusID = 0;
                     gCustomStarSelectActive = 0;
+                    gHubStarSelectTimer = 0;
+                    gLevelEntryConfirmationActive = 0;
                 }
                 gEndResultMenuState = 2;
                 gEndResultMenuChoice = 0;
@@ -3110,17 +3127,37 @@ void end_results_loop(void) {
                 if(gEndResultMenuChoice == 0) {
                     save_file_do_save(gCurrSaveFileNum - 1);
                 }
-                gEndResultMenuState = 1;
+                if(gCurrCourseNum > 0 && gCurrCourseNum < 16) {
+                    gEndResultMenuState = 1;
+                } else {
+                    initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAGS_NONE);
+                    fade_into_special_warp(WARP_SPECIAL_NONE, 0);
+                    gSavedCourseNum = COURSE_NONE;
+                    gHubStarSelectTimer = 0;
+                    gCustomStarSelectActive = 0;
+                    gLevelEntryConfirmationActive = 0;
+                    gEndResultMenuState = 2;
+                    gEndResultsActive = 0;
+                    gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
+                }
                 gEndResultMenuChoice = 0;
             }
         }
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
-            create_dl_translation_matrix(MENU_MTX_PUSH, actNameX - 10.0f, 168.0f, 0.0f);
-            create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
-            create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
-            gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
-            gSPDisplayList(gDisplayListHead++, star_hud_dl);
+            if(gCurrCourseNum > 0 && gCurrCourseNum < 16) {
+                create_dl_translation_matrix(MENU_MTX_PUSH, actNameX - 10.0f, 168.0f, 0.0f);
+                create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
+                create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
+                gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+                gSPDisplayList(gDisplayListHead++, star_hud_dl);
+            } else {
+                create_dl_translation_matrix(MENU_MTX_PUSH, 160.0f, 180.0f, 0.0f);
+                create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.0625f, 0.0625f, 0.0005f);
+                create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
+                create_dl_rotation_matrix(MENU_MTX_NOPUSH, -90.0f, 0.0f, 0.0f, 1.0f);
+                gSPDisplayList(gDisplayListHead++, bowser_key_dl);
+            }
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
         gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);

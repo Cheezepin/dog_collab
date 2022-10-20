@@ -148,7 +148,6 @@ Gfx *geo_switch_area(s32 callContext, struct GraphNode *node, UNUSED void *conte
         } else {
 
             if (gCurrLevelNum == LEVEL_COZIES) {
-                // In BBH, check for a floor manually, since there is an intangible floor. In custom hacks this can be removed.
                 find_room_floor(gMarioObject->oPosX, gMarioObject->oPosY, gMarioObject->oPosZ, &floor);
             } else {
                 // Since no intangible floors are nearby, use Mario's floor instead.

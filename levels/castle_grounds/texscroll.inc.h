@@ -9,4 +9,7 @@ extern void scroll_sts_mat_castle_grounds_dl_electricity_layer5();
 extern void scroll_sts_mat_castle_grounds_dl_cozieswater_top_emu__layer5();
 extern void scroll_sts_mat_castle_grounds_dl_water_003_layer5();
 extern void scroll_sts_mat_castle_grounds_dl_laser_001();
+extern void scroll_sts_mat_castle_grounds_dl_water_002_layer5();
+extern void scroll_castle_grounds_dl_WaterSideDecal_mesh_layer_6_vtx_0();
+extern void scroll_sts_mat_castle_grounds_dl_waterdecal_001_layer6();
 extern void scroll_castle_grounds();

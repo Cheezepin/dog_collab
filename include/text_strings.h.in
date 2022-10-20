@@ -378,11 +378,12 @@
 #define TEXT_B3A "Author: Everyone!"
 
 #define TEXT_YOU_GOT_A_STAR "You Got a Star!"
+#define TEXT_YOU_GOT_A_KEY "You Got a Key!"
 #define TEXT_SAVE_QUESTION "Save?"
 #define TEXT_YES_LC "Yes"
 #define TEXT_NO_LC "No"
-#define TEXT_CONTINUE_TO_NEXT_ACT "Continue to Next Unfinished Act (1)"
-#define TEXT_REPLAY_LAST_ACT "Replay Last Act"
+#define TEXT_CONTINUE_TO_NEXT_ACT "Continue to Act 1"
+#define TEXT_REPLAY_LAST_ACT "Replay Act 1"
 #define TEXT_EXIT_COURSE_LC "Exit Course"
 #define TEXT_EXIT_GAME "Exit Game"
 

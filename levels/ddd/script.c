@@ -88,7 +88,7 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_NONE, 0, -4000, 0, 0, 0, 0, (2 << 16), bhvVerticalInstantWarp),
 		TERRAIN(ddd_area_1_collision),
 		MACRO_OBJECTS(ddd_area_1_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_COZIES),
 		TERRAIN_TYPE(TERRAIN_WATER),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -146,8 +146,8 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_TUBE_TOP, 4800, 800, -6900, 0, 0, 0, (3 << 16), bhvTubeTop),
 		OBJECT(MODEL_TUBE_TOP, 4800, 300, -5300, 0, 0, 0, (3 << 16), bhvTubeTop),
 		OBJECT(MODEL_DDD_WATER_SPOUT, 2700, -1400, -6300, 0, 0, 0, (TRUE << 24) | (3 << 16), bhvWaterSpout),
-		OBJECT(MODEL_DDD_WATER_SPOUT, 4800, -200, -6900, 0, 0, 0, (TRUE << 24) | (3 << 16), bhvWaterSpout),
-		OBJECT(MODEL_DDD_WATER_SPOUT, 4800, -300, -5300, 0, 0, 0, (TRUE << 24) | (3 << 16), bhvWaterSpout),
+		OBJECT(MODEL_DDD_WATER_SPOUT, 4800, -400, -6900, 0, 0, 0, (TRUE << 24) | (3 << 16), bhvWaterSpout),
+		OBJECT(MODEL_DDD_WATER_SPOUT, 4800, -400, -5300, 0, 0, 0, (TRUE << 24) | (3 << 16), bhvWaterSpout),
 		OBJECT(MODEL_NONE, 6620, 100, -2500, 0, 0, 0, (4 << 24) | (8 << 16) | (20 << 8) | (0), bhvSpinnyCloudSpawner),
 		OBJECT(MODEL_NONE, 7500, 500, -1200, 0, 0, 0, (3 << 24) | (8 << 16) | (10 << 8) | (20), bhvSpinnyCloudSpawner),
 		OBJECT(MODEL_FLIPPY_BITCH, 5500, 100, -7500, 0, 180, 0, 0x00000000, bhvFlippyBitch),
@@ -172,7 +172,7 @@ const LevelScript level_ddd_entry[] = {
 		TERRAIN(ddd_area_2_collision),
 		ROOMS(ddd_area_2_collision_rooms),
 		MACRO_OBJECTS(ddd_area_2_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_COZIES),
 		TERRAIN_TYPE(TERRAIN_WATER),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -181,6 +181,7 @@ const LevelScript level_ddd_entry[] = {
 	AREA(3, ddd_area_3),
 		WARP_NODE(0xF0, LEVEL_DDD, 0x02, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_DDD, 0x02, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_NONE, 6801, -6100, -2950, 0, 0, 0, (0 << 16), bhvCoziesAmbientSound),
 		OBJECT(MODEL_RAIN_CLOUD, -6196, -3162, -8787, 0, 158, 0, (0x2A << 16), bhvRainCloud),
 		OBJECT(MODEL_RAIN_CLOUD, -5138, -2961, -8444, 0, 46, 0, (0x2A << 16), bhvRainCloud),
 		OBJECT(MODEL_RAIN_CLOUD, -4236, -2811, -7568, 0, 158, 0, (1 << 24) | (0x50 << 16), bhvRainCloud),
@@ -195,7 +196,7 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_STAR, 12413, 7082, -2950, 0, 0, 0, (0 << 24), bhvStar),
 		TERRAIN(ddd_area_3_collision),
 		MACRO_OBJECTS(ddd_area_3_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_COZIES),
 		TERRAIN_TYPE(TERRAIN_WATER),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */

@@ -322,6 +322,7 @@
 #define /*0x0F4*/ oBowserStatus          OBJECT_FIELD_S32(0x1B)
 #define /*0x0F8*/ oBowserTimer           OBJECT_FIELD_S32(0x1C)
 #define /*0x0FC*/ oBowserDistToCenter    OBJECT_FIELD_F32(0x1D)
+#define /*0x100*/ oBowserCCObj           OBJECT_FIELD_OBJ(0x1E)
 #define /*0x106*/ oBowserBitsJustJump    OBJECT_FIELD_S16(0x1F, 1)
 #define /*0x108*/ oBowserRandSplitFloor  OBJECT_FIELD_S16(0x20, 0)
 #define /*0x10A*/ oBowserHeldAnglePitch  OBJECT_FIELD_S16(0x20, 1)
@@ -417,8 +418,9 @@
 #define /*0x108*/ oChainChompRestrictedByChain            OBJECT_FIELD_S32(0x20)
 #define /*0x10C*/ oChainChompTargetPitch                  OBJECT_FIELD_S32(0x21)
 #define /*0x110*/ oChainChompNumLunges                    OBJECT_FIELD_S32(0x22)
-#define /*0x1AC*/ oChainChompReleaseStatus                OBJECT_FIELD_S32(0x49)
 #define /*0x1B0*/ oChainChompHitGate                      OBJECT_FIELD_S32(0x4A)
+#define /*0x1AC*/ oChainChompReleaseStatus                OBJECT_FIELD_S32(0x49)
+#define /*0x1B0*/ oChainChompSubAction                    OBJECT_FIELD_S32(0x23)
 
 /* Checkerboard Platform */
 #define /*0x0F8*/ oCheckerBoardPlatformRotateAction OBJECT_FIELD_S32(0x1C) // oAction like

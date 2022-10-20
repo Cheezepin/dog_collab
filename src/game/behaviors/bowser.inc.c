@@ -93,7 +93,7 @@ s8 sBowserRainbowLight[] = { FALSE, FALSE, TRUE };
 /**
  * Set how much health Bowser has on each stage
  */
-s8 sBowserHealth[] = { 2, 4, 3 };
+s8 sBowserHealth[] = { 1, 4, 3 };
 /**
  * Checks whenever the Bowser and his tail should be intangible or not
  * By default it starts tangible
@@ -355,6 +355,16 @@ void bowser_act_wait(void) {
     bowser_init_camera_actions();
 }
 
+void bowser_act_wait_for_mario(void) {
+    o->oForwardVel = 0.0f;
+    cur_obj_init_animation_with_sound(BOWSER_ANIM_IDLE);
+    if(o->oDistanceToMario < 1000.0f) {
+        start_cutscene(gCamera, CUTSCENE_ENTER_BOWSER_ARENA);
+        o->oAction = BOWSER_ACT_WAIT;
+        cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
+    }
+}
+
 /**
  * Bowser's cutscene walk that last a few seconds to introduce itself
  * Do subactions until the animation ends, then go to next subaction
@@ -490,10 +500,17 @@ void bowser_bitfs_actions(void) {
 /**
  * List of actions (and attacks) for "Bowser in the Sky"
  */
+
+//cc stomp
+//cc charge
+//bowser throws cc
+//firebreath
+//???
+
 void bowser_bits_action_list(void) {
     f32 rand = random_float();
     if (o->oBowserStatus & BOWSER_STATUS_ANGLE_MARIO) {
-        if (o->oDistanceToMario < 1000.0f) { // nearby
+        /*if (o->oDistanceToMario < 1000.0f) { // nearby
             if (rand < 0.4f) {
                 o->oAction = BOWSER_ACT_SPIT_FIRE_ONTO_FLOOR; // 40% chance
             } else if (rand < 0.8f) {
@@ -505,7 +522,19 @@ void bowser_bits_action_list(void) {
             o->oAction = BOWSER_ACT_BIG_JUMP; // 50% chance
         } else {
             o->oAction = BOWSER_ACT_CHARGE_MARIO;
-        }
+        }*/
+        
+        o->oAction = BOWSER_ACT_CC_JUMP;
+        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
+        o->oBowserCCObj->oVelY = 100.0f;
+        o->oBowserCCObj->oChainChompSubAction = 0;
+        o->oBowserCCObj->oPosY += 10.0f;
+
+        /*o->oAction = BOWSER_ACT_CC_CHARGE;
+        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_CHARGE;
+        o->oBowserCCObj->oChainChompSubAction = 0;
+        o->oBowserCCObj->oMoveAngleYaw = o->oBowserCCObj->oAngleToMario;
+        o->oBowserCCObj->oPosY = 200.0f;*/
     } else {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;
@@ -968,6 +997,25 @@ void bowser_act_snow(void) {
             }
         }
     }
+}
+
+void bowser_act_cc_jump(void) {
+    cur_obj_init_animation(BOWSER_ANIM_SLOW_GAIT);
+    cur_obj_rotate_yaw_toward(o->oAngleToMario, 2000);
+    o->oForwardVel = 20.0f;
+    if(o->oBowserCCObj->oChainChompSubAction == 3) {
+        if(o->oTimer == 10) {
+            o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+            o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+        }
+    } else {
+        o->oTimer = 0;
+    }
+}
+
+void bowser_act_cc_charge(void) {
+    cur_obj_init_animation(BOWSER_ANIM_IDLE);
+    approach_f32_signed(&o->oForwardVel, 0, -4.0f);
 }
 
 /**
@@ -1993,7 +2041,10 @@ void (*sBowserActions[])(void) = {
     bowser_act_pre_attack,
     bowser_act_lightning,
     bowser_act_lightning_pt2,
-    bowser_act_snow
+    bowser_act_snow,
+    bowser_act_wait_for_mario,
+    bowser_act_cc_jump,
+    bowser_act_cc_charge,
 };
 
 /**
@@ -2247,6 +2298,7 @@ void bhv_bowser_loop(void) {
  */
 void bhv_bowser_init(void) {
     s32 level;
+    struct Object *cc = find_any_object_with_behavior(bhvChainChompBowser);
     // Set "reaction" value
     // It goes true when Bowser is a non-walking state
     o->oBowserIsReacting = TRUE;
@@ -2270,9 +2322,14 @@ void bhv_bowser_init(void) {
     if(gCurrLevelNum == LEVEL_BOWSER_2) {
         gCamera->cutscene = CUTSCENE_SNOW_BOWSER_INTRO;
         o->oAction = BOWSER_ACT_SNOW;
+    } else if(gCurrLevelNum == LEVEL_BOWSER_3) {
+        o->oAction = BOWSER_ACT_WAIT_FOR_MARIO;
     } else {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
         o->oAction = BOWSER_ACT_WAIT;
+    }
+    if(cc) {
+        o->oBowserCCObj = cc;
     }
     // Set eyes status
     o->oBowserEyesTimer = 0;

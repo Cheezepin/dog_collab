@@ -509,6 +509,7 @@ void warp_credits(void) {
 
 void do_the_vertical_instant_warp(void) {
     int index = (gInstantWarpObject->oBehParams >> 16) & 0xFF;
+    f32 warpdir = GET_BPARAM1(gInstantWarpObject->oBehParams) > 0 ? 1 : -1;
     struct InstantWarp *warp = &gCurrentArea->instantWarps[index];
     gMarioState->pos[0] += warp->displacement[0];
     gMarioState->pos[1] += warp->displacement[1];
@@ -533,6 +534,22 @@ void do_the_vertical_instant_warp(void) {
     warp_camera(warp->displacement[0], warp->displacement[1], warp->displacement[2]);
 
     gMarioState->area->camera->yaw = cameraAngle;
+
+    gMarioCurrentRoom = 0;
+    if (gCurrentArea->surfaceRooms != NULL) {
+        struct Surface *floor = NULL;
+        find_room_floor(gMarioObject->oPosX, gMarioObject->oPosY, gMarioObject->oPosZ, &floor);
+
+        if (floor != NULL) {
+            gMarioCurrentRoom = floor->room;
+        }
+    }
+
+    Vec3f newCheckpoint;
+    vec3f_copy(newCheckpoint, gMarioState->pos);
+    // checkpoint should be towards the direction of the room
+    newCheckpoint[1] += 500.0f * warpdir;
+    manual_set_checkpoint(gMarioState, newCheckpoint, gMarioState->faceAngle[1]);
 }
 
 void check_instant_warp(void) {
@@ -1127,6 +1144,9 @@ s32 play_mode_paused(void) {
             fade_into_special_warp(WARP_SPECIAL_LEVEL_SELECT, 1);
         } else {
             initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAGS_NONE);
+            gHubStarSelectTimer = 0;
+            gCustomStarSelectActive = 0;
+            gLevelEntryConfirmationActive = 0;
             fade_into_special_warp(WARP_SPECIAL_NONE, 0);
             gSavedCourseNum = COURSE_NONE;
         }
