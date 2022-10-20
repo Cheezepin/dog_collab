@@ -15,7 +15,7 @@ void bhv_cherry_tree_loop(void) {
             s16 remainingTriggers = count_objects_with_behavior(bhvTreeNut);
              if (remainingTriggers == 0) {
                 struct Object *starObj = spawn_object_abs_with_rot(o, 0, MODEL_STAR, bhvStarSpawnCoordinates, gMarioObject->oPosX, gMarioObject->oPosY + 300, gMarioObject->oPosZ, 0, 0, 0);
-                starObj->oBehParams = 0x05010000;
+                starObj->oBehParams = 0x04010000;
                 starObj->oHomeX = starObj->oPosX;
                 starObj->oHomeY = starObj->oPosY;
                 starObj->oHomeZ = starObj->oPosZ;

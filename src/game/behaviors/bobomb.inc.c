@@ -395,7 +395,7 @@ void bobomb_buddy_act_talk(void) {
                 if (gCurrCourseNum == COURSE_BOB) {
                     bobomb_buddy_cannon_dialog(DIALOG_004, DIALOG_105);
                 } else {
-                    bobomb_buddy_cannon_dialog(DIALOG_047, DIALOG_106);
+                    bobomb_buddy_cannon_dialog(DIALOG_047, DIALOG_115);
                 }
                 break;
         }
