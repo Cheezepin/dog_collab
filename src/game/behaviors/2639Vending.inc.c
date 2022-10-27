@@ -20,7 +20,7 @@ void bhv_2639Vending_loop(void) {
 				}
 				break;
 			}
-			if (o->oDistanceToMario <= 275) {
+			if (o->oDistanceToMario <= 300) {
 				if (gMarioState->action == ACT_PUNCHING) {
 					obj_init_animation(o, V_VEND);
 					o->oAction = 1;
@@ -41,6 +41,10 @@ void bhv_2639Vending_loop(void) {
 			break;
 
 	}
+
+	// char dbg[50];
+	// sprintf(dbg, "%d", (int)o->oDistanceToMario);
+	// print_text(50, 50, dbg);
 
 	o->oTimer++;
 }

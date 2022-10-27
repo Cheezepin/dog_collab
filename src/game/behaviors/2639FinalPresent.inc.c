@@ -17,4 +17,5 @@ void bhv_2639FinalPresent_loop(void) {
             cur_obj_get_dropped();
             break;
     }
+    cur_obj_move_standard(78);
 }

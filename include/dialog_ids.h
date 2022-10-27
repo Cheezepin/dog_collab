@@ -213,6 +213,7 @@ enum DialogId {
     _2639DIAG_A2RoomPeachGreeter,
 
     _2639DIAG_A3LobbyToadGreeter,
+    _2639DIAG_A3RoomVendingMachineInstructions,
     /* 200 */ _2639DIAG_A3RoomToadGibSoda, // Act 3: give soda to toad, he will be mad until a soda is in his radius
     // _2639DIAG_A3RoomToadSodaFailure,
     // _2639DIAG_A3RoomToadSodaSuccess,

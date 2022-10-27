@@ -215,3 +215,4 @@ void bhv_2639A4DrainScrew_init(void); void bhv_2639A4DrainScrew_loop(void);
 void bhv_2639SoccerBall_init(void); void bhv_2639SoccerBall_loop(void);
 void bhv_2639BallEater_init(void); void bhv_2639BallEater_loop(void);
 void bhv_2639FinalPresent_init(void); void bhv_2639FinalPresent_loop(void);
+void bhv_2639PresentEater_init(void); void bhv_2639PresentEater_loop(void);

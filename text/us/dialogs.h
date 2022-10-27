@@ -2157,6 +2157,13 @@ I don't mind because they
 don't make noise, but
 definitely go check it out!)")
 
+DEFINE_DIALOG(_2639DIAG_A3RoomVendingMachineInstructions, 1, 3, 30, 200, \
+R"(HOW TO USE THIS
+VENDING MACHINE:
+
+just punch it lmao)")
+
+
 DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, \
 R"(Heeeey, Mario!
 I'm in charge of
@@ -2196,10 +2203,7 @@ realized that I
 can't actually swim!
 Can you go down to
 the bottom and
-unscrew the drain?
-There's something
-for your dog
-waiting there too)")
+unscrew the drain?)")
 
 // Sct 5
 
@@ -2241,9 +2245,9 @@ DEFINE_DIALOG(_2639DIAG_A6LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you!
 I've seen you here a few
 times.
-Why not check out the roof?
-We have a really neat
-@34ebe1FFJewel or whatever@--------
+Why not check out the
+roof? We have a really
+neat @34ebe1FFJewel or whatever@--------
 that you should see.)")
 
 // SCAVENGER HUNT
@@ -2299,7 +2303,9 @@ havent seen this
 But I can give you
 a comically large
 beach ball, just
-in case.)")
+in case. Now go
+back up and talk
+to the receptionist.)")
 
 // LOBBY TOAD AGAIN
 

@@ -5968,9 +5968,7 @@ struct CameraTrigger sCamBOB[] = {
 	{-1, Cam2639_Main, 0, 500, 0, 11500, 11500, 11500, 0xffff},
 	{1, Cam2639_LogoCam, -417, -2141, -4114, 1742, 1742, 1742, 0xffff},
 	{1, Cam2639_CloseFocus, -417, -2141, -1704, 889, 889, 889, 0xffff},
-	{2, cam_bob_tower, -419, 6375, -2154, 5675, 5675, 5675, 0xffff},
-	{2, cam_bob_tower, -350, 2104, -2160, 3506, 2992, 2992, 0xffff},
-	{2, Cam2639_Elevator, -17, 3033, -2833, 803, 3055, 803, 0xffff},
+	{2, Cam2639_Elevator, -17, 3033, -2833, 803, 8515, 803, 0xffff},
 	NULL_TRIGGER
 };
 
@@ -10518,6 +10516,11 @@ struct Cutscene sCutsceneIntro[] = {
     { cutscene_intro, CUTSCENE_LOOP },
 };
 
+void do2639cutscene(struct Camera *c);
+struct Cutscene FinalCutscene2639[] = {
+    { do2639cutscene, CUTSCENE_LOOP },
+};
+
 /* TODO:
  * The next two arrays are both related to levels, and they look generated.
  * These should be split into their own file.
@@ -10982,6 +10985,7 @@ void play_cutscene(struct Camera *c) {
         CUTSCENE(CUTSCENE_HUB_WORLD,            sCutsceneHubWorld)
         CUTSCENE(CUTSCENE_SNOW_HILL,            sCutsceneSnowHill)
         CUTSCENE(CUTSCENE_INTRO,                sCutsceneIntro)
+        CUTSCENE(CUTSCENE_2639FINALCUTSCENE,    FinalCutscene2639)
     }
 
 #undef CUTSCENE
@@ -11269,11 +11273,11 @@ static UNUSED void unused_displace_obj_randomly(struct Object *obj, f32 xRange, 
 /**
  * Rotate an object in a random direction within the given bounds.
  */
-static UNUSED void unused_rotate_obj_randomly(struct Object *obj, f32 pitchRange, f32 yawRange) {
-    f32 rnd = random_float();
+static void rotate_obj_randomly(struct Object *obj, float pitchRange, float yawRange) {
+    float rnd = random_float();
 
-    obj->oMoveAnglePitch += (s16)(rnd * pitchRange - pitchRange / 2.f);
-    obj->oMoveAngleYaw   += (s16)(rnd *   yawRange -   yawRange / 2.f);
+    obj->oMoveAnglePitch += (short)(rnd * pitchRange - pitchRange / 2.f);
+    obj->oMoveAngleYaw   += (short)(rnd *   yawRange -   yawRange / 2.f);
 }
 
 /**

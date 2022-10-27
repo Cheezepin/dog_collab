@@ -13,6 +13,7 @@
 #include "audio/external.h"
 #include "audio/load.h"
 #include "rendering_graph_node.h"
+#include "dialog_ids.h"
 extern s16 sStatusFlags;
 
 // MODEL FUNCS
@@ -105,7 +106,7 @@ void Scavenger_DropGoods(struct Object *parent, u32 ID) {
 
     // };
     if (ID == 10) {
-        LaunchObject(o, bhv2639soda, _models[ID]);
+        LaunchObject(o, bhv2639FinalPresent, _models[ID]);
     } else {
         MakeCoinWithModel(o, 1, _models[ID]);
     }
@@ -146,7 +147,7 @@ void Cam2639_Elevator(struct Camera *c) {
 }
 void Cam2639_CloseFocus(struct Camera *c) {
     fadech(PAD, BASEVOL);
-    set_camera_mode_fixed2(c, -534, -800, -506);
+    set_camera_mode_fixed2(c, -534, -1200, -506);
 }
 
 void Cam2639_Main(struct Camera *c) {
@@ -195,6 +196,49 @@ void introcutscene_music() {
     fadech(KIDSHOW_STAGE3, 0);
 }
 
+void Floor2Music() {
+    for (int i = 0; i < 16; i++) {
+        fadech(i, 0);
+    }
+    fadech(SUPERSAW, BASEVOL);
+    fadech(STRINGS, BASEVOL);
+    fadech(PIANO, BASEVOL);
+    fadech(PAD, BASEVOL);
+    fadech(KICK, BASEVOL);
+    fadech(CLAPFILL, BASEVOL + 10);
+}
+
+void Floor7Music() {
+    for (int i = 0; i < 16; i++) {
+        fadech(i, 0);
+    }
+    // fadech(CYMBALRIDE, BASEVOL);
+    fadech(BASS, BASEVOL);
+    fadech(_808SNARE, BASEVOL);
+    fadech(KICK, BASEVOL);
+    fadech(CLAPFILL, BASEVOL + 10);
+}
+
+void Floor5Music() {
+    for (int i = 0; i < 16; i++) {
+        fadech(i, 0);
+    }
+    fadech(SUPERSAW, BASEVOL);
+    fadech(STRINGS, BASEVOL);
+    fadech(PIANO, BASEVOL);
+    fadech(PAD, BASEVOL);
+    fadech(KICK, BASEVOL);
+    fadech(CLAPFILL, BASEVOL + 10);
+    fadech(BASS, BASEVOL);
+
+    if ((gMarioState->action & ACT_GROUP_MASK) == ACT_GROUP_SUBMERGED) {
+        fadech(KICK, 0);
+        fadech(CLAPFILL, 0);
+        fadech(BASS, 0);
+        fadech(STRINGS, 0);
+    }
+}
+
 
 void Sound2639_Main(void) {
     static u32 state = 0;
@@ -219,4 +263,70 @@ void Sound2639_Main(void) {
         case STATE_CONTROLOBJ:            
             break;
     }
+}
+
+enum CStates2639 {
+    C_POINTDOG,
+    C_TOADTALK,
+    C_GOTO_STAR,
+};
+
+void stop_the_cutscene(struct Camera *c){
+     c->cutscene = 0;
+     gCutsceneTimer = CUTSCENE_STOP;
+
+     set_mario_action(gMarioState, gMarioState->heldObj ? 
+                ACT_HOLD_IDLE : ACT_IDLE, 0);
+}
+
+void do2639cutscene(struct Camera *c) {
+    static u32 state = 0;
+    static u32 substate = 0;
+    static Vec3f sf, sp;
+    float dogdist;
+    #define APPROACH_SPD 3.0f
+    struct Object *dog = cNearestObj_Bhv(bhvDogfloor3, &dogdist);
+    cutscene_event(stop_the_cutscene, c, 300, 300);
+
+    set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+    switch (state) {
+        case 0: {
+            vec3f_set(sp, 0.0f, 2822.0f, 867.0f);
+            // vec3f_set(focus, 860.0f, 800.0f, -1494.0f);
+            approach_vec3f_asymptotic(c->pos, sp, APPROACH_SPD, APPROACH_SPD, APPROACH_SPD);
+            if (dog) {
+                approach_vec3f_asymptotic(c->focus, &dog->oPosX, APPROACH_SPD, APPROACH_SPD, APPROACH_SPD);
+                if (dog->oAction == DF6_SWIM && dog->oTimer > 30) {
+                    state++;
+                }
+            }
+            break;
+        }
+        case 1: { // toad diag
+            if(gDialogResponse == 0) {
+                create_dialog_box(_2639DIAG_A6PentToad7);
+                substate = 1;
+            }
+            if(gDialogResponse != 0 && substate == 1) {
+                state++;
+                substate = 0;
+            }
+            break;
+        }
+        case 2: { 
+            
+            state++;
+            break;
+        }
+        case 3: {
+            
+            // cutscene_event(cutscene_intro_peach_clear_cutscene_status, c, 717, 717);
+        }
+        case 4: {
+
+        }
+    }
+    char dbg[50];
+    sprintf(dbg, "FF %d", state);
+    print_text(50, 50, dbg);
 }

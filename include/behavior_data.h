@@ -747,3 +747,4 @@ extern const BehaviorScript bhv2639A4DrainScrew[];
 extern const BehaviorScript bhv2639SoccerBall[];
 extern const BehaviorScript bhv2639BallEater[];
 extern const BehaviorScript bhv2639FinalPresent[];
+extern const BehaviorScript bhv2639PresentEater[];

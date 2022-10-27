@@ -8163,7 +8163,7 @@ const BehaviorScript bhv2639elevator[] = {
 
 const BehaviorScript bhv2639soda[] = {
 	BEGIN(OBJ_LIST_GENACTOR),
-    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    OR_INT(oFlags, (OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     SET_INT(oInteractType, INTERACT_GRABBABLE),
     SET_INT(oInteractionSubtype, INT_SUBTYPE_HOLDABLE_NPC),
     SET_HITBOX(/*Radius*/ 100, /*Height*/ 50),
@@ -8313,15 +8313,27 @@ const BehaviorScript bhv2639BallEater[] = {
 
 
 const BehaviorScript bhv2639FinalPresent[] = {
-	BEGIN(OBJ_LIST_DEFAULT),
+	BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     SET_INT(oInteractType, INTERACT_GRABBABLE),
     SET_INT(oInteractionSubtype, INT_SUBTYPE_HOLDABLE_NPC),
-    SET_HITBOX(/*Radius*/ 100, /*Height*/ 50),
+    SET_HITBOX(/*Radius*/ 200, /*Height*/ 200),
     SET_HOME(),
+    SET_INT(oIntangibleTimer, 0),
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
 	CALL_NATIVE(bhv_2639FinalPresent_init),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_2639FinalPresent_loop),
+        SET_INT(oInteractStatus, INT_STATUS_NONE),
 	END_LOOP(),
 };
 
+
+
+const BehaviorScript bhv2639PresentEater[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_2639PresentEater_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639PresentEater_loop),
+	END_LOOP(),
+};

@@ -10,6 +10,15 @@ void StarXYZ(u32 bparam, f32 targetX, f32 targetY, f32 targetZ);
 #define NC_SPLINE_FOLLOW 0x02 //Will face the direction of a second spline.
 #define NC_SPLINE_FOLLOWMARIO 0x03 // looks at mario
 
+enum ActNames2639 {
+    ACT_0 = 0,
+    ACT_LOBBYSCAVENGER,
+    ACT_COUCHES,
+    ACT_PARTY,
+    ACT_FLOOD,
+    ACT_BASEMENT,
+    ACT_SCAVENGER,
+};
 
 enum newcam_flagvalues
 {
@@ -88,4 +97,12 @@ enum SoundChannels {
     CHF,
 };
 
-
+enum DF6_STATE {
+    DF6_NORMAL = 0,
+    DF6_APPROACH,
+    DF6_JUMP,
+    DF6_IN_AIR,
+    DF6_SWIM,
+};
+#define DOG_ANIM_POUNCE 4
+extern s32 gDialogResponse;
