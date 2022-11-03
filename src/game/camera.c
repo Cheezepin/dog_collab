@@ -3227,25 +3227,35 @@ void move_mario_head_c_up(UNUSED struct Camera *c) {
     sModeOffsetYaw -= (s16)(gPlayer1Controller->stickX * 10.f);
 
     // Bound looking up to nearly 80 degrees.
-    if (sCUpCameraPitch > 0x38E3) {
-        sCUpCameraPitch = 0x38E3;
+    if (sCUpCameraPitch > DEGREES(85)) {
+        sCUpCameraPitch = DEGREES(85);
     }
     // Bound looking down to -45 degrees
-    if (sCUpCameraPitch < -0x2000) {
-        sCUpCameraPitch = -0x2000;
+    if (sCUpCameraPitch < -DEGREES(85)) {
+        sCUpCameraPitch = -DEGREES(85);
     }
 
     // Bound the camera yaw to +-120 degrees
-    if (sModeOffsetYaw > 0x5555) {
-        sModeOffsetYaw = 0x5555;
+    if (sModeOffsetYaw > DEGREES(120)) {
+        sModeOffsetYaw = DEGREES(120);
     }
-    if (sModeOffsetYaw < -0x5555) {
-        sModeOffsetYaw = -0x5555;
+    if (sModeOffsetYaw < -DEGREES(120)) {
+        sModeOffsetYaw = -DEGREES(120);
     }
 
     // Give Mario's neck natural-looking constraints
     sMarioCamState->headRotation[0] = sCUpCameraPitch * 3 / 4;
     sMarioCamState->headRotation[1] = sModeOffsetYaw * 3 / 4;
+}
+
+/**
+ * Make Mario's head move in C-Up mode.
+ */
+void rotate_mario_and_cam_c_up(UNUSED struct Camera *c) {
+    sCUpCameraPitch += (s16)(gPlayer1Controller->stickY * 10.f);
+    sCUpCameraPitch = CLAMP(sCUpCameraPitch, -DEGREES(85), DEGREES(85));
+
+    gMarioState->faceAngle[1] -= (s16)(gPlayer1Controller->stickX * 10.f);
 }
 
 /**
@@ -3295,15 +3305,31 @@ void mode_c_up_camera(struct Camera *c) {
     if (gCameraMovementFlags & CAM_MOVING_INTO_MODE) {
         gCameraMovementFlags |= CAM_MOVE_C_UP_MODE;
         move_into_c_up(c);
+        gMarioState->fadeWarpOpacity = 255;
+        set_fov_function(CAM_FOV_APP_MISC);
+        sCameraFov = FOV_24MM;
         return;
     }
 
     if (!(gCameraMovementFlags & CAM_MOVE_STARTED_EXITING_C_UP)) {
         // Normal update
-        move_mario_head_c_up(c);
-        update_c_up(c, c->focus, c->pos);
+        set_fov_function(CAM_FOV_APP_MISC);
+        sCameraFov = FOV_24MM;
+
+        rotate_mario_and_cam_c_up(c);
+        vec3f_copy_y_off(c->pos, gMarioState->pos, 125.0f);
+
+        s16 pitch = sCUpCameraPitch;
+        s16 yaw = sMarioCamState->faceAngle[1];
+
+        vec3f_set_dist_and_angle(c->pos, c->focus, 400.0f, pitch, yaw);
+        gMarioState->fadeWarpOpacity = lroundf(approach_f32_asymptotic(gMarioState->fadeWarpOpacity, 0, 0.25f));
+        gMarioState->flags |= MARIO_TELEPORTING;
     } else {
         // Exiting C-Up
+        set_fov_function(CAM_FOV_DEFAULT);
+        gMarioState->fadeWarpOpacity = lroundf(approach_f32_asymptotic(gMarioState->fadeWarpOpacity, 255, 0.1f));
+
         if (sStatusFlags & CAM_FLAG_TRANSITION_OUT_OF_C_UP) {
             // Retrieve the previous position and focus
             vec3f_copy(c->pos, sCameraStoreCUp.pos);
@@ -3315,6 +3341,7 @@ void mode_c_up_camera(struct Camera *c) {
             camera_approach_s16_symmetric_bool(&sMarioCamState->headRotation[1], 0, 1024);
         } else {
             // Finished exiting C-Up
+            gMarioState->flags &= ~MARIO_TELEPORTING;
             gCameraMovementFlags &= ~(CAM_MOVE_STARTED_EXITING_C_UP | CAM_MOVE_C_UP_MODE);
         }
     }
