@@ -30,3 +30,5 @@
 #include "anim_brake_start.inc.c"
 #include "anim_brake_end.inc.c"
 #include "anim_fall.inc.c"
+#include "anim_whirl_pickup.inc.c"
+#include "anim_whirl_throw.inc.c"

@@ -144,4 +144,6 @@ extern const Gfx dAmpMouthDl[];
 extern const Gfx dAmpBodyDl[];
 extern const struct Animation *const dAmpAnimsList[];
 
+
+#include "bowser/anim_header.h"
 #endif

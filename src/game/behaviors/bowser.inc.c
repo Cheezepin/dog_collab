@@ -539,6 +539,7 @@ void bowser_bits_action_list(void) {
         o->oAction = BOWSER_ACT_CC_WHIRL;
         o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_WHIRL;
         o->oBowserCCObj->oChainChompSubAction = 0;
+        o->oAngleVelYaw = 0;
     } else {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;
@@ -1023,7 +1024,17 @@ void bowser_act_cc_charge(void) {
 }
 
 void bowser_act_cc_whirl(void) {
-
+    if(o->oTimer == 90) {
+        o->oSubAction = 1;
+    }
+    if(o->oSubAction == 0) {
+        cur_obj_init_animation(BOWSER_ANIM_WHIRL_PICKUP);
+        o->oAngleVelYaw += 40;
+    } else {
+        cur_obj_init_animation(BOWSER_ANIM_WHIRL_THROW);
+        if(o->oAngleVelYaw > 0) {o->oAngleVelYaw -= 80;} else if (o->oTimer > 240) {o->oAngleVelYaw = 0; o->oAction = BOWSER_ACT_WALK_TO_MARIO;}
+    }
+    o->oMoveAngleYaw += o->oAngleVelYaw;
 }
 
 /**

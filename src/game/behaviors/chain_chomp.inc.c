@@ -559,6 +559,20 @@ void chain_chomp_bowser_sub_act_charge(void) {
     }
 }
 
+void chain_chomp_bowser_sub_act_whirl(void) {
+    if(o->parentObj->oBowserCCObj->oSubAction == 0) {
+        o->oMoveAngleYaw = o->parentObj->oBowserCCObj->oMoveAngleYaw + o->parentObj->oBowserCCObj->oAngleVelYaw;
+        o->oForwardVel = ((f32)o->parentObj->oBowserCCObj->oAngleVelYaw) / 10.0f;
+        o->oChainChompReleaseStatus = CHAIN_CHOMP_NOT_RELEASED;
+    } else {
+        o->oChainChompReleaseStatus = CHAIN_CHOMP_RELEASED_LUNGE_AROUND;
+        cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x100);
+    }
+    if(o->oMoveFlags & OBJ_MOVE_HIT_WALL) {o->oMoveAngleYaw = cur_obj_reflect_move_angle_off_wall() + ((s32)(random_float()*100.0f));}
+    o->oVelY = 0;
+    o->oGravity = 0.0f;
+}
+
 static void chain_chomp_bowser_act_move(void) {
     f32 maxDistToPivot;
 
@@ -569,8 +583,8 @@ static void chain_chomp_bowser_act_move(void) {
     } else {
         cur_obj_update_floor_and_walls();
 
-        switch (o->oChainChompReleaseStatus) {
-            case CHAIN_CHOMP_NOT_RELEASED:
+        //switch (o->oChainChompReleaseStatus) {
+        //    case CHAIN_CHOMP_NOT_RELEASED:
                 switch (o->oSubAction) {
                     case CHAIN_CHOMP_SUB_ACT_TURN:
                         chain_chomp_bowser_sub_act_turn();
@@ -584,9 +598,12 @@ static void chain_chomp_bowser_act_move(void) {
                     case CHAIN_CHOMP_SUB_ACT_CHARGE:
                         chain_chomp_bowser_sub_act_charge();
                         break;
+                    case CHAIN_CHOMP_SUB_ACT_WHIRL:
+                        chain_chomp_bowser_sub_act_whirl();
+                        break;
                 }
-                break;
-        }
+        //        break;
+        //}
 
         if(o->oPosY < -1000.0f) {
             o->oVelY = 100.0f;
@@ -618,7 +635,7 @@ static void chain_chomp_bowser_act_move(void) {
                 vec3_diff(&o->parentObj->oPosVec, &o->oPosVec, o->oChainChompSegments[0].pos);
                 o->parentObj->oVelY = o->parentObj->oPosY - oldPivotY;
 
-                if(o->parentObj->oBowserCCObj) {
+                if(o->parentObj->oBowserCCObj && !(o->oChainChompReleaseStatus == CHAIN_CHOMP_RELEASED_LUNGE_AROUND)) {
                     o->parentObj->oBowserCCObj->oMoveAngleYaw = obj_angle_to_object(o->parentObj->oBowserCCObj, o);
                     o->parentObj->oBowserCCObj->oForwardVel = o->oForwardVel;
                 }
