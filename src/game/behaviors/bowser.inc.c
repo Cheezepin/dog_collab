@@ -1029,10 +1029,17 @@ void bowser_act_cc_whirl(void) {
     }
     if(o->oSubAction == 0) {
         cur_obj_init_animation(BOWSER_ANIM_WHIRL_PICKUP);
-        o->oAngleVelYaw += 40;
+        o->oAngleVelYaw += 30;
     } else {
         cur_obj_init_animation(BOWSER_ANIM_WHIRL_THROW);
-        if(o->oAngleVelYaw > 0) {o->oAngleVelYaw -= 80;} else if (o->oTimer > 240) {o->oAngleVelYaw = 0; o->oAction = BOWSER_ACT_WALK_TO_MARIO;}
+        if(o->oAngleVelYaw > 0) {
+            o->oAngleVelYaw -= 60;
+        } else if (o->oBowserCCObj->oForwardVel == 0) {
+            o->oAngleVelYaw = 0;
+            o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+            o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+            o->oBowserCCObj->oChainChompReleaseStatus = CHAIN_CHOMP_NOT_RELEASED;
+        }
     }
     o->oMoveAngleYaw += o->oAngleVelYaw;
 }
