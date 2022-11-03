@@ -535,6 +535,10 @@ void bowser_bits_action_list(void) {
         o->oBowserCCObj->oChainChompSubAction = 0;
         o->oBowserCCObj->oMoveAngleYaw = o->oBowserCCObj->oAngleToMario;
         o->oBowserCCObj->oPosY = 200.0f;*/
+
+        o->oAction = BOWSER_ACT_CC_WHIRL;
+        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_WHIRL;
+        o->oBowserCCObj->oChainChompSubAction = 0;
     } else {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;
@@ -1016,6 +1020,10 @@ void bowser_act_cc_jump(void) {
 void bowser_act_cc_charge(void) {
     cur_obj_init_animation(BOWSER_ANIM_IDLE);
     approach_f32_signed(&o->oForwardVel, 0, -4.0f);
+}
+
+void bowser_act_cc_whirl(void) {
+
 }
 
 /**
@@ -2045,6 +2053,7 @@ void (*sBowserActions[])(void) = {
     bowser_act_wait_for_mario,
     bowser_act_cc_jump,
     bowser_act_cc_charge,
+    bowser_act_cc_whirl,
 };
 
 /**
