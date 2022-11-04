@@ -27,3 +27,5 @@
 #include "levels/bowser_3/areas/1/geo.inc.c"
 
 #include "levels/bowser_3/geo.inc.c"
+
+#include "levels/bowser_3/dog_laser/geo.inc.c"

@@ -2764,8 +2764,18 @@ Gfx *geo_bowser_hand_location_update(s32 callContext, struct GraphNode *node, Ma
 
     if (callContext == GEO_CONTEXT_RENDER) {
         create_transformation_from_matrices(posMtx, *mtx, *gCurGraphNodeCamera->matrixPtr);
-        print_text_fmt_int(20, 20, "%f", posMtx[3][0]);
         vec3f_set(bowserRightHandLocation, posMtx[3][0], posMtx[3][1], posMtx[3][2]);
+    }
+
+    return NULL;
+}
+
+Vec3f dogLaserLocation = {0, 0, 0};
+Gfx *geo_dog_laser_location_update(s32 callContext, struct GraphNode *node, Mat4 *mtx) {
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        create_transformation_from_matrices(posMtx, *mtx, *gCurGraphNodeCamera->matrixPtr);
+        vec3f_set(dogLaserLocation, posMtx[3][0], posMtx[3][1], posMtx[3][2]);
     }
 
     return NULL;

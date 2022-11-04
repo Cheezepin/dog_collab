@@ -544,7 +544,6 @@ void chain_chomp_bowser_sub_act_jump(void) {
             o->oForwardVel = 0;
             break;
     }
-    print_text_fmt_int(20, 20, "%d", (s32)o->oPosY);
 }
 
 void chain_chomp_bowser_sub_act_charge(void) {
@@ -583,7 +582,12 @@ void chain_chomp_bowser_sub_act_whirl(void) {
         }
     }
     if(o->oMoveFlags & OBJ_MOVE_HIT_WALL) {o->oMoveAngleYaw = cur_obj_reflect_move_angle_off_wall() + ((s32)((random_float() - 0.5f)*1600.0f));}
-    o->oChainChompHeat = 100;
+}
+
+void chain_chomp_bowser_sub_act_burned(void) {
+    o->oForwardVel = 0;
+    o->oVelY = 160.0f;
+    o->oChainChompReleaseStatus = CHAIN_CHOMP_RELEASED_LUNGE_AROUND;
 }
 
 static void chain_chomp_bowser_act_move(void) {
@@ -595,6 +599,11 @@ static void chain_chomp_bowser_act_move(void) {
         o->oForwardVel = o->oVelY = 0.0f;
     } else {
         cur_obj_update_floor_and_walls();
+
+        if(o->oChainChompHeat == 100 && o->oSubAction != CHAIN_CHOMP_SUB_ACT_BURNED) {
+            o->oSubAction = CHAIN_CHOMP_SUB_ACT_BURNED;
+            o->parentObj->oBowserCCObj->oAction = BOWSER_ACT_WALK_TO_MARIO;
+        }
 
         //switch (o->oChainChompReleaseStatus) {
         //    case CHAIN_CHOMP_NOT_RELEASED:
@@ -613,6 +622,9 @@ static void chain_chomp_bowser_act_move(void) {
                         break;
                     case CHAIN_CHOMP_SUB_ACT_WHIRL:
                         chain_chomp_bowser_sub_act_whirl();
+                        break;
+                    case CHAIN_CHOMP_SUB_ACT_BURNED:
+                        chain_chomp_bowser_sub_act_burned();
                         break;
                 }
         //        break;

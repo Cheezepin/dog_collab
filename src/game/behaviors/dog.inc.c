@@ -1,8 +1,10 @@
-#define DOG_ANIM_IDLE 0
-#define DOG_ANIM_DIG  1
-#define DOG_ANIM_RUN  2
-#define DOG_ANIM_WALK 3
+#define DOG_ANIM_IDLE   0
+#define DOG_ANIM_DIG    1
+#define DOG_ANIM_RUN    2
+#define DOG_ANIM_WALK   3
 #define DOG_ANIM_POUNCE 4
+#define DOG_ANIM_KB     5
+#define DOG_ANIM_LASER  6
 
 #define OBJ_COL_FLAG_GROUNDED   (1 << 0)
 
@@ -276,4 +278,101 @@ void bhv_cheezeskidog_loop(void) {
         o->oForwardVel = 0.0f;
     }
     cur_obj_move_standard(78);
+}
+
+void bhv_b3_dog_loop(void) {
+    switch(o->oAction) {
+        case 0:
+            switch (o->oHeldState) {
+                case HELD_FREE:
+                    o->oGravity = -4.0f;
+                    if(lateral_dist_between_objects(gMarioObject, o) > 350.0f) {
+                        o->oForwardVel = 20.0f;
+                        o->oMoveAngleYaw = o->oAngleToMario;
+                        cur_obj_init_animation(DOG_ANIM_WALK);
+                    } else {
+                        o->oForwardVel = 0.0f;
+                        cur_obj_init_animation(DOG_ANIM_IDLE);
+                    }
+                    cur_obj_move_standard(78);
+                    break;
+
+                case HELD_HELD:
+                    cur_obj_disable_rendering();
+                    cur_obj_become_intangible();
+                    cur_obj_init_animation(DOG_ANIM_LASER);
+                    if(!find_any_object_with_behavior(bhvDogLaser)) {
+                        spawn_object(o, MODEL_DOG_LASER, bhvDogLaser);
+                    }
+                    break;
+
+                case HELD_THROWN:
+                    o->oVelY = 5.0f;
+                case HELD_DROPPED:
+                    cur_obj_become_tangible();
+                    cur_obj_enable_rendering();
+                    o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+                    o->oHeldState = HELD_FREE;
+                    break;
+            }
+            break;
+    }
+
+    o->oInteractStatus = INT_STATUS_NONE;
+}
+
+//-125, 0
+//125, 0
+//-125, 4000
+//125, 4000
+void bhv_dog_laser_loop(void) {
+    struct Object *cc = find_any_object_with_behavior(bhvChainChompBowser);
+    o->parentObj = find_any_object_with_behavior(bhvB3Dog);
+    vec3f_copy(&o->oPosX, dogLaserLocation);
+    if(o->parentObj->oHeldState == HELD_HELD) {
+        o->oMoveAngleYaw = gMarioState->faceAngle[1];
+    } else {
+        o->oMoveAngleYaw = o->parentObj->oMoveAngleYaw;
+    }
+    o->oMoveAngleRoll += 0x611;
+    if(cc && cc->oSubAction != CHAIN_CHOMP_SUB_ACT_BURNED) {
+        f32 unrotatedCircleX, unrotatedCircleY, closestX, closestY, a, b;
+        f32 rectX = o->oPosX;
+        f32 rectY = o->oPosZ;
+        f32 rectWidth = 125.0f; //on both sides
+        f32 rectHeight = 4000.0f; //just from 0, 0
+        f32 circleX = cc->oPosX;
+        f32 circleY = cc->oPosZ;
+        f32 radius = 300.0f;
+        s32 angle = o->oMoveAngleYaw;
+        unrotatedCircleX = coss(angle) * (circleX - rectX) - sins(angle) * (circleY - rectY) + rectX;
+        unrotatedCircleY = sins(angle) * (circleX - rectX) + coss(angle) * (circleY - rectY) + rectY;
+
+        // Find the unrotated closest x point from center of unrotated circle
+        if (unrotatedCircleX  < (rectX - rectWidth))
+            closestX = (rectX - rectWidth);
+        else if (unrotatedCircleX  > (rectX + rectWidth))
+            closestX = (rectX + rectWidth);
+        else
+            closestX = unrotatedCircleX;
+        
+        // Find the unrotated closest y point from center of unrotated circle
+        if (unrotatedCircleY < rectY)
+            closestY = rectY;
+        else if (unrotatedCircleY > rectY + rectHeight)
+            closestY = rectY + rectHeight;
+        else
+            closestY = unrotatedCircleY;
+ 
+        a = absf(unrotatedCircleX - closestX);
+        b = absf(unrotatedCircleY - closestY);
+        if (sqrtf((a * a) + (b * b)) < radius) {
+            //true
+            cc->oChainChompHeat = approach_s16_symmetric(cc->oChainChompHeat, 100, 2);
+        } else {
+            //false
+            cc->oChainChompHeat = approach_s16_symmetric(cc->oChainChompHeat, 0, 2);
+        }
+    }
+    cur_obj_shake_screen(SHAKE_POS_SMALL);
 }

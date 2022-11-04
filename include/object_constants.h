@@ -1605,6 +1605,7 @@ enum animIDsSwoop {
     #define CHAIN_CHOMP_SUB_ACT_JUMP                        0x2
     #define CHAIN_CHOMP_SUB_ACT_CHARGE                      0x3
     #define CHAIN_CHOMP_SUB_ACT_WHIRL                       0x4
+    #define CHAIN_CHOMP_SUB_ACT_BURNED                      0x5
     /* oChainChompReleaseStatus */
     #define CHAIN_CHOMP_NOT_RELEASED                        0x0
     #define CHAIN_CHOMP_RELEASED_TRIGGER_CUTSCENE           0x1

@@ -739,6 +739,8 @@ extern const BehaviorScript bhvChainChompBowser[];
 extern const BehaviorScript bhvChainChompChainPartBowser[];
 extern const BehaviorScript bhvNothing[];
 extern const BehaviorScript bhvCheezeLightning[];
+extern const BehaviorScript bhvB3Dog[];
+extern const BehaviorScript bhvDogLaser[];
 //cheeze bhv ends
 
 //Koopa Atoll Objects

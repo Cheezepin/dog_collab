@@ -31,7 +31,7 @@ const LevelScript level_bowser_3_entry[] = {
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_13), 
-	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_3_FALLING_PLATFORM_1, bowser_3_geo_000290), 
+	/*LOAD_MODEL_FROM_GEO(MODEL_BOWSER_3_FALLING_PLATFORM_1, bowser_3_geo_000290), 
 	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_3_FALLING_PLATFORM_2, bowser_3_geo_0002A8), 
 	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_3_FALLING_PLATFORM_3, bowser_3_geo_0002C0), 
 	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_3_FALLING_PLATFORM_4, bowser_3_geo_0002D8), 
@@ -41,7 +41,8 @@ const LevelScript level_bowser_3_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_3_FALLING_PLATFORM_8, bowser_3_geo_000338), 
 	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_3_FALLING_PLATFORM_9, bowser_3_geo_000350), 
 	LOAD_MODEL_FROM_GEO(MODEL_BOWSER_3_FALLING_PLATFORM_10, bowser_3_geo_000368), 
-	LOAD_MODEL_FROM_GEO(MODEL_LEVEL_GEOMETRY_03, bowser_3_geo_000380), 
+	LOAD_MODEL_FROM_GEO(MODEL_LEVEL_GEOMETRY_03, bowser_3_geo_000380), */
+	LOAD_MODEL_FROM_GEO(MODEL_DOG_LASER, dog_laser_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -50,8 +51,10 @@ const LevelScript level_bowser_3_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOWSER_3, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x01, LEVEL_BOWSER_3, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_BOWSER, 0, 0, -1000, 0, 0, 0, 0x00000000, bhvBowser),
-		OBJECT(MODEL_CHAIN_CHOMP_BOWSER, 1672, 0, -449, 0, 0, 0, 0x00000000, bhvChainChompBowser),
-		OBJECT(MODEL_NONE, 0, 0, 1400, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
+		OBJECT(MODEL_CHAIN_CHOMP_BOWSER, -508, 0, -1695, 0, 0, 0, 0x00000000, bhvChainChompBowser),
+		OBJECT(MODEL_DOG, 624, 0, 1606, 0, 0, 0, 0x00000000, bhvB3Dog),
+		OBJECT(MODEL_NONE, 0, 0, 9404, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
+		MARIO_POS(0x01, 0, 0, 0, 2404),
 		TERRAIN(bowser_3_area_1_collision),
 		MACRO_OBJECTS(bowser_3_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_BOSS_KOOPA_FINAL),
@@ -61,7 +64,7 @@ const LevelScript level_bowser_3_entry[] = {
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(1, 0, 0, 0, 0),
+	MARIO_POS(0x01, 0, 0, 0, 2404),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),

@@ -34,3 +34,5 @@
 #include "levels/bowser_3/falling_platform_10/collision.inc.c"
 
 #include "levels/bowser_3/leveldata.inc.c"
+
+#include "levels/bowser_3/dog_laser/model.inc.c"

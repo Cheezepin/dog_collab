@@ -510,36 +510,40 @@ void bowser_bitfs_actions(void) {
 void bowser_bits_action_list(void) {
     f32 rand = random_float();
     if (o->oBowserStatus & BOWSER_STATUS_ANGLE_MARIO) {
-        /*if (o->oDistanceToMario < 1000.0f) { // nearby
-            if (rand < 0.4f) {
-                o->oAction = BOWSER_ACT_SPIT_FIRE_ONTO_FLOOR; // 40% chance
-            } else if (rand < 0.8f) {
-                o->oAction = BOWSER_ACT_SPIT_FIRE_INTO_SKY; // 80% chance
+        if(o->oBowserCCObj->oSubAction == CHAIN_CHOMP_SUB_ACT_BURNED) {
+            if (o->oDistanceToMario < 1000.0f) { // nearby
+                if (rand < 0.4f) {
+                    o->oAction = BOWSER_ACT_SPIT_FIRE_ONTO_FLOOR; // 40% chance
+                } else if (rand < 0.8f) {
+                    o->oAction = BOWSER_ACT_SPIT_FIRE_INTO_SKY; // 80% chance
+                } else {
+                    o->oAction = BOWSER_ACT_BREATH_FIRE;
+                } // far away
+            } else if (rand < 0.5f) {
+                o->oAction = BOWSER_ACT_BIG_JUMP; // 50% chance
             } else {
-                o->oAction = BOWSER_ACT_BREATH_FIRE;
-            } // far away
-        } else if (rand < 0.5f) {
-            o->oAction = BOWSER_ACT_BIG_JUMP; // 50% chance
+                o->oAction = BOWSER_ACT_CHARGE_MARIO;
+            }
         } else {
-            o->oAction = BOWSER_ACT_CHARGE_MARIO;
-        }*/
-        
-        o->oAction = BOWSER_ACT_CC_JUMP;
-        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
-        o->oBowserCCObj->oVelY = 100.0f;
-        o->oBowserCCObj->oChainChompSubAction = 0;
-        o->oBowserCCObj->oPosY += 10.0f;
-
-        /*o->oAction = BOWSER_ACT_CC_CHARGE;
-        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_CHARGE;
-        o->oBowserCCObj->oChainChompSubAction = 0;
-        o->oBowserCCObj->oMoveAngleYaw = o->oBowserCCObj->oAngleToMario;
-        o->oBowserCCObj->oPosY = 200.0f;*/
-
-        o->oAction = BOWSER_ACT_CC_WHIRL;
-        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_WHIRL;
-        o->oBowserCCObj->oChainChompSubAction = 0;
-        o->oAngleVelYaw = 0;
+            if (rand < 0.4f) {
+                o->oAction = BOWSER_ACT_CC_JUMP;
+                o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
+                o->oBowserCCObj->oVelY = 100.0f;
+                o->oBowserCCObj->oChainChompSubAction = 0;
+                o->oBowserCCObj->oPosY += 10.0f;
+            } else if (rand < 0.7f) {
+                o->oAction = BOWSER_ACT_CC_CHARGE;
+                o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_CHARGE;
+                o->oBowserCCObj->oChainChompSubAction = 0;
+                o->oBowserCCObj->oMoveAngleYaw = o->oBowserCCObj->oAngleToMario;
+                o->oBowserCCObj->oPosY = 200.0f;
+            } else {
+                o->oAction = BOWSER_ACT_CC_WHIRL;
+                o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_WHIRL;
+                o->oBowserCCObj->oChainChompSubAction = 0;
+                o->oAngleVelYaw = 0;
+            }
+        }
     } else {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;

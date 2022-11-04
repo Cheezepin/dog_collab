@@ -706,6 +706,8 @@ void bhv_peach_cutscene_loop(void);
 void bhv_bowser_cutscene_loop(void);
 void bhv_door_cutscene_loop(void);
 void bhv_spiresdog_loop(void);
+void bhv_b3_dog_loop(void);
+void bhv_dog_laser_loop(void);
 //cheeze end
 
 //Koopa Atoll Objects
