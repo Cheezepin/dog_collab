@@ -2770,3 +2770,27 @@ Gfx *geo_bowser_hand_location_update(s32 callContext, struct GraphNode *node, Ma
 
     return NULL;
 }
+
+Gfx *geo_cc_set_prim_color(s32 callContext, struct GraphNode *node) {
+    Gfx *dlStart, *dlHead;
+    struct Object *objectGraphNode;
+    struct GraphNodeGenerated *currentGraphNode;
+
+    dlStart = NULL;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        objectGraphNode = (struct Object *) gCurGraphNodeObject;
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
+
+        dlHead = dlStart;
+
+        SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_OPAQUE);
+
+        gDPSetPrimColor(dlHead++, 0, 0, objectGraphNode->oChainChompHeat, 0, 0, 0xFF);
+        gSPEndDisplayList(dlHead);
+    }
+
+    return dlStart;
+}

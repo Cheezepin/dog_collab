@@ -1002,7 +1002,7 @@ Gfx chain_chomp_bowser_002_offset_001_mesh_layer_4_tri_0[] = {
 
 Gfx mat_chain_chomp_bowser_body[] = {
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
+	gsDPSetCombineLERP(TEXEL0, 0, SHADE, PRIMITIVE, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, PRIMITIVE, 0, 0, 0, ENVIRONMENT),
 	gsSPSetGeometryMode(G_TEXTURE_GEN),
 	gsSPTexture(1984, 1984, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),

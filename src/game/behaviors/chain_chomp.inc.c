@@ -80,6 +80,7 @@ static void chain_chomp_act_uninitialized(void) {
 
     if(gCurrLevelNum == LEVEL_BOWSER_1 || gCurrLevelNum == LEVEL_BOWSER_2 || gCurrLevelNum == LEVEL_BOWSER_3) {
         j = find_any_object_with_behavior(bhvBowser) || find_any_object_with_behavior(bhvBowserSnow) ? 1 : 0;
+        o->oChainChompHeat = 0;
     } else {
         j = o->oDistanceToMario < CHAIN_CHOMP_LOAD_DIST ? 1 : 0;
     }
@@ -582,6 +583,7 @@ void chain_chomp_bowser_sub_act_whirl(void) {
         }
     }
     if(o->oMoveFlags & OBJ_MOVE_HIT_WALL) {o->oMoveAngleYaw = cur_obj_reflect_move_angle_off_wall() + ((s32)((random_float() - 0.5f)*1600.0f));}
+    o->oChainChompHeat = 100;
 }
 
 static void chain_chomp_bowser_act_move(void) {
