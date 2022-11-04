@@ -1,5 +1,6 @@
 #include "config.h"
 #include "src/game/game_init.h"
+#include "src/game/ingame_menu.h"
 u8 count;
 s32 marioX, marioZ;
 u8 action;
@@ -1011,7 +1012,7 @@ void bowser_act_snow(void) {
 void bowser_act_cc_jump(void) {
     cur_obj_init_animation(BOWSER_ANIM_SLOW_GAIT);
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 2000);
-    o->oForwardVel = 20.0f;
+    o->oForwardVel = 10.0f;
     if(o->oBowserCCObj->oChainChompSubAction == 3) {
         if(o->oTimer == 10) {
             o->oAction = BOWSER_ACT_WALK_TO_MARIO;
@@ -1025,6 +1026,10 @@ void bowser_act_cc_jump(void) {
 void bowser_act_cc_charge(void) {
     cur_obj_init_animation(BOWSER_ANIM_IDLE);
     approach_f32_signed(&o->oForwardVel, 0, -4.0f);
+    if(o->oBowserCCObj->oForwardVel == 0) {
+        o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+    }
 }
 
 void bowser_act_cc_whirl(void) {
@@ -2593,6 +2598,12 @@ void bhv_snow_bowser_loop(void) {
         obj_scale(particle, 3.0f);
         particle->oPosY += 200.0f;
         particle->oPosX += 330.0f;
+    }
+}
+
+void bhv_b3_bridge_loop(void) {
+    if(find_any_object_with_behavior(bhvBowser) && find_any_object_with_behavior(bhvBowser)->oAction == BOWSER_ACT_WAIT) {
+        obj_mark_for_deletion(o);
     }
 }
 

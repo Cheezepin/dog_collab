@@ -50,4 +50,8 @@ extern const LevelScript level_bowser_3_entry[];
 
 #include "levels/bowser_3/dog_laser/geo_header.h"
 
+#include "levels/bowser_3/b3_bridge/geo_header.h"
+
+#include "levels/bowser_3/b3_bridge/collision_header.h"
+
 #endif

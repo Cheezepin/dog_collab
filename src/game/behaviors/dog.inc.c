@@ -286,12 +286,15 @@ void bhv_b3_dog_loop(void) {
             switch (o->oHeldState) {
                 case HELD_FREE:
                     o->oGravity = -4.0f;
+                    if(find_any_object_with_behavior(bhvDogLaser)) {
+                        obj_mark_for_deletion(find_any_object_with_behavior(bhvDogLaser));
+                    }
                     if(lateral_dist_between_objects(gMarioObject, o) > 350.0f) {
-                        o->oForwardVel = 20.0f;
+                        o->oForwardVel = 10.0f + (lateral_dist_between_objects(gMarioObject, o) / 25.0f);
                         o->oMoveAngleYaw = o->oAngleToMario;
                         cur_obj_init_animation(DOG_ANIM_WALK);
                     } else {
-                        o->oForwardVel = 0.0f;
+                        approach_f32_ptr(&o->oForwardVel, 0.0f, 2.0f);
                         cur_obj_init_animation(DOG_ANIM_IDLE);
                     }
                     cur_obj_move_standard(78);
@@ -366,7 +369,7 @@ void bhv_dog_laser_loop(void) {
  
         a = absf(unrotatedCircleX - closestX);
         b = absf(unrotatedCircleY - closestY);
-        if (sqrtf((a * a) + (b * b)) < radius) {
+        if (o->oPosY > cc->oPosY - 50.0f && o->oPosY < cc->oPosY + 500.0f && sqrtf((a * a) + (b * b)) < radius) {
             //true
             cc->oChainChompHeat = approach_s16_symmetric(cc->oChainChompHeat, 100, 2);
         } else {

@@ -739,6 +739,7 @@ enum _2639Models {
 #define MODEL_CHEEZE_LIGHTNING  0x183
 
 #define MODEL_DOG_LASER        0x3F
+#define MODEL_B3_BRIDGE        0x3E
 
 //end cheeze model ids
 

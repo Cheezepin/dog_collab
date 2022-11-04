@@ -56,6 +56,7 @@
 #include "levels/wf/header.h"
 #include "levels/bowser_1/header.h"
 #include "levels/bowser_2/header.h"
+#include "levels/bowser_3/header.h"
 #include "levels/ttm/header.h"
 #include "levels/ccm/header.h"
 
@@ -8156,6 +8157,16 @@ const BehaviorScript bhvDogLaser[] = {
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(bhv_dog_laser_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvB3Bridge[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    LOAD_COLLISION_DATA(b3_bridge_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+        CALL_NATIVE(bhv_b3_bridge_loop),
     END_LOOP(),
 };
 
