@@ -298,8 +298,9 @@ void bhv_b3_dog_loop(void) {
                         approach_f32_ptr(&o->oForwardVel, 0.0f, 2.0f);
                         cur_obj_init_animation(DOG_ANIM_IDLE);
                     }
-                    cur_obj_move_standard(78);
-                    if(o->oSubAction == 0) {
+                    cur_obj_move_standard(-78);
+                    cur_obj_update_floor_and_walls_and_ceil(100.0f);
+                    if(o->oSubAction == 1) {
                         lol = spawn_object(o, MODEL_DOG_ARROW, bhvLaserGlow);
                         lol->oPosY += 250.0f + ((f32)(sins(gGlobalTimer * 0x800)))*50.0f;
                     }
@@ -308,11 +309,13 @@ void bhv_b3_dog_loop(void) {
                 case HELD_HELD:
                     cur_obj_disable_rendering();
                     cur_obj_become_intangible();
-                    cur_obj_init_animation(DOG_ANIM_LASER);
-                    if(!find_any_object_with_behavior(bhvDogLaser)) {
-                        spawn_object(o, MODEL_DOG_LASER, bhvDogLaser);
+                    if(o->oSubAction > 0) {
+                        cur_obj_init_animation(DOG_ANIM_LASER);
+                        if(!find_any_object_with_behavior(bhvDogLaser)) {
+                            spawn_object(o, MODEL_DOG_LASER, bhvDogLaser);
+                        }
+                        o->oSubAction = 2;
                     }
-                    o->oSubAction = 1;
                     break;
 
                 case HELD_THROWN:
@@ -325,6 +328,13 @@ void bhv_b3_dog_loop(void) {
                     break;
             }
             break;
+    }
+    if(o->oSubAction == 0 && find_any_object_with_behavior(bhvBowser)->oAction == BOWSER_ACT_WALK_TO_MARIO) {
+        o->oSubAction = 1;
+    }
+
+    if(o->oPosY < -200.0f) {
+        o->oPosY = gMarioState->pos[1] + 500.0f;
     }
 
     o->oInteractStatus = INT_STATUS_NONE;

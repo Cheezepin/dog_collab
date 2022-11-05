@@ -582,20 +582,20 @@ void chain_chomp_bowser_sub_act_whirl(void) {
         o->oVelY = 0;
         o->oGravity = 0.0f;
     } else {
-        if(o->parentObj->oBowserCCObj->oTimer > 210 || o->parentObj->oBowserCCObj->oHeldState == HELD_HELD) {
+        if(o->parentObj->oBowserCCObj->oTimer > 300 || o->parentObj->oBowserCCObj->oHeldState == HELD_HELD) {
             if(lateral_dist_between_objects(o, o->parentObj->oBowserCCObj) < 750.0f) {
                 o->oGravity = -4.0f;
-                approach_f32_ptr(&o->oForwardVel, 0.0f, 40.0f);
+                approach_f32_ptr(&o->oForwardVel, 0.0f, 20.0f);
             }
             cur_obj_rotate_yaw_toward(obj_angle_to_object(o, o->parentObj->oBowserCCObj), 0x200);
         } else {
             //cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x180);
-            o->oForwardVel = 40.0f;
+            o->oForwardVel = 200.0f;
             o->oChainChompReleaseStatus = CHAIN_CHOMP_RELEASED_LUNGE_AROUND;
             o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS;
         }
     }
-    if(o->oMoveFlags & OBJ_MOVE_HIT_WALL) {o->oMoveAngleYaw = /*cur_obj_reflect_move_angle_off_wall()*/ o->oAngleToMario + ((s32)((random_float() - 0.5f)*3200.0f));}
+    if(o->oMoveFlags & OBJ_MOVE_HIT_WALL) {o->oMoveAngleYaw = /*cur_obj_reflect_move_angle_off_wall()*/ o->oAngleToMario + ((s32)((random_float() - 0.5f)*1600.0f));}
 }
 
 void chain_chomp_bowser_sub_act_burned(void) {
@@ -626,6 +626,8 @@ void chain_chomp_bowser_sub_act_burned(void) {
 static void chain_chomp_bowser_act_move(void) {
     f32 maxDistToPivot;
 
+    o->oWallHitboxRadius = 200.0f;
+
     // Unload chain if mario is far enough
     /*if (o->oChainChompReleaseStatus == CHAIN_CHOMP_NOT_RELEASED && o->oDistanceToMario > (CHAIN_CHOMP_UNLOAD_DIST*4)) {
         o->oAction = CHAIN_CHOMP_ACT_UNLOAD_CHAIN;
@@ -634,7 +636,7 @@ static void chain_chomp_bowser_act_move(void) {
         cur_obj_update_floor_and_walls();
 
         if(o->oChainChompHeated == 1) {
-            o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 400, find_any_object_with_behavior(bhvBowser)->oHealth*2);
+            o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 400, find_any_object_with_behavior(bhvBowser)->oHealth*3);
         } else {
             o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 0, find_any_object_with_behavior(bhvBowser)->oHealth*2 - 1);
         }
