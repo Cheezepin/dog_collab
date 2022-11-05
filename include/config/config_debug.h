@@ -18,7 +18,7 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
- #define TEST_LEVEL LEVEL_BOWSER_3
+// #define TEST_LEVEL LEVEL_BOWSER_3
 
 // Enable debug level select. Hold L while the game boots to turn it on.
 #define DEBUG_LEVEL_SELECT

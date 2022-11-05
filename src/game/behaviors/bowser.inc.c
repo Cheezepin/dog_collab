@@ -364,10 +364,10 @@ void bowser_act_wait_for_mario(void) {
         o->oAction = BOWSER_ACT_WAIT;
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
     }
-    o->oHealth = 1; //DEBUG REMOVE LATER
+    /* o->oHealth = 1; //DEBUG REMOVE LATER
     if(o->oTimer == 5) {
         spawn_object(o, MODEL_PEACH, bhvPeachEnding);
-    }
+    } */
 }
 
 /**
