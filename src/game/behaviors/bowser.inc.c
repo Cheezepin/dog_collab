@@ -364,6 +364,10 @@ void bowser_act_wait_for_mario(void) {
         o->oAction = BOWSER_ACT_WAIT;
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
     }
+    o->oHealth = 1; //DEBUG REMOVE LATER
+    if(o->oTimer == 5) {
+        spawn_object(o, MODEL_PEACH, bhvPeachEnding);
+    }
 }
 
 /**
@@ -526,7 +530,7 @@ void bowser_bits_action_list(void) {
                 o->oAction = BOWSER_ACT_CHARGE_MARIO;
             }
         } else {
-            /*if (rand < 0.4f) {
+            if (rand < 0.4f) {
                 o->oAction = BOWSER_ACT_CC_JUMP;
                 o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
                 o->oBowserCCObj->oVelY = 100.0f;
@@ -538,12 +542,12 @@ void bowser_bits_action_list(void) {
                 o->oBowserCCObj->oChainChompSubAction = 0;
                 o->oBowserCCObj->oMoveAngleYaw = o->oBowserCCObj->oAngleToMario;
                 o->oBowserCCObj->oPosY = 200.0f;
-            } else {*/
+            } else {
                 o->oAction = BOWSER_ACT_CC_WHIRL;
                 o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_WHIRL;
                 o->oBowserCCObj->oChainChompSubAction = 0;
                 o->oAngleVelYaw = 0;
-            // }
+            }
         }
     } else {
         // Keep walking
@@ -1701,8 +1705,10 @@ void bowser_act_dance(void) {
  */
 void bowser_spawn_collectable(void) {
     if (gCurrLevelNum == LEVEL_BOWSER_3) {
-       gSecondCameraFocus = spawn_object(o, MODEL_STAR, bhvGrandStar);
+       //gSecondCameraFocus = spawn_object(o, MODEL_STAR, bhvGrandStar);
+       gSecondCameraFocus = spawn_object(o, MODEL_PEACH, bhvPeachEnding);
        gSecondCameraFocus->oHomeY = 0.0f;
+       cur_obj_play_sound_2(SOUND_GENERAL2_BOWSER_KEY);
     } else {
         gSecondCameraFocus = spawn_object(o, MODEL_BOWSER_KEY, bhvBowserKey);
         cur_obj_play_sound_2(SOUND_GENERAL2_BOWSER_KEY);

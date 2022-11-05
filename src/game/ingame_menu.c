@@ -1349,9 +1349,15 @@ u32 ascii_to_credits_char(u8 c) {
     if (c >= 'a' && c <= 'z') return (c - ('a' - 0xA)); // remap lower to upper case
     if (c == ' ') return GLOBAL_CHAR_SPACE;
     if (c == '.') return 0x24;
+    if (c == '\'') return 0x25;
+    if (c == '0') return ASCII_TO_DIALOG('0');
+    if (c == '1') return ASCII_TO_DIALOG('1');
+    if (c == '2') return ASCII_TO_DIALOG('2');
     if (c == '3') return ASCII_TO_DIALOG('3');
     if (c == '4') return ASCII_TO_DIALOG('4');
+    if (c == '5') return ASCII_TO_DIALOG('5');
     if (c == '6') return ASCII_TO_DIALOG('6');
+    if (c == '9') return ASCII_TO_DIALOG('9');
 
     return GLOBAL_CHAR_SPACE;
 }

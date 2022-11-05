@@ -226,4 +226,6 @@ extern u8 gDirectionsHeld;
 #define JOYSTICK_UP    0x4
 #define JOYSTICK_DOWN  0x8
 
+extern struct CreditsEntry sCreditsSequence[];
+
 #endif // LEVEL_UPDATE_H

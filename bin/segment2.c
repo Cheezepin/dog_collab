@@ -324,6 +324,18 @@ ALIGNED8 static const Texture texture_hud_char_beta_key[] = {
 };
 #endif
 
+ALIGNED8 static const Texture texture_credits_char_0[] = {
+#include "textures/segment2/CUSTOM_credits_0.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture texture_credits_char_1[] = {
+#include "textures/segment2/CUSTOM_credits_1.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture texture_credits_char_2[] = {
+#include "textures/segment2/CUSTOM_credits_2.rgba16.inc.c"
+};
+
 ALIGNED8 static const Texture texture_credits_char_3[] = {
 #include "textures/segment2/segment2.06200.rgba16.inc.c"
 };
@@ -332,8 +344,16 @@ ALIGNED8 static const Texture texture_credits_char_4[] = {
 #include "textures/segment2/segment2.06280.rgba16.inc.c"
 };
 
+ALIGNED8 static const Texture texture_credits_char_5[] = {
+#include "textures/segment2/CUSTOM_credits_5.rgba16.inc.c"
+};
+
 ALIGNED8 static const Texture texture_credits_char_6[] = {
 #include "textures/segment2/segment2.06300.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture texture_credits_char_9[] = {
+#include "textures/segment2/CUSTOM_credits_9.rgba16.inc.c"
 };
 
 ALIGNED8 static const Texture texture_credits_char_A[] = {

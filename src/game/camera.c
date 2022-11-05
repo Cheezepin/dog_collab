@@ -3723,7 +3723,7 @@ void update_camera(struct Camera *c) {
     sCButtonsPressed = find_c_buttons_pressed(sCButtonsPressed, gPlayer1Controller->buttonPressed, gPlayer1Controller->buttonDown);
 
     //some cheeze code
-    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS && gCurrCreditsEntry == NULL) {
         c->cutscene = CUTSCENE_HUB_WORLD;
     }
 

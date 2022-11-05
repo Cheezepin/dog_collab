@@ -37,48 +37,48 @@
 #include "config.h"
 
 // TODO: Make these ifdefs better
-const char *credits01[] = { "1GAME DIRECTOR", "SHIGERU MIYAMOTO" };
-const char *credits02[] = { "2ASSISTANT DIRECTORS", "YOSHIAKI KOIZUMI", "TAKASHI TEZUKA" };
-const char *credits03[] = { "2SYSTEM PROGRAMMERS", "YASUNARI NISHIDA", "YOSHINORI TANIMOTO" };
-const char *credits04[] = { "3PROGRAMMERS", "HAJIME YAJIMA", "DAIKI IWAMOTO", "TOSHIO IWAWAKI" };
+const char *credits01[] = { "1DOG COLLAB", "CREDITS" };
+const char *credits02[] = { "4MAPLE MARKINDON", "MUSIC", "ASHLEY", "IDK" };
+const char *credits03[] = { "4CUMULUS CORRECTIONAL CENTER", "MUSIC", "MRCOMIT", "ORIGINAL BY MRCOMIT" };
+const char *credits04[] = { "4HAIR-RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "IDK" };
 
-#if defined(VERSION_JP) || defined(VERSION_SH)
+// #if defined(VERSION_JP) || defined(VERSION_SH)
 
-const char *credits05[] = { "1CAMERA PROGRAMMER", "TAKUMI KAWAGOE" };
-const char *credits06[] = { "1MARIO FACE PROGRAMMER", "GILES GODDARD" };
-const char *credits07[] = { "2COURSE DIRECTORS", "YOICHI YAMADA", "YASUHISA YAMAMURA" };
-const char *credits08[] = { "2COURSE DESIGNERS", "KENTA USUI", "NAOKI MORI" };
-const char *credits09[] = { "3COURSE DESIGNERS", "YOSHIKI HARUHANA", "MAKOTO MIYANAGA", "KATSUHIKO KANNO" };
-const char *credits10[] = { "1SOUND COMPOSER", "KOJI KONDO" };
+// const char *credits05[] = { "1CAMERA PROGRAMMER", "TAKUMI KAWAGOE" };
+// const char *credits06[] = { "1MARIO FACE PROGRAMMER", "GILES GODDARD" };
+// const char *credits07[] = { "2COURSE DIRECTORS", "YOICHI YAMADA", "YASUHISA YAMAMURA" };
+// const char *credits08[] = { "2COURSE DESIGNERS", "KENTA USUI", "NAOKI MORI" };
+// const char *credits09[] = { "3COURSE DESIGNERS", "YOSHIKI HARUHANA", "MAKOTO MIYANAGA", "KATSUHIKO KANNO" };
+// const char *credits10[] = { "1SOUND COMPOSER", "KOJI KONDO" };
 
-// Shindou combines sound effects and sound programmer in order to make room for Mario voice and Peach voice
-const char *credits11[] = { "4SOUND EFFECTS", "SOUND PROGRAMMER", "YOJI INAGAKI", "HIDEAKI SHIMIZU" };
-const char *credits12[] = { "23D ANIMATORS", "YOSHIAKI KOIZUMI", "SATORU TAKIZAWA" };
-const char *credits13[] = { "1CG DESIGNER", "MASANAO ARIMOTO" };
-const char *credits14[] = { "3TECHNICAL SUPPORT", "TAKAO SAWANO", "HIROHITO YOSHIMOTO", "HIROTO YADA" };
-const char *credits15[] = { "1TECHNICAL SUPPORT", "SGI. 64PROJECT STAFF" };
-const char *credits16[] = { "2PROGRESS MANAGEMENT", "KIMIYOSHI FUKUI", "KEIZO KATO" };
+// // Shindou combines sound effects and sound programmer in order to make room for Mario voice and Peach voice
+// const char *credits11[] = { "4SOUND EFFECTS", "SOUND PROGRAMMER", "YOJI INAGAKI", "HIDEAKI SHIMIZU" };
+// const char *credits12[] = { "23D ANIMATORS", "YOSHIAKI KOIZUMI", "SATORU TAKIZAWA" };
+// const char *credits13[] = { "1CG DESIGNER", "MASANAO ARIMOTO" };
+// const char *credits14[] = { "3TECHNICAL SUPPORT", "TAKAO SAWANO", "HIROHITO YOSHIMOTO", "HIROTO YADA" };
+// const char *credits15[] = { "1TECHNICAL SUPPORT", "SGI. 64PROJECT STAFF" };
+// const char *credits16[] = { "2PROGRESS MANAGEMENT", "KIMIYOSHI FUKUI", "KEIZO KATO" };
 
-#else // VERSION_US || VERSION_EU
+// #else // VERSION_US || VERSION_EU
 
 // US and EU combine camera programmer and Mario face programmer...
-const char *credits05[] = { "4CAMERA PROGRAMMER", "MARIO FACE PROGRAMMER", "TAKUMI KAWAGOE", "GILES GODDARD" };
-const char *credits06[] = { "2COURSE DIRECTORS", "YOICHI YAMADA", "YASUHISA YAMAMURA" };
-const char *credits07[] = { "2COURSE DESIGNERS", "KENTA USUI", "NAOKI MORI" };
-const char *credits08[] = { "3COURSE DESIGNERS", "YOSHIKI HARUHANA", "MAKOTO MIYANAGA", "KATSUHIKO KANNO" };
+const char *credits05[] = { "4BOWSER'S FLYING FUCKING FORTRESS", "MUSIC", "CHEEZEPIN", "HYRULE CASTLE LTTP" };
+const char *credits06[] = { "4KOOPA ATOLL", "MUSIC", "BEVERLYBEAN", "IDK" };
+const char *credits07[] = { "4PEACH RUINS", "MUSIC", "ROVERT", "IDK" };
+const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "IDK" };
 
 // ...as well as sound composer, sound effects, and sound programmer, and...
-const char *credits09[] = { "7SOUND COMPOSER", "SOUND EFFECTS", "SOUND PROGRAMMER", "KOJI KONDO", "YOJI INAGAKI", "HIDEAKI SHIMIZU" };
+const char *credits09[] = { "4AWE-INSPIRING SPIRES", "MUSIC", "KEYBLADER", "METEOR HERD SA2" };
 // ...3D animators and additional graphics in order to make room for screen text writer(s), Mario voice, and Peach voice
-const char *credits10[] = { "63-D ANIMATORS", "ADDITIONAL GRAPHICS", "YOSHIAKI KOIZUMI", "SATORU TAKIZAWA", "MASANAO ARIMOTO" };
-const char *credits11[] = { "3TECHNICAL SUPPORT", "TAKAO SAWANO", "HIROHITO YOSHIMOTO", "HIROTO YADA" };
-const char *credits12[] = { "1TECHNICAL SUPPORT", "SGI N64 PROJECT STAFF" };
-const char *credits13[] = { "2PROGRESS MANAGEMENT", "KIMIYOSHI FUKUI", "KEIZO KATO" };
+const char *credits10[] = { "4BOWSER'S RAINBOW RINGS", "MUSIC", "ANUNIDENTIFIEDEMU", "BOWSER STAGE SM64" };
+const char *credits11[] = { "4FEUDAL FORTRESS", "MUSIC", "COWQUACK", "IDK" };
+const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "IDK" };
+const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "IDK" };
 const char *credits14[] = { "5SCREEN TEXT WRITER", "ENGLISH TRANSLATION", "LESLIE SWAN", "MINA AKINO", "HIRO YAMADA" };
 const char *credits15[] = { "4SCREEN TEXT WRITER", "FRENCH TRANSLATION", "JULIEN BARDAKOFF", "KENJI HARAGUCHI" };
 const char *credits16[] = { "4SCREEN TEXT WRITER", "GERMAN TRANSLATION", "THOMAS GOERG", "THOMAS SPINDLER" };
 
-#endif
+// #endif
 
 const char *credits17[] = { "4MARIO VOICE", "PEACH VOICE", "CHARLES MARTINET", "LESLIE SWAN" };
 
@@ -93,28 +93,34 @@ const char *credits20[] = { "1EXECUTIVE PRODUCER", "HIROSHI YAMAUCHI" };
 
 
 struct CreditsEntry sCreditsSequence[] = {
-    { LEVEL_CASTLE_GROUNDS, 1, 1, -128, { 0, 8000, 0 }, NULL },
-    { LEVEL_BOB, 1, 1, 117, { 713, 3918, -3889 }, credits01 },
-    { LEVEL_WF, 1, 50, 46, { 347, 5376, 326 }, credits02 },
-    { LEVEL_JRB, 1, 18, 22, { 3800, -4840, 2727 }, credits03 },
-    { LEVEL_CCM, 2, 34, 25, { -5464, 6656, -6575 }, credits04 },
-    { LEVEL_BBH, 1, 1, 60, { 257, 1922, 2580 }, credits05 },
-    { LEVEL_HMC, 1, -15, 123, { -6469, 1616, -6054 }, credits06 },
-    { LEVEL_THI, 3, 17, -32, { 508, 1024, 1942 }, credits07 },
-    { LEVEL_LLL, 2, 33, 124, { -73, 82, -1467 }, credits08 },
+    { LEVEL_BITS, 1, 1, -128, { 0, 0, 0 }, NULL },
+    { LEVEL_BITS, 1, 1, 117, { 0, 0, 0 }, credits01 },
+    { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02 },
+    { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03 },
+    { LEVEL_BOB, 1, 34, 25, { -5464, 6656, -6575 }, credits04 },
+    { LEVEL_BITFS, 1, 1, 60, { 0, -14456, 0 }, credits05 },
+    { LEVEL_WF, 1, -15, 123, { -6469, 1616, -6054 }, credits06 },
+    { LEVEL_CCM, 1, 17, -32, { 508, 1024, 1942 }, credits07 },
+    { LEVEL_JRB, 1, 33, 124, { -73, 82, -1467 }, credits08 },
     { LEVEL_SSL, 1, 65, 98, { -5906, 1024, -2576 }, credits09 },
-    { LEVEL_DDD, 1, 50, 47, { -4884, -4607, -272 }, credits10 },
-    { LEVEL_SL, 1, 17, -34, { 1925, 3328, 563 }, credits11 },
-    { LEVEL_WDW, 1, 33, 105, { -537, 1850, 1818 }, credits12 },
-    { LEVEL_TTM, 1, 2, -33, { 2613, 313, 1074 }, credits13 },
-    { LEVEL_THI, 1, 51, 54, { -2609, 512, 856 }, credits14 },
-    { LEVEL_TTC, 1, 17, -72, { -1304, -71, -967 }, credits15 },
-    { LEVEL_RR, 1, 33, 64, { 1565, 1024, -148 }, credits16 },
-    { LEVEL_SA, 1, 1, 24, { -1050, -1330, -1559 }, credits17 },
-    { LEVEL_COTMC, 1, 49, -16, { -254, 415, -6045 }, credits18 },
-    { LEVEL_DDD, 2, -111, -64, { 3948, 1185, -104 }, credits19 },
-    { LEVEL_CCM, 1, 33, 31, { 3169, -4607, 5240 }, credits20 },
-    { LEVEL_CASTLE_GROUNDS, 1, 1, -128, { 0, 906, -1200 }, NULL },
+    { LEVEL_BITDW, 1, 50, 47, { -4884, -4607, -272 }, credits10 },
+    { LEVEL_LLL, 1, 17, -34, { 1925, 3328, 563 }, credits11 },
+    { LEVEL_HMC, 2, 33, 105, { 908, 8255, 0 }, credits12 },
+    { LEVEL_DDD, 1, 2, -33, { 2613, 313, 1074 }, credits13 },
+    { LEVEL_BBH, 2, 51, 54, { -2609, 512, 856 }, credits14 },
+    { LEVEL_HMC, 1, 51, 54, { -2609, 512, 856 }, credits15 },
+    { LEVEL_DDD, 2, 51, 54, { -2609, 512, 856 }, credits16 },
+    { LEVEL_JRB, 2, 51, 54, { 17089, 1112, -16284 }, credits17 },
+    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18 },
+    { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits19 },
+    { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits20 },
+    //{ LEVEL_TTC, 1, 17, -72, { -1304, -71, -967 }, credits15 },
+    //{ LEVEL_RR, 1, 33, 64, { 1565, 1024, -148 }, credits16 },
+    //{ LEVEL_SA, 1, 1, 24, { -1050, -1330, -1559 }, credits17 },
+    //{ LEVEL_COTMC, 1, 49, -16, { -254, 415, -6045 }, credits18 },
+    //{ LEVEL_DDD, 1, -111, -64, { 3948, 1185, -104 }, credits19 },
+    //{ LEVEL_CCM, 1, 33, 31, { 3169, -4607, 5240 }, credits20 },
+    //{ LEVEL_CASTLE_GROUNDS, 1, 1, -128, { 0, 906, -1200 }, NULL },
     { LEVEL_NONE, 0, 1, 0, { 0, 0, 0 }, NULL },
 };
 

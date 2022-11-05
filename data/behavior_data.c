@@ -8323,6 +8323,17 @@ const BehaviorScript bhvCheezeLightning[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvPeachEnding[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oOpacity, 255),
+    LOAD_ANIMATIONS(oAnimations, peach_seg5_anims_0501C41C),
+    ANIMATE(9),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_peach_ending_loop),
+    END_LOOP(),
+};
+
 //cheeze bhvs end
 
 // someone2638 scripts
