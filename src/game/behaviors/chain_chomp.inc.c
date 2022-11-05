@@ -439,7 +439,7 @@ void chain_chomp_bowser_sub_act_turn(void) {
     chain_chomp_restore_normal_chain_lengths();
     obj_move_pitch_approach(0, 0x40);
 
-    if ((o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) && gCamera->cutscene == 0 && find_any_object_with_behavior(bhvBowser)->oAction != BOWSER_ACT_WAIT_FOR_MARIO) {
+    if (((o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) && gCamera->cutscene == 0 && find_any_object_with_behavior(bhvBowser)->oAction != BOWSER_ACT_WAIT_FOR_MARIO)) {
         cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x400);
         if (abs_angle_diff(o->oAngleToMario, o->oMoveAngleYaw) < 0x800) {
             if (o->oTimer > 30 || (gCurrLevelNum == LEVEL_BOWSER_3 && o->parentObj->oBowserCCObj->oHeldState == HELD_HELD)) {
@@ -512,6 +512,10 @@ void chain_chomp_bowser_sub_act_lunge(void) {
             o->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
         }
 
+        if(gCurrLevelNum == LEVEL_BOWSER_3 && o->parentObj->oBowserCCObj->oHeldState == HELD_HELD) {
+            o->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+        }
+
         o->oChainChompMaxDistBetweenChainParts = o->oChainChompSignedMaxDistBetweenChainParts;
         if (gGlobalTimer % 2 != 0) {
             o->oChainChompMaxDistBetweenChainParts = -o->oChainChompSignedMaxDistBetweenChainParts;
@@ -536,7 +540,9 @@ void chain_chomp_bowser_sub_act_jump(void) {
                 wave = spawn_object(o, MODEL_BOWSER_WAVE, bhvBowserShockWave);
                 wave->oPosY = o->oFloorHeight;
                 o->oChainChompSubAction++;
-                if(o->oChainChompSubAction == 3) {
+                if(o->parentObj->oBowserCCObj->oHeldState == HELD_HELD || o->parentObj->oBowserCCObj->oAction != BOWSER_ACT_CC_JUMP) {
+                    o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+                } else if(o->oChainChompSubAction == 3) {
                     o->oVelY = 20.0f;
                 } else {
                     o->oVelY = 80.0f;
@@ -550,7 +556,7 @@ void chain_chomp_bowser_sub_act_jump(void) {
 }
 
 void chain_chomp_bowser_sub_act_charge(void) {
-    if(o->parentObj->oBowserCCObj->oTimer > 120 && sqrtf(POW2(o->oPosX) + POW2(o->oPosZ)) < 2500.0f) {
+    if((o->parentObj->oBowserCCObj->oTimer > 120 && sqrtf(POW2(o->oPosX) + POW2(o->oPosZ)) < 2500.0f) || o->parentObj->oBowserCCObj->oHeldState == HELD_HELD) {
         approach_f32_ptr(&o->oForwardVel, 0.0f, -10.0f);
     } else {
         approach_f32_ptr(&o->oForwardVel, 150.0f, 10.0f);
@@ -576,7 +582,7 @@ void chain_chomp_bowser_sub_act_whirl(void) {
         o->oVelY = 0;
         o->oGravity = 0.0f;
     } else {
-        if(o->parentObj->oBowserCCObj->oTimer > 210) {
+        if(o->parentObj->oBowserCCObj->oTimer > 210 || o->parentObj->oBowserCCObj->oHeldState == HELD_HELD) {
             if(lateral_dist_between_objects(o, o->parentObj->oBowserCCObj) < 750.0f) {
                 o->oGravity = -4.0f;
                 approach_f32_ptr(&o->oForwardVel, 0.0f, 40.0f);
@@ -621,17 +627,26 @@ static void chain_chomp_bowser_act_move(void) {
     f32 maxDistToPivot;
 
     // Unload chain if mario is far enough
-    if (o->oChainChompReleaseStatus == CHAIN_CHOMP_NOT_RELEASED && o->oDistanceToMario > (CHAIN_CHOMP_UNLOAD_DIST*4)) {
+    /*if (o->oChainChompReleaseStatus == CHAIN_CHOMP_NOT_RELEASED && o->oDistanceToMario > (CHAIN_CHOMP_UNLOAD_DIST*4)) {
         o->oAction = CHAIN_CHOMP_ACT_UNLOAD_CHAIN;
         o->oForwardVel = o->oVelY = 0.0f;
-    } else {
+    } else {*/
         cur_obj_update_floor_and_walls();
 
-        if(o->oChainChompHeat == 100 && o->oSubAction != CHAIN_CHOMP_SUB_ACT_BURNED) {
+        if(o->oChainChompHeated == 1) {
+            o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 400, find_any_object_with_behavior(bhvBowser)->oHealth*2);
+        } else {
+            o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 0, find_any_object_with_behavior(bhvBowser)->oHealth*2 - 1);
+        }
+
+        if(o->oChainChompHeat == 400 && o->oSubAction != CHAIN_CHOMP_SUB_ACT_BURNED) {
             o->oSubAction = CHAIN_CHOMP_SUB_ACT_BURNED;
             o->parentObj->oBowserCCObj->oAction = BOWSER_ACT_WALK_TO_MARIO;
             cur_obj_play_sound_2(SOUND_OBJ2_BOWSER_ROAR);
+            spawn_object(o, MODEL_NONE, bhvThreeCoinsSpawn);
         }
+
+        o->oChainChompHeated = 0;
 
         //switch (o->oChainChompReleaseStatus) {
         //    case CHAIN_CHOMP_NOT_RELEASED:
@@ -711,7 +726,7 @@ static void chain_chomp_bowser_act_move(void) {
                 o->oChainChompTargetPitch = -0x3000;
             }
         }
-    }
+    //}
 }
 
 /**

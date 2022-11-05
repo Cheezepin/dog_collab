@@ -44,7 +44,8 @@ const LevelScript level_bowser_3_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_LEVEL_GEOMETRY_03, bowser_3_geo_000380), 
 	LOAD_MODEL_FROM_GEO(MODEL_DOG_LASER, dog_laser_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_B3_BRIDGE, b3_bridge_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_LASER_GLOW, laserglow_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_LASER_GLOW, laserglow_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_DOG_ARROW, dogarrow_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -61,7 +62,7 @@ const LevelScript level_bowser_3_entry[] = {
 		OBJECT(MODEL_BOWSER_BOMB, -2263, 200, 2263, 0, -45, 0, 0x00000000, bhvBowserBomb),
 		OBJECT(MODEL_BOWSER, 0, 0, -1000, 0, 0, 0, 0x00000000, bhvBowser),
 		OBJECT(MODEL_B3_BRIDGE, 0, -100, 3702, 0, 0, 0, 0x00000000, bhvB3Bridge),
-		OBJECT(MODEL_CHAIN_CHOMP_BOWSER, -508, 0, -1695, 0, 0, 0, 0x00000000, bhvChainChompBowser),
+		OBJECT(MODEL_CHAIN_CHOMP_BOWSER, -347, 0, -835, 0, 0, 0, 0x00000000, bhvChainChompBowser),
 		OBJECT(MODEL_DOG, 624, 0, 1606, 0, 0, 0, 0x00000000, bhvB3Dog),
 		OBJECT(MODEL_NONE, 0, 0, 9404, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
 		MARIO_POS(0x01, 0, 0, 0, 2404),

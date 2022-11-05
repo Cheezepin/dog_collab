@@ -56,4 +56,6 @@ extern const LevelScript level_bowser_3_entry[];
 
 #include "levels/bowser_3/laserglow/geo_header.h"
 
+#include "levels/bowser_3/dogarrow/geo_header.h"
+
 #endif

@@ -2798,7 +2798,7 @@ Gfx *geo_cc_set_prim_color(s32 callContext, struct GraphNode *node) {
 
         SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_OPAQUE);
 
-        gDPSetPrimColor(dlHead++, 0, 0, objectGraphNode->oChainChompHeat, 0, 0, 0xFF);
+        gDPSetPrimColor(dlHead++, 0, 0, objectGraphNode->oChainChompHeat / 4, 0, 0, 0xFF);
         gSPEndDisplayList(dlHead);
     }
 

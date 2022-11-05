@@ -284,6 +284,7 @@ void bhv_b3_dog_loop(void) {
     switch(o->oAction) {
         case 0:
             switch (o->oHeldState) {
+                struct Object *lol;
                 case HELD_FREE:
                     o->oGravity = -4.0f;
                     if(find_any_object_with_behavior(bhvDogLaser)) {
@@ -298,6 +299,10 @@ void bhv_b3_dog_loop(void) {
                         cur_obj_init_animation(DOG_ANIM_IDLE);
                     }
                     cur_obj_move_standard(78);
+                    if(o->oSubAction == 0) {
+                        lol = spawn_object(o, MODEL_DOG_ARROW, bhvLaserGlow);
+                        lol->oPosY += 250.0f + ((f32)(sins(gGlobalTimer * 0x800)))*50.0f;
+                    }
                     break;
 
                 case HELD_HELD:
@@ -307,6 +312,7 @@ void bhv_b3_dog_loop(void) {
                     if(!find_any_object_with_behavior(bhvDogLaser)) {
                         spawn_object(o, MODEL_DOG_LASER, bhvDogLaser);
                     }
+                    o->oSubAction = 1;
                     break;
 
                 case HELD_THROWN:
@@ -371,11 +377,11 @@ void bhv_dog_laser_loop(void) {
         b = absf(unrotatedCircleY - closestY);
         if (o->oPosY > cc->oPosY - 50.0f && o->oPosY < cc->oPosY + 500.0f && sqrtf((a * a) + (b * b)) < radius) {
             //true
-            cc->oChainChompHeat = approach_s16_symmetric(cc->oChainChompHeat, 100, 2);
+            cc->oChainChompHeated = 1;
             spawn_object(cc, MODEL_LASER_GLOW, bhvLaserGlow);
         } else {
             //false
-            cc->oChainChompHeat = approach_s16_symmetric(cc->oChainChompHeat, 0, 2);
+            //cc->oChainChompHeated = 0;
         }
     }
     cur_obj_shake_screen(SHAKE_POS_SMALL);
