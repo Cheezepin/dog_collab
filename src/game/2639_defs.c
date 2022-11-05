@@ -158,7 +158,17 @@ void Cam2639_Main(struct Camera *c) {
 
 void Cam2639_OutwardSpiral(struct Camera *c) {
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
-    transition_to_camera_mode(c, CAMERA_MODE_OUTWARD_RADIAL, 60);
+    transition_to_camera_mode(c, CAMERA_MODE_OUTWARD_RADIAL, 10);
+}
+
+void Cam2639_CylinderCam(struct Camera *c) {
+    sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
+    transition_to_camera_mode(c, CAMERA_MODE_RADIAL, 20);
+}
+
+void Cam2639_HeadroomClearance(struct Camera *c) {
+    c->nextYaw = gMarioState->faceAngle[1];
+    set_camera_height(c, gMarioState->pos[1] + 50);
 }
 
 void fade_channel_volume_scale(u8 player, u8 channelIndex, u8 targetScale, u16 fadeDuration);
@@ -200,6 +210,8 @@ void Floor2Music() {
     for (int i = 0; i < 16; i++) {
         fadech(i, 0);
     }
+    fadech(KIDSHOW_MAIN, BASEVOL);
+    fadech(KIDSHOW_STAGE2, BASEVOL);
     fadech(SUPERSAW, BASEVOL);
     fadech(STRINGS, BASEVOL);
     fadech(PIANO, BASEVOL);
@@ -212,11 +224,12 @@ void Floor7Music() {
     for (int i = 0; i < 16; i++) {
         fadech(i, 0);
     }
-    // fadech(CYMBALRIDE, BASEVOL);
+    fadech(CYMBALRIDE2, BASEVOL);
     fadech(BASS, BASEVOL);
     fadech(_808SNARE, BASEVOL);
     fadech(KICK, BASEVOL);
     fadech(CLAPFILL, BASEVOL + 10);
+    // fadech(KIDSHOW_STAGE3, BASEVOL);
 }
 
 void Floor5Music() {

@@ -2161,7 +2161,9 @@ DEFINE_DIALOG(_2639DIAG_A3RoomVendingMachineInstructions, 1, 3, 30, 200, \
 R"(HOW TO USE THIS
 VENDING MACHINE:
 
-just punch it lmao)")
+just punch it lmao
+(make sure you're
+standing still))")
 
 
 DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, \

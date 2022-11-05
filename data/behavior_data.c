@@ -8127,6 +8127,8 @@ const BehaviorScript bhv2639glasses[] = {
 const BehaviorScript bhvA2pushablecouch[] = {
 	BEGIN(OBJ_LIST_SURFACE),
     LOAD_COLLISION_DATA(couch_collision),
+    SET_FLOAT(oCollisionDistance, 20000),
+    SET_FLOAT(oDrawingDistance, 20000),
     OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_MOVE_XZ_USING_FVEL)),
 	CALL_NATIVE(bhv_A2PushableCouch_init),
 	BEGIN_LOOP(),

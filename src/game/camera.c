@@ -801,6 +801,10 @@ s32 update_radial_camera(struct Camera *c, Vec3f focus, Vec3f pos) {
     f32 yOff = 125.f;
     f32 baseDist = 1000.f;
 
+    if (in2639Level()) {
+        baseDist = 2500.0f; // camera goes farther than mario
+    }
+
     sAreaYaw = camYaw - sModeOffsetYaw;
     calc_y_to_curr_floor(&posY, 1.f, 500.f, &focusY, 0.9f, 200.f);
     focus_on_mario(focus, pos, posY + yOff, focusY + yOff, sLakituDist + baseDist, pitch, camYaw);
@@ -1042,6 +1046,9 @@ void mode_radial_camera(struct Camera *c) {
     sAreaYawChange = sAreaYaw - oldAreaYaw;
     if (sMarioCamState->action == ACT_RIDING_HOOT) {
         pos[1] += 500.f;
+    }
+    if (in2639Level()) {
+        pos[1] += 300;
     }
     set_camera_height(c, pos[1]);
     pan_ahead_of_player(c);
@@ -5963,12 +5970,20 @@ void Cam2639_Elevator();
 void Cam2639_LogoCam();
 void Cam2639_CloseFocus();
 void Cam2639_OutwardSpiral();
+void Cam2639_HeadroomClearance();
 struct CameraTrigger sCamBOB[] = {
 	{1, Cam2639_Main, -57, -404, 3930, 6995, 6995, 6995, 0xffff},
 	{-1, Cam2639_Main, 0, 500, 0, 11500, 11500, 11500, 0xffff},
 	{1, Cam2639_LogoCam, -417, -2141, -4114, 1742, 1742, 1742, 0xffff},
-	{1, Cam2639_CloseFocus, -417, -2141, -1704, 889, 889, 889, 0xffff},
+	{1, Cam2639_HeadroomClearance, -417, -2141, -1704, 889, 889, 889, 0xffff},
+	{2, Cam2639_OutwardSpiral, -418, 1, -4651, 3255, 699, 1131, 0xffff},
+	{2, Cam2639_HeadroomClearance, -407, 800, 1879, 3081, 909, 2161, 0xffff},
+	{2, Cam2639_CylinderCam, -305, 4357, -2390, 5597, 3222, 5597, 0xffff},
 	{2, Cam2639_Elevator, -17, 3033, -2833, 803, 8515, 803, 0xffff},
+	{3, Cam2639_HeadroomClearance, 1122, 55, -1468, 1531, 359, 900, 0xffff},
+	{4, Cam2639_HeadroomClearance, -89, 55, -1468, 1531, 359, 900, 0xffff},
+	{5, Cam2639_HeadroomClearance, 2123, -202, -1468, 1531, 359, 900, 0xffff},
+	{6, Cam2639_HeadroomClearance, 3810, 680, -1468, 1531, 359, 900, 0xffff},
 	NULL_TRIGGER
 };
 
@@ -6422,6 +6437,10 @@ s32 rotate_camera_around_walls(UNUSED struct Camera *c, Vec3f cPos, s16 *avoidYa
     s32 status = 0;
     /// The current iteration. The algorithm takes 8 equal steps from Mario back to the camera.
     s32 step = 0;
+
+    // if (in2639Level()) {
+    //     return status;
+    // }
 
     vec3f_get_dist_and_angle(sMarioCamState->pos, cPos, &dummyDist, &dummyPitch, &yawFromMario);
     sStatusFlags &= ~CAM_FLAG_CAM_NEAR_WALL;

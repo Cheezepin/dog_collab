@@ -99,6 +99,7 @@ const LevelScript level_bob_entry[] = {
 		OBJECT_WITH_ACTS(MODEL_NONE, -2074, 2576, 962, 0, 0, 0, 0x00000000, bhv2639PresentEater, ACT_6),
 		OBJECT_WITH_ACTS(MODEL_TOAD, 531, 1, 1188, 0, 0, 0, (_2639DIAG_A1LobbyNPCSuggester << 16), bhvToadMessage, ACT_1),
 		OBJECT(MODEL_NONE, -25, 1058, -280, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
+		OBJECT(MODEL_WOODEN_SIGNPOST, -1023, 0, -3825, 0, 2, 0, (_2639DIAG_A1LobbyHOF_Intro << 16), bhvMessagePanel),
 		OBJECT(MODEL_NONE, -24919, -2124, -436, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
 		OBJECT(MODEL_NONE, -8, 2, -1945, 0, 0, 0, (11 << 16), bhvInstantActiveWarp),
 		OBJECT_WITH_ACTS(MODEL_2639VENDING, 1689, 0, -1375, 0, -133, 0, 0x00000000, bhv2639Vending, ACT_3),
