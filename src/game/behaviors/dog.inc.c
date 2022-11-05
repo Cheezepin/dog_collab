@@ -372,6 +372,7 @@ void bhv_dog_laser_loop(void) {
         if (o->oPosY > cc->oPosY - 50.0f && o->oPosY < cc->oPosY + 500.0f && sqrtf((a * a) + (b * b)) < radius) {
             //true
             cc->oChainChompHeat = approach_s16_symmetric(cc->oChainChompHeat, 100, 2);
+            spawn_object(cc, MODEL_LASER_GLOW, bhvLaserGlow);
         } else {
             //false
             cc->oChainChompHeat = approach_s16_symmetric(cc->oChainChompHeat, 0, 2);

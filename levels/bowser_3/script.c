@@ -44,6 +44,7 @@ const LevelScript level_bowser_3_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_LEVEL_GEOMETRY_03, bowser_3_geo_000380), 
 	LOAD_MODEL_FROM_GEO(MODEL_DOG_LASER, dog_laser_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_B3_BRIDGE, b3_bridge_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_LASER_GLOW, laserglow_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */

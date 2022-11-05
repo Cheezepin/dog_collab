@@ -709,6 +709,7 @@ void bhv_spiresdog_loop(void);
 void bhv_b3_dog_loop(void);
 void bhv_dog_laser_loop(void);
 void bhv_b3_bridge_loop(void);
+void bhv_dog_control_loop(void);
 //cheeze end
 
 //Koopa Atoll Objects

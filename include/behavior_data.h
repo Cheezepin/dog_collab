@@ -742,6 +742,7 @@ extern const BehaviorScript bhvCheezeLightning[];
 extern const BehaviorScript bhvB3Dog[];
 extern const BehaviorScript bhvDogLaser[];
 extern const BehaviorScript bhvB3Bridge[];
+extern const BehaviorScript bhvLaserGlow[];
 //cheeze bhv ends
 
 //Koopa Atoll Objects

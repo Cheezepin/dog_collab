@@ -30,3 +30,4 @@
 
 #include "levels/bowser_3/dog_laser/geo.inc.c"
 #include "levels/bowser_3/b3_bridge/geo.inc.c"
+#include "levels/bowser_3/laserglow/geo.inc.c"

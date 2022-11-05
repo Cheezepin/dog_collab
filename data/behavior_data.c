@@ -8170,6 +8170,14 @@ const BehaviorScript bhvB3Bridge[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvLaserGlow[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    BILLBOARD(),
+    DELAY(1),
+    DEACTIVATE(),
+};
+
 const BehaviorScript bhvKoopatrol[] = {
     BEGIN(OBJ_LIST_PUSHABLE),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),

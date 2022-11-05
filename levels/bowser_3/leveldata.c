@@ -38,3 +38,4 @@
 #include "levels/bowser_3/dog_laser/model.inc.c"
 #include "levels/bowser_3/b3_bridge/model.inc.c"
 #include "levels/bowser_3/b3_bridge/collision.inc.c"
+#include "levels/bowser_3/laserglow/model.inc.c"
