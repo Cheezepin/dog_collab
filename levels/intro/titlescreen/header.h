@@ -1,6 +1,6 @@
 extern Lights1 titlescreen_white_001_lights;
 extern Lights1 titlescreen_blue_001_lights;
-extern Vtx titlescreen_Text_mesh_vtx_0[230];
+extern Vtx titlescreen_Text_mesh_vtx_0[215];
 extern Gfx titlescreen_Text_mesh_tri_0[];
 extern Vtx titlescreen_Text_mesh_vtx_1[588];
 extern Gfx titlescreen_Text_mesh_tri_1[];
