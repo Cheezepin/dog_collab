@@ -860,7 +860,7 @@ void render_sound_mode_menu_buttons(struct Object *soundModeButton) {
     sMainMenuButtons[MENU_BUTTON_MONO]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Headset option button
     sMainMenuButtons[MENU_BUTTON_HEADSET] = spawn_object_rel_with_rot(
-        soundModeButton, MODEL_MAIN_MENU_GENERIC_BUTTON, bhvMenuButton, -533, SOUND_BUTTON_Y, -100, 0x0, -0x8000, 0x0);
+       soundModeButton, MODEL_MAIN_MENU_GENERIC_BUTTON, bhvMenuButton, -533, SOUND_BUTTON_Y, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_HEADSET]->oMenuButtonScale = MENU_BUTTON_SCALE;
 
 #if MULTILANG
@@ -1101,7 +1101,7 @@ void bhv_menu_button_manager_init(void) {
     // Sound mode menu button (Option Mode in EU)
     sMainMenuButtons[MENU_BUTTON_SOUND_MODE] =
         spawn_object_rel_with_rot(o, MODEL_MAIN_MENU_PURPLE_SOUND_BUTTON,
-                                  bhvMenuButton,  6400, -4500, 0, 0x0, 0x0, 0x0);
+                                  bhvMenuButton,  6400, -45000, 0, 0x0, 0x0, 0x0);
     sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oMenuButtonScale = 1.0f;
 
     sTextBaseAlpha = 0;
@@ -1458,7 +1458,7 @@ void print_main_menu_strings(void) {
     print_generic_string(COPY_X, 26, textCopy);
     print_generic_string(ERASE_X, 26, textErase);
     sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
-    print_generic_string(sSoundTextX, 26, textSoundModes[sSoundMode]);
+    //print_generic_string(sSoundTextX, 26, textSoundModes[sSoundMode]);
 
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
     for(i = 0; i < 4; i++) {

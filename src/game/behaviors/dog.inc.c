@@ -5,6 +5,7 @@
 #define DOG_ANIM_POUNCE 4
 #define DOG_ANIM_KB     5
 #define DOG_ANIM_LASER  6
+#define DOG_ANIM_BARK   7
 
 #define OBJ_COL_FLAG_GROUNDED   (1 << 0)
 

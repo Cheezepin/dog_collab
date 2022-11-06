@@ -636,7 +636,7 @@ static void chain_chomp_bowser_act_move(void) {
         cur_obj_update_floor_and_walls();
 
         if(o->oChainChompHeated == 1) {
-            o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 400, find_any_object_with_behavior(bhvBowser)->oHealth*30);
+            o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 400, find_any_object_with_behavior(bhvBowser)->oHealth*3);
         } else {
             o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 0, find_any_object_with_behavior(bhvBowser)->oHealth*2 - 1);
         }

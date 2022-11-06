@@ -5499,11 +5499,13 @@ const BehaviorScript bhvFloombaStartup[] = {
     END_LOOP(),
 };
 
+#define DOG_ANIM_BARK 7
 const BehaviorScript bhvDogStartup[] = {
     BEGIN(OBJ_LIST_PUSHABLE),
-    LOAD_ANIMATIONS(oAnimations, goomba_seg8_anims_0801DA4C),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
     OR_INT(oFlags, OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_HOME(),
+    ANIMATE(DOG_ANIM_BARK),
     CALL_NATIVE(bhv_intro_object_init),
     SET_FLOAT(oDrawingDistance, 30000),
     SET_INT(oIntangibleTimer, -1),
