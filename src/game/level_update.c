@@ -97,7 +97,7 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_BITS, 1, 1, 117, { 0, 0, 0 }, credits01 },
     { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02 },
     { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03 },
-    { LEVEL_BOB, 1, 34, 25, { -5464, 6656, -6575 }, credits04 },
+    { LEVEL_BBH, 1, 34, 25, { -5464, 6656, -6575 }, credits04 },
     { LEVEL_BITFS, 1, 1, 60, { 0, -14456, 0 }, credits05 },
     { LEVEL_WF, 1, -15, 123, { -6469, 1616, -6054 }, credits06 },
     { LEVEL_CCM, 1, 17, -32, { 508, 1024, 1942 }, credits07 },
@@ -932,11 +932,11 @@ void initiate_delayed_warp(void) {
 
                     gCurrCreditsEntry++;
                     gCurrActNum = gCurrCreditsEntry->actNum & 0x07;
-                    if ((gCurrCreditsEntry + 1)->levelNum == LEVEL_NONE) {
-                        destWarpNode = WARP_NODE_CREDITS_END;
-                    } else {
+                    //if ((gCurrCreditsEntry + 1)->levelNum == LEVEL_NONE) {
+                    //    destWarpNode = WARP_NODE_CREDITS_END;
+                    //} else {
                         destWarpNode = WARP_NODE_CREDITS_NEXT;
-                    }
+                    //}
 
                     initiate_warp(gCurrCreditsEntry->levelNum, gCurrCreditsEntry->areaIndex, destWarpNode, WARP_FLAGS_NONE);
                     break;

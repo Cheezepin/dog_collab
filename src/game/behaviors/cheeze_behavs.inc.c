@@ -620,7 +620,7 @@ void bhv_peach_ending_loop(void) {
     // }
     if(o->oTimer == 30) {
         gCurrCreditsEntry = &sCreditsSequence[0];
-        play_cutscene_music(SEQUENCE_ARGS(0, SEQ_EVENT_CUTSCENE_CREDITS));
+        play_cutscene_music(SEQUENCE_ARGS(0, SEQ_CREDITS));
         level_trigger_warp(gMarioState, WARP_OP_CREDITS_NEXT);
     }
 }

@@ -10272,6 +10272,8 @@ extern struct CutsceneSplinePoint sDddSubCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sDddSubCreditsSplineFocus[];
 extern struct CutsceneSplinePoint sCcmOutsideCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sCcmOutsideCreditsSplineFocus[];
+extern struct CutsceneSplinePoint sCastleGroundsCreditsSplinePositions[];
+extern struct CutsceneSplinePoint sCastleGroundsCreditsSplineFocus[];
 
 /**
  * Follow splines through the courses of the game.
@@ -10357,6 +10359,14 @@ void cutscene_credits(struct Camera *c) {
         case AREA_DDD_SUB:
             pos = sDddSubCreditsSplinePositions;
             focus = sDddSubCreditsSplineFocus;
+            break;
+        case AREA_CASTLE_GROUNDS:
+            pos = sCastleGroundsCreditsSplinePositions;
+            focus = sCastleGroundsCreditsSplineFocus;
+            break;
+        case AREA_BITFS:
+            pos = sSaCreditsSplinePositions;
+            focus = sSaCreditsSplineFocus;
             break;
         case AREA_CCM_OUTSIDE:
             //! Checks if the "Snowman's Lost His Head" star was collected. The credits likely would
@@ -11447,11 +11457,11 @@ STATIC_ASSERT(ARRAY_COUNT(sZoomOutAreaMasks) - 1 == LEVEL_MAX / 2, "Make sure yo
  */
 
 struct CutsceneSplinePoint sBobCreditsSplinePositions[] = {
-    { 1, 0, { 5984, 3255, 4975 } },
+    /*{ 1, 0, { 5984, 3255, 4975 } },
     { 2, 0, { 4423, 3315, 1888 } },
     { 3, 0, { 776, 2740, -1825 } },
     { 4, 0, { -146, 3894, -3167 } },
-    { -1, 0, { 741, 4387, -5474 } }
+    { -1, 0, { 741, 4387, -5474 } }*/
 };
 
 struct CutsceneSplinePoint sBobCreditsSplineFocus[] = {
@@ -11762,6 +11772,30 @@ struct CutsceneSplinePoint sCcmOutsideCreditsSplineFocus[] = {
     { 2, 50, { -2123, -1600, 4391 } },
     { 3, 50, { -3957, -1401, 3426 } },
     { -1, 50, { -4730, -1215, 1795 } }
+};
+
+struct CutsceneSplinePoint sCastleGroundsCreditsSplinePositions[] = {
+    { 0, 50, { 8098, 2395, 0 }},
+	{ 1, 50, { 7604, 1039, -3783 }},
+	{ 2, 50, { 3189, 242, -6957 }},
+	{ 3, 50, { -3636, 168, -8735 }},
+	{ 4, 50, { -6461, -3125, -5435 }},
+	{ 5, 50, { -6004, -6586, -1428 }},
+	{ 6, 50, { -2586, -9311, 2923 }},
+	{ 7, 50, { 4096, -12708, 4374 }},
+	{ -1, 50, { 7871, -16730, 1801 }},
+};
+
+struct CutsceneSplinePoint sCastleGroundsCreditsSplineFocus[] = {
+    { 0, 50, { 5368, 2209, -818 }},
+	{ 1, 50, { 4663, 1264, -2405 }},
+	{ 2, 50, { 1346, 1294, -3723 }},
+	{ 3, 50, { -2122, 1859, -3609 }},
+	{ 4, 50, { -3731, -1241, -4214 }},
+	{ 5, 50, { -3446, -3404, -1710 }},
+	{ 6, 50, { -1309, -4500, 1009 }},
+	{ 7, 50, { 2674, -4022, 2443 }},
+	{ -1, 50, { 4131, -3181, 16 }},
 };
 
 /**

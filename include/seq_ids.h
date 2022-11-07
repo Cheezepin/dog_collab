@@ -64,6 +64,7 @@ enum SeqId {
     SEQ_ROUTE_47,                  // 0x33
     SEQ_COMIT_FACILITY,               // 0x34
     SEQ_COZIES,                  // 0x35
+    SEQ_CREDITS,
     SEQ_COUNT
 };
 
