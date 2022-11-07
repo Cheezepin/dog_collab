@@ -197,6 +197,7 @@ enum DialogId {
     // someone2639 silly soliloquies
 
     _2639DIAG_LEVELINTRO, // 187;
+    _2639DIAG_ElevatorIntro,
     _2639DIAG_A1LobbyHOF_Intro, // mark
     _2639DIAG_A1LobbyHOF_Kirby64, // mark
     _2639DIAG_A1LobbyHOF_sUGGOH, // mark

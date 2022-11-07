@@ -2013,6 +2013,10 @@ whose faulty nvme drives
 caused this level to be
 delayed a year.)")
 
+DEFINE_DIALOG(_2639DIAG_ElevatorIntro, 1, 4, 30, 200, R"(The Elevator
+has finished repairs!
+We will reopen the
+next time you visit!)")
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Intro, 1, 4, 30, 200, R"(Inside our beautiful
 high-rise, we have an
@@ -2106,10 +2110,15 @@ so all we need to do
 is find a way to
 make you look like
 you're blind!
-See if you can grab a
-@00FF00FFCANE@-------- and @34ebe1FFSUNGLASSES@--------,
-Then talk to the
-@FF0000FFFront Desk Toad@-------- again.
+I saw a
+@00FF00FFCANE@-------- and @34ebe1FFSUNGLASSES@--------
+buried here the other
+day. If your dog acts
+up, try ground
+pounding the spot.
+Talk to the
+@FF0000FFFront Desk Toad@-------- after
+you find them.
 Maybe he'll budge then.)")
 
 

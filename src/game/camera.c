@@ -5972,7 +5972,6 @@ void Cam2639_CloseFocus();
 void Cam2639_OutwardSpiral();
 void Cam2639_HeadroomClearance();
 struct CameraTrigger sCamBOB[] = {
-	{0, Cam2639_CylinderCam, -305, 4357, -2390, 5597, 3222, 5597, 0xffff},
 	{0, Cam2639_Elevator, -17, 3033, -2833, 803, 8515, 803, 0xffff},
 	{1, Cam2639_Main, -57, -404, 3930, 6995, 6995, 6995, 0xffff},
 	{-1, Cam2639_Main, 0, 500, 0, 11500, 11500, 11500, 0xffff},
