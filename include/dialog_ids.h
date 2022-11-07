@@ -204,6 +204,9 @@ enum DialogId {
     _2639DIAG_A1LobbyHOF_HVQM, // mark
     _2639DIAG_A1LobbyHOF_1080Decomp, // mark
 
+    _2639DIAG_A1Lobby_FountainIntro,
+    _2639DIAG_A1Lobby_ChallengeIntro,
+
 
     _2639DIAG_A1LobbyToadGreeter, // mark
     _2639DIAG_A1LobbyNPCSuggester, // mark
@@ -224,7 +227,9 @@ enum DialogId {
     _2639DIAG_A5LobbyToadGreeter,
     _2639DIAG_A5ToadBasement,
 
+    
     _2639DIAG_A6LobbyToadGreeter,
+    _2639DIAG_A6PentLoreSign,
     _2639DIAG_A6PentToad1,
     _2639DIAG_A6PentToad2,
     _2639DIAG_A6PentToad3,

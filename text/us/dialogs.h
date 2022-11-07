@@ -2018,8 +2018,9 @@ DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Intro, 1, 4, 30, 200, R"(Inside our beautiful
 high-rise, we have an
 assortment of artifacts!
 Browse every big project
-someone2639 started instead
-of finishing his level!)")
+someone2639 started
+instead of
+finishing his level!)")
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_Kirby64, 1, 4, 30, 200, R"(Kirby 64 Decomp:
 Hot off the heels of
@@ -2031,50 +2032,56 @@ We got a revamped asset
 system that could handle
 all the texture types
 in the game, along with
-a milestone 10%% completion!)")
+a milestone 10%
+completion!)")
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_sUGGOH, 1, 4, 30, 200, R"(sUGGOH:
 someone2639's Ultra-
 Galactic Game of Horse!
 It's a homebrew made for
-the n64brew 2021 jam, and
-it features the first use
+the n64brew 2021 jam,
+and features the first use
 of the Turbo3D graphics
 system in 20 years!
 It's also somewhat fun,
 so go play it!)")
 
-DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_AnimeFighter, 1, 4, 30, 200, R"(Anime Fighter 64:
-This one was a collaboration
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_AnimeFighter, 1, 7, 30, 200, R"(Anime Fighter 64:
+A collaboration
 between procrastinators
-someone2639 and Cheezepin,
-putting a whole Tekken-like
-fighter into Mario 64!
-It will also eventually start
-getting updates whenever
-we figure out easier
-character imports!
-Stay tuned!)")
+someone2639 and
+Cheezepin,
+putting a whole 3D
+fighter into Mario 64!)")
 
-DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_HVQM, 1, 4, 30, 200, R"(My Dress-up Darling 64:
-someone2639 made a hack
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_HVQM, 1, 7, 30, 200, R"(My Dress-up Darling 64:
+A Mario Jams hack
 that contained both the
 first ever use of HVQM
 compressed FMV in SM64,
 and the most sobering
-rants about anime yet,
-instead of working on his
-level.
-Devilish!)")
+rants about anime yet.)")
 
-DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_1080Decomp, 1, 4, 30, 200, R"(1080 Snowboarding Decomp:
-As if someone2639 needed
-more things to work on,
-he started a brand new
-game decompilation!
-At this point, you'd think
-working on this level
-would have been easier...)")
+DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_1080Decomp, 1, 4, 30, 200, R"(Free Space:
+Imagine all the other
+things someone2639
+could have done in this
+one year time period.
+It probably happened.
+Within reason.)")
+
+DEFINE_DIALOG(_2639DIAG_A1Lobby_FountainIntro, 1, 4, 30, 200, R"(This fountain is
+broken, and thus
+will not spit out
+any water.
+Perhaps it will
+be of use later
+in this level.)")
+
+DEFINE_DIALOG(_2639DIAG_A1Lobby_ChallengeIntro, 1, 2, 30, 200, R"(Up for a
+challenge?
+Enter within...)")
+
 
 // ACT 1
 
@@ -2251,6 +2258,14 @@ Why not check out the
 roof? We have a really
 neat @34ebe1FFJewel or whatever@--------
 that you should see.)")
+
+DEFINE_DIALOG(_2639DIAG_A6PentLoreSign, 1, 6, 30, 200, \
+R"(The ultimate tourist
+trap style attraction.
+A @34ebe1FFJewel or whatever@--------
+that is sure to make
+anybody's Insta
+twice as popular.)")
 
 // SCAVENGER HUNT
 DEFINE_DIALOG(_2639DIAG_A6PentToad1, 1, 3, 30, 200, \
