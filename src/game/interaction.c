@@ -774,7 +774,15 @@ u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *
     obj->oInteractStatus = INT_STATUS_INTERACTED;
 
 #ifdef X_COIN_STAR
-    if (COURSE_IS_MAIN_COURSE(gCurrCourseNum) && m->numCoins - obj->oDamageOrCoinValue < X_COIN_STAR
+    if (in2639Level()) {
+         if (COURSE_IS_MAIN_COURSE(gCurrCourseNum)
+         && m->numCoins - obj->oDamageOrCoinValue < 123
+         && m->numCoins >= 123
+        ) {
+            bhv_spawn_star_get_outta_here(STAR_BP_ACT_100_COINS);
+        }
+    }
+    else if (COURSE_IS_MAIN_COURSE(gCurrCourseNum) && m->numCoins - obj->oDamageOrCoinValue < X_COIN_STAR
         && m->numCoins >= X_COIN_STAR) {
         bhv_spawn_star_no_level_exit(STAR_BP_ACT_100_COINS);
     }
