@@ -1,7 +1,7 @@
 #include "version.h"
 #include "src/game/version_data.h"
 
-char __username__[] = __USERNAME__;
-char __datetime__[] = __DATETIME__;
-char __compiler__[] = __COMPILER__;
-char __linker__[]   = __LINKER__;
+char __username__[] = "NO";
+char __datetime__[] = "NO";
+char __compiler__[] = "NO";
+char __linker__[]   = "NO";

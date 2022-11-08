@@ -15,7 +15,7 @@
 #define COIN_LAVA_FLICKER
 
 // Allow for retries on collecting the remaining blue coins from a blue coin switch.
-#define BLUE_COIN_SWITCH_RETRY
+// #define BLUE_COIN_SWITCH_RETRY
 
 // -- GOOMBA --
 
@@ -63,6 +63,7 @@
 
 // The number of chain balls the Chain Chomp has.  Vanilla is 5.
 #define CHAIN_CHOMP_NUM_SEGMENTS 5
+#define CHAIN_CHOMP_BOWSER_NUM_SEGMENTS 10
 
 // -- POKEY --
 

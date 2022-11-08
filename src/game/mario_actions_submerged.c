@@ -125,8 +125,21 @@ static u32 perform_water_full_step(struct MarioState *m, Vec3f nextPos) {
         }
 
         if (nextPos[1] >= ceilHeight - 160.0f) {
-            vec3f_set(m->pos, nextPos[0], ceilHeight - 160.0f, nextPos[2]);
             set_mario_floor(m, floor, floorHeight);
+
+            if (ceil->object && m->water->object) {
+                if (
+                    obj_has_behavior(m->water->object, bhvWaterSpout)
+                    && (
+                        obj_has_behavior(ceil->object, bhvFloatyRock)
+                        || obj_has_behavior(ceil->object, bhvTubeTop)
+                    )
+                ) {
+                    set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+                    return WATER_STEP_CANCELLED;
+                }
+            }
+            vec3f_set(m->pos, nextPos[0], ceilHeight - 160.0f, nextPos[2]);
             return WATER_STEP_HIT_CEILING;
         } else {
             vec3f_set(m->pos, nextPos[0], nextPos[1], nextPos[2]);
@@ -181,12 +194,29 @@ static void apply_water_current(struct MarioState *m, Vec3f step) {
             step[2] += cosPitch * coss(yawToWhirlpool);
         }
     }
+
+    if (m->water && m->water->object && obj_has_behavior(m->water->object, bhvWaterPlane4Whirlpool)) {
+        #define COZY_WHIRLPOOL_MIN_DIST 700.0f
+        #define COZY_WHIRLPOOL_MAX_DIST 3600.0f
+
+        f32 lDist;
+        s16 pitch, yaw;
+        vec3f_get_lateral_dist_and_angle(m->pos, &m->water->object->oPosVec, &lDist, &pitch, &yaw);
+
+        f32 distFac = get_lerp(lDist, COZY_WHIRLPOOL_MIN_DIST, COZY_WHIRLPOOL_MAX_DIST);
+        f32 rotStrength = lerp(8.0f, MAX_SWIM_SPEED*1.5f, distFac);
+        f32 angularStrength = lerp(8, 12, distFac);
+
+        yaw += DEGREES(roundf(90.0f-angularStrength));
+        step[0] += rotStrength * sins(yaw);
+        step[2] += rotStrength * coss(yaw);
+    }
 }
 
 #define EXIT_VEL 60.0f
 
 static u32 perform_water_step(struct MarioState *m) {
-    u32 stepResult;
+    u32 stepResult = WATER_STEP_NONE;
     Vec3f nextPos;
     Vec3f step;
     s32 canExitWaterWithMomentum = m->action == ACT_WATER_GROUND_POUND;
@@ -216,7 +246,10 @@ static u32 perform_water_step(struct MarioState *m) {
         if (ABS(m->waterForce) > 0.1f) {
             m->vel[1] += m->waterForce;
             m->vel[1] = MAX(m->vel[1], -75.0f);
-            if (m->waterForce > EXIT_VEL) canExitWaterWithMomentum = TRUE;
+            if (m->waterForce > EXIT_VEL) {
+                m->vel[1] = MIN(m->vel[1], 320.0f);
+                canExitWaterWithMomentum = TRUE;
+            }
         }
     }
 
@@ -244,7 +277,12 @@ static u32 perform_water_step(struct MarioState *m) {
             m->vel[1] += 3.0f;
         }
 
-        stepResult = perform_water_full_step(m, nextPos);
+        s32 quarterStepResult = perform_water_full_step(m, nextPos);
+        if (quarterStepResult != WATER_STEP_NONE) {
+            stepResult = quarterStepResult;
+        }
+
+        if (stepResult == WATER_STEP_CANCELLED) break;
     }
 
     vec3f_copy(marioObj->header.gfx.pos, m->pos);
@@ -1653,8 +1691,10 @@ static s32 act_hold_metal_water_fall_land(struct MarioState *m) {
     return FALSE;
 }
 
+#include "print.h"
 static s32 check_common_submerged_cancels(struct MarioState *m) {
-    s16 waterHeight = m->waterLevel - 80;
+    s32 waterHeight = (s32)m->waterLevel - 80;
+
     if (m->pos[1] > waterHeight) {
         if (waterHeight > m->floorHeight) {
             if (m->pos[1] - waterHeight < 50) {
@@ -1668,13 +1708,16 @@ static s32 check_common_submerged_cancels(struct MarioState *m) {
             // where your held object is the shell, but you are not in the
             // water shell swimming action. This allows you to hold the water
             // shell on land (used for cloning in DDD).
-            if (m->action == ACT_WATER_SHELL_SWIMMING && m->heldObj != NULL) {
-                m->heldObj->oInteractStatus = INT_STATUS_STOP_RIDING;
-                m->heldObj = NULL;
-                stop_shell_music();
-            }
+            // if (m->action == ACT_WATER_SHELL_SWIMMING && m->heldObj != NULL) {
+            //     m->heldObj->oInteractStatus = INT_STATUS_STOP_RIDING;
+            //     m->heldObj = NULL;
+            //     stop_shell_music();
+            // }
 
-            return transition_submerged_to_walking(m);
+            if (m->pos[1] < m->floorHeight + 100) {
+                return transition_submerged_to_walking(m);
+            }
+            return transition_submerged_to_airborne(m);
         }
     }
 
@@ -1734,6 +1777,8 @@ s32 mario_execute_submerged_action(struct MarioState *m) {
         case ACT_WATER_GROUND_POUND:         cancel = act_water_ground_pound(m);         break;
     }
     /* clang-format on */
+
+    if (m->action == ACT_FLOOR_CHECKPOINT_WARP_OUT) return TRUE;
 
     return cancel;
 }

@@ -74,6 +74,7 @@ extern const BehaviorScript bhvCoinFormation[];
 extern const BehaviorScript bhvOneCoin[];
 extern const BehaviorScript bhvYellowCoin[];
 extern const BehaviorScript bhvYellowCoinNoBillboard[];
+extern const BehaviorScript bvh20Coin[];
 extern const BehaviorScript bhvTemporaryYellowCoin[];
 extern const BehaviorScript bhvThreeCoinsSpawn[];
 extern const BehaviorScript bhvTenCoinsSpawn[];
@@ -478,6 +479,7 @@ extern const BehaviorScript bhvGoombaTripletSpawner[];
 extern const BehaviorScript bhvFloomba[];
 #ifdef INTRO_FLOOMBAS
 extern const BehaviorScript bhvFloombaStartup[];
+extern const BehaviorScript bhvDogStartup[];
 #endif
 extern const BehaviorScript bhvFloombaTripletSpawner[];
 #endif
@@ -581,6 +583,10 @@ extern const BehaviorScript bhvPodoboo[];
 
 extern const BehaviorScript bhvDogNPC[];
 
+extern const BehaviorScript bhvCherryTree[];
+extern const BehaviorScript bhvTreeNut[];
+extern const BehaviorScript bhvDirtPile[];
+
 extern const BehaviorScript bhvDogForSC[];
 extern const BehaviorScript bhvCarousel[];
 extern const BehaviorScript bhvClownClock[];
@@ -671,6 +677,18 @@ extern const BehaviorScript bhvAperatureDoor[];
 extern const BehaviorScript bhvFloatyRock[];
 extern const BehaviorScript bhvShyguyScuba[];
 extern const BehaviorScript bhvBubbleShell[];
+extern const BehaviorScript bhvWaterSwitch[];
+extern const BehaviorScript bhvFlippyBitch[];
+extern const BehaviorScript bhvWaterSwitchWater1[];
+extern const BehaviorScript bhvWaterSwitchWater3[];
+extern const BehaviorScript bhvWaterPlane4Whirlpool[];
+extern const BehaviorScript bhvCoziesStaticWater[];
+extern const BehaviorScript bhvAdjacentRoomInitializer[];
+extern const BehaviorScript bhvTubeTop[];
+extern const BehaviorScript bhvSpinnyCloudSpawner[];
+extern const BehaviorScript bhvCoziesDog[];
+extern const BehaviorScript bhvCozyWarpPad[];
+extern const BehaviorScript bhvCoziesAmbientSound[];
 // thecozies bhvs end
 
 //START ROVERT BEHAVIOR
@@ -719,8 +737,27 @@ extern const BehaviorScript bhvDogCutscene[];
 extern const BehaviorScript bhvBowserCutscene[];
 extern const BehaviorScript bhvDoorCutscene[];
 extern const BehaviorScript bhvGlobe[];
+extern const BehaviorScript bhvSpiresDog[];
+extern const BehaviorScript bhvChainChompBowser[];
+extern const BehaviorScript bhvChainChompChainPartBowser[];
+extern const BehaviorScript bhvNothing[];
+extern const BehaviorScript bhvCheezeLightning[];
+extern const BehaviorScript bhvB3Dog[];
+extern const BehaviorScript bhvDogLaser[];
+extern const BehaviorScript bhvB3Bridge[];
+extern const BehaviorScript bhvLaserGlow[];
+extern const BehaviorScript bhvPeachEnding[];
 //cheeze bhv ends
 
+//Koopa Atoll Objects
+extern const BehaviorScript bhvPalmTree[];
+extern const BehaviorScript bhvKokoTripletSpawner[];
+extern const BehaviorScript bhvJetski[];
+extern const BehaviorScript bhvSandPile[];
+extern const BehaviorScript bhvSandPillar[];
+extern const BehaviorScript bhvSandSlope[];
+extern const BehaviorScript bhvKTQRing[];
+//Koopa Atoll Objects ^
 
 #endif // BEHAVIOR_DATA_H
 

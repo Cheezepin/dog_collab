@@ -25,10 +25,11 @@ void bhv_attackable_amp_init(void) {
     doggoObj = cur_obj_nearest_object_with_behavior(bhvDogEmu);
     o->parentObj = bowserObj;
     o->childObj = doggoObj;
-    if (o->parentObj->oHealth == 3) o->oForwardVel = 15.0f;
-    else if (o->parentObj->oHealth == 2) o->oForwardVel = 20.0f;
-    else if (o->parentObj->oHealth == 1) o->oForwardVel = 25.0f;
-    else {o->oForwardVel = 25.0f;}
+    if (o->parentObj->oHealth == 3) o->oPiranhaPlantScale = 20.0f;
+    else if (o->parentObj->oHealth == 2) o->oPiranhaPlantScale = 25.0f;
+    else if (o->parentObj->oHealth == 1) o->oPiranhaPlantScale = 35.0f;
+    else {o->oPiranhaPlantScale = 30.0f;}
+    o->oForwardVel = o->oPiranhaPlantScale;
 }
 
 void check_emu_amp_attack(void) {
@@ -56,6 +57,7 @@ void check_emu_amp_attack(void) {
          case 1:
          o->oAction = EMU_AMP_COUNTER;
          o->oInteractStatus = 0;
+         o->oPiranhaPlantScale += 5.0f;
          break;
          default: 
          if (o->oDistanceToMario <= 60){
@@ -71,9 +73,9 @@ void check_emu_amp_attack(void) {
 void attackable_amp_counter(void) {
     o->oMoveAngleYaw = obj_angle_to_object(o->parentObj, o);
     obj_turn_toward_object(o, o->parentObj, 16, DEGREES(180));
-    if (dist_between_objects(o, o->parentObj) < 200) {
-     o->oPiranhaPlantScale = o->oForwardVel;
-     o->oForwardVel = 99.0f;
+    if (lateral_dist_between_objects(o, o->parentObj) < 220) {
+     o->oForwardVel = 20.0f;
+    if (lateral_dist_between_objects(o, o->parentObj) < 150) {o->oAction = EMU_AMP_CHASE;}
     }
  o->oInteractStatus = 0;
 }
@@ -96,7 +98,7 @@ void attackable_amp_appear_loop(void) {
 
 void attackable_amp_chase_loop(void) {
     if (o->oPiranhaPlantScale > 10){o->oForwardVel = o->oPiranhaPlantScale;}
-    if (o->oForwardVel > 60.0f) o->oForwardVel = 60.0f;
+    if (o->oForwardVel > 50.0f) o->oForwardVel = 50.0f;
     if (o->childObj->oAction == EMU_DOG_RANDOM_LOCATION || o->childObj->oAction == EMU_DOG_RUN_AROUND){
         o->oAction = RETURN_TO_BOWSER;
     } else {
@@ -121,7 +123,6 @@ void attackable_amp_success(void) {
 }
 
 void attackable_amp_hit_dog(void) {
-    numberOfAmps--;
     obj_mark_for_deletion(o);
 }
 
@@ -130,9 +131,9 @@ void return_to_bowser(void){
     obj_turn_toward_object(o, o->parentObj, 16, DEGREES(180));
  o->oInteractStatus = 0;
  o->parentObj->oAction = BOWSER_ACT_PRE_ATTACK;
- if (dist_between_objects(o, o->parentObj) < 200) {
-     o->oForwardVel = 50.0f;
-    if (dist_between_objects(o, o->parentObj) < 100) {obj_mark_for_deletion(o); numberOfAmps--;}
+ if (lateral_dist_between_objects(o, o->parentObj) < 220) {
+     o->oForwardVel = 20.0f;
+    if (lateral_dist_between_objects(o, o->parentObj) < 150) {obj_mark_for_deletion(o);}
     }
 }
 void bhv_attackable_amp_loop(void) {

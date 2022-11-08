@@ -236,6 +236,8 @@ void set_obj_anim_with_accel_and_sound(s16 frame1, s16 frame2, s32 sound) {
 #include "behaviors/sl_snowman_wind.inc.c"
 #include "behaviors/sl_walking_penguin.inc.c"
 
+#include "behaviors/maple_objects.inc.c"
+
 #include "behaviors/carousel.inc.c"
 #include "behaviors/clown_clock.inc.c"
 #include "behaviors/clown_door.inc.c"
@@ -251,3 +253,4 @@ void set_obj_anim_with_accel_and_sound(s16 frame1, s16 frame2, s32 sound) {
 #include "behaviors/thecozies.inc.c"
 #include "behaviors/motos.inc.c"
 #include "behaviors/rovert.inc.c"
+#include "behaviors/atoll/atoll_objects.h"

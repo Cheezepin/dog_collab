@@ -1,0 +1,10 @@
+extern const GeoLayout tube_top_geo[];
+extern Lights1 tube_top_metals_003_layer1_lights;
+extern u8 tube_top_rains_001_i8[];
+extern Vtx tube_top_SemiCircleTubeTop_mesh_layer_1_vtx_cull[8];
+extern Vtx tube_top_SemiCircleTubeTop_mesh_layer_1_vtx_0[54];
+extern Gfx tube_top_SemiCircleTubeTop_mesh_layer_1_tri_0[];
+extern Gfx mat_tube_top_metals_003_layer1[];
+extern Gfx mat_revert_tube_top_metals_003_layer1[];
+extern Gfx tube_top_SemiCircleTubeTop_mesh_layer_1[];
+extern Gfx tube_top_material_revert_render_settings[];

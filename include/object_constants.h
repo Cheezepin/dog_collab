@@ -467,6 +467,13 @@ enum oBobombBuddyHasTalkedToMarioStates {
     #define BOWSER_ACT_TELEPORT_HOME                        0x1A
     #define BOWSER_ACT_PRE_ATTACK                           0x1B
     #define BOWSER_ACT_LIGHTNING                            0x1C
+    #define BOWSER_ACT_LIGHTNING_2                          0x1D
+    #define BOWSER_ACT_SNOW                                 0x1E
+    #define BOWSER_ACT_WAIT_FOR_MARIO                       0x1F
+    #define BOWSER_ACT_CC_JUMP                              0x20
+    #define BOWSER_ACT_CC_CHARGE                            0x21
+    #define BOWSER_ACT_CC_WHIRL                             0x22
+    #define BOWSER_ACT_CC_UNK1                              0x23
     /* oAnimState */
     #define BOWSER_ANIM_STATE_OPAQUE                        TRANSPARENCY_ANIM_STATE_OPAQUE
     #define BOWSER_ANIM_STATE_TRANSPARENT                   TRANSPARENCY_ANIM_STATE_TRANSPARENT
@@ -499,6 +506,13 @@ enum oBobombBuddyHasTalkedToMarioStates {
     #define BOWSER_ANIM_EDGE_STOP                           0x18
     #define BOWSER_ANIM_FLIP                                0x19
     #define BOWSER_ANIM_STAND_UP_FROM_FLIP                  0x1A
+    #define BOWSER_ANIM_SNOWBOARD                           0x1B
+    #define BOWSER_ANIM_UNK1                                0x1C
+    #define BOWSER_ANIM_SNOWBOARD_BRAKE_START               0x1D
+    #define BOWSER_ANIM_SNOWBOARD_BRAKE_STOP                0x1E
+    #define BOWSER_ANIM_UNK2                                0x1F
+    #define BOWSER_ANIM_WHIRL_PICKUP                        0x20
+    #define BOWSER_ANIM_WHIRL_THROW                         0x21
     /* oBowserCamAct */
     #define BOWSER_CAM_ACT_IDLE                             0x0
     #define BOWSER_CAM_ACT_WALK                             0x1
@@ -781,6 +795,7 @@ enum ExclamationBoxContentsList { // oBehParams2ndByte, ExclamationBoxContents->
     EXCLAMATION_BOX_BP_STAR_4,
     EXCLAMATION_BOX_BP_STAR_5,
     EXCLAMATION_BOX_BP_STAR_6,
+    EXCLAMATION_BOX_BP_JETSKI,
     EXCLAMATION_BOX_BP_NULL = 99
 };
 enum oBehParam1stByteExclamationBox {
@@ -1548,6 +1563,7 @@ enum animIDsSwoop {
     /* oAction */
     #define GOOMBA_TRIPLET_SPAWNER_ACT_UNLOADED             0x0
     #define GOOMBA_TRIPLET_SPAWNER_ACT_LOADED               0x1
+    #define GALOOMBA_TRIPLET_SPAWNER_ACT_UNLOAD             0x69
 
 /* Goomba */
     /* oBehParams2ndByte */
@@ -1586,6 +1602,10 @@ enum animIDsSwoop {
         /* CHAIN_CHOMP_ACT_MOVE */
     #define CHAIN_CHOMP_SUB_ACT_TURN                        0x0
     #define CHAIN_CHOMP_SUB_ACT_LUNGE                       0x1
+    #define CHAIN_CHOMP_SUB_ACT_JUMP                        0x2
+    #define CHAIN_CHOMP_SUB_ACT_CHARGE                      0x3
+    #define CHAIN_CHOMP_SUB_ACT_WHIRL                       0x4
+    #define CHAIN_CHOMP_SUB_ACT_BURNED                      0x5
     /* oChainChompReleaseStatus */
     #define CHAIN_CHOMP_NOT_RELEASED                        0x0
     #define CHAIN_CHOMP_RELEASED_TRIGGER_CUTSCENE           0x1

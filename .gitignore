@@ -11,6 +11,9 @@
 *.gch
 *.pch
 
+#THESE LITTLE SHITS OOOOOH MY GOD
+*.Identifier
+
 # Libraries
 *.lib
 *.a
@@ -97,6 +100,7 @@ build/*
 !/textures/segment2/segment2.silver_coin.*.png
 !/textures/segment2/shadow_quarter_circle_64.ia8.png
 !/textures/segment2/shadow_quarter_square_64.ia8.png
+!/actors/star/star_surface.ia16.png
 
 
 
@@ -116,3 +120,7 @@ lib/libs2d_engine.a
 
 # .orig files
 *.orig
+
+*Zone.Identifier
+
+coziestodo.md

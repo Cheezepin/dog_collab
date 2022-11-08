@@ -182,7 +182,7 @@ static void eyerok_hand_act_sleep(void) {
         if (cur_obj_check_if_near_animation_end()) {
             o->parentObj->oEyerokBossNumHands++;
             o->oAction = EYEROK_HAND_ACT_IDLE;
-            o->collisionData = segmented_to_virtual(&ssl_seg7_collision_07028274);
+            //o->collisionData = segmented_to_virtual(&ssl_seg7_collision_07028274);
         } else {
             approach_f32_ptr(&o->oPosX, o->oHomeX, 15.0f);
             o->oPosY = o->oHomeY
@@ -192,9 +192,9 @@ static void eyerok_hand_act_sleep(void) {
         }
     } else {
         if (o->oBehParams2ndByte < 0) {
-            o->collisionData = segmented_to_virtual(&ssl_seg7_collision_070284B0);
+            //o->collisionData = segmented_to_virtual(&ssl_seg7_collision_070284B0);
         } else {
-            o->collisionData = segmented_to_virtual(&ssl_seg7_collision_07028370);
+            //o->collisionData = segmented_to_virtual(&ssl_seg7_collision_07028370);
         }
 
         cur_obj_reverse_animation();
@@ -245,7 +245,7 @@ static void eyerok_hand_act_open(void) {
         o->oEyerokHandAnimStateIndex = 2;
         o->oEyerokHandEyeShownTimer = 60;
 
-        o->collisionData = segmented_to_virtual(ssl_seg7_collision_070282F8);
+        //o->collisionData = segmented_to_virtual(ssl_seg7_collision_070282F8);
 
         if (o->parentObj->oEyerokBossNumHands != 2) {
             s16 angleToMario = o->oAngleToMario;
@@ -294,7 +294,7 @@ static void eyerok_hand_act_show_eye(void) {
 
 static void eyerok_hand_act_close(void) {
     if (cur_obj_init_anim_check_frame(7, 1)) {
-        o->collisionData = segmented_to_virtual(ssl_seg7_collision_07028274);
+        //o->collisionData = segmented_to_virtual(ssl_seg7_collision_07028274);
 
         if (o->parentObj->oEyerokBossNumHands != 2) {
             o->oAction = EYEROK_HAND_ACT_RETREAT;
@@ -309,7 +309,7 @@ static void eyerok_hand_act_close(void) {
 static void eyerok_hand_act_attacked(void) {
     if (cur_obj_init_anim_and_check_if_end(3)) {
         o->oAction = EYEROK_HAND_ACT_RECOVER;
-        o->collisionData = segmented_to_virtual(ssl_seg7_collision_07028274);
+        //o->collisionData = segmented_to_virtual(ssl_seg7_collision_07028274);
     }
 
     if (o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) {

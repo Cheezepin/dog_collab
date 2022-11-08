@@ -40,6 +40,9 @@ struct SoundCharacteristics {
     f32 *y;
     f32 *z;
     f32 distance;
+#ifdef USE_DOPPLER_EFFECT
+    f32 prevDistance;
+#endif
     u32 priority;
     u32 soundBits; // packed bits, same as first arg to play_sound
     u8 soundStatus;
@@ -103,7 +106,7 @@ u8 sDialogSpeaker[900] = {
     /*17*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
     /*18*/ _,     _,     _,     _,     _,     _,     _,
     // the cozies: putting some extra blank spots in here to i can compile
-    _, _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _, _, _,
 };
 #undef _
 // STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
@@ -315,6 +318,12 @@ u8 sBackgroundMusicDefaultVolume[] = {
     [SEQ_OVERWORLD] = 70,
     [SEQ_TRAINING] = 70,
     [SEQ_CUSTOM_MUSIC2639] = 50,
+    [SEQ_METEOR_HERD] = 70,
+    [SEQ_WATERSONG_REGGAE] = 70,
+    [SEQ_ROUTE_47] = 70,
+    [SEQ_COMIT_FACILITY] = 70,
+    [SEQ_COZIES] = 70,
+    [SEQ_CREDITS] = 70,
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,
@@ -777,6 +786,9 @@ static void process_sound_request(u32 bits, f32 *pos) {
         sSoundBanks[bank][soundIndex].y = &pos[1];
         sSoundBanks[bank][soundIndex].z = &pos[2];
         sSoundBanks[bank][soundIndex].distance = dist;
+#ifdef USE_DOPPLER_EFFECT
+        sSoundBanks[bank][soundIndex].prevDistance = dist;
+#endif
         sSoundBanks[bank][soundIndex].soundBits = bits;
         // In practice, the starting status is always WAITING
         sSoundBanks[bank][soundIndex].soundStatus = bits & SOUNDARGS_MASK_STATUS;
@@ -899,6 +911,9 @@ static void select_current_sounds(u8 bank) {
             && soundIndex == latestSoundIndex) {
 
             // Recompute distance each frame since the sound's position may have changed
+#ifdef USE_DOPPLER_EFFECT
+            sSoundBanks[bank][soundIndex].prevDistance = sSoundBanks[bank][soundIndex].distance;
+#endif
             sSoundBanks[bank][soundIndex].distance =
                 sqrtf(sqr(*sSoundBanks[bank][soundIndex].x)
                     + sqr(*sSoundBanks[bank][soundIndex].y)
@@ -1120,24 +1135,34 @@ static f32 get_sound_volume(u8 bank, u8 soundIndex, f32 volumeRange) {
     return volumeRange * sqr(intensity) + 1.0f - volumeRange;
 }
 
+
+#define SPEED_OF_SOUND (1143.333333333333333333f)
 /**
  * Called from threads: thread4_sound, thread5_game_loop (EU only)
  */
 static f32 get_sound_freq_scale(u8 bank, u8 item) {
-    f32 amount;
+    f32 amount = 0.0f;
+
+#ifdef USE_DOPPLER_EFFECT
+    f32 dopplerChange = 1.0f;
+#endif
 
     if (!(sSoundBanks[bank][item].soundBits & SOUND_CONSTANT_FREQUENCY)) {
-        amount = sSoundBanks[bank][item].distance / AUDIO_MAX_DISTANCE;
+#ifdef USE_DOPPLER_EFFECT
+        f32 diff = sSoundBanks[bank][item].distance - sSoundBanks[bank][item].prevDistance;
+        dopplerChange = 1.0f + (diff / SPEED_OF_SOUND);
+#endif
+
         if (sSoundBanks[bank][item].soundBits & SOUND_VIBRATO) {
             amount += (f32)(gAudioRandom & 0xff) / 64.0f;
         }
-    } else {
-        amount = 0.0f;
     }
 
-    // Goes from 1 at the camera to 1 + 1/15 at AUDIO_MAX_DISTANCE (and continues rising
-    // farther than that)
+#ifdef USE_DOPPLER_EFFECT
+    return (amount / 15.0f + 1.0f) / dopplerChange;
+#else
     return amount / 15.0f + 1.0f;
+#endif
 }
 
 /**
@@ -2027,6 +2052,15 @@ void get_currently_playing_sound(u8 bank, u8 *numPlayingSounds, u8 *numSoundsInB
         *soundId = 0xff;
     }
 }
+
+void set_pitch_change(f32 change) {
+    gPitchChange = change;
+}
+
+void approach_pitch_change(f32 change, f32 speed) {
+    gPitchChange = approach_f32_asymptotic(gPitchChange, change, speed);
+}
+
 
 /**
  * Called from threads: thread5_game_loop

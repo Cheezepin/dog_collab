@@ -32,3 +32,11 @@
 #include "levels/bowser_3/falling_platform_8/collision.inc.c"
 #include "levels/bowser_3/falling_platform_9/collision.inc.c"
 #include "levels/bowser_3/falling_platform_10/collision.inc.c"
+
+#include "levels/bowser_3/leveldata.inc.c"
+
+#include "levels/bowser_3/dog_laser/model.inc.c"
+#include "levels/bowser_3/b3_bridge/model.inc.c"
+#include "levels/bowser_3/b3_bridge/collision.inc.c"
+#include "levels/bowser_3/laserglow/model.inc.c"
+#include "levels/bowser_3/dogarrow/model.inc.c"

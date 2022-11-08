@@ -522,27 +522,34 @@ void render_hud_camera_status(void) {
     }
 
     gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
-    render_hud_tex_lut(x, y, (*cameraLUT)[GLYPH_CAM_CAMERA]);
 
-    switch (sCameraHUD.status & CAM_STATUS_MODE_GROUP) {
-        case CAM_STATUS_MARIO:
-            render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_MARIO_HEAD]);
-            break;
-        case CAM_STATUS_LAKITU:
-            render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_LAKITU_HEAD]);
-            break;
-        case CAM_STATUS_FIXED:
-            render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_FIXED]);
-            break;
-    }
 
-    switch (sCameraHUD.status & CAM_STATUS_C_MODE_GROUP) {
-        case CAM_STATUS_C_DOWN:
-            render_hud_small_tex_lut(x + 4, y + 16, (*cameraLUT)[GLYPH_CAM_ARROW_DOWN]);
-            break;
-        case CAM_STATUS_C_UP:
-            render_hud_small_tex_lut(x + 4, y - 8, (*cameraLUT)[GLYPH_CAM_ARROW_UP]);
-            break;
+    if (sCameraHUD.status & CAM_STATUS_HALLWAY) {
+        render_hud_small_tex_lut(x + 4, y + 8, (*cameraLUT)[GLYPH_CAM_ARROW_DOWN]);
+        render_hud_small_tex_lut(x + 4, y, (*cameraLUT)[GLYPH_CAM_ARROW_UP]);
+        render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_FIXED]);
+    } else {
+        render_hud_tex_lut(x, y, (*cameraLUT)[GLYPH_CAM_CAMERA]);
+        switch (sCameraHUD.status & CAM_STATUS_MODE_GROUP) {
+            case CAM_STATUS_MARIO:
+                render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_MARIO_HEAD]);
+                break;
+            case CAM_STATUS_LAKITU:
+                render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_LAKITU_HEAD]);
+                break;
+            case CAM_STATUS_FIXED:
+                render_hud_tex_lut(x + 16, y, (*cameraLUT)[GLYPH_CAM_FIXED]);
+                break;
+        }
+
+        switch (sCameraHUD.status & CAM_STATUS_C_MODE_GROUP) {
+            case CAM_STATUS_C_DOWN:
+                render_hud_small_tex_lut(x + 4, y + 16, (*cameraLUT)[GLYPH_CAM_ARROW_DOWN]);
+                break;
+            case CAM_STATUS_C_UP:
+                render_hud_small_tex_lut(x + 4, y - 8, (*cameraLUT)[GLYPH_CAM_ARROW_UP]);
+                break;
+        }
     }
 
     gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
@@ -558,6 +565,7 @@ s32 gHubStarSelectTimer = 0;
 
 void render_hud(void) {
     s16 hudDisplayFlags = gHudDisplay.flags;
+    static int shadeFade = 0;
 
     if (hudDisplayFlags == HUD_DISPLAY_NONE) {
         sPowerMeterHUD.animation = POWER_METER_HIDDEN;
@@ -646,6 +654,16 @@ void render_hud(void) {
         //if (gSurfacePoolError & NOT_ENOUGH_ROOM_FOR_NODES) print_text(10, 60, "SURFACE NODE POOL FULL");
 
         if (gKeyboard) {
+            shadeFade = approach_s16_asymptotic(shadeFade, 255*0.75f, 4);
+        } else {
+            shadeFade = approach_s16_asymptotic(shadeFade, 0, 4);
+        }
+
+        if (shadeFade > 0) {
+            shade_screen_col(0, 0x8D, 0xC7, shadeFade);
+        }
+
+        if (gKeyboard) {
             render_dog_keyboard();
         }
 
@@ -659,6 +677,9 @@ void render_hud(void) {
             }
             if(gHubStarSelectTimer > 0) {
                 render_hub_star_select(gHubStarSelectTimer);
+            }
+            if(gLevelEntryConfirmationActive > 0) {
+                render_hub_level_confirmation();
             }
         }
 

@@ -259,11 +259,24 @@ Gfx *create_shadow_below_xyz(Vec3f pos, s16 shadowScale, u8 shadowSolidity, s8 s
         if (type == SURFACE_ICE) {
             // Ice floors are usually transparent.
             s->isDecal = FALSE;
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
-        } else if (type == SURFACE_BURNING) {
-            // Set the shadow height to the lava height in specific areas.
-            correct_lava_shadow_height(&floorHeight);
-#endif
+        } else if (
+            type == SURFACE_SHADOW_OFFSET
+            || type == SURFACE_SHADOW_OFFSET_TRANSPARENT
+            || type == SURFACE_SHADOW_NO_SLIP
+        ) {
+            s->isDecal = type == SURFACE_SHADOW_OFFSET;
+            shifted = FALSE;
+
+            // if the floor has force and is an object with appropriate scaling, scale offset with scale
+            if (
+                floor->force
+                && floor->object != NULL
+                && absf(floor->object->header.gfx.scale[1]) > 0.001f
+            ) {
+                floorHeight += ((f32)floor->force) * floor->object->header.gfx.scale[1];
+            } else {
+                floorHeight += (f32)floor->force;
+            }
         } else if (floor->object != NULL
                    && floor->object->behavior == segmented_to_virtual(bhvPlatformOnTrack)
                    && floor->object->oPlatformOnTrackType == PLATFORM_ON_TRACK_TYPE_CARPET) {

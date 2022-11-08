@@ -64,7 +64,7 @@ s32 dl_transition_color(s8 fadeTimer, u8 transTime, struct WarpTransitionData *t
     if (verts != NULL) {
         gSPDisplayList(gDisplayListHead++, dl_proj_mtx_fullscreen);
         gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
-        gDPSetRenderMode(gDisplayListHead++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+        gDPSetRenderMode(gDisplayListHead++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
         gSPVertex(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(verts), 4, 0);
         gSPDisplayList(gDisplayListHead++, dl_draw_quad_verts_0123);
         gSPDisplayList(gDisplayListHead++, dl_screen_transition_end);

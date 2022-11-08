@@ -1,6 +1,6 @@
 #include "thecozies_helpers.inc.c"
 
-void geo_shyguy_scuba_tank_update(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+Gfx *geo_shyguy_scuba_tank_update(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
     Gfx *dlStart, *dlHead;
     struct Object *objectGraphNode;
     struct GraphNodeGenerated *currentGraphNode;

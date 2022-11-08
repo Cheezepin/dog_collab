@@ -75,7 +75,7 @@ static struct InteractionHandler sInteractionHandlers[] = {
     { INTERACT_DOOR,           interact_door },
     { INTERACT_CANNON_BASE,    interact_cannon_base },
     { INTERACT_IGLOO_BARRIER,  interact_igloo_barrier },
-    { INTERACT_TORNADO,        interact_tornado },
+    //{ INTERACT_TORNADO,        interact_tornado },
     { INTERACT_WHIRLPOOL,      interact_whirlpool },
     { INTERACT_STRONG_WIND,    interact_strong_wind },
     { INTERACT_PINWHEEL_WIND,    interact_pinwheel_wind },
@@ -1997,24 +1997,31 @@ void pss_end_slide(struct MarioState *m) {
 
 void check_hurt_floor(struct MarioState *m) {
     if (m->pos[1] < m->floorHeight + 2048.0f) {
-        
         if (gCurrLevelNum == LEVEL_JRB) {
             if (m->health > 0xFF*3) {
                 play_sound(SOUND_MARIO_ATTACKED, m->marioObj->header.gfx.cameraToObject);
-            take_damage_from_no_interact_object(m, 2);
+                take_damage_from_no_interact_object(m, 2);
             }
             else {
-                if (level_trigger_warp(m, WARP_OP_WARP_FLOOR) == 20 && !(m->flags & MARIO_FALL_SOUND_PLAYED)) {
+                //if (level_trigger_warp(m, WARP_OP_WARP_FLOOR) == 20 && !(m->flags & MARIO_FALL_SOUND_PLAYED)) {
                     take_damage_from_no_interact_object(m, 2);
-            play_sound(SOUND_MARIO_WAAAOOOW, m->marioObj->header.gfx.cameraToObject);
-        }
+                    play_sound(SOUND_MARIO_WAAAOOOW, m->marioObj->header.gfx.cameraToObject);
+                //}
             }
         }
         
         set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, m->floor->force);
     }
 }
-s8 shockTimer;
+
+void check_hurt_floor_with_height(struct MarioState *m) {
+    f32 aboveFloorHeight = (f32)m->floor->force;
+    if (m->pos[1] <= m->floorHeight + aboveFloorHeight) {
+        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+    }
+}
+
+s8 shockTimer = 0;
 void mario_handle_special_floors(struct MarioState *m) {
     if ((m->action & ACT_GROUP_MASK) == ACT_GROUP_CUTSCENE) {
         return;
@@ -2044,6 +2051,10 @@ void mario_handle_special_floors(struct MarioState *m) {
             case SURFACE_HURT_FLOOR:
                 check_hurt_floor(m);
                 break;
+            
+            case SURFACE_HURT_FLOOR_WITH_HEIGHT:
+                check_hurt_floor_with_height(m);
+                break;
         }
         
         // Only check for checkpoint if mario is moving or stationary
@@ -2056,23 +2067,24 @@ void mario_handle_special_floors(struct MarioState *m) {
         }
         if (!(m->action & ACT_FLAG_AIR) && !(m->action & ACT_FLAG_SWIMMING)) {
             switch (floorType) {
-                case SURFACE_INTERACT_SHOCK:
-                shockTimer += 1;
-                if (m->health < 0x0300) {
-                    m->health = 0x0000;
-                    interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
-                    if(shockTimer > 1){
-                 set_mario_action(m, ACT_ELECTROCUTION, 0);
-                 shockTimer = 0;
-                 } 
-             } else {
-                interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
-                if(shockTimer > 1){
-                set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x0200);
-                shockTimer = 0;
+                case SURFACE_INTERACT_SHOCK: {
+                    shockTimer += 1;
+                    if (m->health < 0x0300) {
+                        m->health = 0x0000;
+                        interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
+                        if(shockTimer > 1){
+                            set_mario_action(m, ACT_ELECTROCUTION, 0);
+                            shockTimer = 0;
+                        }
+                    } else {
+                        interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
+                        if(shockTimer > 1){
+                        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x0200);
+                        shockTimer = 0;
+                        }
+                    }
                 }
             }
         }
-    }
     }
 }

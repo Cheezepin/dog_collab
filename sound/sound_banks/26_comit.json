@@ -50,6 +50,12 @@
             [32700, 29430],
             "hang"
         ],
+        "envelopeHiHat": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
+        ],
         "envelopePercussion": [
             [2, 32700],
             [1, 32700],
@@ -116,6 +122,13 @@
             "sound_lo": "10_cymbal_bell",
             "sound": "11_splash_cymbal",
             "sound_hi": "10_cymbal_bell"
+        },
+        "instHiHat": {
+            "release_rate": 10,
+            "normal_range_lo": 24,
+            "envelope": "envelopeHiHat",
+            "sound_lo": "0E_hihat_closed",
+            "sound": "0F_hihat_open"
         },
         "percussion": [
             {"release_rate": 10, "pan": 62, "envelope": "envelopePercussion", "sound": {"sample": "06_kick_drum_1", "tuning": 0.210224}},
@@ -193,6 +206,7 @@
         "instPizzicato",
         "instTrumpet",
         "instFlute2",
-        "instCymbal"
+        "instCymbal",
+        "instHiHat"
     ]
 }

@@ -1,0 +1,2 @@
+extern void scroll_sts_mat_water_plane4_whirlpool_water_whirlpool_layer5();
+extern void scroll_ddd_level_geo_water_plane4_whirlpool();

@@ -9,9 +9,6 @@
 #include "yellow_sphere_small/model.inc.c"
 UNUSED static const u64 binid_0 = 0;
 
-#include "hoot/model.inc.c"
-#include "hoot/anims/data.inc.c"
-#include "hoot/anims/table.inc.c"
 UNUSED static const u64 binid_1 = 1;
 
 #include "yoshi_egg/model.inc.c"

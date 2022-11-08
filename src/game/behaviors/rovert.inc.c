@@ -172,7 +172,7 @@ void bhv_ash_pile(void) {
 if (gCurrLevelNum == LEVEL_BOWSER_1){
     bowser = cur_obj_nearest_object_with_behavior(bhvBowser);
     lightning = cur_obj_nearest_object_with_behavior(bhvStationaryLightning);
-    if (bowser != NULL && (bowser->oAction == BOWSER_ACT_LIGHTNING || bowser->oAction == BOWSER_ACT_PROPANE_SHOOTER || bowser->oAction == BOWSER_ACT_SKY_ATTACK)){
+    if (bowser != NULL && (bowser->oAction == BOWSER_ACT_LIGHTNING || bowser->oAction == BOWSER_ACT_PROPANE_SHOOTER || bowser->oAction == BOWSER_ACT_SKY_ATTACK || bowser->oAction == BOWSER_ACT_LIGHTNING_2)){
         if (o->oAction == 2){
             if (lightning == NULL){spawn_object(o, MODEL_LIGHTNING, bhvStationaryLightning);}
             else if (dist_between_objects(o, lightning) > 100) {spawn_object(o, MODEL_LIGHTNING, bhvStationaryLightning);}
@@ -199,11 +199,13 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
             sussy = cur_obj_nearest_object_with_behavior(bhvDogEmu); 
             o->parentObj = sussy;
             if((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (o->parentObj->oAction != GOTO_ASHPILE && o->parentObj->oAction != 50 && o->parentObj->oAction != 4)){
+                if (bowser != NULL && (bowser->oAction == BOWSER_ACT_LIGHTNING || bowser->oAction == BOWSER_ACT_PROPANE_SHOOTER || bowser->oAction == BOWSER_ACT_SKY_ATTACK || bowser->oAction == BOWSER_ACT_LIGHTNING_2))
+                    {} else {
                 play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
                 o->parentObj->oAction = SET_ASHPILE_TARGET;
                 o->oAction = 3;
                 o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_ASHPILE];
-                }
+                }}
         break;
         case 3:
         if (o->parentObj->oPosX < o->oPosX + 25 && o->parentObj->oPosX > o->oPosX - 26 && o->parentObj->oPosZ < o->oPosZ + 25 && o->parentObj->oPosZ > o->oPosZ - 26){
@@ -272,7 +274,7 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
                 cur_obj_play_sound_2(SOUND_ACTION_QUICKSAND_STEP);
                 }
             if (o->oOpacity  > 20.0f) {
-                o->oOpacity -= 2.0f;
+                o->oOpacity -= 5.0f;
                 obj_scale(o,o->oOpacity/255.0f);
                 o->parentObj->oPosY = o->oHomeY+((o->oOpacity/255.0f)*100.0f);
                 }

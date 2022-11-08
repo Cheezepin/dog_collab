@@ -811,7 +811,8 @@ Gfx *geo_mario_is_skiing(s32 callContext, struct GraphNode *node) {
     struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
 
     if (callContext == GEO_CONTEXT_RENDER) {
-        switchCase->selectedCase = (gCurrLevelNum == LEVEL_BOWSER_2 ? 1 : 0);
+        //switchCase->selectedCase = (gCurrLevelNum == LEVEL_BOWSER_2 ? 1 : 0);
+        switchCase->selectedCase = 0;
     }
     return NULL;
 }

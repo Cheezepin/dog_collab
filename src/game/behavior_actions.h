@@ -142,6 +142,8 @@ void bhv_pushable_loop(void);
 void bhv_init_room(void);
 void bhv_small_water_wave_loop(void);
 void bhv_yellow_coin_init(void);
+void bhv_20_coin_init(void);
+void bhv_20_coin_loop(void);
 void bhv_yellow_coin_loop(void);
 void bhv_squarish_path_moving_loop(void);
 void bhv_heave_ho_loop(void);
@@ -611,6 +613,10 @@ void bhv_stationary_lightning_loop(void);
 //emu end
 
 //CowQuack start
+void bhv_cherry_tree_loop(void);
+void bhv_tree_nut_loop(void);
+void bhv_tree_nut_init(void);
+
 void bhv_carousel_init(void);
 void bhv_carousel_loop(void);
 
@@ -699,7 +705,24 @@ void bhv_cutscenedog_loop(void);
 void bhv_peach_cutscene_loop(void);
 void bhv_bowser_cutscene_loop(void);
 void bhv_door_cutscene_loop(void);
+void bhv_spiresdog_loop(void);
+void bhv_b3_dog_loop(void);
+void bhv_dog_laser_loop(void);
+void bhv_b3_bridge_loop(void);
+void bhv_dog_control_loop(void);
+void bhv_peach_ending_loop(void);
+void bhv_intro_object_init(void);
+void bhv_intro_object_loop(void);
 //cheeze end
+
+//Koopa Atoll Objects
+void bhv_koko_triplet_spawner_update(void);
+void bhv_sand_pile(void);
+void bhv_sand_pillar_init(void);
+void bhv_sand_pillar_loop(void);
+void bhv_ktq_ring_init(void);
+void bhv_ktq_ring_loop(void);
+//Koopa Atoll Objects ^
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 
@@ -785,7 +808,9 @@ void bhv_snow_bowser_init(void);
 void bhv_snow_bowser_loop(void);
 void bhv_ground_bowser_snow_init(void);
 void bhv_warp_box_loop(void);
-
+void bhv_chain_chomp_bowser_update(void);
+void bhv_cheeze_lightning_init(void);
+void bhv_cheeze_lightning_loop(void);
 
 
 #endif // BEHAVIOR_ACTIONS_H

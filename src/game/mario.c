@@ -392,6 +392,7 @@ s32 mario_get_floor_class(struct MarioState *m) {
 
     if (m->floor != NULL) {
         switch (m->floor->type) {
+            case SURFACE_SHADOW_NO_SLIP:
             case SURFACE_NOT_SLIPPERY:
             case SURFACE_HARD_NOT_SLIPPERY:
             case SURFACE_SWITCH:
@@ -441,7 +442,7 @@ s8 sTerrainSounds[7][6] = {
     { SOUND_TERRAIN_SPOOKY,  SOUND_TERRAIN_SPOOKY, SOUND_TERRAIN_SPOOKY,
       SOUND_TERRAIN_SPOOKY,  SOUND_TERRAIN_STONE,  SOUND_TERRAIN_STONE }, // TERRAIN_SPOOKY
     { SOUND_TERRAIN_DEFAULT, SOUND_TERRAIN_STONE,  SOUND_TERRAIN_GRASS,
-      SOUND_TERRAIN_ICE,     SOUND_TERRAIN_STONE,  SOUND_TERRAIN_ICE }, // TERRAIN_WATER
+      SOUND_TERRAIN_ICE,     SOUND_TERRAIN_ICE,    SOUND_TERRAIN_ICE }, // TERRAIN_WATER
     { SOUND_TERRAIN_STONE,   SOUND_TERRAIN_STONE,  SOUND_TERRAIN_STONE,
       SOUND_TERRAIN_STONE,   SOUND_TERRAIN_ICE,    SOUND_TERRAIN_ICE }, // TERRAIN_SLIDE
 };
@@ -472,6 +473,7 @@ u32 mario_get_terrain_sound_addend(struct MarioState *m) {
                     break;
 
                 case SURFACE_NOT_SLIPPERY:
+                case SURFACE_SHADOW_NO_SLIP:
                 case SURFACE_HARD:
                 case SURFACE_HARD_NOT_SLIPPERY:
                 case SURFACE_SWITCH:
@@ -575,7 +577,7 @@ s32 mario_floor_is_steep(struct MarioState *m) {
     f32 normY;
 
 #ifdef JUMP_KICK_FIX
-    if (m->floor->type == SURFACE_NOT_SLIPPERY) {
+    if (m->floor->type == SURFACE_NOT_SLIPPERY || m->floor->type == SURFACE_SHADOW_NO_SLIP) {
         return FALSE;
     }
 #endif
@@ -953,6 +955,11 @@ u32 set_mario_action_cutscene(struct MarioState *m, u32 action, UNUSED u32 actio
  * specific function if needed.
  */
 u32 set_mario_action(struct MarioState *m, u32 action, u32 actionArg) {
+    // disallow overriding action if voiding in or out
+    if (m->action == ACT_FLOOR_CHECKPOINT_WARP_OUT || m->action == ACT_FLOOR_CHECKPOINT_WARP_IN) {
+        return FALSE;
+    }
+
     switch (action & ACT_GROUP_MASK) {
         case ACT_GROUP_MOVING:    action = set_mario_action_moving(   m, action, actionArg); break;
         case ACT_GROUP_AIRBORNE:  action = set_mario_action_airborne( m, action, actionArg); break;
@@ -1356,7 +1363,16 @@ void update_mario_geometry_inputs(struct MarioState *m) {
         }
 
     } else {
-        level_trigger_warp(m, WARP_OP_DEATH);
+        if (m->controller->buttonPressed & A_BUTTON) {
+            level_trigger_warp(m, WARP_OP_DEATH);
+        }
+        else {
+            char buff[64];
+            sprintf(buff, "X %d Y %d Z %d", roundf(m->pos[0]), roundf(m->pos[1]), roundf(m->pos[2]));
+            print_text(20, SCREEN_HEIGHT/2, buff);
+            print_text(20, (SCREEN_HEIGHT/2) - 20, "You are out of bounds.");
+            print_text(20, (SCREEN_HEIGHT/2) - 40, "Press A to die today");
+        }
     }
 }
 
@@ -1518,8 +1534,16 @@ void update_mario_breath(struct MarioState *m) {
     if (gCurrLevelNum == LEVEL_COZIES) {
         m->breath = 0;
         m->breathCounter = 0;
+        // if (gLakituState.pos[1] < m->waterLevel) {
+        //     f32 pitch = (get_cycle(0.7f, 0, gGlobalTimer) + get_cycle(0.372f, 0, gGlobalTimer)) / 2.0f;
+        //     pitch *= 0.05f;
+        //     approach_pitch_change(0.95f+pitch, 0.333f);
+        // }
+        // else approach_pitch_change(1.0f, 0.333f);
         return;
     }
+    // set_pitch_change(1.0f);
+
     if (m->breath >= 0x100 && m->health >= 0x100) {
         if (m->pos[1] < (m->waterLevel - 140) && !(m->flags & MARIO_METAL_CAP) && !(m->action & ACT_FLAG_INTANGIBLE)) {
             m->breath -= 2;
@@ -1746,7 +1770,11 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
 
     if (gMarioState->action) {
 #ifdef ENABLE_DEBUG_FREE_MOVE
-        if (gPlayer1Controller->buttonDown & U_JPAD && !(gPlayer1Controller->buttonDown & L_TRIG)) {
+        if (
+            !((gMarioState->action & ACT_GROUP_MASK) & ACT_GROUP_CUTSCENE)
+            && gPlayer1Controller->buttonDown & U_JPAD
+            && !(gPlayer1Controller->buttonDown & L_TRIG)
+        ) {
             set_camera_mode(gMarioState->area->camera, CAMERA_MODE_8_DIRECTIONS, 1);
             set_mario_action(gMarioState, ACT_DEBUG_FREE_MOVE, 0);
         }
@@ -1762,6 +1790,15 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
 
         gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
         mario_reset_bodystate(gMarioState);
+
+        if (gMarioState->paralyzed) {
+            struct Controller *cont = gMarioState->controller;
+            cont->buttonDown = cont->buttonPressed = 0;
+            cont->stickX = cont->stickY = cont->stickMag = 0;
+            cont->rawStickX = cont->rawStickY = 0;
+            vec3_zero(gMarioState->vel);
+            gMarioState->forwardVel = 0;
+        }
         update_mario_inputs(gMarioState);
 
 #ifdef PUPPYCAM
@@ -1827,20 +1864,13 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
     return ACTIVE_PARTICLE_NONE;
 }
 
-
-void vec3f_center(Vec3f dest, Vec3s vtx1, Vec3s vtx2, Vec3s vtx3) {
-    dest[0] = ((f32)(vtx1[0] + vtx2[0] + vtx3[0])) * 0.33333333f;
-    dest[1] = ((f32)(vtx1[1] + vtx2[1] + vtx3[1])) * 0.33333333f;
-    dest[2] = ((f32)(vtx1[2] + vtx2[2] + vtx3[2])) * 0.33333333f;
-}
-
 void check_mario_floor_checkpoint(struct MarioState *m) {
     if (
         m->floor->force == FLOOR_CHECKPOINT_FORCE &&
         m->floor != m->floorCheckpoint.floor &&
         !mario_floor_is_slippery(m)
     ) {
-        vec3f_center(m->floorCheckpoint.pos, m->floor->vertex1, m->floor->vertex2, m->floor->vertex3);
+        surface_center(m->floorCheckpoint.pos, m->floor->vertex1, m->floor->vertex2, m->floor->vertex3);
         m->floorCheckpoint.yaw = m->faceAngle[1];
         m->floorCheckpoint.level = gCurrLevelNum;
         m->floorCheckpoint.area = gCurrAreaIndex;
@@ -1874,9 +1904,9 @@ s32 warp_to_checkpoint(struct MarioState *m, s32 damage) {
         gMarioState->area = gCurrentArea;
         warp_camera(displacement[0], displacement[1], displacement[2]);
         gMarioState->area->camera->yaw = cameraAngle;
-    } else {
-        reset_camera(gCurrentArea->camera);
     }
+
+    reset_camera(gCurrentArea->camera);
 
     switch(get_checkpoint_action(m)) {
         case CHECKPOINT_ENDS_IN_WATER:
@@ -1897,20 +1927,29 @@ s32 warp_to_checkpoint(struct MarioState *m, s32 damage) {
     }
 
     play_transition(WARP_TRANSITION_FADE_FROM_COLOR, SLOW_WARP_LEN, 0, 0, 0);
-    return set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_IN, 0);
+    m->action = ACT_FLOOR_CHECKPOINT_WARP_IN;
+    m->actionState = 0;
+    m->actionTimer = 0;
+    m->actionArg = 0;
+    return TRUE;
 }
 
 /**************************************************
  *                  INITIALIZATION                *
  **************************************************/
 
-void init_floor_checkpoint(struct MarioState *m) {
-    vec3f_copy(m->floorCheckpoint.pos, m->pos);
-    m->floorCheckpoint.yaw = m->faceAngle[1];
+void manual_set_checkpoint(struct MarioState *m, Vec3f pos, s16 angle) {
+    vec3f_copy(m->floorCheckpoint.pos, pos);
+    m->floorCheckpoint.yaw = angle;
     m->floorCheckpoint.level = gCurrLevelNum;
     m->floorCheckpoint.area = gCurrAreaIndex;
     m->floorCheckpoint.floor = NULL;
 }
+
+void init_floor_checkpoint(struct MarioState *m) {
+    manual_set_checkpoint(m, m->pos, m->faceAngle[1]);
+}
+
 
 void init_mario(void) {
     gMarioState->actionTimer = 0;
@@ -1918,6 +1957,7 @@ void init_mario(void) {
     gMarioState->framesSinceB = 0xFF;
 
     gMarioState->invincTimer = 0;
+    gMarioState->paralyzed = 0;
 
     if (save_file_get_flags()
         & (SAVE_FLAG_CAP_ON_GROUND | SAVE_FLAG_CAP_ON_KLEPTO | SAVE_FLAG_CAP_ON_UKIKI

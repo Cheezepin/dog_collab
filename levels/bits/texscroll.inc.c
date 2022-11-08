@@ -321,6 +321,11 @@ void scroll_sts_mat_bits_dl_Lava_layer1_area6() {
 	shift_t_down(mat, 24, PACK_TILESIZE(0, 1));
 };
 
+void scroll_sts_mat_bits_dl_laser_002() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_laser_002);
+	shift_t_down(mat, 11, PACK_TILESIZE(0, 1));
+};
+
 void scroll_bits() {
 	scroll_sts_mat_bits_dl_f3d_material_062();
 	scroll_sts_mat_bits_dl_f3d_material_015();
@@ -344,4 +349,5 @@ void scroll_bits() {
 	scroll_sts_mat_bits_dl_nebula_hangable_001_layer1();
 	scroll_sts_mat_bits_dl_lava_layer1();
 	scroll_sts_mat_bits_dl_Lava_layer1_area6();
+	scroll_sts_mat_bits_dl_laser_002();
 }

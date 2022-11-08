@@ -49,5 +49,11 @@
     "2E_custom_feudal_castle": ["1A"],
     "2F_custom_overworld": ["23"],
     "30_custom_training": ["25"],
-    "31_custom_16ch_stereo": ["27_custom_16ch_stereo"]
+    "31_custom_meteor_herd": ["25"],
+    "32_custom_watersong_reggae": ["11"],
+    "33_custom_route_47": ["0E"],
+    "34_custom_comit_facility": ["26_comit"],
+    "35_cozies_custom": ["cozies"],
+    "36_CUSTOM_credits": ["25"],
+    "37_custom_16ch_stereo": ["27_custom_16ch_stereo"]
 }

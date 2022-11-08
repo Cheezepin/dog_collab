@@ -1,8 +1,11 @@
-#define DOG_ANIM_IDLE 0
-#define DOG_ANIM_DIG  1
-#define DOG_ANIM_RUN  2
-#define DOG_ANIM_WALK 3
+#define DOG_ANIM_IDLE   0
+#define DOG_ANIM_DIG    1
+#define DOG_ANIM_RUN    2
+#define DOG_ANIM_WALK   3
 #define DOG_ANIM_POUNCE 4
+#define DOG_ANIM_KB     5
+#define DOG_ANIM_LASER  6
+#define DOG_ANIM_BARK   7
 
 #define OBJ_COL_FLAG_GROUNDED   (1 << 0)
 #define OBJ_COL_FLAG_HIT_WALL   (1 << 1)
@@ -62,7 +65,9 @@ void bhv_dog_control_loop(void) {
     if(gPlayer1Controller->buttonPressed & L_TRIG) {
         gCurrentCharacter ^= 0x1;
         if(gCurrentCharacter == 0) {
+#ifdef PUPPYCAM
             gPuppyCam.targetObj = gMarioObject;
+#endif
             set_mario_action(gMarioState, ACT_IDLE, 0);
         }
     }
@@ -70,13 +75,15 @@ void bhv_dog_control_loop(void) {
 
     if(gCurrentCharacter == 0x1) {
         f32 controllerMagnitude = sqrtf(POW2(gPlayer1Controller->stickX) + POW2(gPlayer1Controller->stickY));
+#ifdef PUPPYCAM
         gPuppyCam.targetObj = o;
+#endif
         set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
 
         switch(o->oAction) {
             case 0:
                 if(controllerMagnitude > 5.0f) {
-                    o->oMoveAngleYaw = dog_rotate_to_intended_yaw(atan2s(-gPlayer1Controller->stickY, gPlayer1Controller->stickX) + gPuppyCam.yaw);
+                    o->oMoveAngleYaw = dog_rotate_to_intended_yaw(atan2s(-gPlayer1Controller->stickY, gPlayer1Controller->stickX) + gMarioState->area->camera->yaw);
                     o->oForwardVel = controllerMagnitude / 1.5f;
                     cur_obj_init_animation_with_accel_and_sound(DOG_ANIM_RUN, o->oForwardVel / 20.0f);
                 } else {
@@ -209,7 +216,7 @@ void bhv_cheezedog_loop(void) {
 }
 
 void bhv_cheezeskidog_loop(void) {
-    switch(o->oAction) {
+    /*switch(o->oAction) {
         case 0:
             cur_obj_init_animation(DOG_ANIM_IDLE);
             switch (o->oHeldState) {
@@ -281,5 +288,131 @@ void bhv_cheezeskidog_loop(void) {
             break;
     }
 
+    o->oInteractStatus = INT_STATUS_NONE;*/
+
+    o->oGravity = -4.0f;
+    if(lateral_dist_between_objects(gMarioObject, o) > 350.0f) {
+        o->oForwardVel = 20.0f;
+        o->oMoveAngleYaw = o->oAngleToMario;
+    } else {
+        o->oForwardVel = 0.0f;
+    }
+    cur_obj_move_standard(78);
+}
+
+void bhv_b3_dog_loop(void) {
+    switch(o->oAction) {
+        case 0:
+            switch (o->oHeldState) {
+                struct Object *lol;
+                case HELD_FREE:
+                    o->oGravity = -4.0f;
+                    if(find_any_object_with_behavior(bhvDogLaser)) {
+                        obj_mark_for_deletion(find_any_object_with_behavior(bhvDogLaser));
+                    }
+                    if(lateral_dist_between_objects(gMarioObject, o) > 350.0f) {
+                        o->oForwardVel = 10.0f + (lateral_dist_between_objects(gMarioObject, o) / 25.0f);
+                        o->oMoveAngleYaw = o->oAngleToMario;
+                        cur_obj_init_animation(DOG_ANIM_WALK);
+                    } else {
+                        approach_f32_ptr(&o->oForwardVel, 0.0f, 2.0f);
+                        cur_obj_init_animation(DOG_ANIM_IDLE);
+                    }
+                    cur_obj_move_standard(-78);
+                    cur_obj_update_floor_and_walls_and_ceil(100.0f);
+                    if(o->oSubAction == 1) {
+                        lol = spawn_object(o, MODEL_DOG_ARROW, bhvLaserGlow);
+                        lol->oPosY += 250.0f + ((f32)(sins(gGlobalTimer * 0x800)))*50.0f;
+                    }
+                    break;
+
+                case HELD_HELD:
+                    cur_obj_disable_rendering();
+                    cur_obj_become_intangible();
+                    if(o->oSubAction > 0) {
+                        cur_obj_init_animation(DOG_ANIM_LASER);
+                        if(!find_any_object_with_behavior(bhvDogLaser)) {
+                            spawn_object(o, MODEL_DOG_LASER, bhvDogLaser);
+                        }
+                        o->oSubAction = 2;
+                    }
+                    break;
+
+                case HELD_THROWN:
+                    o->oVelY = 5.0f;
+                case HELD_DROPPED:
+                    cur_obj_become_tangible();
+                    cur_obj_enable_rendering();
+                    o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+                    o->oHeldState = HELD_FREE;
+                    break;
+            }
+            break;
+    }
+    if(o->oSubAction == 0 && find_any_object_with_behavior(bhvBowser)->oAction == BOWSER_ACT_WALK_TO_MARIO) {
+        o->oSubAction = 1;
+    }
+
+    if(o->oPosY < -200.0f) {
+        o->oPosY = gMarioState->pos[1] + 500.0f;
+    }
+
     o->oInteractStatus = INT_STATUS_NONE;
+}
+
+//-125, 0
+//125, 0
+//-125, 4000
+//125, 4000
+void bhv_dog_laser_loop(void) {
+    struct Object *cc = find_any_object_with_behavior(bhvChainChompBowser);
+    o->parentObj = find_any_object_with_behavior(bhvB3Dog);
+    vec3f_copy(&o->oPosX, dogLaserLocation);
+    if(o->parentObj->oHeldState == HELD_HELD) {
+        o->oMoveAngleYaw = gMarioState->faceAngle[1];
+    } else {
+        o->oMoveAngleYaw = o->parentObj->oMoveAngleYaw;
+    }
+    o->oMoveAngleRoll += 0x611;
+    if(cc && cc->oSubAction != CHAIN_CHOMP_SUB_ACT_BURNED) {
+        f32 unrotatedCircleX, unrotatedCircleY, closestX, closestY, a, b;
+        f32 rectX = o->oPosX;
+        f32 rectY = o->oPosZ;
+        f32 rectWidth = 125.0f; //on both sides
+        f32 rectHeight = 4000.0f; //just from 0, 0
+        f32 circleX = cc->oPosX;
+        f32 circleY = cc->oPosZ;
+        f32 radius = 300.0f;
+        s32 angle = o->oMoveAngleYaw;
+        unrotatedCircleX = coss(angle) * (circleX - rectX) - sins(angle) * (circleY - rectY) + rectX;
+        unrotatedCircleY = sins(angle) * (circleX - rectX) + coss(angle) * (circleY - rectY) + rectY;
+
+        // Find the unrotated closest x point from center of unrotated circle
+        if (unrotatedCircleX  < (rectX - rectWidth))
+            closestX = (rectX - rectWidth);
+        else if (unrotatedCircleX  > (rectX + rectWidth))
+            closestX = (rectX + rectWidth);
+        else
+            closestX = unrotatedCircleX;
+        
+        // Find the unrotated closest y point from center of unrotated circle
+        if (unrotatedCircleY < rectY)
+            closestY = rectY;
+        else if (unrotatedCircleY > rectY + rectHeight)
+            closestY = rectY + rectHeight;
+        else
+            closestY = unrotatedCircleY;
+ 
+        a = absf(unrotatedCircleX - closestX);
+        b = absf(unrotatedCircleY - closestY);
+        if (o->oPosY > cc->oPosY - 50.0f && o->oPosY < cc->oPosY + 500.0f && sqrtf((a * a) + (b * b)) < radius) {
+            //true
+            cc->oChainChompHeated = 1;
+            spawn_object(cc, MODEL_LASER_GLOW, bhvLaserGlow);
+        } else {
+            //false
+            //cc->oChainChompHeated = 0;
+        }
+    }
+    cur_obj_shake_screen(SHAKE_POS_SMALL);
 }

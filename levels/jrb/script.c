@@ -13,8 +13,14 @@
 
 #include "actors/common1.h"
 
+/* Fast64 begin persistent block [includes] */
+/* Fast64 end persistent block [includes] */
+
 #include "make_const_nonconst.h"
 #include "levels/jrb/header.h"
+
+/* Fast64 begin persistent block [scripts] */
+/* Fast64 end persistent block [scripts] */
 
 const LevelScript level_jrb_entry[] = {
 	INIT_LEVEL(),
@@ -26,6 +32,7 @@ const LevelScript level_jrb_entry[] = {
 	LOAD_RAW(0x0F, _common0_geoSegmentRomStart, _common0_geoSegmentRomEnd), 
 	LOAD_MIO0(0x7, _jrb_segment_7SegmentRomStart, _jrb_segment_7SegmentRomEnd), 
 	LOAD_MIO0(0xa, _ssl_skybox_mio0SegmentRomStart, _ssl_skybox_mio0SegmentRomEnd), 
+	LOAD_YAY0(0xa, _ssl_skybox_yay0SegmentRomStart, _ssl_skybox_yay0SegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_1), 
@@ -63,16 +70,21 @@ const LevelScript level_jrb_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_KID_TOAD, kid_toad_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CIRCUS_CANNON, circus_cannon_geo), 
 
+	/* Fast64 begin persistent block [level commands] */
+	/* Fast64 end persistent block [level commands] */
+
 	AREA(1, jrb_area_1),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF0, LEVEL_CASTLE, 0x01, 0x35, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF1, LEVEL_CASTLE, 0x01, 0x67, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_JRB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_JRB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		MARIO_POS(0x01, -180, 5717, 775, 1041),
 		OBJECT(MODEL_NONE, 5741, 775, 1065, 0, -180, 0, 0x000A0000, bhvSpinAirborneWarp),
 		OBJECT_WITH_ACTS(MODEL_CLOWN_BOSS, -12, 159, -5, 0, 0, 0, 0x00000000, bhvClownBoss, ACT_5),
 		OBJECT(MODEL_CLOWN_TOAD, 2610, 0, -2858, 0, -171, 0, 0x006C0000, bhvClownToad),
 		OBJECT(MODEL_NONE, 477, 0, -3383, 0, 0, 0, 0x00020000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 2200, 0, 2615, 0, 0, 0, 0x00020000, bhvCoinFormation),
+		OBJECT_WITH_ACTS(MODEL_NONE, -714, 159, 1258, 0, 0, 0, 0x00020000, bhvCoinFormation, ACT_5),
+		OBJECT_WITH_ACTS(MODEL_NONE, -1025, 159, -1170, 0, 0, 0, 0x00020000, bhvCoinFormation, ACT_5),
 		OBJECT_WITH_ACTS(MODEL_TRAPEZE, 1818, 1145, 1436, 0, 0, 0, 0x00000000, bhvTrapeze, ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_6),
 		OBJECT_WITH_ACTS(MODEL_TRAPEZE, -995, 1892, 543, 0, -73, 0, 0x00000000, bhvTrapeze, ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_6),
 		OBJECT_WITH_ACTS(MODEL_TRAPEZE, -1278, 2132, -286, 0, -107, 0, 0x00000000, bhvTrapeze, ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_6),
@@ -92,10 +104,6 @@ const LevelScript level_jrb_entry[] = {
 		OBJECT(MODEL_KID_TOAD, 807, 181, 2739, 0, -146, 0, 0x00040000, bhvKidToad),
 		OBJECT(MODEL_KID_TOAD, -3388, 455, 617, 0, 108, 0, 0x00030000, bhvKidToad),
 		OBJECT(MODEL_KID_TOAD, -954, 276, -2908, 0, 19, 0, 0x00030000, bhvKidToad),
-		OBJECT(MODEL_SCUTTLEBUG, 5046, 0, -7895, 0, -23, 0, 0x00000000, bhvScuttlebug),
-		OBJECT(MODEL_SCUTTLEBUG, 5754, 0, -8530, 0, 27, 0, 0x00000000, bhvScuttlebug),
-		OBJECT(MODEL_SCUTTLEBUG, 6847, 1910, -8392, 0, -28, 0, 0x00000000, bhvScuttlebug),
-		OBJECT(MODEL_WOODEN_SIGNPOST, 6193, 0, -6563, 0, -23, 0, 0x006D0000, bhvMessagePanel),
 		OBJECT_WITH_ACTS(MODEL_STAR, 58, 2541, -71, 0, -37, 0, 0x03030000, bhvStar, ACT_1 | ACT_2 | ACT_3 | ACT_4 | ACT_6),
 		OBJECT(MODEL_BLUE_COIN, 3518, 201, -8497, 0, 90, 0, 0x00000000, bhvHiddenBlueCoin),
 		OBJECT(MODEL_BLUE_COIN, 4143, 472, -8653, 0, 90, 0, 0x00000000, bhvHiddenBlueCoin),
@@ -122,6 +130,10 @@ const LevelScript level_jrb_entry[] = {
 		OBJECT(MODEL_KID_TOAD, 6508, 0, -2365, 0, -53, 0, 0x00020000, bhvKidToad),
 		OBJECT(MODEL_KID_TOAD, 3978, 0, -5003, 0, 97, 0, 0x00010000, bhvKidToad),
 		OBJECT(MODEL_KID_TOAD, 7715, 0, 744, 0, 156, 0, 0x00000000, bhvKidToad),
+		OBJECT(MODEL_SCUTTLEBUG, 5046, 0, -7895, 0, -23, 0, 0x00000000, bhvScuttlebug),
+		OBJECT(MODEL_SCUTTLEBUG, 5754, 0, -8530, 0, 27, 0, 0x00000000, bhvScuttlebug),
+		OBJECT(MODEL_SCUTTLEBUG, 6847, 1910, -8392, 0, -28, 0, 0x00000000, bhvScuttlebug),
+		OBJECT(MODEL_WOODEN_SIGNPOST, 6193, 0, -6563, 0, -23, 0, 0x006D0000, bhvMessagePanel),
 		OBJECT(MODEL_STAR, 2256, 3241, -8717, 0, 0, 0, 0x01010000, bhvStar),
 		OBJECT(MODEL_NONE, 10295, 297, -4460, 0, 0, 0, 0x02020000, bhvHiddenRedCoinStar),
 		OBJECT(MODEL_CAROUSEL, 10502, -10, -753, 0, 0, 0, 0x00000000, bhvCarousel),
@@ -217,12 +229,14 @@ const LevelScript level_jrb_entry[] = {
 		MACRO_OBJECTS(jrb_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_STRIATION),
 		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
 	AREA(2, jrb_area_2),
 		WARP_NODE(0x0B, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF0, LEVEL_CASTLE, 0x01, 0x35, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF1, LEVEL_CASTLE, 0x01, 0x67, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_JRB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_JRB, 0x02, 0x0B, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_SAD_CAROUSEL, 10502, -10, -753, 0, 0, 0, 0x00010000, bhvCarousel),
 		OBJECT(MODEL_SAD_CAROUSEL, 13274, 275, -1619, 0, 68, 0, 0x00010000, bhvCarousel),
 		OBJECT(MODEL_SAD_CAROUSEL, 13207, 854, 355, 0, 160, 0, 0x00010000, bhvCarousel),
@@ -274,6 +288,8 @@ const LevelScript level_jrb_entry[] = {
 		MACRO_OBJECTS(jrb_area_2_macro_objs),
 		STOP_MUSIC(0),
 		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),

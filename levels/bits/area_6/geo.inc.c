@@ -147,7 +147,7 @@ const GeoLayout bits_area_6[] = {
 		GEO_OPEN_NODE(),
 			GEO_CAMERA_FRUSTUM_WITH_FUNC(45.0000, 100, 30000, geo_camera_fov),
 			GEO_OPEN_NODE(),
-				GEO_CAMERA(CAMERA_MODE_8_DIRECTIONS, 0, 0, -250000, 0, -100, -250000, geo_camera_main),
+				GEO_CAMERA(CAMERA_MODE_8_DIRECTIONS, 0, 0, -300000, 0, -100, -300000, geo_camera_main),
 				GEO_OPEN_NODE(),
 					GEO_BRANCH(1, bits_area_6_geo),
 					GEO_RENDER_OBJ(),

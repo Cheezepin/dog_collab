@@ -240,14 +240,19 @@ s32 render_menus_and_dialogs(void);
 void render_dog_keyboard(void);
 void render_hub_selection(void);
 void render_hub_star_select(s32 cringeTimer);
+void render_hub_level_confirmation();
 void end_results_loop(void);
+void shade_screen_amount(int amount);
+void shade_screen_col(int r, int g, int b, int a);
 
 extern s32 gWorldID;
 extern s32 gFocusID;
 extern s32 gCustomStarSelectActive;
+extern s32 gLevelEntryConfirmationActive;
 extern struct HubSelection hubSelections[3][6];
 
 extern s32 gEndResultMenuChoice;
 extern s32 gEndResultMenuState;
+extern u8 coursesFixed[];
 
 #endif // INGAME_MENU_H

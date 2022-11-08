@@ -25,3 +25,10 @@
 #include "levels/bowser_3/falling_platform_10/geo.inc.c"
 #include "levels/bowser_3/areas/1/bomb_stand/geo.inc.c"
 #include "levels/bowser_3/areas/1/geo.inc.c"
+
+#include "levels/bowser_3/geo.inc.c"
+
+#include "levels/bowser_3/dog_laser/geo.inc.c"
+#include "levels/bowser_3/b3_bridge/geo.inc.c"
+#include "levels/bowser_3/laserglow/geo.inc.c"
+#include "levels/bowser_3/dogarrow/geo.inc.c"

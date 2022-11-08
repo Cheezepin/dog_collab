@@ -90,6 +90,8 @@ extern "C" {
 extern int		sprintf(char *s, const char *fmt, ...);
 extern void		osSyncPrintf(const char *fmt, ...);
 
+#define mark_spot (osSyncPrintf("%s, %d\n", __FILE__, __LINE__));
+#define wrap_line(code) { osSyncPrintf("%s, %d:: Start\n", __FILE__, __LINE__); code; osSyncPrintf("%s, %d:: Done\n", __FILE__, __LINE__); };
 
 #endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
 

@@ -31,6 +31,8 @@
 #include "2639_defs.h"
 #include "game/debug.h"
 
+#include "game/puppycam2.h"
+
 #include "config.h"
 
 #define NUM_PAINTINGS 45
@@ -801,91 +803,91 @@ static void level_cmd_get_or_set_var(void) {
 #define CORRECT(v) ((v) == 32767 ? PUPPY_NULL : (v))
 
 static void level_cmd_puppyvolume_compat(void) {
-    u16 idx = CMD_GET(u16, 2);
+//     u16 idx = CMD_GET(u16, 2);
 
-    if ((sPuppyVolumeStack[gPuppyVolumeCount] = mem_pool_alloc(gPuppyMemoryPool, sizeof(struct sPuppyVolume))) == NULL) {
-        sCurrentCmd = CMD_NEXT;
-        gPuppyError |= PUPPY_ERROR_POOL_FULL;
-#if PUPPYPRINT_DEBUG
-        append_puppyprint_log("Puppycamera volume allocation failed.");
-#endif
-        return;
-    }
+//     if ((sPuppyVolumeStack[gPuppyVolumeCount] = mem_pool_alloc(gPuppyMemoryPool, sizeof(struct sPuppyVolume))) == NULL) {
+//         sCurrentCmd = CMD_NEXT;
+//         gPuppyError |= PUPPY_ERROR_POOL_FULL;
+// #if PUPPYPRINT_DEBUG
+//         append_puppyprint_log("Puppycamera volume allocation failed.");
+// #endif
+//         return;
+//     }
 
-    PuppyCamVolume *vol = &newcam_fixedcam[idx];
+//     PuppyCamVolume *vol = &newcam_fixedcam[idx];
 
-    s16 rx = absi(vol->X2 - vol->X1) / 2;
-    s16 ry = absi(vol->Y2 - vol->Y1) / 2;
-    s16 rz = absi(vol->Z2 - vol->Z1) / 2;
+//     s16 rx = absi(vol->X2 - vol->X1) / 2;
+//     s16 ry = absi(vol->Y2 - vol->Y1) / 2;
+//     s16 rz = absi(vol->Z2 - vol->Z1) / 2;
 
-    #define MIDPOINT(x, x2) (absi((x2) + (x)) / 2)
+//     #define MIDPOINT(x, x2) (absi((x2) + (x)) / 2)
 
-    s16 px = MIDPOINT(vol->X2, vol->X1);
-    s16 py = MIDPOINT(vol->Y2, vol->Y1);
-    s16 pz = MIDPOINT(vol->Z2, vol->Z1);
+//     s16 px = MIDPOINT(vol->X2, vol->X1);
+//     s16 py = MIDPOINT(vol->Y2, vol->Y1);
+//     s16 pz = MIDPOINT(vol->Z2, vol->Z1);
 
-    sPuppyVolumeStack[gPuppyVolumeCount]->pos[0] = px;
-    sPuppyVolumeStack[gPuppyVolumeCount]->pos[1] = py;
-    sPuppyVolumeStack[gPuppyVolumeCount]->pos[2] = pz;
+//     sPuppyVolumeStack[gPuppyVolumeCount]->pos[0] = px;
+//     sPuppyVolumeStack[gPuppyVolumeCount]->pos[1] = py;
+//     sPuppyVolumeStack[gPuppyVolumeCount]->pos[2] = pz;
 
-    sPuppyVolumeStack[gPuppyVolumeCount]->radius[0] = rx;
-    sPuppyVolumeStack[gPuppyVolumeCount]->radius[1] = ry * 2;
-    sPuppyVolumeStack[gPuppyVolumeCount]->radius[2] = rz;
+//     sPuppyVolumeStack[gPuppyVolumeCount]->radius[0] = rx;
+//     sPuppyVolumeStack[gPuppyVolumeCount]->radius[1] = ry * 2;
+//     sPuppyVolumeStack[gPuppyVolumeCount]->radius[2] = rz;
 
-#ifdef PUPPYPRINT_DEBUG
-    append_puppyprint_log("Puppycamera X %d", px);
-    append_puppyprint_log("Puppycamera Y %d", py);
-    append_puppyprint_log("Puppycamera Z %d", pz);
+// #ifdef PUPPYPRINT_DEBUG
+//     append_puppyprint_log("Puppycamera X %d", px);
+//     append_puppyprint_log("Puppycamera Y %d", py);
+//     append_puppyprint_log("Puppycamera Z %d", pz);
 
-    append_puppyprint_log("Puppycamera RX %d", rx);
-    append_puppyprint_log("Puppycamera RY %d", ry);
-    append_puppyprint_log("Puppycamera RZ %d", rz);
-#endif
-
-
-
-    sPuppyVolumeStack[gPuppyVolumeCount]->rot = 0;
-
-    sPuppyVolumeStack[gPuppyVolumeCount]->func   = vol->func;
-    assert((sPuppyVolumeStack[gPuppyVolumeCount]->func) != NULL, "wtf");
-    sPuppyVolumeStack[gPuppyVolumeCount]->angles = NULL;
-
-    sPuppyVolumeStack[gPuppyVolumeCount]->flagsAdd    = vol->modeset;
-    sPuppyVolumeStack[gPuppyVolumeCount]->flagsRemove = 0;
-
-    sPuppyVolumeStack[gPuppyVolumeCount]->flagPersistance = vol->permaswap;
-
-    sPuppyVolumeStack[gPuppyVolumeCount]->shape = PUPPYVOLUME_SHAPE_BOX; // todo box
-    sPuppyVolumeStack[gPuppyVolumeCount]->room  = -1;
-    sPuppyVolumeStack[gPuppyVolumeCount]->fov  = 45;
-    sPuppyVolumeStack[gPuppyVolumeCount]->area  = sCurrAreaIndex;
-
-    struct sPuppyAngles *a = mem_pool_alloc(gPuppyMemoryPool, sizeof(struct sPuppyAngles));
-
-    if (a == NULL) {
-        gPuppyError |= PUPPY_ERROR_POOL_FULL;
-#if PUPPYPRINT_DEBUG
-        append_puppyprint_log("Puppycamera volume allocation failed.");
-#endif
-        return;
-    } else {
-        a->pos[0] = CORRECT(vol->camX);
-        a->pos[1] = CORRECT(vol->camY);
-        a->pos[2] = CORRECT(vol->camZ);
-
-        a->focus[0] = CORRECT(vol->lookX);
-        a->focus[1] = CORRECT(vol->lookY);
-        a->focus[2] = CORRECT(vol->lookZ);
-
-        a->yaw = PUPPY_NULL;
-        a->pitch = PUPPY_NULL;
-        a->zoom = PUPPY_NULL;
-
-        sPuppyVolumeStack[gPuppyVolumeCount]->angles = a;
-    }
+//     append_puppyprint_log("Puppycamera RX %d", rx);
+//     append_puppyprint_log("Puppycamera RY %d", ry);
+//     append_puppyprint_log("Puppycamera RZ %d", rz);
+// #endif
 
 
-    gPuppyVolumeCount++;
+
+//     sPuppyVolumeStack[gPuppyVolumeCount]->rot = 0;
+
+//     sPuppyVolumeStack[gPuppyVolumeCount]->func   = vol->func;
+//     assert((sPuppyVolumeStack[gPuppyVolumeCount]->func) != NULL, "wtf");
+//     sPuppyVolumeStack[gPuppyVolumeCount]->angles = NULL;
+
+//     sPuppyVolumeStack[gPuppyVolumeCount]->flagsAdd    = vol->modeset;
+//     sPuppyVolumeStack[gPuppyVolumeCount]->flagsRemove = 0;
+
+//     sPuppyVolumeStack[gPuppyVolumeCount]->flagPersistance = vol->permaswap;
+
+//     sPuppyVolumeStack[gPuppyVolumeCount]->shape = PUPPYVOLUME_SHAPE_BOX; // todo box
+//     sPuppyVolumeStack[gPuppyVolumeCount]->room  = -1;
+//     sPuppyVolumeStack[gPuppyVolumeCount]->fov  = 45;
+//     sPuppyVolumeStack[gPuppyVolumeCount]->area  = sCurrAreaIndex;
+
+//     struct sPuppyAngles *a = mem_pool_alloc(gPuppyMemoryPool, sizeof(struct sPuppyAngles));
+
+//     if (a == NULL) {
+//         gPuppyError |= PUPPY_ERROR_POOL_FULL;
+// #if PUPPYPRINT_DEBUG
+//         append_puppyprint_log("Puppycamera volume allocation failed.");
+// #endif
+//         return;
+//     } else {
+//         a->pos[0] = CORRECT(vol->camX);
+//         a->pos[1] = CORRECT(vol->camY);
+//         a->pos[2] = CORRECT(vol->camZ);
+
+//         a->focus[0] = CORRECT(vol->lookX);
+//         a->focus[1] = CORRECT(vol->lookY);
+//         a->focus[2] = CORRECT(vol->lookZ);
+
+//         a->yaw = PUPPY_NULL;
+//         a->pitch = PUPPY_NULL;
+//         a->zoom = PUPPY_NULL;
+
+//         sPuppyVolumeStack[gPuppyVolumeCount]->angles = a;
+//     }
+
+
+//     gPuppyVolumeCount++;
 
 
     sCurrentCmd = CMD_NEXT;

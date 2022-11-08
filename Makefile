@@ -109,7 +109,7 @@ else ifeq ($(GRUCODE),l3dex2) # Line3DEX2
 else ifeq ($(GRUCODE),f3dex2pl) # Fast3DEX2_PosLight
   DEFINES += F3DEX2PL_GBI=1 F3DEX_GBI_2=1 F3DEX_GBI_SHARED=1
 else ifeq ($(GRUCODE),f3dzex) # Fast3DZEX (2.08J / Animal Forest - Dōbutsu no Mori)
-  DEFINES += F3DZEX_GBI_2=1 F3DEX_GBI_2=1 F3DEX_GBI_SHARED=1
+  DEFINES += F3DZEX_NON_GBI_2=1 F3DEX_GBI_2=1 F3DEX_GBI_SHARED=1
 else ifeq ($(GRUCODE),super3d) # Super3D
   $(warning Super3D is experimental. Try at your own risk.)
   DEFINES += SUPER3D_GBI=1 F3D_NEW=1
@@ -221,21 +221,24 @@ endif
 
 TARGET_STRING := dogcollab
 
+LOADER_FLAGS =
+
 # UNF - whether to use UNFLoader flashcart library
 #   1 - includes code in ROM
-#   0 - does not 
+#   0 - does not
 UNF ?= 0
 $(eval $(call validate-option,UNF,0 1))
 ifeq ($(UNF),1)
   DEFINES += UNF=1
   SRC_DIRS += src/usb
   USE_DEBUG := 1
+  LOADER_FLAGS = -d -r
 endif
 
 # ISVPRINT - whether to fake IS-Viewer presence,
 # allowing for usage of CEN64 (and possibly Project64) to print messages to terminal.
 #   1 - includes code in ROM
-#   0 - does not 
+#   0 - does not
 ISVPRINT ?= 0
 $(eval $(call validate-option,ISVPRINT,0 1))
 ifeq ($(ISVPRINT),1)
@@ -253,7 +256,7 @@ endif
 
 # HVQM - whether to use HVQM fmv library
 #   1 - includes code in ROM
-#   0 - does not 
+#   0 - does not
 HVQM ?= 0
 $(eval $(call validate-option,HVQM,0 1))
 ifeq ($(HVQM),1)
@@ -288,7 +291,7 @@ $(eval $(call validate-option,GZIPVER,std libdef))
 
 # GODDARD - whether to use libgoddard (Mario Head)
 #   1 - includes code in ROM
-#   0 - does not 
+#   0 - does not
 GODDARD ?= 0
 $(eval $(call validate-option,GODDARD,0 1))
 ifeq ($(GODDARD),1)
@@ -513,10 +516,9 @@ else
   RSPASM              := $(TOOLS_DIR)/armips
 endif
 ENDIAN_BITWIDTH       := $(BUILD_DIR)/endian-and-bitwidth
-EMULATOR = mupen64plus
+EMULATOR = wslview
 EMU_FLAGS =
-LOADER = loader64
-LOADER_FLAGS = -vwf
+LOADER = ./UNFLoader.exe
 SHA1SUM = sha1sum
 PRINT = printf
 

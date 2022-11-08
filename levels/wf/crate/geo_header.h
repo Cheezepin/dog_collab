@@ -1,0 +1,10 @@
+extern const GeoLayout crate_geo[];
+extern Lights1 crate_f3dlite_material_lights;
+extern u8 crate_ci4_crate_ci4[];
+extern u8 crate_ci4_crate_ci4_pal_rgba16[];
+extern Vtx crate_000_displaylist_mesh_layer_1_vtx_0[24];
+extern Gfx crate_000_displaylist_mesh_layer_1_tri_0[];
+extern Gfx mat_crate_f3dlite_material[];
+extern Gfx mat_revert_crate_f3dlite_material[];
+extern Gfx crate_000_displaylist_mesh_layer_1[];
+extern Gfx crate_material_revert_render_settings[];

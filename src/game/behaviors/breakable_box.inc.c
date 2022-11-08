@@ -38,6 +38,7 @@ void hidden_breakable_box_actions(void) {
                 o->oHiddenObjectSwitchObj = cur_obj_nearest_object_with_behavior(bhvFloorSwitchHiddenObjects);
             }
             switchObj = o->oHiddenObjectSwitchObj;
+            if(switchObj)
             if ((switchObj != NULL) && (switchObj->oAction == PURPLE_SWITCH_ACT_TICKING)) {
                 o->oAction = BREAKABLE_BOX_ACT_ACTIVE;
                 cur_obj_enable_rendering();
@@ -102,7 +103,7 @@ void bhv_hidden_object_loop(void) {
 
 void bhv_breakable_box_loop(void) {
     obj_set_hitbox(o, &sBreakableBoxHitbox);
-    cur_obj_set_model(MODEL_BREAKABLE_BOX);
+    //cur_obj_set_model(MODEL_BREAKABLE_BOX);
     if (o->oTimer == 0) breakable_box_init();
     if (cur_obj_was_attacked_or_ground_pounded()) {
         obj_explode_and_spawn_coins(46.0f, COIN_TYPE_YELLOW);

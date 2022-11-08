@@ -15,6 +15,7 @@
 
 #include "actors/common0.h"
 #include "actors/common1.h"
+#include "actors/group0.h"
 
 #include "make_const_nonconst.h"
 #include "levels/intro/header.h"
@@ -35,13 +36,17 @@ const LevelScript level_intro_splash_screen[] = {
     LOAD_LEVEL_DATA(intro),
 #if defined(FLOOMBAS) && defined(INTRO_FLOOMBAS)
     LOAD_COMMON0(),
+    LOAD_GROUP0(),
 
     // Load "Super Mario 64" logo
     ALLOC_LEVEL_POOL(),
     LOAD_MODEL_FROM_GEO(MODEL_GOOMBA, goomba_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_EXCLAMATION_BOX, exclamation_box_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_DOG, dog_geo),
     AREA(/*index*/ 1, intro_geo_splash_screen),
-        OBJECT(/*model*/ MODEL_GOOMBA, /*pos*/ -570, -480, 1500, /*angle*/ 0,  50, 0, /*behParam*/ BP(0x18, 0x00, 0x10, 0x0B), /*beh*/ bhvFloombaStartup),
-        OBJECT(/*model*/ MODEL_GOOMBA, /*pos*/  570, -480, 1500, /*angle*/ 0, -50, 0, /*behParam*/ BP(0x18, 0x00, 0x90, 0x0B), /*beh*/ bhvFloombaStartup),
+        // OBJECT(/*model*/ MODEL_GOOMBA, /*pos*/ -570, -540, 1500, /*angle*/ 0,  50, 0, /*behParam*/ BP(0x18, 0x00, 0x10, 0x0B), /*beh*/ bhvFloombaStartup),
+        // OBJECT(/*model*/ MODEL_GOOMBA, /*pos*/  570, -540, 1500, /*angle*/ 0, -50, 0, /*behParam*/ BP(0x18, 0x00, 0x90, 0x0B), /*beh*/ bhvFloombaStartup),
+        OBJECT(/*model*/ MODEL_DOG, /*pos*/ 0, -75, 2625, /*angle*/ 10, 0, 0, /*behParam*/ BP(0x18, 0x00, 0x10, 0x0B), /*beh*/ bhvDogStartup),
     END_AREA(),
     FREE_LEVEL_POOL(),
 

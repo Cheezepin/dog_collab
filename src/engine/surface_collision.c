@@ -590,6 +590,9 @@ f32 find_room_floor(f32 x, f32 y, f32 z, struct Surface **pfloor) {
     return find_floor(x, y, z, pfloor);
 }
 
+f32 sClosestWaterBottomAboveY = CELL_HEIGHT_LIMIT;
+f32 sClosestWaterBottomBelowY = FLOOR_LOWER_LIMIT - 1;
+
 /**
  * Iterate through the list of water floors and find the first water bottom under a given point.
  */
@@ -599,6 +602,7 @@ f32 find_water_bottom_from_list(struct SurfaceNode *surfaceNode, s32 x, s32 y, s
     f32 bottomHeight = FLOOR_LOWER_LIMIT;
     f32 topBottomHeight = FLOOR_LOWER_LIMIT;
     s16 bottomForce = 0;
+    s32 setForce = sClosestWaterBottomBelowY < FLOOR_LOWER_LIMIT;
 
     // Iterate through the list of water floors until there are no more water floors.
     while (bottomSurfaceNode != NULL) {
@@ -607,26 +611,32 @@ f32 find_water_bottom_from_list(struct SurfaceNode *surfaceNode, s32 x, s32 y, s
         surf = bottomSurfaceNode->surface;
         bottomSurfaceNode = bottomSurfaceNode->next;
 
-        if (surf->type != SURFACE_NEW_WATER_BOTTOM || !check_within_floor_triangle_bounds(x, z, surf)) continue;
+        if (surf->type != SURFACE_NEW_WATER_BOTTOM || !check_within_bounds_y_norm(x, z, surf)) continue;
 
         curBottomHeight = get_floor_height_at_location(x, z, surf);
 
         if (curBottomHeight < y + 78.0f) {
-            if (curBottomHeight > topBottomHeight) {
-                topBottomHeight = curBottomHeight;
+            if (curBottomHeight > sClosestWaterBottomBelowY) {
+                sClosestWaterBottomBelowY = curBottomHeight;
                 bottomForce = surf->force;
+                setForce = TRUE;
             }
             continue;
         }
-        if (curBottomHeight >= y + 78.0f) bottomHeight = curBottomHeight;
+        if (
+            curBottomHeight >= y + 78.0f
+            && curBottomHeight < sClosestWaterBottomAboveY
+        ) {
+            sClosestWaterBottomAboveY = curBottomHeight;
+        }
     }
 
-    if (gCheckingWaterForMario) {
-        gMarioState->waterBottomHeight = topBottomHeight;
+    if (gCheckingWaterForMario && setForce) {
+        gMarioState->waterBottomHeight = sClosestWaterBottomBelowY;
         gMarioState->waterBottomParam = bottomForce;
     }
 
-    return bottomHeight;
+    return sClosestWaterBottomAboveY;
 }
 
 /**
@@ -639,15 +649,16 @@ struct Surface *find_water_floor_from_list(struct SurfaceNode *surfaceNode, s32 
     struct SurfaceNode *topSurfaceNode = surfaceNode;
 
     f32 height = FLOOR_LOWER_LIMIT;
-    f32 bottomHeight = find_water_bottom_from_list(surfaceNode, x, y, z);
+    f32 bottomHeight = sClosestWaterBottomAboveY;
 
     // Iterate through the list of water tops until there are no more water tops.
+    s32 i = 0;
     while (topSurfaceNode != NULL) {
         f32 curHeight = FLOOR_LOWER_LIMIT;
         surf = topSurfaceNode->surface;
         topSurfaceNode = topSurfaceNode->next;
 
-        if (surf->type == SURFACE_NEW_WATER_BOTTOM || !check_within_floor_triangle_bounds(x, z, surf)) continue;
+        if (surf->type == SURFACE_NEW_WATER_BOTTOM || !check_within_bounds_y_norm(x, z, surf)) continue;
 
         curHeight = get_floor_height_at_location(x, z, surf);
 
@@ -658,6 +669,7 @@ struct Surface *find_water_floor_from_list(struct SurfaceNode *surfaceNode, s32 
             *pheight = curHeight;
             floor = surf;
         }
+        i++;
     }
 
     return floor;
@@ -671,7 +683,8 @@ f32 find_water_floor(s32 xPos, s32 yPos, s32 zPos, struct Surface **pfloor) {
 
     struct Surface *floor = NULL;
     struct Surface *dynamicFloor = NULL;
-    struct SurfaceNode *surfaceList;
+    struct SurfaceNode *surfaceListDyn;
+    struct SurfaceNode *surfaceListStatic;
 
     f32 height = FLOOR_LOWER_LIMIT;
     f32 dynamicHeight = FLOOR_LOWER_LIMIT;
@@ -686,13 +699,20 @@ f32 find_water_floor(s32 xPos, s32 yPos, s32 zPos, struct Surface **pfloor) {
     cellX = GET_CELL_COORD(x);
     cellZ = GET_CELL_COORD(z);
 
-    // Check for surfaces belonging to objects.
-    surfaceList = gDynamicSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
-    dynamicFloor = find_water_floor_from_list(surfaceList, x, y, z, &dynamicHeight);
+    sClosestWaterBottomAboveY = CELL_HEIGHT_LIMIT;
+    sClosestWaterBottomBelowY = FLOOR_LOWER_LIMIT - 1;
 
-    // Check for surfaces that are a part of level geometry.
-    surfaceList = gStaticSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
-    floor       = find_water_floor_from_list(surfaceList, x, y, z, &height);
+    surfaceListDyn = gDynamicSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
+    surfaceListStatic = gStaticSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
+
+    find_water_bottom_from_list(surfaceListDyn, x, y, z);
+    find_water_bottom_from_list(surfaceListStatic, x, y, z);
+
+    surfaceListDyn = gDynamicSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
+    surfaceListStatic = gStaticSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
+
+    dynamicFloor = find_water_floor_from_list(surfaceListDyn, x, y, z, &dynamicHeight);
+    floor       = find_water_floor_from_list(surfaceListStatic, x, y, z, &height);
 
     if (dynamicHeight > height) {
         floor = dynamicFloor;

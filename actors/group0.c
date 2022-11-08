@@ -76,3 +76,8 @@
 #include "koopatrol/model.inc.c"
 #include "koopatrol/anims/data.inc.c"
 #include "koopatrol/anims/table.inc.c"
+#include "chain_chomp_bowser/model.inc.c"
+#include "chain_ball_bowser/model.inc.c"
+#include "chain_chomp_bowser/anims/data.inc.c"
+#include "chain_chomp_bowser/anims/table.inc.c"
+#include "lightningbolt/model.inc.c"

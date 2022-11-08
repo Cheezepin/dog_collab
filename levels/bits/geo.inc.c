@@ -4,3 +4,4 @@
 #include "levels/bits/area_4/geo.inc.c"
 #include "levels/bits/area_5/geo.inc.c"
 #include "levels/bits/area_6/geo.inc.c"
+#include "levels/bits/area_7/geo.inc.c"

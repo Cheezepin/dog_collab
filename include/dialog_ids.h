@@ -245,7 +245,8 @@ enum DialogId {
     CHEEZE_DIALOG_4,
     CHEEZE_DIALOG_5,
     CHEEZE_DIALOG_6,
-    
+    CHEEZE_DIALOG_7,
+
     DIALOG_COUNT
 };
 

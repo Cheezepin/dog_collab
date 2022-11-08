@@ -1,3 +1,4 @@
+#include "levels/bitdw/rainbow_star/texscroll.inc.h"
 #include "levels/bitdw/sphere/texscroll.inc.h"
 #include "levels/bitdw/rainbow_chain/texscroll.inc.h"
 #include "levels/bitdw/texscroll.inc.h"

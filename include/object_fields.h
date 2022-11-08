@@ -322,6 +322,7 @@
 #define /*0x0F4*/ oBowserStatus          OBJECT_FIELD_S32(0x1B)
 #define /*0x0F8*/ oBowserTimer           OBJECT_FIELD_S32(0x1C)
 #define /*0x0FC*/ oBowserDistToCenter    OBJECT_FIELD_F32(0x1D)
+#define /*0x100*/ oBowserCCObj           OBJECT_FIELD_OBJ(0x1E)
 #define /*0x106*/ oBowserBitsJustJump    OBJECT_FIELD_S16(0x1F, 1)
 #define /*0x108*/ oBowserRandSplitFloor  OBJECT_FIELD_S16(0x20, 0)
 #define /*0x10A*/ oBowserHeldAnglePitch  OBJECT_FIELD_S16(0x20, 1)
@@ -417,8 +418,11 @@
 #define /*0x108*/ oChainChompRestrictedByChain            OBJECT_FIELD_S32(0x20)
 #define /*0x10C*/ oChainChompTargetPitch                  OBJECT_FIELD_S32(0x21)
 #define /*0x110*/ oChainChompNumLunges                    OBJECT_FIELD_S32(0x22)
-#define /*0x1AC*/ oChainChompReleaseStatus                OBJECT_FIELD_S32(0x49)
 #define /*0x1B0*/ oChainChompHitGate                      OBJECT_FIELD_S32(0x4A)
+#define /*0x1AC*/ oChainChompReleaseStatus                OBJECT_FIELD_S32(0x49)
+#define /*0x1B0*/ oChainChompSubAction                    OBJECT_FIELD_S32(0x23)
+#define /*0x1B0*/ oChainChompHeat                         OBJECT_FIELD_S32(0x4A)
+#define /*0x1B0*/ oChainChompHeated                       OBJECT_FIELD_S32(0x48)
 
 /* Checkerboard Platform */
 #define /*0x0F8*/ oCheckerBoardPlatformRotateAction OBJECT_FIELD_S32(0x1C) // oAction like
@@ -1209,7 +1213,7 @@
 #define /*0x1AC*/ oWaterRingAvgScale               OBJECT_FIELD_F32(0x49)
 
 /* Water Ring Spawner (Jet Stream Ring Spawner and Manta Ray) */
-#define /*0x1AC*/ oWaterRingSpawnerRingsCollected OBJECT_FIELD_S32(0x49)
+#define /*0x1AC*/ oWaterRingSpawnerRingsCollected OBJECT_FIELD_S32(0x48)
 
 /* Water Ring Manager (Jet Stream Ring Spawner and Manta Ray Ring Manager) */
 #define /*0x0F4*/ oWaterRingMgrNextRingIndex     OBJECT_FIELD_S32(0x1B)
@@ -1260,6 +1264,7 @@
 #define /*0x100*/ oYoshiTargetYaw  OBJECT_FIELD_S32(0x1E)
 
 #define /*0x0F4*/ oGaloombaGrabbed                        OBJECT_FIELD_S32(0x1B)
+#define /*0x0F4*/ oGaloombaSquishTimer                        OBJECT_FIELD_S32(0x1C)
 #define /*0x0F4*/ oSpawnerTopOffset      OBJECT_FIELD_F32(0x1B)
 #define /*0x094*/ oShotDelay                  OBJECT_FIELD_S32(0x03)    // overwrites oUnk94
 #define /*0x0BC*/ oMaxShotDelay               OBJECT_FIELD_S32(0x0D)    // overwrites oUnkBC
@@ -1343,8 +1348,13 @@
 
 #define oWaterSpoutBobTimer                 OBJECT_FIELD_S32(0x1B)
 #define oWaterSpoutFloatyRock               OBJECT_FIELD_OBJ(0x1C)
-#define oWaterSpoutBottom                   OBJECT_FIELD_F32(0x1D)
+#define oWaterSpoutBottom                   OBJECT_FIELD_F32(0x1D) 
+#define oWaterSpoutActive                   OBJECT_FIELD_S32(0x1E)
+#define oWaterSpoutEndHome                  OBJECT_FIELD_F32(0x1F) 
+#define oWaterSpoutIsHome                   OBJECT_FIELD_S32(0x20) 
 
+#define oRainCloudRoom                      OBJECT_FIELD_S16(0x4, 0)
+#define oRainCloudMarioInRoom               OBJECT_FIELD_S16(0x4, 1)
 #define oRainCloudScaleVel                  OBJECT_FIELD_F32(0x1B)
 #define oRainCloudMarioIsStandingOnCloud    OBJECT_FIELD_S32(0x1C)
 #define oRainCloudPreservedMomentum         OBJECT_FIELD_F32(0x1D)
@@ -1357,6 +1367,20 @@
 
 #define oBubbleShellScaleVel                OBJECT_FIELD_F32(0x1B)
 #define oBubbleShellObj                     OBJECT_FIELD_OBJ(0x1C)
+
+#define oWaterSwitchActivated               OBJECT_FIELD_S32(0x1B)
+#define oWaterSwitchOffset                  OBJECT_FIELD_F32(0x1C)
+#define oWaterSwitchOffsetVel               OBJECT_FIELD_F32(0x1D)
+#define oWaterSwitchActiveState             OBJECT_FIELD_U32(0x1E)
+
+#define oWaterAtGoal                        OBJECT_FIELD_S32(0x1B)
+#define oWaterBobTimer                      OBJECT_FIELD_S32(0x1C)
+
+#define oWaterTopY                          OBJECT_FIELD_F32(0x1B)
+
+#define oWarpPadNext                        OBJECT_FIELD_OBJ(0x1B)
+#define oWarpPadActive                      OBJECT_FIELD_S32(0x1C)
+#define oWarpPadWarpOpa                     OBJECT_FIELD_S32(0x1D)
 // thecozies end
 
 /*Custom general defines:

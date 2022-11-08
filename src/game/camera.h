@@ -43,6 +43,7 @@
 
 
 #define AREA_BBH                LEVEL_AREA_INDEX(LEVEL_BBH, 1)
+#define AREA_BBH_2              LEVEL_AREA_INDEX(LEVEL_BBH, 2)
 #define AREA_CCM_OUTSIDE        LEVEL_AREA_INDEX(LEVEL_CCM, 1)
 #define AREA_CCM_SLIDE          LEVEL_AREA_INDEX(LEVEL_CCM, 2)
 #define AREA_CASTLE_LOBBY       LEVEL_AREA_INDEX(LEVEL_CASTLE, 1)
@@ -176,12 +177,13 @@ enum CameraFlags {
 };
 
 enum CameraStatus {
-    CAM_STATUS_NONE   = (0 << 0), // 0x00
-    CAM_STATUS_MARIO  = (1 << 0), // 0x01
-    CAM_STATUS_LAKITU = (1 << 1), // 0x02
-    CAM_STATUS_FIXED  = (1 << 2), // 0x04
-    CAM_STATUS_C_DOWN = (1 << 3), // 0x08
-    CAM_STATUS_C_UP   = (1 << 4), // 0x10
+    CAM_STATUS_NONE    =  (0 << 0), // 0x00
+    CAM_STATUS_MARIO   =  (1 << 0), // 0x01
+    CAM_STATUS_LAKITU  =  (1 << 1), // 0x02
+    CAM_STATUS_FIXED   =  (1 << 2), // 0x04
+    CAM_STATUS_C_DOWN  =  (1 << 3), // 0x08
+    CAM_STATUS_C_UP    =  (1 << 4), // 0x10
+    CAM_STATUS_HALLWAY =  (1 << 5), // 0x20
 
     CAM_STATUS_MODE_GROUP   = (CAM_STATUS_MARIO | CAM_STATUS_LAKITU | CAM_STATUS_FIXED),
     CAM_STATUS_C_MODE_GROUP = (CAM_STATUS_C_DOWN | CAM_STATUS_C_UP),
@@ -289,6 +291,9 @@ enum Cutscenes {
     CUTSCENE_SNOW_HILL,
     CUTSCENE_INTRO,
     CUTSCENE_2639FINALCUTSCENE,
+    CUTSCENE_SNOW_BOWSER_INTRO,
+    // thecozies
+    CUTSCENE_COZIES_ACTIVATE_SWITCH
 };
 
 /**
@@ -331,7 +336,8 @@ enum CameraFov {
     CAM_FOV_APP_30,
     CAM_FOV_APP_60,
     CAM_FOV_ZOOM_30,
-    CAM_FOV_SET_29
+    CAM_FOV_SET_29,
+    CAM_FOV_APP_MISC,
 };
 
 enum CameraEvent {
@@ -483,19 +489,6 @@ struct CameraFOVStatus {
 };
 
 /**
- * Information for a control point in a spline segment.
- */
-struct CutsceneSplinePoint {
-    /* The index of this point in the spline. Ignored except for -1, which ends the spline.
-       An index of -1 should come four points after the start of the last segment. */
-    s8 index;
-    /* Roughly controls the number of frames it takes to progress through the spline segment.
-       See move_point_along_spline() in camera.c */
-    u8 speed;
-    Vec3s point;
-};
-
-/**
  * Struct containing the nearest floor and ceiling to the player, as well as the previous floor and
  * ceiling. It also stores their distances from the player's position.
  */
@@ -577,6 +570,12 @@ struct CutsceneVariable {
     s16 unused2;
 };
 
+typedef struct CozyCutscenePosFocusFov {
+    Vec3f pos;
+    Vec3f focus;
+    f32 fov;
+} CozyCutscenePosFocusFov;
+
 /**
  * The main camera struct. Gets updated by the active camera mode and the current level/area. In
  * update_lakitu, its pos and focus are used to calculate lakitu's next position and focus, which are
@@ -611,6 +610,23 @@ struct Camera {
     /// The y coordinate of the "center" of the area. Unlike areaCenX and areaCenZ, this is only used
     /// when paused. See zoom_out_if_paused_and_outside
     /*0x68*/ f32 areaCenY;
+    u8 collisionEnabled;
+    u8 hitCollision;
+    // (direction of the camera from the perpendicular point)
+    // -1 == left, 0 == no col / center, 1 == right
+    s8 wallDir;
+    s16 colSurfYaw;
+    // thecozies: my level has volumes and i track whether or not you're in them
+    CozyVol *curVolume;
+    u8 cozyVolId;
+    // thecozies: spline tracking
+    s8 splineDir; // -1 / 1
+    u8 splineLen; // length of spline
+    // thecozies: first view when starting an act
+    Vec3f init_view_pos;
+    Vec3f init_view_focus;
+    f32 init_view_fov;
+    f32 init_view_timer;
 };
 
 /**
@@ -704,6 +720,7 @@ struct LakituState {
     /// Mario's action from the previous frame. Only used to determine if Mario just finished a dive.
     /*0xB8*/ u32 lastFrameAction;
     /*0xBC*/ s16 unused;
+    u16 timeSinceManualRot;
 };
 
 // BSS
@@ -825,6 +842,7 @@ void clamp_pitch(Vec3f from, Vec3f to, s16 maxPitch, s16 minPitch);
 s32 is_within_100_units_of_mario(f32 posX, f32 posY, f32 posZ);
 s32 set_or_approach_f32_asymptotic(f32 *dst, f32 goal, f32 scale);
 void approach_vec3f_asymptotic(Vec3f current, Vec3f target, f32 xMul, f32 yMul, f32 zMul);
+void lerp_vec3f(Vec3f current, Vec3f target, f32 fac);
 void set_or_approach_vec3f_asymptotic(Vec3f dst, Vec3f goal, f32 xMul, f32 yMul, f32 zMul);
 s32 camera_approach_s16_symmetric_bool(s16 *current, s16 target, s16 increment);
 s32 set_or_approach_s16_symmetric(s16 *current, s16 target, s16 increment);
@@ -886,6 +904,7 @@ void set_fov_function(u8 func);
 void cutscene_set_fov_shake_preset(u8 preset);
 void set_fov_shake_from_point_preset(u8 preset, f32 posX, f32 posY, f32 posZ);
 void obj_rotate_towards_point(struct Object *obj, Vec3f point, s16 pitchOff, s16 yawOff, s16 pitchDiv, s16 yawDiv);
+void start_cozies_switch_cutscene(u8 switchId);
 
 Gfx *geo_camera_fov(s32 callContext, struct GraphNode *g, UNUSED void *context);
 

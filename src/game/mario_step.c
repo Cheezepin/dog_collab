@@ -11,6 +11,8 @@
 #include "mario_step.h"
 #include "behavior_data.h"
 #include "level_update.h"
+#include "level_table.h"
+#include "area.h"
 
 #include "config.h"
 
@@ -469,6 +471,10 @@ s32 bonk_or_hit_lava_wall(struct MarioState *m, struct WallCollisionData *wallDa
                 m->wall = wallData->walls[i];
                 return AIR_STEP_HIT_SHOCK_WALL;
             }
+            if (wallData->walls[i]->type == SURFACE_HURT_FLOOR_WITH_HEIGHT) {
+                set_mario_wall(m, wallData->walls[i]);
+                return AIR_STEP_HIT_HURT_WALL;
+            }
 
             // Update wall reference (bonked wall) only if the new wall has a better facing angle
             wallDYaw = abs_angle_diff(SURFACE_YAW(wallData->walls[i]), m->faceAngle[1]);
@@ -698,7 +704,7 @@ void apply_vertical_wind(struct MarioState *m) {
     if (m->action != ACT_GROUND_POUND) {
         f32 offsetY = m->pos[1] /*- -1500.0f*/;
 
-        if (m->floor->type == SURFACE_VERTICAL_WIND && 7500.0f < offsetY /*&& offsetY < 2000.0f*/) {
+        if (m->floor->type == SURFACE_VERTICAL_WIND && ((gCurrLevelNum == LEVEL_BITFS && 7500.0f < offsetY) || (gCurrLevelNum == LEVEL_BITS && 16000.0f > offsetY)) /*&& offsetY < 2000.0f*/) {
             // if (offsetY >= 0.0f) {
             //     maxVelY = 10000.0f / (offsetY + 200.0f);
             // } else {
