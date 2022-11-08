@@ -325,15 +325,15 @@ ALIGNED8 static const Texture texture_hud_char_beta_key[] = {
 #endif
 
 ALIGNED8 static const Texture texture_credits_char_0[] = {
-#include "textures/segment2/CUSTOM_credits_0.rgba16.inc.c"
+#include "textures/segment2/custom_credits_0.rgba16.inc.c"
 };
 
 ALIGNED8 static const Texture texture_credits_char_1[] = {
-#include "textures/segment2/CUSTOM_credits_1.rgba16.inc.c"
+#include "textures/segment2/custom_credits_1.rgba16.inc.c"
 };
 
 ALIGNED8 static const Texture texture_credits_char_2[] = {
-#include "textures/segment2/CUSTOM_credits_2.rgba16.inc.c"
+#include "textures/segment2/custom_credits_2.rgba16.inc.c"
 };
 
 ALIGNED8 static const Texture texture_credits_char_3[] = {
@@ -345,7 +345,7 @@ ALIGNED8 static const Texture texture_credits_char_4[] = {
 };
 
 ALIGNED8 static const Texture texture_credits_char_5[] = {
-#include "textures/segment2/CUSTOM_credits_5.rgba16.inc.c"
+#include "textures/segment2/custom_credits_5.rgba16.inc.c"
 };
 
 ALIGNED8 static const Texture texture_credits_char_6[] = {
@@ -353,7 +353,11 @@ ALIGNED8 static const Texture texture_credits_char_6[] = {
 };
 
 ALIGNED8 static const Texture texture_credits_char_9[] = {
-#include "textures/segment2/CUSTOM_credits_9.rgba16.inc.c"
+#include "textures/segment2/custom_credits_9.rgba16.inc.c"
+};
+
+ALIGNED8 static const Texture texture_credits_char_apostrophe[] = {
+#include "textures/segment2/custom_credits_apostrophe.rgba16.inc.c"
 };
 
 ALIGNED8 static const Texture texture_credits_char_A[] = {
@@ -2194,16 +2198,16 @@ const Texture *const main_font_lut[] = {
 
 // credits font LUT 0x02008738-0x020087CB
 const Texture *const main_credits_font_lut[] = {
-                       0x0,                    0x0,                    0x0, texture_credits_char_3,
+    texture_credits_char_0, texture_credits_char_1, texture_credits_char_2, texture_credits_char_3,
     texture_credits_char_4,                    0x0, texture_credits_char_6,                    0x0,
-                       0x0,                    0x0, texture_credits_char_A, texture_credits_char_B,
+                       0x0, texture_credits_char_9, texture_credits_char_A, texture_credits_char_B,
     texture_credits_char_C, texture_credits_char_D, texture_credits_char_E, texture_credits_char_F,
     texture_credits_char_G, texture_credits_char_H, texture_credits_char_I, texture_credits_char_J,
     texture_credits_char_K, texture_credits_char_L, texture_credits_char_M, texture_credits_char_N,
     texture_credits_char_O, texture_credits_char_P, texture_credits_char_Q, texture_credits_char_R,
     texture_credits_char_S, texture_credits_char_T, texture_credits_char_U, texture_credits_char_V,
     texture_credits_char_W, texture_credits_char_X, texture_credits_char_Y, texture_credits_char_Z,
-    texture_credits_char_period,
+    texture_credits_char_period, texture_credits_char_apostrophe,
 };
 
 // HUD camera table 0x020087CC-0x020087E3

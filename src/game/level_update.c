@@ -71,7 +71,7 @@ const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "IDK" };
 const char *credits09[] = { "4AWE-INSPIRING SPIRES", "MUSIC", "KEYBLADER", "METEOR HERD SA2" };
 // ...3D animators and additional graphics in order to make room for screen text writer(s), Mario voice, and Peach voice
 const char *credits10[] = { "4BOWSER'S RAINBOW RINGS", "MUSIC", "ANUNIDENTIFIEDEMU", "BOWSER STAGE SM64" };
-const char *credits11[] = { "4FEUDAL FORTRESS", "MUSIC", "COWQUACK", "IDK" };
+const char *credits11[] = { "4FEUDAL FORTRESS", "MUSIC", "YOSHI MILKMAN", "IDK" };
 const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "IDK" };
 const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "IDK" };
 const char *credits14[] = { "5SCREEN TEXT WRITER", "ENGLISH TRANSLATION", "LESLIE SWAN", "MINA AKINO", "HIRO YAMADA" };

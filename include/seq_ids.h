@@ -60,12 +60,12 @@ enum SeqId {
     SEQ_OVERWORLD,                    // 0x2F
     SEQ_TRAINING,                     // 0x30
     SEQ_CUSTOM_MUSIC2639,             // 0x31
-    SEQ_METEOR_HERD,                  // 0x31
     SEQ_WATERSONG_REGGAE,                  // 0x32
     SEQ_ROUTE_47,                  // 0x33
     SEQ_COMIT_FACILITY,               // 0x34
     SEQ_COZIES,                  // 0x35
-    SEQ_CREDITS,
+    SEQ_CREDITS,                // 0x36
+    SEQ_METEOR_HERD,                  // 0x37
     SEQ_COUNT
 };
 
