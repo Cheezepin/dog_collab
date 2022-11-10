@@ -2874,27 +2874,29 @@ void render_hub_star_select(s32 cringeTimer) {
     if(visibleStars > 6) {visibleStars = 6;}
     centerX = 160.0f - (((f32)(visibleStars - 1))*25.0f);
 
-    if(gDirectionsHeld & JOYSTICK_LEFT) {
-        u8 oS = selectedStar;
-        u8 j = 0;
-        selectedStar--;
-        while(j == 0 && selectedStar >= 0) {
-           if((stars & (1 << selectedStar)) || selectedStar == lastSelectableNotCompletedStar) {j = 1;}
-           else {selectedStar--;}
+    if (!gWarpTransition.isActive) {
+        if(gDirectionsHeld & JOYSTICK_LEFT) {
+            u8 oS = selectedStar;
+            u8 j = 0;
+            selectedStar--;
+            while(j == 0 && selectedStar >= 0) {
+               if((stars & (1 << selectedStar)) || selectedStar == lastSelectableNotCompletedStar) {j = 1;}
+               else {selectedStar--;}
+            }
+            if(selectedStar < 0) {selectedStar = visibleStars - 1;}
+            if(oS != selectedStar) rotVal = 0;
         }
-        if(selectedStar < 0) {selectedStar = visibleStars - 1;}
-        if(oS != selectedStar) rotVal = 0;
-    }
-    if(gDirectionsHeld & JOYSTICK_RIGHT) {
-        u8 oS = selectedStar;
-        u8 j = 0;
-        selectedStar++;
-        while(j == 0 && selectedStar <= visibleStars - 1) {
-           if((stars & (1 << selectedStar)) || selectedStar == lastSelectableNotCompletedStar) {j = 1;}
-           else {selectedStar++;}
+        if(gDirectionsHeld & JOYSTICK_RIGHT) {
+            u8 oS = selectedStar;
+            u8 j = 0;
+            selectedStar++;
+            while(j == 0 && selectedStar <= visibleStars - 1) {
+               if((stars & (1 << selectedStar)) || selectedStar == lastSelectableNotCompletedStar) {j = 1;}
+               else {selectedStar++;}
+            }
+            if(selectedStar > visibleStars - 1) {selectedStar = 0;}
+            if(oS != selectedStar) rotVal = 0;
         }
-        if(selectedStar > visibleStars - 1) {selectedStar = 0;}
-        if(oS != selectedStar) rotVal = 0;
     }
 
     gCurrActNum = gDialogCourseActNum = selectedStar + 1;
