@@ -806,7 +806,7 @@ u32 interact_water_ring(struct MarioState *m, UNUSED u32 interactType, struct Ob
     obj->oInteractStatus = INT_STATUS_INTERACTED;
     return FALSE;
 }
-
+#include "debug.h"
 u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
     u32 starIndex;
     u32 starGrabAction = ACT_STAR_DANCE_EXIT;
@@ -870,6 +870,11 @@ u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct O
 #else
         starIndex = (obj->oBehParams >> 24) & 0x1F;
 #endif
+
+        static char ff[50];
+        sprintf(ff, "your star is: damn star %d", starIndex);
+        assert(starIndex != 0, ff);
+
         save_file_collect_star_or_key(m->numCoins, starIndex);
 
         m->numStars =
