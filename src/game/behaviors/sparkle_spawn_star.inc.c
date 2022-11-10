@@ -132,14 +132,16 @@ void vec3f_set_dist_and_angle(Vec3f from, Vec3f to, f32 dist, Angle32 pitch, Ang
 // }
 
 void bhv_spawn_star_get_outta_here(u32 params) {
-    struct Object *starObj = spawn_object(o, MODEL_STAR, bhvSpawnedStar);
+    Vec3f newPos;
+    vec3f_set_dist_and_angle(&gCurrentObject->oPosX, newPos, 200.0f, 200.0f, gCurrentObject->oMoveAngleYaw);
+    struct Object *starObj = NULL;
+    starObj = spawn_star(starObj, newPos[0], newPos[1] + 100, newPos[2]);
     starObj->oBehParams = params << 24;
     starObj->parentObj = gCurrentObject;
 
     // if (params == 6) {
     //     vec3f_copy(&starObj->oPosX, gMarioState->pos);
     // } else {
-    vec3f_set_dist_and_angle(&gCurrentObject->oPosX, &starObj->oPosX, 200.0f, 200.0f, gCurrentObject->oMoveAngleYaw);
     // }
 
     // starObj->oInteractionSubtype = INT_SUBTYPE_NO_EXIT;

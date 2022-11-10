@@ -2,6 +2,7 @@
 void bhv_2639A4DrainScrew_init(void) {
 	o->oAction = 0;
 }
+
 void bhv_2639A4DrainScrew_loop(void) {
 
 	if (o->oAction == 1) {

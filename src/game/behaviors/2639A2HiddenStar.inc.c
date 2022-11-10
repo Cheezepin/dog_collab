@@ -14,6 +14,7 @@ void bhv_2639A2HiddenStar_init(void) {
 }
 void spawn_cutscene_star_get_outta_here(u32 bp, f32 x, f32 y, f32 z);
 void bhv_2639A2HiddenStar_loop(void) {
+    u32 myBP = gCurrActNum - 1;
     switch (o->oAction) {
         case 0:
             if (o->oHiddenStarTriggerCounter == 5)
@@ -23,7 +24,7 @@ void bhv_2639A2HiddenStar_loop(void) {
         case 1:
             if (o->oTimer > 2) {
                 spawn_cutscene_star_get_outta_here(
-                    STAR_BP_ACT_2,
+                    myBP,
                     o->oPosX,
                     o->oPosY,
                     o->oPosZ
