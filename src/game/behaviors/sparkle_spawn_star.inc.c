@@ -136,7 +136,11 @@ void bhv_spawn_star_get_outta_here(u32 params) {
     starObj->oBehParams = params << 24;
     starObj->parentObj = gCurrentObject;
 
+    // if (params == 6) {
+    //     vec3f_copy(&starObj->oPosX, gMarioState->pos);
+    // } else {
     vec3f_set_dist_and_angle(&gCurrentObject->oPosX, &starObj->oPosX, 200.0f, 200.0f, gCurrentObject->oMoveAngleYaw);
+    // }
 
     // starObj->oInteractionSubtype = INT_SUBTYPE_NO_EXIT;
     obj_set_angle(starObj, 0, 0, 0);

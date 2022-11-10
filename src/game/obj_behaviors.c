@@ -581,6 +581,7 @@ void MakeCoinWithModel(struct Object *obj, s8 nCoins, ModelID32 mdl) {
     }
 }
 
+
 void LaunchObject(struct Object *obj, void *behav, ModelID32 mdl) {
     struct Object *myObject;
 

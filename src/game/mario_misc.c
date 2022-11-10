@@ -173,7 +173,7 @@ static void toad_message_talking(void) {
                 if (_2639_BoB_A1_CaneCollected &&
                     _2639_BoB_A1_SunglassesCollected
                 ) {
-                    bhv_spawn_star_get_outta_here(0);
+                    bhv_spawn_star_get_outta_here(STAR_BP_ACT_1);
                 }
                 break;
         }
@@ -201,7 +201,7 @@ void bhv_toad_message_loop(void) {
 
     if (sodaObj != NULL && gCurrActNum == ACT_PARTY) {
         if (dist_between_objects(o, sodaObj) < 300) {
-            bhv_spawn_star_get_outta_here(2);
+            bhv_spawn_star_get_outta_here(STAR_BP_ACT_3);
             obj_mark_for_deletion(sodaObj);
         }
     }

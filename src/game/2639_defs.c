@@ -192,6 +192,12 @@ void setallch(u32 vol) {
     }
 }
 
+void challenge_music() {
+    for (int i = 0; i < 16; i++) {
+        fadech(i, BASEVOL);
+    }
+    fadech(KIDSHOW_STAGE2, 0);
+}
 
 void outside_music() {
     setallch(0);
@@ -286,10 +292,14 @@ enum CStates2639 {
 
 void stop_the_cutscene(struct Camera *c){
      c->cutscene = 0;
+     gCamera->cutscene = 0;
      gCutsceneTimer = CUTSCENE_STOP;
 
-     set_mario_action(gMarioState, gMarioState->heldObj ? 
-                ACT_HOLD_IDLE : ACT_IDLE, 0);
+     // if (gMarioState->heldObj) {
+
+    set_mario_action(gMarioState, ACT_IDLE, 0);
+     // set_mario_action(gMarioState, gMarioState->prevAction, 0);
+     // if (gMarioState->action != )
 }
 
 void do2639cutscene(struct Camera *c) {
@@ -299,7 +309,7 @@ void do2639cutscene(struct Camera *c) {
     float dogdist;
     #define APPROACH_SPD 3.0f
     struct Object *dog = cNearestObj_Bhv(bhvDogfloor3, &dogdist);
-    cutscene_event(stop_the_cutscene, c, 300, 300);
+    cutscene_event(stop_the_cutscene, c, 300, -1);
 
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
     switch (state) {
@@ -332,14 +342,20 @@ void do2639cutscene(struct Camera *c) {
             break;
         }
         case 3: {
-            
+            bhv_spawn_star_get_outta_here(6);
+            state++;
             // cutscene_event(cutscene_intro_peach_clear_cutscene_status, c, 717, 717);
         }
         case 4: {
 
         }
     }
-    char dbg[50];
-    sprintf(dbg, "FF %d", state);
-    print_text(50, 50, dbg);
+    // char dbg[50];
+    // sprintf(dbg, "FF %d", state);
+    // print_text(50, 50, dbg);
+}
+
+void jewel_2639loop() {
+    cur_obj_move_standard(78);
+    // print_text(50, 50, "SUPER FUCKING MARIO");
 }

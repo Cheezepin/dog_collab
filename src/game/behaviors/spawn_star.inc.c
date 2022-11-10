@@ -135,6 +135,10 @@ void spawn_default_star(f32 x, f32 y, f32 z) {
     struct Object *starObj = NULL;
     starObj = spawn_star(starObj, x, y, z);
     starObj->oBehParams2ndByte = SPAWN_STAR_ARC_CUTSCENE_BP_DEFAULT_STAR;
+
+    if (in2639Level() && gCurrActNum == 4) {
+        starObj->oBehParams2ndByte = STAR_BP_ACT_4;
+    }
 }
 
 void spawn_clown_star(f32 x, f32 y, f32 z) {

@@ -17,6 +17,7 @@
 #include "engine/math_util.h"
 #include "puppycam2.h"
 #include "puppyprint.h"
+#include "2639_defs.h"
 
 #include "config.h"
 
@@ -495,9 +496,9 @@ void hud_2639Challenge(void) {
         total_count = count_coins();
     }
 
-    sprintf(str_str, "%d left!", 123 - gMarioState->numCoins);
-    print_text(50, 50, str_str);
-    print_text(50, 80, "Collect them all!");
+    sprintf(str_str, "%d left!", _2639COINCOUNT - gMarioState->numCoins);
+    print_text(5, 10, str_str);
+    print_text(5, 30, "Collect them all!");
 }
 
 /**

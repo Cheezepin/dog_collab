@@ -5,6 +5,9 @@ void bhv_2639PC2_TargetObj_init(void) {
 
 void bhv_2639PC2_TargetObj_loop(void) {
 	switch (gCurrAreaIndex) {
+		case 0:
+			challenge_music();
+			break;
 		case 1:
 			outside_music();
 			break;

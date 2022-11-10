@@ -739,11 +739,16 @@ static void level_cmd_show_dialog(void) {
     }
     sCurrentCmd = CMD_NEXT;
 }
-
+#include "seq_ids.h"
 static void level_cmd_set_music(void) {
     if (sCurrAreaIndex != -1) {
-        gAreas[sCurrAreaIndex].musicParam = CMD_GET(s16, 2);
-        gAreas[sCurrAreaIndex].musicParam2 = CMD_GET(s16, 4);
+        if ((CMD_GET(s16, 4) == SEQ_CUSTOM_MUSIC2639) && gIsConsole) {
+            gAreas[sCurrAreaIndex].musicParam = CMD_GET(s16, 2);
+            gAreas[sCurrAreaIndex].musicParam2 = SEQ_CUSTOM_MUSIC2639; // TODO: change to leaner music
+        } else {
+            gAreas[sCurrAreaIndex].musicParam = CMD_GET(s16, 2);
+            gAreas[sCurrAreaIndex].musicParam2 = CMD_GET(s16, 4);
+        }
     }
     sCurrentCmd = CMD_NEXT;
 }

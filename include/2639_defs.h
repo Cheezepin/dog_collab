@@ -9,7 +9,7 @@ void StarXYZ(u32 bparam, f32 targetX, f32 targetY, f32 targetZ);
 #define NC_SPLINE_NOTURN 0x01 //Won't change direction at all.
 #define NC_SPLINE_FOLLOW 0x02 //Will face the direction of a second spline.
 #define NC_SPLINE_FOLLOWMARIO 0x03 // looks at mario
-
+#define _2639COINCOUNT 123
 enum ActNames2639 {
     ACT_0 = 0,
     ACT_LOBBYSCAVENGER,

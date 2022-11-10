@@ -42,17 +42,17 @@ void dog_FollowMario(void) {
         o->oForwardVel = 0.0f;
     }
     // zoom to mario
-    if ((o->oPosY + 50.0f < m->pos[1]) && m->action & (ACT_FLAG_STATIONARY | ACT_FLAG_MOVING)) {
-        o->oPosX = approach_f32(o->oPosX, m->pos[0], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
-        o->oPosY = approach_f32(o->oPosY, m->pos[1], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
-        o->oPosZ = approach_f32(o->oPosZ, m->pos[2], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+    // if ((o->oPosY + 50.0f < m->pos[1]) && m->action & (ACT_FLAG_STATIONARY | ACT_FLAG_MOVING)) {
+    //     // o->oPosX = approach_f32(o->oPosX, m->pos[0], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+    //     // o->oPosY = approach_f32(o->oPosY, m->pos[1], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+    //     // o->oPosZ = approach_f32(o->oPosZ, m->pos[2], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
         
-        if (colFlags & OBJ_COL_FLAG_HIT_WALL) {
-            o->oPosX = m->pos[0];
-            o->oPosY = m->pos[1];
-            o->oPosZ = m->pos[2];
-        }
-    }
+    //     if (colFlags & OBJ_COL_FLAG_HIT_WALL) {
+    //         o->oPosX = m->pos[0];
+    //         o->oPosY = m->pos[1];
+    //         o->oPosZ = m->pos[2];
+    //     }
+    // }
 }
 
 

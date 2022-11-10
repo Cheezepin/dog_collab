@@ -1,5 +1,6 @@
 #include <PR/ultratypes.h>
 
+#include "2639_defs.h"
 #include "area.h"
 #include "actors/common1.h"
 #include "audio/external.h"
@@ -776,8 +777,8 @@ u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *
 #ifdef X_COIN_STAR
     if (in2639Level()) {
          if (COURSE_IS_MAIN_COURSE(gCurrCourseNum)
-         && m->numCoins - obj->oDamageOrCoinValue < 123
-         && m->numCoins >= 123
+         && m->numCoins - obj->oDamageOrCoinValue < _2639COINCOUNT
+         && m->numCoins >= _2639COINCOUNT
         ) {
             bhv_spawn_star_get_outta_here(STAR_BP_ACT_100_COINS);
         }
