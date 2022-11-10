@@ -871,9 +871,9 @@ u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct O
         starIndex = (obj->oBehParams >> 24) & 0x1F;
 #endif
 
-        static char ff[50];
-        sprintf(ff, "your star is: damn star %d", starIndex);
-        assert(starIndex != 0, ff);
+        // static char ff[50];
+        // sprintf(ff, "your star is: damn star %d", starIndex);
+        // assert(starIndex != 0, ff);
 
         save_file_collect_star_or_key(m->numCoins, starIndex);
 
