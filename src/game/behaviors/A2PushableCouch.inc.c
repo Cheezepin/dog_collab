@@ -39,21 +39,20 @@ f32 CouchXZDistSq(Vec3f x, Vec3f y) {
 
 void bhv_A2PushableCouch_loop(void) {
     o->oForwardVel = 0;
-    if (gCurrActNum == 6) {
-        return;
-    }
 
 	if (o->o2639SecretActivated) {
 		return;
 	}
 
-    struct Object *goddardObj = cur_obj_nearest_object_with_behavior(bhvDogfloor1);
-    if (goddardObj) {
-        if (CouchXZDistSq(&o->oPosX, &goddardObj->oPosX) < 2500 && goddardObj->oAction == 2) {
-            goddardObj->o2639DogBitten = 1;
-            obj_explode_and_spawn_coins(46.0f, 0);
-            create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
-            o->o2639SecretActivated = 1;
+    if (gCurrActNum != 6) {
+        struct Object *goddardObj = cur_obj_nearest_object_with_behavior(bhvDogfloor1);
+        if (goddardObj) {
+            if (CouchXZDistSq(&o->oPosX, &goddardObj->oPosX) < 2500 && goddardObj->oAction == 2) {
+                goddardObj->o2639DogBitten = 1;
+                obj_explode_and_spawn_coins(46.0f, 0);
+                create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
+                o->o2639SecretActivated = 1;
+            }
         }
     }
 
@@ -70,7 +69,7 @@ void bhv_A2PushableCouch_loop(void) {
             if (check_if_moving_over_floor(8.0f, 150.0f)) {
                 o->oForwardVel = 4.0f;
                 o->o2639PushDist += 4;
-				if (o->o2639PushDist >= 200) {
+				if (o->o2639PushDist >= 200 && gCurrActNum != 6) {
 					o->o2639SecretActivated = 1;
 					// spawn secret at mairo
                     makeSecret();

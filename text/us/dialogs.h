@@ -2076,10 +2076,12 @@ Enter within...)")
 
 // ACT 1
 
-DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 4, 30, 200, "\n\
-Hey you!\n\
-No pets allowed!\n\
-")
+DEFINE_DIALOG(_2639DIAG_A1LobbyToadGreeter, 1, 5, 30, 200,\
+R"(Hey you!
+No pets allowed!
+Either it's a
+service animal, or
+leave it outside!)")
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyNPCSuggester, 1, 6, 30, 200, R"(Mario! I was
 looking for you!
@@ -2087,9 +2089,8 @@ I see you brought your
 dog, but that angry
 @FF0000FFFront Desk Toad@--------
 isn't having any of it!
-But maybe there's a
-loophole in the law
-you could exploit?
+But I have just the
+idea!
 You're totally allowed
 to bring in
 service animals,
@@ -2103,10 +2104,12 @@ buried here the other
 day. If your dog acts
 up, try ground
 pounding the spot.
-Talk to the
+Look around and @bd4200FFread
+some signs@--------, maybe
+you'll find them too.
+And talk to the
 @FF0000FFFront Desk Toad@-------- after
-you find them.
-Maybe he'll budge then.)")
+you do.)")
 
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyToadStarGranter, 1, 4, 30, 200, R"(Hey you!
