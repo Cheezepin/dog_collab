@@ -56,7 +56,7 @@ const GeoLayout bob_area_2[] = {
 		GEO_OPEN_NODE(),
 			GEO_CAMERA_FRUSTUM_WITH_FUNC(45.0000, 100, 30000, geo_camera_fov),
 			GEO_OPEN_NODE(),
-				GEO_CAMERA(CAMERA_MODE_RADIAL, -419, 2484, -2154, -419, 3484, -2154, geo_camera_main),
+				GEO_CAMERA(CAMERA_MODE_8_DIRECTIONS, 22833, 0, 0, 22833, -100, 0, geo_camera_main),
 				GEO_OPEN_NODE(),
 					GEO_BRANCH(1, bob_area_2_geo),
 					GEO_RENDER_OBJ(),

@@ -2168,6 +2168,12 @@ just punch it lmao
 (make sure you're
 standing still))")
 
+DEFINE_DIALOG(_2639DIAG_A3RoomVendingMachineInstructionsNew, 1, 3, 30, 200, \
+R"(This vending
+machine is:
+out of service.)")
+
+
 
 DEFINE_DIALOG(_2639DIAG_A3RoomToadGibSoda, 1, 4, 30, 200, \
 R"(Heeeey, Mario!
@@ -2281,20 +2287,24 @@ R"(What? The @34ebe1FFJewel
 or whatever@-------- is gone?
 I didn't see
 anyone suspicious,
-but I can give you
-this pH meter in
-case it fell
-into some body of
-water...)")
+but my pool's @e951fcFFpH
+meter@-------- just fell
+into the pool.
+You can have that if
+it helps.)")
 // PARTY TOAD
 DEFINE_DIALOG(_2639DIAG_A6PentToad3, 1, 3, 30, 200, \
 R"(A @34ebe1FFJewel or whatever@--------?
 Never even heard of it.
-I could give you the
-pump to this
-bouncehouse though,
+But,
 since the party just
-about ended.)")
+about ended,
+you could help me
+clean up and send
+the @f5740aFFpump for my
+bouncehouse@-------- to
+the lobby. It's over
+there in the back.)")
 // SIGN toad
 DEFINE_DIALOG(_2639DIAG_A6PentToad4, 1, 3, 30, 200, \
 R"((Pretend this is
@@ -2304,7 +2314,9 @@ couches was kind of
 hard on my own, so
 I brought a rope with
 me to even the load.
-Maybe it works for you.)")
+But I can't find it, so
+look under a couch or
+something.)")
 // SPORTS TOAD
 DEFINE_DIALOG(_2639DIAG_A6PentToad5, 1, 3, 30, 200, \
 R"(Weren't you just
@@ -2316,9 +2328,9 @@ havent seen this
 But I can give you
 a comically large
 beach ball, just
-in case. Now go
-back up and talk
-to the receptionist.)")
+in case. Head into
+the field and go grab
+it.)")
 
 // LOBBY TOAD AGAIN
 

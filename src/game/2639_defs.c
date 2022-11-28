@@ -107,8 +107,6 @@ void Scavenger_DropGoods(struct Object *parent, u32 ID) {
     // };
     if (ID == 10) {
         LaunchObject(o, bhv2639FinalPresent, _models[ID]);
-    } else {
-        MakeCoinWithModel(o, 1, _models[ID]);
     }
 
 }
