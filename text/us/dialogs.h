@@ -2375,6 +2375,9 @@ DEFINE_DIALOG(_2639DIAG_A6PentToad7, 1, 3, 30, 200, \
 R"(Well, whaddaya know?
 Your stupid dog had it
 the whole time!
+It's right there, on
+its collar!
+
 Now that you
 technically found
 the @34ebe1FFJewel or whatever@--------,
