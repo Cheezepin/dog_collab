@@ -107,6 +107,7 @@ u8 sDialogSpeaker[900] = {
     /*18*/ _,     _,     _,     _,     _,     _,     _,
     // the cozies: putting some extra blank spots in here to i can compile
     _, _, _, _, _, _, _, _, _, _,
+    [_2639DIAG_LEVELINTRO ... _2639DIAG_A6PentToad7] = _,
 };
 #undef _
 // STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
