@@ -157,9 +157,6 @@ static void toad_message_talking(void) {
                 o->oToadMessageDialogId = TOAD_STAR_3_DIALOG_AFTER;
                 bhv_spawn_star_no_level_exit(STAR_BP_ACT_3);
                 break;
-            // case _2639DIAG_A3RoomToadGibSoda:
-            //     o->oToadMessageDialogId = _2639DIAG_A3RoomToadSodaFailure;
-            //     break;
 
             case _2639DIAG_A6PentToad2 ... _2639DIAG_A6PentToad5:
                 Scavenger_DropGoods(o, o->oToadMessageDialogId - _2639DIAG_A6PentToad2);
@@ -196,13 +193,37 @@ static void toad_message_fading(void) {
 }
 
 void bhv_toad_message_loop(void) {
-
+    #define o2639PushDist OBJECT_FIELD_S32(0x1B)
+    #define o2639SecretActivated OBJECT_FIELD_S32(0x1C)
+    #define o2639DogBitten OBJECT_FIELD_S32(0x1C)
     struct Object *sodaObj = cur_obj_nearest_object_with_behavior(bhv2639soda);
+    struct Object *goddardObj = cur_obj_nearest_object_with_behavior(bhvDogfloor1);
+    struct Object *hiddenStar = cur_obj_nearest_object_with_behavior(bhv2639a2hiddenstar);
 
     if (sodaObj != NULL && gCurrActNum == ACT_PARTY) {
         if (dist_between_objects(o, sodaObj) < 300) {
             bhv_spawn_star_get_outta_here(STAR_BP_ACT_3);
             obj_mark_for_deletion(sodaObj);
+        }
+    }
+
+    #define o gCurrentObject
+    if (o->oToadMessageDialogId == _2639DIAG_A2RoomPeachGreeter) {
+        if (goddardObj->o2639DogBitten == 1) {
+            o->oToadMessageDialogId = _2639DIAG_A2RoomPeachFailure;
+            o->oToadMessageState = TOAD_MESSAGE_TALKING;
+        }
+        if (hiddenStar->oHiddenStarTriggerCounter == 5) {
+            o->oToadMessageDialogId = _2639DIAG_A2RoomPeachSuccess;
+        }
+
+    }
+
+    if (o->oToadMessageDialogId == _2639DIAG_A2RoomPeachFailure) {
+        if (o->oToadMessageState != TOAD_MESSAGE_TALKING && o->oToadYelled == 0) {
+            warp_mario(gMarioState, 12, 0xF1);
+            o->oToadYelled = 1;
+            o->oToadMessageDialogId = _2639DIAG_A2RoomPeachGreeter;
         }
     }
 
@@ -335,11 +356,16 @@ void bhv_toad_message_init(void) {
 
     s32 dialogId = 0;
     if (in2639Level()) {
+        o->oDrawingDistance = 20000.f;
+        o->oCollisionDistance = 20000.f;
         dialogId = o->oBehParams >> 16;
     } else {
         dialogId = GET_BPARAM1(o->oBehParams);
     }
     s32 enoughStars = TRUE;
+
+    o->oToadYelled = 0;
+
 
     switch (dialogId) {
         case TOAD_STAR_1_DIALOG:

@@ -2153,6 +2153,14 @@ running towards a
 tasty couch, run
 into them and stop it!)")
 
+DEFINE_DIALOG(_2639DIAG_A2RoomPeachFailure, 1, 4, 30, 200, \
+R"(What did I just tell
+you? You're paying for
+those couches!)")
+
+DEFINE_DIALOG(_2639DIAG_A2RoomPeachSuccess, 1, 4, 30, 200, \
+R"(Awesome!)")
+
 // ACT 3
 
 DEFINE_DIALOG(_2639DIAG_A3LobbyToadGreeter, 1, 3, 30, 200, \

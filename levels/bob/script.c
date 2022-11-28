@@ -90,7 +90,7 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(1, LEVEL_BOB, 2, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_DOG, 2726, -2592, 4711, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
-		OBJECT(MODEL_NONE, -476, -2125, -3381, 0, 0, 0, (0x70 << 24) | (01 << 16), bhvWarp),
+		OBJECT(MODEL_NONE, -476, -2125, -3381, 0, 0, 0, (0x30 << 24) | (01 << 16), bhvWarp),
 		OBJECT(MODEL_NONE, -4600, 4981, -1710, 0, 0, 0, 0x00000000, bhv2639_DRM),
 		OBJECT(MODEL_NONE, -2086, -2124, -436, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
 		OBJECT(MODEL_2639TURNSTILE, -404, -1727, -1747, 0, 0, 0, 0x00000000, bhvEntranceturnstile),

@@ -215,6 +215,8 @@ enum DialogId {
 
     _2639DIAG_A2LobbyToadGreeter,
     _2639DIAG_A2RoomPeachGreeter,
+    _2639DIAG_A2RoomPeachFailure,
+    _2639DIAG_A2RoomPeachSuccess,
 
     _2639DIAG_A3LobbyToadGreeter,
     _2639DIAG_A3RoomVendingMachineInstructions,

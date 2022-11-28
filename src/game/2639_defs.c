@@ -122,6 +122,19 @@ am_i_stupid() {
     *(vs8*)0=0;
 }
 
+void warp_mario(struct MarioState *m, u8 timer, u8 node) {
+    extern s16 sDelayedWarpTimer;
+    extern s16 sSourceWarpNodeId;
+    #define WARP_OP_WARP_OBJECT 4
+    extern s16 sDelayedWarpOp;
+    sDelayedWarpTimer = timer;
+    sSourceWarpNodeId = node;
+    sDelayedWarpOp = WARP_OP_WARP_OBJECT;
+    play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x16,
+        0xFF, 0, 0
+    );
+}
+
 void CDebug(struct Camera *c) {
     char pstr[50];
     char fstr[50];
