@@ -744,8 +744,7 @@ static void level_cmd_set_music(void) {
     if (sCurrAreaIndex != -1) {
         if ((CMD_GET(s16, 4) == SEQ_CUSTOM_MUSIC2639) && gIsConsole) {
             gAreas[sCurrAreaIndex].musicParam = CMD_GET(s16, 2);
-            gAreas[sCurrAreaIndex].musicParam2 = SEQ_CUSTOM_MUSIC2639; // TODO: change to leaner music
-            // gAreas[sCurrAreaIndex].musicParam2 = 0; // TODO: change to leaner music
+            gAreas[sCurrAreaIndex].musicParam2 = SEQ_STREAMED_MUSIC2639LIGHT;
         } else {
             gAreas[sCurrAreaIndex].musicParam = CMD_GET(s16, 2);
             gAreas[sCurrAreaIndex].musicParam2 = CMD_GET(s16, 4);
