@@ -10,6 +10,10 @@ extern const GeoLayout bitfs_area_1[];
 extern const Collision bitfs_area_1_collision[];
 extern const u8 bitfs_area_1_collision_rooms[];
 extern const MacroObject bitfs_area_1_macro_objs[];
+#include "src/game/camera.h"
+
+extern struct CutsceneSplinePoint bitfs_area_1_spline_focus[];
+extern struct CutsceneSplinePoint bitfs_area_1_spline_pos[];
 extern Lights1 bitfs_dl_snow_001_lights;
 extern Lights1 bitfs_dl_dirt_lights;
 extern Lights1 bitfs_dl_darksnow_lights;

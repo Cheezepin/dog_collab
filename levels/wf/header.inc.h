@@ -5,6 +5,10 @@ extern const GeoLayout wf_area_1[];
 extern const Collision wf_area_1_collision[];
 extern const u8 wf_area_1_collision_rooms[];
 extern const MacroObject wf_area_1_macro_objs[];
+#include "src/game/camera.h"
+
+extern struct CutsceneSplinePoint wf_area_1_spline_focus[];
+extern struct CutsceneSplinePoint wf_area_1_spline_pos[];
 extern const Trajectory wf_area_1_spline_ktq[];
 extern const GeoLayout wf_area_2_geo[];
 extern const GeoLayout wf_area_2[];
