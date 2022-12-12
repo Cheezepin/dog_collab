@@ -32,4 +32,7 @@ const struct Animation *const bowser_seg6_anims_06057690[] = {
     &bowser_anim_brake_start,
     &bowser_anim_brake_end,
     &bowser_anim_fall,
+	&bowser_anim_whirl_pickup,
+	&bowser_anim_whirl_throw,
+	NULL,
 };

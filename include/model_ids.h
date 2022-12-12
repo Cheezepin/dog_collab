@@ -740,6 +740,11 @@ enum _2639Models {
 #define MODEL_CHEEZE_BOMB_WALL2 0x182
 #define MODEL_CHEEZE_LIGHTNING  0x183
 
+#define MODEL_DOG_LASER        0x3F
+#define MODEL_B3_BRIDGE        0x3E
+#define MODEL_LASER_GLOW       0x3D
+#define MODEL_DOG_ARROW        0x3C
+
 //end cheeze model ids
 
 //YO BITCHES YA BOY FAZ

@@ -317,11 +317,13 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_LEVEL_FEUDAL_CASTLE
     70,  // SEQ_OVERWORLD
     70,  // SEQ_TRAINING
-    70,  // SEQ_METEOR_HERD
+    70,  // SEQ_CUSTOM_16CH_STEREO
     70,  // SEQ_WATERSONG_REGGAE
     70,  // SEQ_ROUTE_47
     70,  // SEQ_COMIT_FACILITY
-    100,  // SEQ_COZIES
+    70,  // SEQ_COZIES
+    70,  // SEQ_CREDITS
+    70,  // SEQ_METEOR_HERD
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,

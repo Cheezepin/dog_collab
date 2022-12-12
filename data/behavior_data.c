@@ -56,6 +56,7 @@
 #include "levels/wf/header.h"
 #include "levels/bowser_1/header.h"
 #include "levels/bowser_2/header.h"
+#include "levels/bowser_3/header.h"
 #include "levels/ttm/header.h"
 #include "levels/ccm/header.h"
 
@@ -5484,10 +5485,10 @@ const BehaviorScript bhvFloomba[] = {
 #ifdef INTRO_FLOOMBAS
 const BehaviorScript bhvFloombaStartup[] = {
     BEGIN(OBJ_LIST_PUSHABLE),
+    LOAD_ANIMATIONS(oAnimations, goomba_seg8_anims_0801DA4C),
     SET_INT(oIsFloomba, TRUE),
     SET_INT(oAction, FLOOMBA_ACT_STARTUP),
     OR_INT(oFlags, OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    LOAD_ANIMATIONS(oAnimations, goomba_seg8_anims_0801DA4C),
     SET_HOME(),
     CALL_NATIVE(bhv_goomba_init),
     SET_FLOAT(oDrawingDistance, 30000),
@@ -5495,6 +5496,21 @@ const BehaviorScript bhvFloombaStartup[] = {
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 0, /*Gravity*/ 0, /*Bounciness*/ 0, /*Drag strength*/ 1000, /*Friction*/ 1000, /*Buoyancy*/ 0, /*Unused*/ 0, 0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_goomba_update),
+    END_LOOP(),
+};
+
+#define DOG_ANIM_BARK 7
+const BehaviorScript bhvDogStartup[] = {
+    BEGIN(OBJ_LIST_PUSHABLE),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    OR_INT(oFlags, OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_HOME(),
+    ANIMATE(DOG_ANIM_BARK),
+    CALL_NATIVE(bhv_intro_object_init),
+    SET_FLOAT(oDrawingDistance, 30000),
+    SET_INT(oIntangibleTimer, -1),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_intro_object_loop),
     END_LOOP(),
 };
 #endif
@@ -8134,6 +8150,49 @@ const BehaviorScript bhvCheezeSkiDog[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvB3Dog[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    LOAD_ANIMATIONS(oAnimations, dog_anims),
+    SET_INT(oInteractType, INTERACT_GRABBABLE),
+    DROP_TO_FLOOR(),
+    SET_HITBOX(/*Radius*/ 50, /*Height*/ 40),
+    ANIMATE(0),
+    SCALE(0, 50),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_b3_dog_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvDogLaser[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    BEGIN_LOOP(),
+        SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_dog_laser_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvB3Bridge[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    LOAD_COLLISION_DATA(b3_bridge_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+        CALL_NATIVE(bhv_b3_bridge_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvLaserGlow[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    BILLBOARD(),
+    DELAY(1),
+    DEACTIVATE(),
+};
+
 const BehaviorScript bhvKoopatrol[] = {
     BEGIN(OBJ_LIST_PUSHABLE),
     OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
@@ -8276,6 +8335,17 @@ const BehaviorScript bhvCheezeLightning[] = {
     CALL_NATIVE(bhv_cheeze_lightning_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_cheeze_lightning_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvPeachEnding[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oOpacity, 255),
+    LOAD_ANIMATIONS(oAnimations, peach_seg5_anims_0501C41C),
+    ANIMATE(9),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_peach_ending_loop),
     END_LOOP(),
 };
 

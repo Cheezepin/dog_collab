@@ -445,10 +445,14 @@ void exit_score_file_to_score_menu(struct Object *scoreFileButton, s8 scoreButto
 }
 
 static const Vec3s sSaveFileButtonPositions[] = {
-    {  711, 311, -100 }, // SAVE_FILE_A
+/*     {  711, 311, -100 }, // SAVE_FILE_A
     { -166, 311, -100 }, // SAVE_FILE_B
     {  711,   0, -100 }, // SAVE_FILE_C
-    { -166,   0, -100 }, // SAVE_FILE_D
+    { -166,   0, -100 }, // SAVE_FILE_D */
+     { 705, 430, 0 }, // SAVE_FILE_A
+     { 705, 200, 0 }, // SAVE_FILE_B
+     { 705, -30, 0 }, // SAVE_FILE_C
+     { 705, -260, 0 }, // SAVE_FILE_D
 };
 
 #define SPAWN_FILE_SELECT_FILE_BUTTON(parent, saveFile)                                                 \
@@ -483,17 +487,17 @@ void render_score_menu_buttons(struct Object *scoreButton) {
     // Return to main menu button
     sMainMenuButtons[MENU_BUTTON_SCORE_RETURN] =
         spawn_object_rel_with_rot(scoreButton, MODEL_MAIN_MENU_YELLOW_FILE_BUTTON,
-                                  bhvMenuButton,  711, -388, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton,  711, -450, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_SCORE_RETURN]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to copy menu button
     sMainMenuButtons[MENU_BUTTON_SCORE_COPY_FILE] =
         spawn_object_rel_with_rot(scoreButton, MODEL_MAIN_MENU_BLUE_COPY_BUTTON,
-                                  bhvMenuButton,    0, -388, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton,    0, -450, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_SCORE_COPY_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to erase menu button
     sMainMenuButtons[MENU_BUTTON_SCORE_ERASE_FILE] =
         spawn_object_rel_with_rot(scoreButton, MODEL_MAIN_MENU_RED_ERASE_BUTTON,
-                                  bhvMenuButton, -711, -388, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton, -711, -450, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_SCORE_ERASE_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
 }
 
@@ -860,7 +864,7 @@ void render_sound_mode_menu_buttons(struct Object *soundModeButton) {
     sMainMenuButtons[MENU_BUTTON_MONO]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Headset option button
     sMainMenuButtons[MENU_BUTTON_HEADSET] = spawn_object_rel_with_rot(
-        soundModeButton, MODEL_MAIN_MENU_GENERIC_BUTTON, bhvMenuButton, -533, SOUND_BUTTON_Y, -100, 0x0, -0x8000, 0x0);
+       soundModeButton, MODEL_MAIN_MENU_GENERIC_BUTTON, bhvMenuButton, -533, SOUND_BUTTON_Y, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_HEADSET]->oMenuButtonScale = MENU_BUTTON_SCALE;
 
 #if MULTILANG
@@ -1101,7 +1105,7 @@ void bhv_menu_button_manager_init(void) {
     // Sound mode menu button (Option Mode in EU)
     sMainMenuButtons[MENU_BUTTON_SOUND_MODE] =
         spawn_object_rel_with_rot(o, MODEL_MAIN_MENU_PURPLE_SOUND_BUTTON,
-                                  bhvMenuButton,  6400, -4500, 0, 0x0, 0x0, 0x0);
+                                  bhvMenuButton,  6400, -45000, 0, 0x0, 0x0, 0x0);
     sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oMenuButtonScale = 1.0f;
 
     sTextBaseAlpha = 0;
@@ -1458,7 +1462,7 @@ void print_main_menu_strings(void) {
     print_generic_string(COPY_X, 26, textCopy);
     print_generic_string(ERASE_X, 26, textErase);
     sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
-    print_generic_string(sSoundTextX, 26, textSoundModes[sSoundMode]);
+    //print_generic_string(sSoundTextX, 26, textSoundModes[sSoundMode]);
 
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
     for(i = 0; i < 4; i++) {
@@ -1515,7 +1519,7 @@ void score_menu_display_message(s8 messageID) {
 
     switch (messageID) {
         case SCORE_MSG_CHECK_FILE:
-            print_hud_lut_string_fade(HUD_LUT_DIFF, CHECK_FILE_X, 35, LANGUAGE_ARRAY(textCheckFile));
+            print_hud_lut_string_fade(HUD_LUT_DIFF, CHECK_FILE_X, 30, LANGUAGE_ARRAY(textCheckFile));
             break;
         case SCORE_MSG_NOSAVE_DATA:
             print_generic_string_fade(NOSAVE_DATA_X1, 190, LANGUAGE_ARRAY(textNoSavedDataExists));
@@ -1533,6 +1537,9 @@ void score_menu_display_message(s8 messageID) {
  * Prints score menu strings that shows on the green background menu screen.
  */
 void print_score_menu_strings(void) {
+    u8 x, y, i, j;
+    u8 dogString[DOG_STRING_LENGTH + 9] = "Mario & ";
+    u8 *string;
 
     // Update and print the message at the top of the menu.
     if (sMainMenuTimer == FADEOUT_TIMER) {
@@ -1551,10 +1558,10 @@ void print_score_menu_strings(void) {
     // Print file star counts
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_save_file_star_count(SAVE_FILE_A, 90, 76);
-    print_save_file_star_count(SAVE_FILE_B, 211, 76);
-    print_save_file_star_count(SAVE_FILE_C, 90, 119);
-    print_save_file_star_count(SAVE_FILE_D, 211, 119);
+    print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 62);
+    print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X1, 92);
+    print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 122);
+    print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X1, 152);
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
 
     // Print menu names
@@ -1563,16 +1570,40 @@ void print_score_menu_strings(void) {
     print_generic_string(RETURN_X, 35, LANGUAGE_ARRAY(textReturn));
     print_generic_string(COPYFILE_X1, 35, LANGUAGE_ARRAY(textCopyFileButton));
     print_generic_string(ERASEFILE_X1, 35, LANGUAGE_ARRAY(textEraseFileButton));
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
-
-    // Print file names
-    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_menu_generic_string(89, 62, textMarioA);
-    print_menu_generic_string(211, 62, textMarioB);
-    print_menu_generic_string(89, 105, textMarioC);
-    print_menu_generic_string(211, 105, textMarioD);
-    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
+    for(i = 0; i < 4; i++) {
+        switch(i) {
+            case 0:
+                x = MARIOTEXT_X1;
+                y = 52;
+                string = &textMarioA;
+                break;
+            case 1:
+                x = MARIOTEXT_X1;
+                y = 82;
+                string = &textMarioB;
+                break;
+            case 2:
+                x = MARIOTEXT_X1;
+                y = 112;
+                string = &textMarioC;
+                break;
+            case 3:
+                x = MARIOTEXT_X1;
+                y = 142;
+                string = &textMarioD;
+                break;
+        }
+        if(save_file_exists(i)) {
+            for(j = 0; j < DOG_STRING_LENGTH; j++) {
+                dogString[8 + j] = save_file_get_dog_string(i, j);
+            }
+            string = &dogString;
+        }
+        print_generic_string(x, 228 - y, string);
+    }
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 }
 
 #define NOFILE_COPY_X  119
@@ -2049,6 +2080,10 @@ void print_score_file_star_score(s8 fileIndex, s16 courseIndex, s16 x, s16 y) {
 /**
  * Prints save file score strings that shows when a save file is chosen inside the score menu.
  */
+u8 reverseCoursesFixed[] = {
+    10, 4, 0, 1, 3, 2, 7, 6, 5, 8,
+};
+
 void print_save_file_scores(s8 fileIndex) {
     u32 i;
     unsigned char textMario[] = { TEXT_MARIO };
@@ -2072,10 +2107,11 @@ void print_save_file_scores(s8 fileIndex) {
     gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
 
-    for ((i = 0); (i < COURSE_STAGES_MAX); (i++)) {
-        print_menu_generic_string((LEVEL_NAME_X + ((i < 9) * LEVEL_NUM_PAD)), (23 + (12 * (i + 1))), segmented_to_virtual(levelNameTable[i]));
-        print_score_file_star_score(              fileIndex, i, STAR_SCORE_X, (23 + (12 * (i + 1))));
-        print_score_file_course_coin_score(       fileIndex, i,          213, (23 + (12 * (i + 1))));
+    for ((i = 0); (i < 10); (i++)) {
+        u8 j = reverseCoursesFixed[i];
+        print_menu_generic_string((LEVEL_NAME_X + ((i < 10) * LEVEL_NUM_PAD)), (23 + (12 * (i + 1))), segmented_to_virtual(levelNameTable[j]));
+        print_score_file_star_score(              fileIndex, j, STAR_SCORE_X + 40, (23 + (12 * (i + 1))));
+        // print_score_file_course_coin_score(       fileIndex, j,          213, (23 + (12 * (i + 1))));
     }
 
     // Print castle secret stars text
@@ -2086,9 +2122,9 @@ void print_save_file_scores(s8 fileIndex) {
 
     // Print current coin score mode
     if (sScoreFileCoinScoreMode == 0) {
-        print_menu_generic_string(MYSCORE_X, 24, LANGUAGE_ARRAY(textMyScore));
+        // print_menu_generic_string(MYSCORE_X, 24, LANGUAGE_ARRAY(textMyScore));
     } else {
-        print_menu_generic_string(HISCORE_X, 24, LANGUAGE_ARRAY(textHiScore));
+        // print_menu_generic_string(HISCORE_X, 24, LANGUAGE_ARRAY(textHiScore));
     }
 
     gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);

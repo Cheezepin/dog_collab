@@ -510,6 +510,9 @@ enum oBobombBuddyHasTalkedToMarioStates {
     #define BOWSER_ANIM_UNK1                                0x1C
     #define BOWSER_ANIM_SNOWBOARD_BRAKE_START               0x1D
     #define BOWSER_ANIM_SNOWBOARD_BRAKE_STOP                0x1E
+    #define BOWSER_ANIM_UNK2                                0x1F
+    #define BOWSER_ANIM_WHIRL_PICKUP                        0x20
+    #define BOWSER_ANIM_WHIRL_THROW                         0x21
     /* oBowserCamAct */
     #define BOWSER_CAM_ACT_IDLE                             0x0
     #define BOWSER_CAM_ACT_WALK                             0x1
@@ -1601,6 +1604,8 @@ enum animIDsSwoop {
     #define CHAIN_CHOMP_SUB_ACT_LUNGE                       0x1
     #define CHAIN_CHOMP_SUB_ACT_JUMP                        0x2
     #define CHAIN_CHOMP_SUB_ACT_CHARGE                      0x3
+    #define CHAIN_CHOMP_SUB_ACT_WHIRL                       0x4
+    #define CHAIN_CHOMP_SUB_ACT_BURNED                      0x5
     /* oChainChompReleaseStatus */
     #define CHAIN_CHOMP_NOT_RELEASED                        0x0
     #define CHAIN_CHOMP_RELEASED_TRIGGER_CUTSCENE           0x1

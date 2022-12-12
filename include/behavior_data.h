@@ -477,6 +477,7 @@ extern const BehaviorScript bhvGoombaTripletSpawner[];
 extern const BehaviorScript bhvFloomba[];
 #ifdef INTRO_FLOOMBAS
 extern const BehaviorScript bhvFloombaStartup[];
+extern const BehaviorScript bhvDogStartup[];
 #endif
 extern const BehaviorScript bhvFloombaTripletSpawner[];
 #endif
@@ -739,6 +740,11 @@ extern const BehaviorScript bhvChainChompBowser[];
 extern const BehaviorScript bhvChainChompChainPartBowser[];
 extern const BehaviorScript bhvNothing[];
 extern const BehaviorScript bhvCheezeLightning[];
+extern const BehaviorScript bhvB3Dog[];
+extern const BehaviorScript bhvDogLaser[];
+extern const BehaviorScript bhvB3Bridge[];
+extern const BehaviorScript bhvLaserGlow[];
+extern const BehaviorScript bhvPeachEnding[];
 //cheeze bhv ends
 
 //Koopa Atoll Objects

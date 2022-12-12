@@ -107,6 +107,12 @@ void bhv_goomba_triplet_spawner_update(void) {
 /**
  * Initialization function for goomba.
  */
+
+void bhv_intro_object_init(void) {
+    o->oZoomPosZ = o->oPosZ;
+    o->oGoombaScale = 0.0f;
+    cur_obj_hide();
+}
 void bhv_goomba_init(void) {
     o->oGoombaSize = o->oBehParams2ndByte & GOOMBA_BP_SIZE_MASK;
 
@@ -126,9 +132,7 @@ void bhv_goomba_init(void) {
     }
 #ifdef INTRO_FLOOMBAS
     if (o->oAction == FLOOMBA_ACT_STARTUP) {
-        o->oZoomPosZ = o->oPosZ;
-        o->oGoombaScale = 0.0f;
-        cur_obj_hide();
+        bhv_intro_object_init();
     }
 #endif
 #endif
@@ -293,6 +297,18 @@ static void floomba_act_startup(void) {
     } else {
         o->oPosZ = o->oZoomPosZ;
         o->oGoombaScale = sGoombaProperties[o->oGoombaSize].scale;
+    }
+}
+
+void bhv_intro_object_loop(void) {
+    cur_obj_unhide();
+
+    if ((GET_BPARAM3(o->oBehParams) & 0x7F) > o->oZoomCounter) {
+        f32 frac = (f32) o->oZoomCounter / (f32) (GET_BPARAM3(o->oBehParams) & 0x7F);
+        o->oPosZ = (o->oZoomPosZ - (300.0f * (1.0f - frac)));
+        o->oZoomCounter++;
+    } else {
+        o->oPosZ = o->oZoomPosZ;
     }
 }
 #endif

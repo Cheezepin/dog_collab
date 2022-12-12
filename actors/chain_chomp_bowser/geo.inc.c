@@ -11,6 +11,7 @@ const GeoLayout chain_chomp_bowser_geo[] = {
 				GEO_OPEN_NODE(),
 					GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, NULL),
 					GEO_OPEN_NODE(),
+						GEO_ASM(0, geo_cc_set_prim_color),
 						GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, chain_chomp_bowser_000_offset_001_mesh_layer_1),
 						GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, chain_chomp_bowser_001_offset_mesh_layer_1),
 					GEO_CLOSE_NODE(),

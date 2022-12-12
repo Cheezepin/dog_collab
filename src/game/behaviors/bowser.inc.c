@@ -1,5 +1,6 @@
 #include "config.h"
 #include "src/game/game_init.h"
+#include "src/game/ingame_menu.h"
 u8 count;
 s32 marioX, marioZ;
 u8 action;
@@ -363,6 +364,10 @@ void bowser_act_wait_for_mario(void) {
         o->oAction = BOWSER_ACT_WAIT;
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
     }
+    o->oHealth = 1; //DEBUG REMOVE LATER
+    if(o->oTimer == 5) {
+        spawn_object(o, MODEL_PEACH, bhvPeachEnding);
+    }
 }
 
 /**
@@ -510,31 +515,40 @@ void bowser_bitfs_actions(void) {
 void bowser_bits_action_list(void) {
     f32 rand = random_float();
     if (o->oBowserStatus & BOWSER_STATUS_ANGLE_MARIO) {
-        /*if (o->oDistanceToMario < 1000.0f) { // nearby
-            if (rand < 0.4f) {
-                o->oAction = BOWSER_ACT_SPIT_FIRE_ONTO_FLOOR; // 40% chance
-            } else if (rand < 0.8f) {
-                o->oAction = BOWSER_ACT_SPIT_FIRE_INTO_SKY; // 80% chance
+        if(o->oBowserCCObj->oSubAction == CHAIN_CHOMP_SUB_ACT_BURNED) {
+            if (o->oDistanceToMario < 1000.0f) { // nearby
+                if (rand < 0.4f) {
+                    o->oAction = BOWSER_ACT_SPIT_FIRE_ONTO_FLOOR; // 40% chance
+                } else if (rand < 0.8f) {
+                    o->oAction = BOWSER_ACT_SPIT_FIRE_INTO_SKY; // 80% chance
+                } else {
+                    o->oAction = BOWSER_ACT_BREATH_FIRE;
+                } // far away
+            } else if (rand < 0.5f) {
+                o->oAction = BOWSER_ACT_BIG_JUMP; // 50% chance
             } else {
-                o->oAction = BOWSER_ACT_BREATH_FIRE;
-            } // far away
-        } else if (rand < 0.5f) {
-            o->oAction = BOWSER_ACT_BIG_JUMP; // 50% chance
+                o->oAction = BOWSER_ACT_CHARGE_MARIO;
+            }
         } else {
-            o->oAction = BOWSER_ACT_CHARGE_MARIO;
-        }*/
-        
-        o->oAction = BOWSER_ACT_CC_JUMP;
-        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
-        o->oBowserCCObj->oVelY = 100.0f;
-        o->oBowserCCObj->oChainChompSubAction = 0;
-        o->oBowserCCObj->oPosY += 10.0f;
-
-        /*o->oAction = BOWSER_ACT_CC_CHARGE;
-        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_CHARGE;
-        o->oBowserCCObj->oChainChompSubAction = 0;
-        o->oBowserCCObj->oMoveAngleYaw = o->oBowserCCObj->oAngleToMario;
-        o->oBowserCCObj->oPosY = 200.0f;*/
+            if (rand < 0.4f) {
+                o->oAction = BOWSER_ACT_CC_JUMP;
+                o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_JUMP;
+                o->oBowserCCObj->oVelY = 100.0f;
+                o->oBowserCCObj->oChainChompSubAction = 0;
+                o->oBowserCCObj->oPosY += 10.0f;
+            } else if (rand < 0.7f) {
+                o->oAction = BOWSER_ACT_CC_CHARGE;
+                o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_CHARGE;
+                o->oBowserCCObj->oChainChompSubAction = 0;
+                o->oBowserCCObj->oMoveAngleYaw = o->oBowserCCObj->oAngleToMario;
+                o->oBowserCCObj->oPosY = 200.0f;
+            } else {
+                o->oAction = BOWSER_ACT_CC_WHIRL;
+                o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_WHIRL;
+                o->oBowserCCObj->oChainChompSubAction = 0;
+                o->oAngleVelYaw = 0;
+            }
+        }
     } else {
         // Keep walking
         o->oAction = BOWSER_ACT_WALK_TO_MARIO;
@@ -1002,7 +1016,7 @@ void bowser_act_snow(void) {
 void bowser_act_cc_jump(void) {
     cur_obj_init_animation(BOWSER_ANIM_SLOW_GAIT);
     cur_obj_rotate_yaw_toward(o->oAngleToMario, 2000);
-    o->oForwardVel = 20.0f;
+    o->oForwardVel = 10.0f;
     if(o->oBowserCCObj->oChainChompSubAction == 3) {
         if(o->oTimer == 10) {
             o->oAction = BOWSER_ACT_WALK_TO_MARIO;
@@ -1016,6 +1030,31 @@ void bowser_act_cc_jump(void) {
 void bowser_act_cc_charge(void) {
     cur_obj_init_animation(BOWSER_ANIM_IDLE);
     approach_f32_signed(&o->oForwardVel, 0, -4.0f);
+    if(o->oBowserCCObj->oForwardVel == 0) {
+        o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+        o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+    }
+}
+
+void bowser_act_cc_whirl(void) {
+    if(o->oTimer == 90) {
+        o->oSubAction = 1;
+    }
+    if(o->oSubAction == 0) {
+        cur_obj_init_animation(BOWSER_ANIM_WHIRL_PICKUP);
+        o->oAngleVelYaw += 30;
+    } else {
+        cur_obj_init_animation(BOWSER_ANIM_WHIRL_THROW);
+        if(o->oAngleVelYaw > 0) {
+            o->oAngleVelYaw -= 60;
+        } else if (o->oBowserCCObj->oForwardVel == 0) {
+            o->oAngleVelYaw = 0;
+            o->oAction = BOWSER_ACT_WALK_TO_MARIO;
+            o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+            o->oBowserCCObj->oChainChompReleaseStatus = CHAIN_CHOMP_NOT_RELEASED;
+        }
+    }
+    o->oMoveAngleYaw += o->oAngleVelYaw;
 }
 
 /**
@@ -1665,12 +1704,15 @@ void bowser_act_dance(void) {
  * Spawns a Key in BITDW/BITFS or Grand Star in BITS
  */
 void bowser_spawn_collectable(void) {
-    //if (o->oBehParams2ndByte == BOWSER_BP_BITS) {
-    //    gSecondCameraFocus = spawn_object(o, MODEL_STAR, bhvGrandStar);
-    //} else {
+    if (gCurrLevelNum == LEVEL_BOWSER_3) {
+       //gSecondCameraFocus = spawn_object(o, MODEL_STAR, bhvGrandStar);
+       gSecondCameraFocus = spawn_object(o, MODEL_PEACH, bhvPeachEnding);
+       gSecondCameraFocus->oHomeY = 0.0f;
+       cur_obj_play_sound_2(SOUND_GENERAL2_BOWSER_KEY);
+    } else {
         gSecondCameraFocus = spawn_object(o, MODEL_BOWSER_KEY, bhvBowserKey);
         cur_obj_play_sound_2(SOUND_GENERAL2_BOWSER_KEY);
-    //}
+    }
     gSecondCameraFocus->oAngleVelYaw = o->oAngleVelYaw;
 }
 
@@ -2045,6 +2087,7 @@ void (*sBowserActions[])(void) = {
     bowser_act_wait_for_mario,
     bowser_act_cc_jump,
     bowser_act_cc_charge,
+    bowser_act_cc_whirl,
 };
 
 /**
@@ -2562,6 +2605,12 @@ void bhv_snow_bowser_loop(void) {
         obj_scale(particle, 3.0f);
         particle->oPosY += 200.0f;
         particle->oPosX += 330.0f;
+    }
+}
+
+void bhv_b3_bridge_loop(void) {
+    if(find_any_object_with_behavior(bhvBowser) && find_any_object_with_behavior(bhvBowser)->oAction == BOWSER_ACT_WAIT) {
+        obj_mark_for_deletion(o);
     }
 }
 

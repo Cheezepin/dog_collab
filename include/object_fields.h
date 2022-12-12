@@ -421,6 +421,8 @@
 #define /*0x1B0*/ oChainChompHitGate                      OBJECT_FIELD_S32(0x4A)
 #define /*0x1AC*/ oChainChompReleaseStatus                OBJECT_FIELD_S32(0x49)
 #define /*0x1B0*/ oChainChompSubAction                    OBJECT_FIELD_S32(0x23)
+#define /*0x1B0*/ oChainChompHeat                         OBJECT_FIELD_S32(0x4A)
+#define /*0x1B0*/ oChainChompHeated                       OBJECT_FIELD_S32(0x48)
 
 /* Checkerboard Platform */
 #define /*0x0F8*/ oCheckerBoardPlatformRotateAction OBJECT_FIELD_S32(0x1C) // oAction like

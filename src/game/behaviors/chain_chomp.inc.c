@@ -80,6 +80,7 @@ static void chain_chomp_act_uninitialized(void) {
 
     if(gCurrLevelNum == LEVEL_BOWSER_1 || gCurrLevelNum == LEVEL_BOWSER_2 || gCurrLevelNum == LEVEL_BOWSER_3) {
         j = find_any_object_with_behavior(bhvBowser) || find_any_object_with_behavior(bhvBowserSnow) ? 1 : 0;
+        o->oChainChompHeat = 0;
     } else {
         j = o->oDistanceToMario < CHAIN_CHOMP_LOAD_DIST ? 1 : 0;
     }
@@ -436,27 +437,30 @@ void chain_chomp_bowser_sub_act_turn(void) {
     o->oGravity = -4.0f;
 
     chain_chomp_restore_normal_chain_lengths();
-    obj_move_pitch_approach(0, 0x100);
+    obj_move_pitch_approach(0, 0x40);
 
-    if ((o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) && gCamera->cutscene == 0 && find_any_object_with_behavior(bhvBowser)->oAction != BOWSER_ACT_WAIT_FOR_MARIO) {
+    if (((o->oMoveFlags & OBJ_MOVE_MASK_ON_GROUND) && gCamera->cutscene == 0 && find_any_object_with_behavior(bhvBowser)->oAction != BOWSER_ACT_WAIT_FOR_MARIO)) {
         cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x400);
         if (abs_angle_diff(o->oAngleToMario, o->oMoveAngleYaw) < 0x800) {
-            if (o->oTimer > 30) {
-                if (cur_obj_check_anim_frame(1)) {
+            if (o->oTimer > 30 || (gCurrLevelNum == LEVEL_BOWSER_3 && o->parentObj->oBowserCCObj->oHeldState == HELD_HELD)) {
+                if (cur_obj_check_anim_frame(1) || (gCurrLevelNum == LEVEL_BOWSER_3 && o->parentObj->oBowserCCObj->oHeldState == HELD_HELD)) {
                     cur_obj_reverse_animation();
-                    if (o->oTimer > 40) {
+                    if (o->oTimer > 40 || (gCurrLevelNum == LEVEL_BOWSER_3 && o->parentObj->oBowserCCObj->oHeldState == HELD_HELD)) {
                         // Increase the maximum distance from the pivot and enter
                         // the lunging sub-action.
-                        if(find_any_object_with_behavior(bhvBowser)->oHeldState == HELD_FREE) {
+                        if(find_any_object_with_behavior(bhvBowser)->oHeldState == HELD_FREE || (gCurrLevelNum == LEVEL_BOWSER_3 && o->parentObj->oBowserCCObj->oHeldState == HELD_HELD)) {
                             cur_obj_play_sound_2(SOUND_GENERAL_CHAIN_CHOMP2);
 
                             o->oSubAction = CHAIN_CHOMP_SUB_ACT_LUNGE;
                             // o->oChainChompMaxDistFromPivotPerChainPart = 900.0f / CHAIN_CHOMP_NUM_SEGMENTS;
                             o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS;
                             o->oForwardVel = 140.0f;
-                            o->oVelY = 20.0f;
+                            o->oVelY = 5.0f;
                             o->oGravity = 0.0f;
                             o->oChainChompTargetPitch = obj_get_pitch_from_vel();
+                            if(gCurrLevelNum == LEVEL_BOWSER_3 && o->parentObj->oBowserCCObj->oHeldState == HELD_HELD) {
+                                o->oMoveAngleYaw = o->oAngleToMario;
+                            }
                         } else {
                             o->oTimer = 0;
                         }
@@ -480,7 +484,7 @@ void chain_chomp_bowser_sub_act_turn(void) {
 }
 
 void chain_chomp_bowser_sub_act_lunge(void) {
-    obj_face_pitch_approach(o->oChainChompTargetPitch, 0x100);
+    obj_face_pitch_approach(o->oChainChompTargetPitch, 0x40);
 
     if (o->oForwardVel != 0.0f) {
         // f32 val04;
@@ -508,6 +512,10 @@ void chain_chomp_bowser_sub_act_lunge(void) {
             o->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
         }
 
+        if(gCurrLevelNum == LEVEL_BOWSER_3 && o->parentObj->oBowserCCObj->oHeldState == HELD_HELD) {
+            o->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+        }
+
         o->oChainChompMaxDistBetweenChainParts = o->oChainChompSignedMaxDistBetweenChainParts;
         if (gGlobalTimer % 2 != 0) {
             o->oChainChompMaxDistBetweenChainParts = -o->oChainChompSignedMaxDistBetweenChainParts;
@@ -525,17 +533,19 @@ void chain_chomp_bowser_sub_act_jump(void) {
     switch(o->oChainChompSubAction) {
         default:
             cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x2000);
-            o->oForwardVel = 30.0f;
-            o->oGravity = -6.0f;
+            o->oForwardVel = 20.0f;
+            o->oGravity = -3.0f;
             if(o->oPosY == o->oFloorHeight) {
                 struct Object *wave;
                 wave = spawn_object(o, MODEL_BOWSER_WAVE, bhvBowserShockWave);
                 wave->oPosY = o->oFloorHeight;
                 o->oChainChompSubAction++;
-                if(o->oChainChompSubAction == 3) {
+                if(o->parentObj->oBowserCCObj->oHeldState == HELD_HELD || o->parentObj->oBowserCCObj->oAction != BOWSER_ACT_CC_JUMP) {
+                    o->oBowserCCObj->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+                } else if(o->oChainChompSubAction == 3) {
                     o->oVelY = 20.0f;
                 } else {
-                    o->oVelY = 100.0f;
+                    o->oVelY = 80.0f;
                 }
             }
             break;
@@ -543,11 +553,14 @@ void chain_chomp_bowser_sub_act_jump(void) {
             o->oForwardVel = 0;
             break;
     }
-    print_text_fmt_int(20, 20, "%d", (s32)o->oPosY);
 }
 
 void chain_chomp_bowser_sub_act_charge(void) {
-    approach_f32_ptr(&o->oForwardVel, 150.0f, 10.0f);
+    if((o->parentObj->oBowserCCObj->oTimer > 120 && sqrtf(POW2(o->oPosX) + POW2(o->oPosZ)) < 2500.0f) || o->parentObj->oBowserCCObj->oHeldState == HELD_HELD) {
+        approach_f32_ptr(&o->oForwardVel, 0.0f, -10.0f);
+    } else {
+        approach_f32_ptr(&o->oForwardVel, 150.0f, 10.0f);
+    }
     o->oGravity = -4.0f;
     if(o->oPosY == o->oFloorHeight) {
         o->oVelY = 40.0f;
@@ -559,18 +572,86 @@ void chain_chomp_bowser_sub_act_charge(void) {
     }
 }
 
+void chain_chomp_bowser_sub_act_whirl(void) {
+    if(o->parentObj->oBowserCCObj->oSubAction == 0) {
+        o->oMoveAngleYaw = o->parentObj->oBowserCCObj->oMoveAngleYaw + o->parentObj->oBowserCCObj->oAngleVelYaw;
+        o->oForwardVel = ((f32)o->parentObj->oBowserCCObj->oAngleVelYaw) / 8.0f;
+        o->oChainChompReleaseStatus = CHAIN_CHOMP_NOT_RELEASED;
+        o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS - (o->oForwardVel*0.25f);
+        o->oPosY = approach_f32_asymptotic(o->oPosY, 20.0f, 0.25f);
+        o->oVelY = 0;
+        o->oGravity = 0.0f;
+    } else {
+        if(o->parentObj->oBowserCCObj->oTimer > 300 || o->parentObj->oBowserCCObj->oHeldState == HELD_HELD) {
+            if(lateral_dist_between_objects(o, o->parentObj->oBowserCCObj) < 750.0f) {
+                o->oGravity = -4.0f;
+                approach_f32_ptr(&o->oForwardVel, 0.0f, 20.0f);
+            }
+            cur_obj_rotate_yaw_toward(obj_angle_to_object(o, o->parentObj->oBowserCCObj), 0x200);
+        } else {
+            //cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x180);
+            o->oForwardVel = 200.0f;
+            o->oChainChompReleaseStatus = CHAIN_CHOMP_RELEASED_LUNGE_AROUND;
+            o->oChainChompMaxDistFromPivotPerChainPart = CHAIN_CHOMP_BOWSER_CHAIN_MAX_DIST_BETWEEN_PARTS;
+        }
+    }
+    if(o->oMoveFlags & OBJ_MOVE_HIT_WALL) {o->oMoveAngleYaw = /*cur_obj_reflect_move_angle_off_wall()*/ o->oAngleToMario + ((s32)((random_float() - 0.5f)*1600.0f));}
+}
+
+void chain_chomp_bowser_sub_act_burned(void) {
+    o->oForwardVel = 0;
+    o->oGravity = 0;
+    if(o->parentObj->oBowserCCObj->oAction == BOWSER_ACT_HIT_MINE) {
+        cur_obj_enable_rendering();
+        o->oChainChompHeat = 0;
+        o->oGravity = -10.0f;
+        o->oForwardVel = 20.0f;
+        o->oMoveAngleYaw = obj_angle_to_object(o, o->parentObj->oBowserCCObj);
+        if(dist_between_objects(o->parentObj->oBowserCCObj, o) < 1500.0f) {
+            o->oChainChompReleaseStatus = CHAIN_CHOMP_NOT_RELEASED;
+            o->oSubAction = CHAIN_CHOMP_SUB_ACT_TURN;
+        }
+    } else {
+        if(o->oPosY >= 5000.0f) {
+            o->oPosY = 5000.0f;
+            o->oVelY = 0.0f;
+            cur_obj_disable_rendering();
+        } else {
+            o->oVelY = 160.0f;
+        }
+        o->oChainChompReleaseStatus = CHAIN_CHOMP_RELEASED_LUNGE_AROUND;
+    }
+}
+
 static void chain_chomp_bowser_act_move(void) {
     f32 maxDistToPivot;
 
+    o->oWallHitboxRadius = 200.0f;
+
     // Unload chain if mario is far enough
-    if (o->oChainChompReleaseStatus == CHAIN_CHOMP_NOT_RELEASED && o->oDistanceToMario > (CHAIN_CHOMP_UNLOAD_DIST*4)) {
+    /*if (o->oChainChompReleaseStatus == CHAIN_CHOMP_NOT_RELEASED && o->oDistanceToMario > (CHAIN_CHOMP_UNLOAD_DIST*4)) {
         o->oAction = CHAIN_CHOMP_ACT_UNLOAD_CHAIN;
         o->oForwardVel = o->oVelY = 0.0f;
-    } else {
+    } else {*/
         cur_obj_update_floor_and_walls();
 
-        switch (o->oChainChompReleaseStatus) {
-            case CHAIN_CHOMP_NOT_RELEASED:
+        if(o->oChainChompHeated == 1) {
+            o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 400, find_any_object_with_behavior(bhvBowser)->oHealth*3);
+        } else {
+            o->oChainChompHeat = approach_s16_symmetric(o->oChainChompHeat, 0, find_any_object_with_behavior(bhvBowser)->oHealth*2 - 1);
+        }
+
+        if(o->oChainChompHeat == 400 && o->oSubAction != CHAIN_CHOMP_SUB_ACT_BURNED) {
+            o->oSubAction = CHAIN_CHOMP_SUB_ACT_BURNED;
+            o->parentObj->oBowserCCObj->oAction = BOWSER_ACT_WALK_TO_MARIO;
+            cur_obj_play_sound_2(SOUND_OBJ2_BOWSER_ROAR);
+            spawn_object(o, MODEL_NONE, bhvThreeCoinsSpawn);
+        }
+
+        o->oChainChompHeated = 0;
+
+        //switch (o->oChainChompReleaseStatus) {
+        //    case CHAIN_CHOMP_NOT_RELEASED:
                 switch (o->oSubAction) {
                     case CHAIN_CHOMP_SUB_ACT_TURN:
                         chain_chomp_bowser_sub_act_turn();
@@ -584,9 +665,15 @@ static void chain_chomp_bowser_act_move(void) {
                     case CHAIN_CHOMP_SUB_ACT_CHARGE:
                         chain_chomp_bowser_sub_act_charge();
                         break;
+                    case CHAIN_CHOMP_SUB_ACT_WHIRL:
+                        chain_chomp_bowser_sub_act_whirl();
+                        break;
+                    case CHAIN_CHOMP_SUB_ACT_BURNED:
+                        chain_chomp_bowser_sub_act_burned();
+                        break;
                 }
-                break;
-        }
+        //        break;
+        //}
 
         if(o->oPosY < -1000.0f) {
             o->oVelY = 100.0f;
@@ -618,7 +705,7 @@ static void chain_chomp_bowser_act_move(void) {
                 vec3_diff(&o->parentObj->oPosVec, &o->oPosVec, o->oChainChompSegments[0].pos);
                 o->parentObj->oVelY = o->parentObj->oPosY - oldPivotY;
 
-                if(o->parentObj->oBowserCCObj) {
+                if(o->parentObj->oBowserCCObj && !(o->oChainChompReleaseStatus == CHAIN_CHOMP_RELEASED_LUNGE_AROUND)) {
                     o->parentObj->oBowserCCObj->oMoveAngleYaw = obj_angle_to_object(o->parentObj->oBowserCCObj, o);
                     o->parentObj->oBowserCCObj->oForwardVel = o->oForwardVel;
                 }
@@ -641,7 +728,7 @@ static void chain_chomp_bowser_act_move(void) {
                 o->oChainChompTargetPitch = -0x3000;
             }
         }
-    }
+    //}
 }
 
 /**

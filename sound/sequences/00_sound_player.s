@@ -2796,6 +2796,7 @@ sound_ref .sound_CUSTOM_awooga
 sound_ref .sound_CUSTOM_cartoon_run
 sound_ref .sound_CUSTOM_warp_box_in
 sound_ref .sound_CUSTOM_warp_box_out
+sound_ref .sound_CUSTOM_coin_dog_roo
 sound_ref .sound_general_vanish_sfx
 sound_ref .sound_menu_enter_hole
 sound_ref .sound_general_red_coin
@@ -4881,6 +4882,23 @@ chan_end
 chan_setbank 5
 chan_setinstr 17
 chan_setlayer 0, .layer_clowning
+chan_end
+
+.sound_CUSTOM_coin_dog_roo:
+chan_setbank 9
+chan_setinstr 3
+chan_setenvelope .envelope_3358
+chan_setvibratoextent 3
+chan_setvibratorate 60
+chan_setval 25
+chan_call .set_reverb
+chan_setlayer 0, .layer_2E28
+chan_setlayer 1, .layer_2E3D
+chan_setlayer 2, .layer_2E34
+chan_setval 70
+chan_call .delay
+chan_setbank 5
+chan_setinstr 18
 chan_end
 
 .layer_1DD4:

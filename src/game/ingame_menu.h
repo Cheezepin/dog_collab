@@ -253,5 +253,6 @@ extern struct HubSelection hubSelections[3][6];
 
 extern s32 gEndResultMenuChoice;
 extern s32 gEndResultMenuState;
+extern u8 coursesFixed[];
 
 #endif // INGAME_MENU_H
