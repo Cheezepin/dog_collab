@@ -50,6 +50,7 @@
 #define AREA_CASTLE_TIPPY       LEVEL_AREA_INDEX(LEVEL_CASTLE, 2)
 #define AREA_CASTLE_BASEMENT    LEVEL_AREA_INDEX(LEVEL_CASTLE, 3)
 #define AREA_HMC                LEVEL_AREA_INDEX(LEVEL_HMC, 1)
+#define AREA_HMC_INSIDE         LEVEL_AREA_INDEX(LEVEL_HMC, 2)
 #define AREA_SSL_OUTSIDE        LEVEL_AREA_INDEX(LEVEL_SSL, 1)
 #define AREA_SSL_PYRAMID        LEVEL_AREA_INDEX(LEVEL_SSL, 2)
 #define AREA_SSL_EYEROK         LEVEL_AREA_INDEX(LEVEL_SSL, 3)
@@ -292,8 +293,10 @@ enum Cutscenes {
     CUTSCENE_INTRO,
     CUTSCENE_2639FINALCUTSCENE,
     CUTSCENE_SNOW_BOWSER_INTRO,
+    CUTSCENE_REAL_ENDING,
     // thecozies
     CUTSCENE_COZIES_ACTIVATE_SWITCH
+    // end thecozies
 };
 
 /**
@@ -909,5 +912,6 @@ void start_cozies_switch_cutscene(u8 switchId);
 Gfx *geo_camera_fov(s32 callContext, struct GraphNode *g, UNUSED void *context);
 
 extern s32 gIntroCutsceneState;
+extern s32 gEndingCutsceneState;
 
 #endif // CAMERA_H

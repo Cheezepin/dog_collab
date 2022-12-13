@@ -38,7 +38,7 @@
 
 // TODO: Make these ifdefs better
 const char *credits01[] = { "1DOG COLLAB", "CREDITS" };
-const char *credits02[] = { "4MAPLE MARKINDON", "MUSIC", "ASHLEY", "IDK" };
+const char *credits02[] = { "4MAPLE MARKINDON", "MUSIC", "ASHLEY", "ROUTE 47 POKEMON GS" };
 const char *credits03[] = { "4CUMULUS CORRECTIONAL CENTER", "MUSIC", "MRCOMIT", "ORIGINAL BY MRCOMIT" };
 const char *credits04[] = { "4HAIR-RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "IDK" };
 
@@ -62,7 +62,7 @@ const char *credits04[] = { "4HAIR-RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "
 // #else // VERSION_US || VERSION_EU
 
 // US and EU combine camera programmer and Mario face programmer...
-const char *credits05[] = { "4BOWSER'S FLYING FUCKING FORTRESS", "MUSIC", "CHEEZEPIN", "HYRULE CASTLE LTTP" };
+const char *credits05[] = { "6BOWSER'S FLYING", "FUCKING FORTRESS", "MUSIC", "CHEEZEPIN", "", "HYRULE CASTLE LTTP" };
 const char *credits06[] = { "4KOOPA ATOLL", "MUSIC", "BEVERLYBEAN", "IDK" };
 const char *credits07[] = { "4PEACH RUINS", "MUSIC", "ROVERT", "IDK" };
 const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "IDK" };
@@ -70,11 +70,11 @@ const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "IDK" };
 // ...as well as sound composer, sound effects, and sound programmer, and...
 const char *credits09[] = { "4AWE-INSPIRING SPIRES", "MUSIC", "KEYBLADER", "METEOR HERD SA2" };
 // ...3D animators and additional graphics in order to make room for screen text writer(s), Mario voice, and Peach voice
-const char *credits10[] = { "4BOWSER'S RAINBOW RINGS", "MUSIC", "ANUNIDENTIFIEDEMU", "BOWSER STAGE SM64" };
-const char *credits11[] = { "4FEUDAL FORTRESS", "MUSIC", "YOSHI MILKMAN", "IDK" };
-const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "IDK" };
-const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "IDK" };
-const char *credits14[] = { "5SCREEN TEXT WRITER", "ENGLISH TRANSLATION", "LESLIE SWAN", "MINA AKINO", "HIRO YAMADA" };
+const char *credits10[] = { "6BOWSER'S RAINBOW", "RINGS", "MUSIC", "ANUNIDENTIFIEDEMU", "", "BOWSER STAGE SM64" };
+const char *credits11[] = { "4FEUDAL FORTRESS", "MUSIC", "YOSHI MILKMAN", "SAMMERS KINGDOM SPM" };
+const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "HMC SM64" };
+const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIGINAL BY THECOZIES" };
+const char *credits14[] = { "8OTHER MUSIC", "CCC AREA 2", "CIRCUS BOSS", "UH IDK", "", "ORIGINAL BY MRCOMIT", "IDK", "LOL" };
 const char *credits15[] = { "4SCREEN TEXT WRITER", "FRENCH TRANSLATION", "JULIEN BARDAKOFF", "KENJI HARAGUCHI" };
 const char *credits16[] = { "4SCREEN TEXT WRITER", "GERMAN TRANSLATION", "THOMAS GOERG", "THOMAS SPINDLER" };
 
@@ -98,19 +98,19 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02 },
     { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03 },
     { LEVEL_BBH, 1, 34, 25, { -5464, 6656, -6575 }, credits04 },
-    { LEVEL_BITFS, 1, 1, 60, { 0, -14456, 0 }, credits05 },
-    { LEVEL_WF, 1, -15, 123, { -6469, 1616, -6054 }, credits06 },
+    { LEVEL_BITFS, 1, 1, 240, { 15040, 2867, 1676 }, credits05 },
+    { LEVEL_WF, 1, -15, 123, { -5516, 1006, 1554 }, credits06 },
     { LEVEL_CCM, 1, 17, -32, { 508, 1024, 1942 }, credits07 },
-    { LEVEL_JRB, 1, 33, 124, { -73, 82, -1467 }, credits08 },
+    { LEVEL_JRB, 1, 33, 124, { 6367, 100, -37 }, credits08 },
     { LEVEL_SSL, 1, 65, 98, { -5906, 1024, -2576 }, credits09 },
     { LEVEL_BITDW, 1, 50, 47, { -4884, -4607, -272 }, credits10 },
     { LEVEL_LLL, 1, 17, -34, { 1925, 3328, 563 }, credits11 },
-    { LEVEL_HMC, 2, 33, 105, { 908, 8255, 0 }, credits12 },
+    { LEVEL_HMC, 2, 33, 105, { 400, 4500, -400 }, credits12 },
     { LEVEL_DDD, 1, 2, -33, { 2613, 313, 1074 }, credits13 },
     { LEVEL_BBH, 2, 51, 54, { -2609, 512, 856 }, credits14 },
     { LEVEL_HMC, 1, 51, 54, { -2609, 512, 856 }, credits15 },
     { LEVEL_DDD, 2, 51, 54, { -2609, 512, 856 }, credits16 },
-    { LEVEL_JRB, 2, 51, 54, { 17089, 1112, -16284 }, credits17 },
+    { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17 },
     { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18 },
     { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits19 },
     { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits20 },
