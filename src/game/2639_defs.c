@@ -227,6 +227,10 @@ void outside_music() {
     fadech(PIANO, BASEVOL);
 }
 
+void console_music() {
+    setallch(100);
+}
+
 void introcutscene_music() {
     for (int i = 0; i < 16; i++) {
         fadech(i, BASEVOL);
@@ -305,6 +309,22 @@ void Sound2639_Main(void) {
         case STATE_CONTROLOBJ:            
             break;
     }
+
+    extern u8 gIsConsole;
+    if (gIsConsole) {
+        for (int i = 0; i < 16; i++) {
+            gSequencePlayers[SEQ_PLAYER_LEVEL].channels[i]->volumeScale = 100;
+            // fade_channel_volume_scale(SEQ_PLAYER_LEVEL, i, 1, 1);
+            curVolumes[i] = 100;
+        }
+        // return;
+    }
+
+
+    // for (int i = 0; i < 16; i++) {
+        // print_text_fmt_int(20, 20, "V %d", gSequencePlayers[SEQ_PLAYER_LEVEL].muted);
+    // }
+
 }
 
 enum CStates2639 {

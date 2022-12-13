@@ -419,7 +419,7 @@ void render_init(void) {
     FORCE_CRASH
 #endif
     if (IO_READ(DPC_PIPEBUSY_REG) == 0) {
-        gIsConsole = TRUE;
+        gIsConsole = FALSE;
         gBorderHeight = BORDER_HEIGHT_EMULATOR;
         gIsVC = IS_VC();
         check_cache_emulation();

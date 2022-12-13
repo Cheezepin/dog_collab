@@ -66,6 +66,7 @@ enum SeqId {
     SEQ_COZIES,                  // 0x35
     SEQ_CREDITS,                // 0x36
     SEQ_METEOR_HERD,                  // 0x37
+    SEQ_STREAMED_MUSIC2639LIGHT,
     SEQ_COUNT
 };
 
