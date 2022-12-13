@@ -9,6 +9,8 @@
 #include "game_init.h"
 #include "interaction.h"
 #include "mario_step.h"
+#include "behavior_data.h"
+#include "level_update.h"
 #include "level_table.h"
 #include "area.h"
 
@@ -30,6 +32,35 @@ struct Surface gWaterSurfacePseudoFloor = {
     0.0f,                       // originOffset
     NULL,                       // object
 };
+
+
+void sort_walls(struct WallCollisionData *w) {
+    struct Surface *wstack[MAX_REFERENCED_WALLS] = {0};
+    int wstack_top = 0;
+
+    for (int i = 0; i < MAX_REFERENCED_WALLS; i++) {
+        if (w->walls[i] != NULL) {
+            wstack[wstack_top++] = w->walls[i];
+        }
+    }
+
+    w->numWalls = wstack_top;
+
+    for (int i = 0; i < w->numWalls; i++) {
+         w->walls[i] = wstack[i];
+    }
+
+}
+
+void someone2639_ignorewalls(void) {
+    if (gMarioState->wall != NULL) {
+        if (gMarioState->wall->object != NULL) {
+            if (gMarioState->wall->object->behavior == segmented_to_virtual(bhvEntranceturnstile)) {
+                gMarioState->wall = NULL;
+            }
+        }
+    }
+}
 
 /**
  * Always returns zero. This may have been intended
@@ -575,6 +606,7 @@ s32 perform_air_quarter_step(struct MarioState *m, Vec3f intendedPos, u32 stepAr
             return stepResult;
         }
     }
+    someone2639_ignorewalls();
 
     return (lowerWall.numWalls > 0) ? bonk_or_hit_lava_wall(m, &lowerWall) : AIR_STEP_NONE;
 }

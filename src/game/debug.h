@@ -37,7 +37,7 @@ void try_print_debug_mario_level_info(void);
 #define stub_debug_control()
 #define try_print_debug_mario_object_info()
 #define try_do_mario_debug_object_spawn()
-#define try_print_debug_mario_level_info()
+void try_print_debug_mario_level_info(void);
 #endif
 
 extern char *__n64Assert_Filename;

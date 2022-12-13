@@ -336,6 +336,9 @@ void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
         }
         // Iterate through the layers on the current render phase.
         for (currLayer = startLayer; currLayer <= endLayer; currLayer++) {
+            if (gIsConsole && in2639Level() && (currLayer == LAYER_TRANSPARENT_INTER)) {
+                continue;
+            }
             // Set 'currList' to the first DisplayListNode on the current layer.
             currList = node->listHeads[ucode][currLayer];
 #if defined(DISABLE_AA) || !SILHOUETTE

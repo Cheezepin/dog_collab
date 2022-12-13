@@ -17,6 +17,7 @@
 #include "engine/math_util.h"
 #include "puppycam2.h"
 #include "puppyprint.h"
+#include "2639_defs.h"
 
 #include "config.h"
 
@@ -434,6 +435,10 @@ void render_hud_stars(void) {
         if (showX) print_text((GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X) + 16), HUD_TOP_Y, "*"); // 'X' glyph
         print_text_fmt_int((showX * 14) + GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X - 16),
                         HUD_TOP_Y, "%d", gHudDisplay.stars);
+
+    if (gCurrAreaIndex == 0) {
+        hud_2639Challenge();
+    }
 }
 
 /**
@@ -476,6 +481,24 @@ void render_hud_timer(void) {
     render_hud_tex_lut(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(81), 32, (*hudLUT)[GLYPH_APOSTROPHE]);
     render_hud_tex_lut(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(46), 32, (*hudLUT)[GLYPH_DOUBLE_QUOTE]);
     gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
+}
+
+static int count_coins(void) {
+    extern void* bhvYellowCoin;
+    return count_objects_with_behavior(bhvYellowCoin);
+}
+
+void hud_2639Challenge(void) {
+    char str_str[50];
+    int total_count = -1;
+
+    if (total_count == -1) {
+        total_count = count_coins();
+    }
+
+    sprintf(str_str, "%d left!", _2639COINCOUNT - gMarioState->numCoins);
+    print_text(5, 10, str_str);
+    print_text(5, 30, "Collect them all!");
 }
 
 /**

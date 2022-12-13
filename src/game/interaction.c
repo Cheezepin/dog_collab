@@ -1,5 +1,6 @@
 #include <PR/ultratypes.h>
 
+#include "2639_defs.h"
 #include "area.h"
 #include "actors/common1.h"
 #include "audio/external.h"
@@ -762,6 +763,10 @@ void reset_mario_pitch(struct MarioState *m) {
 }
 
 u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
+    if (obj->behavior == segmented_to_virtual(bhv2639SoccerBall)) {
+        obj->oInteractStatus = INT_STATUS_INTERACTED;
+        return;
+    }
     m->numCoins += obj->oDamageOrCoinValue;
     m->healCounter += 4 * obj->oDamageOrCoinValue;
 #ifdef BREATH_METER
@@ -770,7 +775,15 @@ u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *
     obj->oInteractStatus = INT_STATUS_INTERACTED;
 
 #ifdef X_COIN_STAR
-    if (COURSE_IS_MAIN_COURSE(gCurrCourseNum) && m->numCoins - obj->oDamageOrCoinValue < X_COIN_STAR
+    if (in2639Level()) {
+         if (COURSE_IS_MAIN_COURSE(gCurrCourseNum)
+         && m->numCoins - obj->oDamageOrCoinValue < _2639COINCOUNT
+         && m->numCoins >= _2639COINCOUNT
+        ) {
+            bhv_spawn_star_get_outta_here(STAR_BP_ACT_100_COINS);
+        }
+    }
+    else if (COURSE_IS_MAIN_COURSE(gCurrCourseNum) && m->numCoins - obj->oDamageOrCoinValue < X_COIN_STAR
         && m->numCoins >= X_COIN_STAR) {
         bhv_spawn_star_no_level_exit(STAR_BP_ACT_100_COINS);
     }
@@ -793,7 +806,7 @@ u32 interact_water_ring(struct MarioState *m, UNUSED u32 interactType, struct Ob
     obj->oInteractStatus = INT_STATUS_INTERACTED;
     return FALSE;
 }
-
+#include "debug.h"
 u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
     u32 starIndex;
     u32 starGrabAction = ACT_STAR_DANCE_EXIT;
@@ -857,6 +870,11 @@ u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct O
 #else
         starIndex = (obj->oBehParams >> 24) & 0x1F;
 #endif
+
+        // static char ff[50];
+        // sprintf(ff, "your star is: damn star %d", starIndex);
+        // assert(starIndex != 0, ff);
+
         save_file_collect_star_or_key(m->numCoins, starIndex);
 
         m->numStars =

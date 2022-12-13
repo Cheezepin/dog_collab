@@ -73,6 +73,7 @@ enum LevelCommands {
     /*0x3E*/ LEVEL_CMD_CHANGE_AREA_SKYBOX,
     /*0x3F*/ LEVEL_CMD_PUPPYLIGHT_ENVIRONMENT,
     /*0x40*/ LEVEL_CMD_PUPPYLIGHT_NODE,
+    /*0x41*/ LEVEL_CMD_PUPPYVOLUME2,
 };
 
 // enum LevelActs {

@@ -84,6 +84,7 @@ DECLARE_SEGMENT(bidw_skybox_yay0)
 DECLARE_SEGMENT(bits_skybox_yay0)
 DECLARE_SEGMENT(CUSTOM_comit_clouds_skybox_yay0)
 DECLARE_SEGMENT(CUSTOM_space_skybox_yay0)
+DECLARE_SEGMENT(CUSTOM_sky2639_skybox_yay0)
 
 DECLARE_SEGMENT(fire_yay0)
 DECLARE_SEGMENT(spooky_yay0)
@@ -123,6 +124,8 @@ DECLARE_SEGMENT(bidw_skybox_mio0)
 DECLARE_SEGMENT(bits_skybox_mio0)
 DECLARE_SEGMENT(CUSTOM_comit_clouds_skybox_mio0)
 DECLARE_SEGMENT(CUSTOM_space_mio0)
+DECLARE_SEGMENT(CUSTOM_sky2639_skybox_mio0)
+
 
 DECLARE_SEGMENT(fire_mio0)
 DECLARE_SEGMENT(spooky_mio0)

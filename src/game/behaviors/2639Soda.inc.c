@@ -5,6 +5,12 @@ int ThereIsOneSodaInThisGame = 0;
 
 void bhv_2639Soda_init(void) {
 	o->o2639SodaLatch = 0;
+    o->oForwardVel = 45;
+    o->oMoveAngleYaw = gMarioObject->header.gfx.angle[1];
+    o->oFaceAngleYaw = gMarioObject->header.gfx.angle[1];
+        // if (o->oBehParams2ndByte == 1) {
+        //  o->oVelY = 30.f;
+        // }
 }
 void bhv_2639Soda_loop(void) {
 	switch(o->oHeldState) {
@@ -32,4 +38,10 @@ void bhv_2639Soda_loop(void) {
     	o->o2639SodaLatch = 1;
     }
 
+    cur_obj_move_standard(78);
+
+    o->oForwardVel-=5.f;
+    // o->oVelY -= 5.f;
+    if (o->oForwardVel < 0.f)
+        o->oForwardVel = 0;
 }

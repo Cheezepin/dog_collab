@@ -84,7 +84,7 @@ enum DialogSpeakers {
 
 #define _ 0xFF
 
-u8 sDialogSpeaker[] = {
+u8 sDialogSpeaker[900] = {
     //       0      1      2      3      4      5      6      7      8      9
     /* 0*/ _,     _,  _,  _,  _,  _, BOMB, BOMB, BOMB,     GRUNT,
     /* 1*/ _,     _,     _,     _,     _,     BOMB,     _,     KBOMB, _,     _,
@@ -106,11 +106,12 @@ u8 sDialogSpeaker[] = {
     /*17*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
     /*18*/ _,     _,     _,     _,     _,     _,     _,
     // the cozies: putting some extra blank spots in here to i can compile
-    _, _, _, _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _, _, _,
+    [_2639DIAG_LEVELINTRO ... _2639DIAG_A6PentToad7] = _,
 };
 #undef _
-STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
-              "change this array if you are adding dialogs");
+// STATIC_ASSERT(ARRAY_COUNT(sDialogSpeaker) == DIALOG_COUNT,
+//               "change this array if you are adding dialogs");
 
 s32 sDialogSpeakerVoice[] = {
     SOUND_OBJ_UKIKI_CHATTER_LONG,
@@ -317,13 +318,14 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_LEVEL_FEUDAL_CASTLE
     70,  // SEQ_OVERWORLD
     70,  // SEQ_TRAINING
-    70,  // SEQ_CUSTOM_16CH_STEREO
+    80,  // SEQ_CUSTOMMUSIC2639
     70,  // SEQ_WATERSONG_REGGAE
     70,  // SEQ_ROUTE_47
     70,  // SEQ_COMIT_FACILITY
     70,  // SEQ_COZIES
     70,  // SEQ_CREDITS
     70,  // SEQ_METEOR_HERD
+    100,
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,
@@ -417,7 +419,7 @@ extern void func_802ad770(u32 bits, s8 arg);
 
 static void update_background_music_after_sound(u8 bank, u8 soundIndex);
 static void update_game_sound(void);
-static void fade_channel_volume_scale(u8 player, u8 channelId, u8 targetScale, u16 fadeTimer);
+void fade_channel_volume_scale(u8 player, u8 channelId, u8 targetScale, u16 fadeTimer);
 void process_level_music_dynamics(void);
 static u8 begin_background_music_fade(u16 fadeDuration);
 void func_80320ED8(void);
@@ -1581,6 +1583,10 @@ static void seq_player_play_sequence(u8 player, u8 seqId, u16 arg2) {
     u8 targetVolume;
     u8 i;
 
+    if (player == SEQ_PLAYER_ENV && gCurrLevelNum == LEVEL_BOB) {
+        return;
+    }
+
     if (player == SEQ_PLAYER_LEVEL) {
         sCurrentBackgroundMusicSeqId = seqId & SEQ_BASE_ID;
         sBackgroundMusicForDynamics = SEQUENCE_NONE;
@@ -1654,7 +1660,7 @@ void fade_volume_scale(u8 player, u8 targetScale, u16 fadeDuration) {
 /**
  * Called from threads: thread3_main, thread4_sound, thread5_game_loop
  */
-static void fade_channel_volume_scale(u8 player, u8 channelIndex, u8 targetScale, u16 fadeDuration) {
+void fade_channel_volume_scale(u8 player, u8 channelIndex, u8 targetScale, u16 fadeDuration) {
     struct ChannelVolumeScaleFade *temp;
 
     if (gSequencePlayers[player].channels[channelIndex] != &gSequenceChannelNone) {
@@ -2534,6 +2540,9 @@ void play_race_fanfare(void) {
  * Called from threads: thread5_game_loop
  */
 void play_toads_jingle(void) {
+    if (gCurrLevelNum == LEVEL_BOB) {
+        return;
+    }
     seq_player_play_sequence(SEQ_PLAYER_ENV, SEQ_EVENT_TOAD_MESSAGE, 0);
     sBackgroundMusicMaxTargetVolume = TARGET_VOLUME_IS_PRESENT_FLAG | 20;
 #if defined(VERSION_EU) || defined(VERSION_SH)

@@ -43,6 +43,10 @@
     CMD_BBH(flagpersistance, shape, room) \
     CMD_BBH(fov, 0x0, 0x0)
 
+
+#define PUPPYVOLUME_COMPAT(idx) \
+    CMD_BBH(0x41, 0x04, idx)
+
 struct gPuppyOptions
 {
     s16 analogue;

@@ -1,0 +1,11 @@
+extern const GeoLayout bouncepump_geo[];
+extern Lights1 BouncePump2639_f3dlite_material_001_lights;
+extern Vtx BouncePump2639_Cylinder_mesh_layer_1_vtx_cull[8];
+extern Vtx BouncePump2639_Cylinder_mesh_layer_1_vtx_0[162];
+extern Gfx BouncePump2639_Cylinder_mesh_layer_1_tri_0[];
+extern Vtx BouncePump2639_Cylinder_mesh_layer_1_vtx_1[4];
+extern Gfx BouncePump2639_Cylinder_mesh_layer_1_tri_1[];
+extern Gfx mat_BouncePump2639_f3dlite_material_001[];
+extern Gfx mat_BouncePump2639_darknes[];
+extern Gfx BouncePump2639_Cylinder_mesh_layer_1[];
+extern Gfx BouncePump2639_material_revert_render_settings[];

@@ -49,7 +49,7 @@ struct GfxPool *gGfxPool;
 OSContStatus gControllerStatuses[4];
 OSContPad gControllerPads[4];
 u8 gControllerBits;
-u8 gIsConsole = TRUE; // Needs to be initialized before audio_reset_session is called
+u8 gIsConsole = FALSE; // Needs to be initialized before audio_reset_session is called
 u8 gCacheEmulated = TRUE; // Needs to be initialized before audio_reset_session is called
 u8 gBorderHeight;
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG

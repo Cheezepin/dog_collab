@@ -1,0 +1,11 @@
+extern const GeoLayout sunglasses_geo[];
+extern Lights1 sunglass2639_f3dlite_material_lights;
+extern u8 sunglass2639_B__ci8[];
+extern u8 sunglass2639_B__ci8_pal_rgba16[];
+extern Vtx sunglass2639_Cylinder_mesh_layer_1_vtx_cull[8];
+extern Vtx sunglass2639_Cylinder_mesh_layer_1_vtx_0[142];
+extern Gfx sunglass2639_Cylinder_mesh_layer_1_tri_0[];
+extern Gfx mat_sunglass2639_f3dlite_material[];
+extern Gfx mat_revert_sunglass2639_f3dlite_material[];
+extern Gfx sunglass2639_Cylinder_mesh_layer_1[];
+extern Gfx sunglass2639_material_revert_render_settings[];

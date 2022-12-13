@@ -14,6 +14,26 @@
 #include "mario_step.h"
 #include "save_file.h"
 #include "rumble_init.h"
+#include "behavior_data.h"
+
+#define SOMEONE2639_SKIP_BONK() \
+    if (m->wall != NULL) { \
+        if (m->wall->object != NULL) { \
+            if (m->wall->object->behavior == segmented_to_virtual(bhvEntranceturnstile)) {\
+                break;\
+            }\
+        }\
+    }
+
+#define SOMEONE2639_SKIP_BONK2() \
+    if (m->wall != NULL) { \
+        if (m->wall->object != NULL) { \
+            if (m->wall->object->behavior == segmented_to_virtual(bhvEntranceturnstile)) {\
+                stepResult = AIR_STEP_NONE;\
+                break;\
+            }\
+        }\
+    }
 
 #include "config.h"
 
@@ -372,6 +392,7 @@ u32 common_air_action_step(struct MarioState *m, u32 landAction, s32 animation, 
     update_air_without_turn(m);
 
     stepResult = perform_air_step(m, stepArg);
+    // print_text_fmt_int(50, 110, "SR %d", stepResult);
     switch (stepResult) {
         case AIR_STEP_NONE:
             set_mario_animation(m, animation);
@@ -385,6 +406,7 @@ u32 common_air_action_step(struct MarioState *m, u32 landAction, s32 animation, 
 
         case AIR_STEP_HIT_WALL:
             set_mario_animation(m, animation);
+            SOMEONE2639_SKIP_BONK2();
 
             if (m->forwardVel > 16.0f) {
 #if ENABLE_RUMBLE
@@ -824,6 +846,7 @@ s32 act_dive(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_WALL:
+            
             mario_bonk_reflection(m, TRUE);
             m->faceAngle[0] = 0;
 
@@ -949,6 +972,7 @@ s32 act_steep_jump(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_WALL:
+            SOMEONE2639_SKIP_BONK();
             mario_set_forward_vel(m, 0.0f);
             break;
 
@@ -1413,6 +1437,7 @@ s32 act_forward_rollout(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_WALL:
+            
             mario_set_forward_vel(m, 0.0f);
             break;
 

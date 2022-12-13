@@ -192,10 +192,55 @@ enum DialogId {
     COMIT_DIALOG_16,
     COMIT_DIALOG_17,
 
+    // start at 187
+
     // someone2639 silly soliloquies
-    _2639DIAG_A1LobbyToadGreeter,
-    _2639DIAG_A1LobbyNPCSuggester,
-    _2639DIAG_A1LobbyToadStarGranter,
+
+    _2639DIAG_LEVELINTRO, // 187;
+    _2639DIAG_ElevatorIntro,
+    _2639DIAG_A1LobbyHOF_Intro, // mark
+    _2639DIAG_A1LobbyHOF_Kirby64, // mark
+    _2639DIAG_A1LobbyHOF_sUGGOH, // mark
+    _2639DIAG_A1LobbyHOF_AnimeFighter, // mark
+    _2639DIAG_A1LobbyHOF_HVQM, // mark
+    _2639DIAG_A1LobbyHOF_1080Decomp, // mark
+
+    _2639DIAG_A1Lobby_FountainIntro,
+    _2639DIAG_A1Lobby_ChallengeIntro,
+
+
+    _2639DIAG_A1LobbyToadGreeter, // mark
+    _2639DIAG_A1LobbyNPCSuggester, // mark
+    _2639DIAG_A1LobbyToadStarGranter, // mark
+
+    _2639DIAG_A2LobbyToadGreeter,
+    _2639DIAG_A2RoomPeachGreeter,
+    _2639DIAG_A2RoomPeachFailure,
+    _2639DIAG_A2RoomPeachSuccess,
+
+    _2639DIAG_A3LobbyToadGreeter,
+    _2639DIAG_A3RoomVendingMachineInstructions,
+    _2639DIAG_A3RoomVendingMachineInstructionsNew,
+    /* 200 */ _2639DIAG_A3RoomToadGibSoda, // Act 3: give soda to toad, he will be mad until a soda is in his radius
+    // _2639DIAG_A3RoomToadSodaFailure,
+    // _2639DIAG_A3RoomToadSodaSuccess,
+
+    _2639DIAG_A4LobbyToadGreeter,
+    _2639DIAG_A4RoomToadPoolBoy,
+
+    _2639DIAG_A5LobbyToadGreeter,
+    _2639DIAG_A5ToadBasement,
+
+    
+    _2639DIAG_A6LobbyToadGreeter,
+    _2639DIAG_A6PentLoreSign,
+    _2639DIAG_A6PentToad1,
+    _2639DIAG_A6PentToad2,
+    _2639DIAG_A6PentToad3,
+    _2639DIAG_A6PentToad4,
+    _2639DIAG_A6PentToad5,
+    _2639DIAG_A6PentToad6,
+    _2639DIAG_A6PentToad7,
 
     CHEEZE_DIALOG_1,
     CHEEZE_DIALOG_2,

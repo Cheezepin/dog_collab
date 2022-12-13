@@ -8,10 +8,25 @@
 #define DOG_ANIM_BARK   7
 
 #define OBJ_COL_FLAG_GROUNDED   (1 << 0)
-
+#define OBJ_COL_FLAG_HIT_WALL   (1 << 1)
+ #define DOG_SNAP_SPEED 25.0f
 void dog_FollowMario(void) {
+    struct MarioState *m = gMarioState;
     s16 colFlags = object_step();
-    if (o->oDistanceToMario > 1000) {
+
+    if (o->oDistanceToMario > 2000) {
+        obj_turn_toward_object(o, gMarioObject, 16, 0x1000);
+        o->oPosX = approach_f32(o->oPosX, m->pos[0], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+        o->oPosY = approach_f32(o->oPosY, m->pos[1], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+        o->oPosZ = approach_f32(o->oPosZ, m->pos[2], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+
+        if (colFlags & OBJ_COL_FLAG_HIT_WALL) {
+            o->oPosX = m->pos[0];
+            o->oPosY = m->pos[1];
+            o->oPosZ = m->pos[2];
+        }
+        
+    } else if (o->oDistanceToMario > 1000) {
         cur_obj_init_animation(DOG_ANIM_RUN);
         o->oForwardVel = 20.0f;
         obj_turn_toward_object(o, gMarioObject, 16, 0x800);
@@ -26,14 +41,18 @@ void dog_FollowMario(void) {
         cur_obj_init_animation(DOG_ANIM_IDLE);
         o->oForwardVel = 0.0f;
     }
-    struct MarioState *m = gMarioState;
     // zoom to mario
-    if ((o->oPosY + 50.0f < m->pos[1]) && m->action & (ACT_FLAG_STATIONARY | ACT_FLAG_MOVING)) {
-        #define DOG_SNAP_SPEED 25.0f
-        o->oPosX = approach_f32(o->oPosX, m->pos[0], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
-        o->oPosY = approach_f32(o->oPosY, m->pos[1], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
-        o->oPosZ = approach_f32(o->oPosZ, m->pos[2], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
-    }
+    // if ((o->oPosY + 50.0f < m->pos[1]) && m->action & (ACT_FLAG_STATIONARY | ACT_FLAG_MOVING)) {
+    //     // o->oPosX = approach_f32(o->oPosX, m->pos[0], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+    //     // o->oPosY = approach_f32(o->oPosY, m->pos[1], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+    //     // o->oPosZ = approach_f32(o->oPosZ, m->pos[2], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+        
+    //     if (colFlags & OBJ_COL_FLAG_HIT_WALL) {
+    //         o->oPosX = m->pos[0];
+    //         o->oPosY = m->pos[1];
+    //         o->oPosZ = m->pos[2];
+    //     }
+    // }
 }
 
 

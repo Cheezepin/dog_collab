@@ -1,0 +1,16 @@
+extern const GeoLayout screw_geo[];
+extern Lights1 Screw2639_YELLOW_lights;
+extern Lights1 Screw2639_BLUE_lights;
+extern Lights1 Screw2639_CONTROL_POINTS_lights;
+extern Vtx Screw2639_Cube_001_mesh_layer_1_vtx_cull[8];
+extern Vtx Screw2639_Cube_001_mesh_layer_1_vtx_0[608];
+extern Gfx Screw2639_Cube_001_mesh_layer_1_tri_0[];
+extern Vtx Screw2639_Cube_001_mesh_layer_1_vtx_1[32];
+extern Gfx Screw2639_Cube_001_mesh_layer_1_tri_1[];
+extern Vtx Screw2639_Cube_001_mesh_layer_1_vtx_2[116];
+extern Gfx Screw2639_Cube_001_mesh_layer_1_tri_2[];
+extern Gfx mat_Screw2639_YELLOW[];
+extern Gfx mat_Screw2639_BLUE[];
+extern Gfx mat_Screw2639_CONTROL_POINTS[];
+extern Gfx Screw2639_Cube_001_mesh_layer_1[];
+extern Gfx Screw2639_material_revert_render_settings[];

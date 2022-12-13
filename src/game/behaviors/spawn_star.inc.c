@@ -135,6 +135,10 @@ void spawn_default_star(f32 x, f32 y, f32 z) {
     struct Object *starObj = NULL;
     starObj = spawn_star(starObj, x, y, z);
     starObj->oBehParams2ndByte = SPAWN_STAR_ARC_CUTSCENE_BP_DEFAULT_STAR;
+
+    if (in2639Level() && gCurrActNum == 4) {
+        starObj->oBehParams = STAR_BP_ACT_4 << 24;
+    }
 }
 
 void spawn_clown_star(f32 x, f32 y, f32 z) {
@@ -147,6 +151,13 @@ void spawn_red_coin_cutscene_star(f32 x, f32 y, f32 z) {
     struct Object *starObj = NULL;
     starObj = spawn_star(starObj, x, y, z);
     starObj->oBehParams2ndByte = SPAWN_STAR_ARC_CUTSCENE_BP_HIDDEN_STAR;
+}
+
+void spawn_cutscene_star_get_outta_here(u32 bp, f32 x, f32 y, f32 z) {
+    struct Object *starObj = NULL;
+    starObj = spawn_star(starObj, x, y, z);
+    starObj->oBehParams2ndByte = SPAWN_STAR_ARC_CUTSCENE_BP_HIDDEN_STAR;
+    starObj->oBehParams = bp << 24;
 }
 
 void spawn_no_exit_star(f32 x, f32 y, f32 z) {
