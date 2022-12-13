@@ -1,0 +1,11 @@
+extern const GeoLayout sakseed_geo[];
+extern Lights1 sakseed_Seed_001_lights;
+extern u8 sakseed__0_ci8[];
+extern u8 sakseed__0_ci8_pal_rgba16[];
+extern Vtx sakseed_Sak_Seed_mesh_layer_1_vtx_cull[8];
+extern Vtx sakseed_Sak_Seed_mesh_layer_1_vtx_0[14];
+extern Gfx sakseed_Sak_Seed_mesh_layer_1_tri_0[];
+extern Gfx mat_sakseed_Seed_001[];
+extern Gfx mat_revert_sakseed_Seed_001[];
+extern Gfx sakseed_Sak_Seed_mesh_layer_1[];
+extern Gfx sakseed_material_revert_render_settings[];

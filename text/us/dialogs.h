@@ -206,31 +206,28 @@ Bark!\n\
 (Please take good care\n\
 of it!)")
 
-DEFINE_DIALOG(DIALOG_017, 1, 4, 30, 200, "\
-I'm the Big Bob-omb, lord\n\
-of all blasting matter,\n\
-king of ka-booms the\n\
-world over!\n\
-How dare you scale my\n\
-mountain? By what right\n\
-do you set foot on my\n\
-imperial mountaintop?\n\
-You may have eluded my\n\
-guards, but you'll never\n\
-escape my grasp...\n\
-\n\
-...and you'll never take\n\
-away my Power Star. I\n\
-hereby challenge you,\n\
-Mario!\n\
-If you want the Star I\n\
-hold, you must prove\n\
-yourself in battle.\n\
-\n\
-Can you pick me up from\n\
-the back and hurl me to\n\
-this royal turf? I think\n\
-that you cannot!")
+DEFINE_DIALOG(DIALOG_017, 1, 5, 30, 200, "\
+Tis I, The Bob-omb Baron.\n\
+Who dares disturb my\n\
+peaceful and elegant\n\
+Maple Markindon?\n\
+You haven't the right.\n\
+You've come for my star?\n\
+I shan't give it away\n\
+that easy, it is my most\n\
+prized possession!\n\
+Hmph, well then...\n\
+If you so insist,\n\
+then let us duel for it!\n\
+If you manage to lift me\n\
+and hurl me to my royal\n\
+throne, the star's yours.\n\
+I'd be amazed if such a\n\
+little man like yourself\n\
+can lift me up for even\n\
+an inch!\n\
+Come at me!")
+
 
 DEFINE_DIALOG(DIALOG_018, 1, 4, 30, 200, "\
 I'm sleeping because...\n\
@@ -560,9 +557,13 @@ Practice, practice,\n\
 practice. You don't stand\n\
 a chance without them.")
 
-DEFINE_DIALOG(DIALOG_047, 1, 2, 95, 200, "\
-Hi! I'll prepare the\n\
-cannon for you!")
+DEFINE_DIALOG(DIALOG_047, 1, 3, 95, 200, "\
+The Bob-omb stands\n\
+atop the tree\n\
+behind me.\n\
+You want to speak with\n\
+him? Very well, I'll\n\
+open cannon for you.")
 
 DEFINE_DIALOG(DIALOG_048, 1, 4, 30, 200, "\
 Snow Mountain Summit\n\
@@ -1376,14 +1377,34 @@ DEFINE_DIALOG(DIALOG_112, 1, 4, 30, 200, "\
 DEFINE_DIALOG(DIALOG_113, 1, 6, 30, 200, "\
 ")
 
-DEFINE_DIALOG(DIALOG_114, 1, 5, 95, 200, "\
-")
+DEFINE_DIALOG(DIALOG_114, 1, 4, 95, 200, "\
+The Bob-omb Baron has\n\
+instructed us to\n\
+plant tree seeds\n\
+around the Markindon.\n\
+Would you mind lending\n\
+us a hand?\n\
+Since, you know, we\n\
+don't have any...")
 
-DEFINE_DIALOG(DIALOG_115, 1, 5, 95, 200, "\
-")
+DEFINE_DIALOG(DIALOG_115, 1, 3, 95, 200, "\
+Be warned, the\n\
+Baron has very\n\
+little patience.")
 
-DEFINE_DIALOG(DIALOG_116, 1, 5, 95, 200, "\
-")
+DEFINE_DIALOG(DIALOG_116, 1, 6, 95, 200, "\
+Unbelievable...\n\
+I've been a Baron\n\
+for decades, and yet\n\
+I was bested by a\n\
+tiny man and his dog in\n\
+less then 5 minutes...\n\
+Since I no longer\n\
+deserve it, here is\n\
+the Power Star, as\n\
+promised.\n\
+Farewell and good luck,\n\
+little man.")
 
 DEFINE_DIALOG(DIALOG_117, 1, 1, 95, 200, "\
 ")

@@ -59,4 +59,10 @@ extern const LevelScript level_wdw_entry[];
 
 #include "levels/wdw/dirt_patch/geo_header.h"
 
+#include "levels/wdw/wdw_backdrop/header.h"
+
+#include "levels/wdw/mapletree/geo_header.h"
+
+#include "levels/wdw/sakseed/geo_header.h"
+
 #endif

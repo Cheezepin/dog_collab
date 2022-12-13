@@ -1,0 +1,11 @@
+extern u8 wdw_backdrop_cloud_i8[];
+extern Vtx wdw_backdrop_Skybox_mesh_vtx_cull[8];
+extern Vtx wdw_backdrop_Skybox_mesh_vtx_0[176];
+extern Gfx wdw_backdrop_Skybox_mesh_tri_0[];
+extern Vtx wdw_backdrop_Skybox_mesh_vtx_1[9];
+extern Gfx wdw_backdrop_Skybox_mesh_tri_1[];
+extern Gfx mat_wdw_backdrop_sky_001_layer1[];
+extern Gfx mat_revert_wdw_backdrop_sky_001_layer1[];
+extern Gfx mat_wdw_backdrop_backdrop_cloud_layer1[];
+extern Gfx mat_revert_wdw_backdrop_backdrop_cloud_layer1[];
+extern Gfx wdw_backdrop_Skybox_mesh[];

@@ -97,7 +97,7 @@ u8 sDialogSpeaker[] = {
     /* 8*/ UKIKI, _,     _,     _,     _,     BOO,   _,     _,     _,     _,
     /* 9*/ BOWS2, _,     BOWS2, BOWS2, _,     _,     _,     _,     BOO,   BOO,
     /*10*/ UKIKI, UKIKI, _,     _,     _,     _,     _,  BOO,   BOO,   _,
-    /*11*/ _,     _,     _,     _,     GRUNT, GRUNT, KBOMB, GRUNT, GRUNT, _,
+    /*11*/ _,     _,     _,     _,     BOMB, BOMB, KBOMB, GRUNT, GRUNT, _,
     /*12*/ _,     _,     _,     _,     _,     _,     _,     _,     KBOMB, _,
     /*13*/ _,     _,     _, _,     _,     _,     _,     _,     _,     _,
     /*14*/ _,     _,     _,     _,     _,     _,     _,     _,     _,     _,
