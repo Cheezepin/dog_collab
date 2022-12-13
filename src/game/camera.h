@@ -291,8 +291,10 @@ enum Cutscenes {
     CUTSCENE_SNOW_HILL,
     CUTSCENE_INTRO,
     CUTSCENE_SNOW_BOWSER_INTRO,
+    CUTSCENE_REAL_ENDING,
     // thecozies
     CUTSCENE_COZIES_ACTIVATE_SWITCH
+    // end thecozies
 };
 
 /**
@@ -829,5 +831,6 @@ void start_cozies_switch_cutscene(u8 switchId);
 Gfx *geo_camera_fov(s32 callContext, struct GraphNode *g, UNUSED void *context);
 
 extern s32 gIntroCutsceneState;
+extern s32 gEndingCutsceneState;
 
 #endif // CAMERA_H

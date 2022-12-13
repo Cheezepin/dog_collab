@@ -2048,3 +2048,13 @@ enough stars.")
 DEFINE_DIALOG(CHEEZE_DIALOG_7, 1, 5, 95, 200, "\
 Ruff!")
 
+DEFINE_DIALOG(CHEEZE_DIALOG_8, 1, 2, 95, 200, "\
+Thank you for saving\n\
+me, Mario!\n\
+And thank you too,\n\
+"TEXT_DOG"!\n\
+Now, let's all go\n\
+back to the castle.\n\
+I'll bake a cake\n\
+for everyone!")
+

@@ -216,7 +216,7 @@ void hmcelevator_loop(void)
             o->oMoving = 0;
             o->oOff = 1;
             cur_obj_play_sound_2(SOUND_GENERAL_METAL_POUND);
-            set_background_music(SEQ_LEVEL_SNOW, SEQUENCE_ARGS(4, SEQ_LEVEL_SNOW), 30);
+            if(gCurrCreditsEntry == NULL) set_background_music(SEQ_LEVEL_SNOW, SEQUENCE_ARGS(4, SEQ_LEVEL_SNOW), 30);
         }
 
 

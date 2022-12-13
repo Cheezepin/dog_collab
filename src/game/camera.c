@@ -10889,6 +10889,7 @@ void cutscene_snow_hill(struct Camera *c) {
 }
 
 s32 gIntroCutsceneState = 0;
+
 void cutscene_intro(struct Camera *c) {
     Vec3f focus;
     Vec3f pos;
@@ -10930,6 +10931,31 @@ void cutscene_bowser_snow_arena(struct Camera *c) {
     }
 }
 
+s32 gEndingCutsceneState = 0;
+s32 peachSpin = 0;
+
+void cutscene_ending(struct Camera *c) {
+    Vec3f focus;
+    Vec3f pos;
+    struct Object *peach = find_any_object_with_behavior(bhvPeachEnding);
+    if(peach) {
+        switch(gEndingCutsceneState) {
+            Vec3f localVec;
+            case 0:
+                if(peach->oOpacity == 0) {peachSpin = 0;}
+                if(peach->oOpacity < 20) {peachSpin += peach->oOpacity*21;}
+                else if(peach->oOpacity >= 20 && peach->oOpacity < 220) {peachSpin += 420;}
+                else if(peach->oOpacity >= 220 && peach->oOpacity < 240) {peachSpin += (240 - peach->oOpacity)*21;}
+                vec3f_set(c->pos, sins(peachSpin)*(200.0f + 3.0f*((f32)peach->oOpacity)), 100.0f, coss(peachSpin)*(200.0f + 3.0f*((f32)peach->oOpacity)));
+                vec3f_set(c->focus, 0.0f, peach->oPosY + 75.0f, 0.0f);
+                break;
+            case 3:
+                vec3f_set(localVec, sins(peachSpin)*10.0f, 5.0f, coss(peachSpin)*10.0f);
+                vec3f_add(c->pos, localVec);
+                break;
+        }
+    }
+}
 
 #define COZY_SWITPART2_
 void cutscene_cozies_activate_switch(struct Camera *c) {
@@ -11399,6 +11425,10 @@ struct Cutscene sCutsceneIntro[] = {
     { cutscene_intro, CUTSCENE_LOOP },
 };
 
+struct Cutscene sCutsceneRealEnding[] = {
+    { cutscene_ending, CUTSCENE_LOOP },
+};
+
 /* TODO:
  * The next two arrays are both related to levels, and they look generated.
  * These should be split into their own file.
@@ -11644,13 +11674,14 @@ struct CutsceneSplinePoint sHmcInsideCreditsSplinePositions[] = {
     { 4, 0, { -5544, 1187, -1085 } },
     { -1, 0, { -5547, 391, -721 } }*/
 
-    { 0, 0, { -5402, 8249, -3100 }},
-	{ 1, 0, { -4339, 7478, -1542 }},
-	{ 2, 0, { -2691, 5623, -2000 }},
-	{ 3, 0, { -918, 4385, -2053 }},
-	{ 4, 0, { 851, 4385, -2662 }},
-	{ 5, 0, { 859, 4473, -5380 }},
-	{ -1, 0, { 912, 7125, -6117 }},
+    // { 0, 0, { -5402, 8249, -3100 }},
+	// { 1, 0, { -4339, 7478, -1542 }},
+	// { 2, 0, { -2691, 5623, -2000 }},
+	// { 3, 0, { -918, 4385, -2053 }},
+	// { 4, 0, { 851, 4385, -2662 }},
+	// { 5, 0, { 859, 4473, -5380 }},
+	// { -1, 0, { 912, 7125, -6117 }},
+    { -1, 0, { 851, 4385, -2662 }},
 };
 
 struct CutsceneSplinePoint sHmcInsideCreditsSplineFocus[] = {
@@ -11660,13 +11691,14 @@ struct CutsceneSplinePoint sHmcInsideCreditsSplineFocus[] = {
     { 4, 31, { -5546, 794, -777 } },
     { -1, 31, { -5548, -85, -572 } }*/
 
-    { 0, 40, { -3402, 6929, -2101 }},
-	{ 1, 40, { -2927, 6011, -1967 }},
-	{ 2, 40, { -1057, 4385, -2057 }},
-	{ 3, 40, { 80, 4409, -1878 }},
-	{ 4, 40, { 2029, 4385, -2373 }},
-	{ 5, 60, { 948, 4220, -3213 }},
-	{ -1, 60, { 912, 4708, -6117 }},
+    // { 0, 40, { -3402, 6929, -2101 }},
+	// { 1, 40, { -2927, 6011, -1967 }},
+	// { 2, 40, { -1057, 4385, -2057 }},
+	// { 3, 40, { 80, 4409, -1878 }},
+	// { 4, 40, { 2029, 4385, -2373 }},
+	// { 5, 60, { 948, 4220, -3213 }},
+	// { -1, 60, { 912, 4708, -6117 }},
+    { -1, 40, { 2029, 4385, -2373 }},
 };
 
 struct CutsceneSplinePoint sThiWigglerCreditsSplinePositions[] = {
@@ -12072,6 +12104,7 @@ void play_cutscene(struct Camera *c) {
         CUTSCENE(CUTSCENE_SNOW_HILL,            sCutsceneSnowHill)
         CUTSCENE(CUTSCENE_INTRO,                sCutsceneIntro)
         CUTSCENE(CUTSCENE_SNOW_BOWSER_INTRO,    sCutsceneSnowBowserIntro)
+        CUTSCENE(CUTSCENE_REAL_ENDING,          sCutsceneRealEnding)
         CUTSCENE(CUTSCENE_COZIES_ACTIVATE_SWITCH, sCutsceneCoziesActivateSwitch)
     }
 

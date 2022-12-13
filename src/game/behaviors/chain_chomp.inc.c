@@ -778,6 +778,8 @@ void bhv_chain_chomp_bowser_update(void) {
             chain_chomp_act_unload_chain();
             break;
     }
+
+    if(find_any_object_with_behavior(bhvBowser)->oAction == BOWSER_ACT_DEAD) {o->oPosY = -100000.0f;}
 }
 
 /**

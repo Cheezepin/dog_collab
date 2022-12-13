@@ -330,7 +330,7 @@ void bhv_b3_dog_loop(void) {
             }
             break;
     }
-    if(o->oSubAction == 0 && find_any_object_with_behavior(bhvBowser)->oAction == BOWSER_ACT_WALK_TO_MARIO) {
+    if(o->oSubAction == 0 && find_any_object_with_behavior(bhvBowser) && find_any_object_with_behavior(bhvBowser)->oAction == BOWSER_ACT_WALK_TO_MARIO) {
         o->oSubAction = 1;
     }
 

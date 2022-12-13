@@ -191,6 +191,11 @@
             "envelope": "envelope15",
             "sound": "CUSTOM_clarinet"
         },
+        "inst15": {
+            "release_rate": 34,
+            "envelope": "envelope15",
+            "sound": "3A_music_box"
+        },
         "percussion": [
             {"release_rate": 10, "pan": 62, "envelope": "envelope11", "sound": {"sample": "06_kick_drum_1", "tuning": 0.210224}},
             {"release_rate": 10, "pan": 62, "envelope": "envelope11", "sound": {"sample": "06_kick_drum_1", "tuning": 0.2227245}},
@@ -275,6 +280,7 @@
         null,
         "inst13",
         "inst11",
-        "inst14"
+        "inst14",
+        "inst15" //17
     ]
 }
