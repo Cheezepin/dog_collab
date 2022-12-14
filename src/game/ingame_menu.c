@@ -579,7 +579,7 @@ void print_credits_string(s16 x, s16 y, const u8 *str) {
 
     while (str[strPos] != GLOBAR_CHAR_TERMINATOR) {
         switch (str[strPos]) {
-            case GLOBAL_CHAR_SPACE:
+            case /*GLOBAL_CHAR_SPACE*/ 0x7F:
                 curX += 4;
                 break;
             default:
@@ -1117,7 +1117,7 @@ void render_dialog_triangle_next(s8 linesPerBox) {
 
 void handle_special_dialog_text(u32 dialogID) { // dialog ID tables, in order
     // King Bob-omb (Start), Whomp (Start), King Bob-omb (throw him out), Eyerock (Start), Wiggler (Start)
-    u32 dialogBossStart[] = { DIALOG_017, DIALOG_114, DIALOG_128, DIALOG_117 };
+    u32 dialogBossStart[] = { DIALOG_017, DIALOG_128, DIALOG_117 };
     // Koopa the Quick (BOB), Koopa the Quick (THI), Penguin Race, Fat Penguin Race (120 stars)
     u32 dialogRaceSound[] = { DIALOG_005, DIALOG_009, DIALOG_055 };
     // Red Switch, Green Switch, Blue Switch, 100 coins star, Bowser Red Coin Star
@@ -1347,7 +1347,7 @@ void dl_rgba16_stop_cutscene_msg_fade(void) {
 u32 ascii_to_credits_char(u8 c) {
     if (c >= 'A' && c <= 'Z') return (c - ('A' - 0xA));
     if (c >= 'a' && c <= 'z') return (c - ('a' - 0xA)); // remap lower to upper case
-    if (c == ' ') return GLOBAL_CHAR_SPACE;
+    if (c == ' ') return /*GLOBAL_CHAR_SPACE*/ 0x7F;
     if (c == '.') return 0x24;
     if (c == '\'') return 0x25;
     if (c == '0') return ASCII_TO_DIALOG('0');
@@ -1357,6 +1357,7 @@ u32 ascii_to_credits_char(u8 c) {
     if (c == '4') return ASCII_TO_DIALOG('4');
     if (c == '5') return ASCII_TO_DIALOG('5');
     if (c == '6') return ASCII_TO_DIALOG('6');
+    if (c == '7') return ASCII_TO_DIALOG('7');
     if (c == '9') return ASCII_TO_DIALOG('9');
 
     return GLOBAL_CHAR_SPACE;

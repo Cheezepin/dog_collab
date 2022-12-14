@@ -114,7 +114,7 @@ u8 sDialogSpeaker[900] = {
 //               "change this array if you are adding dialogs");
 
 s32 sDialogSpeakerVoice[] = {
-    SOUND_OBJ_UKIKI_CHATTER_LONG,
+    /*SOUND_OBJ_UKIKI_CHATTER_LONG,*/ NO_SOUND,
     SOUND_OBJ_BIG_PENGUIN_YELL,
     SOUND_OBJ_BOWSER_INTRO_LAUGH,
     SOUND_OBJ_KOOPA_TALK,

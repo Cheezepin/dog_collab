@@ -38,9 +38,9 @@
 
 // TODO: Make these ifdefs better
 const char *credits01[] = { "1DOG COLLAB", "CREDITS" };
-const char *credits02[] = { "4MAPLE MARKINDON", "MUSIC", "ASHLEY", "ROUTE 47 POKEMON GS" };
+const char *credits02[] = { "4MAPLE MARKINDON", "MUSIC", "ASHLEY", "ROUTE 47 POKEMON HGSS" };
 const char *credits03[] = { "4CUMULUS CORRECTIONAL CENTER", "MUSIC", "MRCOMIT", "ORIGINAL BY MRCOMIT" };
-const char *credits04[] = { "4HAIR-RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "IDK" };
+const char *credits04[] = { "4HAIR RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "ORIGINAL BY SOMEONE2639" };
 
 // #if defined(VERSION_JP) || defined(VERSION_SH)
 
@@ -62,58 +62,50 @@ const char *credits04[] = { "4HAIR-RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "
 // #else // VERSION_US || VERSION_EU
 
 // US and EU combine camera programmer and Mario face programmer...
-const char *credits05[] = { "6BOWSER'S FLYING", "FUCKING FORTRESS", "MUSIC", "CHEEZEPIN", "", "HYRULE CASTLE LTTP" };
-const char *credits06[] = { "4KOOPA ATOLL", "MUSIC", "BEVERLYBEAN", "IDK" };
+const char *credits05[] = { "6BOWSER'S FLYING", "CHEEZEPIN", "FUCKING FORTRESS", "", "MUSIC", "HYRULE CASTLE LTTP" };
+const char *credits06[] = { "4KOOPA ATOLL", "MUSIC", "BEVERLYBEAN", "WATERSONG 2 DTL NEXT CHAPTER" };
 const char *credits07[] = { "4PEACH RUINS", "MUSIC", "ROVERT", "IDK" };
-const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "IDK" };
+const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "STRIATION CITY POKEMON BW" };
 
 // ...as well as sound composer, sound effects, and sound programmer, and...
 const char *credits09[] = { "4AWE-INSPIRING SPIRES", "MUSIC", "KEYBLADER", "METEOR HERD SA2" };
 // ...3D animators and additional graphics in order to make room for screen text writer(s), Mario voice, and Peach voice
-const char *credits10[] = { "6BOWSER'S RAINBOW", "RINGS", "MUSIC", "ANUNIDENTIFIEDEMU", "", "BOWSER STAGE SM64" };
-const char *credits11[] = { "4FEUDAL FORTRESS", "MUSIC", "YOSHI MILKMAN", "SAMMERS KINGDOM SPM" };
+const char *credits10[] = { "6BOWSER'S RAINBOW", "ANUNIDENTIFIEDEMU", "RINGS",  "", "MUSIC", "BOWSER STAGE SM64" };
+const char *credits11[] = { "4SAKURA STRONGHOLD", "MUSIC", "YOSHI MILKMAN", "SAMMERS KINGDOM SPM" };
 const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "HMC SM64" };
 const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIGINAL BY THECOZIES" };
-const char *credits14[] = { "8OTHER MUSIC", "CCC AREA 2", "CIRCUS BOSS", "UH IDK", "", "ORIGINAL BY MRCOMIT", "IDK", "LOL" };
-const char *credits15[] = { "4SCREEN TEXT WRITER", "FRENCH TRANSLATION", "JULIEN BARDAKOFF", "KENJI HARAGUCHI" };
-const char *credits16[] = { "4SCREEN TEXT WRITER", "GERMAN TRANSLATION", "THOMAS GOERG", "THOMAS SPINDLER" };
+const char *credits14[] = { "6OTHER MUSIC", "", "BOSS", "SM64 BOSS", "CIRCUS BOSS", "CACKLETTA BOSS ML SS" };
+const char *credits15[] = { "6FACTORY OUTSIDE", "CCM SM64", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
+const char *credits16[] = { "6SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD"};
 
-// #endif
-
-const char *credits17[] = { "4MARIO VOICE", "PEACH VOICE", "CHARLES MARTINET", "LESLIE SWAN" };
-
-#if defined(VERSION_JP) || defined(VERSION_SH)
-const char *credits18[] = { "3SPECIAL THANKS TO", "JYOHO KAIHATUBU", "ALL NINTENDO", "MARIO CLUB STAFF" };
-#else // VERSION_US | VERSION_EU
-const char *credits18[] = { "3SPECIAL THANKS TO", "EAD STAFF", "ALL NINTENDO PERSONNEL", "SUPER MARIO CLUB STAFF" };
-#endif
-
-const char *credits19[] = { "1PRODUCER", "SHIGERU MIYAMOTO" };
-const char *credits20[] = { "1EXECUTIVE PRODUCER", "HIROSHI YAMAUCHI" };
+const char *credits17[] = { "3SPECIAL THANKS TO", "THECOZIES' DOG", "CLEVER FOLKS AT DECOMP", "FERGUS" };
+const char *credits18[] = { "3SPECIAL THANKS TO", "ARTHURTILLY", "HACKERSM64 TEAM", "GILES GODDARD" };
+const char *credits19[] = { "3PLEASE CHECK OUT THE SOCIALS AND", "", "OTHER PROJECTS OF EVERYONE WHO", "WORKED ON THE COLLAB" };
+const char *credits20[] = { "4THANKS TO EVERYONE WHO WORKED ON THE COLLAB", "AND THANK YOU FOR PLAYING", "", "" };
 
 
 struct CreditsEntry sCreditsSequence[] = {
-    { LEVEL_BITS, 1, 1, -128, { 0, 0, 0 }, NULL },
-    { LEVEL_BITS, 1, 1, 117, { 0, 0, 0 }, credits01 },
-    { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02 },
-    { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03 },
-    { LEVEL_BBH, 1, 34, 25, { -5464, 6656, -6575 }, credits04 },
-    { LEVEL_BITFS, 1, 1, 240, { 15040, 2867, 1676 }, credits05 },
-    { LEVEL_WF, 1, -15, 123, { -5516, 1006, 1554 }, credits06 },
-    { LEVEL_CCM, 1, 17, -32, { 508, 1024, 1942 }, credits07 },
-    { LEVEL_JRB, 1, 33, 124, { 6367, 100, -37 }, credits08 },
-    { LEVEL_SSL, 1, 65, 98, { -5906, 1024, -2576 }, credits09 },
-    { LEVEL_BITDW, 1, 50, 47, { -4884, -4607, -272 }, credits10 },
-    { LEVEL_LLL, 1, 17, -34, { 1925, 3328, 563 }, credits11 },
-    { LEVEL_HMC, 2, 33, 105, { 400, 4500, -400 }, credits12 },
-    { LEVEL_DDD, 1, 2, -33, { 2613, 313, 1074 }, credits13 },
-    { LEVEL_BBH, 2, 51, 54, { -2609, 512, 856 }, credits14 },
-    { LEVEL_HMC, 1, 51, 54, { -2609, 512, 856 }, credits15 },
-    { LEVEL_DDD, 2, 51, 54, { -2609, 512, 856 }, credits16 },
-    { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17 },
-    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18 },
-    { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits19 },
-    { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits20 },
+    { LEVEL_BITS, 1, 1, -128, { 0, 0, 0 }, NULL, 0 },
+    { LEVEL_BITS, 1, 1, 117, { 0, 0, 0 }, credits01, 0 },
+    { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02, 0 },
+    { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03, 0 },
+    { LEVEL_BBH, 1, 34, 25, { -5464, 6656, -6575 }, credits04, 0 },
+    { LEVEL_BITFS, 1, 1, 240, { 15040, 2867, 1676 }, credits05, 1 },
+    { LEVEL_WF, 1, -15, 123, { -5516, 1006, 1554 }, credits06, 0 },
+    { LEVEL_CCM, 1, 17, -32, { 508, 1024, 1942 }, credits07, 0 },
+    { LEVEL_JRB, 1, 33, 124, { 6367, 100, -37 }, credits08, 0 },
+    { LEVEL_SSL, 1, 65, 98, { -5906, 1024, -2576 }, credits09, 0 },
+    { LEVEL_BITDW, 1, 50, 47, { -4884, -4607, -272 }, credits10, 1 },
+    { LEVEL_LLL, 1, 17, -34, { 1925, 3328, 563 }, credits11, 0 },
+    { LEVEL_HMC, 2, 33, 105, { 400, 4500, -400 }, credits12, 0 },
+    { LEVEL_DDD, 1, 2, -33, { 2613, 313, 1074 }, credits13, 0 },
+    { LEVEL_BBH, 2, 51, 54, { -2609, 512, 856 }, credits14, 1 },
+    { LEVEL_HMC, 1, 51, 54, { -2609, 512, 856 }, credits15, 1 },
+    { LEVEL_DDD, 2, 51, 54, { -2609, 512, 856 }, credits16, 1 },
+    { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17, 0 },
+    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },
+    { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits19, 0 },
+    { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits20, 0 },
     //{ LEVEL_TTC, 1, 17, -72, { -1304, -71, -967 }, credits15 },
     //{ LEVEL_RR, 1, 33, 64, { 1565, 1024, -148 }, credits16 },
     //{ LEVEL_SA, 1, 1, 24, { -1050, -1330, -1559 }, credits17 },

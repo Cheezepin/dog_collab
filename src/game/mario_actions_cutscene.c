@@ -120,37 +120,46 @@ void print_displaying_credits_entry(void) {
         s16 lineHeight = 16;
 
         dl_rgba16_begin_cutscene_msg_fade();
-        print_credits_str_ascii(CREDIT_TEXT_X_LEFT, strY, titleStr);
 
-        switch (numLines) {
-            case 4:
-                print_credits_str_ascii(CREDIT_TEXT_X_LEFT, strY + 24, *currStrPtr++);
-                numLines = 2;
-                lineHeight = 24;
-                break;
-            case 5:
-                print_credits_str_ascii(CREDIT_TEXT_X_LEFT, strY + 16, *currStrPtr++);
-                numLines = 3;
-                break;
-#ifdef VERSION_EU
-            case 6:
-                print_credits_str_ascii(CREDIT_TEXT_X_LEFT, strY + 32, *currStrPtr++);
-                numLines = 3;
-                break;
-            case 7:
-                print_credits_str_ascii(CREDIT_TEXT_X_LEFT, strY + 16, *currStrPtr++);
-                print_credits_str_ascii(CREDIT_TEXT_X_LEFT, strY + 32, *currStrPtr++);
-                numLines = 3;
-                break;
-#endif
-        }
+        switch(sDispCreditsEntry->lineFormat) {
+            case 0:
+                print_credits_str_ascii(CREDIT_TEXT_X_LEFT, strY, titleStr);
 
-        while (numLines-- > 0) {
-            print_credits_str_ascii(CREDIT_TEXT_X_RIGHT - get_credits_str_width(*currStrPtr), strY, *currStrPtr);
+                switch (numLines) {
+                    case 4:
+                        print_credits_str_ascii(CREDIT_TEXT_X_LEFT, strY + 24, *currStrPtr++);
+                        numLines = 2;
+                        lineHeight = 24;
+                        break;
+                    case 5:
+                        print_credits_str_ascii(CREDIT_TEXT_X_LEFT, strY + 16, *currStrPtr++);
+                        numLines = 3;
+                        break;
+                }
 
-            strY += lineHeight;
+                while (numLines-- > 0) {
+                    print_credits_str_ascii(CREDIT_TEXT_X_RIGHT - get_credits_str_width(*currStrPtr), strY, *currStrPtr);
 
-            currStrPtr++;
+                    strY += lineHeight;
+
+                    currStrPtr++;
+                }
+            break;
+        case 1:
+            print_credits_str_ascii(CREDIT_TEXT_X_LEFT - 0x10, strY, titleStr);
+            numLines--;
+
+            while (numLines-- > 0) {
+                if(numLines % 2 == 0) {
+                    print_credits_str_ascii(CREDIT_TEXT_X_RIGHT - get_credits_str_width(*currStrPtr) + 0x10, strY, *currStrPtr);
+
+                    strY += lineHeight;
+                } else {
+                    print_credits_str_ascii(CREDIT_TEXT_X_LEFT - 0x10, strY, *currStrPtr);
+                }
+                currStrPtr++;
+            }
+            break;
         }
 
         dl_rgba16_stop_cutscene_msg_fade();

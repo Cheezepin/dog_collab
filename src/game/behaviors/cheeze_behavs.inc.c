@@ -338,7 +338,7 @@ void bhv_warp_box_loop(void) {
 }
 
 void bhv_peach_cutscene_loop(void) {
-    if(gCurrCreditsEntry != NULL) return cur_obj_init_animation(PEACH_ANIM_WAVING); o->oMoveAngleYaw = o->oFaceAngleYaw = 0x4000;
+    if(gCurrCreditsEntry != NULL) {o->oMoveAngleYaw = o->oFaceAngleYaw = 0xD000; return cur_obj_init_animation(PEACH_ANIM_WAVING);}
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
     switch(gIntroCutsceneState) {
         case 0:

@@ -196,27 +196,27 @@ static const Lights1 lights_menu_main_button = gdSPDefLights1(
 
 // 0x07003468 - 0x07003468
 ALIGNED8 static const Texture texture_menu_erase[] = {
-#include "levels/menu/main_menu_seg7.03468.rgba16.inc.c"
+#include "levels/menu/CUSTOM_main_menu_seg7.03468.rgba16.inc.c"
 };
 
 // 0x07003C68 - 0x07003C68
 ALIGNED8 static const Texture texture_menu_copy[] = {
-#include "levels/menu/main_menu_seg7.03C68.rgba16.inc.c"
+#include "levels/menu/CUSTOM_main_menu_seg7.03C68.rgba16.inc.c"
 };
 
 // 0x07004468 - 0x07004468
 ALIGNED8 static const Texture texture_menu_file[] = {
-#include "levels/menu/main_menu_seg7.04468.rgba16.inc.c"
+#include "levels/menu/CUSTOM_main_menu_seg7.04468.rgba16.inc.c"
 };
 
 // 0x07004C68 - 0x07004C68
 ALIGNED8 static const Texture texture_menu_score[] = {
-#include "levels/menu/main_menu_seg7.04C68.rgba16.inc.c"
+#include "levels/menu/CUSTOM_main_menu_seg7.04C68.rgba16.inc.c"
 };
 
 // 0x07005468 - 0x07005468
 ALIGNED8 static const Texture texture_menu_sound[] = {
-#include "levels/menu/main_menu_seg7.05468.rgba16.inc.c"
+#include "levels/menu/CUSTOM_main_menu_seg7.05468.rgba16.inc.c"
 };
 
 // 0x07005C68 - 0x07005D68

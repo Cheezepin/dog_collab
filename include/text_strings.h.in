@@ -323,7 +323,7 @@
 
 #define TEXT_C0I "Intro"
 #define TEXT_C0  "Peach's Castle"
-#define TEXT_C0A "Author: ???"
+#define TEXT_C0A "Author: Princess Peach"
 
 #define TEXT_C1I "Course 1"
 #define TEXT_C1  "Maple Markindon"
@@ -374,7 +374,7 @@
 #define TEXT_C10A "Author: thecozies"
 
 #define TEXT_B3I "Bowser 3"
-#define TEXT_B3  "Bowser's Flaming Finale"
+#define TEXT_B3  "Bowser's Furious Finale"
 #define TEXT_B3A "Author: Everyone!"
 
 #define TEXT_YOU_GOT_A_STAR "You Got a Star!"

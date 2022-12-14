@@ -195,8 +195,8 @@ s32 check_clicked_button(s16 x, s16 y, f32 depth) {
     f32 newY = ((f32) y * 120.0f) / (a * 3 / 4 * depth);
     s16 maxX = newX + 25.0f;
     s16 minX = newX - 25.0f;
-    s16 maxY = newY + 21.0f;
-    s16 minY = newY - 21.0f;
+    s16 maxY = newY + 15.0f;
+    s16 minY = newY - 15.0f;
 
     if (sClickPos[0] < maxX && minX < sClickPos[0] && sClickPos[1] < maxY && minY < sClickPos[1]) {
         return TRUE;
@@ -273,7 +273,7 @@ void bhv_menu_button_growing_from_submenu(struct Object *button) {
     }
     button->oParentRelativePosX -= button->oMenuButtonOrigPosX / 16.0f;
     button->oParentRelativePosY -= button->oMenuButtonOrigPosY / 16.0f;
-    button->oParentRelativePosZ -= 116.25f;
+    button->oParentRelativePosZ -= 130.25f;
     button->oMenuButtonTimer++;
     if (button->oMenuButtonTimer == 16) {
         button->oParentRelativePosX = 0.0f;
@@ -299,7 +299,7 @@ void bhv_menu_button_shrinking_to_submenu(struct Object *button) {
     button->oParentRelativePosX += button->oMenuButtonOrigPosX / 16.0f;
     button->oParentRelativePosY += button->oMenuButtonOrigPosY / 16.0f;
     if (button->oPosZ > button->oMenuButtonOrigPosZ) {
-        button->oParentRelativePosZ += 116.25f;
+        button->oParentRelativePosZ += 130.25f;
     }
     button->oMenuButtonTimer++;
     if (button->oMenuButtonTimer == 16) {
@@ -487,17 +487,17 @@ void render_score_menu_buttons(struct Object *scoreButton) {
     // Return to main menu button
     sMainMenuButtons[MENU_BUTTON_SCORE_RETURN] =
         spawn_object_rel_with_rot(scoreButton, MODEL_MAIN_MENU_YELLOW_FILE_BUTTON,
-                                  bhvMenuButton,  711, -450, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton,  672, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_SCORE_RETURN]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to copy menu button
     sMainMenuButtons[MENU_BUTTON_SCORE_COPY_FILE] =
         spawn_object_rel_with_rot(scoreButton, MODEL_MAIN_MENU_BLUE_COPY_BUTTON,
-                                  bhvMenuButton,    0, -450, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton,    0, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_SCORE_COPY_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to erase menu button
     sMainMenuButtons[MENU_BUTTON_SCORE_ERASE_FILE] =
         spawn_object_rel_with_rot(scoreButton, MODEL_MAIN_MENU_RED_ERASE_BUTTON,
-                                  bhvMenuButton, -711, -450, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton, -672, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_SCORE_ERASE_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
 }
 
@@ -579,17 +579,17 @@ void render_copy_menu_buttons(struct Object *copyButton) {
     // Return to main menu button
     sMainMenuButtons[MENU_BUTTON_COPY_RETURN] =
         spawn_object_rel_with_rot(copyButton, MODEL_MAIN_MENU_YELLOW_FILE_BUTTON,
-                                  bhvMenuButton,  711, -388, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton,  672, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_COPY_RETURN]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to scire menu button
     sMainMenuButtons[MENU_BUTTON_COPY_CHECK_SCORE] =
         spawn_object_rel_with_rot(copyButton, MODEL_MAIN_MENU_GREEN_SCORE_BUTTON,
-                                  bhvMenuButton,    0, -388, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton,    0, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_COPY_CHECK_SCORE]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to erase menu button
     sMainMenuButtons[MENU_BUTTON_COPY_ERASE_FILE] =
         spawn_object_rel_with_rot(copyButton, MODEL_MAIN_MENU_RED_ERASE_BUTTON,
-                                  bhvMenuButton, -711, -388, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton, -672, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_COPY_ERASE_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
 }
 
@@ -733,17 +733,17 @@ void render_erase_menu_buttons(struct Object *eraseButton) {
     // Return to main menu button
     sMainMenuButtons[MENU_BUTTON_ERASE_RETURN] =
         spawn_object_rel_with_rot(eraseButton, MODEL_MAIN_MENU_YELLOW_FILE_BUTTON,
-                                  bhvMenuButton,  711, -388, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton,  672, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_ERASE_RETURN]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to score menu button
     sMainMenuButtons[MENU_BUTTON_ERASE_CHECK_SCORE] =
         spawn_object_rel_with_rot(eraseButton, MODEL_MAIN_MENU_GREEN_SCORE_BUTTON,
-                                  bhvMenuButton,    0, -388, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton,    0, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_ERASE_CHECK_SCORE]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to copy menu button
     sMainMenuButtons[MENU_BUTTON_ERASE_COPY_FILE] =
         spawn_object_rel_with_rot(eraseButton, MODEL_MAIN_MENU_BLUE_COPY_BUTTON,
-                                  bhvMenuButton, -711, -388, -100, 0x0, -0x8000, 0x0);
+                                  bhvMenuButton, -672, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_ERASE_COPY_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
 }
 
@@ -1095,12 +1095,12 @@ void bhv_menu_button_manager_init(void) {
     // Copy menu button
     sMainMenuButtons[MENU_BUTTON_COPY] =
         spawn_object_rel_with_rot(o, MODEL_MAIN_MENU_BLUE_COPY_BUTTON,
-                                  bhvMenuButton, -2134, -4500, 0, 0x0, 0x0, 0x0);
+                                  bhvMenuButton, -0, -4500, 0, 0x0, 0x0, 0x0);
     sMainMenuButtons[MENU_BUTTON_COPY]->oMenuButtonScale = 1.0f;
     // Erase menu button
     sMainMenuButtons[MENU_BUTTON_ERASE] =
         spawn_object_rel_with_rot(o, MODEL_MAIN_MENU_RED_ERASE_BUTTON,
-                                  bhvMenuButton,  2134, -4500, 0, 0x0, 0x0, 0x0);
+                                  bhvMenuButton,  6400, -4500, 0, 0x0, 0x0, 0x0);
     sMainMenuButtons[MENU_BUTTON_ERASE]->oMenuButtonScale = 1.0f;
     // Sound mode menu button (Option Mode in EU)
     sMainMenuButtons[MENU_BUTTON_SOUND_MODE] =
@@ -1459,8 +1459,8 @@ void print_main_menu_strings(void) {
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
     print_generic_string(SCORE_X, 26, textScore);
-    print_generic_string(COPY_X, 26, textCopy);
-    print_generic_string(ERASE_X, 26, textErase);
+    print_generic_string(149, 26, textCopy);
+    print_generic_string(240, 26, textErase);
     sSoundTextX = get_str_x_pos_from_center(254, textSoundModes[sSoundMode], 10.0f);
     //print_generic_string(sSoundTextX, 26, textSoundModes[sSoundMode]);
 
@@ -1567,9 +1567,9 @@ void print_score_menu_strings(void) {
     // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_generic_string(RETURN_X, 35, LANGUAGE_ARRAY(textReturn));
-    print_generic_string(COPYFILE_X1, 35, LANGUAGE_ARRAY(textCopyFileButton));
-    print_generic_string(ERASEFILE_X1, 35, LANGUAGE_ARRAY(textEraseFileButton));
+    print_generic_string(RETURN_X + 4, 20, LANGUAGE_ARRAY(textReturn));
+    print_generic_string(COPYFILE_X1, 20, LANGUAGE_ARRAY(textCopyFileButton));
+    print_generic_string(ERASEFILE_X1 - 4, 20, LANGUAGE_ARRAY(textEraseFileButton));
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
     for(i = 0; i < 4; i++) {
         switch(i) {
@@ -1709,9 +1709,9 @@ void print_copy_menu_strings(void) {
     // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_generic_string(RETURN_X, 35, LANGUAGE_ARRAY(textReturn));
-    print_generic_string(VIEWSCORE_X1, 35, LANGUAGE_ARRAY(textViewScore));
-    print_generic_string(ERASEFILE_X2, 35, LANGUAGE_ARRAY(textEraseFileButton));
+    print_generic_string(RETURN_X, 20, LANGUAGE_ARRAY(textReturn));
+    print_generic_string(VIEWSCORE_X1, 20, LANGUAGE_ARRAY(textCopyFileButton));
+    print_generic_string(ERASEFILE_X2 - 10, 20, LANGUAGE_ARRAY(textEraseFileButton));
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
     // Print file names
     gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
@@ -2056,9 +2056,9 @@ void print_score_file_star_score(s8 fileIndex, s16 courseIndex, s16 x, s16 y) {
     u8 stars = save_file_get_star_flags(fileIndex, courseIndex);
     s8 starCount = save_file_get_course_star_count(fileIndex, courseIndex);
     // Don't count 100 coin star
-    if (stars & STAR_FLAG_ACT_100_COINS) {
-        starCount--;
-    }
+    //if (stars & STAR_FLAG_ACT_100_COINS) {
+    //    starCount--;
+    //}
     // Add 1 star character for every star collected
     for (i = 0; i < starCount; i++) {
         starScoreText[i] = DIALOG_CHAR_STAR_FILLED;
