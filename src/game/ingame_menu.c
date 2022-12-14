@@ -2676,6 +2676,7 @@ void render_hub_selection(void) {
 
         if(sDelayedWarpTimer == 0) {
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+#ifndef UNLOCK_ALL
                 if(hubSelections[gWorldID][gFocusID].courseID == 17 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 5) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 0;
@@ -2685,7 +2686,9 @@ void render_hub_selection(void) {
                 } else if(hubSelections[gWorldID][gFocusID].courseID == 18 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 30) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 4;
-                } else if(gCustomStarSelectActive || gLevelEntryConfirmationActive) {
+                } else
+#endif
+                if(gCustomStarSelectActive || gLevelEntryConfirmationActive) {
                     sDelayedWarpOp = 1;
                     sDelayedWarpArg = 0x00000002;
                     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
