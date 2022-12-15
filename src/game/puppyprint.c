@@ -44,6 +44,7 @@ a modern game engine's developer's console.
 #include "hud.h"
 #include "debug_box.h"
 #include "color_presets.h"
+#include "main.h"
 
 #ifdef PUPPYPRINT
 
@@ -220,8 +221,8 @@ ColorRGB colourChart[NUM_TLB_SEGMENTS + 1] = {
 #define RAM_BAR_LENGTH 200
 #define RAM_BAR_MIN    (SCREEN_CENTER_X - (RAM_BAR_LENGTH / 2))
 #define RAM_BAR_MAX    (SCREEN_CENTER_X + (RAM_BAR_LENGTH / 2))
-#define RAM_BAR_TOP    (SCREEN_HEIGHT - 30)
-#define RAM_BAR_BOTTOM (SCREEN_HEIGHT - 22)
+#define RAM_BAR_TOP    (gScreenHeight - 30)
+#define RAM_BAR_BOTTOM (gScreenHeight - 22)
 
 void print_ram_bar(void) {
     s32 i = 0;
@@ -277,7 +278,7 @@ void print_ram_overview(void) {
     s32 y = 16;
     s32 drawn = 0;
     prepare_blank_box();
-    render_blank_box(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 192);
+    render_blank_box(0, 0, gScreenWidth, gScreenHeight, 0, 0, 0, 192);
     finish_blank_box();
 
     for (i = 0; i <= NUM_TLB_SEGMENTS; i++) {
@@ -303,7 +304,7 @@ void print_ram_overview(void) {
     }
 
     sprintf(textBytes, "RAM: %06X/%06X (%d_)", main_pool_available(), mempool, (s32)(((f32)main_pool_available() / (f32)mempool) * 100));
-    print_small_text(SCREEN_CENTER_X, (SCREEN_HEIGHT - 16), textBytes, PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, FONT_OUTLINE);
+    print_small_text(SCREEN_CENTER_X, (gScreenHeight - 16), textBytes, PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, FONT_OUTLINE);
 
     print_ram_bar();
 }
@@ -330,7 +331,7 @@ void print_audio_ram_overview(void) {
     s32 totalMemory[2] = { 0, 0 };
     s32 audioPoolSizes[NUM_AUDIO_POOLS][2];
     prepare_blank_box();
-    render_blank_box(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 192);
+    render_blank_box(0, 0, gScreenWidth, gScreenHeight, 0, 0, 0, 192);
     finish_blank_box();
 
     puppyprint_get_allocated_pools(audioPoolSizes[0]);
@@ -456,7 +457,7 @@ void append_puppyprint_log(const char *str, ...) {
 void print_console_log(void) {
     s32 i;
     prepare_blank_box();
-    render_blank_box(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 96);
+    render_blank_box(0, 0, gScreenWidth, gScreenHeight, 0, 0, 0, 96);
     finish_blank_box();
 
     for (i = 0; i < LOG_BUFFER_SIZE; i++) {
@@ -489,12 +490,12 @@ void puppyprint_render_collision(void) {
 
 
 #ifdef VISUAL_DEBUG
-    print_small_text(160, (SCREEN_HEIGHT - 42), "Use the dpad to toggle visual collision modes", PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1);
+    print_small_text(160, (gScreenHeight - 42), "Use the dpad to toggle visual collision modes", PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1);
     switch (viewCycle) {
-        case 0: print_small_text(160, (SCREEN_HEIGHT - 32), "Current view: None",                  PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1); break;
-        case 1: print_small_text(160, (SCREEN_HEIGHT - 32), "Current view: Hitboxes",              PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1); break;
-        case 2: print_small_text(160, (SCREEN_HEIGHT - 32), "Current view: Surfaces",              PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1); break;
-        case 3: print_small_text(160, (SCREEN_HEIGHT - 32), "Current view: Hitboxes and Surfaces", PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1); break;
+        case 0: print_small_text(160, (gScreenHeight - 32), "Current view: None",                  PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1); break;
+        case 1: print_small_text(160, (gScreenHeight - 32), "Current view: Hitboxes",              PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1); break;
+        case 2: print_small_text(160, (gScreenHeight - 32), "Current view: Surfaces",              PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1); break;
+        case 3: print_small_text(160, (gScreenHeight - 32), "Current view: Hitboxes and Surfaces", PRINT_TEXT_ALIGN_CENTRE, PRINT_ALL, 1); break;
     }
     if (gPlayer1Controller->buttonPressed & R_JPAD) viewCycle++;
     if (gPlayer1Controller->buttonPressed & L_JPAD) viewCycle--;
@@ -579,7 +580,7 @@ void puppyprint_render_standard(void) {
             (s32)(gCamera->pos[1]),
             (s32)(gCamera->pos[2]),
             (u16)(gCamera->yaw));
-        print_small_text((SCREEN_WIDTH - 16), 140, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
+        print_small_text((gScreenWidth - 16), 140, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
     }
 #endif
 
@@ -600,7 +601,7 @@ void puppyprint_render_standard(void) {
 #else
             sprintf(textBytes, "%s%dus", cpu_ordering_table[i].str, num);
 #endif
-            print_small_text((SCREEN_WIDTH - 16), (40 + (viewedNums * 12)), textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text((gScreenWidth - 16), (40 + (viewedNums * 12)), textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
             viewedNums++;
         }
     }
@@ -617,14 +618,14 @@ void puppyprint_render_standard(void) {
         }
 
         if (viewedNums == 0) {
-            graphPos = ((SCREEN_WIDTH - 96) + perfPercentage[i]);
-            render_blank_box((SCREEN_WIDTH - 96), barY, graphPos, (barY + 8),
+            graphPos = ((gScreenWidth - 96) + perfPercentage[i]);
+            render_blank_box((gScreenWidth - 96), barY, graphPos, (barY + 8),
                 cpu_ordering_table[i].colour[0],
                 cpu_ordering_table[i].colour[1],
                 cpu_ordering_table[i].colour[2], 255);
         } else if (i == (CPU_TABLE_MAX - 1)) {
-            graphPos = ((SCREEN_WIDTH - 96) + perfPercentage[i]);
-            render_blank_box(prevGraph, barY, (SCREEN_WIDTH - 16), (barY + 8),
+            graphPos = ((gScreenWidth - 96) + perfPercentage[i]);
+            render_blank_box(prevGraph, barY, (gScreenWidth - 16), (barY + 8),
                 cpu_ordering_table[i].colour[0],
                 cpu_ordering_table[i].colour[1],
                 cpu_ordering_table[i].colour[2], 255);

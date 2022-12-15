@@ -11,6 +11,7 @@
 #include "sm64.h"
 #include "geo_commands.h"
 #include "color_presets.h"
+#include "main.h"
 
 /**
  * @file skybox.c
@@ -145,7 +146,7 @@ ColorRGB sSkyboxColors[] = {
 s32 calculate_skybox_scaled_x(s8 player, f32 fov) {
     f32 yaw = sSkyBoxInfo[player].yaw;
 
-    f32 yawScaled = SCREEN_WIDTH * 360.0f * yaw / (fov * 65536.0f);
+    f32 yawScaled = gScreenWidth * 360.0f * yaw / (fov * 65536.0f);
     // Round the scaled yaw. Since yaw is a u16, it doesn't need to check for < 0
     s32 scaledX = yawScaled + 0.5f;
 
@@ -236,8 +237,8 @@ void draw_skybox_tile_grid(Gfx **dlist, s8 background, s8 player, s8 colorIndex)
 
 void *create_skybox_ortho_matrix(s8 player) {
     f32 left = sSkyBoxInfo[player].scaledX;
-    f32 right = sSkyBoxInfo[player].scaledX + SCREEN_WIDTH;
-    f32 bottom = sSkyBoxInfo[player].scaledY - SCREEN_HEIGHT;
+    f32 right = sSkyBoxInfo[player].scaledX + gScreenWidth;
+    f32 bottom = sSkyBoxInfo[player].scaledY - gScreenHeight;
     f32 top = sSkyBoxInfo[player].scaledY;
     Mtx *mtx = alloc_display_list(sizeof(*mtx));
 
