@@ -18,6 +18,7 @@
 #include "puppycam2.h"
 #include "puppyprint.h"
 #include "2639_defs.h"
+#include "main.h"
 
 #include "config.h"
 
@@ -431,9 +432,9 @@ void render_hud_coins(void) {
 void render_hud_stars(void) {
     if (gHudFlash == HUD_FLASH_STARS && gGlobalTimer & 0x8) return;
     s8 showX = (gHudDisplay.stars < 100);
-        print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X), HUD_TOP_Y, "-"); // 'Star' glyph
-        if (showX) print_text((GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X) + 16), HUD_TOP_Y, "*"); // 'X' glyph
-        print_text_fmt_int((showX * 14) + GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(HUD_STARS_X - 16),
+        print_text(gScreenWidth - (HUD_STARS_X), HUD_TOP_Y, "-"); // 'Star' glyph
+        if (showX) print_text((gScreenWidth - (HUD_STARS_X) + 16), HUD_TOP_Y, "*"); // 'X' glyph
+        print_text_fmt_int((showX * 14) + gScreenWidth - (HUD_STARS_X - 16),
                         HUD_TOP_Y, "%d", gHudDisplay.stars);
 
     if (gCurrAreaIndex == 0) {
@@ -470,16 +471,16 @@ void render_hud_timer(void) {
         case LANGUAGE_GERMAN:  print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(150), 185,  "ZEIT"); break;
     }
 #else
-    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(150), 185, "TIME");
+    print_text(gScreenWidth - (150), 185, "TIME");
 #endif
 
-    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(91), 185, "%0d", timerMins);
-    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71), 185, "%02d", timerSecs);
-    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(37), 185, "%d", timerFracSecs);
+    print_text_fmt_int(gScreenWidth - (91), 185, "%0d", timerMins);
+    print_text_fmt_int(gScreenWidth - (71), 185, "%02d", timerSecs);
+    print_text_fmt_int(gScreenWidth - (37), 185, "%d", timerFracSecs);
 
     gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
-    render_hud_tex_lut(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(81), 32, (*hudLUT)[GLYPH_APOSTROPHE]);
-    render_hud_tex_lut(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(46), 32, (*hudLUT)[GLYPH_DOUBLE_QUOTE]);
+    render_hud_tex_lut(gScreenWidth - (81), 32, (*hudLUT)[GLYPH_APOSTROPHE]);
+    render_hud_tex_lut(gScreenWidth - (46), 32, (*hudLUT)[GLYPH_DOUBLE_QUOTE]);
     gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
 }
 
@@ -515,8 +516,8 @@ void set_hud_camera_status(s16 status) {
  */
 void render_hud_camera_status(void) {
     Texture *(*cameraLUT)[6] = segmented_to_virtual(&main_hud_camera_lut);
-    s32 x = GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(54);
-    s32 y = 205;
+    s32 x = gScreenWidth - (54);
+    s32 y = gScreenHeight - 35;
 
     if (sCameraHUD.status == CAM_STATUS_NONE) {
         return;

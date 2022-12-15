@@ -349,9 +349,9 @@ RGBA16Return32 *intro_sample_frame_buffer(s32 imageW, s32 imageH, s32 sampleW, s
             idx = ((sampleW * ix) + xOffset);
 
             for ((sy = 0); (sy < sampleH); (sy++)) {
-                sdy = ((SCREEN_WIDTH * (idy + sy)) + idx);
+                sdy = ((gScreenWidth * (idy + sy)) + idx);
                 for ((sx = 0); (sx < sampleW); (sx++)) {
-                    // pixel = SCREEN_WIDTH * (sampleH * iy + sy + yOffset) + (sampleW * ix + xOffset) + sx;
+                    // pixel = gScreenWidth * (sampleH * iy + sy + yOffset) + (sampleW * ix + xOffset) + sx;
                     pixel = fb[sdy + sx];
                     color[0] += RGBA16_R(pixel);
                     color[1] += RGBA16_G(pixel);

@@ -47,6 +47,8 @@ extern OSThread gRumblePakThread;
 
 extern OSPfs gRumblePakPfs;
 #endif
+extern u16 gScreenWidth;
+extern u16 gScreenHeight;
 
 extern OSMesgQueue gPIMesgQueue;
 extern OSMesgQueue gIntrMesgQueue;
