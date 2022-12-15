@@ -1300,7 +1300,7 @@ void render_dialog_entries(void) {
 #endif
                   ensure_nonnegative(DIAG_VAL2 - dialog->width),
 #ifdef WIDESCREEN
-                  SCREEN_WIDTH,
+                  gScreenWidth,
 #else
                   ensure_nonnegative(DIAG_VAL3 + dialog->leftOffset),
 #endif
@@ -1641,11 +1641,11 @@ void render_widescreen_setting(void) {
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
     if (!gConfig.widescreen) {
-        print_generic_string(10, 20, textCurrRatio43);
-        print_generic_string(10,  7, textPressL);
+        print_generic_string(10, (SCREEN_HEIGHT - gScreenHeight) + 20, textCurrRatio43);
+        print_generic_string(10,  (SCREEN_HEIGHT - gScreenHeight) + 7, textPressL);
     } else {
-        print_generic_string(10, 20, textCurrRatio169);
-        print_generic_string(10,  7, textPressL);
+        print_generic_string(10, (SCREEN_HEIGHT - gScreenHeight) + 20, textCurrRatio169);
+        print_generic_string(10,  (SCREEN_HEIGHT - gScreenHeight) + 7, textPressL);
     }
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
     if (gPlayer1Controller->buttonPressed & L_TRIG){
@@ -2655,9 +2655,9 @@ void render_hub_selection(void) {
 
             render_bar(220, TEXT_SELECT_LEVEL, 0);
 
-            render_bar(48, hubSelections[gWorldID][gFocusID].levelIdentifierString, 0);
-            render_bar(28, hubSelections[gWorldID][gFocusID].levelNameString,       0);
-            render_bar(8,  hubSelections[gWorldID][gFocusID].levelAuthorString,     0);
+            render_bar(48 + (SCREEN_HEIGHT - gScreenHeight), hubSelections[gWorldID][gFocusID].levelIdentifierString, 0);
+            render_bar(28 + (SCREEN_HEIGHT - gScreenHeight), hubSelections[gWorldID][gFocusID].levelNameString,       0);
+            render_bar(8 + (SCREEN_HEIGHT - gScreenHeight),  hubSelections[gWorldID][gFocusID].levelAuthorString,     0);
 
             gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
 
@@ -2671,9 +2671,9 @@ void render_hub_selection(void) {
             }
 
             print_string_with_shadow(8, 220, TEXT_SELECT_LEVEL, textDiscolor);
-            print_string_with_shadow(8, 48, hubSelections[gWorldID][gFocusID].levelIdentifierString, textColor);
-            print_string_with_shadow(8, 28, hubSelections[gWorldID][gFocusID].levelNameString, textColor);
-            print_string_with_shadow(8, 8, hubSelections[gWorldID][gFocusID].levelAuthorString, textColor);
+            print_string_with_shadow(8, 48 + (SCREEN_HEIGHT - gScreenHeight), hubSelections[gWorldID][gFocusID].levelIdentifierString, textColor);
+            print_string_with_shadow(8, 28 + (SCREEN_HEIGHT - gScreenHeight), hubSelections[gWorldID][gFocusID].levelNameString, textColor);
+            print_string_with_shadow(8, 8 + (SCREEN_HEIGHT - gScreenHeight), hubSelections[gWorldID][gFocusID].levelAuthorString, textColor);
             gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
         }
@@ -2751,15 +2751,15 @@ void geo_clear_zbuffer(Gfx *dlHead) {
     gDPSetRenderMode(dlHead++, G_RM_NOOP, G_RM_NOOP2);
     gDPSetDepthSource(dlHead++, G_ZS_PIXEL);
     gDPSetDepthImage(dlHead++, gPhysicalZBuffer);
-    gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gPhysicalZBuffer);
+    gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, gScreenWidth, gPhysicalZBuffer);
     gDPSetFillColor(dlHead++, GPACK_ZDZ(G_MAXFBZ, 0) << 16 | GPACK_ZDZ(G_MAXFBZ, 0));
-    gDPFillRectangle(dlHead++, 0, gBorderHeight, SCREEN_WIDTH - 1,
+    gDPFillRectangle(dlHead++, 0, gBorderHeight, gScreenWidth - 1,
                      SCREEN_HEIGHT - 1 - gBorderHeight);
     gDPPipeSync(dlHead++);
     gDPSetCycleType(dlHead++, G_CYC_1CYCLE);
-    gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH,
+    gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, gScreenWidth,
                      gPhysicalFramebuffers[sRenderingFramebuffer]);
-    gDPSetScissor(dlHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
+    gDPSetScissor(dlHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, gScreenWidth,
                   SCREEN_HEIGHT - gBorderHeight);
 }
 
@@ -2880,7 +2880,7 @@ void render_hub_star_select(s32 cringeTimer) {
         }
     }
     if(visibleStars > 6) {visibleStars = 6;}
-    centerX = 160.0f - (((f32)(visibleStars - 1))*25.0f);
+    centerX = (gScreenWidth/2) - (((f32)(visibleStars - 1))*25.0f);
 
     if (!gWarpTransition.isActive) {
         if(gDirectionsHeld & JOYSTICK_LEFT) {

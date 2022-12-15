@@ -1788,7 +1788,10 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
         }
 #endif
 
-        gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+        if(gCurrLevelNum == LEVEL_CASTLE_GROUNDS)
+            gMarioState->marioObj->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+        else
+            gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
         mario_reset_bodystate(gMarioState);
 
         if (gMarioState->paralyzed) {

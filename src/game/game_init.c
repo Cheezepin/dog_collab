@@ -170,14 +170,14 @@ void init_z_buffer(s32 resetZB) {
     gDPSetDepthSource(gDisplayListHead++, G_ZS_PIXEL);
     gDPSetDepthImage(gDisplayListHead++, gPhysicalZBuffer);
 
-    gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gPhysicalZBuffer);
+    gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, gScreenWidth, gPhysicalZBuffer);
     if (!resetZB)
         return;
     gDPSetFillColor(gDisplayListHead++,
                     GPACK_ZDZ(G_MAXFBZ, 0) << 16 | GPACK_ZDZ(G_MAXFBZ, 0));
 
-    gDPFillRectangle(gDisplayListHead++, 0, gBorderHeight, SCREEN_WIDTH - 1,
-                     SCREEN_HEIGHT - 1 - gBorderHeight);
+    gDPFillRectangle(gDisplayListHead++, 0, gBorderHeight, gScreenWidth - 1,
+                     gScreenHeight - 1 - gBorderHeight);
 }
 
 /**
@@ -187,10 +187,10 @@ void select_framebuffer(void) {
     gDPPipeSync(gDisplayListHead++);
 
     gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
-    gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH,
+    gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, gScreenWidth,
                      gPhysicalFramebuffers[sRenderingFramebuffer]);
-    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
-                  SCREEN_HEIGHT - gBorderHeight);
+    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, gScreenWidth,
+                  gScreenHeight - gBorderHeight);
 }
 
 /**
@@ -206,7 +206,7 @@ void clear_framebuffer(s32 color) {
     gDPSetFillColor(gDisplayListHead++, color);
     gDPFillRectangle(gDisplayListHead++,
                      GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(0), gBorderHeight,
-                     GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, SCREEN_HEIGHT - gBorderHeight - 1);
+                     GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, gScreenHeight - gBorderHeight - 1);
 
     gDPPipeSync(gDisplayListHead++);
 
@@ -224,7 +224,7 @@ void clear_viewport(Vp *viewport, s32 color) {
 
 #ifdef WIDESCREEN
     vpUlx = GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(vpUlx);
-    vpLrx = GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(SCREEN_WIDTH - vpLrx);
+    vpLrx = GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(gScreenWidth - vpLrx);
 #endif
 
     gDPPipeSync(gDisplayListHead++);
@@ -246,7 +246,7 @@ void clear_viewport(Vp *viewport, s32 color) {
 void draw_screen_borders(void) {
     gDPPipeSync(gDisplayListHead++);
 
-    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, gScreenWidth, gScreenHeight);
     gDPSetRenderMode(gDisplayListHead++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
     gDPSetCycleType(gDisplayListHead++, G_CYC_FILL);
 
@@ -256,8 +256,8 @@ void draw_screen_borders(void) {
         gDPFillRectangle(gDisplayListHead++, GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(0), 0,
                         GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, gBorderHeight - 1);
         gDPFillRectangle(gDisplayListHead++,
-                        GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(0), SCREEN_HEIGHT - gBorderHeight,
-                        GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, SCREEN_HEIGHT - 1);
+                        GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(0), gScreenHeight - gBorderHeight,
+                        GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, gScreenHeight - 1);
     }
 }
 
@@ -382,13 +382,13 @@ void draw_reset_bars(void) {
         }
 
         fbPtr = (u64 *) PHYSICAL_TO_VIRTUAL(gPhysicalFramebuffers[fbNum]);
-        fbPtr += gNmiResetBarsTimer++ * (SCREEN_WIDTH / 4);
+        fbPtr += gNmiResetBarsTimer++ * (gScreenWidth / 4);
 
-        for (width = 0; width < ((SCREEN_HEIGHT / 16) + 1); width++) {
-            for (height = 0; height < (SCREEN_WIDTH / 4); height++) {
+        for (width = 0; width < ((gScreenHeight / 16) + 1); width++) {
+            for (height = 0; height < (gScreenWidth / 4); height++) {
                 *fbPtr++ = 0;
             }
-            fbPtr += ((SCREEN_WIDTH / 4) * 14);
+            fbPtr += ((gScreenWidth / 4) * 14);
         }
     }
 
@@ -412,6 +412,8 @@ void check_cache_emulation() {
     __osRestoreInt(saved);
 }
 
+extern OSViMode VI;
+
 /**
  * Initial settings for the first rendered frame.
  */
@@ -426,6 +428,7 @@ void render_init(void) {
         check_cache_emulation();
     } else {
         gIsConsole = TRUE;
+        change_vi(&VI, 304, 224);
         gBorderHeight = BORDER_HEIGHT_CONSOLE;
     }
 

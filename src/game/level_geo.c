@@ -9,6 +9,7 @@
 #include "envfx_snow.h"
 #include "level_geo.h"
 #include "game_init.h"
+#include "main.h"
 
 /**
  * Geo function that generates a displaylist for environment effects such as
@@ -88,16 +89,16 @@ Gfx *geo_zbuffer_clear(s32 callContext, UNUSED struct GraphNode *node, UNUSED Ma
         gDPSetCycleType(dlHead++, G_CYC_FILL);
         gDPSetDepthSource(dlHead++, G_ZS_PIXEL);
         gDPSetDepthImage(dlHead++, gPhysicalZBuffer);
-        gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gPhysicalZBuffer);
+        gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, gScreenWidth, gPhysicalZBuffer);
         gDPSetFillColor(dlHead++,
                         GPACK_ZDZ(G_MAXFBZ, 0) << 16 | GPACK_ZDZ(G_MAXFBZ, 0));
-        gDPFillRectangle(dlHead++, 0, gBorderHeight, SCREEN_WIDTH - 1,
+        gDPFillRectangle(dlHead++, 0, gBorderHeight, gScreenWidth - 1,
                         SCREEN_HEIGHT - 1 - gBorderHeight);
         gDPPipeSync(dlHead++);
         gDPSetCycleType(dlHead++, G_CYC_1CYCLE);
-        gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH,
+        gDPSetColorImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, gScreenWidth,
                         gPhysicalFramebuffers[sRenderingFramebuffer]);
-        gDPSetScissor(dlHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
+        gDPSetScissor(dlHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, gScreenWidth,
                   SCREEN_HEIGHT - gBorderHeight);
         gSPEndDisplayList(dlHead++);
     }
