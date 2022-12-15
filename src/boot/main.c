@@ -461,7 +461,7 @@ void thread1_idle(UNUSED void *arg) {
             break;
     }
     get_audio_frequency();
-    change_vi(&VI, 304, 224);
+    change_vi(&VI, 320, 240);
     osViSetMode(&VI);
     osViBlack(TRUE);
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
