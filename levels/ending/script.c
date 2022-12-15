@@ -33,5 +33,6 @@ const LevelScript level_ending_entry[] = {
     /*15*/ CALL(/*arg*/ 0, /*func*/ lvl_play_the_end_screen_sound),
     // L1:
     /*17*/ SLEEP(/*frames*/ 1),
-    /*18*/ JUMP(level_ending_entry + 17), // goto L1 (loop sleep 1 forever)
+    /*18*/ CALL(1, ending_get_outta_here),
+    JUMP(level_ending_entry + 17), // goto L1 (loop sleep 1 forever)
 };

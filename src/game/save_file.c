@@ -357,7 +357,7 @@ void save_file_load_all(void) {
     read_eeprom_data(&gSaveBuffer, sizeof(gSaveBuffer));
 
     // Verify the main menu data and wipe it if invalid.
-    validSlots = verify_save_block_signature(&gSaveBuffer.menuData, sizeof(gSaveBuffer.menuData), MENU_DATA_MAGIC);
+    /*validSlots = verify_save_block_signature(&gSaveBuffer.menuData, sizeof(gSaveBuffer.menuData), MENU_DATA_MAGIC);
     if (!validSlots)
         wipe_main_menu_data();
 
@@ -376,7 +376,7 @@ void save_file_load_all(void) {
                 restore_save_file_data(file, 1);
                 break;
         }
-    }
+    }*/
 }
 
 #ifdef PUPPYCAM

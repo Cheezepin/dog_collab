@@ -74,7 +74,7 @@ const char *credits10[] = { "6BOWSER'S RAINBOW", "ANUNIDENTIFIEDEMU", "RINGS",  
 const char *credits11[] = { "4SAKURA STRONGHOLD", "MUSIC", "YOSHI MILKMAN", "SAMMERS KINGDOM SPM" };
 const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "HMC SM64" };
 const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIGINAL BY THECOZIES" };
-const char *credits14[] = { "6OTHER MUSIC", "", "BOSS", "SM64 BOSS", "CIRCUS BOSS", "CACKLETTA BOSS ML SS" };
+const char *credits14[] = { "8OTHER MUSIC", "", "HUB WORLD", "CROSSING THOSE HILLS FF9", "BOSS", "SM64 BOSS", "CIRCUS BOSS", "CACKLETTA BOSS ML SS" };
 const char *credits15[] = { "6FACTORY OUTSIDE", "CCM SM64", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
 const char *credits16[] = { "6SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD"};
 
@@ -1518,5 +1518,34 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
  */
 s32 lvl_play_the_end_screen_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) {
     play_sound(SOUND_MENU_THANK_YOU_PLAYING_MY_GAME, gGlobalSoundSource);
+    return TRUE;
+}
+
+char *perfectString[] = {"P", "E", "R", "F", "E", "C", "T", "!"};
+char *howString[] = {"H", "O", "W"};
+
+s32 ending_get_outta_here(void) {
+    print_text_fmt_int(60, 220, "%d OF 73 STARS", save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1));
+    if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) == 73) {
+        u8 i = 0;
+        for(i = 0; i < 3; i++) {
+            print_text(100 + (i*16), 196 + (s32)(4.0f*sins(2000*(gGlobalTimer - i*8))), perfectString[i]);
+        }
+    }
+    if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) > 73) {
+        u8 i = 0;
+        for(i = 0; i < 8; i++) {
+            print_text(140 + (i*16), 196 + (s32)(4.0f*sins(2000*(gGlobalTimer - i*8))), howString[i]);
+        }
+    }
+    print_text_centered(160, 10, "PRESS A TO RESET");
+    if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+        fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
+        gWorldID = 0;
+        gFocusID = 0;
+        gCustomStarSelectActive = 0;
+        gHubStarSelectTimer = 0;
+        gLevelEntryConfirmationActive = 0;
+    }
     return TRUE;
 }

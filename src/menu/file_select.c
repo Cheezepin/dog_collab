@@ -467,38 +467,44 @@ static const Vec3s sSaveFileButtonPositions[] = {
 #define MENU_BUTTON_SCALE 0.11111111f
 
 /**
- * Render buttons for the score menu.
+ * Render buttons for the menu.
  * Also check if the save file exists to render a different Mario button.
  */
-void render_score_menu_buttons(struct Object *scoreButton) {
+void render_menu_buttons(s32 selectedButtonID) {
+    struct Object *button = sMainMenuButtons[selectedButtonID];
+    // MENU_BUTTON_SCORE ->  7
+    // MENU_BUTTON_COPY  -> 14
+    // MENU_BUTTON_ERASE -> 21
+    s32 idx = (selectedButtonID - 3) * 7;
+
     // File A
-    sMainMenuButtons[MENU_BUTTON_SCORE_FILE_A] = SPAWN_FILE_SELECT_FILE_BUTTON(scoreButton, SAVE_FILE_A);
-    sMainMenuButtons[MENU_BUTTON_SCORE_FILE_A]->oMenuButtonScale = MENU_BUTTON_SCALE;
+    sMainMenuButtons[idx + 0] = SPAWN_FILE_SELECT_FILE_BUTTON(button, SAVE_FILE_A);
+    sMainMenuButtons[idx + 0]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // File B
-    sMainMenuButtons[MENU_BUTTON_SCORE_FILE_B] = SPAWN_FILE_SELECT_FILE_BUTTON(scoreButton, SAVE_FILE_B);
-    sMainMenuButtons[MENU_BUTTON_SCORE_FILE_B]->oMenuButtonScale = MENU_BUTTON_SCALE;
+    sMainMenuButtons[idx + 1] = SPAWN_FILE_SELECT_FILE_BUTTON(button, SAVE_FILE_B);
+    sMainMenuButtons[idx + 1]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // File C
-    sMainMenuButtons[MENU_BUTTON_SCORE_FILE_C] = SPAWN_FILE_SELECT_FILE_BUTTON(scoreButton, SAVE_FILE_C);
-    sMainMenuButtons[MENU_BUTTON_SCORE_FILE_C]->oMenuButtonScale = MENU_BUTTON_SCALE;
+    sMainMenuButtons[idx + 2] = SPAWN_FILE_SELECT_FILE_BUTTON(button, SAVE_FILE_C);
+    sMainMenuButtons[idx + 2]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // File D
-    sMainMenuButtons[MENU_BUTTON_SCORE_FILE_D] = SPAWN_FILE_SELECT_FILE_BUTTON(scoreButton, SAVE_FILE_D);
-    sMainMenuButtons[MENU_BUTTON_SCORE_FILE_D]->oMenuButtonScale = MENU_BUTTON_SCALE;
+    sMainMenuButtons[idx + 3] = SPAWN_FILE_SELECT_FILE_BUTTON(button, SAVE_FILE_D);
+    sMainMenuButtons[idx + 3]->oMenuButtonScale = MENU_BUTTON_SCALE;
 
     // Return to main menu button
-    sMainMenuButtons[MENU_BUTTON_SCORE_RETURN] =
-        spawn_object_rel_with_rot(scoreButton, MODEL_MAIN_MENU_YELLOW_FILE_BUTTON,
+    sMainMenuButtons[idx + 4] =
+        spawn_object_rel_with_rot(button, MODEL_MAIN_MENU_YELLOW_FILE_BUTTON,
                                   bhvMenuButton,  672, -480, -100, 0x0, -0x8000, 0x0);
-    sMainMenuButtons[MENU_BUTTON_SCORE_RETURN]->oMenuButtonScale = MENU_BUTTON_SCALE;
+    sMainMenuButtons[idx + 4]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to copy menu button
-    sMainMenuButtons[MENU_BUTTON_SCORE_COPY_FILE] =
-        spawn_object_rel_with_rot(scoreButton, MODEL_MAIN_MENU_BLUE_COPY_BUTTON,
+    sMainMenuButtons[idx + 5] =
+        spawn_object_rel_with_rot(button, selectedButtonID == MENU_BUTTON_SCORE ? MODEL_MAIN_MENU_BLUE_COPY_BUTTON : MODEL_MAIN_MENU_GREEN_SCORE_BUTTON,
                                   bhvMenuButton,    0, -480, -100, 0x0, -0x8000, 0x0);
-    sMainMenuButtons[MENU_BUTTON_SCORE_COPY_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
+    sMainMenuButtons[idx + 5]->oMenuButtonScale = MENU_BUTTON_SCALE;
     // Switch to erase menu button
-    sMainMenuButtons[MENU_BUTTON_SCORE_ERASE_FILE] =
-        spawn_object_rel_with_rot(scoreButton, MODEL_MAIN_MENU_RED_ERASE_BUTTON,
+    sMainMenuButtons[idx + 6] =
+        spawn_object_rel_with_rot(button, selectedButtonID == MENU_BUTTON_ERASE ? MODEL_MAIN_MENU_BLUE_COPY_BUTTON : MODEL_MAIN_MENU_RED_ERASE_BUTTON,
                                   bhvMenuButton, -672, -480, -100, 0x0, -0x8000, 0x0);
-    sMainMenuButtons[MENU_BUTTON_SCORE_ERASE_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
+    sMainMenuButtons[idx + 6]->oMenuButtonScale = MENU_BUTTON_SCALE;
 }
 
 #define SCORE_TIMER 31
@@ -563,7 +569,7 @@ void check_score_menu_clicked_buttons(struct Object *scoreButton) {
  * Render buttons for the copy menu.
  * Also check if the save file exists to render a different Mario button.
  */
-void render_copy_menu_buttons(struct Object *copyButton) {
+/*void render_copy_menu_buttons(struct Object *copyButton) {
     // File A
     sMainMenuButtons[MENU_BUTTON_COPY_FILE_A] = SPAWN_FILE_SELECT_FILE_BUTTON(copyButton, SAVE_FILE_A);
     sMainMenuButtons[MENU_BUTTON_COPY_FILE_A]->oMenuButtonScale = MENU_BUTTON_SCALE;
@@ -591,7 +597,7 @@ void render_copy_menu_buttons(struct Object *copyButton) {
         spawn_object_rel_with_rot(copyButton, MODEL_MAIN_MENU_RED_ERASE_BUTTON,
                                   bhvMenuButton, -672, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_COPY_ERASE_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
-}
+}*/
 
 #define BUZZ_TIMER 21
 
@@ -717,6 +723,8 @@ void check_copy_menu_clicked_buttons(struct Object *copyButton) {
  * Render buttons for the erase menu.
  * Also check if the save file exists to render a different Mario button.
  */
+
+/*
 void render_erase_menu_buttons(struct Object *eraseButton) {
     // File A
     sMainMenuButtons[MENU_BUTTON_ERASE_FILE_A] = SPAWN_FILE_SELECT_FILE_BUTTON(eraseButton, SAVE_FILE_A);
@@ -746,6 +754,7 @@ void render_erase_menu_buttons(struct Object *eraseButton) {
                                   bhvMenuButton, -672, -480, -100, 0x0, -0x8000, 0x0);
     sMainMenuButtons[MENU_BUTTON_ERASE_COPY_FILE]->oMenuButtonScale = MENU_BUTTON_SCALE;
 }
+*/
 
 /**
  * Erase Menu phase actions that handles what to do when a file button is clicked.
@@ -1033,7 +1042,8 @@ void load_menu_from_submenu(s16 prevMenuButtonID, s16 selectedButtonID, struct O
         sSelectedButtonID = selectedButtonID;
         play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gGlobalSoundSource);
         sMainMenuButtons[selectedButtonID]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
-        render_score_menu_buttons(sMainMenuButtons[selectedButtonID]);
+        //render_score_menu_buttons(sMainMenuButtons[selectedButtonID]);
+        render_menu_buttons(selectedButtonID);
     }
 }
 
@@ -1117,6 +1127,8 @@ void bhv_menu_button_manager_init(void) {
  * In the main menu, check if a button was clicked to play it's button growing state.
  * Also play a sound and/or render buttons depending of the button ID selected.
  */
+
+/*
 void check_main_menu_clicked_buttons(void) {
         // Sound mode menu is handled separately because the button ID for it
         // is not grouped with the IDs of the other submenus.
@@ -1201,6 +1213,65 @@ void check_main_menu_clicked_buttons(void) {
                 render_sound_mode_menu_buttons(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]);
                 break;
         }
+}
+
+#undef SAVE_FILE_SOUND
+*/
+
+void check_main_menu_clicked_buttons(void) {
+    // Sound mode menu is handled separately because the button ID for it
+    // is not grouped with the IDs of the other submenus.
+    if (check_clicked_button(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosX,
+                                sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosY, 200.0f)) {
+        sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
+        sSelectedButtonID = MENU_BUTTON_SOUND_MODE;
+    } else {
+        // Main Menu buttons
+        s8 buttonID;
+        // Configure Main Menu button group
+        for (buttonID = MENU_BUTTON_MAIN_MIN; buttonID < MENU_BUTTON_MAIN_MAX; buttonID++) {
+            s16 buttonX = sMainMenuButtons[buttonID]->oPosX;
+            s16 buttonY = sMainMenuButtons[buttonID]->oPosY;
+
+            if (check_clicked_button(buttonX, buttonY, 200.0f)) {
+                // If menu button clicked, select it
+                sMainMenuButtons[buttonID]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
+                sSelectedButtonID = buttonID;
+                break;
+            }
+        }
+    }
+
+    // Play sound of the save file clicked
+    switch (sSelectedButtonID) {
+        case MENU_BUTTON_PLAY_FILE_A:
+        case MENU_BUTTON_PLAY_FILE_B:
+        case MENU_BUTTON_PLAY_FILE_C:
+        case MENU_BUTTON_PLAY_FILE_D:
+            play_sound(SAVE_FILE_SOUND, gGlobalSoundSource);
+#if ENABLE_RUMBLE
+            queue_rumble_data(60, 70);
+            queue_rumble_decay(1);
+#endif
+            break;
+        // Play sound of the button clicked and render buttons of that menu.
+        case MENU_BUTTON_SCORE:
+        case MENU_BUTTON_COPY:
+        case MENU_BUTTON_ERASE:
+            play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gGlobalSoundSource);
+#if ENABLE_RUMBLE
+            queue_rumble_data(5, 80);
+#endif
+            render_menu_buttons(sSelectedButtonID);
+            break;
+        case MENU_BUTTON_SOUND_MODE:
+            play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gGlobalSoundSource);
+#if ENABLE_RUMBLE
+            queue_rumble_data(5, 80);
+#endif
+            render_sound_mode_menu_buttons(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]);
+            break;
+    }
 }
 
 #undef SAVE_FILE_SOUND
@@ -1693,6 +1764,9 @@ void copy_menu_update_message(void) {
  * Prints copy menu strings that shows on the blue background menu screen.
  */
 void print_copy_menu_strings(void) {
+    u8 x, y, i, j;
+    u8 dogString[DOG_STRING_LENGTH + 9] = "Mario & ";
+    u8 *string;
 
     // Update and print the message at the top of the menu.
     copy_menu_update_message();
@@ -1701,26 +1775,54 @@ void print_copy_menu_strings(void) {
     // Print file star counts
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_save_file_star_count(SAVE_FILE_A, 90, 76);
-    print_save_file_star_count(SAVE_FILE_B, 211, 76);
-    print_save_file_star_count(SAVE_FILE_C, 90, 119);
-    print_save_file_star_count(SAVE_FILE_D, 211, 119);
+    print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 62);
+    print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X1, 92);
+    print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 122);
+    print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X1, 152);
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
     // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_generic_string(RETURN_X, 20, LANGUAGE_ARRAY(textReturn));
-    print_generic_string(VIEWSCORE_X1, 20, LANGUAGE_ARRAY(textCopyFileButton));
-    print_generic_string(ERASEFILE_X2 - 10, 20, LANGUAGE_ARRAY(textEraseFileButton));
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+    print_generic_string(RETURN_X + 4, 20, LANGUAGE_ARRAY(textReturn));
+    print_generic_string(VIEWSCORE_X1 + 2, 20, LANGUAGE_ARRAY(textViewScore));
+    print_generic_string(ERASEFILE_X2 - 4, 20, LANGUAGE_ARRAY(textEraseFileButton));
+    //gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
     // Print file names
-    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
-    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_menu_generic_string(89, 62, textMarioA);
-    print_menu_generic_string(211, 62, textMarioB);
-    print_menu_generic_string(89, 105, textMarioC);
-    print_menu_generic_string(211, 105, textMarioD);
-    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
+    //gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
+    //gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
+    for(i = 0; i < 4; i++) {
+        switch(i) {
+            case 0:
+                x = MARIOTEXT_X1;
+                y = 52;
+                string = &textMarioA;
+                break;
+            case 1:
+                x = MARIOTEXT_X1;
+                y = 82;
+                string = &textMarioB;
+                break;
+            case 2:
+                x = MARIOTEXT_X1;
+                y = 112;
+                string = &textMarioC;
+                break;
+            case 3:
+                x = MARIOTEXT_X1;
+                y = 142;
+                string = &textMarioD;
+                break;
+        }
+        if(save_file_exists(i)) {
+            for(j = 0; j < DOG_STRING_LENGTH; j++) {
+                dogString[8 + j] = save_file_get_dog_string(i, j);
+            }
+            string = &dogString;
+        }
+        print_generic_string(x, 228 - y, string);
+    }
+    //gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 }
 
 #define CURSOR_X (x + 70)
@@ -1832,7 +1934,7 @@ void erase_menu_display_message(s8 messageID) {
             print_generic_string_fade(NOSAVE_DATA_X3, 190, LANGUAGE_ARRAY(textNoSavedDataExists));
             break;
         case ERASE_MSG_MARIO_ERASED:
-            LANGUAGE_ARRAY(textMarioAJustErased)[MARIO_ERASED_VAR] = sSelectedFileIndex + 10;
+            LANGUAGE_ARRAY(textMarioAJustErased)[MARIO_ERASED_VAR] = sSelectedFileIndex + 0x40;
             print_generic_string_fade(MARIO_ERASED_X, 190, LANGUAGE_ARRAY(textMarioAJustErased));
             break;
         case ERASE_MSG_SAVE_EXISTS: // unused
@@ -1890,6 +1992,9 @@ void erase_menu_update_message(void) {
  * Prints erase menu strings that shows on the red background menu screen.
  */
 void print_erase_menu_strings(void) {
+    u8 x, y, i, j;
+    u8 dogString[DOG_STRING_LENGTH + 9] = "Mario & ";
+    u8 *string;
 
     // Update and print the message at the top of the menu.
     erase_menu_update_message();
@@ -1900,29 +2005,57 @@ void print_erase_menu_strings(void) {
     // Print file star counts
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_save_file_star_count(SAVE_FILE_A, 90, 76);
-    print_save_file_star_count(SAVE_FILE_B, 211, 76);
-    print_save_file_star_count(SAVE_FILE_C, 90, 119);
-    print_save_file_star_count(SAVE_FILE_D, 211, 119);
+    print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 62);
+    print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X1, 92);
+    print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 122);
+    print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X1, 152);
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
 
     // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
 
-    print_generic_string(RETURN_X, 35, textReturn);
-    print_generic_string(VIEWSCORE_X2, 35, textViewScore);
-    print_generic_string(COPYFILE_X2, 35, textCopyFileButton);
-    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+    print_generic_string(RETURN_X + 4, 20, textReturn);
+    print_generic_string(VIEWSCORE_X2 + 4, 20, textViewScore);
+    print_generic_string(COPYFILE_X2 - 8, 20, textCopyFileButton);
+    //gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
     // Print file names
-    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
-    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_menu_generic_string(89, 62, textMarioA);
-    print_menu_generic_string(211, 62, textMarioB);
-    print_menu_generic_string(89, 105, textMarioC);
-    print_menu_generic_string(211, 105, textMarioD);
-    gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
+    //gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
+    //gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
+    for(i = 0; i < 4; i++) {
+        switch(i) {
+            case 0:
+                x = MARIOTEXT_X1;
+                y = 52;
+                string = &textMarioA;
+                break;
+            case 1:
+                x = MARIOTEXT_X1;
+                y = 82;
+                string = &textMarioB;
+                break;
+            case 2:
+                x = MARIOTEXT_X1;
+                y = 112;
+                string = &textMarioC;
+                break;
+            case 3:
+                x = MARIOTEXT_X1;
+                y = 142;
+                string = &textMarioD;
+                break;
+        }
+        if(save_file_exists(i)) {
+            for(j = 0; j < DOG_STRING_LENGTH; j++) {
+                dogString[8 + j] = save_file_get_dog_string(i, j);
+            }
+            string = &dogString;
+        }
+        print_generic_string(x, 228 - y, string);
+    }
+    //gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_end);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 }
 
 #if MULTILANG
