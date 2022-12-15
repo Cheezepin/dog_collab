@@ -317,6 +317,12 @@ void bhv_mario_update(void) {
     //comit code end
 }
 
+void run_2639_sound(void) {
+    if (in2639Level()) {
+        Sound2639_Main();
+    }
+}
+
 /**
  * Update every object that occurs after firstObj in the given object list,
  * including firstObj itself. Return the number of objects that were updated.

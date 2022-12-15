@@ -30,9 +30,6 @@ static u8 sBgMusicDisabled = FALSE;
 static u16 sCurrentMusic = MUSIC_NONE;
 static u16 sCurrentShellMusic = MUSIC_NONE;
 static u16 sCurrentCapMusic = MUSIC_NONE;
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
-static u8 sPlayingInfiniteStairs = FALSE;
-#endif
 static s16 sSoundMenuModeToSoundMode[] = { SOUND_MODE_STEREO, SOUND_MODE_MONO, SOUND_MODE_HEADSET };
 // Only the 20th array element is used.
 static u32 sMenuSoundsExtra[] = {
@@ -201,27 +198,6 @@ void play_painting_eject_sound(void) {
  * Called from threads: thread5_game_loop
  */
 void play_infinite_stairs_music(void) {
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
-    u8 shouldPlay = FALSE;
-
-    /* Infinite stairs? */
-    if (gCurrLevelNum == LEVEL_CASTLE && gCurrAreaIndex == 2 && gMarioState->numStars < 70) {
-        if (gMarioState->floor != NULL && gMarioState->floor->room == 6) {
-            if (gMarioState->pos[2] < 2540.0f) {
-                shouldPlay = TRUE;
-            }
-        }
-    }
-
-    if (sPlayingInfiniteStairs ^ shouldPlay) {
-        sPlayingInfiniteStairs = shouldPlay;
-        if (shouldPlay) {
-            play_secondary_music(SEQ_EVENT_ENDLESS_STAIRS, 0, 255, 1000);
-        } else {
-            func_80321080(500);
-        }
-    }
-#endif
 }
 
 /**
@@ -235,9 +211,6 @@ void set_background_music(u16 a, u16 seqArgs, s16 fadeTimer) {
             sound_reset(a);
         }
 
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
-        if (!gNeverEnteredCastle || seqArgs != SEQ_LEVEL_INSIDE_CASTLE)
-#endif
         {
             play_music(SEQ_PLAYER_LEVEL, seqArgs, fadeTimer);
             sCurrentMusic = seqArgs;
