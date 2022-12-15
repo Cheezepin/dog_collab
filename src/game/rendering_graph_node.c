@@ -253,7 +253,7 @@ void switch_ucode(s32 ucode) {
     switch (ucode) {
         default: // GRAPH_NODE_UCODE_DEFAULT
         case GRAPH_NODE_UCODE_DEFAULT:
-            gSPLoadUcodeL(gDisplayListHead++, gspF3DZEX2_PosLight_fifo); // F3DZEX2_PosLight
+            gSPLoadUcodeL(gDisplayListHead++, gspF3DZEX2_NoN_PosLight_fifo); // F3DZEX2_PosLight
             // Reload the necessary RSP settings
             gSPDisplayList(gDisplayListHead++, init_rsp);
             break;
@@ -393,7 +393,7 @@ void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
         gSPClearGeometryMode(gDisplayListHead++, G_ZBUFFER);
     }
 #ifdef OBJECTS_REJ
- #if defined(F3DZEX_GBI_2) && defined(VISUAL_DEBUG)
+ #if defined(F3DEX_GBI_2) && defined(VISUAL_DEBUG)
     if (hitboxView) render_debug_boxes(DEBUG_UCODE_REJ);
  #endif
     switch_ucode(GRAPH_NODE_UCODE_DEFAULT);
@@ -434,7 +434,7 @@ void geo_append_display_list(void *displayList, s32 layer) {
         }
  #endif // SILHOUETTE
     }
-#endif // F3DZEX_GBI_2 || SILHOUETTE
+#endif // F3DEX_GBI_2 || SILHOUETTE
     if (gCurGraphNodeMasterList != NULL) {
         struct DisplayListNode *listNode =
             alloc_only_pool_alloc(gDisplayListHeap, sizeof(struct DisplayListNode));

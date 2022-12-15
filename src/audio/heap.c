@@ -169,7 +169,7 @@ void reset_bank_and_seq_load_status(void) {
 #ifdef VERSION_SH
     bzero(&gBankLoadStatus, sizeof(gBankLoadStatus));
     bzero(&gUnkLoadStatus,  sizeof(gUnkLoadStatus));
-    bzero(&gSeqLoadStatus,  sizeof(gBankLoadStatus));
+    bzero(&gSeqLoadStatus,  sizeof(gSeqLoadStatus));
 #else
     bzero(&gBankLoadStatus, sizeof(gBankLoadStatus)); // Setting this array to zero is equivilent to SOUND_LOAD_STATUS_NOT_LOADED
     bzero(&gSeqLoadStatus,  sizeof(gSeqLoadStatus));  // Same dealio
@@ -274,7 +274,7 @@ void sound_alloc_pool_init(struct SoundAllocPool *pool, void *memAddr, u32 size)
 #ifdef VERSION_SH
     pool->size = size - ((uintptr_t) memAddr & 0xf);
 #else
-    pool->size = size;
+    pool->size = ALIGN16(size);
 #endif
     pool->numAllocatedEntries = 0;
 }
@@ -380,7 +380,7 @@ void *alloc_bank_or_seq(struct SoundMultiPool *arg0, s32 arg1, s32 size, s32 arg
     // arg3 = 0, 1 or 2?
 
 #ifdef VERSION_SH
-    struct SoundMultiPool *arg0;
+    struct SoundMultiPool *arg0 = NULL;
 #define isSound poolIdx
 #endif
     struct TemporaryPool *tp;
@@ -407,6 +407,8 @@ void *alloc_bank_or_seq(struct SoundMultiPool *arg0, s32 arg1, s32 size, s32 arg
     u32 leftNotLoaded, rightNotLoaded;
     u32 leftAvail, rightAvail;
 #endif
+
+size = ALIGN16(size);
 
 #ifdef VERSION_SH
     switch (poolIdx) {
@@ -656,7 +658,7 @@ void *alloc_bank_or_seq(struct SoundMultiPool *arg0, s32 arg1, s32 size, s32 arg
 #if defined(VERSION_SH)
                 tp->entries[1].ptr = (u8 *) ((uintptr_t) (pool->start + pool->size - size) & ~0x0f);
 #else
-                tp->entries[1].ptr = pool->start + pool->size - size - 0x10;
+                tp->entries[1].ptr = pool->start + pool->size - size;
 #endif
                 tp->entries[1].id = id;
                 tp->entries[1].size = size;
@@ -758,7 +760,7 @@ void *get_bank_or_seq(s32 poolIdx, s32 arg1, s32 id) {
 }
 void *get_bank_or_seq_inner(s32 poolIdx, s32 arg1, s32 bankId) {
     u32 i;
-    struct SoundMultiPool* loadedPool;
+    struct SoundMultiPool* loadedPool = NULL;
     struct TemporaryPool* temporary;
     struct PersistentPool* persistent;
 
@@ -931,7 +933,7 @@ void decrease_reverb_gain(void) {
 
 #if defined(VERSION_EU) || defined(VERSION_SH)
 s32 audio_shut_down_and_reset_step(void) {
-    s32 i, j;
+    s32 i;
 
     switch (gAudioResetStatus) {
         case 5:
@@ -967,22 +969,6 @@ s32 audio_shut_down_and_reset_step(void) {
     }
     return (gAudioResetStatus < 3);
 }
-#else
-/**
- * Waits until a specified number of audio frames have been created
- */
-void wait_for_audio_frames(s32 frames) {
-    // VC emulator stubs this function because busy loops are not supported
-    // Technically we can put infinite loop that _looks_ like -O0 for emu but this is cleaner
-    //if (gIsVC) {
-        return;
-    //}
-    gAudioFrameCount = 0;
-    // Sound thread will update gAudioFrameCount
-    while (gAudioFrameCount < frames) {
-        // spin
-    }
-}
 #endif
 
 u8 sAudioFirstBoot = 0;
@@ -1007,7 +993,7 @@ void init_reverb_eu(void) {
     gNumSynthesisReverbs = preset->numReverbs;
     for (j = 0; j < gNumSynthesisReverbs; j++) {
         reverb = &gSynthesisReverbs[j];
-        reverbSettings = &sReverbSettings[MIN((gAudioResetPresetIdToLoad + j), (sizeof(sReverbSettings) / sizeof(struct ReverbSettingsEU)) - 1)];
+        reverbSettings = &sReverbSettings[MIN((u32)(gAudioResetPresetIdToLoad + j), (sizeof(sReverbSettings) / sizeof(struct ReverbSettingsEU)) - 1)];
         reverb->windowSize = (reverbSettings->windowSize * 0x40);
         reverb->downsampleRate = reverbSettings->downsampleRate;
         reverb->reverbGain = reverbSettings->gain;
@@ -1167,22 +1153,33 @@ void init_reverb_us(s32 presetId) {
 #if defined(VERSION_JP) || defined(VERSION_US)
 void audio_reset_session(struct AudioSessionSettings *preset, s32 presetId) {
     if (sAudioFirstBoot) {
-        bzero(&gAiBuffers[0][0], (AIBUFFER_LEN * NUMAIBUFFERS));
-        persistent_pool_clear(&gSeqLoadedPool.persistent);
-        persistent_pool_clear(&gBankLoadedPool.persistent);
-        temporary_pool_clear( &gSeqLoadedPool.temporary);
-        temporary_pool_clear( &gBankLoadedPool.temporary);
-        reset_bank_and_seq_load_status();
+        if (gAudioLoadLock != AUDIO_LOCK_UNINITIALIZED) {
+            gAudioLoadLock = AUDIO_LOCK_LOADING;
 
-        init_reverb_us(presetId);
-        bzero(&gAiBuffers[0][0], (AIBUFFER_LEN * NUMAIBUFFERS));
-        gAudioFrameCount = 0;
-        if (!gIsVC) {
-            while (gAudioFrameCount < 1) {
-                // spin
+            if (!gIsVC) {
+                gAudioFrameCount = 0;
+                while (gAudioFrameCount < 1) {
+                    // spin
+                }
+            }
+
+            for (s32 i = 0; i < gMaxSimultaneousNotes; i++) {
+                gNotes[i].enabled = FALSE;
+            }
+
+            persistent_pool_clear(&gSeqLoadedPool.persistent);
+            persistent_pool_clear(&gBankLoadedPool.persistent);
+            temporary_pool_clear( &gSeqLoadedPool.temporary);
+            temporary_pool_clear( &gBankLoadedPool.temporary);
+            reset_bank_and_seq_load_status();
+
+            init_reverb_us(presetId);
+            bzero(&gAiBuffers[0][0], (AIBUFFER_LEN * NUMAIBUFFERS));
+
+            if (gAudioLoadLock != AUDIO_LOCK_UNINITIALIZED) {
+                gAudioLoadLock = AUDIO_LOCK_NOT_LOADING;
             }
         }
-        bzero(&gAiBuffers[0][0], (AIBUFFER_LEN * NUMAIBUFFERS));
         return;
     }
 #else

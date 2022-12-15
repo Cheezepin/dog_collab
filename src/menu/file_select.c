@@ -122,7 +122,7 @@ unsigned char textEraseFileButton[] = { TEXT_ERASE_FILE_BUTTON };
 unsigned char textSoundModes[][8] = { { TEXT_STEREO }, { TEXT_MONO }, { TEXT_HEADSET } };
 
 #if MULTILANG
-unsigned char textLanguageSelect[][17] = {  { TEXT_LANGUAGE_SELECT }};
+unsigned char textLanguageSelect[][17] = { { TEXT_LANGUAGE_SELECT } };
 #endif
 
 unsigned char textSoundSelect[] = { TEXT_SOUND_SELECT };
@@ -1118,89 +1118,59 @@ void bhv_menu_button_manager_init(void) {
  * Also play a sound and/or render buttons depending of the button ID selected.
  */
 void check_main_menu_clicked_buttons(void) {
-        // Sound mode menu is handled separately because the button ID for it
-        // is not grouped with the IDs of the other submenus.
-        if (check_clicked_button(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosX,
-                                 sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosY, 200.0f)) {
-            sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
-            sSelectedButtonID = MENU_BUTTON_SOUND_MODE;
-        } else {
-            // Main Menu buttons
-            s8 buttonID;
-            // Configure Main Menu button group
-            for (buttonID = MENU_BUTTON_MAIN_MIN; buttonID < MENU_BUTTON_MAIN_MAX; buttonID++) {
-                s16 buttonX = sMainMenuButtons[buttonID]->oPosX;
-                s16 buttonY = sMainMenuButtons[buttonID]->oPosY;
+    // Sound mode menu is handled separately because the button ID for it
+    // is not grouped with the IDs of the other submenus.
+    if (check_clicked_button(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosX,
+                                sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oPosY, 200.0f)) {
+        sMainMenuButtons[MENU_BUTTON_SOUND_MODE]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
+        sSelectedButtonID = MENU_BUTTON_SOUND_MODE;
+    } else {
+        // Main Menu buttons
+        s8 buttonID;
+        // Configure Main Menu button group
+        for (buttonID = MENU_BUTTON_MAIN_MIN; buttonID < MENU_BUTTON_MAIN_MAX; buttonID++) {
+            s16 buttonX = sMainMenuButtons[buttonID]->oPosX;
+            s16 buttonY = sMainMenuButtons[buttonID]->oPosY;
 
-                if (check_clicked_button(buttonX, buttonY, 200.0f)) {
-                    // If menu button clicked, select it
-                    sMainMenuButtons[buttonID]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
-                    sSelectedButtonID = buttonID;
-                    break;
-                }
+            if (check_clicked_button(buttonX, buttonY, 200.0f)) {
+                // If menu button clicked, select it
+                sMainMenuButtons[buttonID]->oMenuButtonState = MENU_BUTTON_STATE_GROWING;
+                sSelectedButtonID = buttonID;
+                break;
             }
         }
+    }
 
-        // Play sound of the save file clicked
-        switch (sSelectedButtonID) {
-            case MENU_BUTTON_PLAY_FILE_A:
-                play_sound(SAVE_FILE_SOUND, gGlobalSoundSource);
+    // Play sound of the save file clicked
+    switch (sSelectedButtonID) {
+        case MENU_BUTTON_PLAY_FILE_A:
+        case MENU_BUTTON_PLAY_FILE_B:
+        case MENU_BUTTON_PLAY_FILE_C:
+        case MENU_BUTTON_PLAY_FILE_D:
+            play_sound(SAVE_FILE_SOUND, gGlobalSoundSource);
 #if ENABLE_RUMBLE
-                queue_rumble_data(60, 70);
-                queue_rumble_decay(1);
+            queue_rumble_data(60, 70);
+            queue_rumble_decay(1);
 #endif
-                break;
-            case MENU_BUTTON_PLAY_FILE_B:
-                play_sound(SAVE_FILE_SOUND, gGlobalSoundSource);
+            break;
+        // Play sound of the button clicked and render buttons of that menu.
+        case MENU_BUTTON_SCORE:
+        case MENU_BUTTON_COPY:
+        case MENU_BUTTON_ERASE:
+            play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gGlobalSoundSource);
 #if ENABLE_RUMBLE
-                queue_rumble_data(60, 70);
-                queue_rumble_decay(1);
+            queue_rumble_data(5, 80);
 #endif
-                break;
-            case MENU_BUTTON_PLAY_FILE_C:
-                play_sound(SAVE_FILE_SOUND, gGlobalSoundSource);
+            render_erase_menu_buttons(sMainMenuButtons[MENU_BUTTON_ERASE]);
+            break;
+        case MENU_BUTTON_SOUND_MODE:
+            play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gGlobalSoundSource);
 #if ENABLE_RUMBLE
-                queue_rumble_data(60, 70);
-                queue_rumble_decay(1);
+            queue_rumble_data(5, 80);
 #endif
-                break;
-            case MENU_BUTTON_PLAY_FILE_D:
-                play_sound(SAVE_FILE_SOUND, gGlobalSoundSource);
-#if ENABLE_RUMBLE
-                queue_rumble_data(60, 70);
-                queue_rumble_decay(1);
-#endif
-                break;
-            // Play sound of the button clicked and render buttons of that menu.
-            case MENU_BUTTON_SCORE:
-                play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gGlobalSoundSource);
-#if ENABLE_RUMBLE
-                queue_rumble_data(5, 80);
-#endif
-                render_score_menu_buttons(sMainMenuButtons[MENU_BUTTON_SCORE]);
-                break;
-            case MENU_BUTTON_COPY:
-                play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gGlobalSoundSource);
-#if ENABLE_RUMBLE
-                queue_rumble_data(5, 80);
-#endif
-                render_copy_menu_buttons(sMainMenuButtons[MENU_BUTTON_COPY]);
-                break;
-            case MENU_BUTTON_ERASE:
-                play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gGlobalSoundSource);
-#if ENABLE_RUMBLE
-                queue_rumble_data(5, 80);
-#endif
-                render_erase_menu_buttons(sMainMenuButtons[MENU_BUTTON_ERASE]);
-                break;
-            case MENU_BUTTON_SOUND_MODE:
-                play_sound(SOUND_MENU_CAMERA_ZOOM_IN, gGlobalSoundSource);
-#if ENABLE_RUMBLE
-                queue_rumble_data(5, 80);
-#endif
-                render_sound_mode_menu_buttons(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]);
-                break;
-        }
+            render_sound_mode_menu_buttons(sMainMenuButtons[MENU_BUTTON_SOUND_MODE]);
+            break;
+    }
 }
 
 #undef SAVE_FILE_SOUND
@@ -1948,7 +1918,7 @@ void print_sound_mode_menu_strings(void) {
 
     print_hud_lut_string(HUD_LUT_DIFF, SOUND_HUD_X, 32, LANGUAGE_ARRAY(textSoundSelect));
 #if MULTILANG
-    print_hud_lut_string(HUD_LUT_DIFF, 47, 101, LANGUAGE_ARRAY(textLanguageSelect));
+    print_hud_lut_string(HUD_LUT_DIFF, 47, 101, LANGUAGE_ARRAY(textLanguageSelect[0]));
 #endif
 
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);

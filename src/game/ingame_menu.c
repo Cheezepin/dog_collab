@@ -90,7 +90,6 @@ enum DialogBoxType {
 #define DEFAULT_DIALOG_BOX_ANGLE 90.0f
 #define DEFAULT_DIALOG_BOX_SCALE 19.0f
 
-#if defined(VERSION_US) || defined(VERSION_EU)
 u8 gDialogCharWidths[256] = { // TODO: Is there a way to auto generate this?
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, // 0:7, 1:7, 2:7, 3:7, 4:7, 5:7, 6:7, 7:7, 8:7, 9:7, A:6, B:6, C:6, D:6, E:6, F:6,
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, // G:6, H:6, I:5, J:6, K:6, L:5, M:8, N:8, O:6, P:6, Q:6, R:6, S:6, T:5, U:6, V:6,
@@ -109,7 +108,6 @@ u8 gDialogCharWidths[256] = { // TODO: Is there a way to auto generate this?
     0,  0,  10, 0,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, //  :7, (:5,X:10, ):5, ↔:9, &:8, ::4,
     0,  0,  0,  0,  0,  6,  0,  0,  0,  8,  10, 6,  4,  10, 0,  0  //           !:5, %:7, ?:7, “:6, ”:6, ~:8,      ¢:8, ★:10, *:6, ·:4, ☆:10
 };
-#endif
 
 s8 gDialogBoxState = DIALOG_STATE_OPENING;
 f32 gDialogBoxOpenTimer = DEFAULT_DIALOG_BOX_ANGLE;
@@ -1446,6 +1444,7 @@ void print_peach_letter_message(void) {
     void **dialogTable;
     gInGameLanguage = eu_get_language();
     switch (gInGameLanguage) {
+        default:
         case LANGUAGE_ENGLISH: dialogTable = segmented_to_virtual(dialog_table_eu_en); break;
         case LANGUAGE_FRENCH:  dialogTable = segmented_to_virtual(dialog_table_eu_fr); break;
         case LANGUAGE_GERMAN:  dialogTable = segmented_to_virtual(dialog_table_eu_de); break;
@@ -1465,10 +1464,15 @@ void print_peach_letter_message(void) {
     gDPSetEnvColor(gDisplayListHead++, 20, 20, 20, gCutsceneMsgFade);
 
     print_generic_string(STR_X, STR_Y, str);
+#ifdef VERSION_JP
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
+#else
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
     gDPSetEnvColor(gDisplayListHead++, 200, 80, 120, gCutsceneMsgFade);
     gSPDisplayList(gDisplayListHead++, castle_grounds_seg7_us_dl_0700F2E8);
+#endif
 
     // at the start/end of message, reset the fade.
     if (gCutsceneMsgTimer == 0) {
@@ -1525,7 +1529,7 @@ void render_hud_cannon_reticle(void) {
     gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
-    // gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
 
 void reset_red_coins_collected(void) {

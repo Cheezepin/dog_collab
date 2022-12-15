@@ -406,7 +406,7 @@ Gfx *geo_intro_face_easter_egg(s32 callContext, struct GraphNode *node, UNUSED v
 }
 #endif
 
-#if defined(VERSION_SH)
+#if FALSE
 Gfx *geo_intro_rumble_pak_graphic(s32 callContext, struct GraphNode *node, UNUSED void *context) {
     struct GraphNodeGenerated *genNode = (struct GraphNodeGenerated *)node;
     Gfx *dlIter;

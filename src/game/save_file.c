@@ -413,6 +413,15 @@ void puppycam_set_save(void) {
     gMainMenuDataModified = TRUE;
     save_main_menu_data();
 }
+
+void puppycam_check_save(void) {
+    if (gSaveBuffer.menuData.firstBoot != 4) {
+        wipe_main_menu_data();
+        gSaveBuffer.menuData.firstBoot = 4;
+        puppycam_default_config();
+        puppycam_set_save();
+    }
+}
 #endif
 
 /**

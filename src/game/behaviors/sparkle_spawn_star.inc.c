@@ -127,7 +127,7 @@ void bhv_spawn_star_no_level_exit(u32 params) {
 //     to[1] = (from[1] + (dist * sins(pitch))); \
 //     to[2] = (from[2] + (dcos * coss(yaw  ))); \
 // }
-void vec3f_set_dist_and_angle(Vec3f from, Vec3f to, f32 dist, Angle32 pitch, Angle32 yaw);
+void vec3f_set_dist_and_angle(Vec3f from, Vec3f to, f32 dist, s16 pitch, s16 yaw);
 //     vec3_set_dist_and_angle(from, to, dist, pitch, yaw);
 // }
 
