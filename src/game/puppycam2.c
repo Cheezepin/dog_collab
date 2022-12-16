@@ -1140,19 +1140,6 @@ void puppycam_projection_behaviours(void) {
 
         // This will shift the intended yaw when wall kicking, to align with the wall being kicked.
         // puppycam_wall_angle();
-
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
- #ifdef UNLOCK_ALL
-    if (gMarioState->floor != NULL && gMarioState->floor->type == SURFACE_LOOK_UP_WARP) {
- #else // !UNLOCK_ALL
-    if (gMarioState->floor != NULL && gMarioState->floor->type == SURFACE_LOOK_UP_WARP
-        && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 10) {
- #endif // !UNLOCK_ALL
-        if (gPuppyCam.pitchTarget >= 0x7000) {
-            level_trigger_warp(gMarioState, WARP_OP_LOOK_UP);
-        }
-    }
-#endif // ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
     } else {
         puppycam_reset_values();
     }
@@ -1254,6 +1241,9 @@ static void puppycam_script(void) {
                     gPuppyCam.yaw       = volume.angles->yaw;
 
                     gPuppyCam.flags &= ~PUPPYCAM_BEHAVIOUR_YAW_ROTATION;
+                }
+                else {
+                    gPuppyCam.yaw = atan2s(gPuppyCam.pos[2] - gPuppyCam.focus[2], gPuppyCam.pos[0] - gPuppyCam.focus[0]);
                 }
 
                 if (volume.angles->pitch != PUPPY_NULL) {

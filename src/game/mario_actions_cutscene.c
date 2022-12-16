@@ -596,15 +596,27 @@ s32 act_debug_free_move(struct MarioState *m) {
 }
 
 void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
+    struct Object *celebStar = NULL;
+
     if (m->actionState == ACT_STATE_STAR_DANCE_CUTSCENE) {
         switch (++m->actionTimer) {
             case 1:
-                spawn_object(m->marioObj, MODEL_STAR, bhvCelebrationStar);
+                celebStar = spawn_object(m->marioObj, MODEL_STAR, bhvCelebrationStar);
+#ifdef STAR_DANCE_USES_STARS_MODEL
+                celebStar->header.gfx.sharedChild = m->interactObj->header.gfx.sharedChild;
+#else
+                if (obj_has_model(m->interactObj, MODEL_BOWSER_KEY)) {
+                    obj_set_model(celebStar, MODEL_BOWSER_KEY);
+                }
+#endif
                 disable_background_sound();
+                //! TODO: Is this check necessary? Both seem to do the exact same thing.
                 if (m->actionArg & 1) {
-                    play_course_clear();
+                    // No exit
+                    play_course_clear(obj_has_model(celebStar, MODEL_BOWSER_KEY));
                 } else {
-                    if (gCurrLevelNum == LEVEL_BOWSER_1 || gCurrLevelNum == LEVEL_BOWSER_2) {
+                    // Exit
+                    if (obj_has_model(celebStar, MODEL_BOWSER_KEY)) {
                         play_music(SEQ_PLAYER_ENV, SEQUENCE_ARGS(15, SEQ_EVENT_CUTSCENE_COLLECT_KEY), 0);
                     } else {
                         play_music(SEQ_PLAYER_ENV, SEQUENCE_ARGS(15, SEQ_EVENT_CUTSCENE_COLLECT_STAR), 0);
@@ -985,15 +997,7 @@ s32 act_warp_door_spawn(struct MarioState *m) {
             m->usedObj->oInteractStatus = INT_STATUS_WARP_DOOR_PUSHED;
         }
     } else if (m->usedObj->oAction == DOOR_ACT_CLOSED) {
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
-        if (gNeverEnteredCastle && gCurrLevelNum == LEVEL_CASTLE) {
-            set_mario_action(m, ACT_READING_AUTOMATIC_DIALOG, DIALOG_021);
-        } else {
-            set_mario_action(m, ACT_IDLE, 0);
-        }
-#else
         set_mario_action(m, ACT_IDLE, 0);
-#endif
     }
     set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
     stop_and_set_height_to_floor(m);
@@ -1012,15 +1016,6 @@ s32 act_emerge_from_pipe(struct MarioState *m) {
 
     if(gMarioState->actionArg == 0)
         play_sound_if_no_flag(m, SOUND_MARIO_YAHOO, MARIO_MARIO_SOUND_PLAYED);
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
-    if (gCurrLevelNum == LEVEL_THI) {
-        if (gCurrAreaIndex == 2) {
-            play_sound_if_no_flag(m, SOUND_MENU_EXIT_PIPE, MARIO_ACTION_SOUND_PLAYED);
-        } else {
-            play_sound_if_no_flag(m, SOUND_MENU_ENTER_PIPE, MARIO_ACTION_SOUND_PLAYED);
-        }
-    }
-#endif
 
     if (launch_mario_until_land(m, ACT_JUMP_LAND_STOP, MARIO_ANIM_SINGLE_JUMP, 8.0f)) {
         mario_set_forward_vel(m, 0.0f);

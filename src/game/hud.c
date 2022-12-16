@@ -28,11 +28,6 @@
  * cannon reticle, and the unused keys.
  **/
 
-#define HUD_POWER_METER_X            140
-#define HUD_POWER_METER_EMPHASIZED_Y 166
-#define HUD_POWER_METER_Y            200
-#define HUD_POWER_METER_HIDDEN_Y     300
-
 #ifdef BREATH_METER
 // #ifdef DISABLE_LIVES
 // #define HUD_BREATH_METER_X         64
@@ -54,6 +49,9 @@ u8 curFrameTimeIndex = 0;
 
 #include "PR/os_convert.h"
 
+#ifdef USE_PROFILER
+float profiler_get_fps();
+#else
 // Call once per frame
 f32 calculate_and_update_fps() {
     OSTime newTime = osGetTime();
@@ -66,9 +64,14 @@ f32 calculate_and_update_fps() {
     }
     return ((f32)FRAMETIME_COUNT * 1000000.0f) / (s32)OS_CYCLES_TO_USEC(newTime - oldTime);
 }
+#endif
 
 void print_fps(s32 x, s32 y) {
+#ifdef USE_PROFILER
+    f32 fps = profiler_get_fps();
+#else
     f32 fps = calculate_and_update_fps();
+#endif
     char text[14];
 
     sprintf(text, "FPS %2.2f", fps);
@@ -77,7 +80,6 @@ void print_fps(s32 x, s32 y) {
 #else
     print_text(x, y, text);
 #endif
-
 }
 
 // ------------ END OF FPS COUNER -----------------
@@ -390,7 +392,6 @@ void render_hud_breath_meter(void) {
 }
 #endif
 
-#define HUD_TOP_Y 209
 
 /**
  * Renders the amount of lives Mario has.
@@ -422,8 +423,6 @@ void render_hud_coins(void) {
     print_text(184, HUD_TOP_Y, "*"); // 'X' glyph
     print_text_fmt_int(198, HUD_TOP_Y, "%d", gHudDisplay.coins);
 }
-
-#define HUD_STARS_X 78
 
 /**
  * Renders the amount of stars collected.

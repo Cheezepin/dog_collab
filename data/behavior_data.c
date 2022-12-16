@@ -959,6 +959,7 @@ const BehaviorScript bhvWfBreakableWallLeft[] = {
     // WF breakable walls - common:
     OR_INT(oFlags, (OBJ_FLAG_ACTIVE_FROM_AFAR | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     SET_HITBOX(/*Radius*/ 300, /*Height*/ 400),
+    SET_FLOAT(oDrawingDistance, 4500),
     SET_INT(oIntangibleTimer, 0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_wf_breakable_wall_loop),
@@ -3776,13 +3777,8 @@ const BehaviorScript bhvMario[] = {
     OR_INT(oUnk94, 0x0001),
     SET_HITBOX(/*Radius*/ 37, /*Height*/ 160),
     BEGIN_LOOP(),
-// #ifdef VANILLA_DEBUG
-        CALL_NATIVE(try_print_debug_mario_level_info),
-// #endif
+        CALL_NATIVE(run_2639_sound),
         CALL_NATIVE(bhv_mario_update),
-#ifdef VANILLA_DEBUG
-        CALL_NATIVE(try_do_mario_debug_object_spawn),
-#endif
     END_LOOP(),
 };
 

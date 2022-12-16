@@ -14,7 +14,7 @@ This is a fork of the ultrasm64 repo by CrashOveride which includes the followin
 - **ArcticJaguar725**: Most audio configuration and layout changes, colored ia4 text, floombas, various bugfixes, and more
 - **CowQuack**: Adjustable skybox sizes, area-specific skybox function
 - **thecozies**: Water surface types, general maintenance, and time
-- **MrComit**: General use object defines, JUMP_KICK_FIX, LEDGE_GRABS_CHECK_SLOPE_ANGLE
+- **MrComit**: General use object defines, JUMP_KICK_FIX
 - **aglab2**: Bugfixes (particularly puppycam), refactor stuff
 - **someone2639**: math.s and crash screen disam, stack trace, map packing, shiftable segments 2, S2DEX engine
 - **Arthurtilly**: Platform Displacement 2
@@ -29,11 +29,12 @@ This is a fork of the ultrasm64 repo by CrashOveride which includes the followin
 - **CrashOveride**: creating the [ultrasm64](https://github.com/CrashOveride95/ultrasm64) repo
 - **falcobuster**: Original coordinate overflow fix (world scale), ASM version of extended bounds
 - **anonymous_moose**: porting falco's extended bounds to decomp
+- **tuxlovesyou**: `LOAD_MIO0_TEXTURE` macro and moral support
 
 Thanks to Frame#5375 and AloXado320 for also helping with silhouette stuff
 
 **Lighting Engine by Wiseguy**
-- Lighting Engine is available on a separate branch ([base/lighting-engine-wip](https://github.com/Reonu/HackerSM64/tree/base/lighting-engine-wip)). Instructions on how to use it are in the readme of that branch.
+- Lighting Engine is available on a separate branch ([base/lighting-engine](https://github.com/Reonu/HackerSM64/tree/base/lighting-engine)). Instructions on how to use it are in the readme of that branch.
 - Alternatively, the main repo has `Puppylights` available, which is a more lightweight, but limited lighting library intended to be used to modify existing light properties. You can look at `puppylights.c` to find out how to use it.
 
 **Puppycam**
@@ -60,7 +61,6 @@ Thanks to Frame#5375 and AloXado320 for also helping with silhouette stuff
 - Toggle to disable fall damage and the fall damage sound *
 - Nonstop stars *
 - Removed course-specific camera processing *
-- You can increase the number of frames that you have to perform a firsty *
 - Ability to set Mario's movement speed when hanging from a ceiling *
 - Tighter hanging controls (Mario will face the direction of the analog stick directly while hanging from a ceiling) *
 - reonucam3: custom camera by Reonu. This is included as a .patch file in the enhancements folder, you need to apply it if you want this camera.

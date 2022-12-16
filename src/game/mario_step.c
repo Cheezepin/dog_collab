@@ -439,8 +439,10 @@ struct Surface *check_ledge_grab(struct MarioState *m, struct Surface *prevWall,
     if (ledgeFloor == NULL
         || (*ledgeFloor) == NULL
         || ledgePos[1] < nextPos[1] + 100.0f
+#ifdef DONT_LEDGE_GRAB_STEEP_SLOPES
         || (*ledgeFloor)->normal.y < COS25 // H64 TODO: check if floor is actually slippery
-        || SURFACE_IS_UNSAFE((*ledgeFloor)->type)) {
+#endif
+    ) {
         return NULL;
     }
 
@@ -585,7 +587,7 @@ s32 perform_air_quarter_step(struct MarioState *m, Vec3f intendedPos, u32 stepAr
             }
         }
 
-        if (stepResult == AIR_STEP_GRABBED_LEDGE && grabbedWall != NULL && ledgeFloor != NULL && ledgePos != NULL) {
+        if (stepResult == AIR_STEP_GRABBED_LEDGE && grabbedWall != NULL && ledgeFloor != NULL) {
             vec3f_copy(m->pos, ledgePos);
             set_mario_floor(m, floor, ledgePos[1]);
             m->faceAngle[0] = 0x0;

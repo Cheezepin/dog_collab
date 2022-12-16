@@ -423,25 +423,6 @@ void init_mario_after_warp(void) {
         if (gMarioState->flags & (MARIO_VANISH_CAP | MARIO_WING_CAP)) {
             play_cap_music(SEQUENCE_ARGS(4, SEQ_EVENT_POWERUP));
         }
-
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
-        if (gCurrLevelNum == LEVEL_BOB
-            && get_current_background_music() != SEQUENCE_ARGS(4, SEQ_LEVEL_SLIDE) && sTimerRunning) {
-            play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_LEVEL_SLIDE), 0);
-        }
-
-        if (sWarpDest.levelNum == LEVEL_CASTLE && sWarpDest.areaIdx == 1
-            && (sWarpDest.nodeId == 31 || sWarpDest.nodeId == 32)
-        ) {
-            play_sound(SOUND_MENU_MARIO_CASTLE_WARP, gGlobalSoundSource);
-        }
-
-        if (sWarpDest.levelNum == LEVEL_CASTLE_GROUNDS && sWarpDest.areaIdx == 1
-            && (sWarpDest.nodeId == 7 || sWarpDest.nodeId == 10 || sWarpDest.nodeId == 20
-                || sWarpDest.nodeId == 30)) {
-            play_sound(SOUND_MENU_MARIO_CASTLE_WARP, gGlobalSoundSource);
-        }
-#endif
     }
 }
 
@@ -581,17 +562,6 @@ void teleportMario(f32 x, f32 y, f32 z) {
 void check_instant_warp(void) {
     s16 cameraAngle;
     struct Surface *floor;
-
-#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
- #ifdef UNLOCK_ALL
-    if (gCurrLevelNum == LEVEL_CASTLE) {
- #else // !UNLOCK_ALL
-    if (gCurrLevelNum == LEVEL_CASTLE
-        && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 70) {
- #endif // !UNLOCK_ALL
-        return;
-    }
-#endif // ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
 
     if (gInstantWarpObject) {
         do_the_vertical_instant_warp();

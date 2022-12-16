@@ -123,7 +123,7 @@ static void toad_message_opaque(void) {
         if (o->oInteractStatus & INT_STATUS_INTERACTED) {
             o->oInteractStatus = INT_STATUS_NONE;
             o->oToadMessageState = TOAD_MESSAGE_TALKING;
-            if (!in2639Level(o)) {
+            if (!in2639Level()) {
                 play_toads_jingle();
             }
         }
