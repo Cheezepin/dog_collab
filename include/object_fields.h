@@ -1334,6 +1334,9 @@
 
 #define /*0x0F4*/ oWarpBoxInnerScale                           OBJECT_FIELD_F32(0x1B)
 
+#define /*0x0F4*/ oLaserRingDetectDist                            OBJECT_FIELD_F32(0x1D)
+#define /*0x0F8*/ oLaserRingGrowthRate                            OBJECT_FIELD_F32(0x1E)
+
 // thecozies start
 #define oFloatyRockWaterSpout               OBJECT_FIELD_OBJ(0x1B)
 #define oFloatyRockPrevWaterLevel           OBJECT_FIELD_F32(0x1C)

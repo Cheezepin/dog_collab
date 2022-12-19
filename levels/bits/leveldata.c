@@ -44,3 +44,6 @@
 #include "levels/bits/wf_palm_tree_bits/model.inc.c"
 #include "levels/bits/wf_palm_tree_bits/anims/data.inc.c"
 #include "levels/bits/wf_palm_tree_bits/anims/table.inc.c"
+#include "levels/bits/koko_bits/model.inc.c"
+#include "levels/bits/bits_octagonal_platform/model.inc.c"
+#include "levels/bits/bits_octagonal_platform/collision.inc.c"

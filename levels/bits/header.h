@@ -39,5 +39,9 @@ extern const LevelScript level_bits_entry[];
 #include "levels/bits/clown_clock_bits/collision_header.h"
 #include "levels/bits/wf_palm_tree_bits/geo_header.h"
 #include "levels/bits/wf_palm_tree_bits/anim_header.h"
+#include "levels/bits/koko_bits/geo_header.h"
+extern const GeoLayout bits_octagonal_platform_geo[];
+extern const Gfx bits_octagonal_dl_070135A0[];
+extern const Collision bits_octagonal_collision_0701AA84[];
 
 #endif
