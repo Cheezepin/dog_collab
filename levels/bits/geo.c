@@ -34,3 +34,4 @@
 #include "levels/bits/circus_balloon_bits/geo.inc.c"
 #include "levels/bits/trapeze_bits/geo.inc.c"
 #include "levels/bits/clown_clock_bits/geo.inc.c"
+#include "levels/bits/wf_palm_tree_bits/geo.inc.c"

@@ -41,3 +41,6 @@
 #include "levels/bits/trapeze_bits/model.inc.c"
 #include "levels/bits/clown_clock_bits/model.inc.c"
 #include "levels/bits/clown_clock_bits/collision.inc.c"
+#include "levels/bits/wf_palm_tree_bits/model.inc.c"
+#include "levels/bits/wf_palm_tree_bits/anims/data.inc.c"
+#include "levels/bits/wf_palm_tree_bits/anims/table.inc.c"

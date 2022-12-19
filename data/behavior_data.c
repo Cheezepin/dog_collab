@@ -3454,8 +3454,8 @@ const BehaviorScript bhvTree[] = {
 
 const BehaviorScript bhvPalmTree[] = {
     BEGIN(OBJ_LIST_POLELIKE),
-    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_OPACITY_FROM_CAMERA_DIST)),
     LOAD_ANIMATIONS(oAnimations, wf_palm_tree_anims),
+    OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_OPACITY_FROM_CAMERA_DIST)),
     ANIMATE(0),
     SET_INT(oInteractType, INTERACT_POLE),
     SET_HITBOX(/*Radius*/ 80, /*Height*/ 1018),
@@ -3465,6 +3465,12 @@ const BehaviorScript bhvPalmTree[] = {
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_pole_base_loop),
     END_LOOP(),
+};
+
+const BehaviorScript bhvPalmTreeBits[] = {
+    BEGIN(OBJ_LIST_POLELIKE),
+    LOAD_ANIMATIONS(oAnimations, wf_palm_tree_bits_anims),
+    GOTO(bhvPalmTree + 1 + 2),
 };
 
 const BehaviorScript bhvSparkle[] = {
