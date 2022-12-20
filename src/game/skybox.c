@@ -11,6 +11,7 @@
 #include "sm64.h"
 #include "geo_commands.h"
 #include "color_presets.h"
+#include "object_list_processor.h"
 #include "main.h"
 
 /**
@@ -272,6 +273,9 @@ Gfx *init_skybox_display_list(s8 player, s8 background, s8 colorIndex) {
     Gfx *dlist = skybox;
 
     if (skybox == NULL) {
+        return NULL;
+    } else if (gCurrLevelNum == LEVEL_JRB && (gCurrAreaIndex == 1 && gMarioCurrentRoom != 2)) {
+        // dont render skybox in cowquack's level in interior sections ()
         return NULL;
     } else {
         Mtx *ortho = create_skybox_ortho_matrix(player);
