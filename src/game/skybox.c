@@ -11,7 +11,6 @@
 #include "sm64.h"
 #include "geo_commands.h"
 #include "color_presets.h"
-#include "object_list_processor.h"
 #include "main.h"
 
 /**
@@ -147,7 +146,7 @@ ColorRGB sSkyboxColors[] = {
 s32 calculate_skybox_scaled_x(s8 player, f32 fov) {
     f32 yaw = sSkyBoxInfo[player].yaw;
 
-    f32 yawScaled = gScreenWidth * 360.0f * yaw / (fov * 65536.0f);
+    f32 yawScaled = SCREEN_WIDTH * 360.0f * yaw / (fov * 65536.0f);
     // Round the scaled yaw. Since yaw is a u16, it doesn't need to check for < 0
     s32 scaledX = yawScaled + 0.5f;
 
@@ -240,22 +239,28 @@ void draw_skybox_tile_grid(Gfx **dlist, s8 background, s8 player, s8 colorIndex)
     }
 }
 
+// extern f32 sAspectRatio;
+
 void *create_skybox_ortho_matrix(s8 player) {
     f32 left = sSkyBoxInfo[player].scaledX;
-    f32 right = sSkyBoxInfo[player].scaledX + gScreenWidth;
-    f32 bottom = sSkyBoxInfo[player].scaledY - gScreenHeight;
+    f32 right = sSkyBoxInfo[player].scaledX + SCREEN_WIDTH;
+    f32 bottom = sSkyBoxInfo[player].scaledY - SCREEN_HEIGHT;
     f32 top = sSkyBoxInfo[player].scaledY;
     Mtx *mtx = alloc_display_list(sizeof(*mtx));
 
-#ifdef WIDESCREEN
-    f32 half_width = (4.0f / 3.0f) / GFX_DIMENSIONS_ASPECT_RATIO * SCREEN_CENTER_X;
-    f32 center = (sSkyBoxInfo[player].scaledX + SCREEN_CENTER_X);
-    if (half_width < SCREEN_CENTER_X) {
-        // A wider screen than 4:3
-        left = center - half_width;
-        right = center + half_width;
-    }
-#endif
+    // skybox does not draw enough tiles for this to work atm 
+    // if (sAspectRatio > ((4.0f / 3.0f)+__FLT_EPSILON__)) {
+    //     f32 extraBit = (f32)(((SCREEN_WIDTH * (16.0 / 9.0) / (4.0 / 3.0)) - SCREEN_WIDTH) * 0.5);
+    //     left -= extraBit;
+    //     right += extraBit;
+    // }
+
+    // this removes a bit of the top and bottom, and while technically more efficient,
+    // it alters the perspective in a way that doesnt quite make sense since vertical fov doesnt change with aspect ratio 
+    // if (sAspectRatio > ((4.0f / 3.0f)+__FLT_EPSILON__)) {
+    //     bottom += 30.0f;
+    //     top -= 30.0f;
+    // }
 
     if (mtx != NULL) {
         guOrtho(mtx, left, right, bottom, top, 0.0f, 3.0f, 1.0f);
