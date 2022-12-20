@@ -69,6 +69,7 @@ extern OSMesgQueue gSIEventMesgQueue;
 #if ENABLE_RUMBLE
 extern OSMesg gRumblePakSchedulerMesgBuf[1];
 extern OSMesg gRumbleThreadVIMesgBuf[1];
+extern OSViMode VI;
 
 #define NUM_RUMBLE_BUFFERS 2
 extern struct RumbleData gRumbleDataQueue[NUM_RUMBLE_BUFFERS];
@@ -90,5 +91,6 @@ extern s8 gShowDebugText;
 void set_vblank_handler(s32 index, struct VblankHandler *handler, OSMesgQueue *queue, OSMesg *msg);
 void dispatch_audio_sptask(struct SPTask *spTask);
 void exec_display_list(struct SPTask *spTask);
+void change_vi(OSViMode *mode, int width, int height);
 
 #endif // MAIN_H

@@ -11,6 +11,7 @@
 #include "sm64.h"
 #include "geo_commands.h"
 #include "color_presets.h"
+#include "object_list_processor.h"
 #include "main.h"
 
 /**
