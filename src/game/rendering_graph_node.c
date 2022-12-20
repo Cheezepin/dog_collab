@@ -53,7 +53,7 @@ ALIGNED16 Mat4 gMatStack[32];
 ALIGNED16 Mtx *gMatStackFixed[32];
 
 u8 heatValue = 0; //Controls the intensity of the heatwave. Goes up to 255.
-f32 sAspectRatio;
+f32 sAspectRatio = 4.0f / 3.0f;
 
 
 /**
