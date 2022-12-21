@@ -427,6 +427,8 @@ extern const BehaviorScript bhvStarSpawnCoordinates[];
 extern const BehaviorScript bhvHiddenRedCoinStar[];
 extern const BehaviorScript bhvRedCoin[];
 extern const BehaviorScript bhvBowserCourseRedCoinStar[];
+extern const BehaviorScript bhvFinalBowserRedCoin[];
+extern const BehaviorScript bhvFinalBowserCourseRedCoinStar[];
 extern const BehaviorScript bhvHiddenStar[];
 extern const BehaviorScript bhvHiddenStarTrigger[];
 extern const BehaviorScript bhvTtmRollingLog[];
@@ -748,6 +750,7 @@ extern const BehaviorScript bhvDogLaser[];
 extern const BehaviorScript bhvB3Bridge[];
 extern const BehaviorScript bhvLaserGlow[];
 extern const BehaviorScript bhvPeachEnding[];
+extern const BehaviorScript bhvRedCoinSign[];
 //cheeze bhv ends
 
 //Koopa Atoll Objects

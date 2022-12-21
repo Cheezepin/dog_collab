@@ -19,3 +19,27 @@
 #include "levels/pss/areas/1/7/model.inc.c"
 #include "levels/pss/areas/1/collision.inc.c"
 #include "levels/pss/areas/1/macro.inc.c"
+
+#include "levels/pss/leveldata.inc.c"
+
+#include "levels/pss/warpbox_pss/model.inc.c"
+
+#include "levels/pss/clown_door_bottom_pss/model.inc.c"
+#include "levels/pss/clown_door_bottom_pss/collision.inc.c"
+#include "levels/pss/clown_door_top_pss/model.inc.c"
+#include "levels/pss/clown_door_top_pss/collision.inc.c"
+#include "levels/pss/carousel_pss/model.inc.c"
+#include "levels/pss/carousel_pss/collision.inc.c"
+#include "levels/pss/carousel_pss/anims/data.inc.c"
+#include "levels/pss/carousel_pss/anims/table.inc.c"
+#include "levels/pss/balloon_platform_pss/model.inc.c"
+#include "levels/pss/balloon_platform_pss/collision.inc.c"
+#include "levels/pss/pinwheel_pss/model.inc.c"
+#include "levels/pss/circus_balloon_pss/model.inc.c"
+#include "levels/pss/circus_balloon_pss/collision.inc.c"
+#include "levels/pss/trapeze_pss/model.inc.c"
+#include "levels/pss/clown_clock_pss/model.inc.c"
+#include "levels/pss/clown_clock_pss/collision.inc.c"
+
+#include "levels/pss/pss_octagonal_platform/model.inc.c"
+#include "levels/pss/pss_octagonal_platform/collision.inc.c"

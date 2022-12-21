@@ -1,4 +1,4 @@
-const Collision bits_area_11_collision[] = {
+const Collision pss_area_5_collision[] = {
 	COL_INIT(),
 	COL_VERTEX_INIT(1371),
 	COL_VERTEX(-2663, 1098, -856),

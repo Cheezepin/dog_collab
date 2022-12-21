@@ -70,7 +70,6 @@ static void laser_ring_spawner_act_charging(f32 xzDist)
             /* parent */ o, /* model */ MODEL_LASER_RING, bhvLaserRing);
         cur_obj_play_sound_2(SOUND_GENERAL_ACTIVATE_CAP_SWITCH);
         cur_obj_change_action(ZH_LASER_RING_SPAWNER_ACT_COOLDOWN);
-        print_text(20, 20, "hi");
     }
     o->oSpawnerTopOffset= approach_f32_asymptotic(o->oSpawnerTopOffset, 10.0f, 0.3f);
 }

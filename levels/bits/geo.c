@@ -26,14 +26,7 @@
 
 #include "levels/bits/fade_cloud_bits/geo.inc.c"
 
-#include "levels/bits/clown_door_bottom_bits/geo.inc.c"
-#include "levels/bits/clown_door_top_bits/geo.inc.c"
-#include "levels/bits/carousel_bits/geo.inc.c"
-#include "levels/bits/balloon_platform_bits/geo.inc.c"
-#include "levels/bits/pinwheel_bits/geo.inc.c"
-#include "levels/bits/circus_balloon_bits/geo.inc.c"
-#include "levels/bits/trapeze_bits/geo.inc.c"
-#include "levels/bits/clown_clock_bits/geo.inc.c"
+
 #include "levels/bits/wf_palm_tree_bits/geo.inc.c"
 #include "levels/bits/koko_bits/geo.inc.c"
-#include "levels/bits/bits_octagonal_platform/geo.inc.c"
+

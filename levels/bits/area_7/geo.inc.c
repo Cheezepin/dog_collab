@@ -3,10 +3,7 @@
 const GeoLayout bits_area_7_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, bits_dl_Cube_003_mesh_layer_1),
-		GEO_DISPLAY_LIST(LAYER_ALPHA, bits_dl_Cube_003_mesh_layer_4),
-		GEO_DISPLAY_LIST(LAYER_ALPHA, bits_dl_Plane_150_mesh_layer_4),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, bits_dl_Plane_150_mesh_layer_6),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, bits_dl_Plane_008_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -33,8 +30,6 @@ const GeoLayout bits_area_7[] = {
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, bits_dl_material_revert_render_settings),
-		GEO_DISPLAY_LIST(LAYER_ALPHA, bits_dl_material_revert_render_settings),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, bits_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

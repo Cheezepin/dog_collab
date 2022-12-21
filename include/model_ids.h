@@ -642,6 +642,7 @@ enum CoziesLevelModels {
 #define MODEL_SNOULDER 0x150
 #define MODEL_WARP_BOX 0x151
 #define MODEL_BOWSER_SNOWBOARD 0x152
+#define MODEL_RC_SIGN 0x153
 
 
 

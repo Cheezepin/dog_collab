@@ -1,4 +1,4 @@
-const u8 bits_area_9_collision_rooms[] = {
+const u8 pss_area_2_collision_rooms[] = {
 	2, 2, 2, 2, 2, 2, 2, 2, 
 	2, 2, 2, 2, 2, 2, 2, 2, 
 	2, 2, 2, 2, 2, 2, 2, 2, 

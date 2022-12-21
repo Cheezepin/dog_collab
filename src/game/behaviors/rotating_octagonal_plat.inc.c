@@ -1,4 +1,5 @@
 // rotating_octagonal_plat.inc.c
+#include "levels/pss/header.h"
 
 static const Collision *sOctagonalPlatformCollision[] = {
     0,

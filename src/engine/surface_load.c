@@ -433,6 +433,9 @@ void alloc_surface_pools(void) {
 
     gCCMEnteredSlide = FALSE;
     reset_red_coins_collected();
+    if(gCurrLevelNum != LEVEL_BITS && gCurrLevelNum != LEVEL_PSS) {
+        reset_bowser_red_coins_collected();
+    }
 }
 
 #ifdef NO_SEGMENTED_MEMORY

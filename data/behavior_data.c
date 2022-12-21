@@ -59,6 +59,7 @@
 #include "levels/bowser_3/header.h"
 #include "levels/ttm/header.h"
 #include "levels/ccm/header.h"
+#include "levels/pss/header.h"
 
 #include "make_const_nonconst.h"
 #include "behavior_data.h"
@@ -4980,6 +4981,28 @@ const BehaviorScript bhvBowserCourseRedCoinStar[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvFinalBowserRedCoin[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    SET_INT(oIntangibleTimer, 0),
+    SET_INT(oAnimState, OBJ_ANIM_STATE_INIT_ANIM),
+    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(bhv_red_coin_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_bowser_red_coin_loop),
+        ADD_INT(oAnimState, 1),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvFinalBowserCourseRedCoinStar[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_PERSISTENT_RESPAWN | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_final_bowser_course_red_coin_star_loop),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvHiddenStar[] = {
     BEGIN(OBJ_LIST_LEVEL),
     OR_INT(oFlags, (OBJ_FLAG_PERSISTENT_RESPAWN | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -8403,6 +8426,17 @@ const BehaviorScript bhvPeachEnding[] = {
     ANIMATE(PEACH_ANIM_DESCEND_FROM_WINDOW),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_peach_ending_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvRedCoinSign[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 16000),
+    SET_FLOAT(oCollisionDistance, 16000),
+    LOAD_COLLISION_DATA(rcsign_collision),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 

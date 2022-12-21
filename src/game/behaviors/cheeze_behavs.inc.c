@@ -1,5 +1,6 @@
 #include "src/game/hud.h"
 #include "src/game/level_update.h"
+#include "levels/pss/header.h"
 
 void bhv_cheezeplat_loop(void) {
     if(cur_obj_is_mario_on_platform()) {
@@ -484,7 +485,9 @@ void bhv_spiresdog_loop(void) {
                 dialogResponse = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, CHEEZE_DIALOG_7);
                 if(dialogResponse == 0x03) {
                     o->oAction++;
-                    if(o->oBehParams2ndByte == 1) {
+                    if(gCurrLevelNum == LEVEL_PSS) {
+                        o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(pss_area_2_spline_dogpath);
+                    } else if(o->oBehParams2ndByte == 1) {
                         o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(ssl_area_1_spline_dogpath2);
                     } else {
                         o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(ssl_area_1_spline_dogpath1);
@@ -519,6 +522,7 @@ void bhv_spiresdog_loop(void) {
             }
             break;
     }
+    if(gMarioState->action == ACT_FLOOR_CHECKPOINT_WARP_IN) {vec3f_copy(&o->oPosX, &o->oHomeX); o->oAction = 0; o->oSubAction = 0;}
 }
 
 void bhv_cheeze_lightning_init(void) {

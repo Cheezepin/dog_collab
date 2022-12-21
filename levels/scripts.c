@@ -269,6 +269,7 @@ const LevelScript script_func_global_7[] = {
     LOAD_MODEL_FROM_GEO(MODEL_MONTY_MOLE,              monty_mole_geo),
     LOAD_MODEL_FROM_GEO(MODEL_UKIKI,                   ukiki_geo),
     LOAD_MODEL_FROM_GEO(MODEL_FWOOSH,                  fwoosh_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_RC_SIGN, rcsign_geo),
     RETURN(),
 };
 
