@@ -148,13 +148,13 @@ s32 correct_shadow_solidity_for_animations(u8 initialSolidity) {
  * Uses environment alpha for shadow solidity.
  */
 static void add_shadow_to_display_list(Gfx *displayListHead, s8 shadowType) {
+    gDPSetEnvColor(displayListHead++, 255, 255, 255, s->solidity);
     if (shadowType == SHADOW_CIRCLE) {
-        gSPDisplayList(displayListHead++, dl_shadow_circle);
+        gSPDisplayList(displayListHead++, dl_shadow_circle_tris);
     } else {
         gSPDisplayList(displayListHead++, dl_shadow_square);
+        gSPDisplayList(displayListHead++, dl_shadow_end);
     }
-    gDPSetEnvColor(displayListHead++, 255, 255, 255, s->solidity);
-    gSPDisplayList(displayListHead++, dl_shadow_end);
     gSPEndDisplayList(displayListHead);
 }
 

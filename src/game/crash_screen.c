@@ -416,6 +416,7 @@ void thread2_crash_screen(UNUSED void *arg) {
                 audio_signal_game_loop_tick();
                 crash_screen_sleep(200);
                 play_sound(SOUND_MARIO_WAAAOOOW, gGlobalSoundSource);
+                change_vi(&VI, 320, 240);
                 audio_signal_game_loop_tick();
                 crash_screen_sleep(200);
                 continue;

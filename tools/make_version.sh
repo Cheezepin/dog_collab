@@ -1,6 +1,0 @@
-echo "#ifndef VER_DATA_H"
-echo "#define VER_DATA_H"
-echo "#define __USERNAME__  \"`whoami`@`hostname`\""
-echo "#define __COMPILER__  \"$1gcc version `$1gcc -dumpfullversion`\""
-echo "#define __LINKER__    \"$1ld: `$1ld -v`\""
-echo "#endif"
