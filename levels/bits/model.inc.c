@@ -46,7 +46,7 @@ Lights1 bits_dl_motos_flag_001_lights = gdSPDefLights1(
 	0x54, 0x54, 0x54,
 	0xAC,0xAC,0xAC,0x28,0x28,0x28);
 
-Lights1 bits_dl_f3dlite_material_001_lights = gdSPDefLights1(
+Lights1 bits_dl_stairscol_lights = gdSPDefLights1(
 	0x7F, 0x7F, 0x7F,
 	0xFF,0xFF,0xFF,0x28,0x28,0x28);
 
@@ -42304,11 +42304,11 @@ Gfx mat_revert_bits_dl_motos_flag_001[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_bits_dl_f3dlite_material_001[] = {
+Gfx mat_bits_dl_stairscol[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsSPSetLights1(bits_dl_f3dlite_material_001_lights),
+	gsSPSetLights1(bits_dl_stairscol_lights),
 	gsSPEndDisplayList(),
 };
 
@@ -43066,7 +43066,7 @@ Gfx bits_dl_Plane_008_mesh_layer_1[] = {
 	gsSPVertex(bits_dl_Plane_008_mesh_layer_1_vtx_cull + 0, 8, 0),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPCullDisplayList(0, 7),
-	gsSPDisplayList(mat_bits_dl_f3dlite_material_001),
+	gsSPDisplayList(mat_bits_dl_stairscol),
 	gsSPDisplayList(bits_dl_Plane_008_mesh_layer_1_tri_0),
 	gsSPEndDisplayList(),
 };

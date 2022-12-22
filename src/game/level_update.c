@@ -85,11 +85,11 @@ const char *credits20[] = { "4THANKS TO EVERYONE WHO WORKED ON THE COLLAB", "AND
 
 
 struct CreditsEntry sCreditsSequence[] = {
-    { LEVEL_BITS, 1, 1, -128, { 0, 0, 0 }, NULL, 0 },
-    { LEVEL_BITS, 1, 1, 117, { 0, 0, 0 }, credits01, 0 },
-    { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02, 0 },
+    { LEVEL_PSS, 7, 1, -128, { 0, 100, 0 }, NULL, 0 },
+    { LEVEL_PSS, 7, 1, 117, { 0, 100, 0 }, credits01, 0 },
+    /*{ LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02, 0 },
     { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03, 0 },
-    { LEVEL_BBH, 1, 34, 25, { -5464, 6656, -6575 }, credits04, 0 },
+    { LEVEL_BOB, 1, 34, 25, { -5464, 6656, -6575 }, credits04, 0 },
     { LEVEL_BITFS, 1, 1, 240, { 15040, 2867, 1676 }, credits05, 1 },
     { LEVEL_WF, 1, -15, 123, { -5516, 1006, 1554 }, credits06, 0 },
     { LEVEL_CCM, 1, 17, -32, { 508, 1024, 1942 }, credits07, 0 },
@@ -103,7 +103,7 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_HMC, 1, 51, 54, { -2609, 512, 856 }, credits15, 1 },
     { LEVEL_DDD, 2, 51, 54, { -2609, 512, 856 }, credits16, 1 },
     { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17, 0 },
-    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },
+    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },*/
     { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits19, 0 },
     { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits20, 0 },
     //{ LEVEL_TTC, 1, 17, -72, { -1304, -71, -967 }, credits15 },
@@ -1487,8 +1487,11 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
 /**
  * Play the "thank you so much for to playing my game" sound.
  */
+
+s32 gGlobalEndingHidden = 0;
 s32 lvl_play_the_end_screen_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) {
     play_sound(SOUND_MENU_THANK_YOU_PLAYING_MY_GAME, gGlobalSoundSource);
+    gGlobalEndingHidden = 0;
     return TRUE;
 }
 
@@ -1496,27 +1499,31 @@ char *perfectString[] = {"P", "E", "R", "F", "E", "C", "T", "!"};
 char *howString[] = {"H", "O", "W"};
 
 s32 ending_get_outta_here(void) {
-    print_text_fmt_int(60, 220, "%d OF 73 STARS", save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1));
-    if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) == 73) {
-        u8 i = 0;
-        for(i = 0; i < 3; i++) {
-            print_text(100 + (i*16), 196 + (s32)(4.0f*sins(2000*(gGlobalTimer - i*8))), perfectString[i]);
+    if(!gGlobalEndingHidden) {
+        print_text_fmt_int(70, 220, "%d OF 73 STARS", save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1));
+        if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) == 73) {
+            u8 i = 0;
+            for(i = 0; i < 8; i++) {
+                print_text(100 + (i*16), 196 + (s32)(4.0f*sins(2000*(gGlobalTimer - i*8))), perfectString[i]);
+            }
+        } else if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) > 73) {
+            u8 i = 0;
+            for(i = 0; i < 3; i++) {
+                print_text(140 + (i*16), 196 + (s32)(4.0f*sins(2000*(gGlobalTimer - i*8))), howString[i]);
+            }
+        }
+        print_text_centered(160, 10, "PRESS A TO RESET");
+        if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+            fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
+            gWorldID = 0;
+            gFocusID = 0;
+            gCustomStarSelectActive = 0;
+            gHubStarSelectTimer = 0;
+            gLevelEntryConfirmationActive = 0;
         }
     }
-    if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) > 73) {
-        u8 i = 0;
-        for(i = 0; i < 8; i++) {
-            print_text(140 + (i*16), 196 + (s32)(4.0f*sins(2000*(gGlobalTimer - i*8))), howString[i]);
-        }
-    }
-    print_text_centered(160, 10, "PRESS A TO RESET");
-    if(gPlayer1Controller->buttonPressed & A_BUTTON) {
-        fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
-        gWorldID = 0;
-        gFocusID = 0;
-        gCustomStarSelectActive = 0;
-        gHubStarSelectTimer = 0;
-        gLevelEntryConfirmationActive = 0;
+    if(gPlayer1Controller->buttonPressed & B_BUTTON) {
+        gGlobalEndingHidden ^= 0x1;
     }
     return TRUE;
 }

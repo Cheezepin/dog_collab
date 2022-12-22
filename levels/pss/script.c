@@ -230,7 +230,7 @@ const LevelScript level_pss_entry[] = {
 		OBJECT(MODEL_BLACK_BOBOMB, 2230, 1208, -2144, 0, 13, 0, 0x00000000, bhvBobomb),
 		OBJECT(MODEL_NONE, 1155, 1864, 236, 0, 13, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -2150, 1892, -132, 0, 13, 0, (2 << 16), bhvCoinFormation),
-		OBJECT(MODEL_NONE, 44, 1159, 3325, 0, 90, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, 44, 1159, 3324, 0, 90, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 1374, 946, 3331, 0, 90, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 314, 952, -1996, 0, 103, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -1564, 1798, -2640, 0, 13, 0, (2 << 16), bhvCoinFormation),
@@ -255,6 +255,23 @@ const LevelScript level_pss_entry[] = {
 		MACRO_OBJECTS(pss_area_5_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
 		TERRAIN_TYPE(TERRAIN_SNOW),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
+	AREA(7, pss_area_7),
+		WARP_NODE(0x0A, LEVEL_PSS, 7, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_PSS, 7, 1, WARP_NO_CHECKPOINT),
+		WARP_NODE(1, LEVEL_PSS, 7, 1, WARP_NO_CHECKPOINT),
+		WARP_NODE(2, LEVEL_BOWSER_3, 1, 0xA, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_NONE, -5207, 2700, 0, 0, 0, 0, 0x00000000, bhvFinalBowserCourseRedCoinStar),
+		OBJECT(MODEL_WARP_BOX, -6207, 2700, 0, 0, 0, 0, (0 << 24) | (2 << 16) | (1), bhvWarpBox),
+		OBJECT(MODEL_WARP_BOX, 750, 200, 0, 0, -90, 0, (1 << 24) | (1 << 16), bhvWarpBox),
+		OBJECT(MODEL_NONE, 217, 0, -149, 0, 90, 0, (0xA << 16), bhvSpinAirborneWarp),
+		TERRAIN(pss_area_7_collision),
+		MACRO_OBJECTS(pss_area_7_macro_objs),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_SOUND_PLAYER),
+		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),

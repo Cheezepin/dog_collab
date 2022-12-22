@@ -263,6 +263,12 @@ Vec3f warpBoxScaleFrames[] = {
     {0.625f, 0.625f, 0.625f},
 };
 
+void bhv_warp_box_init(void) {
+    o->collidedObjs[0] = 0;
+    o->oAction = 0;
+    o->oSubAction = 0;
+}
+
 void bhv_warp_box_loop(void) {
 
     if((o->oBehParams >> 24) == 0) {
@@ -305,14 +311,14 @@ void bhv_warp_box_loop(void) {
             o->oTimer = 0;
             o->oPosY -= 50.0f;
             o->oVelY = 25.0f;
-            cur_obj_play_sound_2(SOUND_CUSTOM_WARP_BOX_IN);
+            play_sound(SOUND_CUSTOM_WARP_BOX_IN, gGlobalSoundSource);
         }
         if(o->oWarpBoxInnerScale >= 1.0f) {
             o->oAnimState = 0;
         } else {
             o->oAnimState = 1;
         }
-    } else {
+    } else if(gCurrCreditsEntry == NULL) {
         if(o->oTimer < 9) {
             vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
             o->oWarpBoxInnerScale = 1.0f;
@@ -321,7 +327,7 @@ void bhv_warp_box_loop(void) {
             set_mario_action(gMarioState, ACT_EMERGE_FROM_PIPE, 1);
         }
         if(o->oTimer == 17) {
-            cur_obj_play_sound_2(SOUND_CUSTOM_WARP_BOX_OUT);
+            play_sound(SOUND_CUSTOM_WARP_BOX_OUT, gGlobalSoundSource);
         }
         if(o->oTimer >= 15) {
             if(o->oWarpBoxInnerScale > 0.0f) {

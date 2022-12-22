@@ -14,4 +14,7 @@
 #include "levels/pss/area_5/room.inc.c"
 #include "levels/pss/area_5/macro.inc.c"
 #include "levels/pss/area_5/spline.inc.c"
+#include "levels/pss/area_7/collision.inc.c"
+#include "levels/pss/area_7/macro.inc.c"
+#include "levels/pss/area_7/spline.inc.c"
 #include "levels/pss/model.inc.c"

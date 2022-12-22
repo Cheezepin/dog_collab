@@ -8639,6 +8639,7 @@ const BehaviorScript bhvWarpBox[] = {
     SET_HITBOX(/*Radius*/ 50, /*Height*/ 100),
     SCALE(0, 50),
     SET_HOME(),
+    CALL_NATIVE(bhv_warp_box_init),
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(bhv_warp_box_loop),

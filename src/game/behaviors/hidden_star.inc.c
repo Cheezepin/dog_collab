@@ -70,7 +70,7 @@ void bhv_bowser_course_red_coin_star_loop(void) {
 void bhv_final_bowser_course_red_coin_star_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (gBowserRedCoinsCollected == 14) {
+            if (gBowserRedCoinsCollected == 12) {
                 o->oAction = 1;
             }
             break;
