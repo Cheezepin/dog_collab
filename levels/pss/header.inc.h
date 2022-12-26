@@ -34,6 +34,10 @@ extern const GeoLayout pss_area_7_geo[];
 extern const GeoLayout pss_area_7[];
 extern const Collision pss_area_7_collision[];
 extern const MacroObject pss_area_7_macro_objs[];
+#include "src/game/camera.h"
+
+extern struct CutsceneSplinePoint pss_area_7_spline_staircase_focus[];
+extern struct CutsceneSplinePoint pss_area_7_spline_staircase_pos[];
 extern Lights1 pss_dl_f3d_material_027_lights;
 extern Lights1 pss_dl_slipslide_001_lights;
 extern Lights1 pss_dl_f3d_material_007_lights;

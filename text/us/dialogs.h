@@ -2092,7 +2092,9 @@ in this level.)")
 
 DEFINE_DIALOG(_2639DIAG_A1Lobby_ChallengeIntro, 1, 2, 30, 200, R"(Up for a
 challenge?
-Enter within...)")
+Enter within...
+Warning: Leaves
+current level!)")
 
 
 // ACT 1
@@ -2458,7 +2460,7 @@ touch!\n\
 ...provided you have\n\
 enough stars.")
 
-DEFINE_DIALOG(CHEEZE_DIALOG_7, 1, 5, 95, 200, "\
+DEFINE_DIALOG(CHEEZE_DIALOG_7, 1, 1, 95, 200, "\
 Ruff!")
 
 DEFINE_DIALOG(CHEEZE_DIALOG_8, 1, 2, 95, 200, "\
@@ -2470,4 +2472,39 @@ Now, let's all go\n\
 back to the castle.\n\
 I'll bake a cake\n\
 for everyone!")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_9, 1, 7, 95, 200, "\
+Ruff bark roof!\n\
+(We're almost at Bowser's\n\
+doghouse! It's gonna be\n\
+a long way over, so could\n\
+you pick up the bone in\n\
+each of the twelve areas\n\
+for me?\n\
+Don't worry if you miss\n\
+one, they'll save to your\n\
+file and you can pick\n\
+them up another time")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_10, 1, 5, 95, 200, "\
+Bow wow woof bark!\n\
+(We're halfway there!\n\
+I think it's a good time\n\
+to take a break.\n\
+\n\
+The purple switch over\n\
+here will save your game.\n\
+Also, a warp box at the\n\
+beginning of the stage\n\
+will bring you back here!\n\
+Remember that all the\n\
+bones you've collected\n\
+will save!) ")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_11, 1, 5, 95, 200, "\
+Bark arf woof!\n\
+(If you missed the\n\
+red coin, take the\n\
+skinny bridge back\n\
+to the slide!) ")
 

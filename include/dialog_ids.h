@@ -199,7 +199,7 @@ enum DialogId {
     _2639DIAG_LEVELINTRO, // 187;
     _2639DIAG_ElevatorIntro,
     _2639DIAG_A1LobbyHOF_Intro, // mark
-    _2639DIAG_A1LobbyHOF_Kirby64, // mark
+    _2639DIAG_A1LobbyHOF_Kirby64, // 190
     _2639DIAG_A1LobbyHOF_sUGGOH, // mark
     _2639DIAG_A1LobbyHOF_AnimeFighter, // mark
     _2639DIAG_A1LobbyHOF_HVQM, // mark
@@ -213,7 +213,7 @@ enum DialogId {
     _2639DIAG_A1LobbyNPCSuggester, // mark
     _2639DIAG_A1LobbyToadStarGranter, // mark
 
-    _2639DIAG_A2LobbyToadGreeter,
+    _2639DIAG_A2LobbyToadGreeter, //200
     _2639DIAG_A2RoomPeachGreeter,
     _2639DIAG_A2RoomPeachFailure,
     _2639DIAG_A2RoomPeachSuccess,
@@ -228,7 +228,7 @@ enum DialogId {
     _2639DIAG_A4LobbyToadGreeter,
     _2639DIAG_A4RoomToadPoolBoy,
 
-    _2639DIAG_A5LobbyToadGreeter,
+    _2639DIAG_A5LobbyToadGreeter, //210
     _2639DIAG_A5ToadBasement,
 
     
@@ -240,9 +240,9 @@ enum DialogId {
     _2639DIAG_A6PentToad4,
     _2639DIAG_A6PentToad5,
     _2639DIAG_A6PentToad6,
-    _2639DIAG_A6PentToad7,
+    _2639DIAG_A6PentToad7, //220
 
-    CHEEZE_DIALOG_1,
+    CHEEZE_DIALOG_1, //221
     CHEEZE_DIALOG_2,
     CHEEZE_DIALOG_3,
     CHEEZE_DIALOG_4,
@@ -250,6 +250,9 @@ enum DialogId {
     CHEEZE_DIALOG_6,
     CHEEZE_DIALOG_7,
     CHEEZE_DIALOG_8,
+    CHEEZE_DIALOG_9,
+    CHEEZE_DIALOG_10,
+    CHEEZE_DIALOG_11,
 
     DIALOG_COUNT
 };

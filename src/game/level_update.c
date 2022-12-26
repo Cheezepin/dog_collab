@@ -78,7 +78,7 @@ const char *credits14[] = { "8OTHER MUSIC", "", "HUB WORLD", "CROSSING THOSE HIL
 const char *credits15[] = { "6FACTORY OUTSIDE", "CCM SM64", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
 const char *credits16[] = { "6SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD"};
 
-const char *credits17[] = { "3SPECIAL THANKS TO", "THECOZIES' DOG", "CLEVER FOLKS AT DECOMP", "FERGUS" };
+const char *credits17[] = { "3SPECIAL THANKS TO", "THECOZIES' DOG", "CLEVER FOLKS AT DECOMP", "BOOMERDACAT" };
 const char *credits18[] = { "3SPECIAL THANKS TO", "ARTHURTILLY", "HACKERSM64 TEAM", "GILES GODDARD" };
 const char *credits19[] = { "3PLEASE CHECK OUT THE SOCIALS AND", "", "OTHER PROJECTS OF EVERYONE WHO", "WORKED ON THE COLLAB" };
 const char *credits20[] = { "4THANKS TO EVERYONE WHO WORKED ON THE COLLAB", "AND THANK YOU FOR PLAYING", "", "" };
@@ -87,23 +87,24 @@ const char *credits20[] = { "4THANKS TO EVERYONE WHO WORKED ON THE COLLAB", "AND
 struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_PSS, 7, 1, -128, { 0, 100, 0 }, NULL, 0 },
     { LEVEL_PSS, 7, 1, 117, { 0, 100, 0 }, credits01, 0 },
-    /*{ LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02, 0 },
+    { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02, 0 },
     { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03, 0 },
-    { LEVEL_BOB, 1, 34, 25, { -5464, 6656, -6575 }, credits04, 0 },
+    { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03, 0 },
+    //{ LEVEL_BOB, 1, 34, 25, { -5464, 6656, -6575 }, credits04, 0 },
     { LEVEL_BITFS, 1, 1, 240, { 15040, 2867, 1676 }, credits05, 1 },
     { LEVEL_WF, 1, -15, 123, { -5516, 1006, 1554 }, credits06, 0 },
     { LEVEL_CCM, 1, 17, -32, { 508, 1024, 1942 }, credits07, 0 },
     { LEVEL_JRB, 1, 33, 124, { 6367, 100, -37 }, credits08, 0 },
     { LEVEL_SSL, 1, 65, 98, { -5906, 1024, -2576 }, credits09, 0 },
-    { LEVEL_BITDW, 1, 50, 47, { -4884, -4607, -272 }, credits10, 1 },
+    //{ LEVEL_BITDW, 1, 50, 47, { -4884, -4607, -272 }, credits10, 1 },
     { LEVEL_LLL, 1, 17, -34, { 1925, 3328, 563 }, credits11, 0 },
     { LEVEL_HMC, 2, 33, 105, { 400, 4500, -400 }, credits12, 0 },
-    { LEVEL_DDD, 1, 2, -33, { 2613, 313, 1074 }, credits13, 0 },
+    { LEVEL_DDD, 2, 2, -33, { 405, -9500, -2200 }, credits13, 0 },
     { LEVEL_BBH, 2, 51, 54, { -2609, 512, 856 }, credits14, 1 },
     { LEVEL_HMC, 1, 51, 54, { -2609, 512, 856 }, credits15, 1 },
-    { LEVEL_DDD, 2, 51, 54, { -2609, 512, 856 }, credits16, 1 },
+    { LEVEL_DDD, 1, 51, 54, { 137, 9957, -1954 }, credits16, 1 },
     { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17, 0 },
-    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },*/
+    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },
     { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits19, 0 },
     { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits20, 0 },
     //{ LEVEL_TTC, 1, 17, -72, { -1304, -71, -967 }, credits15 },
@@ -1495,6 +1496,11 @@ s32 lvl_play_the_end_screen_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) 
     return TRUE;
 }
 
+s32 lvl_play_dog_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) {
+    play_sound(SOUND_MENU_DOG_ROO, gGlobalSoundSource);
+    return TRUE;
+}
+
 char *perfectString[] = {"P", "E", "R", "F", "E", "C", "T", "!"};
 char *howString[] = {"H", "O", "W"};
 
@@ -1512,7 +1518,8 @@ s32 ending_get_outta_here(void) {
                 print_text(140 + (i*16), 196 + (s32)(4.0f*sins(2000*(gGlobalTimer - i*8))), howString[i]);
             }
         }
-        print_text_centered(160, 10, "PRESS A TO RESET");
+        print_text_centered(160, 58, "PRESS A TO RESET");
+        print_text_centered(160, 38, "B TO HIDE");
         if(gPlayer1Controller->buttonPressed & A_BUTTON) {
             fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
             gWorldID = 0;

@@ -5,7 +5,7 @@ extern Lights1 rcsign__1_paper_lights;
 extern u8 rcsign__6__2__ci4[];
 extern u8 rcsign__6__2__ci4_pal_rgba16[];
 extern u8 rcsign_torn_ia8[];
-extern u8 rcsign_coin_ia8[];
+extern u8 rcsign_bone_ia8[];
 extern u8 rcsign_xcorner_i8[];
 extern u8 rcsign_checkmark_ia8[];
 extern Vtx rcsign_root_mesh_layer_1_vtx_0[56];

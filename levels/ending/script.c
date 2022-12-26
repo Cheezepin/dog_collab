@@ -31,8 +31,11 @@ const LevelScript level_ending_entry[] = {
     /*12*/ TRANSITION(/*transType*/ WARP_TRANSITION_FADE_FROM_COLOR, /*time*/ 75, /*color*/ 0x00, 0x00, 0x00),
     /*14*/ SLEEP(/*frames*/ 120),
     /*15*/ CALL(/*arg*/ 0, /*func*/ lvl_play_the_end_screen_sound),
+    /*16*/ SLEEP(/*frames*/ 80),
+    /*17*/ CALL(/*arg*/ 0, /*func*/ lvl_play_dog_sound),
+    /*18*/ SLEEP(/*frames*/ 15),
     // L1:
-    /*17*/ SLEEP(/*frames*/ 1),
-    /*18*/ CALL(1, ending_get_outta_here),
-    JUMP(level_ending_entry + 17), // goto L1 (loop sleep 1 forever)
+    /*19*/ SLEEP(/*frames*/ 1),
+    /*20*/ CALL(1, ending_get_outta_here),
+    JUMP(level_ending_entry + 21), // goto L1 (loop sleep 1 forever)
 };

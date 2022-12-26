@@ -2797,6 +2797,7 @@ sound_ref .sound_CUSTOM_cartoon_run
 sound_ref .sound_CUSTOM_warp_box_in
 sound_ref .sound_CUSTOM_warp_box_out
 sound_ref .sound_CUSTOM_coin_dog_roo
+sound_ref .sound_CUSTOM_dog_roo
 sound_ref .sound_general_vanish_sfx
 sound_ref .sound_menu_enter_hole
 sound_ref .sound_general_red_coin
@@ -4899,6 +4900,18 @@ chan_setval 70
 chan_call .delay
 chan_setbank 5
 chan_setinstr 18
+chan_end
+
+.sound_CUSTOM_dog_roo:
+chan_setbank 5
+chan_setinstr 18
+chan_setlayer 0, .layer_clowning
+chan_end
+
+.sound_menu_dog_roo:
+chan_setbank 10
+chan_setinstr 24
+chan_setlayer 0, .layer_clowning
 chan_end
 
 .layer_1DD4:
@@ -7005,6 +7018,7 @@ sound_ref .chan_2D18
 sound_ref .sound_menu_power_meter
 sound_ref .sound_menu_camera_buzz
 sound_ref .sound_menu_camera_turn
+sound_ref .sound_menu_dog_roo
 
 .sound_menu_change_select:
 chan_setbank 9

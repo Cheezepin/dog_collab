@@ -29,6 +29,7 @@
 #include "main.h"
 #include "puppyprint.h"
 #include "rendering_graph_node.h"
+#include "actors/group0.h"
 
 #ifdef VERSION_EU
 #undef LANGUAGE_FUNCTION
@@ -42,7 +43,6 @@ u16 gDialogTextAlpha;
 s16 gCutsceneMsgXOffset;
 s16 gCutsceneMsgYOffset;
 s8 gRedCoinsCollected;
-s8 gBowserRedCoinsCollected;
 #if defined(WIDE) && !defined(PUPPYCAM)
 u8 textCurrRatio43[] = { TEXT_HUD_CURRENT_RATIO_43 };
 u8 textCurrRatio169[] = { TEXT_HUD_CURRENT_RATIO_169 };
@@ -1537,10 +1537,6 @@ void reset_red_coins_collected(void) {
     gRedCoinsCollected = 0;
 }
 
-void reset_bowser_red_coins_collected(void) {
-    gBowserRedCoinsCollected = 0;
-}
-
 void change_dialog_camera_angle(void) {
     if (cam_select_alt_mode(0) == CAM_SELECTION_MARIO) {
         gDialogCameraAngleIndex = CAM_SELECTION_MARIO;
@@ -1631,12 +1627,27 @@ void print_animated_red_coin(s16 x, s16 y) {
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
 
+void print_animated_red_bone(s16 x, s16 y) {
+    s32 globalTimer = gGlobalTimer;
+
+    create_dl_translation_matrix(MENU_MTX_PUSH, x, y, 0);
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.25f, 0.25f, 0.1f);
+    create_dl_rotation_matrix(MENU_MTX_NOPUSH, (f32)(globalTimer*4), 0.0f, 1.0f, 0.0f);
+    gDPSetRenderMode(gDisplayListHead++, G_RM_AA_OPA_SURF, G_RM_AA_OPA_SURF2);
+
+    gSPDisplayList(gDisplayListHead++, dog_bone_bone_mesh_layer_1);
+
+    gSPDisplayList(gDisplayListHead++, dog_bone_material_revert_render_settings);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+}
+
 void render_pause_red_coins(void) {
     s8 x;
+    s32 bonesCollected = save_file_get_dog_bone_count(gCurrSaveFileNum - 1);
 
-    if(gBowserRedCoinsCollected > 0) {
-        for (x = 0; x < gBowserRedCoinsCollected; x++) {
-            print_animated_red_coin(GFX_DIMENSIONS_FROM_RIGHT_EDGE(30) - x * 20, 16);
+    if((gCurrLevelNum == LEVEL_PSS || gCurrLevelNum == LEVEL_BITS) && bonesCollected > 0) {
+        for (x = 0; x < bonesCollected; x++) {
+            print_animated_red_bone(GFX_DIMENSIONS_FROM_RIGHT_EDGE(30) - x * 20, 16);
         }
     } else {
         for (x = 0; x < gRedCoinsCollected; x++) {

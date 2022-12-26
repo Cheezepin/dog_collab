@@ -39,7 +39,6 @@ void hidden_breakable_box_actions(void) {
             }
             switchObj = o->oHiddenObjectSwitchObj;
             // if(switchObj)
-            if(switchObj != NULL) print_text_fmt_int(20, 20, "%d", switchObj->oAction);
             if ((switchObj != NULL) && (switchObj->oAction == PURPLE_SWITCH_ACT_TICKING)) {
                 o->oAction = BREAKABLE_BOX_ACT_ACTIVE;
                 cur_obj_enable_rendering();

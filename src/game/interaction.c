@@ -347,7 +347,7 @@ void mario_blow_off_cap(struct MarioState *m, f32 capSpeed) {
     struct Object *capObject;
 
     if (does_mario_have_normal_cap_on_head(m)) {
-        save_file_set_cap_pos(m->pos[0], m->pos[1], m->pos[2]);
+        // save_file_set_cap_pos(m->pos[0], m->pos[1], m->pos[2]);
 
         m->flags &= ~(MARIO_NORMAL_CAP | MARIO_CAP_ON_HEAD);
 
