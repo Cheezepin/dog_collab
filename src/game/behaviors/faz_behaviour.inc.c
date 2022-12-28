@@ -118,6 +118,10 @@ void goddard_hmc_loop(void)
             o->oPosY = o->oFloorHeight;
             o->oVelY = 0;
 
+            if(o->oHeldState == HELD_DROPPED) {
+                o->oHeldState = HELD_FREE;
+            }
+
             //Punishment, for naughty players who think it's really funny to murder the dog.
             if (floor->type == SURFACE_DEATH_PLANE)
             {
@@ -305,6 +309,9 @@ void starblock_loop(void)
         {
             o->oPosY = o->oFloorHeight;
             o->oVelY = 0;
+            if(o->oHeldState == HELD_DROPPED) {
+                o->oHeldState = HELD_FREE;
+            }
         }
         else
         {

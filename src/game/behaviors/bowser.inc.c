@@ -516,7 +516,7 @@ void bowser_bitfs_actions(void) {
 void bowser_bits_action_list(void) {
     f32 rand = random_float();
     if (o->oBowserStatus & BOWSER_STATUS_ANGLE_MARIO) {
-        if(o->oBowserCCObj->oSubAction == CHAIN_CHOMP_SUB_ACT_BURNED) {
+        if(gCurrLevelNum != LEVEL_BOWSER_3 || o->oBowserCCObj->oSubAction == CHAIN_CHOMP_SUB_ACT_BURNED) {
             if (o->oDistanceToMario < 1000.0f) { // nearby
                 if (rand < 0.4f) {
                     o->oAction = BOWSER_ACT_SPIT_FIRE_ONTO_FLOOR; // 40% chance
