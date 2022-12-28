@@ -13,6 +13,8 @@ void bhv_circus_wheel_init(void) {
             //platform->collisionData =
                 //segmented_to_virtual(sFerrisWheelProperties[o->oBehParams2ndByte].platformCollision);
         }
+
+        
     }
 }
 

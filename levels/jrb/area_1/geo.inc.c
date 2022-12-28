@@ -5,7 +5,7 @@ const GeoLayout jrb_area_1_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_SWITCH_CASE(6, geo_switch_area),
 		GEO_OPEN_NODE(),
-			GEO_BRANCH(1, jrb_dl_2StartingArea_geo),
+			GEO_BRANCH(1, jrb_dl_2Tent_geo),
 			GEO_BRANCH(1, jrb_dl_3Outside_geo),
 			GEO_BRANCH(1, jrb_dl_4InsideCarosuels_geo),
 			GEO_BRANCH(1, jrb_dl_5PinwheelRoom_geo),
@@ -14,7 +14,7 @@ const GeoLayout jrb_area_1_geo[] = {
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
-const GeoLayout jrb_dl_2StartingArea_geo[] = {
+const GeoLayout jrb_dl_2Tent_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, jrb_dl_Circle_010_mesh_layer_1),
@@ -50,9 +50,11 @@ const GeoLayout jrb_dl_4InsideCarosuels_geo[] = {
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, jrb_dl_Cube_060_mesh_layer_5),
 		GEO_CLOSE_NODE(),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, jrb_dl_Plane_mesh_layer_1),
-		GEO_DISPLAY_LIST(LAYER_ALPHA, jrb_dl_Plane_mesh_layer_4),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, jrb_dl_Plane_mesh_layer_6),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -28, -100, 37, jrb_dl_Plane_mesh_layer_1),
+		GEO_OPEN_NODE(),
+			GEO_DISPLAY_LIST(LAYER_ALPHA, jrb_dl_Plane_mesh_layer_4),
+			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, jrb_dl_Plane_mesh_layer_6),
+		GEO_CLOSE_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_ALPHA, -28, -100, 37, jrb_dl_Plane_011_mesh_layer_4),
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, jrb_dl_Plane_011_mesh_layer_6),
