@@ -827,7 +827,7 @@ again to launch Bowser.\n\
 Good luck, Mario! Our\n\
 fate is in your hands.")
 
-DEFINE_DIALOG(DIALOG_067, 1, 5, 30, 250, "\
+DEFINE_DIALOG(DIALOG_067, 1, 5, 30, 200, "\
 Tough luck, Mario!\n\
 I've locked "TEXT_DOG" in\n\
 a cage... Gwa ha ha!! Go\n\
