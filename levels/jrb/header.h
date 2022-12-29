@@ -147,4 +147,6 @@ extern const LevelScript level_jrb_entry[];
 
 #include "levels/jrb/thwomp_clock/collision_header.h"
 
+#include "levels/jrb/circus_balloon/geo_header.h"
+
 #endif
