@@ -22,7 +22,7 @@
 // Uncomment this define and set a test level in order to boot straight into said level.
 // This allows you to quickly test the level you're working on.
 // If you want the game to boot normally, just comment out the define again.
- #define TEST_LEVEL LEVEL_BOWSER_1
+// #define TEST_LEVEL LEVEL_CASTLE_GROUNDS
 
 // Enable debug level select. Hold L while the game boots to turn it on.
 // #define DEBUG_LEVEL_SELECT
@@ -41,11 +41,11 @@
 // #define VISUAL_DEBUG
 
 // Opens all courses and doors. Used for debugging purposes to unlock all content.
- #define UNLOCK_ALL
+// #define UNLOCK_ALL
 
 // Same as above, but also reads all save file flags as complete.
 // This will not overwrite existing save file data unless you save over it.
- #define COMPLETE_SAVE_FILE
+// #define COMPLETE_SAVE_FILE
 
 // Removes the limit on FPS.
 // #define UNLOCK_FPS
