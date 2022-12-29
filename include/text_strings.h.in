@@ -386,6 +386,8 @@
 #define TEXT_REPLAY_LAST_ACT "Replay Act 1"
 #define TEXT_EXIT_COURSE_LC "Exit Course"
 #define TEXT_EXIT_GAME "Exit Game"
+#define TEXT_NEXT_UNFINISHED_ACT "Next Unfinished Act (1):"
+#define TEXT_ALL_ACTS_COMPLETED "Exit Game"
 
 #define TEXT_HA_0 "You need 5 stars to enter this course"
 #define TEXT_HA_1 "You need to clear Bowser 1 to enter this world"

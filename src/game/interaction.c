@@ -194,7 +194,7 @@ u32 determine_interaction(struct MarioState *m, struct Object *obj) {
                     interaction = INT_TRIP;
                 }
             }
-        } else if (action == ACT_GROUND_POUND || action == ACT_TWIRLING) {
+        } else if (action == ACT_GROUND_POUND || action == ACT_TWIRLING || ACT_WATER_GROUND_POUND) {
             if (m->vel[1] < 0.0f) {
                 interaction = INT_GROUND_POUND_OR_TWIRL;
             }

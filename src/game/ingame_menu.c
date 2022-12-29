@@ -3049,6 +3049,8 @@ u8 textContinueToNextAct[] = { TEXT_CONTINUE_TO_NEXT_ACT };
 u8 textReplayLastAct[] = { TEXT_REPLAY_LAST_ACT };
 u8 textExitCourseLC[] = { TEXT_EXIT_COURSE_LC };
 u8 textExitGame[] = { TEXT_EXIT_GAME };
+u8 textNextUnfinishedAct[] = { TEXT_NEXT_UNFINISHED_ACT };
+u8 textAllActsCompleted[] = { TEXT_ALL_ACTS_COMPLETED };
 
 extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
@@ -3088,10 +3090,12 @@ void end_results_loop(void) {
     if(gDirectionsHeld & JOYSTICK_UP) {
         gEndResultMenuChoice--;
         if(gEndResultMenuChoice < 0) {gEndResultMenuChoice = 1 + gEndResultMenuState;}
+        play_sound(SOUND_MENU_CHANGE_SELECT, gGlobalSoundSource);
     }
     if(gDirectionsHeld & JOYSTICK_DOWN) {
         gEndResultMenuChoice++;
         if(gEndResultMenuChoice > 1 + gEndResultMenuState) {gEndResultMenuChoice = 0;}
+        play_sound(SOUND_MENU_CHANGE_SELECT, gGlobalSoundSource);
     }
     gHudDisplay.flags = 0;
     if(gEndResultMenuState < 2) {
@@ -3100,9 +3104,9 @@ void end_results_loop(void) {
         gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
             create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
             if(gCurrCourseNum > 0 && gCurrCourseNum < 16) {
-                print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 95, textYouGotAStar);
+                print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 100, textYouGotAStar);
             } else {
-                print_generic_string(get_str_x_pos_from_center(80, textYouGotAKey, 2.0f), 95, textYouGotAKey);
+                print_generic_string(get_str_x_pos_from_center(80, textYouGotAKey, 2.0f), 100, textYouGotAKey);
             }
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
         actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
@@ -3110,19 +3114,25 @@ void end_results_loop(void) {
 
         if(gEndResultMenuState == 1) {
             if(nextUnfinishedAct == 0) {
+                print_generic_string(get_str_x_pos_from_center(160, textAllActsCompleted, 2.0f), 130, textAllActsCompleted);
                 textReplayLastAct[11] = 0x30 + gDialogCourseActNum;
-                print_generic_string(110, 110, textReplayLastAct);
+                print_generic_string(110, 70, textReplayLastAct);
             } else {
+                u8 *nextActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + nextUnfinishedAct - 1]);
+                textNextUnfinishedAct[21] = 0x30 + nextUnfinishedAct;
+                print_generic_string(get_str_x_pos_from_center(160, textNextUnfinishedAct, 2.0f), 130, textNextUnfinishedAct);
+                print_generic_string(get_str_x_pos_from_center(160, nextActName, 2.0f), 110, nextActName);
                 textContinueToNextAct[16] = 0x30 + nextUnfinishedAct;
-                print_generic_string(110, 110, textContinueToNextAct);
+                print_generic_string(110, 70, textContinueToNextAct);
             }
-            print_generic_string(110, 90, textExitCourseLC);
-            print_generic_string(110, 70, textExitGame);
-                create_dl_translation_matrix(MENU_MTX_PUSH, 90.0f, 110.0f - (gEndResultMenuChoice*20.0f), 0.0f);
+            print_generic_string(110, 50, textExitCourseLC);
+            print_generic_string(110, 30, textExitGame);
+                create_dl_translation_matrix(MENU_MTX_PUSH, 90.0f, 70.0f - (gEndResultMenuChoice*20.0f), 0.0f);
                 gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
                 gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
             
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+                play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
                 if(gEndResultMenuChoice == 0) {
                     if(nextUnfinishedAct > 0) {
                         gCurrActNum = nextUnfinishedAct;
@@ -3155,13 +3165,14 @@ void end_results_loop(void) {
         }
         if(gEndResultMenuState == 0) {
             print_generic_string(get_str_x_pos_from_center(160, textSaveQuestion, 2.0f), 140, textSaveQuestion);
-            print_generic_string(150, 100, textYesLC);
-            print_generic_string(150, 80, textNoLC);
-                create_dl_translation_matrix(MENU_MTX_PUSH, 130.0f, 100.0f - (gEndResultMenuChoice*20.0f), 0.0f);
+            print_generic_string(150, 60, textYesLC);
+            print_generic_string(150, 40, textNoLC);
+                create_dl_translation_matrix(MENU_MTX_PUSH, 130.0f, 60.0f - (gEndResultMenuChoice*20.0f), 0.0f);
                 gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
                 gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+                play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
                 if(gEndResultMenuChoice == 0) {
                     save_file_do_save(gCurrSaveFileNum - 1);
                 }
@@ -3178,7 +3189,11 @@ void end_results_loop(void) {
                     gEndResultsActive = 0;
                     gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
                 }
-                gEndResultMenuChoice = 0;
+                if(nextUnfinishedAct == 0) {
+                    gEndResultMenuChoice = 1;
+                } else {
+                    gEndResultMenuChoice = 0;
+                }
             }
         }
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
