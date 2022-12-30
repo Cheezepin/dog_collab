@@ -637,6 +637,9 @@ s16 music_unchanged_through_warp(s16 arg) {
 /**
  * Set the current warp type and destination level/area/node.
  */
+
+s32 gCoinStarCollected = 0;
+
 void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags) {
     if (destWarpNode >= WARP_NODE_CREDITS_MIN) {
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
@@ -644,6 +647,7 @@ void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags)
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
         gCustomStarSelectActive = 0;
         gLevelEntryConfirmationActive = 0;
+        gCoinStarCollected = 0;
     } else if (destArea != gCurrentArea->index) {
         sWarpDest.type = WARP_TYPE_CHANGE_AREA;
     } else {

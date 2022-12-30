@@ -139,12 +139,16 @@ static void galoomba_act_flipped_init(void) {
     //o->parentObj = o;
 }
 static void galoomba_act_flipped(void) {
-                    //spawn_object(o, MODEL_GALOOMBA, bhvGaloombaBox);
-                    //mark_obj_for_deletion(o);
+    //spawn_object(o, MODEL_GALOOMBA, bhvGaloombaBox);
+    //mark_obj_for_deletion(o);
 
-                    if(o->header.gfx.animInfo.animFrame >= 4) {
-                        cur_obj_init_animation(1);
-                    }
+    if(o->header.gfx.animInfo.animFrame >= 4) {
+        cur_obj_init_animation(1);
+    }
+
+    if(o->oInteractStatus != 0 && gMarioState->action == ACT_GROUND_POUND) {
+        o->oInteractType = INTERACT_BOUNCE_TOP;
+    }
 }
 
 void galoomba_box_act_move(void) {
@@ -276,14 +280,31 @@ if(o->oAction < GALOOMBA_ACT_FLIPPED) {
                     o->oGaloombaSquishTimer = 1;
                     mark_galoomba_as_dead();
                     break;
-        }
+            }
         }
         o->oInteractStatus = 0;
     }
             cur_obj_move_standard(-78);
 } else {
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+        s32 attackType = o->oInteractStatus & INT_STATUS_ATTACK_MASK;
 
+        switch (sGaloombaAttackHandlers[0][attackType - 1]) {
+            case ATTACK_HANDLER_NOP:
+                break;
+
+            case ATTACK_HANDLER_KNOCKBACK:
+                //obj_set_knockback_action(attackType);
+                break;
+
+            case ATTACK_HANDLER_SQUISHED:
+                break;
+            case ATTACK_HANDLER_GPD_ON:
+                obj_set_squished_action();
+                o->oGaloombaSquishTimer = 1;
+                mark_galoomba_as_dead();
+                break;
+        }
     }
     o->oInteractStatus = 0;
 }

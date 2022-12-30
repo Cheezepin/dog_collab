@@ -168,18 +168,18 @@ Would you like to Save?\n\
 DEFINE_DIALOG(DIALOG_013, 1, 5, 30, 200, "\
 You've collected 100\n\
 coins! Mario gains more\n\
-power from the castle.\n\
+power from the world.\n\
 Do you want to Save?\n\
-//Yes////No")
+\xD0\xD0Yes\xD0\xD0\xD0No")
 
 DEFINE_DIALOG(DIALOG_014, 1, 4, 30, 200, "\
 Wow! Another Power Star!\n\
 Mario gains more courage\n\
 from the power of the\n\
-castle.\n\
+world.\n\
 Do you want to Save?\n\
 \n\
-//You Bet//Not Now")
+\xD0You Bet\xD0\xD0Not Now")
 
 // Yoshi Milkman
 DEFINE_DIALOG(DIALOG_015, 1, 5, 30, 200, "\

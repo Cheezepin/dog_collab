@@ -222,6 +222,7 @@ void basic_update(void);
 s8 determine_joystick_movement(void);
 
 extern u8 gDirectionsHeld;
+extern s32 gCoinStarCollected;
 
 #define JOYSTICK_LEFT  0x1
 #define JOYSTICK_RIGHT 0x2
