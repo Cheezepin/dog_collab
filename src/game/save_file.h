@@ -31,15 +31,15 @@ struct SaveFile {
     // Location of lost cap.
     // Note: the coordinates get set, but are never actually used, since the
     // cap can always be found in a fixed spot within the course
-    u8 capLevel;
-    u8 capArea;
+    //u8 capLevel;
+    //u8 capArea;
 #ifdef SAVE_NUM_LIVES
     s8 numLives;
     u8 filler[5];
 #else
     // Note: the coordinates get set, but are never actually used, since the
     // cap can always be found in a fixed spot within the course
-    Vec3s capPos; // 48 bits
+    // Vec3s capPos; // 48 bits
 #endif
 
     u32 flags;
@@ -52,6 +52,8 @@ struct SaveFile {
     u8 courseCoinScores[COURSE_STAGES_COUNT]; // 120 bits
 
     u8 dogString[DOG_STRING_LENGTH];
+
+    u16 dogBones;
 
     struct SaveBlockSignature signature;
 };
@@ -142,6 +144,7 @@ enum SaveProgressFlags {
     SAVE_FLAG_COLLECTED_TOAD_STAR_3  = (1 << 26), /* 0x04000000 */
     SAVE_FLAG_COLLECTED_MIPS_STAR_1  = (1 << 27), /* 0x08000000 */
     SAVE_FLAG_COLLECTED_MIPS_STAR_2  = (1 << 28), /* 0x10000000 */
+    SAVE_FLAG_B3_CHECKPOINT_REACHED  = (1 << 29), /* 0x00010000 */
 };
 
 enum StarFlags {
@@ -193,8 +196,8 @@ void save_file_set_star_flags(s32 fileIndex, s32 courseIndex, u32 starFlags);
 s32 save_file_get_course_coin_score(s32 fileIndex, s32 courseIndex);
 s32 save_file_is_cannon_unlocked(void);
 void save_file_set_cannon_unlocked(void);
-void save_file_set_cap_pos(s16 x, s16 y, s16 z);
-s32 save_file_get_cap_pos(Vec3s capPos);
+// void save_file_set_cap_pos(s16 x, s16 y, s16 z);
+// s32 save_file_get_cap_pos(Vec3s capPos);
 #ifdef SAVE_NUM_LIVES
 s32 save_file_get_num_lives(void);
 void save_file_set_num_lives(s8 numLives);
@@ -213,6 +216,9 @@ s32 check_warp_checkpoint(struct WarpNode *warpNode);
 
 u32 save_file_get_dog_string(s32 fileIndex, s32 stringIndex);
 void save_file_set_dog_string(s32 fileIndex, u8 *string);
+s32 save_file_get_dog_bone_count(s32 fileIndex);
+s32 save_file_check_dog_bone_collected(s32 fileIndex, s16 areaID, s16 levelID);
+void save_file_set_dog_bone_bit(s32 fileIndex, s16 areaID, s16 levelID);
 
 #ifdef VERSION_EU
 enum EuLanguages {

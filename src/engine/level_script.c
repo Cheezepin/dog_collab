@@ -1073,6 +1073,11 @@ struct LevelCommand *level_script_execute(struct LevelCommand *cmd) {
 s32 determine_starting_level(void) {
     if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) > 0)
         return LEVEL_CASTLE_GROUNDS;
-    else
+    else {
+    #ifdef SKIP_TUTORIAL
+        return LEVEL_CASTLE_GROUNDS;
+    #else
         return LEVEL_CASTLE;
+    #endif
+    }
 }

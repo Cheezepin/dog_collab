@@ -261,6 +261,8 @@ if(o->oAction < GALOOMBA_ACT_FLIPPED) {
         } else {
             s32 attackType = o->oInteractStatus & INT_STATUS_ATTACK_MASK;
 
+            if(gMarioState->action & ACT_FLAG_RIDING_SHELL) {attackType = ATTACK_GROUND_POUND_OR_TWIRL;}
+
             switch (sGaloombaAttackHandlers[0][attackType - 1]) {
                 case ATTACK_HANDLER_NOP:
                     break;

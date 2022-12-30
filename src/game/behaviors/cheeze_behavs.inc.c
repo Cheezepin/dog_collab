@@ -1,5 +1,6 @@
 #include "src/game/hud.h"
 #include "src/game/level_update.h"
+#include "levels/pss/header.h"
 
 void bhv_cheezeplat_loop(void) {
     if(cur_obj_is_mario_on_platform()) {
@@ -262,6 +263,12 @@ Vec3f warpBoxScaleFrames[] = {
     {0.625f, 0.625f, 0.625f},
 };
 
+void bhv_warp_box_init(void) {
+    o->collidedObjs[0] = 0;
+    o->oAction = 0;
+    o->oSubAction = 0;
+}
+
 void bhv_warp_box_loop(void) {
 
     if((o->oBehParams >> 24) == 0) {
@@ -304,14 +311,15 @@ void bhv_warp_box_loop(void) {
             o->oTimer = 0;
             o->oPosY -= 50.0f;
             o->oVelY = 25.0f;
-            cur_obj_play_sound_2(SOUND_CUSTOM_WARP_BOX_IN);
+            stop_shell_music();
+            play_sound(SOUND_CUSTOM_WARP_BOX_IN, gGlobalSoundSource);
         }
         if(o->oWarpBoxInnerScale >= 1.0f) {
             o->oAnimState = 0;
         } else {
             o->oAnimState = 1;
         }
-    } else {
+    } else if(gCurrCreditsEntry == NULL) {
         if(o->oTimer < 9) {
             vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
             o->oWarpBoxInnerScale = 1.0f;
@@ -320,7 +328,7 @@ void bhv_warp_box_loop(void) {
             set_mario_action(gMarioState, ACT_EMERGE_FROM_PIPE, 1);
         }
         if(o->oTimer == 17) {
-            cur_obj_play_sound_2(SOUND_CUSTOM_WARP_BOX_OUT);
+            play_sound(SOUND_CUSTOM_WARP_BOX_OUT, gGlobalSoundSource);
         }
         if(o->oTimer >= 15) {
             if(o->oWarpBoxInnerScale > 0.0f) {
@@ -484,7 +492,9 @@ void bhv_spiresdog_loop(void) {
                 dialogResponse = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, CHEEZE_DIALOG_7);
                 if(dialogResponse == 0x03) {
                     o->oAction++;
-                    if(o->oBehParams2ndByte == 1) {
+                    if(gCurrLevelNum == LEVEL_PSS) {
+                        o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(pss_area_2_spline_dogpath);
+                    } else if(o->oBehParams2ndByte == 1) {
                         o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(ssl_area_1_spline_dogpath2);
                     } else {
                         o->oPathedStartWaypoint = o->oPathedPrevWaypoint = segmented_to_virtual(ssl_area_1_spline_dogpath1);
@@ -519,6 +529,7 @@ void bhv_spiresdog_loop(void) {
             }
             break;
     }
+    if(gMarioState->action == ACT_FLOOR_CHECKPOINT_WARP_IN) {vec3f_copy(&o->oPosX, &o->oHomeX); o->oAction = 0; o->oSubAction = 0;}
 }
 
 void bhv_cheeze_lightning_init(void) {
@@ -590,4 +601,46 @@ void bhv_peach_ending_loop(void) {
         level_trigger_warp(gMarioState, WARP_OP_CREDITS_NEXT);
     }*/
 }
+
+void bhv_dog_bone_init(void) {
+    if(save_file_check_dog_bone_collected(gCurrSaveFileNum - 1, gCurrAreaIndex, gCurrLevelNum)) {
+        obj_mark_for_deletion(o);
+    }
+}
+
+void bhv_dog_bone_loop(void) {
+    o->oFaceAngleYaw += 0x400;
+    o->oPosY = o->oHomeY + 10.0f*sins(o->oTimer * 0x500);
+    if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+        s32 numBones;
+
+        save_file_set_dog_bone_bit(gCurrSaveFileNum - 1, gCurrAreaIndex, gCurrLevelNum);
+        numBones = save_file_get_dog_bone_count(gCurrSaveFileNum - 1);
+        spawn_orange_number(numBones, 0, 0, 0);
+
+        // On all versions but the JP version, each coin collected plays a higher noise.
+        play_sound(SOUND_MENU_COLLECT_RED_COIN
+                    + (((u8) numBones - 1) << 16),
+                    gGlobalSoundSource);
+
+        coin_collected();
+        // Despawn the coin.
+        o->oInteractStatus = INT_STATUS_NONE;
+    }
+}
+
+void bhv_save_switch_loop(void) {
+    save_file_set_flags(SAVE_FLAG_B3_CHECKPOINT_REACHED);
+    if(o->oAction == PURPLE_SWITCH_ACT_PRESSED && o->oTimer == 1) {
+        gSaveFileModified = TRUE;
+        save_file_do_save(gCurrSaveFileNum - 1);
+    }
+}
+
+void bhv_special_warp_box_init(void) {
+    if(!(save_file_get_flags() & SAVE_FLAG_B3_CHECKPOINT_REACHED)) {
+        obj_mark_for_deletion(o);
+    }
+}
+
 

@@ -2021,14 +2021,14 @@ void init_mario(void) {
 
     init_floor_checkpoint(gMarioState);
 
-    Vec3s capPos;
+    /*Vec3s capPos;
     if (save_file_get_cap_pos(capPos)) {
         struct Object *capObject = spawn_object(gMarioState->marioObj, MODEL_MARIOS_CAP, bhvNormalCap);
         vec3s_to_vec3f(&capObject->oPosVec, capPos);
 
         capObject->oForwardVel = 0;
         capObject->oMoveAngleYaw = 0;
-    }
+    }*/
 }
 
 void init_mario_from_save_file(void) {

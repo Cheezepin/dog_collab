@@ -2804,3 +2804,18 @@ Gfx *geo_cc_set_prim_color(s32 callContext, struct GraphNode *node) {
 
     return dlStart;
 }
+
+Gfx *geo_switch_is_red_coin_collected(s32 callContext, struct GraphNode *node) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct Object *obj = gCurGraphNodeObjectNode;
+
+        // move to a local var because GraphNodes are passed in all geo functions.
+        // cast the pointer.
+        struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
+
+        // assign the case number for execution.
+        switchCase->selectedCase = find_any_object_with_behavior(bhvDogBone) ? 0 : 1;
+    }
+
+    return NULL;
+}

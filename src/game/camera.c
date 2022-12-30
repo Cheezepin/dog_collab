@@ -6721,6 +6721,9 @@ struct CameraTrigger sCamBowser_3[] = {
 struct CameraTrigger sCamWDW[] = {
 	NULL_TRIGGER
 };
+struct CameraTrigger sCamPSS[] = {
+	NULL_TRIGGER
+};
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
     NULL,
     #include "levels/level_defines.h"
@@ -10038,6 +10041,10 @@ extern struct CutsceneSplinePoint sCastleGroundsCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sCastleGroundsCreditsSplineFocus[];
 extern struct CutsceneSplinePoint sBitfsCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sBitfsCreditsSplineFocus[];
+extern struct CutsceneSplinePoint sBitsCreditsSplinePositions[];
+extern struct CutsceneSplinePoint sBitsCreditsSplineFocus[];
+extern struct CutsceneSplinePoint sBitdwCreditsSplinePositions[];
+extern struct CutsceneSplinePoint sBitdwCreditsSplineFocus[];
 
 /**
  * Follow splines through the courses of the game.
@@ -10144,6 +10151,14 @@ void cutscene_credits(struct Camera *c) {
         case AREA_BITFS:
             pos = sBitfsCreditsSplinePositions;
             focus = sBitfsCreditsSplineFocus;
+            break;
+        case AREA_BITS_STAIRCASE:
+            pos = sBitsCreditsSplinePositions;
+            focus = sBitsCreditsSplineFocus;
+            break;
+        case AREA_BITDW:
+            pos = sBitdwCreditsSplinePositions;
+            focus = sBitdwCreditsSplineFocus;
             break;
         case AREA_CCM_OUTSIDE:
             //! Checks if the "Snowman's Lost His Head" star was collected. The credits likely would
@@ -11249,10 +11264,10 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 1, 1), // SA             | BITS
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 0, 1), // SA             | BITS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
-	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // WF             | ENDING
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // COURTYARD      | PSS
+	ZOOMOUT_AREA_MASK(1, 0, 1, 0, 0, 0, 0, 0), // WF             | ENDING
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 1, 1), // COURTYARD      | PSS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // COTMC          | TOTWC
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // BOWSER_1       | WMOTR
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // Unused         | BOWSER_2
@@ -11543,23 +11558,27 @@ struct CutsceneSplinePoint sSslCreditsSplineFocus[] = {
 };
 
 struct CutsceneSplinePoint sDddCreditsSplinePositions[] = {
-    { 0, 0, { -874, -4933, 366 } },
+    /*{ 0, 0, { -874, -4933, 366 } },
     { 0, 0, { -1463, -4782, 963 } },
     { 0, 0, { -1893, -4684, 1303 } },
     { 0, 0, { -2818, -4503, 1583 } },
     { 0, 0, { -4095, -2924, 730 } },
     { 0, 0, { -4737, -1594, -63 } },
-    { -1, 0, { -4681, -1084, -623 } }
+    { -1, 0, { -4681, -1084, -623 } }*/
+
+    { 0, 50, { 0, 1000, -1800 } }
 };
 
 struct CutsceneSplinePoint sDddCreditsSplineFocus[] = {
-    { 0, 50, { -1276, -4683, 622 } },
+    /*{ 0, 50, { -1276, -4683, 622 } },
     { 0, 50, { -1858, -4407, 1097 } },
     { 0, 50, { -2324, -4332, 1318 } },
     { 0, 50, { -3138, -4048, 1434 } },
     { 0, 50, { -4353, -2444, 533 } },
     { 0, 50, { -4807, -1169, -436 } },
-    { -1, 50, { -4665, -664, -1007 } }
+    { -1, 50, { -4665, -664, -1007 } }*/
+
+    { -1, 50, { 137, 9957, -1954 } }
 };
 
 struct CutsceneSplinePoint sSlCreditsSplinePositions[] = {
@@ -11705,19 +11724,22 @@ struct CutsceneSplinePoint sCotmcCreditsSplineFocus[] = {
 };
 
 struct CutsceneSplinePoint sDddSubCreditsSplinePositions[] = {
-    { 0, 0, { 4656, 2171, 5028 } },
+    /*{ 0, 0, { 4656, 2171, 5028 } },
     { 0, 0, { 4548, 1182, 4596 } },
     { 0, 0, { 5007, 813, 3257 } },
     { 0, 0, { 5681, 648, 1060 } },
-    { -1, 0, { 4644, 774, 113 } }
+    { -1, 0, { 4644, 774, 113 } }*/
+    { -1, 0, { 600, -9400, -1500 } }
 };
 
 struct CutsceneSplinePoint sDddSubCreditsSplineFocus[] = {
-    { 0, 50, { 4512, 2183, 4549 } },
+    /*{ 0, 50, { 4512, 2183, 4549 } },
     { 0, 50, { 4327, 838, 4308 } },
     { 0, 50, { 4774, 749, 2819 } },
     { 0, 50, { 5279, 660, 763 } },
-    { -1, 50, { 4194, 885, -75 } }
+    { -1, 50, { 4194, 885, -75 } }*/
+
+    { -1, 50, { 405, -9500, -2200 } }
 };
 
 struct CutsceneSplinePoint sCcmOutsideCreditsSplinePositions[] = {
@@ -11794,6 +11816,42 @@ struct CutsceneSplinePoint sBitfsCreditsSplineFocus[] = {
 	{ 3, 40, { 10257, 3022, 2708 }},
 	{ 4, 40, { 11525, 3022, 1651 }},
 	{ -1, 40, { 15040, 2867, 1676 }},
+};
+
+struct CutsceneSplinePoint sBitsCreditsSplinePositions[] = {
+    { 0, 0, { -4320, 4554, 0 }},
+	{ 1, 0, { -696, 2873, 0 }},
+	{ -1, 0, { 1826, 233, 0 }},
+};
+
+struct CutsceneSplinePoint sBitsCreditsSplineFocus[] = {
+    { 0, 80, { -6414, 2800, 0 }},
+	{ 1, 80, { -3682, 2800, 0 }},
+	{ -1, 80, { -2207, 1366, 0 }},
+};
+
+struct CutsceneSplinePoint sBitdwCreditsSplinePositions[] = {
+    { 0, 0, { -2802, 92, 3338 }},
+	{ 1, 0, { -2935, 1394, 4664 }},
+	{ 2, 0, { -2981, 2074, 6461 }},
+	{ 3, 0, { -1342, 2949, 7040 }},
+	{ 4, 0, { 883, 3999, 6150 }},
+	{ 5, 0, { 864, 4424, 3943 }},
+	{ 6, 0, { 946, 4093, 1518 }},
+	{ 7, 0, { 384, 3345, 282 }},
+	{ -1, 0, { -388, 2576, -198 }},
+};
+
+struct CutsceneSplinePoint sBitdwCreditsSplineFocus[] = {
+    { 0, 30, { -1675, 621, 2734 }},
+	{ 1, 30, { -1710, 1157, 4013 }},
+	{ 2, 30, { -1275, 1320, 4718 }},
+	{ 3, 30, { -550, 1330, 5547 }},
+	{ 4, 30, { -51, 1603, 5532 }},
+	{ 5, 30, { 547, 1748, 4619 }},
+	{ 6, 40, { 688, 2052, 2767 }},
+	{ 7, 50, { -460, 1291, 367 }},
+	{ -1, 50, { -598, 913, -516 }},
 };
 
 /**

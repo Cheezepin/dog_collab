@@ -2,7 +2,7 @@
 #define ZH_LASER_RING_SPAWNER_ACT_CHARGING 1
 #define ZH_LASER_RING_SPAWNER_ACT_COOLDOWN 2
 
-#define ZH_LASER_RING_GROWTH_RATE 0.1
+#define ZH_LASER_RING_GROWTH_RATE 0.1f
 #define ZH_LASER_RING_GROWTH_TIME 40
 #define ZH_LASER_RING_BASE_RADIUS 250
 
@@ -44,11 +44,13 @@ void bhv_laser_ring_spawner_init(void)
         obj_set_hitbox(o, &sLaserRingHitbox);
         o->oInteractionSubtype |= INT_SUBTYPE_TWIRL_BOUNCE;
     }
+    o->oLaserRingDetectDist = (f32)(ZH_LASER_RING_BASE_RADIUS * ZH_LASER_RING_GROWTH_TIME);
+    if(gCurrLevelNum == LEVEL_BITS) {o->oLaserRingDetectDist *= ZH_LASER_RING_GROWTH_RATE*1.5f;} else {o->oLaserRingDetectDist *= ZH_LASER_RING_GROWTH_RATE;}
 }
 
 static void laser_ring_spawner_act_idle(f32 xzDist)
 {
-    if (xzDist <= ZH_LASER_RING_SPAWNER_DETECT_RADIUS)
+    if (xzDist <= o->oLaserRingDetectDist)
     {
         cur_obj_change_action(ZH_LASER_RING_SPAWNER_ACT_CHARGING);
     }
@@ -61,7 +63,7 @@ static void laser_ring_spawner_act_charging(f32 xzDist)
 //    {
 //        cur_obj_change_action(ZH_LASER_RING_SPAWNER_ACT_IDLE);
 //    }
-    if (xzDist <= ZH_LASER_RING_SPAWNER_DETECT_RADIUS && o->oTimer >= ZH_LASER_RING_SPAWNER_CHARGE_TIME)
+    if (xzDist <= o->oLaserRingDetectDist && o->oTimer >= ZH_LASER_RING_SPAWNER_CHARGE_TIME)
     {
         spawn_object_relative(
             /* behParam */ 0x00, /* pos */ 0, 50, 0,
@@ -104,6 +106,11 @@ void bhv_laser_ring_spawner_loop(void)
 void bhv_laser_ring_init(void)
 {
     cur_obj_scale(0.0f);
+    if(gCurrLevelNum == LEVEL_BITS) {
+        o->oLaserRingGrowthRate = 0.15f;
+    } else {
+        o->oLaserRingGrowthRate = 0.1f;
+    }
 }
 
 u32 interact_shock(struct MarioState *m, UNUSED u32 interactType, struct Object *o);
@@ -115,7 +122,7 @@ void bhv_laser_ring_loop(void)
     f32 marioXZDist = sqrtf(xDel * xDel + zDel * zDel);
     f32 marioYMin = gMarioState->pos[1];
     f32 marioYMax = gMarioState->pos[1] + 160.0f;
-    f32 outerRadius = o->oTimer * ZH_LASER_RING_GROWTH_RATE * ZH_LASER_RING_BASE_RADIUS;
+    f32 outerRadius = o->oTimer * o->oLaserRingGrowthRate * ZH_LASER_RING_BASE_RADIUS;
     f32 innerRadius = outerRadius - 50;
 
     // Check if mario is in contact with the laser ring
@@ -130,13 +137,13 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
         obj_mark_for_deletion(o);
         return;
     }
-    cur_obj_scale(o->oTimer * ZH_LASER_RING_GROWTH_RATE);
+    cur_obj_scale(o->oTimer * o->oLaserRingGrowthRate);
 } else {
     if (o->oTimer > ZH_LASER_RING_GROWTH_TIME)
     {
         obj_mark_for_deletion(o);
         return;
     }
-    cur_obj_scale(o->oTimer * ZH_LASER_RING_GROWTH_RATE);
+    cur_obj_scale(o->oTimer * o->oLaserRingGrowthRate);
 }
 }

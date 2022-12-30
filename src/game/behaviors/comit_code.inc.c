@@ -65,7 +65,7 @@ struct FwooshMG
 };
 
 #define MINIGAME_SECONDS 110
-#define MINIGAME_GOAL 80
+#define MINIGAME_GOAL 60
 
 struct FwooshMG sMGSpawnersRow1[] = {
     {0, 0,},
@@ -1631,7 +1631,12 @@ void bhv_fwooshmg_handler_update(void) {
                     obj->oF4 = 1;
                 }
             } else {
-                gMarioState->health = 0xFF;
+                //gMarioState->health = 0xFF;
+                play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0x00, 0x00, 0x00);
+                sDelayedWarpOp = 1;
+                sDelayedWarpArg = 0x00000002;
+                sDelayedWarpTimer = 15;
+                sSourceWarpNodeId = 0x55;
             }
             o->activeFlags = 0;
             break;

@@ -38,7 +38,7 @@ void hidden_breakable_box_actions(void) {
                 o->oHiddenObjectSwitchObj = cur_obj_nearest_object_with_behavior(bhvFloorSwitchHiddenObjects);
             }
             switchObj = o->oHiddenObjectSwitchObj;
-            if(switchObj)
+            // if(switchObj)
             if ((switchObj != NULL) && (switchObj->oAction == PURPLE_SWITCH_ACT_TICKING)) {
                 o->oAction = BREAKABLE_BOX_ACT_ACTIVE;
                 cur_obj_enable_rendering();

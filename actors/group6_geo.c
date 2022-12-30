@@ -10,3 +10,5 @@
 #include "monty_mole/geo.inc.c"
 #include "ukiki/geo.inc.c"
 #include "fwoosh/geo.inc.c"
+
+#include "rcsign/geo.inc.c"

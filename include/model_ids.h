@@ -642,6 +642,7 @@ enum CoziesLevelModels {
 #define MODEL_SNOULDER 0x150
 #define MODEL_WARP_BOX 0x151
 #define MODEL_BOWSER_SNOWBOARD 0x152
+#define MODEL_RC_SIGN 0x153
 
 
 
@@ -760,6 +761,7 @@ enum _2639Models {
 #define MODEL_CHEEZE_BOMB_WALL  0x181
 #define MODEL_CHEEZE_BOMB_WALL2 0x182
 #define MODEL_CHEEZE_LIGHTNING  0x183
+#define MODEL_DOG_BONE			0x184
 
 #define MODEL_DOG_LASER        0x3F
 #define MODEL_B3_BRIDGE        0x3E

@@ -1,6 +1,7 @@
 // bully.inc.c
 
 struct Object *spawn_star(struct Object *starObj, f32 x, f32 y, f32 z);
+void spawn_defualt_star(f32 x, f32 y, f32 z);
 static struct ObjectHitbox sSmallBullyHitbox = {
     /* interactType:      */ INTERACT_BULLY,
     /* downOffset:        */ 0,

@@ -1,8 +1,10 @@
 // rotating_octagonal_plat.inc.c
+#include "levels/pss/header.h"
 
 static const Collision *sOctagonalPlatformCollision[] = {
     0,
     rr_seg7_collision_07029508,
+    bits_octagonal_collision_0701AA84,
 };
 
 static s16 sOctagonalPlatformAngularVelocities[] = { 300, -300, 600, -600 };
