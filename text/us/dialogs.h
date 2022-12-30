@@ -829,14 +829,15 @@ fate is in your hands.")
 
 DEFINE_DIALOG(DIALOG_067, 1, 5, 30, 200, "\
 Tough luck, Mario!\n\
-Princess Toadstool isn't\n\
-here...Gwa ha ha!! Go\n\
+I've locked "TEXT_DOG" in\n\
+a cage... Gwa ha ha!! Go\n\
 ahead--just try to grab\n\
 me by the tail!\n\
-You'll never be able to\n\
-swing ME around! A wimp\n\
-like you won't throw me\n\
-out of here! Never! Ha!")
+There are no bombs here, \n\
+so what could you possibly \n\
+throw me into? Certainly \n\
+not the dog cage!\n\
+  Never! Ha!")
 
 DEFINE_DIALOG(DIALOG_068, 1, 5, 30, 200, "\
 It's Lethal Lava Land!\n\
@@ -990,9 +991,12 @@ it with a high jump into\n\
 the painting. Oh, by the\n\
 way, look what I found!")
 
-DEFINE_DIALOG(DIALOG_077, 1, 2, 150, 200, "\
-It is decreed that one\n\
-shall pound the pillars.")
+DEFINE_DIALOG(DIALOG_077, 1, 3, 30, 200, "\
+@FFFFFFFF\
+     There are no\n\
+@FF0000FF\
+      Red Coins    @FFFFFFFF\n\
+    past this point")
 
 DEFINE_DIALOG(DIALOG_078, 1, 5, 30, 200, "\
 Break open the Blue Coin\n\

@@ -1531,11 +1531,13 @@ s32 bowser_check_hit_mine(void) {
         mine = cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist);
         if (mine != NULL && dist < 800.0f && o->oAction == BOWSER_ACT_THROWN) {
             mine->oInteractStatus |= INT_STATUS_HIT_MINE;
+            spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);
             return TRUE;
         } else {
             mine = cur_obj_find_nearest_object_with_behavior(bhvEmuBomb, &dist);
             if (mine != NULL && dist < 800.0f) {
                 mine->oInteractStatus |= INT_STATUS_HIT_MINE;
+                spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);
                 return TRUE;
             }
         }
