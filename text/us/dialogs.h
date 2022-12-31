@@ -828,16 +828,21 @@ Good luck, Mario! Our\n\
 fate is in your hands.")
 
 DEFINE_DIALOG(DIALOG_067, 1, 5, 30, 200, "\
-Tough luck, Mario!\n\
-I've locked "TEXT_DOG" in\n\
-a cage... Gwa ha ha!! Go\n\
-ahead--just try to grab\n\
-me by the tail!\n\
+Grrr... Mario, after you\n\
+embarrassed me at our\n\
+last showdown, I had to\n\
+put my chain chomp in the\n\
+pound for training...\n\
+But you're out of luck!\n\
+I've locked " TEXT_DOG "\n\
+in a cage... Gwa ha ha!!\n\
+Go ahead--just try to\n\
+grab me by the tail!\n\
 There are no bombs here, \n\
 so what could you possibly \n\
 throw me into? Certainly \n\
 not the dog cage!\n\
-  Never! Ha!")
+Never! Ha!")
 
 DEFINE_DIALOG(DIALOG_068, 1, 5, 30, 200, "\
 It's Lethal Lava Land!\n\
@@ -1126,28 +1131,36 @@ Strong Gusts!\n\
 But the wind makes a\n\
 comfy ride.")
 
-DEFINE_DIALOG(DIALOG_092, 1, 5, 30, 200, "\
-Pestering me again, are\n\
-you, Mario? Can't you see\n\
-that I'm having a merry\n\
-little time, making\n\
-mischief with my minions?\n\
-Now, return those Stars!\n\
-My troops in the walls\n\
-need them! Bwa ha ha!")
+DEFINE_DIALOG(DIALOG_092, 1, 4, 30, 200, "\
+Mario, eh? Can't you\n\
+and " TEXT_DOG " see\n\
+that I'm trying to mind\n\
+mind my own business?\n\
+Oh well, that shouldn't\n\
+matter much, as me\n\
+and my trusty chain\n\
+chomp will beat you!\n\
+You'll learn never to\n\
+chase after the Princess\n\
+again! Bwaaaar!!")
 
-DEFINE_DIALOG(DIALOG_093, 1, 5, 30, 200, "\
-Mario! You again! Well\n\
-that's just fine--I've\n\
-been looking for something\n\
-to fry with my fire\n\
-breath!\n\
-Your Star Power is\n\
-useless against me!\n\
-Your friends are all\n\
-trapped within the\n\
-walls...\n\
-And you'll never see the\n\
+DEFINE_DIALOG(DIALOG_093, 1, 7, 30, 200, "\
+Mario! You really\n\
+showed up, huh? My\n\
+chain chomp came back\n\
+from the pound, and\n\
+he's ready to kick\n\
+some plumber butt!\n\
+\n\
+He's learned some new\n\
+tricks so you and your\n\
+silly dog will never\n\
+beat us! Don't even \n\
+think about picking up\n\
+" TEXT_DOG " and\n\
+doing anything funny...\n\
+Nothing can beat us!\n\
+You'll never see the\n\
 Princess again!\n\
 Bwa ha ha ha!")
 

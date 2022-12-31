@@ -636,7 +636,8 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                     enable_time_stop();
                     create_dialog_box_with_response(gLastCompletedStarNum == 7 ? DIALOG_013 : DIALOG_014);
                     m->actionState = ACT_STATE_STAR_DANCE_DO_SAVE;
-                    gCoinStarCollected = 1;
+                    if(gCurrLevelNum == LEVEL_BITDW || gCurrLevelNum == LEVEL_BITFS) gRedCoinStarCollected = 1;
+                    else if(gCurrLevelNum != LEVEL_BITS) gCoinStarCollected = 1;
                 }
                 break;
             case 105:
@@ -660,13 +661,13 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
             manual_set_checkpoint(m, hardcodedPost100CoinRespawnPosition, hardcodedPost100CoinRespawnAngle);
             set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0);
         } else  {
-            s32 dialogID = get_star_collection_dialog(m);
+            /*s32 dialogID = get_star_collection_dialog(m);
             if (dialogID) {
                 // look up for dialog
                 set_mario_action(m, ACT_READING_AUTOMATIC_DIALOG, dialogID);
-            } else {
+            } else {*/
                 set_mario_action(m, isInWater ? ACT_WATER_IDLE : ACT_IDLE, 0);
-            }
+            // }
         }
     }
 }

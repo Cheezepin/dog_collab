@@ -94,6 +94,4 @@ extern const LevelScript level_bitdw_entry[];
 
 #include "levels/bitdw/sphere/collision_header.h"
 
-#include "levels/bitdw/rainbow_star/geo_header.h"
-
 #endif

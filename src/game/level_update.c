@@ -640,6 +640,7 @@ s16 music_unchanged_through_warp(s16 arg) {
  */
 
 s32 gCoinStarCollected = 0;
+s32 gRedCoinStarCollected = 0;
 
 void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags) {
     if (destWarpNode >= WARP_NODE_CREDITS_MIN) {
@@ -648,11 +649,18 @@ void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags)
         sWarpDest.type = WARP_TYPE_CHANGE_LEVEL;
         gCustomStarSelectActive = 0;
         gLevelEntryConfirmationActive = 0;
-        gCoinStarCollected = 0;
     } else if (destArea != gCurrentArea->index) {
         sWarpDest.type = WARP_TYPE_CHANGE_AREA;
     } else {
         sWarpDest.type = WARP_TYPE_SAME_AREA;
+    }
+
+    if(destLevel == LEVEL_CASTLE_GROUNDS) {
+        gCoinStarCollected = 0;
+        gRedCoinStarCollected = 0;
+    }
+    if(sSourceWarpNodeId == 0xF0) {
+        gCoinStarCollected = 0;
     }
 
     sWarpDest.levelNum = destLevel;

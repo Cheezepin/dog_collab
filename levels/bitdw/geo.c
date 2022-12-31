@@ -43,4 +43,3 @@
 #include "levels/bitdw/sphere/geo_header.h"
 #include "levels/bitdw/sphere/geo.inc.c"
 #include "levels/bitdw/rainbow_chain/geo.inc.c"
-#include "levels/bitdw/rainbow_star/geo.inc.c"

@@ -39,3 +39,4 @@
 #include "chain_ball_bowser/geo.inc.c"
 #include "lightningbolt/geo.inc.c"
 #include "dog_bone/geo.inc.c"
+#include "rainbow_star/geo.inc.c"

@@ -82,3 +82,4 @@
 #include "chain_chomp_bowser/anims/table.inc.c"
 #include "lightningbolt/model.inc.c"
 #include "dog_bone/model.inc.c"
+#include "rainbow_star/model.inc.c"

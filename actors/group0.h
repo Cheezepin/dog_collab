@@ -403,4 +403,6 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "dog_bone/geo_header.h"
 
+#include "rainbow_star/geo_header.h"
+
 #endif

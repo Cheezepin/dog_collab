@@ -3109,6 +3109,7 @@ u8 textReplayLastAct[] = { TEXT_REPLAY_LAST_ACT };
 u8 textExitCourseLC[] = { TEXT_EXIT_COURSE_LC };
 u8 textExitGame[] = { TEXT_EXIT_GAME };
 u8 textAndThe100CoinStar[] = { TEXT_AND_THE_100_COIN_STAR };
+u8 textAndTheRedCoinStar[] = { TEXT_AND_THE_RED_COIN_STAR };
 u8 textNextUnfinishedAct[] = { TEXT_NEXT_UNFINISHED_ACT };
 u8 textAllActsCompleted[] = { TEXT_ALL_ACTS_COMPLETED };
 
@@ -3175,6 +3176,9 @@ void end_results_loop(void) {
         if(gCoinStarCollected) {
             print_generic_string(110, 190, textAndThe100CoinStar);
         }
+        if(gRedCoinStarCollected) {
+            print_generic_string(110, 190, textAndTheRedCoinStar);
+        }
         actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
         print_generic_string(actNameX + 10, 160, selectedActName);
 
@@ -3228,6 +3232,7 @@ void end_results_loop(void) {
                 gEndResultsActive = 0;
                 gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
                 gCoinStarCollected = 0;
+                gRedCoinStarCollected = 0;
             }
         }
         if(gEndResultMenuState == 0) {
@@ -3278,7 +3283,7 @@ void end_results_loop(void) {
                 create_dl_rotation_matrix(MENU_MTX_NOPUSH, -90.0f, 0.0f, 0.0f, 1.0f);
                 gSPDisplayList(gDisplayListHead++, bowser_key_dl);
             }
-            if(gCoinStarCollected) {
+            if(gCoinStarCollected || gRedCoinStarCollected) {
                 gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
                 create_dl_translation_matrix(MENU_MTX_PUSH, 95.0f, 198.0f, 0.0f);
                 create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.03125f, 0.03125f, 0.0005f);

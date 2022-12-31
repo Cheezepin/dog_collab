@@ -365,7 +365,7 @@ void bowser_act_wait_for_mario(void) {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
     }
     //o->oHealth = 1; //DEBUG REMOVE LATER
-    o->oAction = BOWSER_ACT_DEAD;
+    // o->oAction = BOWSER_ACT_DEAD;
     //if(o->oTimer == 5) {
     //    spawn_object(o, MODEL_PEACH, bhvPeachEnding);
     //}
@@ -1002,7 +1002,7 @@ void bowser_act_snow(void) {
             cur_obj_init_animation(BOWSER_ANIM_IDLE);
             if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 1) {
                 o->oSubAction = 2;
-                create_dialog_box(DIALOG_067);
+                create_dialog_box(DIALOG_092);
             }
             if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 2) {
                 gCamera->cutscene = 0;

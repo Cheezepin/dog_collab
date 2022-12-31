@@ -12,6 +12,7 @@
 #include "levels/scripts.h"
 /* Fast64 begin persistent block [includes] */
 #include "actors/common1.h"
+#include "actors/group0.h"
 #include "actors/group12.h"
 /* Fast64 end persistent block [includes] */
 
@@ -42,6 +43,7 @@ const LevelScript level_bowser_1_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_EMU_LASER_RING, laser_ring),
 	LOAD_MODEL_FROM_GEO(MODEL_RED_CIRCLE, circle_geo),
 	LOAD_MODEL_FROM_GEO(MODEL_LIGHTNING, lightning_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_STAR,                    rainbow_star_geo),
 	/* Fast64 end persistent block [level commands] */
 
 	AREA(1, bowser_1_area_1),
