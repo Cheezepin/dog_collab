@@ -253,6 +253,7 @@ enum DialogId {
     CHEEZE_DIALOG_9,
     CHEEZE_DIALOG_10,
     CHEEZE_DIALOG_11,
+    EMU_DIALOG_1,
 
     DIALOG_COUNT
 };

@@ -2512,3 +2512,20 @@ red coin, take the\n\
 skinny bridge back\n\
 to the slide!) ")
 
+DEFINE_DIALOG(EMU_DIALOG_1, 1, 8, 95, 200, "\
+Arrrr!\n\
+Of course you \n\
+freed your dog!\n\
+Oh well, it doesn't \n\
+matter. There's \n\
+nothing here you can \n\
+throw me at! I suppose \n\
+your dog could dig \n\
+something up that \n\
+could be thrown at me, \n\
+but then I would just\n\
+throw amps at you! You\n\
+could hit them back, \n\
+but they won't \n\
+hurt me! ")
+
