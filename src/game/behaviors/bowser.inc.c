@@ -1121,6 +1121,8 @@ void bowser_act_hit_mine(void) {
             // Makes Bowser dance at one health (in BITS)
             if (o->oHealth == 1) {
                 o->oAction = BOWSER_ACT_DANCE;
+            } else if (o->oHealth == 3) {
+                o->oAction = BOWSER_ACT_MID_DIALOG;
             } else {
                 o->oAction = BOWSER_ACT_DEFAULT;
             }
@@ -1702,6 +1704,23 @@ void bowser_act_dance(void) {
     }
 }
 
+void bowser_act_mid_dialog(void) {
+    if (o->oSubAction !=2) o->oSubAction = 1;
+    cur_obj_init_animation(BOWSER_ANIM_IDLE);
+    set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+    if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 1) {
+                o->oSubAction = 2;
+                create_dialog_box(EMU_DIALOG_1);
+            }
+            if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 2) {
+                gCamera->cutscene = 0;
+                o->oAction = BOWSER_ACT_DEFAULT;
+                o->oMoveAnglePitch = o->oMoveAngleRoll = o->oFaceAnglePitch = o->oFaceAngleRoll = 0;
+                set_mario_action(gMarioState, ACT_IDLE, 0);
+            }
+            
+}
+
 /**
  * Spawn collectable that Bowser spawns after despawning
  * Spawns a Key in BITDW/BITFS or Grand Star in BITS
@@ -2097,6 +2116,7 @@ void (*sBowserActions[])(void) = {
     bowser_act_cc_jump,
     bowser_act_cc_charge,
     bowser_act_cc_whirl,
+    bowser_act_mid_dialog,
 };
 
 /**

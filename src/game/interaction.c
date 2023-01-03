@@ -2087,7 +2087,7 @@ void mario_handle_special_floors(struct MarioState *m) {
             switch (floorType) {
                 case SURFACE_INTERACT_SHOCK: {
                     shockTimer += 1;
-                    if (m->health < 0x0300) {
+                    if (m->health < 0x0200) {
                         m->health = 0x0000;
                         interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
                         if(shockTimer > 1){
@@ -2097,7 +2097,7 @@ void mario_handle_special_floors(struct MarioState *m) {
                     } else {
                         interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
                         if(shockTimer > 1){
-                        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x0200);
+                        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x0100);
                         shockTimer = 0;
                         }
                     }
