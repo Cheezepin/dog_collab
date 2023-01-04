@@ -55,6 +55,8 @@ UNUSED static const u64 binid_11 = 11;
 #include "mario_cap/model.inc.c"
 UNUSED static const u64 binid_12 = 12;
 
+#include "life_meter_new/model.inc.c"
+
 #include "power_meter/model.inc.c"
 #ifdef BREATH_METER
 #include "breath_meter/model.inc.c"
