@@ -146,13 +146,7 @@ Gfx *geo_switch_area(s32 callContext, struct GraphNode *node, UNUSED void *conte
         if (gMarioObject == NULL) {
             switchCase->selectedCase = 0;
         } else {
-
-            if (gCurrLevelNum == LEVEL_COZIES) {
-                find_room_floor(gMarioObject->oPosX, gMarioObject->oPosY, gMarioObject->oPosZ, &floor);
-            } else {
-                // Since no intangible floors are nearby, use Mario's floor instead.
-                floor = gMarioState->floor;
-            }
+            find_room_floor(gMarioObject->oPosX, gMarioObject->oPosY, gMarioObject->oPosZ, &floor);
 
             if (floor) {
                 gMarioCurrentRoom = floor->room;
@@ -2624,6 +2618,17 @@ Gfx *geo_backdrop_move_cozies(s32 callContext, struct GraphNode *node, UNUSED Ma
         ((struct GraphNodeTranslation *) node->next)->translation[0] = gLakituState.pos[0] * 0.95f;
         ((struct GraphNodeTranslation *) node->next)->translation[1] = (gLakituState.pos[1] * 0.95f) + (gCurrentArea->index == 2 ? -500 : 0);
         ((struct GraphNodeTranslation *) node->next)->translation[2] = gLakituState.pos[2] * 0.95f;
+    }
+    return 0;
+}
+
+Gfx *geo_backdrop_move_cozies_b3(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        // Gfx *dlStart, *dlHead;
+        // dlStart = alloc_display_list(sizeof(Gfx) * 2);
+        ((struct GraphNodeTranslation *) node->next)->translation[0] = gLakituState.pos[0] * 0.99f;
+        ((struct GraphNodeTranslation *) node->next)->translation[1] = (gLakituState.pos[1] * 0.99f);
+        ((struct GraphNodeTranslation *) node->next)->translation[2] = gLakituState.pos[2] * 0.99f;
     }
     return 0;
 }

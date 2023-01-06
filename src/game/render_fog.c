@@ -110,6 +110,16 @@ struct GlobalFog sDDDFogArea1 = {
     .high = 1000
 };
 
+struct GlobalFog sPSSCozyFog = {
+    // ['0x13', '0x69', '0x7b']
+    .r    = 19,
+    .g    = 105,
+    .b    = 123,
+    .a    = 0xFF,
+    .low  = 985,
+    .high = 1000
+};
+
 #define AREA1_FOG_LOW 955
 #define AREA1_FOG_HIGH_ADD 5
 
@@ -180,17 +190,19 @@ extern struct GlobalFog gGlobalFog;
 
 #define GLOBAL_FOG_UPDATE_RATE_DIVISOR 10
 void update_global_fog_ddd(void) {
-    if (gCurrLevelNum != LEVEL_COZIES) return;
+    s32 isCozyPSSSegment = gCurrLevelNum == LEVEL_PSS && gCurrAreaIndex == 6;
+
     struct GlobalFog *goalFog;
 
-    if (gCameraIsUnderwater) {
+    if (isCozyPSSSegment) {
+        goalFog = &sPSSCozyFog;
+    } else if (gCameraIsUnderwater) {
         if (gCurrAreaIndex == 2 && gMarioCurrentRoom == 10) {
             goalFog = &sDDDWaterFogRoom10;
         } else {
             goalFog = &sDDDWaterFog;
         }
-    }
-    else {
+    } else {
         switch (gCurrAreaIndex)
         {
         case 3:
