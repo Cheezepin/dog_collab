@@ -522,7 +522,7 @@ void puppyprint_render_standard(void) {
     char textBytes[80];
 
     sprintf(textBytes, "OBJ: %d/%d", gObjectCounter, OBJECT_POOL_CAPACITY);
-    print_small_text((SCREEN_WIDTH - 16), 16, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
+    print_small_text((gScreenWidth - 16), 16, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
 
 #ifndef ENABLE_CREDITS_BENCHMARK
     // Very little point printing useless info if Mario doesn't even exist.
@@ -533,7 +533,7 @@ void puppyprint_render_standard(void) {
             (s32)(gMarioState->pos[2]),
             (u16)(gMarioState->faceAngle[1]),
             (u32)(gMarioState->action & ACT_ID_MASK));
-        print_small_text((SCREEN_WIDTH - 16), 32, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
+        print_small_text((gScreenWidth - 16), 32, textBytes, PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
     }
     // Same for the camera, especially so because this will crash otherwise.
     if (gCamera) {
@@ -563,14 +563,14 @@ void puppyprint_render_standard(void) {
     //     }
 
     //     if (viewedNums == 0) {
-    //         graphPos = ((SCREEN_WIDTH - 96) + perfPercentage[i]);
-    //         render_blank_box((SCREEN_WIDTH - 96), barY, graphPos, (barY + 8),
+    //         graphPos = ((gScreenWidth - 96) + perfPercentage[i]);
+    //         render_blank_box((gScreenWidth - 96), barY, graphPos, (barY + 8),
     //             cpu_ordering_table[i].colour[0],
     //             cpu_ordering_table[i].colour[1],
     //             cpu_ordering_table[i].colour[2], 255);
     //     } else if (i == (CPU_TABLE_MAX - 1)) {
-    //         graphPos = ((SCREEN_WIDTH - 96) + perfPercentage[i]);
-    //         render_blank_box(prevGraph, barY, (SCREEN_WIDTH - 16), (barY + 8),
+    //         graphPos = ((gScreenWidth - 96) + perfPercentage[i]);
+    //         render_blank_box(prevGraph, barY, (gScreenWidth - 16), (barY + 8),
     //             cpu_ordering_table[i].colour[0],
     //             cpu_ordering_table[i].colour[1],
     //             cpu_ordering_table[i].colour[2], 255);
