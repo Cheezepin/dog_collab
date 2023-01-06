@@ -28,3 +28,7 @@
 #include "levels/pss/trapeze_pss/geo.inc.c"
 #include "levels/pss/clown_clock_pss/geo.inc.c"
 #include "levels/pss/pss_octagonal_platform/geo.inc.c"
+
+#include "levels/pss/cozy_pss_bg/geo.inc.c"
+#include "levels/pss/water_spout_pss/geo.inc.c"
+#include "levels/pss/flippy_bitch_pss/geo.inc.c"

@@ -3,6 +3,7 @@
 
 #define WATER_SPOUT_RADIUS 210
 #define WATER_SPOUT_MAX_SPEED 75.0f
+#define WATER_SPOUT_MIN_EJECTION_SPEED (WATER_SPOUT_MAX_SPEED+35.0f)
 #define WATER_SPOUT_STEP 3.0f
 #define WATER_SPOUT_FORCE_WAIT 20
 #define WATER_SPOUT_FORCE_LERP 800.0f
@@ -69,7 +70,7 @@ void determine_water_spout_height_from_platform(void) {
         }
         case WATER_SPOUT_GOING_TO_TOP: {
             f32 floaterHeight = get_floater_height(o->oWaterSpoutFloatyRock);
-            f32 maxVel = WATER_SPOUT_PARAM_HOLD_TOP ? WATER_SPOUT_MAX_VEL * 0.5f : WATER_SPOUT_MAX_VEL;
+            f32 maxVel = WATER_SPOUT_PARAM_HOLD_TOP ? WATER_SPOUT_MAX_VEL * 0.4f : WATER_SPOUT_MAX_VEL;
             f32 newVel = approach_f32_symmetric(o->oVelY, maxVel, WATER_SPOUT_VEL_INC);
 
             f32 overVel = (o->oPosY + newVel) - (o->oWaterSpoutFloatyRock->oPosY + floaterHeight);
@@ -149,6 +150,28 @@ void water_spout_init(void) {
     }
 }
 
+void force_water_spout_pressure(void) {
+    if (gMarioState->pos[1] > o->oPosY - 160.0f) {
+        gMarioState->waterForce = WATER_SPOUT_MAX_SPEED;
+        if (gMarioState->vel[1] > WATER_SPOUT_MAX_SPEED/2) {
+            gMarioState->vel[1] = MAX(gMarioState->vel[1], WATER_SPOUT_MIN_EJECTION_SPEED);
+        }
+    } else {
+        f32 minSpeed = get_relative_position_between_ranges(
+            o->oPosY - gMarioState->pos[1],
+            WATER_SPOUT_FORCE_LERP,
+            160.0f,
+            0.0f,
+            WATER_SPOUT_MAX_SPEED
+        );
+        gMarioState->waterForce = MAX(gMarioState->waterForce, minSpeed);
+    }
+}
+
+s32 is_spout_scripted(struct Object *obj) {
+    return 1 == (s32)GET_BPARAM2(obj->oBehParams);
+}
+
 void water_spout_loop(void) {
     cur_obj_play_sound_1(SOUND_ENV_WATERFALL1);
     if (!o->oWaterSpoutActive) {
@@ -167,10 +190,26 @@ void water_spout_loop(void) {
     water_spout_bobbin();
 
     if (!marioIsInSpout) {
-        if (o->oAction == WATER_SPOUT_HAS_MARIO) {
+        // if mario WAS in the spout (o->oAction == WATER_SPOUT_HAS_MARIO) but mario is now NOT in the spout,
+        // then it means that mario is shooting out of the top of it... if life was that easy
+        // the next check - (gMarioState->pos[1] > o->oPosY - MAX(0, gMarioState->vel[1]))
+        // makes sure that mario is at least above the spout. some sort of sub-frame wackiness can happen
+        // if this check isnt done and mario touches other water right after touching the spout
+        if (o->oAction == WATER_SPOUT_HAS_MARIO && gMarioState->pos[1] > o->oPosY - MAX(0, gMarioState->vel[1])) {
             set_mario_action(gMarioState, ACT_TRIPLE_JUMP, 0);
             gMarioState->vel[1] += (WATER_SPOUT_MAX_SPEED * 0.33f);
-            gMarioState->faceAngle[1] = gMarioState->intendedYaw;
+            // mario's min velocity here should be set in order to not get cucked if you enter from the top
+            gMarioState->vel[1] = MAX(gMarioState->vel[1], WATER_SPOUT_MIN_EJECTION_SPEED);
+
+            // point mario towards the lab and launch in that direction
+            if (is_spout_scripted(o)) {
+                gMarioState->vel[0] = 40.0f;
+                gMarioState->vel[2] = 0.0f;
+                gMarioState->forwardVel = 40.0f;
+                gMarioState->faceAngle[1] = 0x4000;
+            } else {
+                gMarioState->faceAngle[1] = gMarioState->intendedYaw;
+            }
         }
         o->oTimer = 0;
         o->oAction = WATER_SPOUT_WAITING;
@@ -180,14 +219,7 @@ void water_spout_loop(void) {
 
     if (o->oTimer++ > WATER_SPOUT_FORCE_WAIT) {
         if (gMarioState->pos[1] > o->oPosY - WATER_SPOUT_FORCE_LERP) {
-            f32 minSpeed = get_relative_position_between_ranges(
-                o->oPosY - gMarioState->pos[1],
-                WATER_SPOUT_FORCE_LERP,
-                80.0f,
-                0.0f,
-                WATER_SPOUT_MAX_SPEED
-            );
-            gMarioState->waterForce = MAX(gMarioState->waterForce, minSpeed);
+            force_water_spout_pressure();
         }
         else gMarioState->waterForce = approach_f32_symmetric(gMarioState->waterForce, WATER_SPOUT_MAX_SPEED, WATER_SPOUT_STEP);
     }
@@ -279,8 +311,17 @@ void floaty_rock_loop(void) {
 
         f32 fac = smooth_fac(get_lerp(goalDiff, 0, colHeight));
         f32 additionalVel = fac * colHeight;
+
         o->oVelY = MAX(o->oVelY, additionalVel);
         o->oVelY = MIN(100, o->oVelY);
+
+        // for the tube top, make sure that the velocity is capped in order to not get ultra launched.
+        // this is kinda choppy looking unfortunately.. probably would need to always
+        // stick to the top to not be choppy which would screw up the "physics simulation" aspect
+        if (floater_is_tube_top(o) && o->oPosY + o->oVelY > targetY) {
+            o->oPosY += o->oVelY;
+            o->oVelY = MIN(o->oVelY, 40.0f);
+        }
     } else {
         o->oVelY -= FLOATY_ROCK_GRAV;
     }

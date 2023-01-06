@@ -7977,6 +7977,21 @@ const BehaviorScript bhvWaterSpout[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvWaterSpoutPSS[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(water_spout_pss_collision),
+    SET_FLOAT(oCollisionDistance, 4000),
+    SET_FLOAT(oDrawingDistance, BASE_DRAW_DIST),
+    SET_HOME(),
+    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(water_spout_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(water_spout_loop),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvVerticalInstantWarp[] = {
     BEGIN(OBJ_LIST_LEVEL),
     OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
@@ -8134,6 +8149,20 @@ const BehaviorScript bhvFlippyBitch[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_LONG(oFlags, (OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_COLLISION_DATA(flippy_bitch_collision),
+    SET_FLOAT(oCollisionDistance, 2000),
+    SET_FLOAT(oDrawingDistance, BASE_DRAW_DIST),
+    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(flippy_bitch_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(flippy_bitch_loop),
+        // CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvFlippyBitchPSS[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, (OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(flippy_bitch_pss_collision),
     SET_FLOAT(oCollisionDistance, 2000),
     SET_FLOAT(oDrawingDistance, BASE_DRAW_DIST),
     CALL_NATIVE(bhv_init_room),
