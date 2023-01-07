@@ -571,6 +571,8 @@ all: $(ROM)
 	@$(PRINT) "${GREEN}Microcode:      $(BLUE)$(GRUCODE)$(NO_COL)\n"
 	@$(PRINT) "${GREEN}Console:        $(BLUE)$(CONSOLE)$(NO_COL)\n"
 
+levels: $(foreach dir, $(LEVEL_DIRS), $(BUILD_DIR)/levels/$(dir)leveldata.elf)
+
 clean:
 	$(RM) -r $(BUILD_DIR_BASE)
 	make -C src/s2d_engine clean
