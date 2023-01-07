@@ -1149,7 +1149,6 @@ s32 play_mode_paused(void) {
         set_play_mode(PLAY_MODE_NORMAL);
 #ifndef DISABLE_EXIT_COURSE
     } else { // MENU_OPT_EXIT_COURSE
-        reset_act_1();
         if (gDebugLevelSelect) {
             fade_into_special_warp(WARP_SPECIAL_LEVEL_SELECT, 1);
         } else {
@@ -1268,9 +1267,11 @@ s32 update_level(void) {
             changeLevel = play_mode_paused();
             break;
         case PLAY_MODE_CHANGE_AREA:
+            reset_act_1();
             changeLevel = play_mode_change_area();
             break;
         case PLAY_MODE_CHANGE_LEVEL:
+            reset_act_1();
             changeLevel = play_mode_change_level();
             break;
         case PLAY_MODE_FRAME_ADVANCE:

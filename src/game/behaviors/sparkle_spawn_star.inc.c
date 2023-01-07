@@ -146,6 +146,4 @@ void bhv_spawn_star_get_outta_here(u32 params) {
 
     // starObj->oInteractionSubtype = INT_SUBTYPE_NO_EXIT;
     obj_set_angle(starObj, 0, 0, 0);
-
-    reset_act_1();
 }
