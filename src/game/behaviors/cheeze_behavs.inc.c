@@ -331,7 +331,7 @@ void bhv_warp_box_loop(void) {
             play_sound(SOUND_CUSTOM_WARP_BOX_OUT, gGlobalSoundSource);
         }
         if(o->oTimer >= 15) {
-            if(o->oWarpBoxInnerScale > 0.0f) {
+            if(o->oWarpBoxInnerScale > 0.001f) {
                 o->oWarpBoxInnerScale -= 0.125f;
             }
         } else {
@@ -342,6 +342,9 @@ void bhv_warp_box_loop(void) {
             explosion->oGraphYOffset += 100.0f;
             obj_mark_for_deletion(o);
         }
+    }
+    if(o->oWarpBoxInnerScale < 0.001f) {
+        o->oWarpBoxInnerScale = 0.001f;
     }
 }
 

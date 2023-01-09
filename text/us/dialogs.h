@@ -2501,7 +2501,7 @@ for me?\n\
 Don't worry if you miss\n\
 one, they'll save to your\n\
 file and you can pick\n\
-them up another time")
+them up another time.)")
 
 DEFINE_DIALOG(CHEEZE_DIALOG_10, 1, 5, 95, 200, "\
 Bow wow woof bark!\n\
