@@ -12,6 +12,7 @@
 #include "levels/scripts.h"
 
 #include "actors/common1.h"
+#include "actors/group14.h"
 
 /* Fast64 begin persistent block [includes] */
 /* Fast64 end persistent block [includes] */
@@ -49,6 +50,7 @@ const LevelScript level_pss_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_TRAPEZE, trapeze_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CLOWN_CLOCK, clown_clock_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_BITS_OCTAGONAL_PLATFORM, bits_octagonal_platform_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_RC_SIGN, rcsign_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */

@@ -2028,7 +2028,7 @@ void check_hurt_floor(struct MarioState *m) {
             }
         }
         
-        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, m->floor->force);
+        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ 0x200);
     }
 }
 

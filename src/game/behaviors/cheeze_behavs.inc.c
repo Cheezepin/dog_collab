@@ -292,7 +292,9 @@ void bhv_warp_box_loop(void) {
                 }
                 else {
                     if(o->oTimer < 9) {
-                        vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
+                        s32 idx = o->oTimer - 1;
+                        idx = CLAMP(idx, 0, ARRAY_COUNT(warpBoxScaleFrames));
+                        vec3f_copy(o->header.gfx.scale, warpBoxScaleFrames[idx]);
                     }
                     if(o->oTimer == 15) {
                         sDelayedWarpOp = 1;
@@ -321,7 +323,9 @@ void bhv_warp_box_loop(void) {
         }
     } else if(gCurrCreditsEntry == NULL) {
         if(o->oTimer < 9) {
-            vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
+            s32 idx = o->oTimer - 1;
+            idx = CLAMP(idx, 0, ARRAY_COUNT(warpBoxScaleFrames));
+            vec3f_copy(o->header.gfx.scale, warpBoxScaleFrames[idx]);
             o->oWarpBoxInnerScale = 1.0f;
         }
         if(o->oTimer == 4) {

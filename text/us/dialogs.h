@@ -2525,6 +2525,14 @@ red coin, take the\n\
 skinny bridge back\n\
 to the slide!) ")
 
+DEFINE_DIALOG(CHEEZE_DIALOG_12, 1, 3, 95, 200, "\
+If you dive into the\n\
+slopes at the tops of\n\
+the yellow walls,\n\
+your jump will be\n\
+reset and you can\n\
+wall jump again!")
+
 DEFINE_DIALOG(EMU_DIALOG_1, 1, 8, 95, 200, "\
 Arrrr!\n\
 Of course you \n\
