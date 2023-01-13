@@ -13,6 +13,7 @@
 #include "audio/external.h"
 #include "engine/math_util.h"
 #include "levels/ddd/header.h"
+#include "levels/pss/header.h"
 #include "behavior_data.h"
 
 #ifndef THECOZIES_HELPERS_H

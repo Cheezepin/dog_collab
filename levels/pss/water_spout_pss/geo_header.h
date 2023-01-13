@@ -1,0 +1,15 @@
+extern const GeoLayout water_spout_pss_geo[];
+extern Lights1 water_spout_pss_cozieswater_layer7_lights;
+extern u8 water_spout_pss_fizzy_i4[];
+extern u8 water_spout_pss_water_waves_brightwe_i4[];
+extern Vtx water_spout_pss_b_inner_water_spout_pss_mesh_layer_7_vtx_cull[8];
+extern Vtx water_spout_pss_b_inner_water_spout_pss_mesh_layer_7_vtx_0[28];
+extern Gfx water_spout_pss_b_inner_water_spout_pss_mesh_layer_7_tri_0[];
+extern Vtx water_spout_pss_top_water_spout_pss_mesh_layer_7_vtx_cull[8];
+extern Vtx water_spout_pss_top_water_spout_pss_mesh_layer_7_vtx_0[7];
+extern Gfx water_spout_pss_top_water_spout_pss_mesh_layer_7_tri_0[];
+extern Gfx mat_water_spout_pss_cozieswater_layer7[];
+extern Gfx mat_revert_water_spout_pss_cozieswater_layer7[];
+extern Gfx water_spout_pss_b_inner_water_spout_pss_mesh_layer_7[];
+extern Gfx water_spout_pss_top_water_spout_pss_mesh_layer_7[];
+extern Gfx water_spout_pss_material_revert_render_settings[];

@@ -353,7 +353,7 @@ void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
                 gSPDisplayList(gDisplayListHead++, dl_shadow_circle);
             }
 
-            if (gCurrLevelNum == LEVEL_COZIES) {
+            if (gCurrLevelNum == LEVEL_COZIES || (gCurrLevelNum == LEVEL_PSS && gCurrAreaIndex == 6)) {
                 gDPSetFogColor(gDisplayListHead++, gGlobalFog.r, gGlobalFog.g, gGlobalFog.b, gGlobalFog.a);
                 gSPFogPosition(gDisplayListHead++, gGlobalFog.low, gGlobalFog.high);
             }
@@ -591,7 +591,10 @@ void geo_process_camera(struct GraphNodeCamera *node) {
     // thecozies start
     viewMat = &gMatStack[gMatStackIndex];
     gReadyForLookAt = TRUE;
-    if (gCurrLevelNum == LEVEL_COZIES && gCamera) {
+    if (
+        (gCurrLevelNum == LEVEL_COZIES || (gCurrLevelNum == LEVEL_PSS && gCurrAreaIndex == 6))
+        && gCamera
+    ) {
         s16 checkingTemp = gCollisionFlags;
         gCollisionFlags |= COLLISION_FLAG_CAMERA;
         gCameraIsUnderwater = find_water_level(gCamera->pos[0], gCamera->pos[2]) > gCamera->pos[1];

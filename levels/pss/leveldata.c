@@ -43,3 +43,8 @@
 
 #include "levels/pss/pss_octagonal_platform/model.inc.c"
 #include "levels/pss/pss_octagonal_platform/collision.inc.c"
+#include "levels/pss/cozy_pss_bg/model.inc.c"
+#include "levels/pss/water_spout_pss/model.inc.c"
+#include "levels/pss/water_spout_pss/collision.inc.c"
+#include "levels/pss/flippy_bitch_pss/model.inc.c"
+#include "levels/pss/flippy_bitch_pss/collision.inc.c"

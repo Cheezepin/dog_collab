@@ -222,7 +222,7 @@ static u32 perform_water_step(struct MarioState *m) {
     s32 canExitWaterWithMomentum = m->action == ACT_WATER_GROUND_POUND;
     struct Object *marioObj = m->marioObj;
 
-    if (gCurrLevelNum == LEVEL_COZIES) {
+    if (gCurrLevelNum == LEVEL_COZIES || (gCurrLevelNum == LEVEL_PSS && gCurrAreaIndex == 6)) {
         // thecozies level
         if (m->water && m->water->object && obj_has_behavior(m->water->object, bhvWaterTop)) {
             set_water_top_force(m);

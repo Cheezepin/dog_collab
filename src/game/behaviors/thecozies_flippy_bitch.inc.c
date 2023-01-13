@@ -191,8 +191,15 @@ Gfx *geo_flippy_bitch_static_rot(s32 callContext, struct GraphNode *node, UNUSED
         // vec3_mul_val(fbLightDir, 127.0f);
 
         if (didIt != gGlobalTimer) {
-            Lights1 *lights = segmented_to_virtual(&flippy_bitch_metalgrateside_layer1_lights);
-            Lights1 *lights2 = segmented_to_virtual(&flippy_bitch_gratolite_layer4_lights);
+            Lights1 *lights;
+            Lights1 *lights2;
+            if (gCurrLevelNum == LEVEL_DDD) {
+                lights = segmented_to_virtual(&flippy_bitch_metalgrateside_layer1_lights);
+                lights2 = segmented_to_virtual(&flippy_bitch_gratolite_layer4_lights);
+            } else {
+                lights = segmented_to_virtual(&flippy_bitch_pss_metalgrateside_layer1_lights);
+                lights2 = segmented_to_virtual(&flippy_bitch_pss_gratolite_layer4_lights);
+            }
             lights->l->l.dir[0] = ((s8)(fbLightDir[1] * (*viewMat)[1][0]));
             lights->l->l.dir[1] = ((s8)(fbLightDir[1] * (*viewMat)[1][1]));
             lights->l->l.dir[2] = ((s8)(fbLightDir[1] * (*viewMat)[1][2]));

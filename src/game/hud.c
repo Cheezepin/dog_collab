@@ -165,29 +165,93 @@ void render_power_meter_health_segment(s16 numHealthWedges) {
     gSP1Triangle(gDisplayListHead++, 0, 2, 3, 0);
 }
 
+s32 load_new_health_seg_texture(s32 numLessThanFull, s32 lastTex) {
+    numLessThanFull = CLAMP(numLessThanFull, -2, 0);
+    if (numLessThanFull == lastTex) return numLessThanFull;
+
+    if (numLessThanFull == 0) {
+        gSPDisplayList(gDisplayListHead++, &life_meter_tex_init_full);
+    } else if (numLessThanFull == -1) {
+        gSPDisplayList(gDisplayListHead++, &life_meter_tex_init_half);
+    } else {
+        gSPDisplayList(gDisplayListHead++, &life_meter_tex_init_empty);
+    }
+
+    return numLessThanFull;
+}
+
+Vec3uc theColorOfLifeYo[] = {
+    { 255, 0, 0 },   // 0
+    { 255, 50, 0 },  // 1
+    { 255, 100, 0 }, // 2
+    { 255, 200, 0 }, // 3
+    { 255, 255, 0 }, // 4
+    { 0, 255, 50 },  // 5
+    { 0, 255, 50 },  // 6
+    { 0, 133, 255 }, // 7
+    { 0, 50, 255 },  // full
+};
+
 /**
  * Renders power meter display lists.
  * That includes the "POWER" base and the colored health segment textures.
  */
 void render_dl_power_meter(s16 numHealthWedges) {
     Mtx *mtx = alloc_display_list(sizeof(Mtx));
+    Mtx *mtx2 = alloc_display_list(sizeof(Mtx));
 
-    if (mtx == NULL) {
+    if (mtx == NULL || mtx2 == NULL) {
         return;
     }
 
-    guTranslate(mtx, (f32) sPowerMeterHUD.x, (f32) sPowerMeterHUD.y, 0);
+    f32 xScale = gConfig.widescreen
+        ? ((f32)((4.0/3.0)/(16.0/9.0)))
+        : 1;
+    guScale(
+        mtx2,
+        xScale, 1,
+        1
+    );
+
+    // you can use this to instead make the power meter stretch vertically when going to widescreen
+    // f32 yScale = gConfig.widescreen
+    //     ? ((f32)(1.0/((4.0/3.0)/(16.0/9.0))))
+    //     : 1;
+    // guScale(
+    //     mtx2,
+    //     1, yScale,
+    //     1
+    // );
+
+    f32 yPos = (f32) sPowerMeterHUD.y;
+    f32 xPos = (f32) sPowerMeterHUD.x;
+    if (gConfig.widescreen) xPos -= 6; // widescreen causes the meter to seem further away
+    guTranslate(
+        mtx,
+        xPos + 1.3f, // 1.3 magic number: on console it helps with the pixel placement to look more symmetrical 
+        yPos,
+        0
+    );
+    guMtxCatL(mtx2, mtx, mtx);
 
     gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(mtx++),
               G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
-    gSPDisplayList(gDisplayListHead++, &dl_power_meter_base);
+    gSPDisplayList(gDisplayListHead++, &life_meter_new_init);
 
-    if (numHealthWedges != 0) {
-        gSPDisplayList(gDisplayListHead++, &dl_power_meter_health_segments_begin);
-        render_power_meter_health_segment(numHealthWedges);
-        gSPDisplayList(gDisplayListHead++, &dl_power_meter_health_segments_end);
+    u8 *col = theColorOfLifeYo[numHealthWedges];
+    gDPSetPrimColor(gDisplayListHead++, 0, 0, col[0], col[1], col[2], 40);
+
+    Gfx **texLUT = segmented_to_virtual(&life_meter_tex_lut);
+    s32 lastTex = 1;
+    for (s32 i = 0; i < 4; i++) {
+        s32 numLessThanFull = numHealthWedges - ((4-i) * 2);
+        // print_text_fmt_int(10, i*16+20, "%d", numLessThanFull);
+        lastTex = load_new_health_seg_texture(numLessThanFull, lastTex);
+        Gfx *tex = segmented_to_virtual(texLUT[i]);
+        gSPDisplayList(gDisplayListHead++, tex);
     }
 
+    gSPDisplayList(gDisplayListHead++, &life_meter_revert_material);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
 
@@ -199,9 +263,7 @@ void animate_power_meter_emphasized(void) {
     s16 hudDisplayFlags = gHudDisplay.flags;
 
     if (!(hudDisplayFlags & HUD_DISPLAY_FLAG_EMPHASIZE_POWER)) {
-        if (sPowerMeterVisibleTimer == 45.0f) {
-            sPowerMeterHUD.animation = POWER_METER_DEEMPHASIZING;
-        }
+        sPowerMeterHUD.animation = POWER_METER_DEEMPHASIZING;
     } else {
         sPowerMeterVisibleTimer = 0;
     }
