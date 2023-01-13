@@ -365,7 +365,7 @@ void bowser_act_wait_for_mario(void) {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
     }
     //o->oHealth = 1; //DEBUG REMOVE LATER
-    // o->oAction = BOWSER_ACT_DEAD;
+    o->oAction = BOWSER_ACT_DEAD;
     //if(o->oTimer == 5) {
     //    spawn_object(o, MODEL_PEACH, bhvPeachEnding);
     //}
@@ -1735,6 +1735,7 @@ void bowser_spawn_collectable(void) {
        cur_obj_play_sound_2(SOUND_GENERAL2_BOWSER_KEY);
        gEndingCutsceneState = 0;
        gCamera->cutscene = CUTSCENE_REAL_ENDING;
+       gSecondCameraFocus->oMoveAngleYaw = gSecondCameraFocus->oFaceAngleYaw = 0xC000;
        if(find_any_object_with_behavior(bhvChainChompBowser)) {obj_mark_for_deletion(find_any_object_with_behavior(bhvChainChompBowser));}
         obj_mark_for_deletion(o);
     } else {

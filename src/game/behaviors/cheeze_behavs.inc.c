@@ -270,7 +270,6 @@ void bhv_warp_box_init(void) {
 }
 
 void bhv_warp_box_loop(void) {
-
     if((o->oBehParams >> 24) == 0) {
         if(o->oAction == 1) {
             gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
@@ -350,6 +349,9 @@ void bhv_warp_box_loop(void) {
         } else {
             obj_mark_for_deletion(o);
         }
+    } else if(o->oTimer == 2) {
+        // level_set_transition(2, NULL);
+        // warp_special(WARP_SPECIAL_INTRO_SPLASH_SCREEN);
     }
     if(o->oWarpBoxInnerScale < 0.001f) {
         o->oWarpBoxInnerScale = 0.001f;

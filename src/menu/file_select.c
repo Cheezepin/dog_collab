@@ -21,6 +21,7 @@
 #include "game/rumble_init.h"
 #include "sm64.h"
 #include "text_strings.h.in"
+#include "buffers/buffers.h"
 
 #include "eu_translation.h"
 #if MULTILANG
@@ -1484,7 +1485,6 @@ void print_save_file_star_count(s8 fileIndex, s16 x, s16 y) {
  */
 void print_main_menu_strings(void) {
     u8 x, y, i, j;
-    u8 dogString[DOG_STRING_LENGTH + 9] = "Mario & ";
     u8 *string;
     // Print "SELECT FILE" text
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
@@ -1507,6 +1507,7 @@ void print_main_menu_strings(void) {
 
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
     for(i = 0; i < 4; i++) {
+        u8 dogString[24] = "Mario &                ";
         switch(i) {
             case 0:
                 x = MARIOTEXT_X1;
@@ -1530,8 +1531,20 @@ void print_main_menu_strings(void) {
                 break;
         }
         if(save_file_exists(i)) {
+            s32 k = 0;
             for(j = 0; j < DOG_STRING_LENGTH; j++) {
                 dogString[8 + j] = save_file_get_dog_string(i, j);
+                if(dogString[8+j] == 0 && k == 0) {k = j + 8;}
+            }
+            dogString[9+j] = 0;
+            if(k == 0) {k = DOG_STRING_LENGTH + 8;}
+            if((gSaveBuffer.files[i].flags & SAVE_FLAG_BOWSER_3_BEAT) && save_file_get_total_star_count(i, COURSE_MIN - 1, COURSE_MAX - 1) >= 73) {
+                dogString[k] = GLOBAL_CHAR_SPACE;
+                dogString[k+1] = CHAR_100_PERCENT;
+            }
+            dogString[k+2] = 0;
+            for(j = k + 2; j < 22; j++) {
+                dogString[j] = 0;
             }
             string = &dogString;
         }

@@ -15,7 +15,7 @@ extern Vtx bowser_3_dl_nocol_mesh_layer_1_vtx_0[76];
 extern Gfx bowser_3_dl_nocol_mesh_layer_1_tri_0[];
 extern Vtx bowser_3_dl_op_mesh_layer_1_vtx_0[1026];
 extern Gfx bowser_3_dl_op_mesh_layer_1_tri_0[];
-extern Vtx bowser_3_dl_op_mesh_layer_1_vtx_1[371];
+extern Vtx bowser_3_dl_op_mesh_layer_1_vtx_1[374];
 extern Gfx bowser_3_dl_op_mesh_layer_1_tri_1[];
 extern Vtx bowser_3_dl_op_mesh_layer_4_vtx_0[80];
 extern Gfx bowser_3_dl_op_mesh_layer_4_tri_0[];
