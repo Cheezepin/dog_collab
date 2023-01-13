@@ -6710,6 +6710,10 @@ struct CameraTrigger sCamLLL[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger sCamBitS[] = {
+	{3, Cam2639_OutwardSpiral, -418, -8265, -4651, 3255, 699, 1131, 0xffff},
+	{3, Cam2639_HeadroomClearance, -407, -7466, 1879, 3081, 909, 2161, 0xffff},
+	{3, Cam2639_CylinderCam, -305, -3358, -2390, 5597, 3903, 5597, 0xffff},
+	// {3, Cam2639_LookDown, -511, 4737, -2116, 1468, 9985, 1468, 0xffff},
 	NULL_TRIGGER
 };
 struct CameraTrigger sCamWF[] = {
@@ -11264,7 +11268,7 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 0, 1), // SA             | BITS
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 1, 1), // SA             | BITS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
 	ZOOMOUT_AREA_MASK(1, 0, 1, 0, 0, 0, 0, 0), // WF             | ENDING
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 1, 1), // COURTYARD      | PSS

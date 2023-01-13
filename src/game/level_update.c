@@ -326,6 +326,7 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
     if (m->isDead) {
         m->health = 0x880;
         m->isDead = FALSE;
+        m->breath = 0x880;
     }
 #endif
 

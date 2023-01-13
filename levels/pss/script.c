@@ -50,7 +50,9 @@ const LevelScript level_pss_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_TRAPEZE, trapeze_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CLOWN_CLOCK, clown_clock_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_BITS_OCTAGONAL_PLATFORM, bits_octagonal_platform_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_RC_SIGN, rcsign_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_RC_SIGN, rcsign_geo), 
+	// LOAD_MODEL_FROM_GEO(MODEL_COZY_WATER_SPOUT_PSS, water_spout_pss_geo), 
+    // LOAD_MODEL_FROM_GEO(MODEL_COZY_FLIPPY_BITCH_PSS, flippy_bitch_pss_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -261,6 +263,33 @@ const LevelScript level_pss_entry[] = {
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
+	AREA(6, pss_area_6),
+		WARP_NODE(0x0A, LEVEL_PSS, 0x06, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_PSS, 0x06, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(1, LEVEL_PSS, 6, 1, WARP_NO_CHECKPOINT),
+		WARP_NODE(2, LEVEL_PSS, 7, 1, WARP_NO_CHECKPOINT),
+		/* OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 14100, 205, 500, 0, 0, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 13500, 205, 500, 0, 0, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 13000, 1300, 700, 0, 0, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 12900, 1500, 800, 0, 90, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 12900, 1700, 1600, 0, 90, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 13000, 1900, 1700, 0, 180, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 9300, 3200, -1900, 0, 0, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 9500, 3300, -1100, 0, -90, 0, 0x00000000, bhvFlippyBitchPSS), */
+		MARIO_POS(0x06, -90, 19787, -2900, 0),
+		OBJECT(MODEL_NONE, 19787, -2900, 0, 0, -90, 0, (0x0A << 16), bhvSpinAirborneWarp),
+		// OBJECT(MODEL_COZY_WATER_SPOUT_PSS, 18417, -1857, 0, 0, 0, 0, 0x00000000, bhvWaterSpoutPSS),
+		// OBJECT(MODEL_COZY_WATER_SPOUT_PSS, 16738, -600, 0, 0, 0, 0, 0x00000000, bhvWaterSpoutPSS),
+		OBJECT(MODEL_WARP_BOX, 20000, -2900, 0, 0, -90, 0, (1 << 24) | (1 << 16), bhvWarpBox),
+		OBJECT(MODEL_WARP_BOX, 10100, 4654, 300, 0, -90, 0, (0 << 24) | (2 << 16), bhvWarpBox),
+		TERRAIN(pss_area_6_collision),
+		MACRO_OBJECTS(pss_area_6_macro_objs),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		TERRAIN_TYPE(TERRAIN_WATER),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
 	AREA(7, pss_area_7),
 		WARP_NODE(0x0A, LEVEL_PSS, 7, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_PSS, 7, 1, WARP_NO_CHECKPOINT),
@@ -279,7 +308,7 @@ const LevelScript level_pss_entry[] = {
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 0, -1508, 79, 1291),
+	MARIO_POS(0x06, -90, 19787, -2900, 0),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),

@@ -2720,6 +2720,9 @@ void render_hub_selection(void) {
                     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
                     sDelayedWarpTimer = 15;
                     sSourceWarpNodeId = hubSelections[gWorldID][gFocusID].warpID;
+                    if(hubSelections[gWorldID][gFocusID].courseID == 6 && gCurrActNum > 1) { //ff special case
+                        sSourceWarpNodeId = 0x1C;
+                    }
                     gIntroCutsceneState = 0;
                 } else if(hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
                     gLevelEntryConfirmationActive = 1;
