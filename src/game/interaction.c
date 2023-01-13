@@ -2028,7 +2028,7 @@ void check_hurt_floor(struct MarioState *m) {
             }
         }
         
-        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ 0x200);
+        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ HURT_FLOOR_DAMAGE);
     }
 }
 
@@ -2067,7 +2067,11 @@ void mario_handle_special_floors(struct MarioState *m) {
                 break;
             
             case SURFACE_HURT_FLOOR:
-                check_hurt_floor(m);
+                if(m->health > HURT_FLOOR_DAMAGE + 0xFF) {
+                    check_hurt_floor(m);
+                } else {
+                    check_death_barrier(m);
+                }
                 break;
             
             case SURFACE_HURT_FLOOR_WITH_HEIGHT:

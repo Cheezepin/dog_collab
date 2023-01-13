@@ -3,7 +3,7 @@
 const GeoLayout pss_area_6_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		// GEO_BRANCH(1, cozy_pss_bg_geo),
+		GEO_BRANCH(1, cozy_pss_bg_geo),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, pss_dl_Cube_029_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, pss_dl_Cube_030_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE_INTER, pss_dl_Cylinder_002_mesh_layer_3),

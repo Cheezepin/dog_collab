@@ -322,28 +322,32 @@ void bhv_warp_box_loop(void) {
             o->oAnimState = 1;
         }
     } else if(gCurrCreditsEntry == NULL) {
-        if(o->oTimer < 9) {
-            s32 idx = o->oTimer - 1;
-            idx = CLAMP(idx, 0, ARRAY_COUNT(warpBoxScaleFrames));
-            vec3f_copy(o->header.gfx.scale, warpBoxScaleFrames[idx]);
-            o->oWarpBoxInnerScale = 1.0f;
-        }
-        if(o->oTimer == 4) {
-            set_mario_action(gMarioState, ACT_EMERGE_FROM_PIPE, 1);
-        }
-        if(o->oTimer == 17) {
-            play_sound(SOUND_CUSTOM_WARP_BOX_OUT, gGlobalSoundSource);
-        }
-        if(o->oTimer >= 15) {
-            if(o->oWarpBoxInnerScale > 0.001f) {
-                o->oWarpBoxInnerScale -= 0.125f;
+        if(sSourceWarpNodeId != 0xF1) {
+            if(o->oTimer < 9) {
+                s32 idx = o->oTimer - 1;
+                idx = CLAMP(idx, 0, ARRAY_COUNT(warpBoxScaleFrames));
+                vec3f_copy(o->header.gfx.scale, warpBoxScaleFrames[idx]);
+                o->oWarpBoxInnerScale = 1.0f;
+            }
+            if(o->oTimer == 4) {
+                set_mario_action(gMarioState, ACT_EMERGE_FROM_PIPE, 1);
+            }
+            if(o->oTimer == 17) {
+                play_sound(SOUND_CUSTOM_WARP_BOX_OUT, gGlobalSoundSource);
+            }
+            if(o->oTimer >= 15) {
+                if(o->oWarpBoxInnerScale > 0.001f) {
+                    o->oWarpBoxInnerScale -= 0.125f;
+                }
+            } else {
+                gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            }
+            if(o->oTimer == 30) {
+                struct Object *explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
+                explosion->oGraphYOffset += 100.0f;
+                obj_mark_for_deletion(o);
             }
         } else {
-            gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
-        }
-        if(o->oTimer == 30) {
-            struct Object *explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
-            explosion->oGraphYOffset += 100.0f;
             obj_mark_for_deletion(o);
         }
     }
