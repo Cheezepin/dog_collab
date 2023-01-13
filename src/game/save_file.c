@@ -601,7 +601,8 @@ u32 save_file_get_flags(void) {
             SAVE_FLAG_COLLECTED_TOAD_STAR_2  |
             SAVE_FLAG_COLLECTED_TOAD_STAR_3  |
             SAVE_FLAG_COLLECTED_MIPS_STAR_1  |
-            SAVE_FLAG_COLLECTED_MIPS_STAR_2);
+            SAVE_FLAG_COLLECTED_MIPS_STAR_2  |
+            SAVE_FLAG_B3_CHECKPOINT_REACHED);
 #else
     if (gCurrCreditsEntry != NULL || gCurrDemoInput != NULL) {
         return 0;
@@ -673,7 +674,7 @@ void save_file_set_cannon_unlocked(void) {
     gSaveFileModified = TRUE;
 }
 
-void save_file_set_cap_pos(s16 x, s16 y, s16 z) {
+/*void save_file_set_cap_pos(s16 x, s16 y, s16 z) {
     struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1];
 
     saveFile->capLevel = gCurrLevelNum;
@@ -700,7 +701,7 @@ s32 save_file_get_cap_pos(Vec3s capPos) {
         return TRUE;
     }
     return FALSE;
-}
+}*/
 
 #ifdef SAVE_NUM_LIVES
 void save_file_set_num_lives(s8 numLives) {
@@ -742,14 +743,14 @@ u32 save_file_get_sound_mode(void) {
 }
 
 void save_file_move_cap_to_default_location(void) {
-    if (save_file_get_flags() & SAVE_FLAG_CAP_ON_GROUND) {
+    /*if (save_file_get_flags() & SAVE_FLAG_CAP_ON_GROUND) {
         switch (gSaveBuffer.files[gCurrSaveFileNum - 1].capLevel) {
             case LEVEL_SSL: save_file_set_flags(SAVE_FLAG_CAP_ON_KLEPTO     ); break;
             case LEVEL_SL:  save_file_set_flags(SAVE_FLAG_CAP_ON_MR_BLIZZARD); break;
             case LEVEL_TTM: save_file_set_flags(SAVE_FLAG_CAP_ON_UKIKI      ); break;
         }
         save_file_clear_flags(SAVE_FLAG_CAP_ON_GROUND);
-    }
+    }*/
 }
 
 #if MULTILANG
@@ -817,4 +818,28 @@ void save_file_set_dog_string(s32 fileIndex, u8 *string) {
     for(i = 0; i < DOG_STRING_LENGTH; i++) {
         gSaveBuffer.files[fileIndex].dogString[i] = string[i];
     }
+}
+
+s32 save_file_get_dog_bone_count(s32 fileIndex) {
+    s32 count = 0;
+    u8 i;
+
+    for(i = 0; i < 16; i++) {
+        if((gSaveBuffer.files[fileIndex].dogBones & (1 << i)) != 0) {
+            count++;
+        }
+    }
+
+    // Add castle secret star count.
+    return count;
+}
+
+s32 save_file_check_dog_bone_collected(s32 fileIndex, s16 areaID, s16 levelID) {
+    u8 levelOffset = levelID == LEVEL_PSS ? 1 : 0;
+    return (gSaveBuffer.files[fileIndex].dogBones & ((1 << (areaID - 1)) << (levelOffset*0x8))) ? 1 : 0;
+}
+
+void save_file_set_dog_bone_bit(s32 fileIndex, s16 areaID, s16 levelID) {
+    u8 levelOffset = levelID == LEVEL_PSS ? 1 : 0;
+    gSaveBuffer.files[fileIndex].dogBones |= ((1 << (areaID - 1)) << (levelOffset*0x8));
 }

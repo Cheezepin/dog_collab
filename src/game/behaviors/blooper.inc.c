@@ -102,8 +102,10 @@ void bhv_blooper_update(void) {
         if (o->oPosY > ceilHeight - 250)
             o->oPosY = ceilHeight - 250;
 
-        if(o->oInteractStatus != 0 && gMarioState->flags & MARIO_METAL_CAP)
+        if(o->oInteractStatus != 0 && ((gMarioState->flags & MARIO_METAL_CAP) || gMarioState->action == ACT_WATER_GROUND_POUND)) {
             obj_set_knockback_action(5);
+            print_text(20, 20, "hi");
+        }
         o->oInteractStatus = 0;
     }
 }

@@ -56,4 +56,3 @@
 #include "levels/bitdw/leveldata.inc.c"
 #include "levels/bitdw/rainbow_chain/collision.inc.c"
 #include "levels/bitdw/sphere/collision.inc.c"
-#include "levels/bitdw/rainbow_star/model.inc.c"

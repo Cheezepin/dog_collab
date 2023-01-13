@@ -194,7 +194,7 @@ u32 determine_interaction(struct MarioState *m, struct Object *obj) {
                     interaction = INT_TRIP;
                 }
             }
-        } else if (action == ACT_GROUND_POUND || action == ACT_TWIRLING) {
+        } else if (action == ACT_GROUND_POUND || action == ACT_TWIRLING || ACT_WATER_GROUND_POUND) {
             if (m->vel[1] < 0.0f) {
                 interaction = INT_GROUND_POUND_OR_TWIRL;
             }
@@ -347,7 +347,7 @@ void mario_blow_off_cap(struct MarioState *m, f32 capSpeed) {
     struct Object *capObject;
 
     if (does_mario_have_normal_cap_on_head(m)) {
-        save_file_set_cap_pos(m->pos[0], m->pos[1], m->pos[2]);
+        // save_file_set_cap_pos(m->pos[0], m->pos[1], m->pos[2]);
 
         m->flags &= ~(MARIO_NORMAL_CAP | MARIO_CAP_ON_HEAD);
 
@@ -2028,7 +2028,7 @@ void check_hurt_floor(struct MarioState *m) {
             }
         }
         
-        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, m->floor->force);
+        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ 0x200);
     }
 }
 
@@ -2087,7 +2087,7 @@ void mario_handle_special_floors(struct MarioState *m) {
             switch (floorType) {
                 case SURFACE_INTERACT_SHOCK: {
                     shockTimer += 1;
-                    if (m->health < 0x0300) {
+                    if (m->health < 0x0200) {
                         m->health = 0x0000;
                         interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
                         if(shockTimer > 1){
@@ -2097,7 +2097,7 @@ void mario_handle_special_floors(struct MarioState *m) {
                     } else {
                         interact_shock(gMarioState, INTERACT_SHOCK, gCurrentObject);
                         if(shockTimer > 1){
-                        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x0200);
+                        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x0100);
                         shockTimer = 0;
                         }
                     }

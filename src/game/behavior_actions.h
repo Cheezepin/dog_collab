@@ -400,8 +400,9 @@ void bhv_hidden_red_coin_star_loop(void);
 void bhv_red_coin_init(void);
 void bhv_red_coin_loop(void);
 void bhv_bowser_course_red_coin_star_loop(void);
-void bhv_bowser_red_coin_loop(void);
-void bhv_final_bowser_course_red_coin_star_loop(void);
+void bhv_dog_bone_init(void);
+void bhv_dog_bone_loop(void);
+void bhv_final_bowser_course_dog_bone_star_loop(void);
 void bhv_hidden_star_init(void);
 void bhv_hidden_star_loop(void);
 void bhv_hidden_star_trigger_loop(void);
@@ -715,6 +716,8 @@ void bhv_dog_control_loop(void);
 void bhv_peach_ending_loop(void);
 void bhv_intro_object_init(void);
 void bhv_intro_object_loop(void);
+void bhv_save_switch_loop(void);
+void bhv_special_warp_box_init(void);
 //cheeze end
 
 //Koopa Atoll Objects

@@ -2819,7 +2819,7 @@ Gfx *geo_switch_is_red_coin_collected(s32 callContext, struct GraphNode *node) {
         struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
 
         // assign the case number for execution.
-        switchCase->selectedCase = find_any_object_with_behavior(bhvFinalBowserRedCoin) ? 0 : 1;
+        switchCase->selectedCase = find_any_object_with_behavior(bhvDogBone) ? 0 : 1;
     }
 
     return NULL;

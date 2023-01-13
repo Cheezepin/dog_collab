@@ -227,8 +227,10 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
         break;
         case 4:
             o->parentObj->oAction = EMU_DOG_RANDOM_LOCATION;
-            if (mine == NULL) {spawn_object(o, MODEL_BOWSER_BOMB, bhvEmuBomb);}
-            else {spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);}
+            if (mine == NULL) {
+                spawn_object(o, MODEL_BOWSER_BOMB, bhvEmuBomb);
+                spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);
+            } else spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);
             o->oInteractStatus = 0;
             o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
             o->oAction = 6;

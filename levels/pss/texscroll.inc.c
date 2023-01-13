@@ -372,6 +372,12 @@ void scroll_sts_mat_pss_dl_Lava_layer1_area5() {
 	shift_t_down(mat, 23, PACK_TILESIZE(0, 1));
 };
 
+void scroll_sts_mat_pss_dl_goooooooop_layer1() {
+	Gfx *mat = segmented_to_virtual(mat_pss_dl_goooooooop_layer1);
+	shift_t_down(mat, 13, PACK_TILESIZE(0, 1));
+	shift_t_down(mat, 21, PACK_TILESIZE(0, 1));
+};
+
 void scroll_pss() {
 	scroll_sts_mat_pss_dl_f3d_material_062();
 	scroll_sts_mat_pss_dl_f3d_material_015();
@@ -397,4 +403,5 @@ void scroll_pss() {
 	scroll_sts_mat_pss_dl_nebula_hangable_001_layer1();
 	scroll_sts_mat_pss_dl_lava_layer1();
 	scroll_sts_mat_pss_dl_Lava_layer1_area5();
+	scroll_sts_mat_pss_dl_goooooooop_layer1();
 }

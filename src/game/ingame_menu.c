@@ -29,6 +29,7 @@
 #include "main.h"
 #include "puppyprint.h"
 #include "rendering_graph_node.h"
+#include "actors/group0.h"
 
 #ifdef VERSION_EU
 #undef LANGUAGE_FUNCTION
@@ -42,7 +43,6 @@ u16 gDialogTextAlpha;
 s16 gCutsceneMsgXOffset;
 s16 gCutsceneMsgYOffset;
 s8 gRedCoinsCollected;
-s8 gBowserRedCoinsCollected;
 #if defined(WIDE) && !defined(PUPPYCAM)
 u8 textCurrRatio43[] = { TEXT_HUD_CURRENT_RATIO_43 };
 u8 textCurrRatio169[] = { TEXT_HUD_CURRENT_RATIO_169 };
@@ -1537,10 +1537,6 @@ void reset_red_coins_collected(void) {
     gRedCoinsCollected = 0;
 }
 
-void reset_bowser_red_coins_collected(void) {
-    gBowserRedCoinsCollected = 0;
-}
-
 void change_dialog_camera_angle(void) {
     if (cam_select_alt_mode(0) == CAM_SELECTION_MARIO) {
         gDialogCameraAngleIndex = CAM_SELECTION_MARIO;
@@ -1631,12 +1627,27 @@ void print_animated_red_coin(s16 x, s16 y) {
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
 
+void print_animated_red_bone(s16 x, s16 y) {
+    s32 globalTimer = gGlobalTimer;
+
+    create_dl_translation_matrix(MENU_MTX_PUSH, x, y, 0);
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.25f, 0.25f, 0.1f);
+    create_dl_rotation_matrix(MENU_MTX_NOPUSH, (f32)(globalTimer*4), 0.0f, 1.0f, 0.0f);
+    gDPSetRenderMode(gDisplayListHead++, G_RM_AA_OPA_SURF, G_RM_AA_OPA_SURF2);
+
+    gSPDisplayList(gDisplayListHead++, dog_bone_bone_mesh_layer_1);
+
+    gSPDisplayList(gDisplayListHead++, dog_bone_material_revert_render_settings);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+}
+
 void render_pause_red_coins(void) {
     s8 x;
+    s32 bonesCollected = save_file_get_dog_bone_count(gCurrSaveFileNum - 1);
 
-    if(gBowserRedCoinsCollected > 0) {
-        for (x = 0; x < gBowserRedCoinsCollected; x++) {
-            print_animated_red_coin(GFX_DIMENSIONS_FROM_RIGHT_EDGE(30) - x * 20, 16);
+    if((gCurrLevelNum == LEVEL_PSS || gCurrLevelNum == LEVEL_BITS) && bonesCollected > 0) {
+        for (x = 0; x < bonesCollected; x++) {
+            print_animated_red_bone(GFX_DIMENSIONS_FROM_RIGHT_EDGE(30) - x * 20, 16);
         }
     } else {
         for (x = 0; x < gRedCoinsCollected; x++) {
@@ -2709,6 +2720,9 @@ void render_hub_selection(void) {
                     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
                     sDelayedWarpTimer = 15;
                     sSourceWarpNodeId = hubSelections[gWorldID][gFocusID].warpID;
+                    if(hubSelections[gWorldID][gFocusID].courseID == 6 && gCurrActNum > 1) { //ff special case
+                        sSourceWarpNodeId = 0x1C;
+                    }
                     gIntroCutsceneState = 0;
                 } else if(hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
                     gLevelEntryConfirmationActive = 1;
@@ -2802,6 +2816,20 @@ Gfx bg_Plane_mesh_tri_0[] = {
 	gsSPEndDisplayList(),
 };
 
+Vtx bg_Plane_mesh_vtx_1[4] = {
+	{{{-2, 80, 0}, 0, {-16, 1008}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{60, 80, 0}, 0, {1008, 1008}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{60, 100, 0}, 0, {1008, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{-2, 100, 0}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
+};
+
+Gfx bg_Plane_mesh_tri_1[] = {
+	gsSPVertex(bg_Plane_mesh_vtx_1 + 0, 4, 0),
+	gsSP1Triangle(0, 1, 2, 0),
+	gsSP1Triangle(0, 2, 3, 0),
+	gsSPEndDisplayList(),
+};
+
 Gfx mat_bg_f3dlite_material[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
@@ -2828,6 +2856,18 @@ Gfx bg_star_select_mesh[] = {
 	gsSPEndDisplayList(),
 };
 
+Gfx bg_star_select_100_coin_mesh[] = {
+	gsSPDisplayList(mat_bg_f3dlite_material),
+	gsSPDisplayList(bg_Plane_mesh_tri_1),
+	gsSPDisplayList(mat_revert_bg_f3dlite_material),
+	gsDPPipeSync(),
+	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPClearGeometryMode(G_TEXTURE_GEN),
+	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
+	gsSPTexture(65535, 65535, 0, 0, 0),
+	gsSPEndDisplayList(),
+};
+
 u32 starColors[] = {
     0x00FFFFFF, //hynotizing high rise
     0xF6ACA9FF, //koopa atoll
@@ -2843,6 +2883,8 @@ u32 starColors[] = {
 };
 
 f32 rotVal = 0.0f;
+f32 rotVal100Coin = 0.0f;
+u8 *textOneHundredCoin = { TEXT_100_COIN_STAR };
 void render_hub_star_select(s32 cringeTimer) {
     u8 **levelNameTbl = segmented_to_virtual(seg2_course_name_table);
     u8 *currLevelName = segmented_to_virtual(levelNameTbl[COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID)]);
@@ -2866,6 +2908,7 @@ void render_hub_star_select(s32 cringeTimer) {
     u8 starColorR;
     u8 starColorG;
     u8 starColorB;
+    rotVal100Coin += 5.0f;
 
     starColor = starColors[hubSelections[gWorldID][gFocusID].courseID - 1];
     starColorR = starColor >> 24;
@@ -2929,11 +2972,13 @@ void render_hub_star_select(s32 cringeTimer) {
     gSPClearGeometryMode(gDisplayListHead, G_ZBUFFER);
     gDPPipeSync(gDisplayListHead++);
     gSPDisplayList(gDisplayListHead++, bg_star_select_mesh);
+    gSPDisplayList(gDisplayListHead++, bg_star_select_100_coin_mesh);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, fadeTextTimer);
     lvlNameX = get_str_x_pos_from_center(160, currLevelName + 3, 10.0f);
     print_generic_string(lvlNameX, 180, currLevelName + 3);
+    print_generic_string(2, 82, textOneHundredCoin);
 
     selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID) * 6 + selectedStar]);
     actNameX = get_str_x_pos_from_center(160, selectedActName, 8.0f);
@@ -2995,6 +3040,34 @@ void render_hub_star_select(s32 cringeTimer) {
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     gDPSetDepthSource(gDisplayListHead++, G_ZS_PIXEL);
     gDPPipeSync(gDisplayListHead++);
+
+
+
+    //100 coin star
+    create_dl_translation_matrix(MENU_MTX_PUSH, 50.0f, 90.0f, 0.0f);
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.04f, 0.04f, 0.0005f);
+
+    geo_clear_zbuffer(gDisplayListHead);
+    gSPSetGeometryMode(gDisplayListHead++, G_ZBUFFER);
+    gDPPipeSync(gDisplayListHead++);
+    localTimer = cringeTimer;
+    if (localTimer < 0) { localTimer = 0; }
+    create_dl_translation_matrix(MENU_MTX_PUSH, -(200.0f / ((((f32)(localTimer)) / 10.0f) + 0.1f)), 0.0f, 0.0f);
+
+    create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal100Coin + 180.0f, 0.0f, 1.0f, 0.0f);
+
+    if(stars & (0x40)) {
+        gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+        gSPDisplayList(gDisplayListHead++, star_hud_dl);
+    } else {
+        gSPDisplayList(gDisplayListHead++, transparent_star_hud_dl);
+    }
+
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+    gDPSetDepthSource(gDisplayListHead++, G_ZS_PIXEL);
+    gDPPipeSync(gDisplayListHead++);
 }
 
 u8 levelConfString[] = { TEXT_LEVEL_CONFIRMATION };
@@ -3038,6 +3111,10 @@ u8 textContinueToNextAct[] = { TEXT_CONTINUE_TO_NEXT_ACT };
 u8 textReplayLastAct[] = { TEXT_REPLAY_LAST_ACT };
 u8 textExitCourseLC[] = { TEXT_EXIT_COURSE_LC };
 u8 textExitGame[] = { TEXT_EXIT_GAME };
+u8 textAndThe100CoinStar[] = { TEXT_AND_THE_100_COIN_STAR };
+u8 textAndTheRedCoinStar[] = { TEXT_AND_THE_RED_COIN_STAR };
+u8 textNextUnfinishedAct[] = { TEXT_NEXT_UNFINISHED_ACT };
+u8 textAllActsCompleted[] = { TEXT_ALL_ACTS_COMPLETED };
 
 extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
@@ -3074,13 +3151,18 @@ void end_results_loop(void) {
     rotVal += 5.0f;
     if(rotVal > 360.0f) {rotVal -= 360.0f;}
 
+    rotVal100Coin += 7.0f;
+    if(rotVal > 360.0f) {rotVal -= 360.0f;}
+
     if(gDirectionsHeld & JOYSTICK_UP) {
         gEndResultMenuChoice--;
         if(gEndResultMenuChoice < 0) {gEndResultMenuChoice = 1 + gEndResultMenuState;}
+        play_sound(SOUND_MENU_CHANGE_SELECT, gGlobalSoundSource);
     }
     if(gDirectionsHeld & JOYSTICK_DOWN) {
         gEndResultMenuChoice++;
         if(gEndResultMenuChoice > 1 + gEndResultMenuState) {gEndResultMenuChoice = 0;}
+        play_sound(SOUND_MENU_CHANGE_SELECT, gGlobalSoundSource);
     }
     gHudDisplay.flags = 0;
     if(gEndResultMenuState < 2) {
@@ -3089,29 +3171,41 @@ void end_results_loop(void) {
         gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
             create_dl_scale_matrix(MENU_MTX_PUSH, 2.0f, 2.0f, 1.0f);
             if(gCurrCourseNum > 0 && gCurrCourseNum < 16) {
-                print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 95, textYouGotAStar);
+                print_generic_string(get_str_x_pos_from_center(80, textYouGotAStar, 2.0f), 105, textYouGotAStar);
             } else {
-                print_generic_string(get_str_x_pos_from_center(80, textYouGotAKey, 2.0f), 95, textYouGotAKey);
+                print_generic_string(get_str_x_pos_from_center(80, textYouGotAKey, 2.0f), 105, textYouGotAKey);
             }
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+        if(gCoinStarCollected) {
+            print_generic_string(110, 190, textAndThe100CoinStar);
+        }
+        if(gRedCoinStarCollected) {
+            print_generic_string(110, 190, textAndTheRedCoinStar);
+        }
         actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
         print_generic_string(actNameX + 10, 160, selectedActName);
 
         if(gEndResultMenuState == 1) {
             if(nextUnfinishedAct == 0) {
+                print_generic_string(get_str_x_pos_from_center(160, textAllActsCompleted, 2.0f), 130, textAllActsCompleted);
                 textReplayLastAct[11] = 0x30 + gDialogCourseActNum;
-                print_generic_string(110, 110, textReplayLastAct);
+                print_generic_string(110, 70, textReplayLastAct);
             } else {
+                u8 *nextActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + nextUnfinishedAct - 1]);
+                textNextUnfinishedAct[13] = 0x30 + nextUnfinishedAct;
+                print_generic_string(get_str_x_pos_from_center(160, textNextUnfinishedAct, 2.0f), 130, textNextUnfinishedAct);
+                print_generic_string(get_str_x_pos_from_center(160, nextActName, 2.0f), 110, nextActName);
                 textContinueToNextAct[16] = 0x30 + nextUnfinishedAct;
-                print_generic_string(110, 110, textContinueToNextAct);
+                print_generic_string(110, 70, textContinueToNextAct);
             }
-            print_generic_string(110, 90, textExitCourseLC);
-            print_generic_string(110, 70, textExitGame);
-                create_dl_translation_matrix(MENU_MTX_PUSH, 90.0f, 110.0f - (gEndResultMenuChoice*20.0f), 0.0f);
+            print_generic_string(110, 50, textExitCourseLC);
+            print_generic_string(110, 30, textExitGame);
+                create_dl_translation_matrix(MENU_MTX_PUSH, 90.0f, 70.0f - (gEndResultMenuChoice*20.0f), 0.0f);
                 gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
                 gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
             
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+                play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
                 if(gEndResultMenuChoice == 0) {
                     if(nextUnfinishedAct > 0) {
                         gCurrActNum = nextUnfinishedAct;
@@ -3140,17 +3234,20 @@ void end_results_loop(void) {
                 gEndResultMenuChoice = 0;
                 gEndResultsActive = 0;
                 gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
+                gCoinStarCollected = 0;
+                gRedCoinStarCollected = 0;
             }
         }
         if(gEndResultMenuState == 0) {
             print_generic_string(get_str_x_pos_from_center(160, textSaveQuestion, 2.0f), 140, textSaveQuestion);
-            print_generic_string(150, 100, textYesLC);
-            print_generic_string(150, 80, textNoLC);
-                create_dl_translation_matrix(MENU_MTX_PUSH, 130.0f, 100.0f - (gEndResultMenuChoice*20.0f), 0.0f);
+            print_generic_string(150, 60, textYesLC);
+            print_generic_string(150, 40, textNoLC);
+                create_dl_translation_matrix(MENU_MTX_PUSH, 130.0f, 60.0f - (gEndResultMenuChoice*20.0f), 0.0f);
                 gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
                 gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
+                play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
                 if(gEndResultMenuChoice == 0) {
                     save_file_do_save(gCurrSaveFileNum - 1);
                 }
@@ -3167,7 +3264,11 @@ void end_results_loop(void) {
                     gEndResultsActive = 0;
                     gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
                 }
-                gEndResultMenuChoice = 0;
+                if(nextUnfinishedAct == 0) {
+                    gEndResultMenuChoice = 1;
+                } else {
+                    gEndResultMenuChoice = 0;
+                }
             }
         }
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
@@ -3184,6 +3285,14 @@ void end_results_loop(void) {
                 create_dl_rotation_matrix(MENU_MTX_NOPUSH, rotVal, 0.0f, 1.0f, 0.0f);
                 create_dl_rotation_matrix(MENU_MTX_NOPUSH, -90.0f, 0.0f, 0.0f, 1.0f);
                 gSPDisplayList(gDisplayListHead++, bowser_key_dl);
+            }
+            if(gCoinStarCollected || gRedCoinStarCollected) {
+                gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+                create_dl_translation_matrix(MENU_MTX_PUSH, 95.0f, 198.0f, 0.0f);
+                create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.03125f, 0.03125f, 0.0005f);
+                create_dl_rotation_matrix(MENU_MTX_NOPUSH, 165.0f + (rotVal100Coin), 0.0f, 1.0f, 0.0f);
+                gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
+                gSPDisplayList(gDisplayListHead++, star_hud_dl);
             }
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 

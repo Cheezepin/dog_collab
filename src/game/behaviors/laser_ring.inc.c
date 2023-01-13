@@ -3,11 +3,11 @@
 #define ZH_LASER_RING_SPAWNER_ACT_COOLDOWN 2
 
 #define ZH_LASER_RING_GROWTH_RATE 0.1f
-#define ZH_LASER_RING_GROWTH_TIME 40
+#define ZH_LASER_RING_GROWTH_TIME 60
 #define ZH_LASER_RING_BASE_RADIUS 250
 
-#define ZH_LASER_RING_SPAWNER_CHARGE_TIME    20
-#define ZH_LASER_RING_SPAWNER_COOLDOWN_TIME  20
+#define ZH_LASER_RING_SPAWNER_CHARGE_TIME    40
+#define ZH_LASER_RING_SPAWNER_COOLDOWN_TIME  40
 #define ZH_LASER_RING_SPAWNER_DETECT_RADIUS  (ZH_LASER_RING_BASE_RADIUS * ZH_LASER_RING_GROWTH_RATE * ZH_LASER_RING_GROWTH_TIME)
 
 static struct ObjectHitbox sLaserRingHitbox = {
@@ -45,7 +45,12 @@ void bhv_laser_ring_spawner_init(void)
         o->oInteractionSubtype |= INT_SUBTYPE_TWIRL_BOUNCE;
     }
     o->oLaserRingDetectDist = (f32)(ZH_LASER_RING_BASE_RADIUS * ZH_LASER_RING_GROWTH_TIME);
-    if(gCurrLevelNum == LEVEL_BITS) {o->oLaserRingDetectDist *= ZH_LASER_RING_GROWTH_RATE*1.5f;} else {o->oLaserRingDetectDist *= ZH_LASER_RING_GROWTH_RATE;}
+    if(gCurrLevelNum == LEVEL_PSS) {
+        o->oLaserRingDetectDist *= ZH_LASER_RING_GROWTH_RATE*2.0f;
+        if(o->oAnimState == 1) {
+            o->oLaserRingDetectDist *= 2.0f;
+        }
+    } else {o->oLaserRingDetectDist *= ZH_LASER_RING_GROWTH_RATE;}
 }
 
 static void laser_ring_spawner_act_idle(f32 xzDist)
@@ -106,8 +111,8 @@ void bhv_laser_ring_spawner_loop(void)
 void bhv_laser_ring_init(void)
 {
     cur_obj_scale(0.0f);
-    if(gCurrLevelNum == LEVEL_BITS) {
-        o->oLaserRingGrowthRate = 0.15f;
+    if(gCurrLevelNum == LEVEL_PSS) {
+        o->oLaserRingGrowthRate = 0.1f;
     } else {
         o->oLaserRingGrowthRate = 0.1f;
     }
@@ -139,7 +144,13 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
     }
     cur_obj_scale(o->oTimer * o->oLaserRingGrowthRate);
 } else {
-    if (o->oTimer > ZH_LASER_RING_GROWTH_TIME)
+     if(o->parentObj->oAnimState == 1) {
+        if (o->oTimer > ZH_LASER_RING_GROWTH_TIME *2)
+    {
+        obj_mark_for_deletion(o);
+        return;
+    }
+     }else if (o->oTimer > ZH_LASER_RING_GROWTH_TIME)
     {
         obj_mark_for_deletion(o);
         return;

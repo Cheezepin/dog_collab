@@ -67,10 +67,10 @@ void bhv_bowser_course_red_coin_star_loop(void) {
     }
 }
 
-void bhv_final_bowser_course_red_coin_star_loop(void) {
+void bhv_final_bowser_course_dog_bone_star_loop(void) {
     switch (o->oAction) {
         case 0:
-            if (gBowserRedCoinsCollected == 12) {
+            if (save_file_get_dog_bone_count(gCurrSaveFileNum - 1) == 12) {
                 o->oAction = 1;
             }
             break;

@@ -65,20 +65,3 @@ void bhv_red_coin_loop(void) {
         o->oInteractStatus = INT_STATUS_NONE;
     }
 }
-
-void bhv_bowser_red_coin_loop(void) {
-    if (o->oInteractStatus & INT_STATUS_INTERACTED) {
-
-        gBowserRedCoinsCollected++;
-        spawn_orange_number(gBowserRedCoinsCollected, 0, 0, 0);
-
-        // On all versions but the JP version, each coin collected plays a higher noise.
-        play_sound(SOUND_MENU_COLLECT_RED_COIN
-                    + (((u8) gBowserRedCoinsCollected - 1) << 16),
-                    gGlobalSoundSource);
-
-        coin_collected();
-        // Despawn the coin.
-        o->oInteractStatus = INT_STATUS_NONE;
-    }
-}

@@ -12,6 +12,7 @@
 #include "levels/scripts.h"
 
 #include "actors/common1.h"
+#include "actors/group14.h"
 
 /* Fast64 begin persistent block [includes] */
 /* Fast64 end persistent block [includes] */
@@ -49,6 +50,9 @@ const LevelScript level_pss_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_TRAPEZE, trapeze_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CLOWN_CLOCK, clown_clock_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_BITS_OCTAGONAL_PLATFORM, bits_octagonal_platform_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_RC_SIGN, rcsign_geo), 
+	// LOAD_MODEL_FROM_GEO(MODEL_COZY_WATER_SPOUT_PSS, water_spout_pss_geo), 
+    // LOAD_MODEL_FROM_GEO(MODEL_COZY_FLIPPY_BITCH_PSS, flippy_bitch_pss_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -85,10 +89,10 @@ const LevelScript level_pss_entry[] = {
 		OBJECT(MODEL_CIRCUS_BALLOON, 11460, 1772, -3691, 0, 0, 0, 0x00020000, bhvCircusBalloonBits),
 		MARIO_POS(0x01, 0, -5744, 4573, 10),
 		OBJECT(MODEL_RC_SIGN, 16842, 2661, -1878, 0, -90, 0, 0x00000000, bhvRedCoinSign),
+		OBJECT(MODEL_DOG_BONE, 6978, -24, -4578, 0, 90, 0, 0x00000000, bhvDogBone),
 		OBJECT(MODEL_TRAPEZE, 15585, 2962, -2173, 0, -180, 0, 0x00000000, bhvTrapeze),
 		OBJECT(MODEL_TRAPEZE, 17764, 3132, -2173, 0, -180, 0, 0x00000000, bhvTrapeze),
 		OBJECT(MODEL_NONE, -5740, 4669, 10, 0, 90, 0, 0x000A0000, bhvSpinAirborneWarp),
-		OBJECT(MODEL_RED_COIN, 6978, -24, -4578, 0, 90, 0, 0x00000000, bhvFinalBowserRedCoin),
 		OBJECT(MODEL_WARP_BOX, 19135, 3020, -2173, 0, 0, 0, (2 << 16), bhvWarpBox),
 		OBJECT(MODEL_WARP_BOX, -6235, 5147, 12, 0, 90, 0, (1 << 24) | (1 << 16), bhvWarpBox),
 		TERRAIN(pss_area_1_collision),
@@ -113,7 +117,7 @@ const LevelScript level_pss_entry[] = {
 		OBJECT(MODEL_NONE, 8094, -2464, 7959, 0, 64, 0, 0x00000000, bhvCoinFormation),
 		MARIO_POS(0x01, 0, 8571, -1902, 10229),
 		OBJECT(MODEL_RC_SIGN, 2377, 1784, 7652, 0, -180, 0, 0x00000000, bhvRedCoinSign),
-		OBJECT(MODEL_RED_COIN, -2606, 988, 5584, 0, 0, 0, 0x00000000, bhvFinalBowserRedCoin),
+		OBJECT(MODEL_DOG_BONE, -2606, 988, 5584, 0, 0, 0, 0x00000000, bhvDogBone),
 		OBJECT(MODEL_NONE, 8776, -1690, 10418, 0, 30, 0, 0x000A0000, bhvSpinAirborneWarp),
 		OBJECT(MODEL_WARP_BOX, 2104, 2139, 7851, 0, 0, 0, (0 << 24) | (2 << 16), bhvWarpBox),
 		OBJECT(MODEL_WARP_BOX, 8947, -1905, 10810, 0, -180, 0, (1 << 24) | (1 << 16), bhvWarpBox),
@@ -138,7 +142,7 @@ const LevelScript level_pss_entry[] = {
 		OBJECT(0x1F6, -4824, 0, 555, 0, 0, 0, (1 << 16), bhvLaserRingSpawner),
 		OBJECT(0x1F6, -3, 0, 1417, 0, -90, 0, 0x00000000, bhvLaserRingSpawner),
 		OBJECT(MODEL_RC_SIGN, 5930, 289, 650, 0, -90, 0, 0x00000000, bhvRedCoinSign),
-		OBJECT(MODEL_RED_COIN, 4, 904, 3, 0, -180, 0, (1 << 16), bhvFinalBowserRedCoin),
+		OBJECT(MODEL_DOG_BONE, 4, 904, 3, 0, -180, 0, 0x00000000, bhvDogBone),
 		OBJECT(MODEL_WARP_BOX, -9853, 177, 10, 0, 90, 0, (1 << 24) | (1 << 16), bhvWarpBox),
 		OBJECT(MODEL_WARP_BOX, 6231, 743, -727, 0, 90, 0, (0 << 24) | (2 << 16), bhvWarpBox),
 		OBJECT(MODEL_NONE, -9680, 284, -150, 0, 90, 0, (0xA << 16), bhvSpinAirborneWarp),
@@ -175,7 +179,7 @@ const LevelScript level_pss_entry[] = {
 		OBJECT(MODEL_YELLOW_COIN, 4647, 2282, 13542, 0, 0, 0, 0x00000000, bhvYellowCoin),
 		OBJECT(MODEL_YELLOW_COIN, 4647, 1882, 13442, 0, 0, 0, 0x00000000, bhvYellowCoin),
 		OBJECT(MODEL_YELLOW_COIN, -8418, 7220, -4517, 0, 0, 0, 0x00000000, bhvYellowCoin),
-		OBJECT(MODEL_DOG, 3932, -748, 13288, 0, -180, 0, 0x00000000, bhvDogNPC),
+		OBJECT(MODEL_DOG, 3932, -748, 13288, 0, -180, 0, (CHEEZE_DIALOG_11 << 16), bhvDogNPC),
 		OBJECT(MODEL_BOWLING_BALL, -604, 7085, -4187, 0, 0, 0, 0x00000000, bhvFireSpitter),
 		OBJECT(MODEL_BOWLING_BALL, 6506, 1986, 15222, 0, 0, 0, 0x00000000, bhvFireSpitter),
 		OBJECT(MODEL_FLYGUY, -604, 7513, -4187, 0, 0, 0, 0x00000000, bhvFlyGuy),
@@ -194,7 +198,7 @@ const LevelScript level_pss_entry[] = {
 		OBJECT(MODEL_DL_MONTY_MOLE_HOLE, 14323, 2410, 4781, 0, -180, 0, 0x00000000, bhvMontyMoleHole),
 		OBJECT(MODEL_BITS_OCTAGONAL_PLATFORM, -604, 6637, -4187, 0, 0, 0, (2 << 16), bhvOctagonalPlatformRotating),
 		OBJECT(MODEL_RC_SIGN, 3670, -750, 13511, 0, 90, 0, 0x00000000, bhvRedCoinSign),
-		OBJECT(MODEL_RED_COIN, 4771, 2406, 15037, 0, 0, 0, 0x00000000, bhvFinalBowserRedCoin),
+		OBJECT(MODEL_DOG_BONE, 4771, 2406, 15037, 0, 0, 0, 0x00000000, bhvDogBone),
 		OBJECT(MODEL_REX, -2735, 6939, -4334, 0, 0, 0, 0x00000000, bhvRex),
 		OBJECT(MODEL_WARP_BOX, -16705, 9296, -10114, 0, 90, 0, (1 << 24) | (1 << 16), bhvWarpBox),
 		OBJECT(MODEL_WARP_BOX, 3439, -68, 13091, 0, 90, 0, (0 << 24) | (2 << 16), bhvWarpBox),
@@ -248,7 +252,7 @@ const LevelScript level_pss_entry[] = {
 		OBJECT(MODEL_NONE, -1167, 1940, -3128, 0, 13, 0, 0x00000000, bhvGoombaTripletSpawner),
 		OBJECT(MODEL_NONE, 830, 1789, 183, 0, 13, 0, 0x00000000, bhvGoombaTripletSpawner),
 		MARIO_POS(0x01, 0, -1508, 79, 1291),
-		OBJECT(MODEL_RED_COIN, 2218, 1588, 114, 0, 0, 0, 0x00000000, bhvFinalBowserRedCoin),
+		OBJECT(MODEL_DOG_BONE, 2218, 1588, 114, 0, 0, 0, 0x00000000, bhvDogBone),
 		OBJECT(MODEL_RC_SIGN, -9914, 1957, -2350, 0, 90, 0, 0x00000000, bhvRedCoinSign),
 		TERRAIN(pss_area_5_collision),
 		ROOMS(pss_area_5_collision_rooms),
@@ -259,15 +263,42 @@ const LevelScript level_pss_entry[] = {
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
+	AREA(6, pss_area_6),
+		WARP_NODE(0x0A, LEVEL_PSS, 0x06, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_PSS, 0x06, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(1, LEVEL_PSS, 6, 1, WARP_NO_CHECKPOINT),
+		WARP_NODE(2, LEVEL_PSS, 7, 1, WARP_NO_CHECKPOINT),
+		/* OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 14100, 205, 500, 0, 0, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 13500, 205, 500, 0, 0, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 13000, 1300, 700, 0, 0, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 12900, 1500, 800, 0, 90, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 12900, 1700, 1600, 0, 90, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 13000, 1900, 1700, 0, 180, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 9300, 3200, -1900, 0, 0, 0, 0x00000000, bhvFlippyBitchPSS),
+		OBJECT(MODEL_COZY_FLIPPY_BITCH_PSS, 9500, 3300, -1100, 0, -90, 0, 0x00000000, bhvFlippyBitchPSS), */
+		MARIO_POS(0x06, -90, 19787, -2900, 0),
+		OBJECT(MODEL_NONE, 19787, -2900, 0, 0, -90, 0, (0x0A << 16), bhvSpinAirborneWarp),
+		// OBJECT(MODEL_COZY_WATER_SPOUT_PSS, 18417, -1857, 0, 0, 0, 0, 0x00000000, bhvWaterSpoutPSS),
+		// OBJECT(MODEL_COZY_WATER_SPOUT_PSS, 16738, -600, 0, 0, 0, 0, 0x00000000, bhvWaterSpoutPSS),
+		OBJECT(MODEL_WARP_BOX, 20000, -2900, 0, 0, -90, 0, (1 << 24) | (1 << 16), bhvWarpBox),
+		OBJECT(MODEL_WARP_BOX, 10100, 4654, 300, 0, -90, 0, (0 << 24) | (2 << 16), bhvWarpBox),
+		TERRAIN(pss_area_6_collision),
+		MACRO_OBJECTS(pss_area_6_macro_objs),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		TERRAIN_TYPE(TERRAIN_WATER),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
 	AREA(7, pss_area_7),
 		WARP_NODE(0x0A, LEVEL_PSS, 7, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_PSS, 7, 1, WARP_NO_CHECKPOINT),
 		WARP_NODE(1, LEVEL_PSS, 7, 1, WARP_NO_CHECKPOINT),
 		WARP_NODE(2, LEVEL_BOWSER_3, 1, 0xA, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_NONE, -5207, 2700, 0, 0, 0, 0, 0x00000000, bhvFinalBowserCourseRedCoinStar),
+		OBJECT(MODEL_NONE, -5207, 2700, 0, 0, 0, 0, 0x00000000, bhvFinalBowserCourseDogBoneStar),
 		OBJECT(MODEL_WARP_BOX, -6207, 2700, 0, 0, 0, 0, (0 << 24) | (2 << 16) | (1), bhvWarpBox),
 		OBJECT(MODEL_WARP_BOX, 750, 200, 0, 0, -90, 0, (1 << 24) | (1 << 16), bhvWarpBox),
-		OBJECT(MODEL_NONE, 217, 0, -149, 0, 90, 0, (0xA << 16), bhvSpinAirborneWarp),
+		OBJECT(MODEL_NONE, 0, 100, 0, 0, 90, 0, (0xA << 16), bhvSpinAirborneWarp),
 		TERRAIN(pss_area_7_collision),
 		MACRO_OBJECTS(pss_area_7_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_SOUND_PLAYER),
@@ -277,7 +308,7 @@ const LevelScript level_pss_entry[] = {
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 0, -1508, 79, 1291),
+	MARIO_POS(0x06, -90, 19787, -2900, 0),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),

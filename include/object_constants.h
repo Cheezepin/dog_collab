@@ -474,6 +474,7 @@ enum oBobombBuddyHasTalkedToMarioStates {
     #define BOWSER_ACT_CC_CHARGE                            0x21
     #define BOWSER_ACT_CC_WHIRL                             0x22
     #define BOWSER_ACT_CC_UNK1                              0x23
+    #define BOWSER_ACT_MID_DIALOG                           0x23
     /* oAnimState */
     #define BOWSER_ANIM_STATE_OPAQUE                        TRANSPARENCY_ANIM_STATE_OPAQUE
     #define BOWSER_ANIM_STATE_TRANSPARENT                   TRANSPARENCY_ANIM_STATE_TRANSPARENT

@@ -365,7 +365,7 @@ void bowser_act_wait_for_mario(void) {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
     }
     //o->oHealth = 1; //DEBUG REMOVE LATER
-    o->oAction = BOWSER_ACT_DEAD;
+    // o->oAction = BOWSER_ACT_DEAD;
     //if(o->oTimer == 5) {
     //    spawn_object(o, MODEL_PEACH, bhvPeachEnding);
     //}
@@ -516,7 +516,7 @@ void bowser_bitfs_actions(void) {
 void bowser_bits_action_list(void) {
     f32 rand = random_float();
     if (o->oBowserStatus & BOWSER_STATUS_ANGLE_MARIO) {
-        if(o->oBowserCCObj->oSubAction == CHAIN_CHOMP_SUB_ACT_BURNED) {
+        if(gCurrLevelNum != LEVEL_BOWSER_3 || o->oBowserCCObj->oSubAction == CHAIN_CHOMP_SUB_ACT_BURNED) {
             if (o->oDistanceToMario < 1000.0f) { // nearby
                 if (rand < 0.4f) {
                     o->oAction = BOWSER_ACT_SPIT_FIRE_ONTO_FLOOR; // 40% chance
@@ -1002,7 +1002,7 @@ void bowser_act_snow(void) {
             cur_obj_init_animation(BOWSER_ANIM_IDLE);
             if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 1) {
                 o->oSubAction = 2;
-                create_dialog_box(DIALOG_067);
+                create_dialog_box(DIALOG_092);
             }
             if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 2) {
                 gCamera->cutscene = 0;
@@ -1121,6 +1121,8 @@ void bowser_act_hit_mine(void) {
             // Makes Bowser dance at one health (in BITS)
             if (o->oHealth == 1) {
                 o->oAction = BOWSER_ACT_DANCE;
+            } else if (o->oHealth == 3) {
+                o->oAction = BOWSER_ACT_MID_DIALOG;
             } else {
                 o->oAction = BOWSER_ACT_DEFAULT;
             }
@@ -1531,11 +1533,13 @@ s32 bowser_check_hit_mine(void) {
         mine = cur_obj_find_nearest_object_with_behavior(bhvGoddardCage, &dist);
         if (mine != NULL && dist < 800.0f && o->oAction == BOWSER_ACT_THROWN) {
             mine->oInteractStatus |= INT_STATUS_HIT_MINE;
+            spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);
             return TRUE;
         } else {
             mine = cur_obj_find_nearest_object_with_behavior(bhvEmuBomb, &dist);
             if (mine != NULL && dist < 800.0f) {
                 mine->oInteractStatus |= INT_STATUS_HIT_MINE;
+                spawn_object(o,MODEL_NONE,bhvThreeCoinsSpawn);
                 return TRUE;
             }
         }
@@ -1698,6 +1702,23 @@ void bowser_act_dance(void) {
     if (cur_obj_init_animation_and_check_if_near_end(BOWSER_ANIM_DANCE)) {
         o->oAction = BOWSER_ACT_DEFAULT;
     }
+}
+
+void bowser_act_mid_dialog(void) {
+    if (o->oSubAction !=2) o->oSubAction = 1;
+    cur_obj_init_animation(BOWSER_ANIM_IDLE);
+    set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+    if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 1) {
+                o->oSubAction = 2;
+                create_dialog_box(EMU_DIALOG_1);
+            }
+            if (get_dialog_id() == DIALOG_NONE && o->oSubAction == 2) {
+                gCamera->cutscene = 0;
+                o->oAction = BOWSER_ACT_DEFAULT;
+                o->oMoveAnglePitch = o->oMoveAngleRoll = o->oFaceAnglePitch = o->oFaceAngleRoll = 0;
+                set_mario_action(gMarioState, ACT_IDLE, 0);
+            }
+            
 }
 
 /**
@@ -2095,6 +2116,7 @@ void (*sBowserActions[])(void) = {
     bowser_act_cc_jump,
     bowser_act_cc_charge,
     bowser_act_cc_whirl,
+    bowser_act_mid_dialog,
 };
 
 /**

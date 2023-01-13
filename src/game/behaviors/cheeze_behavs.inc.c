@@ -292,7 +292,9 @@ void bhv_warp_box_loop(void) {
                 }
                 else {
                     if(o->oTimer < 9) {
-                        vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
+                        s32 idx = o->oTimer - 1;
+                        idx = CLAMP(idx, 0, ARRAY_COUNT(warpBoxScaleFrames));
+                        vec3f_copy(o->header.gfx.scale, warpBoxScaleFrames[idx]);
                     }
                     if(o->oTimer == 15) {
                         sDelayedWarpOp = 1;
@@ -311,6 +313,7 @@ void bhv_warp_box_loop(void) {
             o->oTimer = 0;
             o->oPosY -= 50.0f;
             o->oVelY = 25.0f;
+            stop_shell_music();
             play_sound(SOUND_CUSTOM_WARP_BOX_IN, gGlobalSoundSource);
         }
         if(o->oWarpBoxInnerScale >= 1.0f) {
@@ -320,7 +323,9 @@ void bhv_warp_box_loop(void) {
         }
     } else if(gCurrCreditsEntry == NULL) {
         if(o->oTimer < 9) {
-            vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
+            s32 idx = o->oTimer - 1;
+            idx = CLAMP(idx, 0, ARRAY_COUNT(warpBoxScaleFrames));
+            vec3f_copy(o->header.gfx.scale, warpBoxScaleFrames[idx]);
             o->oWarpBoxInnerScale = 1.0f;
         }
         if(o->oTimer == 4) {
@@ -330,7 +335,7 @@ void bhv_warp_box_loop(void) {
             play_sound(SOUND_CUSTOM_WARP_BOX_OUT, gGlobalSoundSource);
         }
         if(o->oTimer >= 15) {
-            if(o->oWarpBoxInnerScale > 0.0f) {
+            if(o->oWarpBoxInnerScale > 0.001f) {
                 o->oWarpBoxInnerScale -= 0.125f;
             }
         } else {
@@ -341,6 +346,9 @@ void bhv_warp_box_loop(void) {
             explosion->oGraphYOffset += 100.0f;
             obj_mark_for_deletion(o);
         }
+    }
+    if(o->oWarpBoxInnerScale < 0.001f) {
+        o->oWarpBoxInnerScale = 0.001f;
     }
 }
 
@@ -600,4 +608,46 @@ void bhv_peach_ending_loop(void) {
         level_trigger_warp(gMarioState, WARP_OP_CREDITS_NEXT);
     }*/
 }
+
+void bhv_dog_bone_init(void) {
+    if(save_file_check_dog_bone_collected(gCurrSaveFileNum - 1, gCurrAreaIndex, gCurrLevelNum)) {
+        obj_mark_for_deletion(o);
+    }
+}
+
+void bhv_dog_bone_loop(void) {
+    o->oFaceAngleYaw += 0x400;
+    o->oPosY = o->oHomeY + 10.0f*sins(o->oTimer * 0x500);
+    if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+        s32 numBones;
+
+        save_file_set_dog_bone_bit(gCurrSaveFileNum - 1, gCurrAreaIndex, gCurrLevelNum);
+        numBones = save_file_get_dog_bone_count(gCurrSaveFileNum - 1);
+        spawn_orange_number(numBones, 0, 0, 0);
+
+        // On all versions but the JP version, each coin collected plays a higher noise.
+        play_sound(SOUND_MENU_COLLECT_RED_COIN
+                    + (((u8) numBones - 1) << 16),
+                    gGlobalSoundSource);
+
+        coin_collected();
+        // Despawn the coin.
+        o->oInteractStatus = INT_STATUS_NONE;
+    }
+}
+
+void bhv_save_switch_loop(void) {
+    save_file_set_flags(SAVE_FLAG_B3_CHECKPOINT_REACHED);
+    if(o->oAction == PURPLE_SWITCH_ACT_PRESSED && o->oTimer == 1) {
+        gSaveFileModified = TRUE;
+        save_file_do_save(gCurrSaveFileNum - 1);
+    }
+}
+
+void bhv_special_warp_box_init(void) {
+    if(!(save_file_get_flags() & SAVE_FLAG_B3_CHECKPOINT_REACHED)) {
+        obj_mark_for_deletion(o);
+    }
+}
+
 

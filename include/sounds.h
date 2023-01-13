@@ -565,6 +565,8 @@ enum SoundBank {
 #define SOUND_MENU_COLLECT_RED_COIN              /* 0x78289080 */ SOUND_ARG_LOAD(SOUND_BANK_MENU,     0x28, 0x90, SOUND_CONSTANT_FREQUENCY | SOUND_DISCRETE)
 #define SOUND_MENU_COLLECT_SECRET                /* 0x70302080 */ SOUND_ARG_LOAD(SOUND_BANK_MENU,     0x30, 0x20, SOUND_DISCRETE)
 
+#define SOUND_MENU_DOG_ROO                       /* 0x045F8080 */ SOUND_ARG_LOAD(SOUND_BANK_MENU,  0x40, 0x80, SOUND_NO_PRIORITY_LOSS | SOUND_DISCRETE)
+
 // Channel 8 loads sounds from the same place as channel 3, making it possible
 // to play two channel 3 sounds at once (since just one sound from each channel
 // can play at a given time).

@@ -225,7 +225,7 @@ const GeoLayout yellow_coin_no_shadow_geo[] = {
 const GeoLayout blue_coin_geo[] = {
    GEO_SHADOW(SHADOW_CIRCLE_4_VERTS, 0xB4, 80),
    GEO_OPEN_NODE(),
-      GEO_SWITCH_CASE(8, geo_switch_anim_state),
+      GEO_SWITCH_CASE(8, geo_switch_bparam2),
       GEO_OPEN_NODE(),
          GEO_DISPLAY_LIST(LAYER_OCCLUDE_SILHOUETTE_ALPHA, coin_seg3_dl_blue_front),
          GEO_DISPLAY_LIST(LAYER_OCCLUDE_SILHOUETTE_ALPHA, coin_seg3_dl_blue_front),
@@ -244,7 +244,7 @@ const GeoLayout blue_coin_geo[] = {
 const GeoLayout blue_coin_no_shadow_geo[] = {
    GEO_NODE_START(),
    GEO_OPEN_NODE(),
-      GEO_SWITCH_CASE(8, geo_switch_anim_state),
+      GEO_SWITCH_CASE(8, geo_switch_bparam2),
       GEO_OPEN_NODE(),
          GEO_DISPLAY_LIST(LAYER_OCCLUDE_SILHOUETTE_ALPHA, coin_seg3_dl_blue_front),
          GEO_DISPLAY_LIST(LAYER_OCCLUDE_SILHOUETTE_ALPHA, coin_seg3_dl_blue_front),

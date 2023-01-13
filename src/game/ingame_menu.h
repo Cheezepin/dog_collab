@@ -204,7 +204,6 @@ extern u16 gDialogTextAlpha;
 extern s16 gCutsceneMsgXOffset;
 extern s16 gCutsceneMsgYOffset;
 extern s8  gRedCoinsCollected;
-extern s8  gBowserRedCoinsCollected;
 
 extern u32 starColors[];
 
@@ -234,7 +233,6 @@ void set_cutscene_message(s16 xOffset, s16 yOffset, s16 msgIndex, s16 msgDuratio
 void do_cutscene_handler(void);
 void render_hud_cannon_reticle(void);
 void reset_red_coins_collected(void);
-void reset_bowser_red_coins_collected(void);
 s32 render_menus_and_dialogs(void);
 
 void render_dog_keyboard(void);

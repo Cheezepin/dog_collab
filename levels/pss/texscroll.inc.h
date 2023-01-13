@@ -22,4 +22,5 @@ extern void scroll_sts_mat_pss_dl_slide_layer1();
 extern void scroll_sts_mat_pss_dl_nebula_hangable_001_layer1();
 extern void scroll_sts_mat_pss_dl_lava_layer1();
 extern void scroll_sts_mat_pss_dl_Lava_layer1_area5();
+extern void scroll_sts_mat_pss_dl_goooooooop_layer1();
 extern void scroll_pss();

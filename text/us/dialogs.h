@@ -168,18 +168,18 @@ Would you like to Save?\n\
 DEFINE_DIALOG(DIALOG_013, 1, 5, 30, 200, "\
 You've collected 100\n\
 coins! Mario gains more\n\
-power from the castle.\n\
+power from the world.\n\
 Do you want to Save?\n\
-//Yes////No")
+\xD0\xD0Yes\xD0\xD0\xD0No")
 
 DEFINE_DIALOG(DIALOG_014, 1, 4, 30, 200, "\
 Wow! Another Power Star!\n\
 Mario gains more courage\n\
 from the power of the\n\
-castle.\n\
+world.\n\
 Do you want to Save?\n\
 \n\
-//You Bet//Not Now")
+\xD0You Bet\xD0\xD0Not Now")
 
 // Yoshi Milkman
 DEFINE_DIALOG(DIALOG_015, 1, 5, 30, 200, "\
@@ -828,15 +828,21 @@ Good luck, Mario! Our\n\
 fate is in your hands.")
 
 DEFINE_DIALOG(DIALOG_067, 1, 5, 30, 200, "\
-Tough luck, Mario!\n\
-Princess Toadstool isn't\n\
-here...Gwa ha ha!! Go\n\
-ahead--just try to grab\n\
-me by the tail!\n\
-You'll never be able to\n\
-swing ME around! A wimp\n\
-like you won't throw me\n\
-out of here! Never! Ha!")
+Grrr... Mario, after you\n\
+embarrassed me at our\n\
+last showdown, I had to\n\
+put my chain chomp in the\n\
+pound for training...\n\
+But you're out of luck!\n\
+I've locked " TEXT_DOG "\n\
+in a cage... Gwa ha ha!!\n\
+Go ahead--just try to\n\
+grab me by the tail!\n\
+There are no bombs here, \n\
+so what could you possibly \n\
+throw me into? Certainly \n\
+not the dog cage!\n\
+Never! Ha!")
 
 DEFINE_DIALOG(DIALOG_068, 1, 5, 30, 200, "\
 It's Lethal Lava Land!\n\
@@ -990,9 +996,12 @@ it with a high jump into\n\
 the painting. Oh, by the\n\
 way, look what I found!")
 
-DEFINE_DIALOG(DIALOG_077, 1, 2, 150, 200, "\
-It is decreed that one\n\
-shall pound the pillars.")
+DEFINE_DIALOG(DIALOG_077, 1, 3, 30, 200, "\
+@FFFFFFFF\
+     There are no\n\
+@FF0000FF\
+      Red Coins    @FFFFFFFF\n\
+    past this point")
 
 DEFINE_DIALOG(DIALOG_078, 1, 5, 30, 200, "\
 Break open the Blue Coin\n\
@@ -1122,28 +1131,36 @@ Strong Gusts!\n\
 But the wind makes a\n\
 comfy ride.")
 
-DEFINE_DIALOG(DIALOG_092, 1, 5, 30, 200, "\
-Pestering me again, are\n\
-you, Mario? Can't you see\n\
-that I'm having a merry\n\
-little time, making\n\
-mischief with my minions?\n\
-Now, return those Stars!\n\
-My troops in the walls\n\
-need them! Bwa ha ha!")
+DEFINE_DIALOG(DIALOG_092, 1, 4, 30, 200, "\
+Mario, eh? Can't you\n\
+and " TEXT_DOG " see\n\
+that I'm trying to mind\n\
+mind my own business?\n\
+Oh well, that shouldn't\n\
+matter much, as me\n\
+and my trusty chain\n\
+chomp will beat you!\n\
+You'll learn never to\n\
+chase after the Princess\n\
+again! Bwaaaar!!")
 
-DEFINE_DIALOG(DIALOG_093, 1, 5, 30, 200, "\
-Mario! You again! Well\n\
-that's just fine--I've\n\
-been looking for something\n\
-to fry with my fire\n\
-breath!\n\
-Your Star Power is\n\
-useless against me!\n\
-Your friends are all\n\
-trapped within the\n\
-walls...\n\
-And you'll never see the\n\
+DEFINE_DIALOG(DIALOG_093, 1, 7, 30, 200, "\
+Mario! You really\n\
+showed up, huh? My\n\
+chain chomp came back\n\
+from the pound, and\n\
+he's ready to kick\n\
+some plumber butt!\n\
+\n\
+He's learned some new\n\
+tricks so you and your\n\
+silly dog will never\n\
+beat us! Don't even \n\
+think about picking up\n\
+" TEXT_DOG " and\n\
+doing anything funny...\n\
+Nothing can beat us!\n\
+You'll never see the\n\
 Princess again!\n\
 Bwa ha ha ha!")
 
@@ -1481,39 +1498,45 @@ DEFINE_DIALOG(DIALOG_128, 1, 4, 95, 200, "\
 DEFINE_DIALOG(DIALOG_129, 1, 5, 30, 200, "\
 ")
 
-DEFINE_DIALOG(DIALOG_130, 1, 4, 30, 200, "\
-Hey, you found our special\n\
-secret factory.\n\
+DEFINE_DIALOG(DIALOG_130, 1, 5, 30, 200, "\
+Hey, you found our\n\
+special secret factory.\n\
 \n\
 \n\
-Well, it's not that secret,\n\
-but what makes this place\n\
-special is that we operate\n\
-mostly off the grid.\n\
+\n\
+Well, it's not that\n\
+secret, but what makes\n\
+this place special is\n\
+that we operate mostly\n\
+off the grid.\n\
 So um, welcome to the\n\
 Forbidden Factory I suppose.")
 
-DEFINE_DIALOG(DIALOG_131, 1, 3, 30, 200, "\
-Our blocks are the best in\n\
-all the kingdom!\n\
+DEFINE_DIALOG(DIALOG_131, 1, 4, 30, 200, "\
+Our blocks are the best\n\
+in all the kingdom!\n\
 \n\
-Go on, give it a whack.\n\
-Feel that quality ooze\n\
+\n\
+Go on, give it a\n\
+whack. Feel that\n\
+quality ooze\n\
 through your hand.\n\
 I'm actually missing\n\
 a few blocks from this\n\
 shipment.\n\
-Once the power's back on,\n\
-See me if you want to help.")
-
-DEFINE_DIALOG(DIALOG_132, 1, 4, 30, 200, "\
-Safety regulations are a bit\n\
-of a work in progress right\n\
-now.\n\
 \n\
-Oh! You're not with the\n\
-inspection team? Thank\n\
-goodness!")
+Once the power's back\n\
+on, see me if you want\n\
+to help.")
+
+DEFINE_DIALOG(DIALOG_132, 1, 3, 30, 200, "\
+Safety regulations are\n\
+a bit of a work in\n\
+progress right now.\n\
+\n\
+Oh! You're not with\n\
+the inspection team?\n\
+Thank goodness!")
 
 DEFINE_DIALOG(DIALOG_133, 1, 4, 30, 200, "\
 I'm not allowed in the\n\
@@ -1524,27 +1547,32 @@ I'm a 'Workplace Hazard'\n\
 says the oh-so-mighty\n\
 supervisor. Hmph.")
 
-DEFINE_DIALOG(DIALOG_134, 1, 4, 30, 200, "\
-My buddy's locked in that\n\
-room. Some dog went and\n\
-took the key and now he's\n\
-making a mess of the place.\n\
-You need to find him and\n\
-bring him here otherwise\n\
-I'm going to lose my job!\n\
-He can't have gone too far...")
+DEFINE_DIALOG(DIALOG_134, 1, 5, 30, 200, "\
+My buddy's locked in\n\
+that room. Some dog went\n\
+and took the key and now\n\
+he's making a mess of\n\
+the place.\n\
+You need to find him\n\
+and bring him here\n\
+otherwise I'm going\n\
+to lose my job!\n\
+\n\
+He can't have gone too\n\
+far...")
 
 DEFINE_DIALOG(DIALOG_135, 1, 2, 30, 200, "\
 OH COME ON!\n\
 That's going to come out my pay!")
 
-DEFINE_DIALOG(DIALOG_136, 1, 4, 30, 200, "\
-We've been trying to move\n\
-these carts to the central\n\
-pillar for storage, but this\n\
-dog appeared out of nowhere!\n\
-We can't get anything done\n\
-at this rate!")
+DEFINE_DIALOG(DIALOG_136, 1, 5, 30, 200, "\
+We've been trying to\n\
+move these carts to the\n\
+central pillar for storage,\n\
+but this dog appeared out\n\
+of nowhere!\n\
+We can't get anything\n\
+done at this rate!")
 
 DEFINE_DIALOG(DIALOG_137, 1, 3, 30, 200, "\
 I on the other hand\n\
@@ -1568,46 +1596,56 @@ people off!\n\
 Sometimes I feel like\n\
 pushing HIM off.")
 
-DEFINE_DIALOG(DIALOG_140, 1, 4, 30, 200, "\
-My buddy here was telling\n\
-me how most work accidents\n\
-here happen because they ride\n\
-these carts into the abyss.\n\
-It's pretty funny, but we\n\
-have to fill in for them\n\
-every time it happens and\n\
-it gets old quick.")
+DEFINE_DIALOG(DIALOG_140, 1, 6, 30, 200, "\
+My buddy here was\n\
+telling me how most\n\
+work accidents here\n\
+happen because they\n\
+ride these carts into\n\
+the abyss.\n\
+It's pretty funny, but\n\
+we have to fill in for\n\
+them every time it\n\
+happens and it gets\n\
+old quick.")
 
-DEFINE_DIALOG(DIALOG_141, 1, 2, 150, 200, "\
-I want to ride the cart.\n\
+DEFINE_DIALOG(DIALOG_141, 1, 3, 150, 200, "\
+I want to ride the\n\
+cart.\n\
 \n\
-Not particularly planning\n\
-on becoming void soup, though.")
+Not particularly\n\
+planning on becoming\n\
+void soup, though.")
 
 DEFINE_DIALOG(DIALOG_142, 1, 2, 150, 200, "\
 Please don't tell my boss\n\
 I'm here.")
 
-DEFINE_DIALOG(DIALOG_143, 1, 3, 150, 200, "\
-The door jammed and now\n\
-I can't open it.\n\
+DEFINE_DIALOG(DIALOG_143, 1, 4, 150, 200, "\
+The door jammed and\n\
+now I can't open it.\n\
 This is not very good.\n\
-I am probably going to be\n\
-put on sewer cleaning duty\n\
-once again as punishment.\n\
-Nobody wants to join Klem\n\
-in there.")
+\n\
+I am probably going\n\
+to be put on sewer\n\
+cleaning duty once\n\
+again as punishment.\n\
+Nobody wants to join\n\
+Klem in there.")
 
-DEFINE_DIALOG(DIALOG_144, 1, 3, 150, 200, "\
+DEFINE_DIALOG(DIALOG_144, 1, 4, 150, 200, "\
 Okay I know that look.\n\
 \n\
 \n\
-PLEASE do not jump inside\n\
-the crate. You WILL be\n\
-sent to Brazil.\n\
-You know how many people\n\
-we have to retrieve every\n\
-week because they get stuck?")
+\n\
+PLEASE do not jump\n\
+inside the crate. You\n\
+WILL be sent to\n\
+Brazil.\n\
+You know how many\n\
+people we have to\n\
+retrieve every week\n\
+because they get stuck?")
 
 DEFINE_DIALOG(DIALOG_145, 1, 6, 150, 200, "\
 Phew, thanks!\n\
@@ -1711,11 +1749,11 @@ up easier.")
 
 DEFINE_DIALOG(DIALOG_157, 1, 3, 30, 200, "\
 Phew, maintaining this\n\
-generator is hard work.\n\
-\n\
+generator is hard\n\
+work.\n\
 Have you tried pushing\n\
-these carts around without\n\
-any hands?\n\
+these carts around\n\
+without any hands?\n\
 Now how the heck am I\n\
 supposed to get back\n\
 down?")
@@ -2092,7 +2130,9 @@ in this level.)")
 
 DEFINE_DIALOG(_2639DIAG_A1Lobby_ChallengeIntro, 1, 2, 30, 200, R"(Up for a
 challenge?
-Enter within...)")
+Enter within...
+Warning: Leaves
+current level!)")
 
 
 // ACT 1
@@ -2458,7 +2498,7 @@ touch!\n\
 ...provided you have\n\
 enough stars.")
 
-DEFINE_DIALOG(CHEEZE_DIALOG_7, 1, 5, 95, 200, "\
+DEFINE_DIALOG(CHEEZE_DIALOG_7, 1, 1, 95, 200, "\
 Ruff!")
 
 DEFINE_DIALOG(CHEEZE_DIALOG_8, 1, 2, 95, 200, "\
@@ -2470,4 +2510,64 @@ Now, let's all go\n\
 back to the castle.\n\
 I'll bake a cake\n\
 for everyone!")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_9, 1, 7, 95, 200, "\
+Ruff bark roof!\n\
+(We're almost at Bowser's\n\
+doghouse! It's gonna be\n\
+a long way over, so could\n\
+you pick up the bone in\n\
+each of the twelve areas\n\
+for me?\n\
+Don't worry if you miss\n\
+one, they'll save to your\n\
+file and you can pick\n\
+them up another time.)")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_10, 1, 5, 95, 200, "\
+Bow wow woof bark!\n\
+(We're halfway there!\n\
+I think it's a good time\n\
+to take a break.\n\
+\n\
+The purple switch over\n\
+here will save your game.\n\
+Also, a warp box at the\n\
+beginning of the stage\n\
+will bring you back here!\n\
+Remember that all the\n\
+bones you've collected\n\
+will save!) ")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_11, 1, 5, 95, 200, "\
+Bark arf woof!\n\
+(If you missed the\n\
+red coin, take the\n\
+skinny bridge back\n\
+to the slide!) ")
+
+DEFINE_DIALOG(CHEEZE_DIALOG_12, 1, 3, 95, 200, "\
+If you dive into the\n\
+slopes at the tops of\n\
+the yellow walls,\n\
+your jump will be\n\
+reset and you can\n\
+wall jump again!")
+
+DEFINE_DIALOG(EMU_DIALOG_1, 1, 8, 95, 200, "\
+Arrrr!\n\
+Of course you \n\
+freed your dog!\n\
+Oh well, it doesn't \n\
+matter. There's \n\
+nothing here you can \n\
+throw me at! I suppose \n\
+your dog could dig \n\
+something up that \n\
+could be thrown at me, \n\
+but then I would just\n\
+throw amps at you! You\n\
+could hit them back, \n\
+but they won't \n\
+hurt me! ")
 
