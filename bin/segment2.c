@@ -1796,7 +1796,7 @@ ALIGNED8 static const Texture texture_font_char_us_exclamation[] = {
 };
 
 ALIGNED8 static const Texture texture_font_char_100_percent[] = {
-#include "textures/segment2/font_graphics.100percent.ia4.inc.c"
+#include "textures/segment2/CUSTOM_font_graphics.100percent.ia4.inc.c"
 };
 
 ALIGNED8 static const Texture texture_font_char_us_coin[] = {
