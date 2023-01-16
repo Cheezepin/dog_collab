@@ -51,7 +51,7 @@ const LevelScript level_bits_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_WF_PALM_TREE, wf_palm_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_KOKO, koko_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_RC_SIGN, rcsign_geo), 
-	/*LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
@@ -66,7 +66,7 @@ const LevelScript level_bits_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_2639ROPE, epicrope_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639BEACHBALL, beachball_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639JEWEL, jewelwhatever_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639EVERYTHINGABOVE, present2639_geo),*/ 
+	LOAD_MODEL_FROM_GEO(MODEL_2639EVERYTHINGABOVE, present2639_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -75,7 +75,7 @@ const LevelScript level_bits_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BITS, 1, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BITS, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(2, LEVEL_BITS, 2, 1, WARP_NO_CHECKPOINT),
-		WARP_NODE(99, LEVEL_PSS, 6, 1, WARP_NO_CHECKPOINT),
+		WARP_NODE(99, LEVEL_BITS, 3, 1, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_GALOOMBA, 6994, -344, 1081, 0, 68, 0, 0x00000000, bhvGaloomba),
 		OBJECT(MODEL_GALOOMBA, 1564, 147, -54, 0, 68, 0, 0x00000000, bhvGaloomba),
 		OBJECT(MODEL_GALOOMBA, 9414, 465, 4915, 0, 68, 0, 0x00000000, bhvGaloomba),
@@ -130,9 +130,12 @@ const LevelScript level_bits_entry[] = {
 		WARP_NODE(2, LEVEL_BITS, 4, 1, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_NONE, -2659, -3201, -5165, 0, 0, 0, 0x00000000, bhv2639_DRM),
 		// OBJECT(MODEL_TOAD, 968, -8180, 2019, 0, 0, 0, (_2639DIAG_B3LobbyToadGreeter << 16), bhvAngryToadMessage),
+		OBJECT(MODEL_DOG_BONE, -2872, -8101, 2012, 0, 0, 0, 0x00000000, bhvDogBone),
 		OBJECT_WITH_ACTS(MODEL_DOG, -275, -8266, 2726, 0, 0, 0, 0x00000000, bhvDoginlobby, ACT_1 | ACT_2 | ACT_3),
+		// OBJECT(MODEL_2639ELEVATOR_KEY, -388, 1045, 69, 0, 0, 0, 0x00000000, bhv2639ElevatorKey),
 		OBJECT(MODEL_WOODEN_SIGNPOST, -1023, -8266, -3825, 0, 2, 0, (_2639DIAG_A1LobbyHOF_Intro << 16), bhvMessagePanel),
 		OBJECT(MODEL_NONE, -24919, -10390, -436, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
+		OBJECT(MODEL_RC_SIGN, -613, -8266, -1928, 0, 0, 0, 0x00000000, bhvRedCoinSign),
 		OBJECT(MODEL_NONE, -8, -8264, -1945, 0, 0, 0, (11 << 16), bhvInstantActiveWarp),
 		// OBJECT(MODEL_NONE, -5, -8266, -2848, 0, 0, 0, 0x00000000, ),
 		OBJECT(MODEL_NONE, -2786, -8266, -4573, 0, 0, 0, (_2639DIAG_A1LobbyHOF_Kirby64 << 16), bhv2639TrophyCase),

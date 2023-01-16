@@ -11,7 +11,7 @@ extern u8 bowser_3_dl_brickci4_ci4[];
 extern u8 bowser_3_dl_brickci4_ci4_pal_rgba16[];
 extern u8 bowser_3_dl_bob_gate_ci4[];
 extern u8 bowser_3_dl_bob_gate_ci4_pal_rgba16[];
-extern Vtx bowser_3_dl_nocol_mesh_layer_1_vtx_0[76];
+extern Vtx bowser_3_dl_nocol_mesh_layer_1_vtx_0[118];
 extern Gfx bowser_3_dl_nocol_mesh_layer_1_tri_0[];
 extern Vtx bowser_3_dl_op_mesh_layer_1_vtx_0[1026];
 extern Gfx bowser_3_dl_op_mesh_layer_1_tri_0[];

@@ -385,7 +385,7 @@ void do2639cutscene(struct Camera *c) {
             break;
         }
         case 3: {
-            bhv_spawn_star_get_outta_here(6);
+            bhv_spawn_star_get_outta_here(5);
             state++;
             // cutscene_event(cutscene_intro_peach_clear_cutscene_status, c, 717, 717);
         }

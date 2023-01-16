@@ -1592,7 +1592,6 @@ void score_menu_display_message(s8 messageID) {
  */
 void print_score_menu_strings(void) {
     u8 x, y, i, j;
-    u8 dogString[DOG_STRING_LENGTH + 9] = "Mario & ";
     u8 *string;
 
     // Update and print the message at the top of the menu.
@@ -1626,6 +1625,7 @@ void print_score_menu_strings(void) {
     print_generic_string(ERASEFILE_X1 - 4, 20, LANGUAGE_ARRAY(textEraseFileButton));
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
     for(i = 0; i < 4; i++) {
+        u8 dogString[24] = "Mario &                ";
         switch(i) {
             case 0:
                 x = MARIOTEXT_X1;
@@ -1649,8 +1649,20 @@ void print_score_menu_strings(void) {
                 break;
         }
         if(save_file_exists(i)) {
+            s32 k = 0;
             for(j = 0; j < DOG_STRING_LENGTH; j++) {
                 dogString[8 + j] = save_file_get_dog_string(i, j);
+                if(dogString[8+j] == 0 && k == 0) {k = j + 8;}
+            }
+            dogString[9+j] = 0;
+            if(k == 0) {k = DOG_STRING_LENGTH + 8;}
+            if((gSaveBuffer.files[i].flags & SAVE_FLAG_BOWSER_3_BEAT) && save_file_get_total_star_count(i, COURSE_MIN - 1, COURSE_MAX - 1) >= 73) {
+                dogString[k] = GLOBAL_CHAR_SPACE;
+                dogString[k+1] = CHAR_100_PERCENT;
+            }
+            dogString[k+2] = 0;
+            for(j = k + 2; j < 22; j++) {
+                dogString[j] = 0;
             }
             string = &dogString;
         }
@@ -1748,7 +1760,6 @@ void copy_menu_update_message(void) {
  */
 void print_copy_menu_strings(void) {
     u8 x, y, i, j;
-    u8 dogString[DOG_STRING_LENGTH + 9] = "Mario & ";
     u8 *string;
 
     // Update and print the message at the top of the menu.
@@ -1774,6 +1785,7 @@ void print_copy_menu_strings(void) {
     //gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
     //gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
     for(i = 0; i < 4; i++) {
+        u8 dogString[24] = "Mario &                ";
         switch(i) {
             case 0:
                 x = MARIOTEXT_X1;
@@ -1797,8 +1809,20 @@ void print_copy_menu_strings(void) {
                 break;
         }
         if(save_file_exists(i)) {
+            s32 k = 0;
             for(j = 0; j < DOG_STRING_LENGTH; j++) {
                 dogString[8 + j] = save_file_get_dog_string(i, j);
+                if(dogString[8+j] == 0 && k == 0) {k = j + 8;}
+            }
+            dogString[9+j] = 0;
+            if(k == 0) {k = DOG_STRING_LENGTH + 8;}
+            if((gSaveBuffer.files[i].flags & SAVE_FLAG_BOWSER_3_BEAT) && save_file_get_total_star_count(i, COURSE_MIN - 1, COURSE_MAX - 1) >= 73) {
+                dogString[k] = GLOBAL_CHAR_SPACE;
+                dogString[k+1] = CHAR_100_PERCENT;
+            }
+            dogString[k+2] = 0;
+            for(j = k + 2; j < 22; j++) {
+                dogString[j] = 0;
             }
             string = &dogString;
         }
@@ -1976,7 +2000,6 @@ void erase_menu_update_message(void) {
  */
 void print_erase_menu_strings(void) {
     u8 x, y, i, j;
-    u8 dogString[DOG_STRING_LENGTH + 9] = "Mario & ";
     u8 *string;
 
     // Update and print the message at the top of the menu.
@@ -2007,6 +2030,7 @@ void print_erase_menu_strings(void) {
     //gSPDisplayList(gDisplayListHead++, dl_menu_ia8_text_begin);
     //gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
     for(i = 0; i < 4; i++) {
+        u8 dogString[24] = "Mario &                ";
         switch(i) {
             case 0:
                 x = MARIOTEXT_X1;
@@ -2030,8 +2054,20 @@ void print_erase_menu_strings(void) {
                 break;
         }
         if(save_file_exists(i)) {
+            s32 k = 0;
             for(j = 0; j < DOG_STRING_LENGTH; j++) {
                 dogString[8 + j] = save_file_get_dog_string(i, j);
+                if(dogString[8+j] == 0 && k == 0) {k = j + 8;}
+            }
+            dogString[9+j] = 0;
+            if(k == 0) {k = DOG_STRING_LENGTH + 8;}
+            if((gSaveBuffer.files[i].flags & SAVE_FLAG_BOWSER_3_BEAT) && save_file_get_total_star_count(i, COURSE_MIN - 1, COURSE_MAX - 1) >= 73) {
+                dogString[k] = GLOBAL_CHAR_SPACE;
+                dogString[k+1] = CHAR_100_PERCENT;
+            }
+            dogString[k+2] = 0;
+            for(j = k + 2; j < 22; j++) {
+                dogString[j] = 0;
             }
             string = &dogString;
         }

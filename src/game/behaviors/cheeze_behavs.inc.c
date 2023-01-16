@@ -361,6 +361,7 @@ void bhv_warp_box_loop(void) {
 void bhv_peach_cutscene_loop(void) {
     if(gCurrCreditsEntry != NULL) {o->oMoveAngleYaw = o->oFaceAngleYaw = 0xD000; return cur_obj_init_animation(PEACH_ANIM_WAVING);}
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+    gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_STAR_COUNT;
     switch(gIntroCutsceneState) {
         case 0:
             if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_1); o->oSubAction = 1;}

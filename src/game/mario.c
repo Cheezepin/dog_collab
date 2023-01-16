@@ -1363,15 +1363,19 @@ void update_mario_geometry_inputs(struct MarioState *m) {
         }
 
     } else {
-        if (m->controller->buttonPressed & A_BUTTON) {
+        if(gCurrLevelNum == LEVEL_HMC) {
             level_trigger_warp(m, WARP_OP_DEATH);
-        }
-        else {
-            char buff[64];
-            sprintf(buff, "X %d Y %d Z %d", roundf(m->pos[0]), roundf(m->pos[1]), roundf(m->pos[2]));
-            print_text(20, SCREEN_HEIGHT/2, buff);
-            print_text(20, (SCREEN_HEIGHT/2) - 20, "You are out of bounds.");
-            print_text(20, (SCREEN_HEIGHT/2) - 40, "Press A to die today");
+        } else {
+            if (m->controller->buttonPressed & A_BUTTON) {
+                level_trigger_warp(m, WARP_OP_DEATH);
+            }
+            else {
+                char buff[64];
+                sprintf(buff, "X %d Y %d Z %d", roundf(m->pos[0]), roundf(m->pos[1]), roundf(m->pos[2]));
+                print_text(20, SCREEN_HEIGHT/2, buff);
+                print_text(20, (SCREEN_HEIGHT/2) - 20, "You are out of bounds.");
+                print_text(20, (SCREEN_HEIGHT/2) - 40, "Press A to die today");
+            }
         }
     }
 }

@@ -438,11 +438,12 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
                 create_dl_translation_matrix(MENU_MTX_PUSH, x, y - (lineNum * MAX_STRING_WIDTH), 0.0f);
                 lineNum++;
                 break;
-            case DIALOG_CHAR_PERIOD:
+            /*case DIALOG_CHAR_PERIOD:
                 create_dl_translation_matrix(MENU_MTX_PUSH, -2.0f, -5.0f, 0.0f);
                 render_generic_char(DIALOG_CHAR_PERIOD_OR_HANDAKUTEN);
+                print_text(20, 20, "yeah");
                 gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
-                break;
+                break;*/
             case DIALOG_CHAR_SLASH:
                 create_dl_translation_matrix(MENU_MTX_NOPUSH, (f32)(gDialogCharWidths[DIALOG_CHAR_SPACE] * 2), 0.0f, 0.0f);
                 break;
@@ -2933,7 +2934,13 @@ void render_hub_star_select(s32 cringeTimer) {
             }
         }
     }
+
     if(visibleStars > 6) {visibleStars = 6;}
+
+    if(cringeTimer == 1) {
+        selectedStar = lastSelectableNotCompletedStar;
+    }
+
     centerX = (gScreenWidth/2) - (((f32)(visibleStars - 1))*25.0f);
 
     if (!gWarpTransition.isActive) {

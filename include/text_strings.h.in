@@ -391,7 +391,7 @@
 #define TEXT_AND_THE_RED_COIN_STAR "and the red coin star!"
 #define TEXT_100_COIN_STAR "100*\xF9"
 #define TEXT_NEXT_UNFINISHED_ACT "Up Next (Act 1):"
-#define TEXT_ALL_ACTS_COMPLETED "Exit Game"
+#define TEXT_ALL_ACTS_COMPLETED "All Acts Completed!"
 
 #define TEXT_HA_0 "You need 5 stars to enter this course"
 #define TEXT_HA_1 "You need to clear Bowser 1 to enter this world"

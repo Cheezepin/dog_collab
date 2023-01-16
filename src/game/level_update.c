@@ -87,7 +87,7 @@ const char *credits20[] = { "4THANKS TO EVERYONE WHO WORKED ON THE COLLAB", "AND
 struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_PSS, 7, 1, -128, { 0, 100, 0 }, NULL, 0 },
     { LEVEL_PSS, 7, 1, 117, { 0, 100, 0 }, credits01, 0 },
-    /*{ LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02, 0 },
+    { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02, 0 },
     { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03, 0 },
     { LEVEL_BOB, 2, 34, 25, { -489, 116, 2261 }, credits04, 0 },
     { LEVEL_BITFS, 1, 1, 240, { 15040, 2867, 1676 }, credits05, 1 },
@@ -103,7 +103,7 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_HMC, 1, 51, 54, { -2609, 512, 856 }, credits15, 1 },
     { LEVEL_DDD, 1, 51, 54, { 137, 9957, -1954 }, credits16, 1 },
     { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17, 0 },
-    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },*/
+    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },
     { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits19, 0 },
     { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits20, 0 },
     //{ LEVEL_TTC, 1, 17, -72, { -1304, -71, -967 }, credits15 },
