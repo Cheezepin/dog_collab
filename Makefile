@@ -236,7 +236,7 @@ ifeq ($(UNF),1)
   DEFINES += UNF=1
   SRC_DIRS += src/usb
   USE_DEBUG := 1
-  LOADER_FLAGS = -d -r
+  LOADER_FLAGS = -d ./unfoutput.txt -r
 endif
 
 # ISVPRINT - whether to fake IS-Viewer presence,
@@ -272,7 +272,7 @@ BUILD_DIR_BASE := build
 # BUILD_DIR is the location where all build artifacts are placed
 BUILD_DIR      := $(BUILD_DIR_BASE)/$(VERSION)_$(CONSOLE)
 
-COMPRESS ?= rnc1
+COMPRESS ?= gzip
 $(eval $(call validate-option,COMPRESS,mio0 yay0 gzip rnc1 rnc2 uncomp))
 ifeq ($(COMPRESS),gzip)
   DEFINES += GZIP=1

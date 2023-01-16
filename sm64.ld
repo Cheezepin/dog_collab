@@ -294,8 +294,10 @@ SECTIONS
    }
    END_NOLOAD(framebuffers)
 
+   /* . = ALIGN(RAM_1MB); */
    __mainPoolStart = .;
    __mainPoolSize  = (RAM_END - .);
+   __mainPoolEnd = RAM_END;
 
    __expansionRamStart = (RAM_START + (RAM_1MB * 4));
 #ifndef USE_EXT_RAM
