@@ -481,6 +481,34 @@ static void rcp_omg(void) {
     assert(FALSE, "RCP is HUNG UP!! Oh! MY GOD!!");
 }
 
+static void auto_dither_filter(void) {
+    static u32 prevTime = 40000;
+    static s32 overrideTimer = 0;
+    static s32 overrideFilter = FALSE;
+
+    u32 deltaTime = osGetTime() - prevTime;
+
+    // overrideTimer -= 40000;
+    overrideTimer -= 32000; // 32000 is the middle of the balance point, higher is less aggressive
+    overrideTimer += MIN(OS_CYCLES_TO_USEC(deltaTime), 66666);
+    if (overrideTimer <= -100000) {
+        overrideTimer = -100000;
+        if (overrideFilter == TRUE) {
+            overrideFilter = FALSE;
+            osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
+        }
+    }
+    if (overrideTimer >= 100000) {
+        overrideTimer = 100000;
+        if (overrideFilter == FALSE) {
+            overrideFilter = TRUE;
+            osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
+        }
+    }
+
+    prevTime = osGetTime();
+}
+
 /**
  * This function:
  * - Sends the current master display list out to be rendered.
@@ -513,6 +541,7 @@ void display_and_vsync(void) {
         }
     }
     gGlobalTimer++;
+    if (gIsConsole) auto_dither_filter();
 }
 
 #if !defined(DISABLE_DEMO) && defined(KEEP_MARIO_HEAD)
