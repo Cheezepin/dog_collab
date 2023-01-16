@@ -298,7 +298,8 @@ void bobomb_buddy_act_idle(void) {
 
     // vec3f_copy(&o->oBobombBuddyPosCopyVec, &o->oPosVec);
 
-    object_step();
+    if(o->behavior != segmented_to_virtual(bhvKoopaDialog))
+        object_step();
 
     if (o->oDistanceToMario < 1000.0f) {
         o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x140);
