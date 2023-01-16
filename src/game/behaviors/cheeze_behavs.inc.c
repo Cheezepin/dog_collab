@@ -239,7 +239,8 @@ void bhv_bowser_snowball_loop(void) {
     if(o->oTimer > 150) {
         obj_mark_for_deletion(o);
         spawn_triangle_break_particles(30, MODEL_DIRT_ANIMATION, 3.0f, TINY_DIRT_PARTICLE_ANIM_STATE_YELLOW);
-        return set_mario_action(gMarioState, ACT_SKIING, 0);
+        set_mario_action(gMarioState, ACT_SKIING, 0);
+        return;
     }
     o->oPosY += o->oGraphYOffset;
     print_text_fmt_int(20, 20, "%d", (s32)dist_between_objects(gMarioObject, o));
@@ -267,6 +268,7 @@ void bhv_warp_box_init(void) {
     o->collidedObjs[0] = 0;
     o->oAction = 0;
     o->oSubAction = 0;
+    o->oWarpBoxInnerScale = 0.01f;
 }
 
 void bhv_warp_box_loop(void) {
