@@ -38,8 +38,8 @@
  * importing large custom content.
  */
 
-#define SEG_POOL_START   _framebuffersSegmentBssEnd // 0x0165000 in size
-#define POOL_SIZE        RAM_END - SEG_POOL_START
+#define SEG_POOL_START   __mainPoolStart // 0x0165000 in size
+#define POOL_SIZE        __mainPoolSize
 
 #define MAP_PARSER_ADDRESS 0x80345678
 

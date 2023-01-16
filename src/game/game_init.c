@@ -97,6 +97,8 @@ struct Controller *gPlayer1Controller = &gControllers[0];
 struct Controller *gPlayer2Controller = &gControllers[1];
 struct Controller *gPlayer3Controller = &gControllers[2]; // Probably debug only, see note below
 
+s32 sMaxContPort = 0;
+
 // Title Screen Demo Handler
 struct DemoInput *gCurrDemoInput = NULL;
 u16 gDemoInputListID = 0;
@@ -479,6 +481,34 @@ static void rcp_omg(void) {
     assert(FALSE, "RCP is HUNG UP!! Oh! MY GOD!!");
 }
 
+static void auto_dither_filter(void) {
+    static u32 prevTime = 40000;
+    static s32 overrideTimer = 0;
+    static s32 overrideFilter = FALSE;
+
+    u32 deltaTime = osGetTime() - prevTime;
+
+    // overrideTimer -= 40000;
+    overrideTimer -= 32000; // 32000 is the middle of the balance point, higher is less aggressive
+    overrideTimer += MIN(OS_CYCLES_TO_USEC(deltaTime), 66666);
+    if (overrideTimer <= -100000) {
+        overrideTimer = -100000;
+        if (overrideFilter == TRUE) {
+            overrideFilter = FALSE;
+            osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
+        }
+    }
+    if (overrideTimer >= 100000) {
+        overrideTimer = 100000;
+        if (overrideFilter == FALSE) {
+            overrideFilter = TRUE;
+            osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
+        }
+    }
+
+    prevTime = osGetTime();
+}
+
 /**
  * This function:
  * - Sends the current master display list out to be rendered.
@@ -511,6 +541,7 @@ void display_and_vsync(void) {
         }
     }
     gGlobalTimer++;
+    if (gIsConsole) auto_dither_filter();
 }
 
 #if !defined(DISABLE_DEMO) && defined(KEEP_MARIO_HEAD)
@@ -667,7 +698,8 @@ void read_controller_inputs(s32 threadID) {
     run_demo_inputs();
 #endif
 
-    for (i = 0; i < 2; i++) {
+    s32 numPorts = MIN(sMaxContPort, 2);
+    for (i = 0; i < numPorts; i++) {
         struct Controller *controller = &gControllers[i];
 
         // if we're receiving inputs, update the controller struct with the new button info.
@@ -723,12 +755,13 @@ void init_controllers(void) {
     gSramProbe = nuPiInitSram();
 #endif
 
+    s32 maxPort = 0;
     // Loop over the 4 ports and link the controller structs to the appropriate
     // status and pad. Interestingly, although there are pointers to 3 controllers,
     // only 2 are connected here. The third seems to have been reserved for debug
     // purposes and was never connected in the retail ROM, thus gPlayer3Controller
     // cannot be used, despite being referenced in various code.
-    for (cont = 0, port = 0; port < 4 && cont < 2; port++) {
+    for (cont = 0, port = 0; port < MAXCONTROLLERS && cont < 2; port++) {
         // Is controller plugged in?
         if (gControllerBits & (1 << port)) {
             // The game allows you to have just 1 controller plugged
@@ -740,8 +773,12 @@ void init_controllers(void) {
 #endif
             gControllers[cont].statusData = &gControllerStatuses[port];
             gControllers[cont++].controllerData = &gControllerPads[port];
+            maxPort = port;
         }
     }
+    sMaxContPort = MIN(maxPort+1, MAXCONTROLLERS);
+    osSyncPrintf("sMaxContPort %d\n", sMaxContPort);
+    osContSetCh(sMaxContPort);
 }
 
 // Game thread core
