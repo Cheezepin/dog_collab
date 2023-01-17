@@ -50,6 +50,18 @@
             [32700, 29430],
             "hang"
         ],
+        "envelope8": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
+        ],
+        "envelope9": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
+        ],
         "envelope11": [
             [2, 32700],
             [1, 32700],
@@ -99,6 +111,16 @@
             "envelope": "envelope7",
             "sound_lo": "14_strings_5",
             "sound": "15_strings_4"
+        },
+        "inst8": {
+            "release_rate": 90,
+            "envelope": "envelope8",
+            "sound": "28_sitar_1"
+        },
+        "inst9": {
+            "release_rate": 24,
+            "envelope": "envelope8",
+            "sound": "CUSTOM_distortion_guitar"
         },
         "percussion": [
             {"release_rate": 10, "pan": 62, "envelope": "envelope11", "sound": {"sample": "06_kick_drum_1", "tuning": 0.210224}},
@@ -177,6 +199,8 @@
         "inst4",
         "inst5",
         "inst6",
-        "inst7"
+        "inst7",
+        "inst8",
+        "inst9"
     ]
 }
