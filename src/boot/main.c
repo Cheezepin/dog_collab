@@ -458,7 +458,10 @@ void thread1_idle(UNUSED void *arg) {
             break;
     }
     get_audio_frequency();
-    change_vi(&VI, 320, 240);
+
+    gScreenWidth = 320;
+    gScreenHeight = 240;
+
     osViSetMode(&VI);
     osViBlack(TRUE);
     osViSetSpecialFeatures(OS_VI_DIVOT_ON);

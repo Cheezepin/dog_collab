@@ -486,16 +486,31 @@ static void auto_dither_filter(void) {
     static s32 overrideTimer = 0;
     static s32 overrideFilter = FALSE;
 
-    u32 deltaTime = osGetTime() - prevTime;
+    switch (gCurrLevelNum) {
+        case LEVEL_CASTLE_GROUNDS:
+        case LEVEL_COZIES: {
+            if (overrideFilter) {
+                overrideFilter = FALSE;
+                osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
+            }
+            prevTime = osGetTime();
+            return;
+        }
+    }
 
+    u32 deltaTime = osGetTime() - prevTime;
+    prevTime = osGetTime();
+
+    // 40000 is 25fps, feels not aggressive enough for this hack so I used 37000
     // overrideTimer -= 40000;
-    overrideTimer -= 32000; // 32000 is the middle of the balance point, higher is less aggressive
+    overrideTimer -= 37000;
     overrideTimer += MIN(OS_CYCLES_TO_USEC(deltaTime), 66666);
     if (overrideTimer <= -100000) {
         overrideTimer = -100000;
         if (overrideFilter == TRUE) {
             overrideFilter = FALSE;
             osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
+            // osSyncPrintf("OS_VI_DITHER_FILTER_ON\n");
         }
     }
     if (overrideTimer >= 100000) {
@@ -503,10 +518,9 @@ static void auto_dither_filter(void) {
         if (overrideFilter == FALSE) {
             overrideFilter = TRUE;
             osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
+            // osSyncPrintf("OS_VI_DITHER_FILTER_OFF\n");
         }
     }
-
-    prevTime = osGetTime();
 }
 
 /**
@@ -777,7 +791,6 @@ void init_controllers(void) {
         }
     }
     sMaxContPort = MIN(maxPort+1, MAXCONTROLLERS);
-    osSyncPrintf("sMaxContPort %d\n", sMaxContPort);
     osContSetCh(sMaxContPort);
 }
 

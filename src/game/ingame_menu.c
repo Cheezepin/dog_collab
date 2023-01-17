@@ -1068,7 +1068,7 @@ void render_dialog_triangle_choice(void) {
     gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
 }
 
-#define X_VAL5 118.0f
+#define X_VAL5 (DIALOG_BOX_WIDTH - 12.0f)
 #define Y_VAL5_1 -16
 #define Y_VAL5_2 5
 #define X_Y_VAL6 0.8f
@@ -1293,20 +1293,13 @@ void render_dialog_entries(void) {
 
     render_dialog_box_type(dialog, dialog->linesPerBox);
 
-    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE,
-                  // Horizontal scissoring isn't really required and can potentially mess up widescreen enhancements.
-#ifdef WIDESCREEN
-                  0,
-#else
-                  ensure_nonnegative(dialog->leftOffset),
-#endif
-                  ensure_nonnegative(DIAG_VAL2 - dialog->width),
-#ifdef WIDESCREEN
-                  gScreenWidth,
-#else
-                  ensure_nonnegative(DIAG_VAL3 + dialog->leftOffset),
-#endif
-                  ensure_nonnegative(240 + ((dialog->linesPerBox * 80) / DIAG_VAL4) - dialog->width));
+    gDPSetScissor(
+        gDisplayListHead++, G_SC_NON_INTERLACE,
+        0,
+        ensure_nonnegative(DIAG_VAL2 - dialog->width),
+        SCREEN_WIDTH,
+        ensure_nonnegative((240 - dialog->width) + (dialog->linesPerBox * 80 / DIAG_VAL4))
+    );
     handle_dialog_text_and_pages(0, dialog, lowerBound);
 
     if (gLastDialogPageStrPos == -1 && gLastDialogResponse == 1) {

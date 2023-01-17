@@ -2301,10 +2301,10 @@ const Gfx dl_rgba16_text_end[] = {
 
 // 0x0200EDA8 - 0x0200EDE8
 static const Vtx vertex_text_bg_box[] = {
-    {{{     0,    -80,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
-    {{{   130,    -80,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
-    {{{   130,      0,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
-    {{{     0,      0,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
+    {{{                0, -80, 0 }, 0, { 0, 0 }, {0xff, 0xff, 0xff, 0xff}}},
+    {{{ DIALOG_BOX_WIDTH, -80, 0 }, 0, { 0, 0 }, {0xff, 0xff, 0xff, 0xff}}},
+    {{{ DIALOG_BOX_WIDTH,   0, 0 }, 0, { 0, 0 }, {0xff, 0xff, 0xff, 0xff}}},
+    {{{                0,   0, 0 }, 0, { 0, 0 }, {0xff, 0xff, 0xff, 0xff}}},
 };
 
 // 0x0200EDE8 - 0x0200EE28
