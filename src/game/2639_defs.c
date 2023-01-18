@@ -185,6 +185,10 @@ void Cam2639_Main(struct Camera *c) {
     // CDebug(c);
 }
 
+void Cam2639_LookDown(struct Camera *c) {
+    set_camera_mode_fixed(c, -125, 958, -380);
+}
+
 void Cam2639_OutwardSpiral(struct Camera *c) {
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
     transition_to_camera_mode(c, CAMERA_MODE_OUTWARD_RADIAL, 10);
