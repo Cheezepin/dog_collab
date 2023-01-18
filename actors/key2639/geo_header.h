@@ -1,0 +1,10 @@
+extern const GeoLayout key2639_geo[];
+extern u8 key2639_KeyMat00_Alb_ci4[];
+extern u8 key2639_KeyMat00_Alb_ci4_pal_rgba16[];
+extern Vtx key2639_Key__KeyMat00_mesh_layer_1_vtx_cull[8];
+extern Vtx key2639_Key__KeyMat00_mesh_layer_1_vtx_0[504];
+extern Gfx key2639_Key__KeyMat00_mesh_layer_1_tri_0[];
+extern Gfx mat_key2639_KeyMat00_f3d_layer1[];
+extern Gfx mat_revert_key2639_KeyMat00_f3d_layer1[];
+extern Gfx key2639_Key__KeyMat00_mesh_layer_1[];
+extern Gfx key2639_material_revert_render_settings[];

@@ -753,6 +753,8 @@ enum _2639Models {
     MODEL_2639EVERYTHINGABOVE,
 
     MODEL_2639JEWEL,
+
+    MODEL_2639ELEVATOR_KEY,
 };
 
 //start cheeze model ids

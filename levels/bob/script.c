@@ -54,6 +54,7 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_2639JEWEL, jewelwhatever_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639EVERYTHINGABOVE, present2639_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_WARP_PIPE, warp_pipe_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639ELEVATOR_KEY, key2639_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
