@@ -433,13 +433,13 @@ void try_print_debug_mario_object_info(void) {
 #include "camera.h"
 #include "level_update.h"
 void try_print_debug_mario_level_info(void) {
+    *(vs8*)0=0;
     // print_text_fmt_int(50, 50, "A %d", gPuppyCam.enabled);
     // print_text_fmt_int(50, 64, "M %d", sStatusFlags & CAM_FLAG_BLOCK_AREA_PROCESSING);
-    // print_text_fmt_int(50, 50, "X %d", gMarioState->pos[0]);
+    
     // char ff[60];
     // sprintf(ff, "%08X", gMarioState->action);
     // print_text(50, 70, ff);
-    // print_text_fmt_int(50, 90, "Z %d", gMarioState->pos[2]);
     if (in2639Level()) {
         Sound2639_Main();
     }

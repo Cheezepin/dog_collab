@@ -37,4 +37,7 @@ void bhv_2639PC2_TargetObj_loop(void) {
 		}
 	}
 
+	print_text_fmt_int(50, 50, "X %d", (s32)gMarioState->pos[0]);
+    print_text_fmt_int(50, 90, "Z %d", (s32)gMarioState->pos[2]);
+
 }
