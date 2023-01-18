@@ -2165,16 +2165,14 @@ Take it as my apology.)")
 
 DEFINE_DIALOG(_2639DIAG_A2LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you!
-The Princess needs help
+Somebody needs help
 on floor 2!
 Get your butt into that
 elevator and see what
 she wants!)")
 
 DEFINE_DIALOG(_2639DIAG_A2RoomPeachGreeter, 1, 4, 30, 200, \
-R"((pretend this is
-Princess Peach talking)
-Hey Mario! How's it
+R"(Hey Mario! How's it
 been?
 I'm almost done setting
 up my room! All that's
@@ -2358,9 +2356,7 @@ the lobby. It's over
 there in the back.)")
 // SIGN toad
 DEFINE_DIALOG(_2639DIAG_A6PentToad4, 1, 3, 30, 200, \
-R"((Pretend this is
-Princess Peach)
-Man, dragging in these
+R"(Man, dragging in these
 couches was kind of
 hard on my own, so
 I brought a rope with

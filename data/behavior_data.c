@@ -8862,3 +8862,12 @@ const BehaviorScript bhvKTQRing[] = {
         CALL_NATIVE(bhv_ktq_ring_loop),
     END_LOOP(),
 };
+
+
+const BehaviorScript bhv2639ElevatorKey[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+	CALL_NATIVE(bhv_2639ElevatorKey_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639ElevatorKey_loop),
+	END_LOOP(),
+};
