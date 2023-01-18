@@ -2427,7 +2427,16 @@ cartoon!!! I need
 a day off...)")
 
 
-
+DEFINE_DIALOG(_2639DIAG_B3LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Mario! The elevator
+was locked by some magic
+force, and Bowser
+put the key up 5
+flights of stairs!
+How Mean! Get up there
+quick, grab the key,
+and dive down to catch
+the elevator!)")
 
 
 DEFINE_DIALOG(CHEEZE_DIALOG_1, 1, 3, 30, 200, "\

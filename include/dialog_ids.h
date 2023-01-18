@@ -240,9 +240,10 @@ enum DialogId {
     _2639DIAG_A6PentToad4,
     _2639DIAG_A6PentToad5,
     _2639DIAG_A6PentToad6,
-    _2639DIAG_A6PentToad7, //220
+    _2639DIAG_A6PentToad7,
+    _2639DIAG_B3LobbyToadGreeter, //221
 
-    CHEEZE_DIALOG_1, //221
+    CHEEZE_DIALOG_1, //222
     CHEEZE_DIALOG_2,
     CHEEZE_DIALOG_3,
     CHEEZE_DIALOG_4,
