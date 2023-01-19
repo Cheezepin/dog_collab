@@ -1133,7 +1133,7 @@ s32 play_mode_normal(void) {
 #if ENABLE_RUMBLE
             cancel_rumble();
 #endif
-            gCameraMovementFlags |= CAM_MOVE_PAUSE_SCREEN;
+            // gCameraMovementFlags |= CAM_MOVE_PAUSE_SCREEN;
             set_play_mode(PLAY_MODE_PAUSED);
         }
     }
