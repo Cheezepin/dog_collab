@@ -115,7 +115,6 @@ void emu_bomb_free_loop(void) {
 
 void emu_bomb_held_loop(void) {
     o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
-    cur_obj_init_animation(1);
     cur_obj_set_pos_relative(gMarioObject, 0, 60.0f, 100.0f);
 }
 
@@ -123,7 +122,6 @@ void emu_bomb_dropped_loop(void) {
     cur_obj_get_dropped();
 
     o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
-    cur_obj_init_animation(0);
 
     o->oHeldState = 0;
     o->oAction = EMU_BOMB_ACT_PATROL;
