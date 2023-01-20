@@ -1,3 +1,4 @@
+#include "seq_ids.h"
 
 void faz_ambient_loop(void)
 {
@@ -153,14 +154,27 @@ void goddard_hmc_loop(void)
 
 u8 elevatorCD = 0;
 
+void set_song_to_area(u16 song) {
+    gCurrentArea->musicParam = song;
+    gCurrentArea->musicParam2 = song;
+    if (song) {
+        set_background_music(song, SEQUENCE_ARGS(4, song), 30);
+    }
+}
+
 void hmcelevator_init(void)
 {
     o->oMode = o->oBehParams2ndByte;
     o->oMoving = 0;
     o->oOff = 0;
+
+    if (gCurrCreditsEntry == NULL && gCurrActNum != 1) {
+        // im sorry cheezepin if this fucks up credits
+        set_song_to_area(SEQ_FACTORY);
+    }
+
     if (gCurrAreaIndex == 2 && gMarioState->pos[1] > 5000)
     {
-        stop_background_music(SEQ_LEVEL_UNDERGROUND);
         o->oPosY = gMarioState->pos[1]-100;
         o->oMode = 1;
         o->oMoving = 1;
@@ -168,7 +182,8 @@ void hmcelevator_init(void)
     }
     if (gCurrAreaIndex == 1 && gMarioState->pos[1] < 1000 && gMarioState->pos[1] > 100)
     {
-        stop_background_music(SEQ_LEVEL_SNOW);
+        fadeout_level_music(30);
+        // stop_background_music(SEQ_LEVEL_SNOW);
         o->oPosY = gMarioState->pos[1]-100;
         o->oMode = 0;
         o->oMoving = 1;
@@ -212,7 +227,11 @@ void hmcelevator_loop(void)
             o->oMoving = 0;
             o->oOff = 1;
             cur_obj_play_sound_2(SOUND_GENERAL_METAL_POUND);
-            set_background_music(SEQ_LEVEL_UNDERGROUND, SEQUENCE_ARGS(4, SEQ_LEVEL_UNDERGROUND), 30);
+            if (gCurrActNum == 1) {
+                set_song_to_area(SEQ_FACTORY_DOWN);
+            } else {
+                set_song_to_area(SEQ_FACTORY);
+            }
         }
         if (o->oPosY > 1421 && gCurrAreaIndex == 1)
         {
@@ -220,7 +239,7 @@ void hmcelevator_loop(void)
             o->oMoving = 0;
             o->oOff = 1;
             cur_obj_play_sound_2(SOUND_GENERAL_METAL_POUND);
-            if(gCurrCreditsEntry == NULL) set_background_music(SEQ_LEVEL_SNOW, SEQUENCE_ARGS(4, SEQ_LEVEL_SNOW), 30);
+            if (gCurrCreditsEntry == NULL) fadeout_level_music(30);
         }
 
 

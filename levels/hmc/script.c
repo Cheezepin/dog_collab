@@ -59,7 +59,7 @@ const LevelScript level_hmc_entry[] = {
 		TERRAIN(hmc_area_1_collision),
 		ROOMS(hmc_area_1_collision_rooms),
 		MACRO_OBJECTS(hmc_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_SNOW),
+		// SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_SNOW),
 		TERRAIN_TYPE(TERRAIN_SNOW),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -178,7 +178,7 @@ const LevelScript level_hmc_entry[] = {
 		TERRAIN(hmc_area_2_collision),
 		ROOMS(hmc_area_2_collision_rooms),
 		MACRO_OBJECTS(hmc_area_2_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_UNDERGROUND),
+		// SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_UNDERGROUND),
 		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -205,7 +205,7 @@ const LevelScript level_hmc_entry[] = {
 		OBJECT(MODEL_NONE, -499, 2388, 613, 0, 0, 0, 0x000C0000, bhvSpinAirborneWarp),
 		TERRAIN(hmc_area_3_collision),
 		MACRO_OBJECTS(hmc_area_3_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_UNDERGROUND),
+		// SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_UNDERGROUND),
 		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
