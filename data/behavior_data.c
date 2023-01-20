@@ -484,7 +484,7 @@ const BehaviorScript bhvStarBlock[] = {
 
 const BehaviorScript bhvHMCDoors[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UCODE_LARGE)),
+    OR_LONG(oFlags, (OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UCODE_LARGE)),
     LOAD_COLLISION_DATA(doors_collision),
     SET_FLOAT(oCollisionDistance, 6000),
     SET_FLOAT(oDrawingDistance, 6000),
