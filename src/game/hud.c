@@ -323,18 +323,6 @@ void handle_power_meter_actions(s16 numHealthWedges) {
 
     // Update to match health value
     sPowerMeterStoredHealth = numHealthWedges;
-
-#ifndef BREATH_METER
-    // If Mario is swimming, keep power meter visible
-    if (gPlayerCameraState->action & ACT_FLAG_SWIMMING) {
-        if (sPowerMeterHUD.animation == POWER_METER_HIDDEN
-            || sPowerMeterHUD.animation == POWER_METER_EMPHASIZED) {
-            sPowerMeterHUD.animation = POWER_METER_DEEMPHASIZING;
-            sPowerMeterHUD.y = HUD_POWER_METER_EMPHASIZED_Y;
-        }
-        sPowerMeterVisibleTimer = 0;
-    }
-#endif
 }
 
 /**
