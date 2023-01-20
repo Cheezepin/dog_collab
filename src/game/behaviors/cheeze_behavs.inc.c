@@ -243,7 +243,7 @@ void bhv_bowser_snowball_loop(void) {
         return;
     }
     o->oPosY += o->oGraphYOffset;
-    print_text_fmt_int(20, 20, "%d", (s32)dist_between_objects(gMarioObject, o));
+    // print_text_fmt_int(20, 20, "%d", (s32)dist_between_objects(gMarioObject, o));
     if(dist_between_objects(gMarioObject, o) < 250.0f && gMarioState->action != ACT_ROLLED_UP) {
         o->oTimer = 120;
         set_mario_action(gMarioState, ACT_ROLLED_UP, 0);
