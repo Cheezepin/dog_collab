@@ -55,6 +55,12 @@ u32 _2639_BoB_A1_ToadTalkLatch = 0;
 u32 _2639_BoB_A1_CaneCollected = 0;
 u32 _2639_BoB_A1_SunglassesCollected = 0;
 
+reset_act_1() {
+    _2639_BoB_A1_CaneCollected = 0;
+    _2639_BoB_A1_SunglassesCollected = 0;
+    _2639_BoB_A1_ToadTalkLatch = 0;
+}
+
 // s32 in2639Level(struct Object *co) {
 //     f32 throw;
 //     struct Object *oo = cNearestObj_Bhv(bhv2639_DRM, &throw);
@@ -177,6 +183,10 @@ void Cam2639_Main(struct Camera *c) {
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
     transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
     // CDebug(c);
+}
+
+void Cam2639_LookDown(struct Camera *c) {
+    set_camera_mode_fixed(c, -125, 958, -380);
 }
 
 void Cam2639_OutwardSpiral(struct Camera *c) {

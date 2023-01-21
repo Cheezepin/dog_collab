@@ -834,3 +834,4 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/2639BallEater.inc.c"
 #include "behaviors/2639FinalPresent.inc.c"
 #include "behaviors/2639PresentEater.inc.c"
+#include "behaviors/2639ElevatorKey.inc.c"

@@ -14,6 +14,7 @@ void elvWarpMario(int node) {
 
 #define oElevatorMovementMultiplier OBJECT_FIELD_F32(0x1B)
 #define elevDistanceLatch OBJECT_FIELD_S32(0x1C)
+#define elevLocked OBJECT_FIELD_S32(0x1D)
 void bhv_2639Elevator_init(void) {
     o->oAction = 0;
 
@@ -27,17 +28,50 @@ void bhv_2639Elevator_init(void) {
         o->oElevatorMovementMultiplier = -1.0f;
     }
 
+    if (gCurrLevelNum == LEVEL_BITS) {
+        o->elevLocked = 1;
+    } else {
+        o->elevLocked = 0;
+    }
+
+
     // if (o->oPosY < -100) {
     //     o->oPosY = 0;
     //     o->oHomeY = o->oPosY;
     // }
 }
+
+void keepInElevator(f32 *z) {
+    if (gCurrAreaIndex == 2) { // LOBBY
+        if (*z > -2400) {
+            *z = -2400;
+        }
+    } else if (gCurrAreaIndex != 7) { // NOT BASEMENT (hopefully?)
+        if (*z > 1000) {
+            *z = 1000;
+        }
+    } else { // BASEMENT
+        if (*z > 6200) {
+            *z = 6200;
+        }
+    }
+}
+void keepOutElevator(Vec3f pos) {
+    // TODO: check pos[0] and pos[2]
+    if (pos[0] > -500 && pos[0] < 500) {
+        if (pos[2] < -2100 && (pos[2] > -2500)) {
+            pos[2] = -2100;
+        }
+    }
+}
+
+#define ELEV_DISTANCE 750
 void bhv_2639Elevator_loop(void) {
 
-    if (o->oDistanceToMario >= 1500) {
+    if (o->oDistanceToMario >= ELEV_DISTANCE) {
         o->elevDistanceLatch = 2;
     }
-    if (o->oDistanceToMario < 1500 && o->elevDistanceLatch == 2) {
+    if (o->oDistanceToMario < ELEV_DISTANCE && o->elevDistanceLatch == 2) {
         o->elevDistanceLatch = 0;
     }
 
@@ -47,22 +81,26 @@ void bhv_2639Elevator_loop(void) {
                 if ((o->oBehParams >> 24) == 1) {
                     o->oAction = 5;
                     o->oTimer = 0;
+                    break;
                 }
             }
 
-            else {
-                if (gMarioObject->platform == o && o->elevDistanceLatch == 0) {
-                    o->oTimer = 0;
-                    o->oAction++;
-                }
+            if (o->elevLocked == 1) {
+                keepOutElevator(gMarioState->pos);
             }
-        break;
+
+            if (gMarioObject->platform == o && o->elevDistanceLatch == 0) {
+                o->oTimer = 0;
+                o->oAction++;
+            }
+            break;
 
         case 1:
             if (o->oTimer > 18) {
                 o->oAction++;
                 o->oTimer = 0;
             }
+            keepInElevator(&gMarioState->pos[2]);
         break;
         case 2:
             o->oPosY += (8.0f * o->oElevatorMovementMultiplier);
@@ -71,10 +109,12 @@ void bhv_2639Elevator_loop(void) {
                 elvWarpMario(o->oBehParams2ndByte);
                 o->elevDistanceLatch = 1;
             }
+            keepInElevator(&gMarioState->pos[2]);
         break;
         case 3:
             o->oPosY += (8.0f * o->oElevatorMovementMultiplier);
             o->oTimer = 0;
+            keepInElevator(&gMarioState->pos[2]);
         break;
 
 
@@ -122,6 +162,7 @@ void bhv_2639Elevator_loop(void) {
                 o->oAction++;
                 o->oTimer = 0;
             }
+            keepInElevator(&gMarioState->pos[2]);
         break;
         case 9:
             o->oPosY -= (8.0f * o->oElevatorMovementMultiplier);
@@ -130,9 +171,11 @@ void bhv_2639Elevator_loop(void) {
                 elvWarpMario(o->oBehParams2ndByte);
                 o->elevDistanceLatch = 1;
             }
+            keepInElevator(&gMarioState->pos[2]);
         break;
         case 10:
             o->oPosY -= (8.0f * o->oElevatorMovementMultiplier);
+            keepInElevator(&gMarioState->pos[2]);
         break;
     }
 
