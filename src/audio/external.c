@@ -325,8 +325,10 @@ u8 sBackgroundMusicDefaultVolume[] = {
     70,  // SEQ_COZIES
     70,  // SEQ_CREDITS
     70,  // SEQ_METEOR_HERD
-    100,
+    100, // someone on soundcloud lol
     70, //SEQ_FINAL_BOWSER
+    70,  // SEQ_FACTORY_DOWN
+    70,  // SEQ_FACTORY
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sBackgroundMusicDefaultVolume) == SEQ_COUNT,

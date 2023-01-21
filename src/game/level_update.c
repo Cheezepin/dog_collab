@@ -272,6 +272,7 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
             set_mario_action(m, ACT_TELEPORT_FADE_IN, 0);
             break;
         case MARIO_SPAWN_INSTANT_ACTIVE:
+            m->marioObj->header.gfx.node.flags |= GRAPH_RENDER_ACTIVE;
             set_mario_action(m, ACT_IDLE, 0);
             break;
         case MARIO_SPAWN_AIRBORNE:
@@ -620,6 +621,10 @@ s16 music_unchanged_through_warp(s16 arg) {
         }
     } else {
 #endif
+        if (gCurrLevelNum == LEVEL_HMC && destArea == gCurrAreaIndex && gCurrAreaIndex == 2) {
+            return TRUE;
+        }
+
         u16 destParam1 = gAreas[destArea].musicParam;
         u16 destParam2 = gAreas[destArea].musicParam2;
 

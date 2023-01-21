@@ -446,6 +446,13 @@ static void level_cmd_load_model_from_geo(void) {
     if (model < MODEL_ID_COUNT) {
         gLoadedGraphNodes[model] = process_geo_layout(sLevelPool, geo);
     }
+#ifdef DEBUG
+    else {
+        static char warn_msg[128];
+        sprintf(warn_msg, "MODEL ID %d WAS ATTEMPTED TO BE LOADED - MAX MODEL COUNT IS %d", model, MODEL_ID_COUNT);
+        assert(FALSE, warn_msg);
+    }
+#endif
 
     sCurrentCmd = CMD_NEXT;
 }
