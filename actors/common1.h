@@ -297,4 +297,6 @@ extern const Collision wooden_signpost_seg3_collision_0302DD80[];
 // Mario_Plane
 extern const Collision mario_plane_collision[];
 
+#include "actors/life_meter_new/header.h"
+
 #endif

@@ -236,7 +236,7 @@ ifeq ($(UNF),1)
   DEFINES += UNF=1
   SRC_DIRS += src/usb
   USE_DEBUG := 1
-  LOADER_FLAGS = -d -r
+  LOADER_FLAGS = -d ./unfoutput.txt -r
 endif
 
 # ISVPRINT - whether to fake IS-Viewer presence,
@@ -272,7 +272,7 @@ BUILD_DIR_BASE := build
 # BUILD_DIR is the location where all build artifacts are placed
 BUILD_DIR      := $(BUILD_DIR_BASE)/$(VERSION)_$(CONSOLE)
 
-COMPRESS ?= rnc1
+COMPRESS ?= gzip
 $(eval $(call validate-option,COMPRESS,mio0 yay0 gzip rnc1 rnc2 uncomp))
 ifeq ($(COMPRESS),gzip)
   DEFINES += GZIP=1
@@ -594,6 +594,9 @@ test-pj64: $(ROM)
 load: $(ROM)
 	cp $< /run/media/$(USER)/CF62-9261/
 
+coz: $(ROM)
+	./UNFLoader.exe $(LOADER_FLAGS) $(ROM)
+
 libultra: $(BUILD_DIR)/libultra.a
 
 patch: $(ROM)
@@ -738,6 +741,9 @@ endif
 # Sound File Generation                                                        #
 #==============================================================================#
 
+OVERRIDE_AUDIO := 0
+
+ifeq ($(OVERRIDE_AUDIO), 0)
 $(BUILD_DIR)/%.table: %.aiff
 	$(call print,Extracting codebook:,$<,$@)
 	$(V)$(AIFF_EXTRACT_CODEBOOK) $< >$@
@@ -745,6 +751,17 @@ $(BUILD_DIR)/%.table: %.aiff
 $(BUILD_DIR)/%.aifc: $(BUILD_DIR)/%.table %.aiff
 	$(call print,Encoding ADPCM:,$(word 2,$^),$@)
 	$(V)$(VADPCM_ENC) -c $^ $@
+else
+$(BUILD_DIR)/%.table: %.aiff
+	$(call print,Extracting codebook:,$<,$@)
+	$(V)$(AIFF_EXTRACT_CODEBOOK) sound/samples/sfx_mario/02_mario_yah.aiff >$@
+
+$(BUILD_DIR)/%.aifc: $(BUILD_DIR)/%.table
+	$(call print,Encoding ADPCM:,$(word 2,$^),$@)
+	$(V)$(VADPCM_ENC) -c $^ sound/samples/sfx_mario/02_mario_yah.aiff $@
+endif
+
+
 
 $(ENDIAN_BITWIDTH): $(TOOLS_DIR)/determine-endian-bitwidth.c
 	@$(PRINT) "$(GREEN)Generating endian-bitwidth $(NO_COL)\n"

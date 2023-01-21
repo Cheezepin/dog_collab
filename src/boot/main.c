@@ -106,8 +106,8 @@ void setup_mesg_queues(void) {
 }
 
 void alloc_pool(void) {
-    void *start = (void *) SEG_POOL_START;
-    void *end = (void *) (SEG_POOL_START + POOL_SIZE);
+    void *start = (void *) __mainPoolStart;
+    void *end = (void *) __mainPoolEnd;
 
     main_pool_init(start, end);
     gEffectsMemoryPool = mem_pool_init(EFFECTS_MEMORY_POOL, MEMORY_POOL_LEFT);
@@ -458,10 +458,15 @@ void thread1_idle(UNUSED void *arg) {
             break;
     }
     get_audio_frequency();
-    change_vi(&VI, 320, 240);
+
+    gScreenWidth = 320;
+    gScreenHeight = 240;
+
     osViSetMode(&VI);
     osViBlack(TRUE);
+    osViSetSpecialFeatures(OS_VI_DIVOT_ON);
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
+    // osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF); // off because the performance of this game is lmao
     osViSetSpecialFeatures(OS_VI_GAMMA_OFF);
     osCreatePiManager(OS_PRIORITY_PIMGR, &gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
     create_thread(&gMainThread, THREAD_3_MAIN, thread3_main, NULL, gThread3Stack + 0x2000, 100);

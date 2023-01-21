@@ -365,7 +365,7 @@ void bowser_act_wait_for_mario(void) {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
     }
     //o->oHealth = 1; //DEBUG REMOVE LATER
-    // o->oAction = BOWSER_ACT_DEAD;
+    o->oAction = BOWSER_ACT_DEAD;
     //if(o->oTimer == 5) {
     //    spawn_object(o, MODEL_PEACH, bhvPeachEnding);
     //}
@@ -921,6 +921,7 @@ void bowser_act_pre_attack(void){
 }
 void bowser_act_lightning(void){
 struct Object *ashpile;
+struct Object *lightning;
     ashpile = mario_furthest_object_with_behavior(bhvAshpileEmu);
         if(bowser_set_anim_jump()) {o->oVelY = 70.0f;
             o->oForwardVel = -100.0f;
@@ -931,29 +932,30 @@ struct Object *ashpile;
         o->oVelY = 0.0f;
         o->oPosY = 500.0f;
         o->oForwardVel = -100.0f;
+
         cur_obj_init_animation_with_sound(BOWSER_ANIM_SHAKING);
-    //}
+        
         if (lateral_dist_between_objects(o, ashpile) < 150.0f){
-        o->oAction = BOWSER_ACT_LIGHTNING_2;
-        o->oForwardVel = 0.0f;
-        }}
+            o->oAction = BOWSER_ACT_LIGHTNING_2;
+            for (u8 i=0; i<8; i++){
+                o->oMoveAngleYaw += DEGREES(45);
+                lightning = spawn_object(o, MODEL_LIGHTNING, bhvStationaryLightning);
+                lightning->oPosX = o->oPosX - coss(o->oMoveAngleYaw) * 500;
+                lightning->oPosZ = o->oPosZ - sins(o->oMoveAngleYaw) * 500;
+            }
+            o->oForwardVel = 0.0f;
+        }
+    }
     if (o->oBowserDistToCenter > 3200.0f){
         o->oPosX = ashpile->oPosX;
         o->oPosZ = ashpile ->oPosZ;
     }
 }
 void bowser_act_lightning_pt2(void){
-    struct Object *lightning;
     s32 frame = o->header.gfx.animInfo.animFrame;
     cur_obj_init_animation_with_sound(BOWSER_ANIM_BREATH_UP);
    if (frame == 30) {
-        for (u8 i=0; i<8; i++){
-        o->oMoveAngleYaw += DEGREES(45);
-        lightning = spawn_object(o, MODEL_LIGHTNING, bhvStationaryLightning);
-        lightning->oPosX = o->oPosX - coss(o->oMoveAngleYaw) * 500;
-        lightning->oPosZ = o->oPosZ - sins(o->oMoveAngleYaw) * 500;
-    }
-    bowser_spawn_electric_ring();
+    bowser_spawn_electric_ring(); //only triggered on phase 3
     }
     if (o->oTimer%20 == 1){
      bowser_spawn_lightning();   
@@ -1735,6 +1737,7 @@ void bowser_spawn_collectable(void) {
        cur_obj_play_sound_2(SOUND_GENERAL2_BOWSER_KEY);
        gEndingCutsceneState = 0;
        gCamera->cutscene = CUTSCENE_REAL_ENDING;
+       gSecondCameraFocus->oMoveAngleYaw = gSecondCameraFocus->oFaceAngleYaw = 0xC000;
        if(find_any_object_with_behavior(bhvChainChompBowser)) {obj_mark_for_deletion(find_any_object_with_behavior(bhvChainChompBowser));}
         obj_mark_for_deletion(o);
     } else {

@@ -564,7 +564,7 @@ s32 save_file_get_total_star_count(s32 fileIndex, s32 minCourse, s32 maxCourse) 
     }
 
     // Add castle secret star count.
-    return save_file_get_course_star_count(fileIndex, COURSE_NUM_TO_INDEX(COURSE_NONE)) + count;
+    return /*save_file_get_course_star_count(fileIndex, COURSE_NUM_TO_INDEX(COURSE_NONE)) + */count;
 }
 
 void save_file_set_flags(u32 flags) {
@@ -602,7 +602,8 @@ u32 save_file_get_flags(void) {
             SAVE_FLAG_COLLECTED_TOAD_STAR_3  |
             SAVE_FLAG_COLLECTED_MIPS_STAR_1  |
             SAVE_FLAG_COLLECTED_MIPS_STAR_2  |
-            SAVE_FLAG_B3_CHECKPOINT_REACHED);
+            SAVE_FLAG_B3_CHECKPOINT_REACHED  |
+            SAVE_FLAG_BOWSER_3_BEAT);
 #else
     if (gCurrCreditsEntry != NULL || gCurrDemoInput != NULL) {
         return 0;

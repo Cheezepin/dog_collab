@@ -195,7 +195,7 @@ static const LevelScript script_exec_ ## folder [] = { \
 
 const LevelScript script_func_global_1[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BLUE_COIN_SWITCH,        blue_coin_switch_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_AMP,                     dAmpGeo),
+    // LOAD_MODEL_FROM_GEO(MODEL_AMP,                     dAmpGeo),
     LOAD_MODEL_FROM_GEO(MODEL_PURPLE_SWITCH,           purple_switch_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CHECKERBOARD_PLATFORM,   checkerboard_platform_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BREAKABLE_BOX,           breakable_box_geo),
@@ -270,7 +270,6 @@ const LevelScript script_func_global_7[] = {
     LOAD_MODEL_FROM_GEO(MODEL_MONTY_MOLE,              monty_mole_geo),
     LOAD_MODEL_FROM_GEO(MODEL_UKIKI,                   ukiki_geo),
     LOAD_MODEL_FROM_GEO(MODEL_FWOOSH,                  fwoosh_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_RC_SIGN, rcsign_geo),
     RETURN(),
 };
 
@@ -325,7 +324,7 @@ const LevelScript script_func_global_13[] = {
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_FLAMES,           bowser_flames_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_WAVE,             invisible_bowser_accessory_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BOWSER_NO_SHADOW,        bowser_geo_no_shadow),
-    // LOAD_MODEL_FROM_GEO(MODEL_AMP,                     dAmpGeo),
+    LOAD_MODEL_FROM_GEO(MODEL_AMP,                     dAmpGeo),
     // LOAD_MODEL_FROM_GEO(MODEL_BOWSER_ELECTRIC_RING,    electric_ring_geo),
     RETURN(),
 };

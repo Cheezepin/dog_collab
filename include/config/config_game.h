@@ -4,6 +4,8 @@
  * GAME SETTINGS *
  *****************/
 
+#define DIALOG_BOX_WIDTH 138 // 130 is vanilla
+
 /**
  * Enables some mechanics that change behavior depending on hardcoded level numbers.
  * You may also need to change sLevelsWithRooms in object_helpers.c.
@@ -27,7 +29,7 @@
 #define MAX_NUM_COINS   999
 
 // Air/Breath meter is separate from health meter when underwater
-#define BREATH_METER
+// #define BREATH_METER
 
 // Number of coins to spawn the "100 coin" star. If you remove the define altogether, then there won't be a 100 coin star at all.
 #define X_COIN_STAR 100
@@ -70,3 +72,5 @@
 
 // The level that the game starts in after file select. The levelscript needs to have a MARIO_POS command for this to work.
 #define START_LEVEL LEVEL_CASTLE
+
+#define HURT_FLOOR_DAMAGE 0x0200

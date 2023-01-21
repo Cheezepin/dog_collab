@@ -75,6 +75,7 @@
 #define CHAR_CBUTTON 0x86
 #define CHAR_XBUTTON 0x87
 #define CHAR_RBUTTON 0x88
+#define CHAR_100_PERCENT 0xF8
 #define CHAR_COIN 0xF9
 #define CHAR_STAR 0xFA
 #define CHAR_UNFILLED_STAR 0xFD
@@ -338,7 +339,7 @@
 #define TEXT_C3A "Author: someone2639"
 
 #define TEXT_B1I "Bowser 1"
-#define TEXT_B1  "Bowser's FUCKING Flying Fortress"
+#define TEXT_B1  "Bowser's Flying Fortress"
 #define TEXT_B1A "Author: Cheezepin"
 
 #define TEXT_C4I "Course 4"
@@ -390,7 +391,7 @@
 #define TEXT_AND_THE_RED_COIN_STAR "and the red coin star!"
 #define TEXT_100_COIN_STAR "100*\xF9"
 #define TEXT_NEXT_UNFINISHED_ACT "Up Next (Act 1):"
-#define TEXT_ALL_ACTS_COMPLETED "Exit Game"
+#define TEXT_ALL_ACTS_COMPLETED "All Acts Completed!"
 
 #define TEXT_HA_0 "You need 5 stars to enter this course"
 #define TEXT_HA_1 "You need to clear Bowser 1 to enter this world"

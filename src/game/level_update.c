@@ -62,13 +62,13 @@ const char *credits04[] = { "4HAIR RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "
 // #else // VERSION_US || VERSION_EU
 
 // US and EU combine camera programmer and Mario face programmer...
-const char *credits05[] = { "6BOWSER'S FLYING", "CHEEZEPIN", "FUCKING FORTRESS", "", "MUSIC", "HYRULE CASTLE LTTP" };
+const char *credits05[] = { "6BOWSER'S FLYING", "CHEEZEPIN", "FORTRESS", "", "MUSIC", "HYRULE CASTLE LTTP" };
 const char *credits06[] = { "4KOOPA ATOLL", "MUSIC", "BEVERLYBEAN", "WATERSONG 2 DTL NEXT CHAPTER" };
 const char *credits07[] = { "4PEACH RUINS", "MUSIC", "ROVERT", "IDK" };
 const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "STRIATION CITY POKEMON BW" };
 
 // ...as well as sound composer, sound effects, and sound programmer, and...
-const char *credits09[] = { "4AWE-INSPIRING SPIRES", "MUSIC", "KEYBLADER", "METEOR HERD SA2" };
+const char *credits09[] = { "4AWE INSPIRING SPIRES", "MUSIC", "KEYBLADER", "METEOR HERD SA2" };
 // ...3D animators and additional graphics in order to make room for screen text writer(s), Mario voice, and Peach voice
 const char *credits10[] = { "6BOWSER'S RAINBOW", "ANUNIDENTIFIEDEMU", "RINGS",  "", "MUSIC", "BOWSER STAGE SM64" };
 const char *credits11[] = { "4SAKURA STRONGHOLD", "MUSIC", "YOSHI MILKMAN", "SAMMERS KINGDOM SPM" };
@@ -89,14 +89,13 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_PSS, 7, 1, 117, { 0, 100, 0 }, credits01, 0 },
     { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02, 0 },
     { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03, 0 },
-    { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03, 0 },
-    //{ LEVEL_BOB, 1, 34, 25, { -5464, 6656, -6575 }, credits04, 0 },
+    { LEVEL_BOB, 2, 34, 25, { -489, 116, 2261 }, credits04, 0 },
     { LEVEL_BITFS, 1, 1, 240, { 15040, 2867, 1676 }, credits05, 1 },
     { LEVEL_WF, 1, -15, 123, { -5516, 1006, 1554 }, credits06, 0 },
     { LEVEL_CCM, 1, 17, -32, { 508, 1024, 1942 }, credits07, 0 },
     { LEVEL_JRB, 1, 33, 124, { 6367, 100, -37 }, credits08, 0 },
     { LEVEL_SSL, 1, 65, 98, { -5906, 1024, -2576 }, credits09, 0 },
-    //{ LEVEL_BITDW, 1, 50, 47, { -4884, -4607, -272 }, credits10, 1 },
+    { LEVEL_BITDW, 1, 50, 47, { -4884, -4607, -272 }, credits10, 1 },
     { LEVEL_LLL, 1, 17, -34, { 1925, 3328, 563 }, credits11, 0 },
     { LEVEL_HMC, 2, 33, 105, { 400, 4500, -400 }, credits12, 0 },
     { LEVEL_DDD, 2, 2, -33, { 405, -9500, -2200 }, credits13, 0 },
@@ -273,6 +272,7 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
             set_mario_action(m, ACT_TELEPORT_FADE_IN, 0);
             break;
         case MARIO_SPAWN_INSTANT_ACTIVE:
+            m->marioObj->header.gfx.node.flags |= GRAPH_RENDER_ACTIVE;
             set_mario_action(m, ACT_IDLE, 0);
             break;
         case MARIO_SPAWN_AIRBORNE:
@@ -620,6 +620,10 @@ s16 music_unchanged_through_warp(s16 arg) {
         }
     } else {
 #endif
+        if (gCurrLevelNum == LEVEL_HMC && destArea == gCurrAreaIndex && gCurrAreaIndex == 2) {
+            return TRUE;
+        }
+
         u16 destParam1 = gAreas[destArea].musicParam;
         u16 destParam2 = gAreas[destArea].musicParam2;
 
@@ -812,7 +816,7 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                 break;
 
             case WARP_OP_WARP_FLOOR:
-                 if (m->floor->type != SURFACE_DEATH_PLANE) {
+                 if (m->floor->type != SURFACE_DEATH_PLANE && !((m->floor->type == SURFACE_HURT_FLOOR || m->floor->type == SURFACE_HURT_FLOOR_WITH_HEIGHT) && m->health <= HURT_FLOOR_DAMAGE + 0xFF)) {
                     sSourceWarpNodeId = m->floor->force;
                 }
                 else{
@@ -822,6 +826,9 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                             sDelayedWarpOp = WARP_OP_GAME_OVER;
                         } else {
                             sSourceWarpNodeId = WARP_NODE_DEATH;
+                            #ifdef PREVENT_DEATH_LOOP
+                            m->isDead = TRUE;
+                            #endif
                         }
                     }
                     }
@@ -1130,7 +1137,7 @@ s32 play_mode_normal(void) {
 #if ENABLE_RUMBLE
             cancel_rumble();
 #endif
-            gCameraMovementFlags |= CAM_MOVE_PAUSE_SCREEN;
+            // gCameraMovementFlags |= CAM_MOVE_PAUSE_SCREEN;
             set_play_mode(PLAY_MODE_PAUSED);
         }
     }
@@ -1511,8 +1518,19 @@ s32 lvl_play_the_end_screen_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) 
 }
 
 s32 lvl_play_dog_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum) {
+    gSaveFileModified = TRUE;
+    save_file_set_flags(SAVE_FLAG_BOWSER_3_BEAT);
+    save_file_do_save(gCurrSaveFileNum - 1);
     play_sound(SOUND_MENU_DOG_ROO, gGlobalSoundSource);
     return TRUE;
+}
+
+s32 ending_init(void) {
+    set_play_mode(PLAY_MODE_NORMAL);
+
+    sDelayedWarpOp = WARP_OP_NONE;
+    sTransitionTimer = 0;
+    sSpecialWarpDest = WARP_SPECIAL_NONE;
 }
 
 char *perfectString[] = {"P", "E", "R", "F", "E", "C", "T", "!"};
@@ -1536,6 +1554,7 @@ s32 ending_get_outta_here(void) {
         print_text_centered(160, 38, "B TO HIDE");
         if(gPlayer1Controller->buttonPressed & A_BUTTON) {
             fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
+            sWarpDest.type = WARP_TYPE_NOT_WARPING;
             gWorldID = 0;
             gFocusID = 0;
             gCustomStarSelectActive = 0;
@@ -1546,5 +1565,5 @@ s32 ending_get_outta_here(void) {
     if(gPlayer1Controller->buttonPressed & B_BUTTON) {
         gGlobalEndingHidden ^= 0x1;
     }
-    return TRUE;
+    return lvl_init_or_update(1, 0);
 }

@@ -6710,6 +6710,10 @@ struct CameraTrigger sCamLLL[] = {
 	NULL_TRIGGER
 };
 struct CameraTrigger sCamBitS[] = {
+	{3, Cam2639_OutwardSpiral, -418, -8265, -4651, 3255, 699, 1131, 0xffff},
+	{3, Cam2639_HeadroomClearance, -407, -7466, 1879, 3081, 909, 2161, 0xffff},
+	{3, Cam2639_CylinderCam, -305, -3358, -2390, 5597, 3903, 5597, 0xffff},
+	// {3, Cam2639_LookDown, -511, 4737, -2116, 1468, 9985, 1468, 0xffff},
 	NULL_TRIGGER
 };
 struct CameraTrigger sCamWF[] = {
@@ -9993,6 +9997,8 @@ void cutscene_hub_world(struct Camera *c) {
 
 extern struct CutsceneSplinePoint sBobCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sBobCreditsSplineFocus[];
+extern struct CutsceneSplinePoint sBobArea2CreditsSplinePositions[];
+extern struct CutsceneSplinePoint sBobArea2CreditsSplineFocus[];
 extern struct CutsceneSplinePoint sWfCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sWfCreditsSplineFocus[];
 extern struct CutsceneSplinePoint sJrbCreditsSplinePositions[];
@@ -10058,6 +10064,10 @@ void cutscene_credits(struct Camera *c) {
         case AREA_BOB:
             pos = sBobCreditsSplinePositions;
             focus = sBobCreditsSplineFocus;
+            break;
+        case AREA_BOB_2:
+            pos = sBobArea2CreditsSplinePositions;
+            focus = sBobArea2CreditsSplineFocus;
             break;
         case AREA_WF:
             pos = sWfCreditsSplinePositions;
@@ -11264,7 +11274,7 @@ u8 sZoomOutAreaMasks[] = {
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
 	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
-	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 0, 1), // SA             | BITS
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 1, 1), // SA             | BITS
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
 	ZOOMOUT_AREA_MASK(1, 0, 1, 0, 0, 0, 0, 0), // WF             | ENDING
 	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 1, 1), // COURTYARD      | PSS
@@ -11292,11 +11302,29 @@ struct CutsceneSplinePoint sBobCreditsSplinePositions[] = {
 };
 
 struct CutsceneSplinePoint sBobCreditsSplineFocus[] = {
-    { 0, 30, { 5817, 3306, 4507 } },
+    /*{ 0, 30, { 5817, 3306, 4507 } },
     { 0, 40, { 4025, 3378, 1593 } },
     { 0, 50, { 1088, 2652, -2205 } },
     { 0, 60, { 205, 3959, -3517 } },
-    { -1, 60, { 1231, 4400, -5649 } }
+    { -1, 60, { 1231, 4400, -5649 } }*/
+};
+
+struct CutsceneSplinePoint sBobArea2CreditsSplinePositions[] = {
+    { 0, 0, { -2920, 612, -4135 }},
+	{ 1, 0, { -1395, 612, -4135 }},
+	{ 2, 0, { 688, 612, -3827 }},
+	{ 3, 0, { 800, 612, -3330 }},
+	{ 4, 0, { 784, 612, -1146 }},
+	{ -1, 0, { 227, 612, -125 }},
+};
+
+struct CutsceneSplinePoint sBobArea2CreditsSplineFocus[] = {
+    { 0, 50, { -3062, 162, -4884 }},
+	{ 1, 50, { -1614, 162, -5030 }},
+	{ 2, 50, { 133, 162, -4674 }},
+	{ 3, 40, { 1643, 162, -3273 }},
+	{ 4, 30, { 1746, 162, -830 }},
+	{ -1, 30, { 81, 162, 791 }},
 };
 
 struct CutsceneSplinePoint sWfCreditsSplinePositions[] = {

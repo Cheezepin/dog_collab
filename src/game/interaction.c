@@ -1982,6 +1982,15 @@ void check_death_barrier(struct MarioState *m) {
     }
 }
 
+void check_death_barrier_with_height(struct MarioState *m) {
+    f32 aboveFloorHeight = (f32)m->floor->force;
+    if (m->pos[1] <= m->floorHeight + aboveFloorHeight) {
+        if (level_trigger_warp(m, WARP_OP_WARP_FLOOR) == 20 && !(m->flags & MARIO_FALL_SOUND_PLAYED)) {
+            play_sound(SOUND_MARIO_WAAAOOOW, m->marioObj->header.gfx.cameraToObject);
+        }
+    }
+}
+
 void check_lava_boost(struct MarioState *m) {
     if (!(m->action & ACT_FLAG_RIDING_SHELL) && m->pos[1] < m->floorHeight + 10.0f) {
         if (!(m->flags & MARIO_METAL_CAP)) {
@@ -2028,14 +2037,14 @@ void check_hurt_floor(struct MarioState *m) {
             }
         }
         
-        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, m->floor->force);
+        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ HURT_FLOOR_DAMAGE);
     }
 }
 
 void check_hurt_floor_with_height(struct MarioState *m) {
     f32 aboveFloorHeight = (f32)m->floor->force;
     if (m->pos[1] <= m->floorHeight + aboveFloorHeight) {
-        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, HURT_FLOOR_DAMAGE);
     }
 }
 
@@ -2067,11 +2076,19 @@ void mario_handle_special_floors(struct MarioState *m) {
                 break;
             
             case SURFACE_HURT_FLOOR:
-                check_hurt_floor(m);
+                if(m->health > HURT_FLOOR_DAMAGE + 0xFF) {
+                    check_hurt_floor(m);
+                } else {
+                    check_death_barrier(m);
+                }
                 break;
             
             case SURFACE_HURT_FLOOR_WITH_HEIGHT:
-                check_hurt_floor_with_height(m);
+                if(m->health > HURT_FLOOR_DAMAGE + 0xFF) {
+                    check_hurt_floor_with_height(m);
+                } else {
+                    check_death_barrier_with_height(m);
+                }
                 break;
         }
         

@@ -438,11 +438,12 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
                 create_dl_translation_matrix(MENU_MTX_PUSH, x, y - (lineNum * MAX_STRING_WIDTH), 0.0f);
                 lineNum++;
                 break;
-            case DIALOG_CHAR_PERIOD:
+            /*case DIALOG_CHAR_PERIOD:
                 create_dl_translation_matrix(MENU_MTX_PUSH, -2.0f, -5.0f, 0.0f);
                 render_generic_char(DIALOG_CHAR_PERIOD_OR_HANDAKUTEN);
+                print_text(20, 20, "yeah");
                 gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
-                break;
+                break;*/
             case DIALOG_CHAR_SLASH:
                 create_dl_translation_matrix(MENU_MTX_NOPUSH, (f32)(gDialogCharWidths[DIALOG_CHAR_SPACE] * 2), 0.0f, 0.0f);
                 break;
@@ -1067,7 +1068,7 @@ void render_dialog_triangle_choice(void) {
     gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
 }
 
-#define X_VAL5 118.0f
+#define X_VAL5 (DIALOG_BOX_WIDTH - 12.0f)
 #define Y_VAL5_1 -16
 #define Y_VAL5_2 5
 #define X_Y_VAL6 0.8f
@@ -1292,20 +1293,13 @@ void render_dialog_entries(void) {
 
     render_dialog_box_type(dialog, dialog->linesPerBox);
 
-    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE,
-                  // Horizontal scissoring isn't really required and can potentially mess up widescreen enhancements.
-#ifdef WIDESCREEN
-                  0,
-#else
-                  ensure_nonnegative(dialog->leftOffset),
-#endif
-                  ensure_nonnegative(DIAG_VAL2 - dialog->width),
-#ifdef WIDESCREEN
-                  gScreenWidth,
-#else
-                  ensure_nonnegative(DIAG_VAL3 + dialog->leftOffset),
-#endif
-                  ensure_nonnegative(240 + ((dialog->linesPerBox * 80) / DIAG_VAL4) - dialog->width));
+    gDPSetScissor(
+        gDisplayListHead++, G_SC_NON_INTERLACE,
+        0,
+        ensure_nonnegative(DIAG_VAL2 - dialog->width),
+        SCREEN_WIDTH,
+        ensure_nonnegative((240 - dialog->width) + (dialog->linesPerBox * 80 / DIAG_VAL4))
+    );
     handle_dialog_text_and_pages(0, dialog, lowerBound);
 
     if (gLastDialogPageStrPos == -1 && gLastDialogResponse == 1) {
@@ -2720,6 +2714,9 @@ void render_hub_selection(void) {
                     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 15, 0xFF, 0xFF, 0xFF);
                     sDelayedWarpTimer = 15;
                     sSourceWarpNodeId = hubSelections[gWorldID][gFocusID].warpID;
+                    if(hubSelections[gWorldID][gFocusID].courseID == 6 && gCurrActNum > 1) { //ff special case
+                        sSourceWarpNodeId = 0x1C;
+                    }
                     gIntroCutsceneState = 0;
                 } else if(hubSelections[gWorldID][gFocusID].courseID > 15 || hubSelections[gWorldID][gFocusID].courseID == 0) {
                     gLevelEntryConfirmationActive = 1;
@@ -2930,7 +2927,13 @@ void render_hub_star_select(s32 cringeTimer) {
             }
         }
     }
+
     if(visibleStars > 6) {visibleStars = 6;}
+
+    if(cringeTimer == 1) {
+        selectedStar = lastSelectableNotCompletedStar;
+    }
+
     centerX = (gScreenWidth/2) - (((f32)(visibleStars - 1))*25.0f);
 
     if (!gWarpTransition.isActive) {

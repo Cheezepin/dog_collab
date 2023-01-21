@@ -239,10 +239,11 @@ void bhv_bowser_snowball_loop(void) {
     if(o->oTimer > 150) {
         obj_mark_for_deletion(o);
         spawn_triangle_break_particles(30, MODEL_DIRT_ANIMATION, 3.0f, TINY_DIRT_PARTICLE_ANIM_STATE_YELLOW);
-        return set_mario_action(gMarioState, ACT_SKIING, 0);
+        set_mario_action(gMarioState, ACT_SKIING, 0);
+        return;
     }
     o->oPosY += o->oGraphYOffset;
-    print_text_fmt_int(20, 20, "%d", (s32)dist_between_objects(gMarioObject, o));
+    // print_text_fmt_int(20, 20, "%d", (s32)dist_between_objects(gMarioObject, o));
     if(dist_between_objects(gMarioObject, o) < 250.0f && gMarioState->action != ACT_ROLLED_UP) {
         o->oTimer = 120;
         set_mario_action(gMarioState, ACT_ROLLED_UP, 0);
@@ -267,10 +268,10 @@ void bhv_warp_box_init(void) {
     o->collidedObjs[0] = 0;
     o->oAction = 0;
     o->oSubAction = 0;
+    o->oWarpBoxInnerScale = 0.01f;
 }
 
 void bhv_warp_box_loop(void) {
-
     if((o->oBehParams >> 24) == 0) {
         if(o->oAction == 1) {
             gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
@@ -292,7 +293,9 @@ void bhv_warp_box_loop(void) {
                 }
                 else {
                     if(o->oTimer < 9) {
-                        vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
+                        s32 idx = o->oTimer - 1;
+                        idx = CLAMP(idx, 0, ARRAY_COUNT(warpBoxScaleFrames));
+                        vec3f_copy(o->header.gfx.scale, warpBoxScaleFrames[idx]);
                     }
                     if(o->oTimer == 15) {
                         sDelayedWarpOp = 1;
@@ -320,34 +323,47 @@ void bhv_warp_box_loop(void) {
             o->oAnimState = 1;
         }
     } else if(gCurrCreditsEntry == NULL) {
-        if(o->oTimer < 9) {
-            vec3f_copy(&o->header.gfx.scale[0], warpBoxScaleFrames[o->oTimer - 1]);
-            o->oWarpBoxInnerScale = 1.0f;
-        }
-        if(o->oTimer == 4) {
-            set_mario_action(gMarioState, ACT_EMERGE_FROM_PIPE, 1);
-        }
-        if(o->oTimer == 17) {
-            play_sound(SOUND_CUSTOM_WARP_BOX_OUT, gGlobalSoundSource);
-        }
-        if(o->oTimer >= 15) {
-            if(o->oWarpBoxInnerScale > 0.0f) {
-                o->oWarpBoxInnerScale -= 0.125f;
+        if(sSourceWarpNodeId != 0xF1) {
+            if(o->oTimer < 9) {
+                s32 idx = o->oTimer - 1;
+                idx = CLAMP(idx, 0, ARRAY_COUNT(warpBoxScaleFrames));
+                vec3f_copy(o->header.gfx.scale, warpBoxScaleFrames[idx]);
+                o->oWarpBoxInnerScale = 1.0f;
+            }
+            if(o->oTimer == 4) {
+                set_mario_action(gMarioState, ACT_EMERGE_FROM_PIPE, 1);
+            }
+            if(o->oTimer == 17) {
+                play_sound(SOUND_CUSTOM_WARP_BOX_OUT, gGlobalSoundSource);
+            }
+            if(o->oTimer >= 15) {
+                if(o->oWarpBoxInnerScale > 0.001f) {
+                    o->oWarpBoxInnerScale -= 0.125f;
+                }
+            } else {
+                gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+            }
+            if(o->oTimer == 30) {
+                struct Object *explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
+                explosion->oGraphYOffset += 100.0f;
+                obj_mark_for_deletion(o);
             }
         } else {
-            gMarioObject->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
-        }
-        if(o->oTimer == 30) {
-            struct Object *explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
-            explosion->oGraphYOffset += 100.0f;
             obj_mark_for_deletion(o);
         }
+    } else if(o->oTimer == 2) {
+        // level_set_transition(2, NULL);
+        // warp_special(WARP_SPECIAL_INTRO_SPLASH_SCREEN);
+    }
+    if(o->oWarpBoxInnerScale < 0.001f) {
+        o->oWarpBoxInnerScale = 0.001f;
     }
 }
 
 void bhv_peach_cutscene_loop(void) {
     if(gCurrCreditsEntry != NULL) {o->oMoveAngleYaw = o->oFaceAngleYaw = 0xD000; return cur_obj_init_animation(PEACH_ANIM_WAVING);}
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+    gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_STAR_COUNT;
     switch(gIntroCutsceneState) {
         case 0:
             if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_1); o->oSubAction = 1;}

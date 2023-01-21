@@ -33,7 +33,7 @@ void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_8() {
 
 void scroll_castle_grounds_dl_Sphere_mesh_layer_1_vtx_55() {
 	int i = 0;
-	int count = 2592;
+	int count = 1338;
 	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 

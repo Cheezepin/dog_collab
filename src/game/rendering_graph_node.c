@@ -317,12 +317,14 @@ void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
     // @bug This is where the LookAt values should be calculated but aren't.
     // As a result, environment mapping is broken on Fast3DEX2 without the
     // changes below.
+
     Mtx lMtx;
     if (gCurrLevelNum == LEVEL_COZIES) {
         guLookAtReflect(&lMtx, &lookAt, 0.0f, 0.0f, 0.0f, /* eye */ 0.0f, 0.0f, 1.0f, /* at */ 0.0f, -1.0f, 0.0f /* up */);
     } else {
         guLookAtReflect(&lMtx, &lookAt, 0.0f, 0.0f, 0.0f, /* eye */ 0.0f, 0.0f, 1.0f, /* at */ 1.0f, 0.0f, 0.0f /* up */);
     }
+    gSPLookAt(gDisplayListHead++, &lookAt);
 #endif // F3DEX_GBI_2
 
     // Loop through the render phases
@@ -340,42 +342,44 @@ void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
 
         // Iterate through the layers on the current render phase.
         for (currLayer = startLayer; currLayer <= endLayer; currLayer++) {
+            Gfx *temp = gDisplayListHead;
             if (gIsConsole && in2639Level() && (currLayer == LAYER_TRANSPARENT_INTER)) {
                 continue;
             }
 
             // Set 'currList' to the first DisplayListNode on the current layer.
             currList = node->listHeads[ucode][currLayer];
-            gDPSetRenderMode(gDisplayListHead++, mode1List->modes[currLayer],
+            gDPSetRenderMode(temp++, mode1List->modes[currLayer],
                                                  mode2List->modes[currLayer]);
 
             if (currLayer == LAYER_CIRCLE_SHADOW) {
-                gSPDisplayList(gDisplayListHead++, dl_shadow_circle);
+                gSPDisplayList(temp++, dl_shadow_circle);
             }
 
-            if (gCurrLevelNum == LEVEL_COZIES) {
-                gDPSetFogColor(gDisplayListHead++, gGlobalFog.r, gGlobalFog.g, gGlobalFog.b, gGlobalFog.a);
-                gSPFogPosition(gDisplayListHead++, gGlobalFog.low, gGlobalFog.high);
+            if (gCurrLevelNum == LEVEL_COZIES || (gCurrLevelNum == LEVEL_PSS && gCurrAreaIndex == 6)) {
+                gDPSetFogColor(temp++, gGlobalFog.r, gGlobalFog.g, gGlobalFog.b, gGlobalFog.a);
+                gSPFogPosition(temp++, gGlobalFog.low, gGlobalFog.high);
             }
 
             // Iterate through all the displaylists on the current layer.
             while (currList != NULL) {
                 // Add the display list's transformation to the master list.
-                gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(currList->transform),
+                gSPMatrix(temp++, VIRTUAL_TO_PHYSICAL(currList->transform),
                           (G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH));
 
                 // Add the current display list to the master list.
-                gSPDisplayList(gDisplayListHead++, currList->displayList);
+                gSPDisplayList(temp++, currList->displayList);
 
                 // Move to the next DisplayListNode.
                 currList = currList->next;
             }
 
             if (currLayer == LAYER_CIRCLE_SHADOW_TRANSPARENT) {
-                gSPTexture(gDisplayListHead++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_OFF);
-                gSPSetGeometryMode(gDisplayListHead++, G_LIGHTING | G_CULL_BACK);
-                gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
+                gSPTexture(temp++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_OFF);
+                gSPSetGeometryMode(temp++, G_LIGHTING | G_CULL_BACK);
+                gDPSetCombineMode(temp++, G_CC_SHADE, G_CC_SHADE);
             }
+            gDisplayListHead = temp;
         }
     }
 
@@ -403,9 +407,7 @@ void geo_process_master_list_sub(struct GraphNodeMasterList *node) {
  */
 void geo_append_display_list(void *displayList, s32 layer) {
     s32 ucode = GRAPH_NODE_UCODE_DEFAULT;
-#ifdef F3DEX_GBI_2
-    gSPLookAt(gDisplayListHead++, &lookAt);
-#endif
+
 #if defined(OBJECTS_REJ) || SILHOUETTE
     if (gCurGraphNodeObject != NULL) {
  #ifdef OBJECTS_REJ
@@ -591,7 +593,10 @@ void geo_process_camera(struct GraphNodeCamera *node) {
     // thecozies start
     viewMat = &gMatStack[gMatStackIndex];
     gReadyForLookAt = TRUE;
-    if (gCurrLevelNum == LEVEL_COZIES && gCamera) {
+    if (
+        (gCurrLevelNum == LEVEL_COZIES || (gCurrLevelNum == LEVEL_PSS && gCurrAreaIndex == 6))
+        && gCamera
+    ) {
         s16 checkingTemp = gCollisionFlags;
         gCollisionFlags |= COLLISION_FLAG_CAMERA;
         gCameraIsUnderwater = find_water_level(gCamera->pos[0], gCamera->pos[2]) > gCamera->pos[1];

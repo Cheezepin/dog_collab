@@ -1795,6 +1795,10 @@ ALIGNED8 static const Texture texture_font_char_us_exclamation[] = {
 #include "textures/segment2/font_graphics.068C0.ia4.inc.c"
 };
 
+ALIGNED8 static const Texture texture_font_char_100_percent[] = {
+#include "textures/segment2/CUSTOM_font_graphics.100percent.ia4.inc.c"
+};
+
 ALIGNED8 static const Texture texture_font_char_us_coin[] = {
 #include "textures/segment2/font_graphics.06900.ia4.inc.c"
 };
@@ -2130,7 +2134,7 @@ const Texture *const main_font_lut[] = {
     0x0, 0x0, 0x0, 0x0,
     0x0, 0x0, 0x0, 0x0,
     0x0, texture_font_char_us_double_quote_open, texture_font_char_us_double_quote_close, 0x0,
-    0x0, texture_font_char_us_coin, texture_font_char_us_star_filled, 0x0,
+    texture_font_char_100_percent, texture_font_char_us_coin, texture_font_char_us_star_filled, 0x0,
     texture_font_char_us_interpunct, texture_font_char_us_star_hollow, 0x0, 0x0,
 // #elif defined(VERSION_JP) || defined(VERSION_SH)
 //     texture_font_char_jp_0, texture_font_char_jp_1, texture_font_char_jp_2, texture_font_char_jp_3,
@@ -2297,10 +2301,10 @@ const Gfx dl_rgba16_text_end[] = {
 
 // 0x0200EDA8 - 0x0200EDE8
 static const Vtx vertex_text_bg_box[] = {
-    {{{     0,    -80,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
-    {{{   130,    -80,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
-    {{{   130,      0,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
-    {{{     0,      0,      0}, 0, {     0,      0}, {0xff, 0xff, 0xff, 0xff}}},
+    {{{                0, -80, 0 }, 0, { 0, 0 }, {0xff, 0xff, 0xff, 0xff}}},
+    {{{ DIALOG_BOX_WIDTH, -80, 0 }, 0, { 0, 0 }, {0xff, 0xff, 0xff, 0xff}}},
+    {{{ DIALOG_BOX_WIDTH,   0, 0 }, 0, { 0, 0 }, {0xff, 0xff, 0xff, 0xff}}},
+    {{{                0,   0, 0 }, 0, { 0, 0 }, {0xff, 0xff, 0xff, 0xff}}},
 };
 
 // 0x0200EDE8 - 0x0200EE28

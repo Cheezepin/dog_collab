@@ -52,7 +52,7 @@ enum GraphRenderFlags {
 
 #ifdef DISABLE_GRAPH_NODE_TYPE_FUNCTIONAL
 // The discriminant for different types of geo nodes
-broken! these arent the right ids
+// broken! these arent the right ids
 enum GraphNodeTypes {
     GRAPH_NODE_TYPE_ORTHO_PROJECTION,
     GRAPH_NODE_TYPE_PERSPECTIVE,
@@ -443,6 +443,10 @@ struct GraphNodeObjectParent        *init_graph_node_object_parent       (struct
 struct GraphNodeGenerated           *init_graph_node_generated           (struct AllocOnlyPool *pool, struct GraphNodeGenerated           *graphNode, GraphNodeFunc gfxFunc, s32 parameter);
 struct GraphNodeBackground          *init_graph_node_background          (struct AllocOnlyPool *pool, struct GraphNodeBackground          *graphNode, u16 background, GraphNodeFunc backgroundFunc, s32 zero);
 struct GraphNodeHeldObject          *init_graph_node_held_object         (struct AllocOnlyPool *pool, struct GraphNodeHeldObject          *graphNode, struct Object *objNode, Vec3s translation, GraphNodeFunc nodeFunc, s32 playerIndex);
+struct GraphNodeScale *init_graph_node_scale_better(struct AllocOnlyPool *pool,
+                                             struct GraphNodeScaleBetter *graphNode, s32 drawingLayer,
+                                             void *displayList, f32 scaleX, f32 scaleY, f32 scaleZ);
+
 
 struct GraphNode *geo_add_child       (struct GraphNode *parent, struct GraphNode *childNode);
 struct GraphNode *geo_remove_child    (struct GraphNode *graphNode);

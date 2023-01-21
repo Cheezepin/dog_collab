@@ -68,19 +68,21 @@ void bhv_bowser_course_red_coin_star_loop(void) {
 }
 
 void bhv_final_bowser_course_dog_bone_star_loop(void) {
-    switch (o->oAction) {
-        case 0:
-            if (save_file_get_dog_bone_count(gCurrSaveFileNum - 1) == 12) {
-                o->oAction = 1;
-            }
-            break;
+    if(gCurrCreditsEntry == NULL) {
+        switch (o->oAction) {
+            case 0:
+                if (save_file_get_dog_bone_count(gCurrSaveFileNum - 1) == 12) {
+                    o->oAction = 1;
+                }
+                break;
 
-        case 1:
-            if (o->oTimer > 90) {
-                spawn_no_exit_star(o->oPosX, o->oPosY, o->oPosZ);
-                spawn_mist_particles();
-                o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
-            }
-            break;
+            case 1:
+                if (o->oTimer > 90) {
+                    spawn_no_exit_star(o->oPosX, o->oPosY, o->oPosZ);
+                    spawn_mist_particles();
+                    o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+                }
+                break;
+        }
     }
 }

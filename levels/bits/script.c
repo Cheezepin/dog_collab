@@ -12,6 +12,8 @@
 #include "levels/scripts.h"
 
 #include "actors/common1.h"
+#include "actors/group14.h"
+#include "actors/group2639.h"
 
 /* Fast64 begin persistent block [includes] */
 /* Fast64 end persistent block [includes] */
@@ -28,8 +30,8 @@ const LevelScript level_bits_entry[] = {
 	LOAD_YAY0(0x0A, _bits_skybox_yay0SegmentRomStart, _bits_skybox_yay0SegmentRomEnd), 
 	LOAD_YAY0(0x06, _group14_yay0SegmentRomStart, _group14_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0D, _group14_geoSegmentRomStart, _group14_geoSegmentRomEnd), 
-	LOAD_YAY0(0x05, _group6_yay0SegmentRomStart, _group6_yay0SegmentRomEnd), 
-	LOAD_RAW(0x0C, _group6_geoSegmentRomStart, _group6_geoSegmentRomEnd), 
+	LOAD_YAY0(0x05, _group2639_yay0SegmentRomStart, _group2639_yay0SegmentRomEnd), 
+	LOAD_RAW(0x0C, _group2639_geoSegmentRomStart, _group2639_geoSegmentRomEnd), 
 	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0F, _common0_geoSegmentRomStart, _common0_geoSegmentRomEnd), 
 	LOAD_MIO0(0x7, _bits_segment_7SegmentRomStart, _bits_segment_7SegmentRomEnd), 
@@ -39,7 +41,6 @@ const LevelScript level_bits_entry[] = {
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_15), 
-	JUMP_LINK(script_func_global_7), 
 	JUMP_LINK(script_func_global_1), 
 	LOAD_MODEL_FROM_GEO(MODEL_WARP_BOX, warpbox_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ASHPILE, ashpile_bits_geo), 
@@ -49,6 +50,23 @@ const LevelScript level_bits_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_FADE_CLOUD, fade_cloud_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_WF_PALM_TREE, wf_palm_bits_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_KOKO, koko_bits_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_RC_SIGN, rcsign_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TURNSTILE, turnstile_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639PEACHNPC, peach2639_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_CANE2639, cane_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_SUNGLASSES2639, sunglasses_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639VENDING, vending_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639SCREW, screw_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639BALL, ball2639_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639PUMP, bouncepump_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639PHMETER, phmeter_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639ROPE, epicrope_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639BEACHBALL, beachball_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639JEWEL, jewelwhatever_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639EVERYTHINGABOVE, present2639_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -57,7 +75,7 @@ const LevelScript level_bits_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BITS, 1, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BITS, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(2, LEVEL_BITS, 2, 1, WARP_NO_CHECKPOINT),
-		WARP_NODE(99, LEVEL_PSS, 7, 1, WARP_NO_CHECKPOINT),
+		WARP_NODE(99, LEVEL_BITS, 3, 1, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_GALOOMBA, 6994, -344, 1081, 0, 68, 0, 0x00000000, bhvGaloomba),
 		OBJECT(MODEL_GALOOMBA, 1564, 147, -54, 0, 68, 0, 0x00000000, bhvGaloomba),
 		OBJECT(MODEL_GALOOMBA, 9414, 465, 4915, 0, 68, 0, 0x00000000, bhvGaloomba),
@@ -84,7 +102,7 @@ const LevelScript level_bits_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BITS, 2, 1, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BITS, 2, 1, WARP_NO_CHECKPOINT),
 		WARP_NODE(1, LEVEL_BITS, 2, 1, WARP_NO_CHECKPOINT),
-		WARP_NODE(2, LEVEL_BITS, 4, 1, WARP_NO_CHECKPOINT),
+		WARP_NODE(2, LEVEL_BITS, 3, 1, WARP_NO_CHECKPOINT),
 		MARIO_POS(0x01, 103, -14184, -2413, -2665),
 		OBJECT(MODEL_NONE, -14184, -2413, -2665, 0, 103, 0, (0xA << 16), bhvSpinAirborneWarp),
 		OBJECT(MODEL_DOG_BONE, 3879, -649, 3289, 0, 0, 0, 0x000B0000, bhvDogBone),
@@ -101,6 +119,36 @@ const LevelScript level_bits_entry[] = {
 		MACRO_OBJECTS(bits_area_2_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
 		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
+	AREA(3, bits_area_3),
+		WARP_NODE(0x0A, LEVEL_BITS, 3, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BITS, 3, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(1, LEVEL_BITS, 3, 1, WARP_NO_CHECKPOINT),
+		WARP_NODE(2, LEVEL_BITS, 4, 1, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_NONE, -2659, -3201, -5165, 0, 0, 0, 0x00000000, bhv2639_DRM),
+		// OBJECT(MODEL_TOAD, 968, -8180, 2019, 0, 0, 0, (_2639DIAG_B3LobbyToadGreeter << 16), bhvAngryToadMessage),
+		OBJECT(MODEL_DOG_BONE, -2872, -8101, 2012, 0, 0, 0, 0x00000000, bhvDogBone),
+		OBJECT_WITH_ACTS(MODEL_DOG, -275, -8266, 2726, 0, 0, 0, 0x00000000, bhvDoginlobby, ACT_1 | ACT_2 | ACT_3),
+		// OBJECT(MODEL_2639ELEVATOR_KEY, -388, 1045, 69, 0, 0, 0, 0x00000000, bhv2639ElevatorKey),
+		OBJECT(MODEL_WOODEN_SIGNPOST, -1023, -8266, -3825, 0, 2, 0, (_2639DIAG_A1LobbyHOF_Intro << 16), bhvMessagePanel),
+		OBJECT(MODEL_NONE, -24919, -10390, -436, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
+		OBJECT(MODEL_RC_SIGN, -613, -8266, -1928, 0, 0, 0, 0x00000000, bhvRedCoinSign),
+		OBJECT(MODEL_NONE, -8, -8264, -1945, 0, 0, 0, (11 << 16), bhvInstantActiveWarp),
+		// OBJECT(MODEL_NONE, -5, -8266, -2848, 0, 0, 0, 0x00000000, ),
+		OBJECT(MODEL_NONE, -2786, -8266, -4573, 0, 0, 0, (_2639DIAG_A1LobbyHOF_Kirby64 << 16), bhv2639TrophyCase),
+		OBJECT(MODEL_NONE, -1295, -8266, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_sUGGOH << 16), bhv2639TrophyCase),
+		OBJECT(MODEL_NONE, -121, -8266, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_AnimeFighter << 16), bhv2639TrophyCase),
+		OBJECT(MODEL_NONE, 1083, -8266, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_HVQM << 16), bhv2639TrophyCase),
+		OBJECT(MODEL_NONE, 2090, -8266, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_1080Decomp << 16), bhv2639TrophyCase),
+		OBJECT(MODEL_WARP_BOX, 20, -8150, 2609, 0, 0, 0, (1 << 24) | (1 << 16), bhvWarpBox),
+		OBJECT(MODEL_WARP_BOX, -12, -7817, -1958, 0, 0, 0, (0 << 24) | (2 << 16), bhvWarpBox),
+		TERRAIN(bits_area_3_collision),
+		MACRO_OBJECTS(bits_area_3_macro_objs),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),

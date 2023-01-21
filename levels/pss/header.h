@@ -45,4 +45,10 @@ extern const GeoLayout bits_octagonal_platform_geo[];
 extern const Gfx bits_octagonal_dl_070135A0[];
 extern const Collision bits_octagonal_collision_0701AA84[];
 
+#include "levels/pss/cozy_pss_bg/geo_header.h"
+#include "levels/pss/water_spout_pss/geo_header.h"
+#include "levels/pss/water_spout_pss/collision_header.h"
+#include "levels/pss/flippy_bitch_pss/geo_header.h"
+#include "levels/pss/flippy_bitch_pss/collision_header.h"
+
 #endif
