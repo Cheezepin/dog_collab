@@ -90,7 +90,7 @@ const LevelScript level_ssl_entry[] = {
 		OBJECT(MODEL_STROLLIN_STU, -4773, 476, -5774, 0, -110, 0, (4 << 16), bhvStrollinStu),
 		OBJECT(MODEL_STROLLIN_STU, -4822, 5144, 178, 0, -110, 0, (4 << 24), bhvStrollinStu),
 		OBJECT(MODEL_STROLLIN_STU, 1575, 5279, 2851, 0, -110, 0, (4 << 24), bhvStrollinStu),
-		OBJECT(MODEL_NONE, -3, -7637, 6, 0, 30, 0, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(MODEL_NONE, 2002, 1133, 4373, 0, 30, 0, 0x000A0000, bhvSpinAirborneWarp),
 		MARIO_POS(0x01, 30, -3, -7637, 6),
 		TERRAIN(ssl_area_1_collision),
 		MACRO_OBJECTS(ssl_area_1_macro_objs),
