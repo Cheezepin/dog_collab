@@ -43,6 +43,14 @@ const u8 *const puppyprint_kerning_lut[2][80] = {
 
 #endif
 
+#define COZIES_CUSTOM
+
+
+#ifdef COZIES_CUSTOM
+#include "bin/segment2_custom_clown.inc"
+
+#else
+
 ALIGNED8 static const Texture texture_hud_char_0[] = {
 #include "textures/segment2/segment2.00000.rgba16.inc.c"
 };
@@ -286,6 +294,13 @@ ALIGNED8 static const Texture texture_hud_char_multiply[] = {
 #include "textures/segment2/segment2.05600.rgba16.inc.c"
 };
 
+
+ALIGNED8 static const Texture texture_hud_char_decimal_point[] = {
+#include "textures/segment2/segment2.decimal_point.rgba16.inc.c"
+};
+
+#endif // COZIES_CUSTOM
+
 ALIGNED8 static const Texture texture_hud_char_coin[] = {
 #include "textures/segment2/segment2.05800.rgba16.inc.c"
 };
@@ -315,9 +330,7 @@ ALIGNED8 static const Texture texture_hud_char_beta_key[] = {
 #include "textures/segment2/segment2.06000.rgba16.inc.c"
 };
 #else
-ALIGNED8 static const Texture texture_hud_char_decimal_point[] = {
-#include "textures/segment2/segment2.decimal_point.rgba16.inc.c"
-};
+
 
 ALIGNED8 static const Texture texture_hud_char_beta_key[] = {
 #include "textures/segment2/segment2.beta_key.rgba16.inc.c"
@@ -1934,144 +1947,42 @@ ALIGNED8 static const Texture texture_hud_char_arrow_down[] = {
 
 // Main HUD print table 0x02008250-0x02008337
 const Texture *const main_hud_lut[] = {
-// #ifdef VERSION_EU
-//     texture_hud_char_0, texture_hud_char_1, texture_hud_char_2, texture_hud_char_3,
-//     texture_hud_char_4, texture_hud_char_5, texture_hud_char_6, texture_hud_char_7,
-//     texture_hud_char_8, texture_hud_char_9, texture_hud_char_A, texture_hud_char_B,
-//     texture_hud_char_C, texture_hud_char_D, texture_hud_char_E, texture_hud_char_F,
-//     texture_hud_char_G, texture_hud_char_H, texture_hud_char_I,               0x0,
-//     texture_hud_char_K, texture_hud_char_L, texture_hud_char_M, texture_hud_char_N,
-//     texture_hud_char_O, texture_hud_char_P,               0x0, texture_hud_char_R,
-//     texture_hud_char_S, texture_hud_char_T, texture_hud_char_U, texture_hud_char_V,
-//     texture_hud_char_W,               0x0, texture_hud_char_Y, texture_hud_char_Z,
-//                   0x0,               0x0,               0x0,               0x0,
-//                   0x0,               0x0,               0x0,               0x0,
-//                   0x0,               0x0,               0x0,               0x0,
-//                   0x0,               0x0, texture_hud_char_multiply, texture_hud_char_coin,
-//     texture_hud_char_mario_head, texture_hud_char_star,               0x0,               0x0,
-//     texture_hud_char_apostrophe, texture_hud_char_double_quote, texture_hud_char_umlaut,
-// #elif defined(VERSION_US)
-    0x0 /* NUL */, 0x0 /* SOH */, 0x0 /* STX */, 0x0 /* ETX */, // texture_hud_char_0, texture_hud_char_1, texture_hud_char_2, texture_hud_char_3,
-    0x0 /* EOT */, 0x0 /* ENQ */, 0x0 /* ACK */, 0x0 /* BEL */, // texture_hud_char_4, texture_hud_char_5, texture_hud_char_6, texture_hud_char_7,
-    0x0 /* BS */,  0x0 /* TAB */, 0x0 /* LF */,  0x0 /* VT */,  // texture_hud_char_8, texture_hud_char_9, texture_hud_char_A, texture_hud_char_B,
-    0x0 /* FF */,  0x0 /* CR */,  0x0 /* SO */,  0x0 /* SI */,  // texture_hud_char_C, texture_hud_char_D, texture_hud_char_E, texture_hud_char_F,
-    0x0 /* DLE */, 0x0 /* DC1 */, 0x0 /* DC2 */, 0x0 /* DC3 */, // texture_hud_char_G, texture_hud_char_H, texture_hud_char_I, texture_hud_char_J,
-    0x0 /* DC4 */, 0x0 /* NAK */, 0x0 /* SYN */, 0x0 /* ETB */, // texture_hud_char_K, texture_hud_char_L, texture_hud_char_M, texture_hud_char_N,
-    0x0 /* CAN */, 0x0 /* EM */,  0x0 /* SUB */, 0x0 /* ESC */, // texture_hud_char_O, texture_hud_char_P, texture_hud_char_Q, texture_hud_char_R,
-    0x0 /* FS */,  0x0 /* GS */,  0x0 /* RS */,  0x0 /* US */,  // texture_hud_char_S, texture_hud_char_T, texture_hud_char_U, texture_hud_char_V,
-    0x0 /*Space*/, texture_hud_char_exclamation, texture_hud_char_double_quote, texture_hud_char_double_exclamation /* # */, // texture_hud_char_W, texture_hud_char_X, texture_hud_char_Y,  texture_hud_char_Z,
-    0x0 /* $ */, texture_hud_char_percent, texture_hud_char_ampersand, texture_hud_char_apostrophe, // texture_hud_char_exclamation, texture_hud_char_double_exclamation, texture_hud_char_question, texture_hud_char_ampersand,
-    0x0 /* ( */, 0x0 /* ) */, texture_hud_char_multiply, texture_hud_char_coin /* + */, // texture_hud_char_percent, 0x0, 0x0, 0x0,
-    texture_hud_char_mario_head /* , */, texture_hud_char_star /* - */, texture_hud_char_decimal_point, 0x0 /* / */,
-    texture_hud_char_0, texture_hud_char_1, texture_hud_char_2, texture_hud_char_3, // 0x0, 0x0, texture_hud_char_multiply, texture_hud_char_coin,
-    texture_hud_char_4, texture_hud_char_5, texture_hud_char_6, texture_hud_char_7, // texture_hud_char_mario_head, texture_hud_char_star, texture_hud_char_decimal_point, 0x0,
-    texture_hud_char_8, texture_hud_char_9, 0x0 /* : */, 0x0 /* ; */, // texture_hud_char_apostrophe, texture_hud_char_double_quote,
-    0x0 /* < */, 0x0 /* = */, 0x0 /* > */, texture_hud_char_question,
-    0x0 /* @ */, texture_hud_char_A, texture_hud_char_B, texture_hud_char_C,
-    texture_hud_char_D, texture_hud_char_E, texture_hud_char_F, texture_hud_char_G,
-    texture_hud_char_H, texture_hud_char_I, texture_hud_char_J, texture_hud_char_K,
-    texture_hud_char_L, texture_hud_char_M, texture_hud_char_N, texture_hud_char_O,
-    texture_hud_char_P, texture_hud_char_Q, texture_hud_char_R, texture_hud_char_S,
-    texture_hud_char_T, texture_hud_char_U, texture_hud_char_V, texture_hud_char_W,
-    texture_hud_char_X, texture_hud_char_Y, texture_hud_char_Z, 0x0 /* [ */,
-    0x0 /* \ */, 0x0 /* ] */, 0x0 /* ^ */, 0x0 /* _ */,
-    0x0 /* ` */, texture_hud_char_A, texture_hud_char_B, texture_hud_char_C,
-    texture_hud_char_D, texture_hud_char_E, texture_hud_char_F, texture_hud_char_G,
-    texture_hud_char_H, texture_hud_char_I, texture_hud_char_J, texture_hud_char_K,
-    texture_hud_char_L, texture_hud_char_M, texture_hud_char_N, texture_hud_char_O,
-    texture_hud_char_P, texture_hud_char_Q, texture_hud_char_R, texture_hud_char_S,
-    texture_hud_char_T, texture_hud_char_U, texture_hud_char_V, texture_hud_char_W,
-    texture_hud_char_X, texture_hud_char_Y, texture_hud_char_Z, 0x0 /* { */,
-    0x0 /* | */, 0x0 /* } */, 0x0 /* ~ */, 0x0 /* DEL */,
-// #else
-//     texture_hud_char_0, texture_hud_char_1, texture_hud_char_2, texture_hud_char_3,
-//     texture_hud_char_4, texture_hud_char_5, texture_hud_char_6, texture_hud_char_7,
-//     texture_hud_char_8, texture_hud_char_9, texture_hud_char_A, texture_hud_char_B,
-//     texture_hud_char_C, texture_hud_char_D, texture_hud_char_E, texture_hud_char_F,
-//     texture_hud_char_G, texture_hud_char_H, texture_hud_char_I, texture_hud_char_J,
-//     texture_hud_char_K, texture_hud_char_L, texture_hud_char_M, texture_hud_char_N,
-//     texture_hud_char_O, texture_hud_char_P, texture_hud_char_Q, texture_hud_char_R,
-//     texture_hud_char_S, texture_hud_char_T, texture_hud_char_U, texture_hud_char_V,
-//     texture_hud_char_W, texture_hud_char_X, texture_hud_char_Y, texture_hud_char_Z,
-//     texture_hud_char_exclamation, texture_hud_char_double_exclamation, texture_hud_char_question, texture_hud_char_ampersand,
-//     texture_hud_char_percent,                 0x0,                      0x0,                  0x0,
-//                       0x0,                   0x0,                      0x0,                  0x0,
-//                       0x0,                   0x0, texture_hud_char_multiply, texture_hud_char_coin,
-//     texture_hud_char_mario_head, texture_hud_char_star, texture_hud_char_decimal_point, texture_hud_char_beta_key,
-//     texture_hud_char_apostrophe, texture_hud_char_double_quote,
-// #endif
+    0x0 /* NUL */, 0x0 /* SOH */, 0x0 /* STX */, 0x0 /* ETX */,
+    0x0 /* EOT */, 0x0 /* ENQ */, 0x0 /* ACK */, 0x0 /* BEL */,
+    0x0 /* BS */,  0x0 /* TAB */, 0x0 /* LF */,  0x0 /* VT */,
+    0x0 /* FF */,  0x0 /* CR */,  0x0 /* SO */,  0x0 /* SI */,
+    0x0 /* DLE */, 0x0 /* DC1 */, 0x0 /* DC2 */, 0x0 /* DC3 */,
+    0x0 /* DC4 */, 0x0 /* NAK */, 0x0 /* SYN */, 0x0 /* ETB */,
+    0x0 /* CAN */, 0x0 /* EM */,  0x0 /* SUB */, 0x0 /* ESC */,
+    0x0 /* FS */,  0x0 /* GS */,  0x0 /* RS */,  0x0 /* US */,
+    0x0 /*Space*/,                          texture_hud_char_exclamation,   texture_hud_char_double_quote,  texture_hud_char_double_exclamation /* # */,
+    0x0 /* $ */,                            texture_hud_char_percent,       texture_hud_char_ampersand,     texture_hud_char_apostrophe,
+    0x0 /* ( */,                            0x0 /* ) */,                    texture_hud_char_multiply,      texture_hud_char_coin /* + */,
+    texture_hud_char_mario_head /* , */,    texture_hud_char_star /* - */,  texture_hud_char_decimal_point, 0x0 /* / */,
+    texture_hud_char_0,                     texture_hud_char_1,             texture_hud_char_2,             texture_hud_char_3,
+    texture_hud_char_4,                     texture_hud_char_5,             texture_hud_char_6,             texture_hud_char_7,
+    texture_hud_char_8,                     texture_hud_char_9,             texture_hud_char_colon /* : */, texture_hud_char_semi_colon /* ; */,
+    0x0 /* < */,                            texture_hud_char_equals /*=*/,  0x0 /* > */,                    texture_hud_char_question,
+    0x0 /* @ */,                            texture_hud_char_A,             texture_hud_char_B,             texture_hud_char_C,
+    texture_hud_char_D,                     texture_hud_char_E,             texture_hud_char_F,             texture_hud_char_G,
+    texture_hud_char_H,                     texture_hud_char_I,             texture_hud_char_J,             texture_hud_char_K,
+    texture_hud_char_L,                     texture_hud_char_M,             texture_hud_char_N,             texture_hud_char_O,
+    texture_hud_char_P,                     texture_hud_char_Q,             texture_hud_char_R,             texture_hud_char_S,
+    texture_hud_char_T,                     texture_hud_char_U,             texture_hud_char_V,             texture_hud_char_W,
+    texture_hud_char_X,                     texture_hud_char_Y,             texture_hud_char_Z,             0x0 /* [ */,
+    0x0 /* \ */,                            0x0 /* ] */,                    0x0 /* ^ */,                    0x0 /* _ */,
+    0x0 /* ` */,                            texture_hud_char_A,             texture_hud_char_B,             texture_hud_char_C,
+    texture_hud_char_D,                     texture_hud_char_E,             texture_hud_char_F,             texture_hud_char_G,
+    texture_hud_char_H,                     texture_hud_char_I,             texture_hud_char_J,             texture_hud_char_K,
+    texture_hud_char_L,                     texture_hud_char_M,             texture_hud_char_N,             texture_hud_char_O,
+    texture_hud_char_P,                     texture_hud_char_Q,             texture_hud_char_R,             texture_hud_char_S,
+    texture_hud_char_T,                     texture_hud_char_U,             texture_hud_char_V,             texture_hud_char_W,
+    texture_hud_char_X,                     texture_hud_char_Y,             texture_hud_char_Z,             0x0 /* { */,
+    0x0 /* | */,                            0x0 /* } */,                    0x0 /* ~ */,                    0x0 /* DEL */,
 };
 
 // Main small font print table 0x02008338-0x02008737
 const Texture *const main_font_lut[] = {
-// #ifdef VERSION_EU // EU Font Table
-//     texture_font_char_eu_0, texture_font_char_eu_1, texture_font_char_eu_2, texture_font_char_eu_3,
-//     texture_font_char_eu_4, texture_font_char_eu_5, texture_font_char_eu_6, texture_font_char_eu_7,
-//     texture_font_char_eu_8, texture_font_char_eu_9, texture_font_char_eu_A, texture_font_char_eu_B,
-//     texture_font_char_eu_C, texture_font_char_eu_D, texture_font_char_eu_E, texture_font_char_eu_F,
-//     texture_font_char_eu_G, texture_font_char_eu_H, texture_font_char_eu_I, texture_font_char_eu_J,
-//     texture_font_char_eu_K, texture_font_char_eu_L, texture_font_char_eu_M, texture_font_char_eu_N,
-//     texture_font_char_eu_O, texture_font_char_eu_P, texture_font_char_eu_Q, texture_font_char_eu_R,
-//     texture_font_char_eu_S, texture_font_char_eu_T, texture_font_char_eu_U, texture_font_char_eu_V,
-//     texture_font_char_eu_W, texture_font_char_eu_X, texture_font_char_eu_Y, texture_font_char_eu_Z,
-//     texture_font_char_eu_a, texture_font_char_eu_b, texture_font_char_eu_c, texture_font_char_eu_d,
-//     texture_font_char_eu_e, texture_font_char_eu_f, texture_font_char_eu_g, texture_font_char_eu_h,
-//     texture_font_char_eu_i, texture_font_char_eu_j, texture_font_char_eu_k, texture_font_char_eu_l,
-//     texture_font_char_eu_m, texture_font_char_eu_n, texture_font_char_eu_o, texture_font_char_eu_p,
-//     texture_font_char_eu_q, texture_font_char_eu_r, texture_font_char_eu_s, texture_font_char_eu_t,
-//     texture_font_char_eu_u, texture_font_char_eu_v, texture_font_char_eu_w, texture_font_char_eu_x,
-//     texture_font_char_eu_y, texture_font_char_eu_z, texture_font_char_eu_apostrophe, texture_font_char_eu_period,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     texture_font_char_eu_button_C_up,
-//     texture_font_char_eu_button_C_down,
-//     texture_font_char_eu_button_C_left,
-//     texture_font_char_eu_button_C_right,
-//     texture_font_char_eu_button_A,
-//     texture_font_char_eu_button_B,
-//     texture_font_char_eu_button_C,
-//     texture_font_char_eu_button_Z,
-//     texture_font_char_eu_button_R,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     texture_font_char_eu_comma,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     texture_font_char_EU_slash,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-//     0x0,
-//     texture_font_char_eu_open_parentheses,
-//     texture_font_char_eu_close_open_parentheses,
-//     texture_font_char_eu_close_parentheses,
-//     texture_font_char_eu_left_right_arrow,
-//     texture_font_char_eu_ampersand,
-//     texture_font_char_eu_colon,
-//     texture_font_char_eu_acute,
-//     texture_font_char_eu_circumflex,
-//     texture_font_char_eu_umlaut,
-//     texture_font_char_eu_grave,
-//     texture_font_char_eu_unknown,
-//     texture_font_char_eu_eszeet,
-//     texture_font_char_eu_Cedilla,
-//     texture_font_char_eu_cedilla,
-//     0x0, 0x0, 0x0,
-//     texture_font_char_eu_exclamation,
-//     texture_font_char_eu_percent,
-//     texture_font_char_eu_question,
-//     texture_font_char_eu_double_quote_open,
-//     texture_font_char_eu_double_quote_close,
-//     texture_font_char_eu_tilde,
-//     0x0,
-//     texture_font_char_eu_coin,
-//     texture_font_char_eu_star_filled,
-//     texture_font_char_eu_multiply,
-//     texture_font_char_eu_interpunct,
-//     texture_font_char_eu_star_hollow,
-//     0x0, 0x0,
-// #elif defined(VERSION_US) // US Font Table
     0x0 /* NUL */, 0x0 /* SOH */, 0x0 /* STX */, 0x0 /* ETX */, // texture_font_char_us_0, texture_font_char_us_1, texture_font_char_us_2, texture_font_char_us_3,
     0x0 /* EOT */, 0x0 /* ENQ */, 0x0 /* ACK */, 0x0 /* BEL */, // texture_font_char_us_4, texture_font_char_us_5, texture_font_char_us_6, texture_font_char_us_7,
     0x0 /* BS */,  0x0 /* TAB */, 0x0 /* LF */,  0x0 /* VT */,  // texture_font_char_us_8, texture_font_char_us_9, texture_font_char_us_A, texture_font_char_us_B,

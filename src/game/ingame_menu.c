@@ -486,6 +486,8 @@ void print_hud_lut_string(s8 hudLUT, s16 x, s16 y, const u8 *str) {
     s32 strPos = 0;
     void **hudLUT1 = segmented_to_virtual(menu_hud_lut); // Japanese Menu HUD Color font
     void **hudLUT2 = segmented_to_virtual(main_hud_lut); // 0-9 A-Z HUD Color Font
+    u8 *kernTable = segmented_to_virtual(delfino_hud_kerning_table);
+
     u32 curX = x;
     u32 curY = y;
 
@@ -517,7 +519,7 @@ void print_hud_lut_string(s8 hudLUT, s16 x, s16 y, const u8 *str) {
                 gSPTextureRectangle(gDisplayListHead++, curX << 2, curY << 2, (curX + 16) << 2,
                                     (curY + 16) << 2, G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
 
-                curX += xStride;
+                curX += kernTable[str[strPos]];
         }
         strPos++;
     }
@@ -659,8 +661,6 @@ s32 get_string_width(u8 *str) {
     return width;
 }
 
-u8 gHudSymCoin[] = "+ ";
-u8 gHudSymX[] = "* ";
 
 void print_hud_my_score_coins(s32 useCourseCoinScore, s8 fileIndex, s8 courseIndex, s16 x, s16 y) {
     u8 strNumCoins[4];
@@ -673,26 +673,22 @@ void print_hud_my_score_coins(s32 useCourseCoinScore, s8 fileIndex, s8 courseInd
     }
 
     if (numCoins != 0) {
-        print_hud_lut_string(HUD_LUT_GLOBAL, x +  0, y, gHudSymCoin);
-        print_hud_lut_string(HUD_LUT_GLOBAL, x + 16, y, gHudSymX);
-        int_to_str(numCoins, strNumCoins);
-        print_hud_lut_string(HUD_LUT_GLOBAL, x + 32, y, strNumCoins);
+        char buf[8];
+        sprintf(buf, "+*%d", numCoins);
+        print_hud_lut_string(HUD_LUT_GLOBAL, x, y, buf);
     }
 }
 
 void print_hud_my_score_stars(s8 fileIndex, s8 courseIndex, s16 x, s16 y) {
     u8 strStarCount[4];
     s16 starCount;
-    u8 textSymStar[] = "- ";
-    u8 textSymX[] = "* ";
 
     starCount = save_file_get_course_star_count(fileIndex, courseIndex);
 
     if (starCount != 0) {
-        print_hud_lut_string(HUD_LUT_GLOBAL, x +  0, y, textSymStar);
-        print_hud_lut_string(HUD_LUT_GLOBAL, x + 16, y, textSymX);
-        int_to_str(starCount, strStarCount);
-        print_hud_lut_string(HUD_LUT_GLOBAL, x + 32, y, strStarCount);
+        char buf[8];
+        sprintf(buf, "-*%d", starCount);
+        print_hud_lut_string(HUD_LUT_GLOBAL, x, y, buf);
     }
 }
 

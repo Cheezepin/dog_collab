@@ -343,8 +343,8 @@ void clip_to_bounds(s32 *x, s32 *y) {
 /**
  * Renders the glyph that's set at the given position.
  */
-void render_textrect(s32 x, s32 y, s32 pos) {
-    s32 rectBaseX = x + pos * 12;
+void render_textrect(s32 x, s32 y) {
+    s32 rectBaseX = x;
     s32 rectBaseY = 224 - y;
     s32 rectX;
     s32 rectY;
@@ -376,19 +376,23 @@ void render_text_labels(void) {
         return;
     }
 
+    u8 *kernTable = segmented_to_virtual(delfino_hud_kerning_table);
+
     guOrtho(mtx, 0.0f, SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT, -10.0f, 10.0f, 1.0f);
     gSPPerspNormalize((Gfx *) (gDisplayListHead++), 0xFFFF);
     gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(mtx), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
     gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
 
     for (i = 0; i < sTextLabelsCount; i++) {
+        u32 offset = 0;
         for (j = 0; j < sTextLabels[i]->length; j++) {
             glyphIndex = sTextLabels[i]->buffer[j];
 
             if (glyphIndex != GLYPH_SPACE) {
                 add_glyph_texture(glyphIndex);
-                render_textrect(sTextLabels[i]->x, sTextLabels[i]->y, j);
+                render_textrect(sTextLabels[i]->x + offset, sTextLabels[i]->y);
             }
+            offset += kernTable[glyphIndex];
         }
 
         mem_pool_free(gEffectsMemoryPool, sTextLabels[i]);
