@@ -17,6 +17,6 @@ f32 round_double_to_float(f64);
  * Exponent=01111111110, Mantissa=1111111111111111111111111111111111111111111111111111
  * RTZ will output not 1.0f, RTN will output exactly 1.0f
  */
-#define IS_VC() (1.0f != round_double_to_float(0.9999999999999999))
+//#define IS_VC() (1.0f != round_double_to_float(0.9999999999999999))
 
 #endif

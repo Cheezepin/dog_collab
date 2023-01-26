@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <PR/os_internal_reg.h>
 
 #include "sm64.h"
 #include "gfx_dimensions.h"
@@ -31,6 +32,8 @@
 #include "vc_check.h"
 #include "vc_ultra.h"
 #include "profiling.h"
+
+#include "debug.h"
 
 
 f32 tank_treads;
@@ -111,7 +114,7 @@ struct DemoInput gRecordedDemoInput = { 0 };
  */
 const Gfx init_rdp[] = {
     gsDPPipeSync(),
-    gsDPPipelineMode(G_PM_NPRIMITIVE),
+    gsDPPipelineMode(G_PM_1PRIMITIVE),
 
     gsDPSetScissor(G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT),
     gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
@@ -142,6 +145,7 @@ const Gfx init_rsp[] = {
     gsDPPipeSync(),
     gsSPClearGeometryMode(G_CULL_FRONT | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD),
     gsSPSetGeometryMode(G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK | G_LIGHTING),
+    gsSPNumLights(NUMLIGHTS_1),
     gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
     // @bug Failing to set the clip ratio will result in warped triangles in F3DEX2
     // without this change: https://jrra.zone/n64/doc/n64man/gsp/gSPClipRatio.htm
@@ -170,14 +174,14 @@ void init_z_buffer(s32 resetZB) {
     gDPSetDepthSource(gDisplayListHead++, G_ZS_PIXEL);
     gDPSetDepthImage(gDisplayListHead++, gPhysicalZBuffer);
 
-    gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gPhysicalZBuffer);
+    gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, gScreenWidth, gPhysicalZBuffer);
     if (!resetZB)
         return;
     gDPSetFillColor(gDisplayListHead++,
                     GPACK_ZDZ(G_MAXFBZ, 0) << 16 | GPACK_ZDZ(G_MAXFBZ, 0));
 
-    gDPFillRectangle(gDisplayListHead++, 0, gBorderHeight, SCREEN_WIDTH - 1,
-                     SCREEN_HEIGHT - 1 - gBorderHeight);
+    gDPFillRectangle(gDisplayListHead++, 0, gBorderHeight, gScreenWidth - 1,
+                     gScreenHeight - 1 - gBorderHeight);
 }
 
 /**
@@ -187,10 +191,10 @@ void select_framebuffer(void) {
     gDPPipeSync(gDisplayListHead++);
 
     gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
-    gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH,
+    gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, gScreenWidth,
                      gPhysicalFramebuffers[sRenderingFramebuffer]);
-    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
-                  SCREEN_HEIGHT - gBorderHeight);
+    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, gScreenWidth,
+                  gScreenHeight - gBorderHeight);
 }
 
 /**
@@ -206,7 +210,7 @@ void clear_framebuffer(s32 color) {
     gDPSetFillColor(gDisplayListHead++, color);
     gDPFillRectangle(gDisplayListHead++,
                      GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(0), gBorderHeight,
-                     GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, SCREEN_HEIGHT - gBorderHeight - 1);
+                     GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, gScreenHeight - gBorderHeight - 1);
 
     gDPPipeSync(gDisplayListHead++);
 
@@ -224,7 +228,7 @@ void clear_viewport(Vp *viewport, s32 color) {
 
 #ifdef WIDESCREEN
     vpUlx = GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(vpUlx);
-    vpLrx = GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(SCREEN_WIDTH - vpLrx);
+    vpLrx = GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(gScreenWidth - vpLrx);
 #endif
 
     gDPPipeSync(gDisplayListHead++);
@@ -246,7 +250,7 @@ void clear_viewport(Vp *viewport, s32 color) {
 void draw_screen_borders(void) {
     gDPPipeSync(gDisplayListHead++);
 
-    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, gScreenWidth, gScreenHeight);
     gDPSetRenderMode(gDisplayListHead++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
     gDPSetCycleType(gDisplayListHead++, G_CYC_FILL);
 
@@ -256,8 +260,8 @@ void draw_screen_borders(void) {
         gDPFillRectangle(gDisplayListHead++, GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(0), 0,
                         GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, gBorderHeight - 1);
         gDPFillRectangle(gDisplayListHead++,
-                        GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(0), SCREEN_HEIGHT - gBorderHeight,
-                        GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, SCREEN_HEIGHT - 1);
+                        GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(0), gScreenHeight - gBorderHeight,
+                        GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(0) - 1, gScreenHeight - 1);
     }
 }
 
@@ -382,13 +386,13 @@ void draw_reset_bars(void) {
         }
 
         fbPtr = (u64 *) PHYSICAL_TO_VIRTUAL(gPhysicalFramebuffers[fbNum]);
-        fbPtr += gNmiResetBarsTimer++ * (SCREEN_WIDTH / 4);
+        fbPtr += gNmiResetBarsTimer++ * (gScreenWidth / 4);
 
-        for (width = 0; width < ((SCREEN_HEIGHT / 16) + 1); width++) {
-            for (height = 0; height < (SCREEN_WIDTH / 4); height++) {
+        for (width = 0; width < ((gScreenHeight / 16) + 1); width++) {
+            for (height = 0; height < (gScreenWidth / 4); height++) {
                 *fbPtr++ = 0;
             }
-            fbPtr += ((SCREEN_WIDTH / 4) * 14);
+            fbPtr += ((gScreenWidth / 4) * 14);
         }
     }
 
@@ -397,6 +401,22 @@ void draw_reset_bars(void) {
     osRecvMesg(&gGameVblankQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
 }
 
+void check_cache_emulation() {
+    // Disable interrupts to ensure that nothing evicts the variable from cache while we're using it.
+    u32 saved = __osDisableInt();
+    // Create a variable with an initial value of 1. This value will remain cached.
+    volatile u8 sCachedValue = 1;
+    // Overwrite the variable directly in RDRAM without going through cache.
+    // This should preserve its value of 1 in dcache if dcache is emulated correctly.
+    *(u8*)(K0_TO_K1(&sCachedValue)) = 0;
+    // Read the variable back from dcache, if it's still 1 then cache is emulated correctly.
+    // If it's zero, then dcache is not emulated correctly.
+    gCacheEmulated = sCachedValue;
+    // Restore interrupts
+    __osRestoreInt(saved);
+}
+
+extern OSViMode VI;
 /**
  * Initial settings for the first rendered frame.
  */
@@ -404,6 +424,17 @@ void render_init(void) {
 #ifdef DEBUG_FORCE_CRASH_ON_BOOT
     FORCE_CRASH
 #endif
+if (IO_READ(DPC_PIPEBUSY_REG) == 0) {
+        gIsConsole = FALSE;
+        gBorderHeight = BORDER_HEIGHT_EMULATOR;
+        //gIsVC = IS_VC();
+        check_cache_emulation();
+    } else {
+        gIsConsole = TRUE;
+        change_vi(&VI, 304, 224);
+        gBorderHeight = BORDER_HEIGHT_CONSOLE;
+    }
+
     gGfxPool = &gGfxPools[0];
     set_segment_base_addr(SEGMENT_RENDER, gGfxPool->buffer);
     gGfxSPTask = &gGfxPool->spTask;
@@ -434,6 +465,65 @@ void select_gfx_pool(void) {
     gGfxPoolEnd = (u8 *) (gGfxPool->buffer + GFX_POOL_SIZE);
 }
 
+s32 handle_wait_vblank(OSMesgQueue *mq) {
+    // returns true if it lasts longer than 3 seconds (3 * 1000us * 1000ms)
+    OSMesg msg;
+    OSTimer timer;
+    osSetTimer(&timer, OS_USEC_TO_CYCLES(3000000), 0, mq, (OSMesg)666);
+    osRecvMesg(mq, &msg, OS_MESG_BLOCK);
+    osStopTimer(&timer);
+
+    return msg == (OSMesg)666;
+}
+
+static void rcp_omg(void) {
+    mark_spot
+    osSyncPrintf("RCP is HUNG UP!! Oh! MY GOD!!\n");
+    assert(FALSE, "RCP is HUNG UP!! Oh! MY GOD!!");
+}
+
+static void auto_dither_filter(void) {
+    static u32 prevTime = 40000;
+    static s32 overrideTimer = 0;
+    static s32 overrideFilter = FALSE;
+
+    switch (gCurrLevelNum) {
+        case LEVEL_CASTLE_GROUNDS:
+        case LEVEL_COZIES: {
+            if (overrideFilter) {
+                overrideFilter = FALSE;
+                osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
+            }
+            prevTime = osGetTime();
+            return;
+        }
+    }
+
+    u32 deltaTime = osGetTime() - prevTime;
+    prevTime = osGetTime();
+
+    // 40000 is 25fps, feels not aggressive enough for this hack so I used 37000
+    // overrideTimer -= 40000;
+    overrideTimer -= 37000;
+    overrideTimer += MIN(OS_CYCLES_TO_USEC(deltaTime), 66666);
+    if (overrideTimer <= -100000) {
+        overrideTimer = -100000;
+        if (overrideFilter == TRUE) {
+            overrideFilter = FALSE;
+            osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
+            // osSyncPrintf("OS_VI_DITHER_FILTER_ON\n");
+        }
+    }
+    if (overrideTimer >= 100000) {
+        overrideTimer = 100000;
+        if (overrideFilter == FALSE) {
+            overrideFilter = TRUE;
+            osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
+            // osSyncPrintf("OS_VI_DITHER_FILTER_OFF\n");
+        }
+    }
+}
+
 /**
  * This function:
  * - Sends the current master display list out to be rendered.
@@ -442,20 +532,21 @@ void select_gfx_pool(void) {
  * - Selects which framebuffer will be rendered and displayed to next time.
  */
 void display_and_vsync(void) {
-    osRecvMesg(&gGfxVblankQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
+    if (handle_wait_vblank(&gGfxVblankQueue)) rcp_omg();
+
     if (gGoddardVblankCallback != NULL) {
         gGoddardVblankCallback();
         gGoddardVblankCallback = NULL;
     }
     exec_display_list(&gGfxPool->spTask);
-#ifndef UNLOCK_FPS
-    osRecvMesg(&gGameVblankQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
-#endif
+
+if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
+
     osViSwapBuffer((void *) PHYSICAL_TO_VIRTUAL(gPhysicalFramebuffers[sRenderedFramebuffer]));
-#ifndef UNLOCK_FPS
-    osRecvMesg(&gGameVblankQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
-#endif
-    // Skip swapping buffers on inaccurate emulators other than VC so that they display immediately as the Gfx task finishes
+
+ if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
+
+    // Skip swapping buffers on emulator so that they display immediately as the Gfx task finishes
     if (gIsConsole || gIsVC || gCacheEmulated) {
         if (++sRenderedFramebuffer == 3) {
             sRenderedFramebuffer = 0;
@@ -465,6 +556,7 @@ void display_and_vsync(void) {
         }
     }
     gGlobalTimer++;
+    if (gIsConsole) auto_dither_filter();
 }
 
 #if !defined(DISABLE_DEMO) && defined(KEEP_MARIO_HEAD)
@@ -606,7 +698,11 @@ void read_controller_inputs(s32 threadID) {
     // If any controllers are plugged in, update the controller information.
     if (gControllerBits) {
         if (threadID == THREAD_5_GAME_LOOP) {
-            osRecvMesg(&gSIEventMesgQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
+            if (handle_wait_vblank(&gSIEventMesgQueue)) {
+                osSyncPrintf("Controller thread has HUNG UP YO\n");
+                return;
+            };
+            // osRecvMesg(&gSIEventMesgQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
         }
         osContGetReadDataEx(&gControllerPads[0]);
 #if ENABLE_RUMBLE

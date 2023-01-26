@@ -229,11 +229,13 @@ extern s32		osContInit(         OSMesgQueue *mq, u8 *bitpattern, OSContStatus *s
 extern s32		osContReset(        OSMesgQueue *mq,                 OSContStatus *status);
 extern s32		osContStartQuery(   OSMesgQueue *mq);
 extern s32		osContStartReadData(OSMesgQueue *mq);
+extern s32		osContStartReadDataEx(OSMesgQueue *mq);
 #ifndef _HW_VERSION_1
 extern s32		osContSetCh(u8 ch);
 #endif
 extern void		osContGetQuery(OSContStatus *status);
 extern void		osContGetReadData(OSContPad *pad);
+extern void		osContGetReadDataEx(OSContPadEx *pad);
 
 
 #endif  /* defined(_LANGUAGE_C) || defined(_LANGUAGE_C_PLUS_PLUS) */
