@@ -97,7 +97,7 @@ typedef struct {
  */
 
 #ifndef _HW_VERSION_1
-#define MAXCONTROLLERS  2
+#define MAXCONTROLLERS  4
 #else
 #define MAXCONTROLLERS  6
 #endif
