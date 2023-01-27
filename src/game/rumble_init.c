@@ -7,7 +7,7 @@
 #include "config.h"
 #include "engine/math_util.h"
 
-#if ENABLE_RUMBLE
+#ifdef ENABLE_RUMBLE
 
 OSThread gRumblePakThread;
 
@@ -123,7 +123,7 @@ static void update_rumble_data_queue(void) {
     if (gRumbleDataQueue[0].comm) {
         gCurrRumbleSettings.count = 0;
         gCurrRumbleSettings.start = 4;
-        gCurrRumbleSettings.event  = gRumbleDataQueue[0].comm;
+        gCurrRumbleSettings.event = gRumbleDataQueue[0].comm;
         gCurrRumbleSettings.timer = gRumbleDataQueue[0].time;
         gCurrRumbleSettings.level = gRumbleDataQueue[0].level;
         gCurrRumbleSettings.decay = gRumbleDataQueue[0].decay;
@@ -290,8 +290,7 @@ static void thread6_rumble_loop(UNUSED void *arg) {
                 sRumblePakActive = FALSE;
             }
         } else if (gNumVblanks % 60 == 0) {
-            sRumblePakError = osMotorInit(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port);
-            sRumblePakActive = sRumblePakError < 1;
+            sRumblePakActive = osMotorInitEx(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port) < 1;
             sRumblePakErrorCount = 0;
         }
 
@@ -302,8 +301,7 @@ static void thread6_rumble_loop(UNUSED void *arg) {
 }
 
 void cancel_rumble(void) {
-    sRumblePakError = osMotorInit(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port);
-    sRumblePakActive = sRumblePakError < 1;
+    sRumblePakActive = osMotorInitEx(&gSIEventMesgQueue, &gRumblePakPfs, gPlayer1Controller->port) < 1;
 
     if (sRumblePakActive) {
         osMotorStop(&gRumblePakPfs);

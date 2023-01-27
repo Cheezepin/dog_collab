@@ -30,11 +30,11 @@ enum ZBmodes {
     CLEAR_ZBUFFER = 1,
 };
 
+extern struct Controller gControllers[NUM_SUPPORTED_CONTROLLERS];
+extern OSContStatus gControllerStatuses[MAXCONTROLLERS];
+extern OSContPadEx gControllerPads[MAXCONTROLLERS];
 extern f32 tank_treads;
 
-extern struct Controller gControllers[3];
-extern OSContStatus gControllerStatuses[4];
-extern OSContPadEx gControllerPads[4];
 extern OSMesgQueue gGameVblankQueue;
 extern OSMesgQueue gGfxVblankQueue;
 extern OSMesg gGameMesgBuf[1];
@@ -49,7 +49,6 @@ extern Gfx *gDisplayListHead;
 extern u8 *gGfxPoolEnd;
 extern struct GfxPool *gGfxPool;
 extern u8 gControllerBits;
-extern s8 gGamecubeControllerPort;
 extern u8 gIsConsole;
 extern u8 gCacheEmulated;
 extern u8 gBorderHeight;
@@ -69,6 +68,7 @@ extern void (*gGoddardVblankCallback)(void);
 extern struct Controller *gPlayer1Controller;
 extern struct Controller *gPlayer2Controller;
 extern struct Controller *gPlayer3Controller;
+extern struct Controller *gPlayer4Controller;
 extern struct DemoInput *gCurrDemoInput;
 extern u16 gDemoInputListID;
 extern struct DemoInput gRecordedDemoInput;

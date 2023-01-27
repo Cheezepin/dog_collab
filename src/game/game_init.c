@@ -40,9 +40,6 @@ f32 tank_treads;
 //dont get mad
 #include "profiling.h"
 
-// First 3 controller slots
-struct Controller gControllers[3];
-
 // Gfx handlers
 struct SPTask *gGfxSPTask;
 Gfx *gDisplayListHead;
@@ -50,11 +47,22 @@ u8 *gGfxPoolEnd;
 struct GfxPool *gGfxPool;
 
 // OS Controllers
+
 OSContStatus gControllerStatuses[4];
 OSContPadEx gControllerPads[4];
 u8 gControllerBits;
 s8 gGamecubeControllerPort = -1; // HackerSM64: This is set to -1 if there's no GC controller, 0 if there's one in the first port and 1 if there's one in the second port.
-u8 gIsConsole = FALSE; // Needs to be initialized before audio_reset_session is called
+
+struct GfxPool *gGfxPool;
+
+// OS Controllers
+struct Controller gControllers[NUM_SUPPORTED_CONTROLLERS];
+
+OSContStatus gControllerStatuses[MAXCONTROLLERS];
+OSContPadEx gControllerPads[MAXCONTROLLERS];
+u8 gControllerBits; // Which ports have a controller connected to them.
+
+u8 gIsConsole = TRUE; // Needs to be initialized before audio_reset_session is called
 u8 gCacheEmulated = TRUE;
 u8 gBorderHeight;
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG
@@ -96,10 +104,17 @@ u16 sRenderingFramebuffer = 0;
 // Goddard Vblank Function Caller
 void (*gGoddardVblankCallback)(void) = NULL;
 
-// Defined controller slots
+// Defined controller slots. Don't use any higher than NUM_SUPPORTED_CONTROLLERS.
 struct Controller *gPlayer1Controller = &gControllers[0];
+#if (NUM_SUPPORTED_CONTROLLERS > 1)
 struct Controller *gPlayer2Controller = &gControllers[1];
-struct Controller *gPlayer3Controller = &gControllers[2]; // Probably debug only, see note below
+#endif
+#if (NUM_SUPPORTED_CONTROLLERS > 2)
+struct Controller *gPlayer3Controller = &gControllers[2];
+#endif
+#if (NUM_SUPPORTED_CONTROLLERS > 3)
+struct Controller *gPlayer4Controller = &gControllers[3];
+#endif
 
 // Title Screen Demo Handler
 struct DemoInput *gCurrDemoInput = NULL;
@@ -705,7 +720,7 @@ void read_controller_inputs(s32 threadID) {
             // osRecvMesg(&gSIEventMesgQueue, &gMainReceivedMesg, OS_MESG_BLOCK);
         }
         osContGetReadDataEx(&gControllerPads[0]);
-#if ENABLE_RUMBLE
+#ifdef ENABLE_RUMBLE
         release_rumble_pak_control();
 #endif
     }
@@ -713,12 +728,12 @@ void read_controller_inputs(s32 threadID) {
     run_demo_inputs();
 #endif
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < NUM_SUPPORTED_CONTROLLERS; i++) {
         struct Controller *controller = &gControllers[i];
         // if we're receiving inputs, update the controller struct with the new button info.
         if (controller->controllerData != NULL) {
             // HackerSM64: Swaps Z and L, only on console, and only when playing with a GameCube controller.
-            if (gIsConsole && i == gGamecubeControllerPort) {
+            if (gIsConsole && (controller->statusData->type & CONT_GCN)) {
                 u32 oldButton = controller->controllerData->button;
                 u32 newButton = oldButton & ~(Z_TRIG | L_TRIG);
                 if (oldButton & Z_TRIG) {
@@ -747,25 +762,14 @@ void read_controller_inputs(s32 threadID) {
             controller->stickMag = 0;
         }
     }
-
-    // For some reason, player 1's inputs are copied to player 3's port.
-    // This potentially may have been a way the developers "recorded"
-    // the inputs for demos, despite record_demo existing.
-    gPlayer3Controller->rawStickX = gPlayer1Controller->rawStickX;
-    gPlayer3Controller->rawStickY = gPlayer1Controller->rawStickY;
-    gPlayer3Controller->stickX = gPlayer1Controller->stickX;
-    gPlayer3Controller->stickY = gPlayer1Controller->stickY;
-    gPlayer3Controller->stickMag = gPlayer1Controller->stickMag;
-    gPlayer3Controller->buttonPressed = gPlayer1Controller->buttonPressed;
-    gPlayer3Controller->buttonReleased = gPlayer1Controller->buttonReleased;
-    gPlayer3Controller->buttonDown = gPlayer1Controller->buttonDown;
 }
 
 /**
  * Initialize the controller structs to point at the OSCont information.
  */
 void init_controllers(void) {
-    s16 port, cont;
+    s16 port, cont, lastUsedPort;
+    struct Controller *controller = NULL;
 
     // Set controller 1 to point to the set of status/pads for input 1 and
     // init the controllers.
@@ -784,34 +788,53 @@ void init_controllers(void) {
     gSramProbe = nuPiInitSram();
 #endif
 
-    // Loop over the 4 ports and link the controller structs to the appropriate
-    // status and pad. Interestingly, although there are pointers to 3 controllers,
-    // only 2 are connected here. The third seems to have been reserved for debug
-    // purposes and was never connected in the retail ROM, thus gPlayer3Controller
-    // cannot be used, despite being referenced in various code.
-    for (cont = 0, port = 0; port < 4 && cont < 2; port++) {
+    // Loop over the 4 ports and link the controller structs to the appropriate status and pad.
+    for (cont = 0, port = 0, lastUsedPort = -1; port < MAXCONTROLLERS && cont < NUM_SUPPORTED_CONTROLLERS; port++) {
         // Is controller plugged in?
         if (gControllerBits & (1 << port)) {
+            controller = &gControllers[cont];
+
             // The game allows you to have just 1 controller plugged
             // into any port in order to play the game. this was probably
             // so if any of the ports didn't work, you can have controllers
             // plugged into any of them and it will work.
-#if ENABLE_RUMBLE
-            gControllers[cont].port = port;
+            controller->statusData = &gControllerStatuses[port];
+            controller->controllerData = &gControllerPads[port];
+            controller->port = port;
+
+            if (controller->statusData->type & CONT_GCN) {
+                osSyncPrintf("GameCube controller ");
+            } else {
+                osSyncPrintf("N64 controller ");
+            }
+            if (controller->statusData->status & CONT_CARD_ON) {
+                osSyncPrintf("with pak ");
+            }
+            osSyncPrintf("found in port %d\n", port);
+
+            lastUsedPort = port;
+
+            cont++;
+        }
+    }
+
+#if (NUM_SUPPORTED_CONTROLLERS >= 2)
+    //! Some flashcarts (eg. ED64p) don't let you start a ROM with a GameCube controller in port 1,
+    // so if port 1 is an N64 controller and port 2 is a GC controller, swap them.
+    if (gIsConsole
+     && gControllers[0].statusData != NULL
+     && !(gControllers[0].statusData->type & CONT_GCN)
+     && gControllers[1].statusData != NULL
+     && (gControllers[1].statusData->type & CONT_GCN)) {
+        struct Controller temp = gControllers[0];
+        gControllers[0] = gControllers[1];
+        gControllers[1] = temp;
+        osSyncPrintf("Swapped controllers 1 and 2\n");
+    }
 #endif
-            gControllers[cont].statusData = &gControllerStatuses[port];
-            gControllers[cont++].controllerData = &gControllerPads[port];
-        }
-    }
-    if ((__osControllerTypes[1] == CONT_TYPE_GCN) && (gIsConsole)) {
-        gGamecubeControllerPort = 1;
-        gPlayer1Controller = &gControllers[1];
-    } else {
-        if (__osControllerTypes[0] == CONT_TYPE_GCN) {
-            gGamecubeControllerPort = 0;
-        }
-        gPlayer1Controller = &gControllers[0];
-    }
+
+    // Disable the ports after the last used one.
+    osContSetCh(lastUsedPort + 1);
 }
 
 // Game thread core
@@ -850,11 +873,11 @@ void setup_game_memory(void) {
  */
 void thread5_game_loop(UNUSED void *arg) {
     setup_game_memory();
-#if ENABLE_RUMBLE
+#ifdef ENABLE_RUMBLE
     init_rumble_pak_scheduler_queue();
 #endif
     init_controllers();
-#if ENABLE_RUMBLE
+#ifdef ENABLE_RUMBLE
     create_thread_6();
 #endif
 #ifdef HVQM
@@ -888,7 +911,7 @@ void thread5_game_loop(UNUSED void *arg) {
         // If any controllers are plugged in, start read the data for when
         // read_controller_inputs is called later.
         if (gControllerBits) {
-#if ENABLE_RUMBLE
+#ifdef ENABLE_RUMBLE
             block_until_rumble_pak_free();
 #endif
             osContStartReadDataEx(&gSIEventMesgQueue);
