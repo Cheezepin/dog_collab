@@ -1649,9 +1649,10 @@ s32 act_lava_boost(struct MarioState *m) {
         }
     }
 
+    if(m->actionTimer > 0) {m->actionTimer--;}
     if (m->health < 0x100) {
         level_trigger_warp(m, WARP_OP_DEATH);
-    }
+    } else if(m->actionTimer == 1) {m->actionTimer = 0; set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0);}
 
     m->marioBodyState->eyeState = MARIO_EYES_DEAD;
 #if ENABLE_RUMBLE

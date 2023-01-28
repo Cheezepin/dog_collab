@@ -1994,11 +1994,15 @@ void check_death_barrier_with_height(struct MarioState *m) {
 void check_lava_boost(struct MarioState *m) {
     if (!(m->action & ACT_FLAG_RIDING_SHELL) && m->pos[1] < m->floorHeight + 10.0f) {
         if (!(m->flags & MARIO_METAL_CAP)) {
-            m->hurtCounter += (m->flags & MARIO_CAP_ON_HEAD) ? 12 : 18;
+            if(m->floor->type == SURFACE_BURNING)
+                m->hurtCounter += (m->flags & MARIO_CAP_ON_HEAD) ? 12 : 18;
+            else if(m->floor->type == SURFACE_LAVA_HURT_FLOOR)
+                m->hurtCounter += 8;
         }
 
         update_mario_sound_and_camera(m);
         drop_and_set_mario_action(m, ACT_LAVA_BOOST, 0);
+        m->actionTimer = 0;
     }
 }
 
@@ -2096,8 +2100,11 @@ void mario_handle_special_floors(struct MarioState *m) {
         if ((m->action & ACT_GROUP_MASK) <= ACT_GROUP_MOVING) check_mario_floor_checkpoint(m);
 
         if (!(m->action & (ACT_FLAG_AIR | ACT_FLAG_SWIMMING))) {
-            if (floorType == SURFACE_BURNING) {
+            if (floorType == SURFACE_BURNING || floorType == SURFACE_LAVA_HURT_FLOOR) {
                 check_lava_boost(m);
+                if(floorType == SURFACE_LAVA_HURT_FLOOR && m->action == ACT_LAVA_BOOST) {
+                    m->actionTimer = 20;
+                }
             }
         }
         if (!(m->action & ACT_FLAG_AIR) && !(m->action & ACT_FLAG_SWIMMING)) {
