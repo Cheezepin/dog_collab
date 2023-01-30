@@ -145,6 +145,12 @@ ALIGNED8 u8 texture_hud_char_Z[] = {
 ALIGNED8 u8 texture_hud_char_multiply[] = {
 	#include "textures/segment2/texture_hud_char_multiply.rgba16.inc.c"
 };
+ALIGNED8 u8 texture_hud_char_tilde[] = {
+	#include "textures/segment2/texture_hud_char_tilde.rgba16.inc.c"
+};
+ALIGNED8 u8 texture_hud_char_outline_star[] = {
+	#include "textures/segment2/texture_hud_char_outline_star.rgba16.inc.c"
+};
 
 ALIGNED8 u8 delfino_hud_kerning_table[] = {
 	8,	/* CC 0 */
@@ -211,7 +217,7 @@ ALIGNED8 u8 delfino_hud_kerning_table[] = {
 	9,	/* = */
 	8,	/* > */
 	9,	/* ? */
-	8,	/* @ */
+	16,	/* @ (outline star) */
 	13,	/* A */
 	11,	/* B */
 	12,	/* C */
@@ -273,5 +279,6 @@ ALIGNED8 u8 delfino_hud_kerning_table[] = {
 	8,	/* { */
 	8,	/* | */
 	8,	/* } */
+	14,	/* ~ */
 };
 

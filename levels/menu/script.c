@@ -22,6 +22,7 @@
 const LevelScript level_main_menu_entry_file_select[] = {
     INIT_LEVEL(),
     LOAD_GODDARD(),
+    LOAD_YAY0(0x0A, _CUSTOM_space_skybox_yay0SegmentRomStart, _CUSTOM_space_skybox_yay0SegmentRomEnd), 
     LOAD_LEVEL_DATA(menu),
     LOAD_BEHAVIOR_DATA(),
     ALLOC_LEVEL_POOL(),
@@ -38,7 +39,7 @@ const LevelScript level_main_menu_entry_file_select[] = {
 
     AREA(/*index*/ 1, geo_menu_file_select_strings_and_menu_cursor),
         OBJECT(/*model*/ MODEL_NONE,                         /*pos*/ 0, 0, -19000, /*angle*/ 0, 0, 0, /*behParam*/ BP(0x04, 0x00, 0x00, 0x00), /*beh*/ bhvMenuButtonManager),
-        OBJECT(/*model*/ MODEL_MAIN_MENU_YELLOW_FILE_BUTTON, /*pos*/ 0, 0, -19000, /*angle*/ 0, 0, 0, /*behParam*/ BP(0x04, 0x00, 0x00, 0x00), /*beh*/ bhvYellowBackgroundInMenu),
+        // OBJECT(/*model*/ MODEL_MAIN_MENU_YELLOW_FILE_BUTTON, /*pos*/ 0, 0, -19000, /*angle*/ 0, 0, 0, /*behParam*/ BP(0x04, 0x00, 0x00, 0x00), /*beh*/ bhvYellowBackgroundInMenu),
         TERRAIN(/*terrainData*/ main_menu_seg7_collision),
     END_AREA(),
 

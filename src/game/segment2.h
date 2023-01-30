@@ -78,5 +78,6 @@ extern Gfx dl_billboard_num_F[];
 #endif
 
 extern u8 delfino_hud_kerning_table[];
+extern const u8 main_hud_244_lut[];
 
 #endif // SEGMENT2_H

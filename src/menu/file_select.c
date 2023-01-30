@@ -137,7 +137,7 @@ unsigned char textNew[] = { TEXT_NEW };
 unsigned char starIcon[] = "- ";
 unsigned char xIcon[] = "* ";
 
-unsigned char textSelectFile[] = { TEXT_SELECT_FILE };
+unsigned char textSelectFile[] = { "123456789 abcdefghijkl" };
 
 unsigned char textScore[] = { TEXT_SCORE };
 
@@ -1489,12 +1489,15 @@ void print_main_menu_strings(void) {
     // Print "SELECT FILE" text
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_hud_lut_string(HUD_LUT_DIFF, SELECT_FILE_X, 30, textSelectFile);
+    // print_hud_lut_string(HUD_LUT_DIFF, SELECT_FILE_X, 30, textSelectFile);
+    // print_hud_lut_string(HUD_LUT_DIFF, 8, 12,    "!\"# %&'  *+,-. 123456789:; = ?"); // space in place of missing chars
+    print_hud_lut_string(HUD_LUT_DIFF, 8, 12,    "!\"#%&'*+,-.123456789:;=?");
+    print_hud_lut_string(HUD_LUT_DIFF, 8, 12+16, "abcdefghijklmnopqrstuvwxyz");
     // Print file star counts
-    print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 62);
-    print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X1, 92);
-    print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 122);
-    print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X1, 152);
+    // print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 62);
+    // print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X1, 92);
+    // print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 122);
+    // print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X1, 152);
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
     // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
