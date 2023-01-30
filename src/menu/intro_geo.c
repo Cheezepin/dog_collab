@@ -264,9 +264,6 @@ Gfx *geo_intro_gameover_backdrop(s32 callContext, struct GraphNode *node, UNUSED
     return dl;
 }
 
-#if defined(VERSION_SH)
-extern Gfx title_screen_bg_dl_rumble_pak[];
-#endif
 #ifdef GODDARD_EASTER_EGG
 extern Gfx title_screen_bg_dl_face_easter_egg_begin[];
 extern Gfx title_screen_bg_dl_face_easter_egg_end[];
@@ -404,37 +401,4 @@ Gfx *geo_intro_face_easter_egg(s32 callContext, struct GraphNode *node, UNUSED v
 
     return dl;
 }
-#endif
-
-#if FALSE
-Gfx *geo_intro_rumble_pak_graphic(s32 callContext, struct GraphNode *node, UNUSED void *context) {
-    struct GraphNodeGenerated *genNode = (struct GraphNodeGenerated *)node;
-    Gfx *dlIter;
-    Gfx *dl = NULL;
-    s8 backgroundTileSix = 0;
-
-    if (callContext != GEO_CONTEXT_RENDER) {
-        dl = NULL;
-    } else if (callContext == GEO_CONTEXT_RENDER) {
-        SET_GRAPH_NODE_LAYER(genNode->fnNode.node.flags, LAYER_OPAQUE);
-        s32 introContext = genNode->parameter & 0xFF;
-        if (introContext == INTRO_CONTEXT_NORMAL) {
-            backgroundTileSix = introBackgroundIndexTable[6];
-        } else if (introContext == INTRO_CONTEXT_GAME_OVER) {
-            backgroundTileSix = gameOverBackgroundTable[6];
-        }
-        if (backgroundTileSix == INTRO_BACKGROUND_SUPER_MARIO) {
-            dl = alloc_display_list(3 * sizeof(*dl));
-            if (dl != NULL) {
-                dlIter = dl;
-                gSPDisplayList(dlIter++, &title_screen_bg_dl_rumble_pak);
-                gSPEndDisplayList(dlIter);
-            }
-        } else {
-            dl = NULL;
-        }
-    }
-    return dl;
-}
-
 #endif

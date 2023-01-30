@@ -85,8 +85,8 @@ struct DynListBankInfo {
 
 // bss
 #if defined(VERSION_EU) || defined(VERSION_SH)
-static OSMesgQueue D_801BE830; // controller msg queue
-static OSMesg D_801BE848[10];
+static OSMesgQueue sGdSIEventMesgQueue; // controller msg queue
+static OSMesg sGdSIEventMesgBuf[10];
 u8 EUpad1[0x40];
 UNUSED static OSMesgQueue D_801BE8B0;
 static OSMesgQueue sGdDMAQueue; // @ 801BE8C8
@@ -102,10 +102,10 @@ static struct ObjView *D_801BE994; // store if View flag 0x40 set
 
 u8 EUpad4[0x88];
 #endif
-static OSContStatus D_801BAE60[4];
-static OSContPad sGdContPads[4];    // @ 801BAE70
-static OSContPad sPrevFrameCont[4]; // @ 801BAE88
-static u8 D_801BAEA0;
+static OSContStatus sGdContStatuses[4];
+static OSContPadEx sGdContPads[4];    // @ 801BAE70
+static OSContPadEx sPrevFrameCont[4]; // @ 801BAE88
+static u8 sGdContBits;
 static struct ObjGadget *sTimerGadgets[GD_NUM_TIMERS]; // @ 801BAEA8
 static u32 D_801BAF28;                                 // RAM addr offset?
 static s16 sTriangleBuf[13][8];                          // [[s16; 8]; 13]? vert indices?
@@ -164,8 +164,8 @@ static s16 *sPickBuf;                                // @ 801BE788
 static LookAt D_801BE790[2];
 static LookAt D_801BE7D0[3];
 #if defined(VERSION_JP) || defined(VERSION_US)
-static OSMesgQueue D_801BE830; // controller msg queue
-static OSMesg D_801BE848[10];
+static OSMesgQueue sGdSIEventMesgQueue; // controller msg queue
+static OSMesg sGdSIEventMesgBuf[10];
 UNUSED static u32 unref_801be870[16];
 UNUSED static OSMesgQueue D_801BE8B0;
 static OSMesgQueue sGdDMAQueue; // @ 801BE8C8
@@ -1285,12 +1285,12 @@ void gd_vblank(void) {
 /**
  * Copies the player1 controller data from p1cont to sGdContPads[0].
  */
-void gd_copy_p1_contpad(OSContPad *p1cont) {
+void gd_copy_p1_contpad(OSContPadEx *p1cont) {
     u32 i;                                    // 24
     u8 *src = (u8 *) p1cont;             // 20
     u8 *dest = (u8 *) &sGdContPads[0]; // 1c
 
-    for (i = 0; i < sizeof(OSContPad); i++) {
+    for (i = 0; i < sizeof(OSContPadEx); i++) {
         dest[i] = src[i];
     }
 
@@ -2399,8 +2399,8 @@ void start_view_dl(struct ObjView *view) {
 void parse_p1_controller(void) {
     u32 i;
     struct GdControl *gdctrl = &gGdCtrl;
-    OSContPad *currInputs;
-    OSContPad *prevInputs;
+    OSContPadEx *currInputs;
+    OSContPadEx *prevInputs;
 
     // Copy current inputs to previous
     u8 *src = (u8 *) gdctrl;
@@ -2511,7 +2511,7 @@ void parse_p1_controller(void) {
         gdctrl->csrY = sScreenView->parent->upperLeft.y + sScreenView->parent->lowerRight.y - 32.0f;
     }
 
-    for (i = 0; i < sizeof(OSContPad); i++) {
+    for (i = 0; i < sizeof(OSContPadEx); i++) {
         ((u8 *) prevInputs)[i] = ((u8 *) currInputs)[i];
     }
 }
@@ -2809,15 +2809,15 @@ s32 setup_view_buffers(const char *name, struct ObjView *view, UNUSED s32 ulx, U
 
 /* 252AF8 -> 252BAC; orig name: _InitControllers */
 void gd_init_controllers(void) {
-    OSContPad *p1cont = &sPrevFrameCont[0]; // 1c
+    OSContPadEx *p1cont = &sPrevFrameCont[0]; // 1c
     u32 i;                                  // 18
 
-    osCreateMesgQueue(&D_801BE830, D_801BE848, ARRAY_COUNT(D_801BE848));
-    osSetEventMesg(OS_EVENT_SI, &D_801BE830, (OSMesg) OS_MESG_SI_COMPLETE);
-    osContInit(&D_801BE830, &D_801BAEA0, D_801BAE60);
-    osContStartReadData(&D_801BE830);
+    osCreateMesgQueue(&sGdSIEventMesgQueue, sGdSIEventMesgBuf, ARRAY_COUNT(sGdSIEventMesgBuf));
+    osSetEventMesg(OS_EVENT_SI, &sGdSIEventMesgQueue, (OSMesg) OS_MESG_SI_COMPLETE);
+    osContInit(&sGdSIEventMesgQueue, &sGdContBits, sGdContStatuses);
+    osContStartReadDataEx(&sGdSIEventMesgQueue);
 
-    for (i = 0; i < sizeof(OSContPad); i++) {
+    for (i = 0; i < sizeof(OSContPadEx); i++) {
         ((u8 *) p1cont)[i] = 0;
     }
 }

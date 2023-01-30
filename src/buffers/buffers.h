@@ -16,7 +16,7 @@ extern u8 gIdleThreadStack[];
 extern u8 gThread3Stack[];
 extern u8 gThread4Stack[];
 extern u8 gThread5Stack[];
-#if ENABLE_RUMBLE
+#ifdef ENABLE_RUMBLE
 extern u8 gThread6Stack[];
 #endif
 
