@@ -321,9 +321,10 @@ s32 run_file_select(void) {
     if (mState->closing) {
         if (mState->closeTimer <= 0) {
             // mState->closing = FALSE;
+            mState->closeTimer = 0;
             return sMainMenu.curOpt + 1;
         } else {
-            mState-mState->closeTimer--;
+            mState->closeTimer--;
         }
     }
 
