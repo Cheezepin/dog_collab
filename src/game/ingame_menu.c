@@ -488,6 +488,7 @@ void print_hud_lut_string(s8 hudLUT, s16 x, s16 y, const u8 *str) {
     void **hudLUT2 = segmented_to_virtual(main_hud_lut); // 0-9 A-Z HUD Color Font
     u8 *kernTable = segmented_to_virtual(delfino_hud_kerning_table);
     u8 *lut244Plus = segmented_to_virtual(main_hud_244_lut);
+    u8 character;
 
     u32 curX = x;
     u32 curY = y;
@@ -506,7 +507,7 @@ void print_hud_lut_string(s8 hudLUT, s16 x, s16 y, const u8 *str) {
                 curX += 8;
                 break;
             default:
-                u8 character = str[strPos];
+                character = str[strPos];
                 if (character >= 244) {
                     character = lut244Plus[character - 244];
                 }
