@@ -147,7 +147,7 @@ const GeoLayout geo_menu_file_select_strings_and_menu_cursor[] = {
       GEO_OPEN_NODE(),
          GEO_NODE_ORTHO(100),
          GEO_OPEN_NODE(),
-            GEO_BACKGROUND_COLOR(0x0001),
+            GEO_BACKGROUND(BACKGROUND_PURPLE_SKY, geo_skybox_main),
          GEO_CLOSE_NODE(),
       GEO_CLOSE_NODE(),
       GEO_ZBUFFER(1),

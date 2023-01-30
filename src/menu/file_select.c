@@ -8,6 +8,7 @@
 #include "engine/graph_node.h"
 #include "engine/math_util.h"
 #include "file_select.h"
+#include "cozy_file_select.h"
 #include "game/area.h"
 #include "game/game_init.h"
 #include "game/ingame_menu.h"
@@ -137,7 +138,7 @@ unsigned char textNew[] = { TEXT_NEW };
 unsigned char starIcon[] = "- ";
 unsigned char xIcon[] = "* ";
 
-unsigned char textSelectFile[] = { TEXT_SELECT_FILE };
+unsigned char textSelectFile[] = { "123456789 abcdefghijkl" };
 
 unsigned char textScore[] = { TEXT_SCORE };
 
@@ -1489,12 +1490,15 @@ void print_main_menu_strings(void) {
     // Print "SELECT FILE" text
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, sTextBaseAlpha);
-    print_hud_lut_string(HUD_LUT_DIFF, SELECT_FILE_X, 30, textSelectFile);
+    // print_hud_lut_string(HUD_LUT_DIFF, SELECT_FILE_X, 30, textSelectFile);
+    // print_hud_lut_string(HUD_LUT_DIFF, 8, 12,    "!\"# %&'  *+,-. 123456789:; = ?"); // space in place of missing chars
+    print_hud_lut_string(HUD_LUT_DIFF, 8, 12,    "!\"#%&'*+,-.123456789:;=?");
+    print_hud_lut_string(HUD_LUT_DIFF, 8, 12+16, "abcdefghijklmnopqrstuvwxyz");
     // Print file star counts
-    print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 62);
-    print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X1, 92);
-    print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 122);
-    print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X1, 152);
+    // print_save_file_star_count(SAVE_FILE_A, SAVEFILE_X1, 62);
+    // print_save_file_star_count(SAVE_FILE_B, SAVEFILE_X1, 92);
+    // print_save_file_star_count(SAVE_FILE_C, SAVEFILE_X1, 122);
+    // print_save_file_star_count(SAVE_FILE_D, SAVEFILE_X1, 152);
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
     // Print menu names
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
@@ -2317,12 +2321,16 @@ void print_file_select_strings(void) {
 
 /**
  * Geo function that prints file select strings and the cursor.
+ * jk lol this is the entire file select logic
  */
 Gfx *geo_file_select_strings_and_menu_cursor(s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 mtx) {
     if (callContext == GEO_CONTEXT_RENDER) {
-        print_file_select_strings();
-        print_menu_cursor();
+        sSelectedFileNum = run_file_select();
+    } else if (callContext == GEO_CONTEXT_CREATE) {
+        sSelectedFileNum = 0;
+        init_file_select();
     }
+
     return NULL;
 }
 
@@ -2332,29 +2340,6 @@ Gfx *geo_file_select_strings_and_menu_cursor(s32 callContext, UNUSED struct Grap
  * either completing a course choosing "SAVE & QUIT" or having a game over.
  */
 s32 lvl_init_menu_values_and_cursor_pos(UNUSED s32 arg, UNUSED s32 unused) {
-    sSelectedButtonID = MENU_BUTTON_NONE;
-    sCurrentMenuLevel = MENU_LAYER_MAIN;
-    sTextBaseAlpha = 0;
-    // Place the cursor over the save file that was being played.
-    // gCurrSaveFileNum is 1 by default when the game boots, as such
-    // the cursor will point on Mario A save file.
-    switch (gCurrSaveFileNum) {
-        case SAVE_FILE_NUM_A: sCursorPos[0] = -94.0f; sCursorPos[1] = 46.0f; break;
-        case SAVE_FILE_NUM_B: sCursorPos[0] =  24.0f; sCursorPos[1] = 46.0f; break;
-        case SAVE_FILE_NUM_C: sCursorPos[0] = -94.0f; sCursorPos[1] =  5.0f; break;
-        case SAVE_FILE_NUM_D: sCursorPos[0] =  24.0f; sCursorPos[1] =  5.0f; break;
-    }
-    sClickPos[0] = -10000;
-    sClickPos[1] = -10000;
-    sCursorClickingTimer = 0;
-    sSelectedFileNum = 0;
-    sSelectedFileIndex = MENU_BUTTON_NONE;
-    sFadeOutText = FALSE;
-    sStatusMessageID = 0;
-    sTextFadeAlpha = 0;
-    sMainMenuTimer = 0;
-    sEraseYesNoHoverState = MENU_ERASE_HOVER_NONE;
-    sSoundMode = save_file_get_sound_mode();
     gCurrLevelNum = LEVEL_UNKNOWN_1;
     return 0;
 }
