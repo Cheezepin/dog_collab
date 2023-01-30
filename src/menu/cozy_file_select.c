@@ -319,10 +319,11 @@ s32 run_file_select(void) {
     }
 
     if (mState->closing) {
-        mState->closeTimer--;
-        if (mState->closeTimer == 0) {
-            mState->closing = FALSE;
+        if (mState->closeTimer <= 0) {
+            // mState->closing = FALSE;
             return sMainMenu.curOpt + 1;
+        } else {
+            mState-mState->closeTimer--;
         }
     }
 
@@ -331,18 +332,30 @@ s32 run_file_select(void) {
 
 void store_dog_string(char *dogString, u8 fileNum) {
     u8 length = DOG_STRING_LENGTH;
+    s8 lastZero = -1;
 
     for(int i = 0; i < DOG_STRING_LENGTH + 1; i++) {
         dogString[i] = save_file_get_dog_string(fileNum, i);
+        if(dogString[i] == 0x0 && lastZero == -1) {
+            lastZero = i;
+        }
         if(dogString[i] == 0x0 && length == 12) {
             length = i;
             break;
         }
     }
-    dogString[length] = 0x0;
+
+    if((gSaveBuffer.files[fileNum].flags & SAVE_FLAG_BOWSER_3_BEAT) && save_file_get_total_star_count(fileNum, COURSE_MIN - 1, COURSE_MAX - 1) >= 73) {
+        dogString[lastZero] = 0x20;
+        dogString[lastZero + 1] = 0x2C;
+        dogString[lastZero + 2] = 0x0;
+    } else {
+        dogString[length] = 0x0;
+    }
 }
 
 void init_file_select(void) {
+    FileSelectMenuState *mState = &sMenuState;
     if (save_file_exists(0)) {
         store_dog_string(sMainMenuOptList[0].label, 0);
     }
@@ -352,4 +365,5 @@ void init_file_select(void) {
     if (save_file_exists(2)) {
         store_dog_string(sMainMenuOptList[2].label, 2);
     }
+    mState->closing = FALSE;
 }
