@@ -98,6 +98,9 @@ void bhv_mips_act_wait_for_nearby_mario(void) {
 /**
  * Continue to follow our path around the basement area.
  */
+
+s16 object_step_over_water(void);
+
 void bhv_mips_act_follow_path(void) {
     // Retrieve current waypoint.
     struct Waypoint **pathBase = segmented_to_virtual(&inside_castle_seg7_trajectory_mips);

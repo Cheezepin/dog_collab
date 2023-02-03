@@ -70,6 +70,7 @@ enum SeqId {
     SEQ_FINAL_BOWSER, // 0x39
     SEQ_FACTORY_DOWN, // 0x3A
     SEQ_FACTORY, // 0x3B
+    SEQ_NEW_FILE_SELECT, // 0x3C
     SEQ_COUNT
 };
 

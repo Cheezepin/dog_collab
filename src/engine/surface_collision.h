@@ -59,5 +59,6 @@ s32 find_water_level_and_floor(s32 x, s32 y, s32 z, struct Surface **pfloor);
 s32 find_water_level(s32 x, s32 z);
 s32 find_poison_gas_level(s32 x, s32 z);
 f32 find_water_floor(s32 xPos, s32 yPos, s32 zPos, struct Surface **pfloor);
+f32 find_floor_over_water(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfloor);
 
 #endif // SURFACE_COLLISION_H

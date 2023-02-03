@@ -87,3 +87,7 @@
 #include "levels/wf/sand_slope/model.inc.c"
 #include "levels/wf/sand_slope/collision.inc.c"
 #include "levels/wf/ktq_ring/model.inc.c"
+
+#include "levels/wf/mips/model.inc.c"
+#include "levels/wf/mips/anims/data.inc.c"
+#include "levels/wf/mips/anims/table.inc.c"

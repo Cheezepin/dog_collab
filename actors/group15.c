@@ -16,9 +16,9 @@ UNUSED static const u64 binid_0 = 0;
 #include "toad/anims/table.inc.c"
 UNUSED static const u64 binid_1 = 1;
 
-#include "mips/model.inc.c"
-#include "mips/anims/data.inc.c"
-#include "mips/anims/table.inc.c"
+// #include "mips/model.inc.c"
+// #include "mips/anims/data.inc.c"
+// #include "mips/anims/table.inc.c"
 UNUSED static const u64 binid_2 = 2;
 
 #include "boo_castle/model.inc.c"

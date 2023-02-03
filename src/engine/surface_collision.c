@@ -557,6 +557,76 @@ f32 find_floor(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfloor) {
     return height;
 }
 
+f32 find_floor_over_water(f32 xPos, f32 yPos, f32 zPos, struct Surface **pfloor) {
+    f32 height        = FLOOR_LOWER_LIMIT;
+    f32 dynamicHeight = FLOOR_LOWER_LIMIT;
+
+    //! (Parallel Universes) Because position is casted to an s16, reaching higher
+    //  float locations can return floors despite them not existing there.
+    //  (Dynamic floors will unload due to the range.)
+    s32 x = xPos;
+    s32 y = yPos;
+    s32 z = zPos;
+
+    *pfloor = NULL;
+
+    if (is_outside_level_bounds(x, z)) {
+        return height;
+    }
+    // Each level is split into cells to limit load, find the appropriate cell.
+    s32 cellX = GET_CELL_COORD(x);
+    s32 cellZ = GET_CELL_COORD(z);
+
+    struct SurfaceNode *surfaceList;
+    struct Surface *floor = NULL;
+    struct Surface *dynamicFloor = NULL;
+
+    s32 includeDynamic = !(gCollisionFlags & COLLISION_FLAG_EXCLUDE_DYNAMIC);
+
+    if (includeDynamic) {
+        // Check for surfaces belonging to objects.
+        surfaceList = gDynamicSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_FLOORS].next;
+        dynamicFloor = find_floor_from_list(surfaceList, x, y, z, &dynamicHeight);
+        if(!dynamicFloor) {
+            surfaceList = gDynamicSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
+            dynamicFloor = find_water_floor_from_list(surfaceList, x, y, z);
+        }
+
+        // In the next check, only check for floors higher than the previous check.
+        height = dynamicHeight;
+    }
+
+    // Check for surfaces that are a part of level geometry.
+
+    surfaceList = gStaticSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_FLOORS].next;
+    floor = find_floor_from_list(surfaceList, x, y, z, &height);
+    if(!floor) {
+        surfaceList = gStaticSurfacePartition[cellZ][cellX][SPATIAL_PARTITION_WATER].next;
+        floor = find_water_floor_from_list(surfaceList, x, y, z);
+    }
+
+    // Use the higher floor.
+    if (includeDynamic && height <= dynamicHeight) {
+        floor  = dynamicFloor;
+        height = dynamicHeight;
+    }
+
+    // To prevent accidentally leaving the floor tangible, stop checking for it.
+    gCollisionFlags &= ~(COLLISION_FLAG_RETURN_FIRST | COLLISION_FLAG_EXCLUDE_DYNAMIC | COLLISION_FLAG_INCLUDE_INTANGIBLE);
+    // If a floor was missed, increment the debug counter.
+    if (floor == NULL) {
+        gNumFindFloorMisses++;
+    }
+
+    // Return the floor.
+    *pfloor = floor;
+#ifdef VANILLA_DEBUG
+    // Increment the debug tracker.
+    gNumCalls.floor++;
+#endif
+    return height;
+}
+
 f32 find_room_floor(f32 x, f32 y, f32 z, struct Surface **pfloor) {
     gCollisionFlags |= (COLLISION_FLAG_RETURN_FIRST | COLLISION_FLAG_EXCLUDE_DYNAMIC | COLLISION_FLAG_INCLUDE_INTANGIBLE);
     return find_floor(x, y, z, pfloor);

@@ -426,6 +426,51 @@ s16 object_step(void) {
     return collisionFlags;
 }
 
+s16 object_step_over_water(void) {
+    f32 objX = o->oPosX;
+    f32 objY = o->oPosY;
+    f32 objZ = o->oPosZ;
+
+    f32 floorY;
+    f32 waterY = FLOOR_LOWER_LIMIT_MISC;
+
+    f32 objVelX = o->oForwardVel * sins(o->oMoveAngleYaw);
+    f32 objVelZ = o->oForwardVel * coss(o->oMoveAngleYaw);
+
+    s16 collisionFlags = 0;
+
+    // Find any wall collisions, receive the push, and set the flag.
+    if (obj_find_wall(objX + objVelX, objY, objZ + objVelZ, objVelX, objVelZ) == 0) {
+        collisionFlags += OBJ_COL_FLAG_HIT_WALL;
+    }
+
+    floorY = find_floor_over_water(objX + objVelX, objY, objZ + objVelZ, &sObjFloor);
+
+    o->oFloor       = sObjFloor;
+    o->oFloorHeight = floorY;
+
+    if (turn_obj_away_from_steep_floor(sObjFloor, floorY, objVelX, objVelZ) == 1) {
+        calc_new_obj_vel_and_pos_y(sObjFloor, floorY, objVelX, objVelZ);
+    } else {
+        // Treat any awkward floors similar to a wall.
+        collisionFlags +=
+            ((collisionFlags & OBJ_COL_FLAG_HIT_WALL) ^ OBJ_COL_FLAG_HIT_WALL);
+    }
+
+    obj_update_pos_vel_xz();
+    if ((s32) o->oPosY == (s32) floorY) {
+        collisionFlags += OBJ_COL_FLAG_GROUNDED;
+    }
+
+    if ((s32) o->oVelY == 0) {
+        collisionFlags += OBJ_COL_FLAG_NO_Y_VEL;
+    }
+
+    // Generate a splash if in water.
+    obj_splash((s32) waterY, (s32) o->oPosY);
+    return collisionFlags;
+}
+
 /**
  * Takes an object step but does not orient with the object's floor.
  * Used for boulders, falling pillars, and the rolling snowman body.
