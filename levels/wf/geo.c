@@ -53,4 +53,4 @@
 #include "levels/wf/sand_slope/geo.inc.c"
 #include "levels/wf/ktq_ring/geo.inc.c"
 
-#include "levels/wf/mips/geo.inc.c"
+#include "levels/wf/wf_mips/geo.inc.c"

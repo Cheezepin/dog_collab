@@ -48,6 +48,7 @@ const LevelScript level_wf_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_SAND_PILLAR, sand_pillar_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_SAND_SLOPE, sand_slope_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_KTQ_RING, ktq_ring_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_MIPS, wf_mips_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -59,6 +60,7 @@ const LevelScript level_wf_entry[] = {
 		WARP_NODE(0x0D, LEVEL_WF, 0x02, 0x0D, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x0B, LEVEL_WF, 0x03, 0x0B, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_NONE, -6743, 1404, 1534, 180, 0, 90, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(MODEL_MIPS, -6713, 832, -1841, 0, 0, 0, 0x00000000, bhvMips),
 		MARIO_POS(0x01, 0, -6743, 1404, 1534),
 		OBJECT(MODEL_NONE, 6215, 2944, -5966, 0, 0, 0, (100 << 24) | (0x0D << 16), bhvWarp),
 		OBJECT(MODEL_BLOOPER, 1643, -344, -1211, 0, 21, 0, 0x00000000, bhvBlooper),

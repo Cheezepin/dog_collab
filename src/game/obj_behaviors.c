@@ -65,6 +65,7 @@ s8 sYoshiDead = FALSE;
 
 extern void *ccm_seg7_trajectory_snowman;
 extern void *inside_castle_seg7_trajectory_mips;
+// extern void *mippys_area_1_spline_mipspath;
 
 /**
  * Resets yoshi as spawned/despawned upon new file select.

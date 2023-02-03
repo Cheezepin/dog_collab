@@ -7,6 +7,7 @@
  * Initializes MIPS' physics parameters and checks if he should be active,
  * hiding him if necessary.
  */
+#include "levels/wf/header.h"
 void bhv_mips_init(void) {
 #ifndef UNLOCK_ALL
     // Retrieve star flags for Castle Secret Stars on current save file.
@@ -43,13 +44,45 @@ void bhv_mips_init(void) {
  * Helper function that finds the waypoint that is both within 800 units of MIPS
  * and furthest from Mario's current location.
  */
+
+const Trajectory mippys_area_1_spline_mipspath_0[] = {
+	TRAJECTORY_POS( 0, -6634, 804, -2259),
+	TRAJECTORY_END(),
+};
+
+const Trajectory mippys_area_1_spline_mipspath_1[] = {
+	TRAJECTORY_POS( 0, -6764, 779, -4284),
+	TRAJECTORY_END(),
+};
+
+const Trajectory mippys_area_1_spline_mipspath_2[] = {
+	TRAJECTORY_POS( 0, -5420, 753, -5553),
+	TRAJECTORY_END(),
+};
+
+const Trajectory mippys_area_1_spline_mipspath_3[] = {
+	TRAJECTORY_POS( 0, -3807, 688, -3947),
+	TRAJECTORY_END(),
+};
+
+const Trajectory mippys_area_1_spline_mipspath_4[] = {
+	TRAJECTORY_POS( 0, -3995, 688, -1794),
+	TRAJECTORY_END(),
+};
+
+const Trajectory *const wf_seg7_trajectory_mips[] = {
+    mippys_area_1_spline_mipspath_0, mippys_area_1_spline_mipspath_1,
+    mippys_area_1_spline_mipspath_2, mippys_area_1_spline_mipspath_3,
+    mippys_area_1_spline_mipspath_4,
+};
+
 s32 bhv_mips_find_furthest_waypoint_to_mario(void) {
     s8 i;
     Vec3s pos;
     s16 furthestWaypointIndex = -1;
     f32 furthestWaypointDistance = -10000.0f;
     f32 distanceToMario;
-    struct Waypoint **pathBase = segmented_to_virtual(&inside_castle_seg7_trajectory_mips);
+    struct Waypoint **pathBase = segmented_to_virtual(&wf_seg7_trajectory_mips);
     f32 dx, dz;
     // For each waypoint in MIPS path...
     for (i = 0; i < 10; i++) {
@@ -103,7 +136,7 @@ s16 object_step_over_water(void);
 
 void bhv_mips_act_follow_path(void) {
     // Retrieve current waypoint.
-    struct Waypoint **pathBase = segmented_to_virtual(&inside_castle_seg7_trajectory_mips);
+    struct Waypoint **pathBase = segmented_to_virtual(&wf_seg7_trajectory_mips);
     struct Waypoint *waypoint = segmented_to_virtual(*(pathBase + o->oMipsStartWaypointIndex));
 
     // Set start waypoint and follow the path from there.
