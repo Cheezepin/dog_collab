@@ -468,7 +468,7 @@ s16 object_step_over_water(void) {
     }
 
     // Generate a splash if in water.
-    obj_splash((s32) waterY, (s32) o->oPosY);
+    //obj_splash((s32) waterY, (s32) o->oPosY);
     return collisionFlags;
 }
 

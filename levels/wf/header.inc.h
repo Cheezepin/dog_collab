@@ -10,7 +10,7 @@ extern const MacroObject wf_area_1_macro_objs[];
 extern struct CutsceneSplinePoint wf_area_1_spline_focus[];
 extern struct CutsceneSplinePoint wf_area_1_spline_pos[];
 extern const Trajectory wf_area_1_spline_ktq[];
-extern const Trajectory wf_area_1_spline_ktq[];
+extern const Trajectory wf_seg7_trajectory_mips[];
 extern const GeoLayout wf_area_2_geo[];
 extern const GeoLayout wf_area_2[];
 extern const Collision wf_area_2_collision[];
