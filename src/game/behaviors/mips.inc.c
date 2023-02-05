@@ -185,7 +185,9 @@ void bhv_mips_act_idle(void) {
 
     // Spawn a star if he was just picked up for the first time.
     if (o->oMipsStarStatus == MIPS_STAR_STATUS_SHOULD_SPAWN_STAR) {
-        bhv_spawn_star_no_level_exit(o->oBehParams2ndByte + 3);
+        struct Object *starObj = spawn_star(o, o->oPosX + sins(o->oMoveAngleYaw)*50.0f, o->oPosY + 250.0f, o->oPosZ + coss(o->oMoveAngleYaw)*50.0f);
+        SET_BPARAM1(starObj->oBehParams, 0x5);
+        obj_set_angle(starObj, 0x0, 0x0, 0x0);
         o->oMipsStarStatus = MIPS_STAR_STATUS_ALREADY_SPAWNED_STAR;
     }
 }
