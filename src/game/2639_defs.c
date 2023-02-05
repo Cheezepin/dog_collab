@@ -112,7 +112,8 @@ void Scavenger_DropGoods(struct Object *parent, u32 ID) {
 
     // };
     if (ID == 10) {
-        LaunchObject(o, bhv2639FinalPresent, _models[ID]);
+        if(!find_any_object_with_behavior(bhv2639FinalPresent))
+            LaunchObject(o, bhv2639FinalPresent, _models[ID]);
     }
 
 }
@@ -362,7 +363,7 @@ void do2639cutscene(struct Camera *c) {
     float dogdist;
     #define APPROACH_SPD 3.0f
     struct Object *dog = cNearestObj_Bhv(bhvDogfloor3, &dogdist);
-    cutscene_event(stop_the_cutscene, c, 300, -1);
+    // cutscene_event(stop_the_cutscene, c, 300, -1);
 
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
     switch (state) {
@@ -372,7 +373,7 @@ void do2639cutscene(struct Camera *c) {
             approach_vec3f_asymptotic(c->pos, sp, APPROACH_SPD, APPROACH_SPD, APPROACH_SPD);
             if (dog) {
                 approach_vec3f_asymptotic(c->focus, &dog->oPosX, APPROACH_SPD, APPROACH_SPD, APPROACH_SPD);
-                if (dog->oAction == DF6_SWIM && dog->oTimer > 30) {
+                if (dog->oTimer > 90) {
                     state++;
                 }
             }
@@ -398,9 +399,11 @@ void do2639cutscene(struct Camera *c) {
             bhv_spawn_star_get_outta_here(5);
             state++;
             // cutscene_event(cutscene_intro_peach_clear_cutscene_status, c, 717, 717);
+            break;
         }
         case 4: {
-
+            stop_the_cutscene(c);
+            break;
         }
     }
     // char dbg[50];

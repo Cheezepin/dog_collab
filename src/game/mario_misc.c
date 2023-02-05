@@ -246,6 +246,10 @@ void bhv_toad_message_loop(void) {
                 toad_message_talking();
                 break;
         }
+        if(in2639Level() && o->oToadMessageDialogId == _2639DIAG_A6PentToad6 && o->oAction == 0) {
+            gCurrentObject->oToadMessageState = TOAD_MESSAGE_TALKING;
+            o->oAction = 1;
+        }
     }
     // if (gCurrAreaIndex != 2 && gCurrActNum == 6) {
     //     _2639_BoB_A1_ToadTalkLatch = 0;
@@ -272,10 +276,10 @@ void bhv_angry_toad_message_init(void) {
     o->oToadMessageState = TOAD_MESSAGE_FADED;
     o->oOpacity = 81;
 
-    if (_2639ToadAct6NeedsToChangeDialogue) {
+    // if (_2639ToadAct6NeedsToChangeDialogue) {
          o->oToadMessageDialogId = _2639DIAG_A6PentToad6;
          // _2639_BoB_A1_ToadTalkLatch = 0;
-     }
+    //  }
 
 }
 

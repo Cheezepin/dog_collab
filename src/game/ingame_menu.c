@@ -3117,6 +3117,7 @@ u8 textAndThe100CoinStar[] = { TEXT_AND_THE_100_COIN_STAR };
 u8 textAndTheRedCoinStar[] = { TEXT_AND_THE_RED_COIN_STAR };
 u8 textNextUnfinishedAct[] = { TEXT_NEXT_UNFINISHED_ACT };
 u8 textAllActsCompleted[] = { TEXT_ALL_ACTS_COMPLETED };
+u8 text100CoinStar[] = { TEXT_ONE_HUNDRED_COIN_STAR };
 
 extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
@@ -3143,6 +3144,10 @@ void end_results_loop(void) {
             i = 200;
             break;
         }
+    }
+
+    if(gLastCompletedStarNum > 6) {
+        selectedActName = text100CoinStar;
     }
 
     starColor = starColors[gCurrCourseNum - 1];
@@ -3191,18 +3196,18 @@ void end_results_loop(void) {
             if(nextUnfinishedAct == 0) {
                 print_generic_string(get_str_x_pos_from_center(160, textAllActsCompleted, 2.0f), 130, textAllActsCompleted);
                 textReplayLastAct[11] = 0x30 + gDialogCourseActNum;
-                print_generic_string(110, 70, textReplayLastAct);
+                print_generic_string(125, 70, textReplayLastAct);
             } else {
                 u8 *nextActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + nextUnfinishedAct - 1]);
                 textNextUnfinishedAct[13] = 0x30 + nextUnfinishedAct;
                 print_generic_string(get_str_x_pos_from_center(160, textNextUnfinishedAct, 2.0f), 130, textNextUnfinishedAct);
                 print_generic_string(get_str_x_pos_from_center(160, nextActName, 2.0f), 110, nextActName);
                 textContinueToNextAct[16] = 0x30 + nextUnfinishedAct;
-                print_generic_string(110, 70, textContinueToNextAct);
+                print_generic_string(125, 70, textContinueToNextAct);
             }
-            print_generic_string(110, 50, textExitCourseLC);
-            print_generic_string(110, 30, textExitGame);
-                create_dl_translation_matrix(MENU_MTX_PUSH, 90.0f, 70.0f - (gEndResultMenuChoice*20.0f), 0.0f);
+            print_generic_string(125, 50, textExitCourseLC);
+            print_generic_string(125, 30, textExitGame);
+                create_dl_translation_matrix(MENU_MTX_PUSH, 105.0f, 70.0f - (gEndResultMenuChoice*20.0f), 0.0f);
                 gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
                 gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
             

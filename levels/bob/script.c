@@ -136,7 +136,7 @@ const LevelScript level_bob_entry[] = {
 		OBJECT_WITH_ACTS(MODEL_2639VENDING, 1689, 0, -1375, 0, -133, 0, 0x00000000, bhv2639Vending, ACT_3 | ACT_4 | ACT_5),
 		OBJECT_WITH_ACTS(MODEL_WOODEN_SIGNPOST, 1382, 0, -1501, 0, -133, 0, (_2639DIAG_A3RoomVendingMachineInstructions << 16), bhvMessagePanel, ACT_3),
 		OBJECT_WITH_ACTS(MODEL_WOODEN_SIGNPOST, 1382, 0, -1501, 0, -133, 0, (_2639DIAG_A3RoomVendingMachineInstructionsNew << 16), bhvMessagePanel, ACT_4 | ACT_5 | ACT_6),
-		OBJECT_WITH_ACTS(MODEL_TOAD, -1069, 2328, 133, 0, 0, 0, (_2639DIAG_A6PentToad7 << 16), bhvToadMessage, ACT_6),
+		OBJECT_WITH_ACTS(MODEL_TOAD, -1069, 2328, 133, 0, 0, 0, (_2639DIAG_A6PentToad1 << 16), bhvToadMessage, ACT_6),
 		OBJECT_WITH_ACTS(MODEL_WOODEN_SIGNPOST, -1160, 2328, 381, 0, 71, 0, (_2639DIAG_A1Lobby_FountainIntro << 16), bhvMessagePanel, ACT_1),
 		OBJECT(MODEL_NONE, -2786, 0, -4573, 0, 0, 0, (_2639DIAG_A1LobbyHOF_Kirby64 << 16), bhv2639TrophyCase),
 		OBJECT(MODEL_NONE, -1295, 0, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_sUGGOH << 16), bhv2639TrophyCase),
