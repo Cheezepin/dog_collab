@@ -2457,7 +2457,13 @@ flights of stairs!
 How Mean! Get up there
 quick, grab the key,
 and dive down to catch
-the elevator!)")
+the elevator!
+Also, sorry that
+the normal toad
+receptionist
+couldn't be here
+today. I'm trying
+my best, okay?)")
 
 
 DEFINE_DIALOG(CHEEZE_DIALOG_1, 1, 3, 30, 200, "\

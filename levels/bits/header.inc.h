@@ -324,7 +324,7 @@ extern Vtx bits_dl_floor_meme_005_mesh_layer_1_vtx_0[232];
 extern Gfx bits_dl_floor_meme_005_mesh_layer_1_tri_0[];
 extern Vtx bits_dl_floor_meme_005_mesh_layer_1_vtx_1[32];
 extern Gfx bits_dl_floor_meme_005_mesh_layer_1_tri_1[];
-extern Vtx bits_dl_floor_meme_006_mesh_layer_1_vtx_0[575];
+extern Vtx bits_dl_floor_meme_006_mesh_layer_1_vtx_0[582];
 extern Gfx bits_dl_floor_meme_006_mesh_layer_1_tri_0[];
 extern Vtx bits_dl_floor_meme_006_mesh_layer_1_vtx_1[34];
 extern Gfx bits_dl_floor_meme_006_mesh_layer_1_tri_1[];

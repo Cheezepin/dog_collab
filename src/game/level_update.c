@@ -72,11 +72,11 @@ const char *credits09[] = { "4AWE INSPIRING SPIRES", "MUSIC", "KEYBLADER", "METE
 // ...3D animators and additional graphics in order to make room for screen text writer(s), Mario voice, and Peach voice
 const char *credits10[] = { "6BOWSER'S RAINBOW", "ANUNIDENTIFIEDEMU", "RINGS",  "", "MUSIC", "BOWSER STAGE SM64" };
 const char *credits11[] = { "4SAKURA STRONGHOLD", "MUSIC", "YOSHI MILKMAN", "SAMMERS KINGDOM SPM" };
-const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "HMC SM64" };
+const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "ORIGINAL BY THECOZIES" };
 const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIGINAL BY THECOZIES" };
-const char *credits14[] = { "8OTHER MUSIC", "", "HUB WORLD", "CROSSING THOSE HILLS FF9", "BOSS", "SM64 BOSS", "CIRCUS BOSS", "CACKLETTA BOSS ML SS" };
-const char *credits15[] = { "6FACTORY OUTSIDE", "CCM SM64", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
-const char *credits16[] = { "6SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD"};
+const char *credits14[] = { "8OTHER MUSIC", "", "FILE SELECT", "KIRBY 64 FILE SELECT", "HUB WORLD", "CROSSING THOSE HILLS FF9", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT" };
+const char *credits15[] = { "6ROVERT BOSS ", "UGH FNF", "CIRCUS BOSS", "CACKLETTA BOSS ML SS", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
+const char *credits16[] = { "8SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD", "CREDITS", "KSSU CREDITS"};
 
 const char *credits17[] = { "3SPECIAL THANKS TO", "THECOZIES' DOG", "CLEVER FOLKS AT DECOMP", "BOOMERDACAT" };
 const char *credits18[] = { "3SPECIAL THANKS TO", "ARTHURTILLY", "HACKERSM64 TEAM", "GILES GODDARD" };
@@ -1538,7 +1538,7 @@ char *howString[] = {"H", "O", "W"};
 
 s32 ending_get_outta_here(void) {
     if(!gGlobalEndingHidden) {
-        print_text_fmt_int(70, 220, "%d OF 73 STARS", save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1));
+        print_text_fmt_int(85, 220, "%d OF 73 STARS", save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1));
         if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) == 73) {
             u8 i = 0;
             for(i = 0; i < 8; i++) {
@@ -1550,8 +1550,8 @@ s32 ending_get_outta_here(void) {
                 print_text(140 + (i*16), 196 + (s32)(4.0f*sins(2000*(gGlobalTimer - i*8))), howString[i]);
             }
         }
-        print_text_centered(160, 58, "PRESS A TO RESET");
-        print_text_centered(160, 38, "B TO HIDE");
+        print_text_centered(170, 58, "PRESS A TO RESET");
+        print_text_centered(170, 38, "B TO HIDE");
         if(gPlayer1Controller->buttonPressed & A_BUTTON) {
             fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
             sWarpDest.type = WARP_TYPE_NOT_WARPING;

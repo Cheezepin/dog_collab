@@ -9,7 +9,7 @@ void elvWarpMario(int node) {
     sDelayedWarpTimer = 0x13;
     sSourceWarpNodeId = node;
     sDelayedWarpOp = WARP_OP_WARP_OBJECT;
-    play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x13, 0,0,0);
+    if(gCurrLevelNum != LEVEL_BITS) play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x13, 0,0,0);
 }
 
 #define oElevatorMovementMultiplier OBJECT_FIELD_F32(0x1B)
