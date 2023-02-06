@@ -34,4 +34,4 @@
 /**
  * Informs supported emulators to default to gamecube controller inputs.
  */
-// #define USE_GAMECUBE_CONTROLLER
+ #define USE_GAMECUBE_CONTROLLER
