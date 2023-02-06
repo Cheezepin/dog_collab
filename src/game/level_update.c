@@ -64,7 +64,7 @@ const char *credits04[] = { "4HAIR RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "
 // US and EU combine camera programmer and Mario face programmer...
 const char *credits05[] = { "6BOWSER'S FLYING", "CHEEZEPIN", "FORTRESS", "", "MUSIC", "HYRULE CASTLE LTTP" };
 const char *credits06[] = { "4KOOPA ATOLL", "MUSIC", "BEVERLYBEAN", "WATERSONG 2 DTL NEXT CHAPTER" };
-const char *credits07[] = { "4PEACH RUINS", "MUSIC", "ROVERT", "IDK" };
+const char *credits07[] = { "4PEACH RUINS", "MUSIC", "ROVERT", "UGH FNF" };
 const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "STRIATION CITY POKEMON BW" };
 
 // ...as well as sound composer, sound effects, and sound programmer, and...
@@ -75,7 +75,7 @@ const char *credits11[] = { "4SAKURA STRONGHOLD", "MUSIC", "YOSHI MILKMAN", "SAM
 const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "ORIGINAL BY THECOZIES" };
 const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIGINAL BY THECOZIES" };
 const char *credits14[] = { "8OTHER MUSIC", "", "FILE SELECT", "KIRBY 64 FILE SELECT", "HUB WORLD", "CROSSING THOSE HILLS FF9", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT" };
-const char *credits15[] = { "6ROVERT BOSS ", "UGH FNF", "CIRCUS BOSS", "CACKLETTA BOSS ML SS", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
+const char *credits15[] = { "CIRCUS BOSS", "CACKLETTA BOSS ML SS", "6FINAL BOSS ", "UH IDK", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
 const char *credits16[] = { "8SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD", "CREDITS", "KSSU CREDITS"};
 
 const char *credits17[] = { "3SPECIAL THANKS TO", "THECOZIES' DOG", "CLEVER FOLKS AT DECOMP", "BOOMERDACAT" };
