@@ -735,5 +735,4 @@ void render_hud(void) {
         print_set_envcolour(255, 255, 255, 255);
 #endif
     }
-    print_text_fmt_int(20, 20, "%d", gHudDisplay.stars);
 }
