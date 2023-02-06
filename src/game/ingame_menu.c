@@ -3145,6 +3145,8 @@ u8 text100CoinStar[] = { TEXT_ONE_HUNDRED_COIN_STAR };
 
 extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
+extern LookAt lookAt;
+
 s32 gEndResultMenuChoice = 0;
 s32 gEndResultMenuState = 0;
 void end_results_loop(void) {
@@ -3303,6 +3305,9 @@ void end_results_loop(void) {
             }
         }
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+        geo_clear_zbuffer(gDisplayListHead);
+        gSPSetGeometryMode(gDisplayListHead++, G_ZBUFFER | G_LIGHTING);
+        gSPLookAt(gDisplayListHead++, &lookAt); // needed for env map reflections
 
             if(gCurrCourseNum > 0 && gCurrCourseNum < 16) {
                 create_dl_translation_matrix(MENU_MTX_PUSH, actNameX - 10.0f, 158.0f, 0.0f);
