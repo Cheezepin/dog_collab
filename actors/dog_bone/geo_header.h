@@ -1,7 +1,11 @@
+extern const GeoLayout dog_bone_switch_opt1[];
 extern const GeoLayout dog_bone_geo[];
-extern Lights1 dog_bone_f3dlite_material_lights;
-extern Vtx dog_bone_bone_mesh_layer_1_vtx_0[156];
-extern Gfx dog_bone_bone_mesh_layer_1_tri_0[];
-extern Gfx mat_dog_bone_f3dlite_material[];
-extern Gfx dog_bone_bone_mesh_layer_1[];
+extern Lights1 dog_bone_uncollected_lights;
+extern Lights1 dog_bone_collected_lights;
+extern Vtx dog_bone_root_mesh_layer_1_vtx_0[155];
+extern Gfx dog_bone_root_mesh_layer_1_tri_0[];
+extern Gfx mat_dog_bone_uncollected[];
+extern Gfx mat_dog_bone_collected[];
+extern Gfx dog_bone_root_mesh_layer_1[];
+extern Gfx dog_bone_root_mesh_layer_1_mat_override_collected_0[];
 extern Gfx dog_bone_material_revert_render_settings[];

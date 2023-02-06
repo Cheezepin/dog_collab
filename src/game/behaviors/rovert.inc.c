@@ -158,8 +158,17 @@ void bhv_castle_raft(void) {
         case 2:
         
         break;
-        }
     }
+
+    if(gMarioState->action == ACT_FLOOR_CHECKPOINT_WARP_IN || gMarioState->action == ACT_SPAWN_SPIN_AIRBORNE) {
+        o->oPosX = o->oHomeX;
+        o->oPosY = o->oHomeY;
+        o->oPosZ = o->oHomeZ;
+        o->oTimer = 0;
+        o->oAction = 0;
+        o->oFaceAngleYaw = o->oMoveAngleYaw = 0;
+    }
+}
 
 void bhv_ash_pile(void) {
     struct Object *sussy;

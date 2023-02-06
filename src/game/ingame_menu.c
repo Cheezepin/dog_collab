@@ -1631,7 +1631,7 @@ void print_animated_red_bone(s16 x, s16 y) {
     create_dl_rotation_matrix(MENU_MTX_NOPUSH, (f32)(globalTimer*4), 0.0f, 1.0f, 0.0f);
     gDPSetRenderMode(gDisplayListHead++, G_RM_AA_OPA_SURF, G_RM_AA_OPA_SURF2);
 
-    gSPDisplayList(gDisplayListHead++, dog_bone_bone_mesh_layer_1);
+    gSPDisplayList(gDisplayListHead++, dog_bone_root_mesh_layer_1);
 
     gSPDisplayList(gDisplayListHead++, dog_bone_material_revert_render_settings);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);

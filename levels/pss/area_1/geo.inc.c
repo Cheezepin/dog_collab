@@ -3,6 +3,7 @@
 const GeoLayout pss_area_1_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_BRANCH(1, cozy_pss_bg_geo),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, pss_dl_Cube_003_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, pss_dl_Cube_003_mesh_layer_4),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, pss_dl_Plane_150_mesh_layer_4),
@@ -13,13 +14,6 @@ const GeoLayout pss_area_1_geo[] = {
 const GeoLayout pss_area_1[] = {
 	GEO_NODE_SCREEN_AREA(10, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, SCREEN_WIDTH/2, SCREEN_HEIGHT/2),
 	GEO_OPEN_NODE(),
-		GEO_ZBUFFER(0),
-		GEO_OPEN_NODE(),
-			GEO_NODE_ORTHO(100.0000),
-			GEO_OPEN_NODE(),
-				GEO_BACKGROUND(BACKGROUND_PURPLE_SKY, geo_skybox_main),
-			GEO_CLOSE_NODE(),
-		GEO_CLOSE_NODE(),
 		GEO_ZBUFFER(1),
 		GEO_OPEN_NODE(),
 			GEO_CAMERA_FRUSTUM_WITH_FUNC(45.0000, 100, 30000, geo_camera_fov),
