@@ -1617,7 +1617,9 @@ void bhv_fwooshmg_handler_update(void) {
                 o->os16106 = 20 + (coss(o->o100) * 2);
             }
 
-            print_text_fmt_int(o->os16106, o->os16104, "TIME  %d", o->os16F4 / 30);
+            s32 offset = gIsConsole ? 10 : 0;
+
+            print_text_fmt_int(o->os16106, o->os16104 + offset, "TIME  %d", o->os16F4 / 30);
             print_text_fmt_int(20, 200, "POINTS %d", o->os16F6);
             print_text_fmt_int(20, 215, "GOAL %d", MINIGAME_GOAL);
             if (o->os16F4 <= 0) {
