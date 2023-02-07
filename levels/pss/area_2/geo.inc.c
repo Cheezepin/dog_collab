@@ -4,6 +4,7 @@ const GeoLayout pss_area_2_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, 8890, -6781, 10303, pss_dl_Beam2_mesh_layer_5),
+		GEO_BRANCH(1, cozy_pss_bg_geo),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_ALPHA, 3185, 1625, 8994, 0, 20, 0, pss_dl_Cube_basic_006_mesh_layer_4),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 1897, 2555, 6370, 0, 5, 0, pss_dl_Cube_025_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 7988, -2494, 7892, -8, -119, -5, pss_dl_Cube_026_mesh_layer_1),
