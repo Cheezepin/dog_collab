@@ -816,7 +816,7 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                 break;
 
             case WARP_OP_WARP_FLOOR:
-                 if (m->floor->type != SURFACE_DEATH_PLANE && !((m->floor->type == SURFACE_HURT_FLOOR || m->floor->type == SURFACE_HURT_FLOOR_WITH_HEIGHT) && m->health <= HURT_FLOOR_DAMAGE + 0xFF)) {
+                 if (m->floor->type != SURFACE_DEATH_PLANE && !((m->floor->type == SURFACE_HURT_FLOOR || m->floor->type == SURFACE_HURT_FLOOR_WITH_HEIGHT) && m->health <= (HURT_FLOOR_DAMAGE*0x100) + 0xFF)) {
                     sSourceWarpNodeId = m->floor->force;
                 }
                 else{

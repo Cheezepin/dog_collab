@@ -2028,27 +2028,18 @@ void pss_end_slide(struct MarioState *m) {
 
 void check_hurt_floor(struct MarioState *m) {
     if (m->pos[1] < m->floorHeight + 2048.0f) {
-        if (gCurrLevelNum == LEVEL_JRB) {
-            if (m->health > 0xFF*3) {
-                play_sound(SOUND_MARIO_ATTACKED, m->marioObj->header.gfx.cameraToObject);
-                take_damage_from_no_interact_object(m, 2);
-            }
-            else {
-                //if (level_trigger_warp(m, WARP_OP_WARP_FLOOR) == 20 && !(m->flags & MARIO_FALL_SOUND_PLAYED)) {
-                    take_damage_from_no_interact_object(m, 2);
-                    play_sound(SOUND_MARIO_WAAAOOOW, m->marioObj->header.gfx.cameraToObject);
-                //}
-            }
-        }
+        play_sound(SOUND_MARIO_ATTACKED, m->marioObj->header.gfx.cameraToObject);
+        take_damage_from_no_interact_object(m, HURT_FLOOR_DAMAGE);
         
-        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ HURT_FLOOR_DAMAGE);
+        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ 2);
     }
 }
 
 void check_hurt_floor_with_height(struct MarioState *m) {
     f32 aboveFloorHeight = (f32)m->floor->force;
     if (m->pos[1] <= m->floorHeight + aboveFloorHeight) {
-        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, HURT_FLOOR_DAMAGE);
+        take_damage_from_no_interact_object(m, HURT_FLOOR_DAMAGE);
+        set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 2);
     }
 }
 
@@ -2080,7 +2071,7 @@ void mario_handle_special_floors(struct MarioState *m) {
                 break;
             
             case SURFACE_HURT_FLOOR:
-                if(m->health > HURT_FLOOR_DAMAGE + 0xFF) {
+                if(m->health > (HURT_FLOOR_DAMAGE*0x100) + 0xFF) {
                     check_hurt_floor(m);
                 } else {
                     check_death_barrier(m);
@@ -2088,7 +2079,7 @@ void mario_handle_special_floors(struct MarioState *m) {
                 break;
             
             case SURFACE_HURT_FLOOR_WITH_HEIGHT:
-                if(m->health > HURT_FLOOR_DAMAGE + 0xFF) {
+                if(m->health > (HURT_FLOOR_DAMAGE*0x100) + 0xFF) {
                     check_hurt_floor_with_height(m);
                 } else {
                     check_death_barrier_with_height(m);
