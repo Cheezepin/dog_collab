@@ -3175,8 +3175,6 @@ void end_results_loop(void) {
     u8 starColorB;
     u8 nextUnfinishedAct = 0;
 
-    gRedCoinStarCollected = 1;
-
     if(gCurrCourseNum < 16) {
         selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gLastCompletedStarNum - 1]);
         actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
