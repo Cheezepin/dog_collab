@@ -3132,7 +3132,7 @@ s32 update_c_up(UNUSED struct Camera *c, Vec3f focus, Vec3f pos) {
  * Make Mario's head move in C-Up mode.
  */
 void move_mario_head_c_up(UNUSED struct Camera *c) {
-    sCUpCameraPitch += (s16)(gPlayer1Controller->stickY * 10.f);
+    sCUpCameraPitch -= (s16)(gPlayer1Controller->stickY * 10.f);
     sModeOffsetYaw -= (s16)(gPlayer1Controller->stickX * 10.f);
 
     // Bound looking up to nearly 80 degrees.
@@ -3161,7 +3161,7 @@ void move_mario_head_c_up(UNUSED struct Camera *c) {
  * Make Mario's head move in C-Up mode.
  */
 void rotate_mario_and_cam_c_up(UNUSED struct Camera *c) {
-    sCUpCameraPitch += (s16)(gPlayer1Controller->stickY * 10.f);
+    sCUpCameraPitch -= (s16)(gPlayer1Controller->stickY * 10.f);
     sCUpCameraPitch = CLAMP(sCUpCameraPitch, -DEGREES(85), DEGREES(85));
 
     gMarioState->faceAngle[1] -= (s16)(gPlayer1Controller->stickX * 10.f);
