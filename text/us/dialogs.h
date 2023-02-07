@@ -1432,10 +1432,10 @@ DEFINE_DIALOG(DIALOG_118, 1, 6, 95, 200, "\
 DEFINE_DIALOG(DIALOG_119, 1, 6, 30, 200, "\
 Grrr! I was a bit\n\
 careless. This is not as I\n\
-had planned...but I still\n\
-hold the power of the\n\
-Stars, and I still have\n\
-Peach.\n\
+had planned... this stupid\n\
+chain chomp needs to go\n\
+back to the pound! At least\n\
+I still have Peach!\n\
 Bwa ha ha! You'll get no\n\
 more Stars from me! I'm\n\
 not finished with you yet,\n\
@@ -1454,28 +1454,53 @@ perfect condition.\n\
 \n\
 Now, if you want to see\n\
 your precious Princess,\n\
-come to the top of the\n\
-tower.\n\
-I'll be waiting!\n\
+collect even more stars,\n\
+then find me at the pound.\n\
+Me and my chain chomp\n\
+will be waiting!\n\
 Gwa ha ha ha!")
 
-DEFINE_DIALOG(DIALOG_121, 1, 5, 30, 200, "\
+DEFINE_DIALOG(DIALOG_121, 1, 6, 30, 200, "\
 Nooo! It can't be!\n\
-You've really beaten me,\n\
-Mario?!! I gave those\n\
-troops power, but now\n\
-it's fading away!\n\
-Arrgghh! I can see peace\n\
-returning to the world! I\n\
-can't stand it! Hmmm...\n\
-It's not over yet...\n\
+You really beat me,\n\
+Mario?!! I spent so long\n\
+training up my chain\n\
+chomp, but it wasn't\n\
+enough to crush you!\n\
+No matter what I do,\n\
+I can't seem to catch\n\
+a break! Oh well...\n\
+Fine, you can have the\n\
+Princess back.\n\
 \n\
-C'mon troops! Let's watch\n\
-the ending together!\n\
-Bwa ha ha!")
+I won't lose again,\n\
+Mario! I'll be back!\n\
+Gwaaaar!!")
 
-DEFINE_DIALOG(DIALOG_122, 1, 4, 30, 200, "\
-")
+DEFINE_DIALOG(DIALOG_122, 1, 6, 30, 200, "\
+Nooo! It can't be!\n\
+You really beat me,\n\
+Mario?!! I spent so long\n\
+training up my chain\n\
+chomp, but it wasn't\n\
+enough to crush you!\n\
+You even got all the\n\
+stars?? That's insane!\n\
+No wonder the princess\n\
+likes you so much,\n\
+you're always one step\n\
+ahead of everything!\n\
+No matter what I do,\n\
+I can't seem to catch\n\
+a break! Oh well...\n\
+Fine, you can have the\n\
+Princess back.\n\
+\n\
+We'll meet again,\n\
+pasta breath! Until\n\
+then, you and your\n\
+little mutt can have\n\
+a nice life! Gwarr!!")
 
 DEFINE_DIALOG(DIALOG_123, 1, 4, 30, 200, "\
 ")
@@ -2186,16 +2211,14 @@ Take it as my apology.)")
 
 DEFINE_DIALOG(_2639DIAG_A2LobbyToadGreeter, 1, 3, 30, 200, \
 R"(Hey you!
-The Princess needs help
+Somebody needs help
 on floor 2!
 Get your butt into that
 elevator and see what
 she wants!)")
 
 DEFINE_DIALOG(_2639DIAG_A2RoomPeachGreeter, 1, 4, 30, 200, \
-R"((pretend this is
-Princess Peach talking)
-Hey Mario! How's it
+R"(Hey Mario! How's it
 been?
 I'm almost done setting
 up my room! All that's
@@ -2379,9 +2402,7 @@ the lobby. It's over
 there in the back.)")
 // SIGN toad
 DEFINE_DIALOG(_2639DIAG_A6PentToad4, 1, 3, 30, 200, \
-R"((Pretend this is
-Princess Peach)
-Man, dragging in these
+R"(Man, dragging in these
 couches was kind of
 hard on my own, so
 I brought a rope with
@@ -2452,7 +2473,22 @@ cartoon!!! I need
 a day off...)")
 
 
-
+DEFINE_DIALOG(_2639DIAG_B3LobbyToadGreeter, 1, 3, 30, 200, \
+R"(Mario! The elevator
+was locked by some magic
+force, and Bowser
+put the key up 5
+flights of stairs!
+How Mean! Get up there
+quick, grab the key,
+and dive down to catch
+the elevator!
+Also, sorry that
+the normal toad
+receptionist
+couldn't be here
+today. I'm trying
+my best, okay?)")
 
 
 DEFINE_DIALOG(CHEEZE_DIALOG_1, 1, 3, 30, 200, "\

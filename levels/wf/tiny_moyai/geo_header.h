@@ -1,0 +1,16 @@
+extern const GeoLayout tiny_moyai_geo[];
+extern Lights1 tiny_moyai_moyai_rock_layer1_lights;
+extern u8 tiny_moyai_rgba16_matt_rock1_ci4[];
+extern u8 tiny_moyai_rgba16_matt_rock1_ci4_pal_rgba16[];
+extern Vtx tiny_moyai_000_offset_005_mesh_layer_1_vtx_0[23];
+extern Gfx tiny_moyai_000_offset_005_mesh_layer_1_tri_0[];
+extern Vtx tiny_moyai_000_offset_008_mesh_layer_1_vtx_0[21];
+extern Gfx tiny_moyai_000_offset_008_mesh_layer_1_tri_0[];
+extern Vtx tiny_moyai_006_offset_mesh_layer_1_vtx_0[130];
+extern Gfx tiny_moyai_006_offset_mesh_layer_1_tri_0[];
+extern Gfx mat_tiny_moyai_moyai_rock_layer1[];
+extern Gfx mat_revert_tiny_moyai_moyai_rock_layer1[];
+extern Gfx tiny_moyai_000_offset_005_mesh_layer_1[];
+extern Gfx tiny_moyai_000_offset_008_mesh_layer_1[];
+extern Gfx tiny_moyai_006_offset_mesh_layer_1[];
+extern Gfx tiny_moyai_material_revert_render_settings[];

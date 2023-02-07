@@ -172,8 +172,8 @@ void goto_ashpile(void) {
 }
 void run_around(void) {
     cur_obj_init_animation(DOG_ANIM_RUN);
-    print_text_fmt_int(5, 20, "X %d", nextX);
-    print_text_fmt_int(5, 40, "Z %d", nextZ);
+    // print_text_fmt_int(5, 20, "X %d", nextX);
+    // print_text_fmt_int(5, 40, "Z %d", nextZ);
     if (nextX > o->oPosX - 10.0f && nextX < o->oPosX + 10.0f && nextZ > o->oPosZ - 10.0f && nextZ < o->oPosZ + 10.0f){
         o->oAction = EMU_DOG_RANDOM_LOCATION;
     }

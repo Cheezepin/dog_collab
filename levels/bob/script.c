@@ -27,7 +27,7 @@ const LevelScript level_bob_entry[] = {
 	INIT_LEVEL(),
 	LOAD_YAY0(0x07, _bob_segment_7SegmentRomStart, _bob_segment_7SegmentRomEnd), 
 	LOAD_YAY0_TEXTURE(0x09, _generic_yay0SegmentRomStart, _generic_yay0SegmentRomEnd), 
-	LOAD_YAY0(0x0A, _CUSTOM_sky2639_skybox_yay0SegmentRomStart, _CUSTOM_sky2639_skybox_yay0SegmentRomEnd), 
+	LOAD_YAY0(0x0A, _water_skybox_yay0SegmentRomStart, _water_skybox_yay0SegmentRomEnd), 
 	LOAD_YAY0(0x06, _group15_yay0SegmentRomStart, _group15_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0D, _group15_geoSegmentRomStart, _group15_geoSegmentRomEnd), 
 	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd), 
@@ -54,6 +54,7 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_2639JEWEL, jewelwhatever_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639EVERYTHINGABOVE, present2639_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_WARP_PIPE, warp_pipe_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639ELEVATOR_KEY, key2639_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -132,10 +133,10 @@ const LevelScript level_bob_entry[] = {
 		OBJECT(MODEL_WOODEN_SIGNPOST, -1023, 0, -3825, 0, 2, 0, (_2639DIAG_A1LobbyHOF_Intro << 16), bhvMessagePanel),
 		OBJECT(MODEL_NONE, -24919, -2124, -436, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
 		OBJECT(MODEL_NONE, -8, 2, -1945, 0, 0, 0, (11 << 16), bhvInstantActiveWarp),
-		OBJECT_WITH_ACTS(MODEL_2639VENDING, 1689, 0, -1375, 0, -133, 0, 0x00000000, bhv2639Vending, ACT_3 | ACT_4 | ACT_5 | ACT_6),
+		OBJECT_WITH_ACTS(MODEL_2639VENDING, 1689, 0, -1375, 0, -133, 0, 0x00000000, bhv2639Vending, ACT_3 | ACT_4 | ACT_5),
 		OBJECT_WITH_ACTS(MODEL_WOODEN_SIGNPOST, 1382, 0, -1501, 0, -133, 0, (_2639DIAG_A3RoomVendingMachineInstructions << 16), bhvMessagePanel, ACT_3),
 		OBJECT_WITH_ACTS(MODEL_WOODEN_SIGNPOST, 1382, 0, -1501, 0, -133, 0, (_2639DIAG_A3RoomVendingMachineInstructionsNew << 16), bhvMessagePanel, ACT_4 | ACT_5 | ACT_6),
-		OBJECT_WITH_ACTS(MODEL_TOAD, -1069, 2328, 133, 0, 0, 0, (_2639DIAG_A6PentToad7 << 16), bhvToadMessage, ACT_6),
+		OBJECT_WITH_ACTS(MODEL_TOAD, -1069, 2328, 133, 0, 0, 0, (_2639DIAG_A6PentToad1 << 16), bhvToadMessage, ACT_6),
 		OBJECT_WITH_ACTS(MODEL_WOODEN_SIGNPOST, -1160, 2328, 381, 0, 71, 0, (_2639DIAG_A1Lobby_FountainIntro << 16), bhvMessagePanel, ACT_1),
 		OBJECT(MODEL_NONE, -2786, 0, -4573, 0, 0, 0, (_2639DIAG_A1LobbyHOF_Kirby64 << 16), bhv2639TrophyCase),
 		OBJECT(MODEL_NONE, -1295, 0, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_sUGGOH << 16), bhv2639TrophyCase),
@@ -219,7 +220,7 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		WARP_NODE(0, LEVEL_BOB, 0x01, 11, WARP_NO_CHECKPOINT),
+		WARP_NODE(0, LEVEL_BOB, 2, 11, WARP_NO_CHECKPOINT),
 		WARP_NODE(1, LEVEL_BOB, 4, 11, WARP_NO_CHECKPOINT),
 		WARP_NODE(11, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT_WITH_ACTS(MODEL_2639PHMETER, 0, -2430, 0, 0, 0, 0, 0x00000000, bhvYellowCoinNoBillboard, ACT_6),

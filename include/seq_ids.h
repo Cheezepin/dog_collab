@@ -66,8 +66,11 @@ enum SeqId {
     SEQ_COZIES,                  // 0x35
     SEQ_CREDITS,                // 0x36
     SEQ_METEOR_HERD,                  // 0x37
-    SEQ_STREAMED_MUSIC2639LIGHT,
-    SEQ_FINAL_BOWSER,
+    SEQ_STREAMED_MUSIC2639LIGHT, // 0x38
+    SEQ_FINAL_BOWSER, // 0x39
+    SEQ_FACTORY_DOWN, // 0x3A
+    SEQ_FACTORY, // 0x3B
+    SEQ_NEW_FILE_SELECT, // 0x3C
     SEQ_COUNT
 };
 

@@ -284,9 +284,9 @@ void big_bully_spawn_minion(s32 x, s32 y, s32 z, s16 yaw) {
 
 void bhv_big_bully_with_minions_init(void) {
     if (gCurrLevelNum == LEVEL_WF) {
-        big_bully_spawn_minion(-4500, -2498, 604, 0);
-        big_bully_spawn_minion(3840, -2498, -6041, 0);
-        big_bully_spawn_minion(3226, -2498, -5426, 0);
+        big_bully_spawn_minion(-450, -2499, -60, 0);
+        big_bully_spawn_minion(1413, -2499, -60, 0);
+        big_bully_spawn_minion(481, -2499, -735, 0);
     } else {
         big_bully_spawn_minion(4454, 307, -5426, 0);
         big_bully_spawn_minion(3840, 307, -6041, 0);
@@ -303,7 +303,7 @@ void bhv_big_bully_with_minions_init(void) {
 void big_bully_spawn_star(void) {
     if (obj_lava_death() == TRUE) {
         spawn_mist_particles();
-        spawn_default_star(590.0f, -550.0f, 0.0f);
+        spawn_default_star(485.0f, -2400.0f, 854.0f);
     }
 }
 

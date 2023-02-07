@@ -3,6 +3,7 @@
 const GeoLayout pss_area_4_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_BRANCH(1, cozy_pss_bg_geo),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -1904, 0, 4313, pss_dl_platforms_001_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -1904, 0, 4313, pss_dl_platforms_002_mesh_layer_1),
 	GEO_CLOSE_NODE(),

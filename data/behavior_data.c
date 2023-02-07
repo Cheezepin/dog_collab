@@ -484,7 +484,7 @@ const BehaviorScript bhvStarBlock[] = {
 
 const BehaviorScript bhvHMCDoors[] = {
     BEGIN(OBJ_LIST_SURFACE),
-    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UCODE_LARGE)),
+    OR_LONG(oFlags, (OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UCODE_LARGE)),
     LOAD_COLLISION_DATA(doors_collision),
     SET_FLOAT(oCollisionDistance, 6000),
     SET_FLOAT(oDrawingDistance, 6000),
@@ -5422,7 +5422,7 @@ const BehaviorScript bhvTreasureChestTop[] = {
 const BehaviorScript bhvMips[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, (OBJ_FLAG_HOLDABLE | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
-    LOAD_ANIMATIONS(oAnimations, mips_seg6_anims_06015634),
+    LOAD_ANIMATIONS(oAnimations, wf_mips_seg6_anims_06015634),
     SET_INT(oInteractType, INTERACT_GRABBABLE),
     DROP_TO_FLOOR(),
     SET_HITBOX(/*Radius*/ 50, /*Height*/ 75),
@@ -6711,8 +6711,8 @@ const BehaviorScript bhvPodoboo[] = {
 };
 
 const BehaviorScript bhvDogNPC[] = {
-    BEGIN(OBJ_LIST_LEVEL),
-    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO)),
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
     LOAD_ANIMATIONS(oAnimations, dog_anims),
     SET_INTERACT_TYPE(INTERACT_TEXT),
     SET_HITBOX(/*Radius*/ 50, /*Height*/ 30),
@@ -6726,6 +6726,7 @@ const BehaviorScript bhvDogNPC[] = {
         CALL_NATIVE(bhv_bobomb_buddy_loop),
     END_LOOP(),
 };
+
 //START ROVERT BEHAVIOR
 
 const BehaviorScript bhvDirtPile[] = {
@@ -8896,4 +8897,15 @@ const BehaviorScript bhvKTQRing[] = {
         SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(bhv_ktq_ring_loop),
     END_LOOP(),
+};
+
+
+const BehaviorScript bhv2639ElevatorKey[] = {
+	BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
+	CALL_NATIVE(bhv_2639ElevatorKey_init),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_2639ElevatorKey_loop),
+        ADD_INT(oFaceAngleYaw, 1),
+	END_LOOP(),
 };

@@ -8,6 +8,8 @@ extern const MacroObject wf_area_1_macro_objs[];
 #include "src/game/camera.h"
 
 extern struct CutsceneSplinePoint wf_area_1_spline_focus[];
+extern const Trajectory wf_area_1_spline_mipsPath[];
+extern const Trajectory wf_area_1_spline_mipsPath_001[];
 extern struct CutsceneSplinePoint wf_area_1_spline_pos[];
 extern const Trajectory wf_area_1_spline_ktq[];
 extern const GeoLayout wf_area_2_geo[];
@@ -109,11 +111,6 @@ extern Vtx wf_dl_Palm_Tree__Shadow__002_mesh_layer_6_vtx_0[4];
 extern Gfx wf_dl_Palm_Tree__Shadow__002_mesh_layer_6_tri_0[];
 extern Vtx wf_dl_Palm_Tree__Shadow__002_mesh_layer_6_vtx_1[4];
 extern Gfx wf_dl_Palm_Tree__Shadow__002_mesh_layer_6_tri_1[];
-extern Vtx wf_dl_Palm_Tree__Shadow__003_mesh_layer_6_vtx_cull[8];
-extern Vtx wf_dl_Palm_Tree__Shadow__003_mesh_layer_6_vtx_0[4];
-extern Gfx wf_dl_Palm_Tree__Shadow__003_mesh_layer_6_tri_0[];
-extern Vtx wf_dl_Palm_Tree__Shadow__003_mesh_layer_6_vtx_1[4];
-extern Gfx wf_dl_Palm_Tree__Shadow__003_mesh_layer_6_tri_1[];
 extern Vtx wf_dl_Palm_Tree__Shadow__004_mesh_layer_6_vtx_cull[8];
 extern Vtx wf_dl_Palm_Tree__Shadow__004_mesh_layer_6_vtx_0[4];
 extern Gfx wf_dl_Palm_Tree__Shadow__004_mesh_layer_6_tri_0[];
@@ -263,7 +260,6 @@ extern Gfx wf_dl_Rock_Hill_mesh_layer_1[];
 extern Gfx wf_dl_Palm_Tree__Shadow__mesh_layer_6[];
 extern Gfx wf_dl_Palm_Tree__Shadow__001_mesh_layer_6[];
 extern Gfx wf_dl_Palm_Tree__Shadow__002_mesh_layer_6[];
-extern Gfx wf_dl_Palm_Tree__Shadow__003_mesh_layer_6[];
 extern Gfx wf_dl_Palm_Tree__Shadow__004_mesh_layer_6[];
 extern Gfx wf_dl_Palm_Tree__Shadow__005_mesh_layer_6[];
 extern Gfx wf_dl_Palm_Tree__Shadow__006_mesh_layer_6[];

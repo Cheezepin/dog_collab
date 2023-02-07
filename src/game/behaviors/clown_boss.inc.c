@@ -419,7 +419,7 @@ void clown_hurt(void) {
         }
     }
 
-    obj_scale_xyz(o, 1, (1 + (0.5 - 0.5/(double)o->oClownBossTimer)*sins(o->oClownBossTimer * 0x1000)), 1);
+    obj_scale_xyz(o, 1, (1 + (0.5f - 0.5f / ((f32) o->oClownBossTimer + 0.1f))*sins(o->oClownBossTimer * 0x1000)), 1);
 }
 
 void clown_death_cutscene(void) {

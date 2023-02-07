@@ -6616,6 +6616,7 @@ void Cam2639_LogoCam();
 void Cam2639_CloseFocus();
 void Cam2639_OutwardSpiral();
 void Cam2639_HeadroomClearance();
+void Cam2639_LookDown();
 struct CameraTrigger sCamBOB[] = {
 	{0, Cam2639_Elevator, -17, 3033, -2833, 803, 8515, 803, 0xffff},
 	{1, Cam2639_Main, -57, -404, 3930, 6995, 6995, 6995, 0xffff},
@@ -6713,7 +6714,7 @@ struct CameraTrigger sCamBitS[] = {
 	{3, Cam2639_OutwardSpiral, -418, -8265, -4651, 3255, 699, 1131, 0xffff},
 	{3, Cam2639_HeadroomClearance, -407, -7466, 1879, 3081, 909, 2161, 0xffff},
 	{3, Cam2639_CylinderCam, -305, -3358, -2390, 5597, 3903, 5597, 0xffff},
-	// {3, Cam2639_LookDown, -511, 4737, -2116, 1468, 9985, 1468, 0xffff},
+	{3, Cam2639_LookDown, -511, 4737, -2116, 1468, 9985, 1468, 0xffff},
 	NULL_TRIGGER
 };
 struct CameraTrigger sCamWF[] = {
@@ -9882,7 +9883,7 @@ void cutscene_hub_world(struct Camera *c) {
     s16 roll;
     Vec3f zero = {0, 0, 0};
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
-    if(gWorldID == -1) {
+    if(gWorldID == -1 || (gWorldID > 0 && gFocusID > 0 && hubSelections[gWorldID][gFocusID].courseID == 18)) {
         vec3f_set(pos, 15000.0f*coss(orbitAngle), 2000.0f, 15000.0f*sins(orbitAngle));
         vec3f_set(focus, 7500.0f*coss(orbitAngle + 0x2000), 1000.0f, 7500.0f*sins(orbitAngle + 0x2000));
         roll = 0;

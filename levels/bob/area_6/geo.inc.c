@@ -5,9 +5,9 @@ const GeoLayout bob_area_6_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -223, 352, 537, bob_dl_floor_meme_001_mesh_layer_1),
 		GEO_OPEN_NODE(),
-			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, bob_dl_floor_meme_001_mesh_layer_5),
+			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, bob_dl_floor_meme_001_mesh_layer_7),
 		GEO_CLOSE_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT, -223, 352, 537, bob_dl_floor_meme_002_mesh_layer_5),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT_INTER, -223, 352, 537, bob_dl_floor_meme_002_mesh_layer_7),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -34,7 +34,7 @@ const GeoLayout bob_area_6[] = {
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, bob_dl_material_revert_render_settings),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, bob_dl_material_revert_render_settings),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_INTER, bob_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

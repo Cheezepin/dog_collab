@@ -8,6 +8,20 @@ struct CutsceneSplinePoint wf_area_1_spline_focus[] = {
 	{ 4, 1, { -4699, 1181, 3027 }},
 	{ -1, 1, { -5353, 1181, 1244 }},
 };
+const Trajectory wf_area_1_spline_mipsPath[] = {
+	TRAJECTORY_POS( 0, -40, 1184, 9057),
+	TRAJECTORY_POS( 1, 228, 1376, 11101),
+	TRAJECTORY_POS( 2, 3145, 1376, 11760),
+	TRAJECTORY_POS( 3, 8785, 1376, 10526),
+	TRAJECTORY_END(),
+};
+const Trajectory wf_area_1_spline_mipsPath_001[] = {
+	TRAJECTORY_POS( 0, 7694, 1823, 6053),
+	TRAJECTORY_POS( 1, 4161, 2014, 3513),
+	TRAJECTORY_POS( 2, 1365, 2014, 5556),
+	TRAJECTORY_POS( 3, -2814, 2014, 8838),
+	TRAJECTORY_END(),
+};
 struct CutsceneSplinePoint wf_area_1_spline_pos[] = {
 	{ 0, 1, { 273, 1181, 8320 }},
 	{ 1, 1, { -1427, 1181, 8294 }},

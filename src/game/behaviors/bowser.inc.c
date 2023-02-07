@@ -365,7 +365,7 @@ void bowser_act_wait_for_mario(void) {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
     }
     //o->oHealth = 1; //DEBUG REMOVE LATER
-    o->oAction = BOWSER_ACT_DEAD;
+    // o->oAction = BOWSER_ACT_DEAD;
     //if(o->oTimer == 5) {
     //    spawn_object(o, MODEL_PEACH, bhvPeachEnding);
     //}
@@ -1885,11 +1885,11 @@ s32 bowser_dead_final_stage_ending(void) {
     s32 ret = FALSE;
     s32 dialogID;
     if (o->oBowserTimer < 2) {
-        // Set dialog whenever you have 120 stars or not
-        if (gHudDisplay.stars < 120) {
+        // Set dialog whenever you have 73 stars or not
+        if (gHudDisplay.stars < 73) {
             dialogID = DIALOG_121;
         } else {
-            dialogID = DIALOG_163;
+            dialogID = DIALOG_122;
         }
         // Lower music volume
         if (o->oBowserTimer == 0) {

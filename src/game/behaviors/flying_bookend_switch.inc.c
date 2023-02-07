@@ -36,7 +36,7 @@ struct ObjectHitbox sBookSwitchHitbox = {
 };
 
 void flying_bookend_act_0(void) {
-    if (obj_is_near_to_and_facing_mario(400.0f, 0x3000)) {
+    /* if (obj_is_near_to_and_facing_mario(400.0f, 0x3000)) {
         cur_obj_play_sound_2(SOUND_OBJ_DEFAULT_DEATH);
 
         o->oAction = 1;
@@ -45,11 +45,11 @@ void flying_bookend_act_0(void) {
         o->oBookendTargetRoll = o->oFaceAngleRoll - 0x7FFF;
 
         cur_obj_set_model(MODEL_BOOKEND_PART);
-    }
+    } */
 }
 
 void flying_bookend_act_1(void) {
-    if (obj_forward_vel_approach(3.0f, 1.0f)) {
+    /* if (obj_forward_vel_approach(3.0f, 1.0f)) {
         if (cur_obj_init_anim_and_check_if_end(2)) {
             o->oAction = 2;
             o->oForwardVel = 0.0f;
@@ -68,11 +68,11 @@ void flying_bookend_act_1(void) {
         }
     }
 
-    cur_obj_move_using_fvel_and_gravity();
+    cur_obj_move_using_fvel_and_gravity(); */
 }
 
 void flying_bookend_act_2(void) {
-    cur_obj_init_animation_with_sound(1);
+    /* cur_obj_init_animation_with_sound(1);
     cur_obj_update_floor_and_walls();
 
     if (o->oForwardVel == 0.0f) {
@@ -85,11 +85,11 @@ void flying_bookend_act_2(void) {
         }
     }
 
-    cur_obj_move_standard(78);
+    cur_obj_move_standard(78); */
 }
 
 void flying_bookend_act_3(void) {
-    o->oDamageOrCoinValue = 1;
+    /* o->oDamageOrCoinValue = 1;
     o->oNumLootCoins = 0;
 
     if (o->oTimer > 3) {
@@ -98,11 +98,11 @@ void flying_bookend_act_3(void) {
     }
 
     obj_forward_vel_approach(50.0f, 2.0f);
-    cur_obj_move_using_fvel_and_gravity();
+    cur_obj_move_using_fvel_and_gravity(); */
 }
 
 void bhv_flying_bookend_loop(void) {
-    if (!(o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
+    /* if (!(o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
         o->oDeathSound = SOUND_OBJ_POUNDING1;
         cur_obj_scale(o->header.gfx.scale[0]);
 
@@ -129,11 +129,11 @@ void bhv_flying_bookend_loop(void) {
         }
 
         o->oGraphYOffset = 30.0f * o->header.gfx.scale[0];
-    }
+    } */
 }
 
 void bhv_bookend_spawn_loop(void) {
-    if (!(o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
+    /* if (!(o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
         if (o->oTimer > 40 && obj_is_near_to_and_facing_mario(600.0f, 0x2000)) {
             struct Object *bookendObj = spawn_object(o, MODEL_BOOKEND, bhvFlyingBookend);
 
@@ -144,11 +144,11 @@ void bhv_bookend_spawn_loop(void) {
 
             o->oTimer = 0;
         }
-    }
+    } */
 }
 
 void bookshelf_manager_act_0(void) {
-    s32 i;
+    /* s32 i;
 
     if (!(o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
         for (i = 0; i < 3; i++) {
@@ -157,22 +157,22 @@ void bookshelf_manager_act_0(void) {
         }
 
         o->oAction = 1;
-    }
+    } */
 }
 
 void bookshelf_manager_act_1(void) {
-    if (o->oBookSwitchManagerIsActive == 0) {
+    /* if (o->oBookSwitchManagerIsActive == 0) {
         if (obj_is_near_to_and_facing_mario(500.0f, 0x3000)) {
             o->oBookSwitchManagerIsActive = 1;
         }
     } else if (o->oTimer > 60) {
         o->oAction = 2;
         o->oBookSwitchManagerIsActive = 0;
-    }
+    } */
 }
 
 void bookshelf_manager_act_2(void) {
-    if (!(o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
+    /* if (!(o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
         if (o->oBookSwitchManagerNumCorrectChoices < 0) {
             if (o->oTimer > 30) {
                 o->oBookSwitchManagerNumCorrectChoices = o->oBookSwitchManagerIsActive = 0;
@@ -195,28 +195,28 @@ void bookshelf_manager_act_2(void) {
         }
     } else {
         o->oAction = 4;
-    }
+    } */
 }
 
 void bookshelf_manager_act_3(void) {
-    if (o->oTimer > 85) {
+    /* if (o->oTimer > 85) {
         o->oAction = 4;
     } else {
         o->oForwardVel = o->parentObj->oPosX - o->oPosX;
         o->oPosX = o->parentObj->oPosX;
-    }
+    } */
 }
 
 void bookshelf_manager_act_4(void) {
-    if (o->oBookSwitchManagerNumCorrectChoices >= 3) {
+    /* if (o->oBookSwitchManagerNumCorrectChoices >= 3) {
         obj_mark_for_deletion(o);
     } else {
         o->oAction = 0;
-    }
+    } */
 }
 
 void bhv_haunted_bookshelf_manager_loop(void) {
-    switch (o->oAction) {
+    /* switch (o->oAction) {
         case 0:
             bookshelf_manager_act_0();
             break;
@@ -232,11 +232,11 @@ void bhv_haunted_bookshelf_manager_loop(void) {
         case 4:
             bookshelf_manager_act_4();
             break;
-    }
+    } */
 }
 
 void bhv_book_switch_loop(void) {
-    o->header.gfx.scale[0] = 2.0f;
+    /* o->header.gfx.scale[0] = 2.0f;
     o->header.gfx.scale[1] = 0.9f;
 
     if (o->parentObj->oAction == 4) {
@@ -299,5 +299,5 @@ void bhv_book_switch_loop(void) {
         o->oPosX += o->parentObj->oForwardVel;
         o->oPosZ = o->oHomeZ - o->oBookSwitchDistFromHome;
         cur_obj_push_mario_away_from_cylinder(70.0f, 70.0f);
-    }
+    } */
 }

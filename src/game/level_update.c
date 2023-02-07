@@ -64,7 +64,7 @@ const char *credits04[] = { "4HAIR RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "
 // US and EU combine camera programmer and Mario face programmer...
 const char *credits05[] = { "6BOWSER'S FLYING", "CHEEZEPIN", "FORTRESS", "", "MUSIC", "HYRULE CASTLE LTTP" };
 const char *credits06[] = { "4KOOPA ATOLL", "MUSIC", "BEVERLYBEAN", "WATERSONG 2 DTL NEXT CHAPTER" };
-const char *credits07[] = { "4PEACH RUINS", "MUSIC", "ROVERT", "IDK" };
+const char *credits07[] = { "4PEACH RUINS", "MUSIC", "ROVERT", "UGH FNF" };
 const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "STRIATION CITY POKEMON BW" };
 
 // ...as well as sound composer, sound effects, and sound programmer, and...
@@ -72,11 +72,11 @@ const char *credits09[] = { "4AWE INSPIRING SPIRES", "MUSIC", "KEYBLADER", "METE
 // ...3D animators and additional graphics in order to make room for screen text writer(s), Mario voice, and Peach voice
 const char *credits10[] = { "6BOWSER'S RAINBOW", "ANUNIDENTIFIEDEMU", "RINGS",  "", "MUSIC", "BOWSER STAGE SM64" };
 const char *credits11[] = { "4SAKURA STRONGHOLD", "MUSIC", "YOSHI MILKMAN", "SAMMERS KINGDOM SPM" };
-const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "HMC SM64" };
+const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "ORIGINAL BY THECOZIES" };
 const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIGINAL BY THECOZIES" };
-const char *credits14[] = { "8OTHER MUSIC", "", "HUB WORLD", "CROSSING THOSE HILLS FF9", "BOSS", "SM64 BOSS", "CIRCUS BOSS", "CACKLETTA BOSS ML SS" };
-const char *credits15[] = { "6FACTORY OUTSIDE", "CCM SM64", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
-const char *credits16[] = { "6SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD"};
+const char *credits14[] = { "8OTHER MUSIC", "", "FILE SELECT", "KIRBY 64 FILE SELECT", "HUB WORLD", "CROSSING THOSE HILLS FF9", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT" };
+const char *credits15[] = { "CIRCUS BOSS", "CACKLETTA BOSS ML SS", "6FINAL BOSS ", "UH IDK", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
+const char *credits16[] = { "8SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD", "CREDITS", "KSSU CREDITS"};
 
 const char *credits17[] = { "3SPECIAL THANKS TO", "THECOZIES' DOG", "CLEVER FOLKS AT DECOMP", "BOOMERDACAT" };
 const char *credits18[] = { "3SPECIAL THANKS TO", "ARTHURTILLY", "HACKERSM64 TEAM", "GILES GODDARD" };
@@ -272,6 +272,7 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
             set_mario_action(m, ACT_TELEPORT_FADE_IN, 0);
             break;
         case MARIO_SPAWN_INSTANT_ACTIVE:
+            m->marioObj->header.gfx.node.flags |= GRAPH_RENDER_ACTIVE;
             set_mario_action(m, ACT_IDLE, 0);
             break;
         case MARIO_SPAWN_AIRBORNE:
@@ -325,7 +326,6 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
     if (m->isDead) {
         m->health = 0x880;
         m->isDead = FALSE;
-        m->breath = 0x880;
     }
 #endif
 
@@ -620,6 +620,10 @@ s16 music_unchanged_through_warp(s16 arg) {
         }
     } else {
 #endif
+        if (gCurrLevelNum == LEVEL_HMC && destArea == gCurrAreaIndex && gCurrAreaIndex == 2) {
+            return TRUE;
+        }
+
         u16 destParam1 = gAreas[destArea].musicParam;
         u16 destParam2 = gAreas[destArea].musicParam2;
 
@@ -746,7 +750,7 @@ void initiate_painting_warp(void) {
 
                 play_sound(SOUND_MENU_STAR_SOUND, gGlobalSoundSource);
                 fadeout_music(398);
-#if ENABLE_RUMBLE
+#ifdef ENABLE_RUMBLE
                 queue_rumble_data(80, 70);
                 queue_rumble_decay(1);
 #endif
@@ -1130,10 +1134,10 @@ s32 play_mode_normal(void) {
             set_play_mode(PLAY_MODE_CHANGE_AREA);
         } else if (pressed_pause()) {
             lower_background_noise(1);
-#if ENABLE_RUMBLE
+#ifdef ENABLE_RUMBLE
             cancel_rumble();
 #endif
-            gCameraMovementFlags |= CAM_MOVE_PAUSE_SCREEN;
+            // gCameraMovementFlags |= CAM_MOVE_PAUSE_SCREEN;
             set_play_mode(PLAY_MODE_PAUSED);
         }
     }
@@ -1270,9 +1274,11 @@ s32 update_level(void) {
             changeLevel = play_mode_paused();
             break;
         case PLAY_MODE_CHANGE_AREA:
+            reset_act_1();
             changeLevel = play_mode_change_area();
             break;
         case PLAY_MODE_CHANGE_LEVEL:
+            reset_act_1();
             changeLevel = play_mode_change_level();
             break;
         case PLAY_MODE_FRAME_ADVANCE:
@@ -1372,7 +1378,7 @@ s32 init_level(void) {
             set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
         }
     }
-#if ENABLE_RUMBLE
+#ifdef ENABLE_RUMBLE
     if (gCurrDemoInput == NULL) {
         cancel_rumble();
     }
@@ -1532,7 +1538,7 @@ char *howString[] = {"H", "O", "W"};
 
 s32 ending_get_outta_here(void) {
     if(!gGlobalEndingHidden) {
-        print_text_fmt_int(70, 220, "%d OF 73 STARS", save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1));
+        print_text_fmt_int(85, 220, "%d OF 73 STARS", save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1));
         if(save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) == 73) {
             u8 i = 0;
             for(i = 0; i < 8; i++) {
@@ -1544,8 +1550,8 @@ s32 ending_get_outta_here(void) {
                 print_text(140 + (i*16), 196 + (s32)(4.0f*sins(2000*(gGlobalTimer - i*8))), howString[i]);
             }
         }
-        print_text_centered(160, 58, "PRESS A TO RESET");
-        print_text_centered(160, 38, "B TO HIDE");
+        print_text_centered(170, 58, "PRESS A TO RESET");
+        print_text_centered(170, 38, "B TO HIDE");
         if(gPlayer1Controller->buttonPressed & A_BUTTON) {
             fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
             sWarpDest.type = WARP_TYPE_NOT_WARPING;

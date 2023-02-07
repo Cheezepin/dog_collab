@@ -65,6 +65,7 @@ s8 sYoshiDead = FALSE;
 
 extern void *ccm_seg7_trajectory_snowman;
 extern void *inside_castle_seg7_trajectory_mips;
+// extern void *mippys_area_1_spline_mipspath;
 
 /**
  * Resets yoshi as spawned/despawned upon new file select.
@@ -426,6 +427,51 @@ s16 object_step(void) {
     return collisionFlags;
 }
 
+s16 object_step_over_water(void) {
+    f32 objX = o->oPosX;
+    f32 objY = o->oPosY;
+    f32 objZ = o->oPosZ;
+
+    f32 floorY;
+    f32 waterY = FLOOR_LOWER_LIMIT_MISC;
+
+    f32 objVelX = o->oForwardVel * sins(o->oMoveAngleYaw);
+    f32 objVelZ = o->oForwardVel * coss(o->oMoveAngleYaw);
+
+    s16 collisionFlags = 0;
+
+    // Find any wall collisions, receive the push, and set the flag.
+    if (obj_find_wall(objX + objVelX, objY, objZ + objVelZ, objVelX, objVelZ) == 0) {
+        collisionFlags += OBJ_COL_FLAG_HIT_WALL;
+    }
+
+    floorY = find_floor_over_water(objX + objVelX, objY, objZ + objVelZ, &sObjFloor);
+
+    o->oFloor       = sObjFloor;
+    o->oFloorHeight = floorY;
+
+    if (turn_obj_away_from_steep_floor(sObjFloor, floorY, objVelX, objVelZ) == 1) {
+        calc_new_obj_vel_and_pos_y(sObjFloor, floorY, objVelX, objVelZ);
+    } else {
+        // Treat any awkward floors similar to a wall.
+        collisionFlags +=
+            ((collisionFlags & OBJ_COL_FLAG_HIT_WALL) ^ OBJ_COL_FLAG_HIT_WALL);
+    }
+
+    obj_update_pos_vel_xz();
+    if ((s32) o->oPosY == (s32) floorY) {
+        collisionFlags += OBJ_COL_FLAG_GROUNDED;
+    }
+
+    if ((s32) o->oVelY == 0) {
+        collisionFlags += OBJ_COL_FLAG_NO_Y_VEL;
+    }
+
+    // Generate a splash if in water.
+    //obj_splash((s32) waterY, (s32) o->oPosY);
+    return collisionFlags;
+}
+
 /**
  * Takes an object step but does not orient with the object's floor.
  * Used for boulders, falling pillars, and the rolling snowman body.
@@ -735,11 +781,11 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
     }
 
     // If the third controller button pressed is next in sequence, reset timer and progress to next value.
-    if (debugInputSequence[sDebugSequenceTracker] & gPlayer3Controller->buttonPressed) {
+    if (debugInputSequence[sDebugSequenceTracker] & gPlayer1Controller->buttonPressed) {
         sDebugSequenceTracker++;
         sDebugTimer = 0;
     // If wrong input or timer reaches 10, reset sequence progress.
-    } else if (sDebugTimer == 10 || gPlayer3Controller->buttonPressed != 0) {
+    } else if (sDebugTimer == 10 || gPlayer1Controller->buttonPressed != 0) {
         sDebugSequenceTracker = 0;
         sDebugTimer = 0;
         return FALSE;
@@ -834,3 +880,4 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/2639BallEater.inc.c"
 #include "behaviors/2639FinalPresent.inc.c"
 #include "behaviors/2639PresentEater.inc.c"
+#include "behaviors/2639ElevatorKey.inc.c"

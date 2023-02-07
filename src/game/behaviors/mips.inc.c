@@ -7,13 +7,20 @@
  * Initializes MIPS' physics parameters and checks if he should be active,
  * hiding him if necessary.
  */
+
+#define MIPS_SPEED             60.0f
+#define DIST_TO_CAUGHT        100.0f
+#define MAX_DIST_TO_WAYPOINT 1500
+
+
+#include "levels/wf/header.h"
 void bhv_mips_init(void) {
-#ifndef UNLOCK_ALL
+// #ifndef UNLOCK_ALL
     // Retrieve star flags for Castle Secret Stars on current save file.
-    u8 starFlags = save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(COURSE_NONE));
+    // u8 starFlags = save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(COURSE_NONE));
 
     // If the player has >= 15 stars and hasn't collected first MIPS star...
-    if (save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 15
+    /*if (save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 15
         && !(starFlags & SAVE_FLAG_TO_STAR_FLAG(SAVE_FLAG_COLLECTED_MIPS_STAR_1))) {
         o->oBehParams2ndByte    = MIPS_BP_STAR_1;
         o->oMipsForwardVelocity = 40.0f;
@@ -29,7 +36,11 @@ void bhv_mips_init(void) {
         // No MIPS stars are available, hide MIPS.
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
-#endif
+#endif*/
+
+    o->oBehParams2ndByte    = MIPS_BP_STAR_1; //might wanna change this
+    o->oMipsForwardVelocity = MIPS_SPEED;
+
     o->oInteractionSubtype = INT_SUBTYPE_HOLDABLE_NPC;
 
     o->oGravity = 15.0f;
@@ -43,13 +54,33 @@ void bhv_mips_init(void) {
  * Helper function that finds the waypoint that is both within 800 units of MIPS
  * and furthest from Mario's current location.
  */
+
+const Trajectory mippy_area_1_spline_mipsPath[] = {
+	TRAJECTORY_POS( 0, -40, 1184, 9057),
+	TRAJECTORY_POS( 1, 228, 1376, 11101),
+	TRAJECTORY_POS( 2, 3145, 1376, 11760),
+	TRAJECTORY_POS( 3, 8785, 1376, 10526),
+	TRAJECTORY_END(),
+};
+const Trajectory mippy_area_1_spline_mipsPath_001[] = {
+	TRAJECTORY_POS( 0, 7694, 1823, 6053),
+	TRAJECTORY_POS( 1, 4161, 2014, 3513),
+	TRAJECTORY_POS( 2, 1365, 2014, 5556),
+	TRAJECTORY_POS( 3, -2814, 2014, 8838),
+	TRAJECTORY_END(),
+};
+
+const Trajectory *const wf_seg7_trajectory_mips[] = {
+    mippy_area_1_spline_mipsPath, mippy_area_1_spline_mipsPath_001,
+};
+
 s32 bhv_mips_find_furthest_waypoint_to_mario(void) {
     s8 i;
     Vec3s pos;
     s16 furthestWaypointIndex = -1;
     f32 furthestWaypointDistance = -10000.0f;
     f32 distanceToMario;
-    struct Waypoint **pathBase = segmented_to_virtual(&inside_castle_seg7_trajectory_mips);
+    struct Waypoint **pathBase = segmented_to_virtual(&wf_seg7_trajectory_mips);
     f32 dx, dz;
     // For each waypoint in MIPS path...
     for (i = 0; i < 10; i++) {
@@ -57,7 +88,7 @@ s32 bhv_mips_find_furthest_waypoint_to_mario(void) {
         vec3s_copy(pos, waypoint->pos);
 
         // Is the waypoint within 800 units of MIPS?
-        if (is_point_close_to_object(o, pos[0], pos[1], pos[2], 800)) {
+        if (is_point_close_to_object(o, pos[0], pos[1], pos[2], MAX_DIST_TO_WAYPOINT)) {
             // Is this further from Mario than the last waypoint?
             dx = pos[0] - gMarioObject->header.gfx.pos[0];
             dz = pos[2] - gMarioObject->header.gfx.pos[2];
@@ -77,9 +108,13 @@ s32 bhv_mips_find_furthest_waypoint_to_mario(void) {
 /**
  * Wait until Mario comes close, then resume following our path.
  */
+
+s16 object_step_over_water(void);
+
+
 void bhv_mips_act_wait_for_nearby_mario(void) {
     o->oForwardVel = 0.0f;
-    object_step();
+    object_step_over_water();
 
     // If Mario is within 500 units...
     if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 500)) {
@@ -98,9 +133,10 @@ void bhv_mips_act_wait_for_nearby_mario(void) {
 /**
  * Continue to follow our path around the basement area.
  */
+
 void bhv_mips_act_follow_path(void) {
     // Retrieve current waypoint.
-    struct Waypoint **pathBase = segmented_to_virtual(&inside_castle_seg7_trajectory_mips);
+    struct Waypoint **pathBase = segmented_to_virtual(&wf_seg7_trajectory_mips);
     struct Waypoint *waypoint = segmented_to_virtual(*(pathBase + o->oMipsStartWaypointIndex));
 
     // Set start waypoint and follow the path from there.
@@ -110,7 +146,7 @@ void bhv_mips_act_follow_path(void) {
     // Update velocity and angle and do movement.
     o->oForwardVel = o->oMipsForwardVelocity;
     o->oMoveAngleYaw = o->oPathedTargetYaw;
-    s16 collisionFlags = object_step();
+    s16 collisionFlags = object_step_over_water();
 
     // If we are at the end of the path, do idle animation and wait for Mario.
     if (followStatus == PATH_REACHED_END) {
@@ -141,7 +177,7 @@ void bhv_mips_act_wait_for_animation_done(void) {
  * Handles MIPS falling down after being thrown.
  */
 void bhv_mips_act_fall_down(void) {
-    s16 collisionFlags = object_step();
+    s16 collisionFlags = object_step_over_water();
 
     o->header.gfx.animInfo.animFrame = 0;
 
@@ -162,11 +198,13 @@ void bhv_mips_act_fall_down(void) {
  */
 void bhv_mips_act_idle(void) {
     o->oForwardVel = 0.0f;
-    object_step();
+    object_step_over_water();
 
     // Spawn a star if he was just picked up for the first time.
     if (o->oMipsStarStatus == MIPS_STAR_STATUS_SHOULD_SPAWN_STAR) {
-        bhv_spawn_star_no_level_exit(o->oBehParams2ndByte + 3);
+        struct Object *starObj = spawn_star(o, o->oPosX + sins(o->oMoveAngleYaw)*50.0f, o->oPosY + 250.0f, o->oPosZ + coss(o->oMoveAngleYaw)*50.0f);
+        SET_BPARAM1(starObj->oBehParams, 0x2);
+        obj_set_angle(starObj, 0x0, 0x0, 0x0);
         o->oMipsStarStatus = MIPS_STAR_STATUS_ALREADY_SPAWNED_STAR;
     }
 }
@@ -196,6 +234,8 @@ void bhv_mips_free(void) {
             bhv_mips_act_idle();
             break;
     }
+
+    if(lateral_dist_between_objects(gMarioObject, o) < DIST_TO_CAUGHT && o->oMipsStarStatus == MIPS_STAR_STATUS_HAVENT_SPAWNED_STAR) {o->oHeldState = HELD_DROPPED; o->oMipsStarStatus = MIPS_STAR_STATUS_SHOULD_SPAWN_STAR;}
 }
 
 /**

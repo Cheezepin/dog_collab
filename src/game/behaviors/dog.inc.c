@@ -26,11 +26,11 @@ void dog_FollowMario(void) {
             o->oPosZ = m->pos[2];
         }
         
-    } else if (o->oDistanceToMario > 1000) {
+    } else if (o->oDistanceToMario > 200) {
         cur_obj_init_animation(DOG_ANIM_RUN);
         o->oForwardVel = 20.0f;
         obj_turn_toward_object(o, gMarioObject, 16, 0x800);
-    } else if (o->oDistanceToMario > 500) {
+    } else if (o->oDistanceToMario > 100) {
         if (o->oTimer > 18) {
             cur_obj_init_animation(DOG_ANIM_WALK);
             o->oForwardVel = 10.0f;

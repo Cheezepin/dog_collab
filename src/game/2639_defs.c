@@ -55,6 +55,12 @@ u32 _2639_BoB_A1_ToadTalkLatch = 0;
 u32 _2639_BoB_A1_CaneCollected = 0;
 u32 _2639_BoB_A1_SunglassesCollected = 0;
 
+reset_act_1() {
+    _2639_BoB_A1_CaneCollected = 0;
+    _2639_BoB_A1_SunglassesCollected = 0;
+    _2639_BoB_A1_ToadTalkLatch = 0;
+}
+
 // s32 in2639Level(struct Object *co) {
 //     f32 throw;
 //     struct Object *oo = cNearestObj_Bhv(bhv2639_DRM, &throw);
@@ -106,7 +112,8 @@ void Scavenger_DropGoods(struct Object *parent, u32 ID) {
 
     // };
     if (ID == 10) {
-        LaunchObject(o, bhv2639FinalPresent, _models[ID]);
+        if(!find_any_object_with_behavior(bhv2639FinalPresent))
+            LaunchObject(o, bhv2639FinalPresent, _models[ID]);
     }
 
 }
@@ -177,6 +184,10 @@ void Cam2639_Main(struct Camera *c) {
     sStatusFlags |= CAM_FLAG_BLOCK_AREA_PROCESSING;
     transition_to_camera_mode(c, CAMERA_MODE_8_DIRECTIONS, 10);
     // CDebug(c);
+}
+
+void Cam2639_LookDown(struct Camera *c) {
+    set_camera_mode_fixed(c, -125, 958, -380);
 }
 
 void Cam2639_OutwardSpiral(struct Camera *c) {
@@ -352,7 +363,7 @@ void do2639cutscene(struct Camera *c) {
     float dogdist;
     #define APPROACH_SPD 3.0f
     struct Object *dog = cNearestObj_Bhv(bhvDogfloor3, &dogdist);
-    cutscene_event(stop_the_cutscene, c, 300, -1);
+    // cutscene_event(stop_the_cutscene, c, 300, -1);
 
     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
     switch (state) {
@@ -362,7 +373,7 @@ void do2639cutscene(struct Camera *c) {
             approach_vec3f_asymptotic(c->pos, sp, APPROACH_SPD, APPROACH_SPD, APPROACH_SPD);
             if (dog) {
                 approach_vec3f_asymptotic(c->focus, &dog->oPosX, APPROACH_SPD, APPROACH_SPD, APPROACH_SPD);
-                if (dog->oAction == DF6_SWIM && dog->oTimer > 30) {
+                if (dog->oTimer > 90) {
                     state++;
                 }
             }
@@ -388,9 +399,11 @@ void do2639cutscene(struct Camera *c) {
             bhv_spawn_star_get_outta_here(5);
             state++;
             // cutscene_event(cutscene_intro_peach_clear_cutscene_status, c, 717, 717);
+            break;
         }
         case 4: {
-
+            stop_the_cutscene(c);
+            break;
         }
     }
     // char dbg[50];

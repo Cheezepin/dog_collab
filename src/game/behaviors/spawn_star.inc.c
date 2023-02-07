@@ -135,6 +135,9 @@ void spawn_default_star(f32 x, f32 y, f32 z) {
     if (in2639Level() && gCurrActNum == 4) {
         starObj->oBehParams = STAR_BP_ACT_4 << 24;
     }
+    if (in2639Level() && gCurrActNum == 5) {
+        starObj->oBehParams = STAR_BP_ACT_6 << 24;
+    }
 }
 
 void spawn_clown_star(f32 x, f32 y, f32 z) {

@@ -56,3 +56,6 @@
 #include "levels/wf/hand_right/geo.inc.c"
 #include "levels/wf/hand_left/geo.inc.c"
 #include "levels/wf/moyai/geo.inc.c"
+
+#include "levels/wf/wf_mips/geo.inc.c"
+#include "levels/wf/tiny_moyai/geo.inc.c"

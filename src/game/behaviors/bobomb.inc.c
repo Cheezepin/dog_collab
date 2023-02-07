@@ -305,7 +305,7 @@ void bobomb_buddy_act_idle(void) {
         o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, 0x140);
     }
 
-    if (o->oInteractStatus == INT_STATUS_INTERACTED || (o->behavior == segmented_to_virtual(bhvGlobe) && lateral_dist_between_objects(o, gMarioObject) < 500.0f)) {
+    if (o->oInteractStatus == INT_STATUS_INTERACTED || (o->behavior == segmented_to_virtual(bhvGlobe) && lateral_dist_between_objects(o, gMarioObject) < 500.0f) && o->oPosY == gMarioState->pos[1]) {
         o->oAction = BOBOMB_BUDDY_ACT_TURN_TO_TALK;
     }
 }

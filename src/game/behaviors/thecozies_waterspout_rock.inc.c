@@ -24,6 +24,7 @@ enum WATER_SPOUT_PLATFORM_STATES {
 
 #define WATER_SPOUT_PARAM_HOLD_TOP BPARAM1 // just used for tube top
 #define WATER_SPOUT_PARAM_SWITCH_REQ BPARAM2 // needs matching switch id
+#define WATER_SPOUT_PARAM_SPRAY_FORWARDS BPARAM3 // just for the first spout
 
 // #define WATER_SPOUT_SNAP_STRENGTH_UP   0.045f
 // #define WATER_SPOUT_SNAP_STRENGTH_DOWN 0.035f
@@ -168,8 +169,8 @@ void force_water_spout_pressure(void) {
     }
 }
 
-s32 is_spout_scripted(struct Object *obj) {
-    return 1 == (s32)GET_BPARAM2(obj->oBehParams);
+s32 is_spout_scripted(void) {
+    return 1 == WATER_SPOUT_PARAM_SPRAY_FORWARDS;
 }
 
 void water_spout_loop(void) {
@@ -202,7 +203,7 @@ void water_spout_loop(void) {
             gMarioState->vel[1] = MAX(gMarioState->vel[1], WATER_SPOUT_MIN_EJECTION_SPEED);
 
             // point mario towards the lab and launch in that direction
-            if (is_spout_scripted(o)) {
+            if (is_spout_scripted()) {
                 gMarioState->vel[0] = 40.0f;
                 gMarioState->vel[2] = 0.0f;
                 gMarioState->forwardVel = 40.0f;

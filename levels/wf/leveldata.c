@@ -92,3 +92,8 @@
 #include "levels/wf/hand_right/model.inc.c"
 #include "levels/wf/hand_left/model.inc.c"
 #include "levels/wf/moyai/model.inc.c"
+
+#include "levels/wf/wf_mips/model.inc.c"
+#include "levels/wf/wf_mips/anims/data.inc.c"
+#include "levels/wf/wf_mips/anims/table.inc.c"
+#include "levels/wf/tiny_moyai/model.inc.c"

@@ -189,5 +189,14 @@
     "38_custom_music2639light": [
         "lightmusic2639"
     ],
-    "39_custom_final_bowser": ["21"]
+    "39_custom_final_bowser": ["21"],
+    "3A_factory_down": [
+        "XX_factory_down"
+    ],
+    "3B_factory": [
+        "XX_factory"
+    ],
+    "3C_new_file_select": [
+        "0E"
+    ]
 }

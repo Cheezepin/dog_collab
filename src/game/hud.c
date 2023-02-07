@@ -323,18 +323,6 @@ void handle_power_meter_actions(s16 numHealthWedges) {
 
     // Update to match health value
     sPowerMeterStoredHealth = numHealthWedges;
-
-#ifndef BREATH_METER
-    // If Mario is swimming, keep power meter visible
-    if (gPlayerCameraState->action & ACT_FLAG_SWIMMING) {
-        if (sPowerMeterHUD.animation == POWER_METER_HIDDEN
-            || sPowerMeterHUD.animation == POWER_METER_EMPHASIZED) {
-            sPowerMeterHUD.animation = POWER_METER_DEEMPHASIZING;
-            sPowerMeterHUD.y = HUD_POWER_METER_EMPHASIZED_Y;
-        }
-        sPowerMeterVisibleTimer = 0;
-    }
-#endif
 }
 
 /**
@@ -481,9 +469,7 @@ void render_debug_mode(void) {
  * Renders the amount of coins collected.
  */
 void render_hud_coins(void) {
-    print_text(168, HUD_TOP_Y, "+"); // 'Coin' glyph
-    print_text(184, HUD_TOP_Y, "*"); // 'X' glyph
-    print_text_fmt_int(198, HUD_TOP_Y, "%d", gHudDisplay.coins);
+    print_text_fmt_int(gScreenWidth - HUD_COINS_X, HUD_TOP_Y, "+*%d", gHudDisplay.coins);
 }
 
 /**
@@ -492,11 +478,10 @@ void render_hud_coins(void) {
  */
 void render_hud_stars(void) {
     if (gHudFlash == HUD_FLASH_STARS && gGlobalTimer & 0x8) return;
-    s8 showX = (gHudDisplay.stars < 100);
-        print_text(gScreenWidth - (HUD_STARS_X), HUD_TOP_Y, "-"); // 'Star' glyph
-        if (showX) print_text((gScreenWidth - (HUD_STARS_X) + 16), HUD_TOP_Y, "*"); // 'X' glyph
-        print_text_fmt_int((showX * 14) + gScreenWidth - (HUD_STARS_X - 16),
-                        HUD_TOP_Y, "%d", gHudDisplay.stars);
+
+    print_text_fmt_int(gScreenWidth - HUD_STARS_X,
+        HUD_TOP_Y, "-*%d", gHudDisplay.stars);
+
 
     if (gCurrAreaIndex == 0) {
         hud_2639Challenge();

@@ -52,8 +52,8 @@ void bhv_sand_pile(void) {
                     spawn_object(o,MODEL_CHERRY_TREE,bhvCherryTree);
                 break;
                 case 5:
-                    sussy = spawn_object(o,MODEL_SAND_CASTLE,bhvSandPillar);
-                    sussy->oBehParams = o->oBehParams;
+                    //sussy = spawn_object(o,MODEL_SAND_CASTLE,bhvSandPillar);
+                    //sussy->oBehParams = o->oBehParams;
                 break;
             }
             obj_mark_for_deletion(o);
