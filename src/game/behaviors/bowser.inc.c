@@ -2374,6 +2374,7 @@ void bhv_bowser_loop(void) {
 void bhv_bowser_init(void) {
     s32 level;
     struct Object *cc = find_any_object_with_behavior(bhvChainChompBowser);
+    o->oAction = BOWSER_ACT_DEAD;
     // Set "reaction" value
     // It goes true when Bowser is a non-walking state
     o->oBowserIsReacting = TRUE;
