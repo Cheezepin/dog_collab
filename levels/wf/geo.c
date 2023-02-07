@@ -52,5 +52,10 @@
 #include "levels/wf/sand_pillar/geo.inc.c"
 #include "levels/wf/sand_slope/geo.inc.c"
 #include "levels/wf/ktq_ring/geo.inc.c"
+#include "levels/wf/sandcastle/geo.inc.c"
+#include "levels/wf/hand_right/geo.inc.c"
+#include "levels/wf/hand_left/geo.inc.c"
+#include "levels/wf/moyai/geo.inc.c"
 
 #include "levels/wf/wf_mips/geo.inc.c"
+#include "levels/wf/tiny_moyai/geo.inc.c"

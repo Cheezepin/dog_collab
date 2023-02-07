@@ -795,6 +795,8 @@ enum _2639Models {
 #define MODEL_SAND_PILLAR 0x195
 #define MODEL_SAND_SLOPE 0x196
 #define MODEL_KTQ_RING 0x197
+#define MODEL_TINY_MOYAI 0x198
+#define MODEL_MOYAI 0x199
 
 //Koopa Atoll Models ^
 

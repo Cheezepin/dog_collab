@@ -55,7 +55,24 @@ void bhv_mips_init(void) {
  * and furthest from Mario's current location.
  */
 
+const Trajectory mippy_area_1_spline_mipsPath[] = {
+	TRAJECTORY_POS( 0, -40, 1184, 9057),
+	TRAJECTORY_POS( 1, 228, 1376, 11101),
+	TRAJECTORY_POS( 2, 3145, 1376, 11760),
+	TRAJECTORY_POS( 3, 8785, 1376, 10526),
+	TRAJECTORY_END(),
+};
+const Trajectory mippy_area_1_spline_mipsPath_001[] = {
+	TRAJECTORY_POS( 0, 7694, 1823, 6053),
+	TRAJECTORY_POS( 1, 4161, 2014, 3513),
+	TRAJECTORY_POS( 2, 1365, 2014, 5556),
+	TRAJECTORY_POS( 3, -2814, 2014, 8838),
+	TRAJECTORY_END(),
+};
 
+const Trajectory *const wf_seg7_trajectory_mips[] = {
+    mippy_area_1_spline_mipsPath, mippy_area_1_spline_mipsPath_001,
+};
 
 s32 bhv_mips_find_furthest_waypoint_to_mario(void) {
     s8 i;
@@ -186,7 +203,7 @@ void bhv_mips_act_idle(void) {
     // Spawn a star if he was just picked up for the first time.
     if (o->oMipsStarStatus == MIPS_STAR_STATUS_SHOULD_SPAWN_STAR) {
         struct Object *starObj = spawn_star(o, o->oPosX + sins(o->oMoveAngleYaw)*50.0f, o->oPosY + 250.0f, o->oPosZ + coss(o->oMoveAngleYaw)*50.0f);
-        SET_BPARAM1(starObj->oBehParams, 0x5);
+        SET_BPARAM1(starObj->oBehParams, 0x2);
         obj_set_angle(starObj, 0x0, 0x0, 0x0);
         o->oMipsStarStatus = MIPS_STAR_STATUS_ALREADY_SPAWNED_STAR;
     }

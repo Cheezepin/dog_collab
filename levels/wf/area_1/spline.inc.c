@@ -8,6 +8,20 @@ struct CutsceneSplinePoint wf_area_1_spline_focus[] = {
 	{ 4, 1, { -4699, 1181, 3027 }},
 	{ -1, 1, { -5353, 1181, 1244 }},
 };
+const Trajectory wf_area_1_spline_mipsPath[] = {
+	TRAJECTORY_POS( 0, -40, 1184, 9057),
+	TRAJECTORY_POS( 1, 228, 1376, 11101),
+	TRAJECTORY_POS( 2, 3145, 1376, 11760),
+	TRAJECTORY_POS( 3, 8785, 1376, 10526),
+	TRAJECTORY_END(),
+};
+const Trajectory wf_area_1_spline_mipsPath_001[] = {
+	TRAJECTORY_POS( 0, 7694, 1823, 6053),
+	TRAJECTORY_POS( 1, 4161, 2014, 3513),
+	TRAJECTORY_POS( 2, 1365, 2014, 5556),
+	TRAJECTORY_POS( 3, -2814, 2014, 8838),
+	TRAJECTORY_END(),
+};
 struct CutsceneSplinePoint wf_area_1_spline_pos[] = {
 	{ 0, 1, { 273, 1181, 8320 }},
 	{ 1, 1, { -1427, 1181, 8294 }},
@@ -33,83 +47,4 @@ const Trajectory wf_area_1_spline_ktq[] = {
 	TRAJECTORY_POS( 13, 8524, 688, 8108),
 	TRAJECTORY_POS( 14, 9438, 806, 9076),
 	TRAJECTORY_END(),
-};
-
-// 0x07078EF8 - 0x07078F2C
-static const Trajectory wf_mips_mips_0[] = {
-    TRAJECTORY_POS(0, /*pos*/ -6713, 932, -1841),
-    TRAJECTORY_POS(1, /*pos*/ -4713, 932, -1841),
-    TRAJECTORY_END(),
-};
-
-// 0x07078F2C - 0x07078F68
-static const Trajectory wf_mips_mips_1[] = {
-    TRAJECTORY_POS(0, /*pos*/ -4713, 932, -2241),
-    TRAJECTORY_POS(1, /*pos*/ -6713, 932, -2241),
-    TRAJECTORY_END(),
-};
-
-// 0x07078F68 - 0x07078F7C
-static const Trajectory wf_mips_mips_2[] = {
-    TRAJECTORY_POS(0, /*pos*/ -6713, 932, -2641),
-    TRAJECTORY_POS(1, /*pos*/ -4713, 932, -2641),
-    TRAJECTORY_END(),
-};
-
-// 0x07078F7C - 0x07078FA8
-static const Trajectory wf_mips_mips_3[] = {
-    TRAJECTORY_POS(0, /*pos*/ -4713, 932, -3041),
-    TRAJECTORY_POS(1, /*pos*/ -6713, 932, -3041),
-    TRAJECTORY_END(),
-};
-
-// 0x07078FA8 - 0x07078FD4
-static const Trajectory wf_mips_mips_4[] = {
-    TRAJECTORY_POS(0, /*pos*/ -6713, 932, -3441),
-    TRAJECTORY_POS(1, /*pos*/ -4713, 932, -3441),
-    TRAJECTORY_END(),
-};
-
-// 0x07078FD4 - 0x07078FE8
-static const Trajectory wf_mips_mips_5[] = {
-    TRAJECTORY_POS(0, /*pos*/ -4713, 932, -3841),
-    TRAJECTORY_POS(1, /*pos*/ -6713, 932, -3841),
-    TRAJECTORY_END(),
-};
-
-// 0x07078FE8 - 0x07079004
-static const Trajectory wf_mips_mips_6[] = {
-    TRAJECTORY_POS(0, /*pos*/ -6713, 932, -4241),
-    TRAJECTORY_POS(1, /*pos*/ -4713, 932, -4241),
-    TRAJECTORY_END(),
-};
-
-// 0x07079004 - 0x07079020
-static const Trajectory wf_mips_mips_7[] = {
-    TRAJECTORY_POS(0, /*pos*/ -4713, 932, -4641),
-    TRAJECTORY_POS(1, /*pos*/ -6713, 932, -4641),
-    TRAJECTORY_END(),
-};
-
-// 0x07079020 - 0x07079044
-static const Trajectory wf_mips_mips_8[] = {
-    TRAJECTORY_POS(0, /*pos*/ -6713, 932, -5041),
-    TRAJECTORY_POS(1, /*pos*/ -4713, 932, -5041),
-    TRAJECTORY_END(),
-};
-
-// 0x07079044 - 0x07079068
-static const Trajectory wf_mips_mips_9[] = {
-    TRAJECTORY_POS(0, /*pos*/ -4713, 932, -5441),
-    TRAJECTORY_POS(1, /*pos*/ -6713, 932, -5441),
-    TRAJECTORY_END(),
-};
-
-// 0x07079068 - 0x07079090
-const Trajectory *const wf_seg7_trajectory_mips[] = {
-    wf_mips_mips_0, wf_mips_mips_1,
-	wf_mips_mips_2, wf_mips_mips_3,
-	wf_mips_mips_4, wf_mips_mips_5,
-	wf_mips_mips_6, wf_mips_mips_7,
-	wf_mips_mips_8, wf_mips_mips_9,
 };
