@@ -3275,8 +3275,9 @@ void end_results_loop(void) {
 
         if(gEndResultMenuState == 1) {
             if(nextUnfinishedAct == 0) {
+                u8 nextPlayableAct = ((gLastCompletedStarNum % 6) + 1);
                 print_generic_string(get_str_x_pos_from_center(160, textAllActsCompleted, 2.0f), 120, textAllActsCompleted);
-                textReplayLastAct[11] = 0x30 + gDialogCourseActNum;
+                textReplayLastAct[11] = 0x30 + nextPlayableAct;
                 print_generic_string(125, 70, textReplayLastAct);
             } else {
                 u8 *nextActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + nextUnfinishedAct - 1]);
@@ -3298,6 +3299,9 @@ void end_results_loop(void) {
                     if(nextUnfinishedAct > 0) {
                         gCurrActNum = nextUnfinishedAct;
                         gDialogCourseActNum = nextUnfinishedAct;
+                    } else {
+                        gCurrActNum = ((gLastCompletedStarNum % 6) + 1);
+                        gDialogCourseActNum = ((gLastCompletedStarNum % 6) + 1);
                     }
                     sDelayedWarpOp = 1;
                     sDelayedWarpArg = 0x00000002;
