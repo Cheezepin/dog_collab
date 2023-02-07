@@ -92,9 +92,9 @@ enum MM_OPTS {
 
 #define START_NEW_GAME_TEXT "Start new game"
 
-char sMainMenuFile1Label[16] = START_NEW_GAME_TEXT;
-char sMainMenuFile2Label[16] = START_NEW_GAME_TEXT;
-char sMainMenuFile3Label[16] = START_NEW_GAME_TEXT;
+char sMainMenuFile1Label[24] = START_NEW_GAME_TEXT;
+char sMainMenuFile2Label[24] = START_NEW_GAME_TEXT;
+char sMainMenuFile3Label[24] = START_NEW_GAME_TEXT;
 
 FileSelectOption sMainMenuOptList[] = {
     [MAIN_MENU_OPT_SAVE_A] = {
@@ -355,16 +355,15 @@ void store_dog_string(char *dogString, u8 fileNum) {
     }
 }
 
+#define NUM_FILES_IN_HERE 3
 void init_file_select(void) {
     FileSelectMenuState *mState = &sMenuState;
-    if (save_file_exists(0)) {
-        store_dog_string(sMainMenuOptList[0].label, 0);
-    }
-    if (save_file_exists(1)) {
-        store_dog_string(sMainMenuOptList[1].label, 1);
-    }
-    if (save_file_exists(2)) {
-        store_dog_string(sMainMenuOptList[2].label, 2);
+    for (int i = 0; i < NUM_FILES_IN_HERE; i++) {
+        if (save_file_exists(i)) {
+            store_dog_string(sMainMenuOptList[i].label, i);
+        } else {
+            save_file_erase(i);
+        }
     }
     mState->closing = FALSE;
 }
