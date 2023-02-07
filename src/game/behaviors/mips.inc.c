@@ -8,9 +8,10 @@
  * hiding him if necessary.
  */
 
-#define MIPS_SPEED             60.0f
-#define DIST_TO_CAUGHT        100.0f
-#define MAX_DIST_TO_WAYPOINT 1500
+#define MIPS_SPEED              80.0f
+#define DIST_TO_CAUGHT         100.0f
+#define MAX_DIST_TO_WAYPOINT  4800
+#define MIPS_DISTANCE_TO_INIT  750
 
 
 #include "levels/wf/header.h"
@@ -55,8 +56,6 @@ void bhv_mips_init(void) {
  * and furthest from Mario's current location.
  */
 
-
-
 s32 bhv_mips_find_furthest_waypoint_to_mario(void) {
     s8 i;
     Vec3s pos;
@@ -66,7 +65,7 @@ s32 bhv_mips_find_furthest_waypoint_to_mario(void) {
     struct Waypoint **pathBase = segmented_to_virtual(&wf_seg7_trajectory_mips);
     f32 dx, dz;
     // For each waypoint in MIPS path...
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < 4; i++) {
         struct Waypoint *waypoint = segmented_to_virtual(pathBase[i]);
         vec3s_copy(pos, waypoint->pos);
 
@@ -100,7 +99,7 @@ void bhv_mips_act_wait_for_nearby_mario(void) {
     object_step_over_water();
 
     // If Mario is within 500 units...
-    if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 500)) {
+    if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, MIPS_DISTANCE_TO_INIT)) {
         // If we fail to find a suitable waypoint...
         if (bhv_mips_find_furthest_waypoint_to_mario() == -1) {
             // Call it quits.
@@ -117,6 +116,56 @@ void bhv_mips_act_wait_for_nearby_mario(void) {
  * Continue to follow our path around the basement area.
  */
 
+s32 cur_obj_follow_path_mips() {
+    struct Waypoint *startWaypoint;
+    struct Waypoint *lastWaypoint;
+    struct Waypoint *targetWaypoint;
+    f32 prevToNextX, prevToNextY, prevToNextZ;
+    UNUSED s32 sp2C;
+    f32 objToNextXZ;
+    f32 objToNextX, objToNextY, objToNextZ;
+
+    if (o->oPathedPrevWaypointFlags == 0) {
+        o->oPathedPrevWaypoint = o->oPathedStartWaypoint;
+        o->oPathedPrevWaypointFlags = WAYPOINT_FLAGS_INITIALIZED;
+    }
+
+    startWaypoint = o->oPathedStartWaypoint;
+    lastWaypoint = o->oPathedPrevWaypoint;
+
+    if ((lastWaypoint + 1)->flags != WAYPOINT_FLAGS_END) {
+        targetWaypoint = lastWaypoint + 1;
+    } else {
+        targetWaypoint = startWaypoint;
+    }
+
+    o->oPathedPrevWaypointFlags = lastWaypoint->flags | WAYPOINT_FLAGS_INITIALIZED;
+
+    prevToNextX = targetWaypoint->pos[0] - lastWaypoint->pos[0];
+    prevToNextY = targetWaypoint->pos[1] - lastWaypoint->pos[1];
+    prevToNextZ = targetWaypoint->pos[2] - lastWaypoint->pos[2];
+
+    objToNextX = targetWaypoint->pos[0] - o->oPosX;
+    objToNextY = targetWaypoint->pos[1] - o->oPosY;
+    objToNextZ = targetWaypoint->pos[2] - o->oPosZ;
+    objToNextXZ = sqrtf(sqr(objToNextX) + sqr(objToNextZ));
+
+    o->oPathedTargetYaw = atan2s(objToNextZ, objToNextX);
+    o->oPathedTargetPitch = atan2s(objToNextXZ, -objToNextY);
+
+    // If dot(prevToNext, objToNext) <= 0 (i.e. reached other side of target waypoint)
+    if (prevToNextX * objToNextX + prevToNextY * objToNextY + prevToNextZ * objToNextZ <= 0.0f) {
+        o->oPathedPrevWaypoint = targetWaypoint;
+        if ((targetWaypoint + 1)->flags == WAYPOINT_FLAGS_END) {
+            return PATH_REACHED_END;
+        } else {
+            return PATH_REACHED_WAYPOINT;
+        }
+    }
+
+    return PATH_NONE;
+}
+
 void bhv_mips_act_follow_path(void) {
     // Retrieve current waypoint.
     struct Waypoint **pathBase = segmented_to_virtual(&wf_seg7_trajectory_mips);
@@ -124,7 +173,7 @@ void bhv_mips_act_follow_path(void) {
 
     // Set start waypoint and follow the path from there.
     o->oPathedStartWaypoint = waypoint;
-    s32 followStatus = cur_obj_follow_path();
+    s32 followStatus = cur_obj_follow_path_mips();
 
     // Update velocity and angle and do movement.
     o->oForwardVel = o->oMipsForwardVelocity;
@@ -186,7 +235,7 @@ void bhv_mips_act_idle(void) {
     // Spawn a star if he was just picked up for the first time.
     if (o->oMipsStarStatus == MIPS_STAR_STATUS_SHOULD_SPAWN_STAR) {
         struct Object *starObj = spawn_star(o, o->oPosX + sins(o->oMoveAngleYaw)*50.0f, o->oPosY + 250.0f, o->oPosZ + coss(o->oMoveAngleYaw)*50.0f);
-        SET_BPARAM1(starObj->oBehParams, 0x5);
+        SET_BPARAM1(starObj->oBehParams, 0x2);
         obj_set_angle(starObj, 0x0, 0x0, 0x0);
         o->oMipsStarStatus = MIPS_STAR_STATUS_ALREADY_SPAWNED_STAR;
     }

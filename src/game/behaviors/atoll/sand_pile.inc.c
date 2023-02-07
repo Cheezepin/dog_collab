@@ -51,7 +51,11 @@ void bhv_sand_pile(void) {
                 case 4: //a mother fucking cheerrry tree holy shit!!!!
                     spawn_object(o,MODEL_CHERRY_TREE,bhvCherryTree);
                 break;
-                }
+                case 5:
+                    //sussy = spawn_object(o,MODEL_SAND_CASTLE,bhvSandPillar);
+                    //sussy->oBehParams = o->oBehParams;
+                break;
+            }
             obj_mark_for_deletion(o);
         break;
         case 3:

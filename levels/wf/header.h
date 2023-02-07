@@ -160,4 +160,16 @@ extern const Gfx wf_mips_seg6_dl_06011F70[];
 extern const Gfx wf_mips_seg6_dl_06011FC0[];
 extern const struct Animation *const wf_mips_seg6_anims_06015634[];
 
+#include "levels/wf/sandcastle/geo_header.h"
+
+#include "levels/wf/sandcastle/collision_header.h"
+
+#include "levels/wf/hand_right/geo_header.h"
+
+#include "levels/wf/hand_left/geo_header.h"
+
+#include "levels/wf/moyai/geo_header.h"
+
+#include "levels/wf/tiny_moyai/geo_header.h"
+
 #endif

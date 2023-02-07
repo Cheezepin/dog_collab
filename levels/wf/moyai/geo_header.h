@@ -1,0 +1,16 @@
+extern const GeoLayout moyai_geo[];
+extern Lights1 moyai_moyai_rock_layer1_lights;
+extern u8 moyai_rgba16_matt_rock1_ci4[];
+extern u8 moyai_rgba16_matt_rock1_ci4_pal_rgba16[];
+extern Vtx moyai_000_offset_005_mesh_layer_1_vtx_0[23];
+extern Gfx moyai_000_offset_005_mesh_layer_1_tri_0[];
+extern Vtx moyai_000_offset_008_mesh_layer_1_vtx_0[21];
+extern Gfx moyai_000_offset_008_mesh_layer_1_tri_0[];
+extern Vtx moyai_006_offset_mesh_layer_1_vtx_0[130];
+extern Gfx moyai_006_offset_mesh_layer_1_tri_0[];
+extern Gfx mat_moyai_moyai_rock_layer1[];
+extern Gfx mat_revert_moyai_moyai_rock_layer1[];
+extern Gfx moyai_000_offset_005_mesh_layer_1[];
+extern Gfx moyai_000_offset_008_mesh_layer_1[];
+extern Gfx moyai_006_offset_mesh_layer_1[];
+extern Gfx moyai_material_revert_render_settings[];
