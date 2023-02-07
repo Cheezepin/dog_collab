@@ -1654,7 +1654,7 @@ void render_pause_red_coins(void) {
 
 /// By default, not needed as puppycamera has an option, but should you wish to revert that, you are legally allowed.
 
-#if defined(WIDE) && !defined(PUPPYCAM)
+#if FALSE
 void render_widescreen_setting(void) {
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
@@ -1776,33 +1776,32 @@ void render_pause_my_score_coins(void) {
 #define Y_VAL7 2
 
 void render_pause_camera_options(s16 x, s16 y, s8 *index, s16 xIndex) {
-    u8 textLakituMario[] = { TEXT_LAKITU_MARIO };
-    u8 textLakituStop[] = { TEXT_LAKITU_STOP };
-    u8 textNormalUpClose[] = { TEXT_NORMAL_UPCLOSE };
-    u8 textNormalFixed[] = { TEXT_NORMAL_FIXED };
-
     handle_menu_scrolling(MENU_SCROLL_HORIZONTAL, index, 1, 2);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
 
-    print_generic_string(x +     14, y +  2, textLakituMario);
-    print_generic_string(x + TXT1_X, y - 13, LANGUAGE_ARRAY(textNormalUpClose));
-    print_generic_string(x +    124, y +  2, textLakituStop);
-    print_generic_string(x + TXT2_X, y - 13, LANGUAGE_ARRAY(textNormalFixed));
+    print_generic_string(x, y, "4:3");
+    print_generic_string(x + 60, y, "16:9");
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
-    create_dl_translation_matrix(MENU_MTX_PUSH, ((*index - 1) * xIndex) + x, y + Y_VAL7, 0);
+    create_dl_translation_matrix(MENU_MTX_PUSH, ((*index - 1) * 60) + x - 12, y, 0);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
     gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
     switch (*index) {
         case CAM_SELECTION_MARIO:
-            cam_select_alt_mode(CAM_SELECTION_MARIO);
+            if (gConfig.widescreen != 0) {
+                gConfig.widescreen = 0;
+                save_file_set_widescreen_mode(gConfig.widescreen);
+            }
             break;
         case CAM_SELECTION_FIXED:
-            cam_select_alt_mode(CAM_SELECTION_FIXED);
+            if (gConfig.widescreen != 1) {
+                gConfig.widescreen = 1;
+                save_file_set_widescreen_mode(gConfig.widescreen);
+            }
             break;
     }
 }
@@ -1824,7 +1823,7 @@ void render_pause_course_options(s16 x, s16 y, s8 *index, s16 yIndex) {
     print_generic_string(x + 10, y - 17, LANGUAGE_ARRAY(textExitCourse));
 
     if (*index != MENU_OPT_CAMERA_ANGLE_R) {
-        print_generic_string(x + 10, y - 33, LANGUAGE_ARRAY(textCameraAngleR));
+        print_generic_string(x + 10, y - 33, "TOGGLE WIDESCREEN");
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
         create_dl_translation_matrix(MENU_MTX_PUSH, x - X_VAL8, (y - ((*index - 1) * yIndex)) - Y_VAL8, 0);
@@ -1832,10 +1831,11 @@ void render_pause_course_options(s16 x, s16 y, s8 *index, s16 yIndex) {
         gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
         gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
         gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+        gDialogCameraAngleIndex = gConfig.widescreen + 1;
     }
 
     if (*index == MENU_OPT_CAMERA_ANGLE_R) {
-        render_pause_camera_options(x - 42, y - 42, &gDialogCameraAngleIndex, 110);
+        render_pause_camera_options(x + 10, y - 42, &gDialogCameraAngleIndex, 110);
     }
 }
 
@@ -2066,9 +2066,7 @@ s32 render_pause_courses_and_castle(void) {
             }
             break;
     }
-#if defined(WIDE) && !defined(PUPPYCAM)
-        render_widescreen_setting();
-#endif
+
     if (gDialogTextAlpha < 250) {
         gDialogTextAlpha += 25;
     }
