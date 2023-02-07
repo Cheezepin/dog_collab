@@ -288,8 +288,10 @@ void bhv_big_bully_with_minions_init(void) {
 
 void big_bully_spawn_star(void) {
     if (obj_lava_death() == TRUE) {
+        struct Object *star;
         spawn_mist_particles();
-        spawn_default_star(590.0f, -550.0f, 0.0f);
+        star = spawn_star(590.0f, -550.0f, 0.0f);
+        star->oBehParams = 0x05000000;
     }
 }
 
