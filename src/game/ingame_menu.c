@@ -2820,6 +2820,14 @@ Gfx transparent_star_hud_dl[] = {
     gsSPEndDisplayList(),
 };
 
+Gfx rainbow_star_hud_dl[] = {
+    gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
+    gsSPDisplayList(rainbow_star_000_displaylist_mesh_layer_1),
+    gsDPSetRenderMode(G_RM_AA_ZB_TEX_EDGE, G_RM_AA_ZB_TEX_EDGE2),
+    gsSPDisplayList(rainbow_star_001_displaylist_mesh_layer_5),
+    gsSPEndDisplayList(),
+};
+
 Vtx bg_Plane_mesh_vtx_0[4] = {
 	{{{-2, 104, 0}, 0, {-16, 1008}, {0x0, 0x0, 0x0, 0x0}}},
 	{{{322, 104, 0}, 0, {1008, 1008}, {0x0, 0x0, 0x0, 0x0}}},
@@ -2898,6 +2906,13 @@ u32 starColors[] = {
     0xDDCEFFFF, //bowsers scuba tower
     0xFFFFFFFF, //upturned deeps
     0xA9FF4FFF, //maple markindon
+    0xFFFFFFFF, //course 12
+    0xFFFFFFFF, //course 13
+    0xFFFFFFFF, //course 14
+    0xFFFFFFFF, //course 15
+    0xFFFFFFFF, //brr (irrelevant cause custom model)
+    0x3F3F3FFF, //bflfo
+    0xFFFFFFFF, //bfufi
 };
 
 f32 rotVal = 0.0f;
@@ -3142,6 +3157,7 @@ u8 textAndTheRedCoinStar[] = { TEXT_AND_THE_RED_COIN_STAR };
 u8 textNextUnfinishedAct[] = { TEXT_NEXT_UNFINISHED_ACT };
 u8 textAllActsCompleted[] = { TEXT_ALL_ACTS_COMPLETED };
 u8 text100CoinStar[] = { TEXT_ONE_HUNDRED_COIN_STAR };
+u8 textKeyTo[] = { TEXT_KEY_TO };
 
 extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
@@ -3151,7 +3167,7 @@ s32 gEndResultMenuChoice = 0;
 s32 gEndResultMenuState = 0;
 void end_results_loop(void) {
     u8 **actNameTbl = segmented_to_virtual(seg2_act_name_table);
-    u8 *selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gLastCompletedStarNum - 1]);
+    u8 *selectedActName;
     s32 actNameX;
     u32 starColor;
     u8 starColorR;
@@ -3159,6 +3175,14 @@ void end_results_loop(void) {
     u8 starColorB;
     u8 nextUnfinishedAct = 0;
 
+    if(gCurrCourseNum < 16) {
+        selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gLastCompletedStarNum - 1]);
+        actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
+    } else {
+        selectedActName = textKeyTo;
+        textKeyTo[17] = gCurrCourseNum == 17 ? 0x32 : 0x33;
+        actNameX = 100;
+    }
     u8 stars = save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(gCurrCourseNum));
     u8 i;
 
@@ -3215,7 +3239,6 @@ void end_results_loop(void) {
         if(gRedCoinStarCollected) {
             print_generic_string(110, 180, textAndTheRedCoinStar);
         }
-        actNameX = get_str_x_pos_from_center(160, selectedActName, 2.0f);
         print_generic_string(actNameX + 10, 150, selectedActName);
 
         if(gEndResultMenuState == 1) {
@@ -3328,7 +3351,11 @@ void end_results_loop(void) {
                 create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.03125f, 0.03125f, 0.0005f);
                 create_dl_rotation_matrix(MENU_MTX_NOPUSH, 165.0f + (rotVal100Coin), 0.0f, 1.0f, 0.0f);
                 gDPSetPrimColor(gDisplayListHead++, 0, 0, starColorR, starColorG, starColorB, 255);
-                gSPDisplayList(gDisplayListHead++, star_hud_dl);
+                if(gCurrLevelNum == LEVEL_BOWSER_1) {
+                    gSPDisplayList(gDisplayListHead++, rainbow_star_hud_dl);
+                } else {
+                    gSPDisplayList(gDisplayListHead++, star_hud_dl);
+                }
             }
             gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
