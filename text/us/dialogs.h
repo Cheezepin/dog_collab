@@ -1414,7 +1414,7 @@ Unbelievable...\n\
 I've been a Baron\n\
 for decades, and yet\n\
 I was bested by a\n\
-tiny man and his dog in\n\
+tiny man in\n\
 less then 5 minutes...\n\
 Since I no longer\n\
 deserve it, here is\n\

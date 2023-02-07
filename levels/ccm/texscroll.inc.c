@@ -1,7 +1,6 @@
 void scroll_ccm_dl_bg_001_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 16;
-	int width = 32 * 0x20;
 	int height = 64 * 0x20;
 
 	static int currentY = 0;

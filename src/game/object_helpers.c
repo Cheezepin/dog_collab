@@ -1723,7 +1723,6 @@ s32 cur_obj_follow_path_new(void) {
     o->oPathedTargetPitch = atan2s(sqrtf(sqr(objToNext[0]) + sqr(objToNext[2])), -objToNext[1]);
 
     // If dot(prevToNext, objToNext) <= 0 (i.e. reached other side of target waypoint)
-    print_text_fmt_int(20, 20, "%d", (s32)(1000.0f*vec3_dot(prevToNext, objToNext)));
     if (vec3_dot(prevToNext, objToNext) <= 0.0f) {
         o->oPathedPrevWaypoint = targetWaypoint;
         if ((targetWaypoint + 1)->flags == WAYPOINT_FLAGS_END) {
