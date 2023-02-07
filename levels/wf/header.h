@@ -132,4 +132,14 @@ extern const LevelScript level_wf_entry[];
 
 #include "levels/wf/ktq_ring/geo_header.h"
 
+#include "levels/wf/sandcastle/geo_header.h"
+
+#include "levels/wf/sandcastle/collision_header.h"
+
+#include "levels/wf/hand_right/geo_header.h"
+
+#include "levels/wf/hand_left/geo_header.h"
+
+#include "levels/wf/moyai/geo_header.h"
+
 #endif

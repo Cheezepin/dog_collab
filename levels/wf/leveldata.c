@@ -87,3 +87,8 @@
 #include "levels/wf/sand_slope/model.inc.c"
 #include "levels/wf/sand_slope/collision.inc.c"
 #include "levels/wf/ktq_ring/model.inc.c"
+#include "levels/wf/sandcastle/model.inc.c"
+#include "levels/wf/sandcastle/collision.inc.c"
+#include "levels/wf/hand_right/model.inc.c"
+#include "levels/wf/hand_left/model.inc.c"
+#include "levels/wf/moyai/model.inc.c"

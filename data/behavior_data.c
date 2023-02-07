@@ -8878,6 +8878,12 @@ const BehaviorScript bhvSandSlope[] = {
     GOTO(bhvSandPillar + 1 + 2),
 };
 
+const BehaviorScript bhvSandCastle[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(sandcastle_collision),
+    GOTO(bhvSandPillar + 1 + 2),
+};
+
 const BehaviorScript bhvKTQRing[] = {
     BEGIN(OBJ_LIST_LEVEL),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
