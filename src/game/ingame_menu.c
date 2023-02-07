@@ -2844,8 +2844,8 @@ Gfx bg_Plane_mesh_tri_0[] = {
 
 Vtx bg_Plane_mesh_vtx_1[4] = {
 	{{{-2, 80, 0}, 0, {-16, 1008}, {0x0, 0x0, 0x0, 0x0}}},
-	{{{60, 80, 0}, 0, {1008, 1008}, {0x0, 0x0, 0x0, 0x0}}},
-	{{{60, 100, 0}, 0, {1008, -16}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{64, 80, 0}, 0, {1008, 1008}, {0x0, 0x0, 0x0, 0x0}}},
+	{{{64, 100, 0}, 0, {1008, -16}, {0x0, 0x0, 0x0, 0x0}}},
 	{{{-2, 100, 0}, 0, {-16, -16}, {0x0, 0x0, 0x0, 0x0}}},
 };
 
@@ -3019,7 +3019,7 @@ void render_hub_star_select(s32 cringeTimer) {
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, fadeTextTimer);
     lvlNameX = get_str_x_pos_from_center(160, currLevelName + 3, 10.0f);
     print_generic_string(lvlNameX, 180, currLevelName + 3);
-    print_generic_string(2, 82, textOneHundredCoin);
+    print_generic_string(6, 82, textOneHundredCoin);
 
     selectedActName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(hubSelections[gWorldID][gFocusID].courseID) * 6 + selectedStar]);
     actNameX = get_str_x_pos_from_center(160, selectedActName, 8.0f);
@@ -3085,7 +3085,7 @@ void render_hub_star_select(s32 cringeTimer) {
 
 
     //100 coin star
-    create_dl_translation_matrix(MENU_MTX_PUSH, 50.0f, 90.0f, 0.0f);
+    create_dl_translation_matrix(MENU_MTX_PUSH, 54.0f, 90.0f, 0.0f);
     create_dl_scale_matrix(MENU_MTX_NOPUSH, 0.04f, 0.04f, 0.0005f);
 
     geo_clear_zbuffer(gDisplayListHead);
