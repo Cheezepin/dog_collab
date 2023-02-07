@@ -2,7 +2,6 @@ void scroll_ssl_dl_Beam_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 24;
 	int width = 256 * 0x20;
-	int height = 8 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -24,7 +23,6 @@ void scroll_ssl_dl_Beam2_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 24;
 	int width = 256 * 0x20;
-	int height = 8 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -46,7 +44,6 @@ void scroll_ssl_dl_Beam2_001_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 24;
 	int width = 256 * 0x20;
-	int height = 8 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -97,7 +94,6 @@ void scroll_ssl_dl_Cylinder_014_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 39;
 	int width = 256 * 0x20;
-	int height = 8 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
