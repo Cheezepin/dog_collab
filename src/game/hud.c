@@ -542,10 +542,11 @@ void hud_2639Challenge(void) {
     if (total_count == -1) {
         total_count = count_coins();
     }
+    s32 offset = gIsConsole ? 10 : 0;
 
     sprintf(str_str, "%d left!", _2639COINCOUNT - gMarioState->numCoins);
-    print_text(5, 10, str_str);
-    print_text(5, 30, "Collect them all!");
+    print_text(5, 10+offset, str_str);
+    print_text(5, 30+offset, "Collect them all!");
 }
 
 /**
