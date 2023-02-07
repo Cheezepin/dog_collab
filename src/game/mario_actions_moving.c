@@ -839,6 +839,7 @@ s32 act_move_punching(struct MarioState *m) {
     }
 
     if (m->actionState == ACT_STATE_MOVE_PUNCHING_CAN_JUMP_KICK && (m->input & INPUT_A_DOWN)) {
+        gFlipSwitch = 1;
         return set_mario_action(m, ACT_JUMP_KICK, 0);
     }
 
@@ -1265,6 +1266,7 @@ s32 act_crawling(struct MarioState *m) {
     }
 
     if (m->input & INPUT_A_PRESSED) {
+        gFlipSwitch = 1;
         return set_jumping_action(m, ACT_JUMP, 0);
     }
 
@@ -1476,6 +1478,7 @@ s32 act_crouch_slide(struct MarioState *m) {
     }
 
     if (m->input & INPUT_A_PRESSED) {
+        gFlipSwitch = 1;
         return set_jumping_action(m, ACT_JUMP, 0);
     }
 

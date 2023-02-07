@@ -304,7 +304,7 @@ void big_bully_spawn_star(void) {
     if (obj_lava_death() == TRUE) {
         struct Object *star;
         spawn_mist_particles();
-        star = spawn_star(o, 590.0f, -550.0f, 0.0f);
+        star = spawn_star(o, 485.0f, -2400.0f, 854.0f);
         star->oBehParams = 0x05000000;
     }
 }

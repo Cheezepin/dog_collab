@@ -8485,6 +8485,20 @@ const BehaviorScript bhvRedCoinSign[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvFlipSwitch[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    LOAD_COLLISION_DATA(flipswitch_collision),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SET_FACE_ANGLE_TO_MOVE_ANGLE)),
+    SET_HOME(),
+    SET_FLOAT(oDrawingDistance, 12000),
+    SET_FLOAT(oCollisionDistance, 4000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(load_object_collision_model),
+        CALL_NATIVE(bhv_flipswitch_loop),
+    END_LOOP(),
+};
+
+
 //cheeze bhvs end
 
 // someone2638 scripts

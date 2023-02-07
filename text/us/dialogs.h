@@ -1075,7 +1075,7 @@ Ouch! Take it then! A\n\
 gift from Bowser, it was.\n\
 Now let me be! I have a\n\
 date! I cannot be late\n\
-for tea!")
+for tea and coconuts!")
 
 DEFINE_DIALOG(DIALOG_085, 1, 5, 30, 200, "\
 You don't stand a ghost\n\

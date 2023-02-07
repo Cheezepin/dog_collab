@@ -8,8 +8,8 @@
  * hiding him if necessary.
  */
 
-#define MIPS_SPEED              80.0f
-#define DIST_TO_CAUGHT         100.0f
+#define MIPS_SPEED              78.0f
+#define DIST_TO_CAUGHT         125.0f
 #define MAX_DIST_TO_WAYPOINT  4800
 #define MIPS_DISTANCE_TO_INIT  750
 
@@ -267,7 +267,7 @@ void bhv_mips_free(void) {
             break;
     }
 
-    if(lateral_dist_between_objects(gMarioObject, o) < DIST_TO_CAUGHT && o->oMipsStarStatus == MIPS_STAR_STATUS_HAVENT_SPAWNED_STAR) {o->oHeldState = HELD_DROPPED; o->oMipsStarStatus = MIPS_STAR_STATUS_SHOULD_SPAWN_STAR;}
+    if(dist_between_objects(gMarioObject, o) < DIST_TO_CAUGHT && o->oMipsStarStatus == MIPS_STAR_STATUS_HAVENT_SPAWNED_STAR) {o->oHeldState = HELD_DROPPED; o->oMipsStarStatus = MIPS_STAR_STATUS_SHOULD_SPAWN_STAR;}
 }
 
 /**

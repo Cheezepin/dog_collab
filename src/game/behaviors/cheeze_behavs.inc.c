@@ -1,6 +1,7 @@
 #include "src/game/hud.h"
 #include "src/game/level_update.h"
 #include "levels/pss/header.h"
+#include "src/game/mario_actions_airborne.h"
 
 void bhv_cheezeplat_loop(void) {
     if(cur_obj_is_mario_on_platform()) {
@@ -665,4 +666,9 @@ void bhv_special_warp_box_init(void) {
     }
 }
 
+void bhv_flipswitch_loop(void) {
+    if(gFlipSwitch == 1 && (o->oAction == 0 || o->oAction == 2)) {o->oAction++; o->oAction %= 4;}
+    if(o->oAction == 1) {o->oMoveAnglePitch += 0x400; play_sound(SOUND_GENERAL_ROLLING_LOG, gGlobalSoundSource); if(o->oMoveAnglePitch == 0x8000){o->oAction = 2; gFlipSwitch = 0;}}
+    if(o->oAction == 3) {o->oMoveAnglePitch -= 0x400; play_sound(SOUND_GENERAL_ROLLING_LOG, gGlobalSoundSource); if(o->oMoveAnglePitch == 0x0   ){o->oAction = 0; gFlipSwitch = 0;}}
+}
 

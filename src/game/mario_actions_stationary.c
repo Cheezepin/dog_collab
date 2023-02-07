@@ -11,6 +11,7 @@
 #include "level_update.h"
 #include "mario.h"
 #include "mario_step.h"
+#include "mario_actions_airborne.h"
 #include "memory.h"
 #include "save_file.h"
 #include "sound_init.h"
@@ -28,6 +29,7 @@ s32 check_common_idle_cancels(struct MarioState *m) {
     }
 
     if (m->input & INPUT_A_PRESSED) {
+        gFlipSwitch = 1;
         return set_jumping_action(m, ACT_JUMP, 0);
     }
 

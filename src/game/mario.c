@@ -988,6 +988,7 @@ u32 set_mario_action(struct MarioState *m, u32 action, u32 actionArg) {
  * Puts Mario into a specific jumping action from a landing action.
  */
 s32 set_jump_from_landing(struct MarioState *m) {
+    gFlipSwitch = 1;
     if (m->quicksandDepth >= 11.0f) {
         if (m->heldObj == NULL) {
             return set_mario_action(m, ACT_QUICKSAND_JUMP_LAND, 0);
@@ -1006,6 +1007,7 @@ s32 set_jump_from_landing(struct MarioState *m) {
         set_steep_jump_action(m);
     } else {
         if ((m->doubleJumpTimer == 0) || (m->squishTimer != 0)) {
+            gFlipSwitch = 1;
             set_mario_action(m, ACT_JUMP, 0);
         } else {
             switch (m->prevAction) {
@@ -1071,6 +1073,8 @@ s32 set_jumping_action(struct MarioState *m, u32 action, u32 actionArg) {
         set_mario_action(m, action, actionArg);
     }
 
+    gFlipSwitch = 1;
+
     return TRUE;
 }
 
@@ -1098,6 +1102,7 @@ s32 hurt_and_set_mario_action(struct MarioState *m, u32 action, u32 actionArg, s
  */
 s32 check_common_action_exits(struct MarioState *m) {
     if (m->input & INPUT_A_PRESSED) {
+        gFlipSwitch = 1;
         return set_mario_action(m, ACT_JUMP, 0);
     }
     if (m->input & INPUT_OFF_FLOOR) {

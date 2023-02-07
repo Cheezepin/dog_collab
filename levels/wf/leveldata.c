@@ -97,3 +97,5 @@
 #include "levels/wf/wf_mips/anims/data.inc.c"
 #include "levels/wf/wf_mips/anims/table.inc.c"
 #include "levels/wf/tiny_moyai/model.inc.c"
+#include "levels/wf/flipswitch/model.inc.c"
+#include "levels/wf/flipswitch/collision.inc.c"

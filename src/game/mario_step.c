@@ -13,6 +13,7 @@
 #include "level_update.h"
 #include "level_table.h"
 #include "area.h"
+#include "src/game/mario_actions_airborne.h"
 
 #include "config.h"
 

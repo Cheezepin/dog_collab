@@ -172,4 +172,8 @@ extern const struct Animation *const wf_mips_seg6_anims_06015634[];
 
 #include "levels/wf/tiny_moyai/geo_header.h"
 
+#include "levels/wf/flipswitch/geo_header.h"
+
+#include "levels/wf/flipswitch/collision_header.h"
+
 #endif

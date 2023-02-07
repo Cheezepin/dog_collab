@@ -59,3 +59,4 @@
 
 #include "levels/wf/wf_mips/geo.inc.c"
 #include "levels/wf/tiny_moyai/geo.inc.c"
+#include "levels/wf/flipswitch/geo.inc.c"

@@ -797,6 +797,7 @@ enum _2639Models {
 #define MODEL_KTQ_RING 0x197
 #define MODEL_TINY_MOYAI 0x198
 #define MODEL_MOYAI 0x199
+#define MODEL_FLIPSWITCH 0x19A
 
 //Koopa Atoll Models ^
 
