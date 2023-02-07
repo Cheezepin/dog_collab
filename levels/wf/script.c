@@ -174,6 +174,7 @@ const LevelScript level_wf_entry[] = {
 		OBJECT(MODEL_WF_PALM_TREE, 6255, 817, -3514, 0, 0, 0, 0x00000000, bhvPalmTree),
 		OBJECT(MODEL_WF_PALM_TREE, 3825, 817, -5329, 0, 0, 0, 0x00000000, bhvPalmTree),
 		OBJECT(MODEL_WF_PALM_TREE, 4743, 817, -4133, 0, 0, 0, 0x00000000, bhvPalmTree),
+		OBJECT(MODEL_WOODEN_SIGNPOST, -5665, 793, 4417, 0, -180, 0, (4 << 16), bhvMessagePanel),
 		OBJECT(MODEL_KOOPA_WITH_SHELL, -7122, 975, 1291, 0, 10, 0, (1 << 24) | (KOOPA_BP_KOOPA_THE_QUICK_BOB << 16), bhvKoopa),
 		TERRAIN(wf_area_1_collision),
 		ROOMS(wf_area_1_collision_rooms),

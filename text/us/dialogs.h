@@ -69,7 +69,7 @@ and for all!")
 DEFINE_DIALOG(DIALOG_004, 1, 3, 95, 200, "\
 Press " TEXT_ZBUTTON " to summon\n\
 "TEXT_DOG" to dig\n\
-the ashpiles!")
+the piles!")
 
 DEFINE_DIALOG(DIALOG_005, 1, 3, 30, 200, "\
 Come back later...\n\

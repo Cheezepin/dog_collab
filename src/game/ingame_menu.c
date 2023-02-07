@@ -2702,6 +2702,8 @@ void render_hub_selection(void) {
                 if(hubSelections[gWorldID][i].warpID == 0) {
                     break;
                 } else {
+                    // u8 levelString[64];
+                    // if(hubSelections[gWorldID][i].courseID > 0 && save_file_get_course_star_count(gCurrSaveFileNum - 1, hubSelections[gWorldID][i].courseID - 1))
                     print_string_with_shadow(8 + filled, 200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled ? textColor : textDiscolor);
                 }
             }
