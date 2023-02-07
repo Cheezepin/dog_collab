@@ -2616,6 +2616,26 @@ s32 gCustomStarSelectActive = 0;
 s32 gLevelEntryConfirmationActive = 0;
 s32 gHubAlertTimer = 0;
 s32 gHubAlertID = 0;
+
+u8 *get_course_string(u8 *levelString, u8 courseIndex) {
+    sprintf(levelString, "%s", hubSelections[gWorldID][courseIndex].levelNameString);
+    if(hubSelections[gWorldID][courseIndex].courseID > 0) {
+        if(hubSelections[gWorldID][courseIndex].courseID == 18) {
+            if(save_file_get_course_star_count(gCurrSaveFileNum - 1, 18) >= 1) {
+                sprintf(levelString, "%s \xFA", hubSelections[gWorldID][courseIndex].levelNameString);
+            }
+        } else if(hubSelections[gWorldID][courseIndex].courseID < 16) {
+            if(save_file_get_course_star_count(gCurrSaveFileNum - 1, hubSelections[gWorldID][courseIndex].courseID - 1) == 7) {
+                sprintf(levelString, "%s \xFA", hubSelections[gWorldID][courseIndex].levelNameString);
+            }
+        } else {
+            if(save_file_get_course_star_count(gCurrSaveFileNum - 1, hubSelections[gWorldID][courseIndex].courseID - 1) >= 1) {
+                sprintf(levelString, "%s \xFA", hubSelections[gWorldID][courseIndex].levelNameString);
+            }
+        }
+    }
+}
+
 void render_hub_selection(void) {
     u32 textColor = 0xFFFFFFFF;
     u32 textDiscolor = 0xDFDFDFFF;
@@ -2683,7 +2703,9 @@ void render_hub_selection(void) {
                 if(hubSelections[gWorldID][i].warpID == 0) {
                     break;
                 } else {
-                    render_bar(200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled);
+                    u8 levelString[64];
+                    get_course_string(levelString, i);
+                    render_bar(200 - (i*20), levelString, filled);
                 }
             }
 
@@ -2700,9 +2722,9 @@ void render_hub_selection(void) {
                 if(hubSelections[gWorldID][i].warpID == 0) {
                     break;
                 } else {
-                    // u8 levelString[64];
-                    // if(hubSelections[gWorldID][i].courseID > 0 && save_file_get_course_star_count(gCurrSaveFileNum - 1, hubSelections[gWorldID][i].courseID - 1))
-                    print_string_with_shadow(8 + filled, 200 - (i*20), hubSelections[gWorldID][i].levelNameString, filled ? textColor : textDiscolor);
+                    u8 levelString[64];
+                    get_course_string(levelString, i);
+                    print_string_with_shadow(8 + filled, 200 - (i*20), levelString, filled ? textColor : textDiscolor);
                 }
             }
 
