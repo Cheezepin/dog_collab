@@ -358,12 +358,17 @@ void store_dog_string(char *dogString, u8 fileNum) {
 #define NUM_FILES_IN_HERE 3
 void init_file_select(void) {
     FileSelectMenuState *mState = &sMenuState;
+    u8 clearedFiles;
     for (int i = 0; i < NUM_FILES_IN_HERE; i++) {
         if (save_file_exists(i)) {
             store_dog_string(sMainMenuOptList[i].label, i);
         } else {
             save_file_erase(i);
+            clearedFiles++;
         }
     }
     mState->closing = FALSE;
+    if(clearedFiles == NUM_FILES_IN_HERE) {
+        wipe_main_menu_data();
+    }
 }

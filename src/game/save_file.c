@@ -243,13 +243,17 @@ static void save_main_menu_data(void) {
     }
 }
 
-static void wipe_main_menu_data(void) {
+void wipe_main_menu_data(void) {
     bzero(&gSaveBuffer.menuData, sizeof(gSaveBuffer.menuData));
 
     // Set score ages for all courses to 3, 2, 1, and 0, respectively.
     gSaveBuffer.menuData[0].coinScoreAges[0] = 0x3FFFFFFF;
     gSaveBuffer.menuData[0].coinScoreAges[1] = 0x2AAAAAAA;
     gSaveBuffer.menuData[0].coinScoreAges[2] = 0x15555555;
+
+    #ifdef WIDE
+    gSaveBuffer.menuData[0].wideMode = 0;
+    #endif
 
     gMainMenuDataModified = TRUE;
     save_main_menu_data();
