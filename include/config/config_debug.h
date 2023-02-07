@@ -4,9 +4,9 @@
  * DEBUG SETTINGS *
  ******************/
 
-#ifndef DEBUG
-#define DEBUG
-#endif
+// #ifndef DEBUG
+// #define DEBUG
+// #endif
 
 // Enables most debug options, including PUPPYPRINT_DEBUG.
 // #define DEBUG_ALL
@@ -31,7 +31,7 @@
 // #define ENABLE_DEBUG_FREE_MOVE
 
 // Include a custom, enhanced performance profiler. (Enables PUPPYPRINT by default in config_safeguards).
-#define PUPPYPRINT_DEBUG 1
+// #define PUPPYPRINT_DEBUG 1
 
 // Press D-pad left to show the debug UI.
 // #define VANILLA_STYLE_CUSTOM_DEBUG
@@ -45,7 +45,7 @@
 
 // Same as above, but also reads all save file flags as complete.
 // This will not overwrite existing save file data unless you save over it.
-#define COMPLETE_SAVE_FILE
+// #define COMPLETE_SAVE_FILE
 
 // Removes the limit on FPS.
 // #define UNLOCK_FPS
