@@ -1058,25 +1058,25 @@ s8 determine_joystick_movement(void) {
         if(joystickCooldowns[i] == 0) {
             switch(i) {
                 case 0:
-                    if(gPlayer1Controller->stickX < -20) {
+                    if(gPlayer1Controller->stickX < -20 || (gPlayer1Controller->buttonDown & L_JPAD)) {
                         joystickCooldowns[i] = 5;
                         directionsHeld |= JOYSTICK_LEFT;
                     }
                     break;
                 case 1:
-                    if(gPlayer1Controller->stickX > 20) {
+                    if(gPlayer1Controller->stickX > 20 || (gPlayer1Controller->buttonDown & R_JPAD)) {
                         joystickCooldowns[i] = 5;
                         directionsHeld |= JOYSTICK_RIGHT;
                     }
                     break;
                 case 2:
-                    if(gPlayer1Controller->stickY > 20) {
+                    if(gPlayer1Controller->stickY > 20 || (gPlayer1Controller->buttonDown & U_JPAD)) {
                         joystickCooldowns[i] = 5;
                         directionsHeld |= JOYSTICK_UP;
                     }
                     break;
                 case 3:
-                    if(gPlayer1Controller->stickY < -20) {
+                    if(gPlayer1Controller->stickY < -20 || (gPlayer1Controller->buttonDown & D_JPAD)) {
                         joystickCooldowns[i] = 5;
                         directionsHeld |= JOYSTICK_DOWN;
                     }

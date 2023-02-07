@@ -2039,6 +2039,7 @@ void check_hurt_floor_with_height(struct MarioState *m) {
     f32 aboveFloorHeight = (f32)m->floor->force;
     if (m->pos[1] <= m->floorHeight + aboveFloorHeight) {
         take_damage_from_no_interact_object(m, HURT_FLOOR_DAMAGE);
+        play_sound(SOUND_MARIO_ATTACKED, m->marioObj->header.gfx.cameraToObject);
         set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 2);
     }
 }

@@ -2420,11 +2420,16 @@ void render_dog_keyboard(void) {
     s8 length;
     u32 white = 0xFFFFFFFF;
 
-    if(gPlayer1Controller->buttonPressed & R_TRIG)
+    if(gPlayer1Controller->buttonPressed & R_TRIG) {
         gKeyboardShifted ^= 0x1;
+        play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
+    }
 
     //gSPDisplayList(gDisplayListHead++, kb_bg_Plane_mesh);
 
+    if(gDirectionsHeld != 0) {
+        play_sound(SOUND_MENU_MESSAGE_NEXT_PAGE, gGlobalSoundSource);
+    }
     if(gDirectionsHeld & JOYSTICK_LEFT) {
         keyboardCursorX--;
         if(keyboardCursorX < 0) {
@@ -2512,6 +2517,7 @@ void render_dog_keyboard(void) {
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 
     if(length < DOG_STRING_LENGTH - 1 && (gPlayer1Controller->buttonPressed & A_BUTTON)) {
+        play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
         if(keyboardCursorY == 3 && keyboardCursorX > 5) {
             u8 key;
             switch(keyboardCursorX - 6) {
@@ -2534,6 +2540,7 @@ void render_dog_keyboard(void) {
         }
     }
     if(length > -1 && (gPlayer1Controller->buttonPressed & B_BUTTON)) {
+        play_sound(SOUND_MENU_MESSAGE_DISAPPEAR, gGlobalSoundSource);
         dogStringTemp[length] = 0x0;
     }
     save_file_set_dog_string(gCurrSaveFileNum - 1, &dogStringTemp);
@@ -2545,6 +2552,7 @@ void render_dog_keyboard(void) {
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
     if(length > -1 && gPlayer1Controller->buttonPressed & START_BUTTON) {
+        play_sound(SOUND_MENU_DOG_ROO, gGlobalSoundSource);
         gKeyboard = 0;
     }
 }
@@ -2633,6 +2641,8 @@ u8 *get_course_string(u8 *levelString, u8 courseIndex) {
                 sprintf(levelString, "%s \xFA", hubSelections[gWorldID][courseIndex].levelNameString);
             }
         }
+    } else {
+        sprintf(levelString, "%s \xFA", hubSelections[gWorldID][courseIndex].levelNameString);
     }
 }
 
