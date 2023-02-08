@@ -78,7 +78,7 @@ void bhv_tree_nut_loop(void) {
 
     o->oInteractStatus = 0;
 
-    if(o->oFloor != NULL & o->oFloor->type == SURFACE_HURT_FLOOR && o->oPosY - o->oFloorHeight < 200) {
+    if(o->oFloor != NULL & o->oFloor->type == SURFACE_HURT_FLOOR_WITH_HEIGHT && o->oPosY - o->oFloorHeight < 200) {
         vec3f_copy(&o->oPosX, &o->oHomeX);
     }
                 break;
