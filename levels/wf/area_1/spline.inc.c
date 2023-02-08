@@ -32,12 +32,6 @@ const Trajectory wf_area_1_spline_mipsPath_003[] = {
 	TRAJECTORY_POS( 2, 9639, 806, 8881),
 	TRAJECTORY_END(),
 };
-
-const Trajectory *const wf_seg7_trajectory_mips[] = {
-    wf_area_1_spline_mipsPath,     wf_area_1_spline_mipsPath_001,
-	wf_area_1_spline_mipsPath_002, wf_area_1_spline_mipsPath_003,
-};
-
 struct CutsceneSplinePoint wf_area_1_spline_pos[] = {
 	{ 0, 1, { 273, 1181, 8320 }},
 	{ 1, 1, { -1427, 1181, 8294 }},

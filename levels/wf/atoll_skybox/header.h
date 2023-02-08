@@ -1,11 +1,5 @@
-extern u8 atoll_skybox_cloud_floor_rgba32[];
+extern u8 atoll_skybox_cloud_floor_i8_crop_i8[];
 extern Vtx atoll_skybox_backdrop_mesh_vtx_cull[8];
 extern Vtx atoll_skybox_backdrop_mesh_vtx_0[41];
-extern Gfx atoll_skybox_backdrop_mesh_tri_0[];
-extern Vtx atoll_skybox_backdrop_mesh_vtx_1[432];
-extern Gfx atoll_skybox_backdrop_mesh_tri_1[];
-extern Gfx mat_atoll_skybox_bright_white[];
-extern Gfx mat_revert_atoll_skybox_bright_white[];
-extern Gfx mat_atoll_skybox_cloudy_sky[];
-extern Gfx mat_revert_atoll_skybox_cloudy_sky[];
+extern Vtx atoll_skybox_backdrop_mesh_vtx_1[144];
 extern Gfx atoll_skybox_backdrop_mesh[];

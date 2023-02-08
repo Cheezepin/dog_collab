@@ -70,6 +70,13 @@
 
 #include "levels/wf/leveldata.inc.c"
 
+
+const Trajectory *const wf_seg7_trajectory_mips[] = {
+    wf_area_1_spline_mipsPath,     wf_area_1_spline_mipsPath_001,
+	wf_area_1_spline_mipsPath_002, wf_area_1_spline_mipsPath_003,
+};
+
+
 #include "levels/wf/wf_palm_tree/model.inc.c"
 #include "levels/wf/wf_palm_tree/anims/data.inc.c"
 #include "levels/wf/wf_palm_tree/anims/table.inc.c"
