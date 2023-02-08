@@ -716,11 +716,13 @@ static s16 obj_turn_pitch_toward_mario_rovert(f32 targetOffsetY, s16 turnAmount)
 }
 
 void bhv_missile_loop(void) {
-    o->oMoveAnglePitch = obj_turn_pitch_toward_mario_rovert(120.0f, 80);
-    o->oFaceAnglePitch = -o->oMoveAnglePitch;
-    o->oGravity = 0;
-    o->oFaceAngleYaw = o->oMoveAngleYaw+0x7FFF;
-    obj_turn_toward_object(o, gMarioObject, 16, 0x100);
+    if(o->oTimer < 15) {
+        o->oMoveAnglePitch = obj_turn_pitch_toward_mario_rovert(120.0f, 80);
+        o->oFaceAnglePitch = -o->oMoveAnglePitch;
+        o->oGravity = 0;
+        o->oFaceAngleYaw = o->oMoveAngleYaw+0x7FFF;
+        obj_turn_toward_object(o, gMarioObject, 16, 0x100);
+    }
 
     o->oForwardVel = 40.0f *  coss(o->oMoveAnglePitch);
     o->oVelY       = 40.0f * -sins(o->oMoveAnglePitch);

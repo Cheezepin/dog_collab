@@ -56,6 +56,7 @@ void bhv_tree_nut_loop(void) {
 
     struct Object *dirtPile;
     struct Object *sussy;
+    struct Surface *floor;
     dirtPile = cur_obj_nearest_object_with_behavior(bhvDirtPile);
     if (dirtPile && dirtPile->oAction == 0 && absf(o->oPosX - dirtPile->oPosX) < 200.0f && absf(o->oPosZ - dirtPile->oPosZ) < 200.0f) {
             play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
@@ -76,6 +77,10 @@ void bhv_tree_nut_loop(void) {
 
 
     o->oInteractStatus = 0;
+
+    if(o->oFloor != NULL & o->oFloor->type == SURFACE_HURT_FLOOR && o->oPosY - o->oFloorHeight < 200) {
+        vec3f_copy(&o->oPosX, &o->oHomeX);
+    }
                 break;
 
             case HELD_HELD:

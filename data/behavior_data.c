@@ -6755,6 +6755,7 @@ const BehaviorScript bhvTreeNut[] = {
     SET_INT(oInteractType, INTERACT_GRABBABLE),
     //SET_INT(oInteractionSubtype, INT_SUBTYPE),
     SET_HITBOX(/*Radius*/ 80, /*Height*/ 80),
+    SET_HOME(),
     //SET_INT(oIntangibleTimer, 0),
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
 	CALL_NATIVE(bhv_tree_nut_init),
