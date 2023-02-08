@@ -61,7 +61,7 @@ reset_act_1() {
     _2639_BoB_A1_ToadTalkLatch = 0;
 }
 
-// s32 in2639Level(struct Object *co) {
+// s32 in2639Level_Compat(struct Object *co) {
 //     f32 throw;
 //     struct Object *oo = cNearestObj_Bhv(bhv2639_DRM, &throw);
 
