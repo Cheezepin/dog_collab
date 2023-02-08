@@ -1,3 +1,4 @@
-extern void scroll_sts_mat_wf_dl_atoll_water_layer7();
-extern void scroll_sts_mat_wf_dl_ground_lava_layer1();
+extern void scroll_gfx_wf_dl_ocean_mesh_layer_7();
+extern void scroll_gfx_wf_dl_water_mesh_layer_7();
+extern void scroll_gfx_wf_dl_Interior_Volcano_mesh_layer_1();
 extern void scroll_wf();
