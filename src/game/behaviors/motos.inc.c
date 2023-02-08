@@ -201,7 +201,7 @@ void bhv_motos_main() {
     // Added to detect lava death
     floorY = find_floor(o->oPosX, o->oPosY, o->oPosZ, &sObjFloor);
     if (sObjFloor != NULL) {
-        if ((floorY + 1.f > o->oPosY) && (sObjFloor->type == SURFACE_BURNING)) {
+        if ((floorY + 1.f > o->oPosY) && (sObjFloor->type == SURFACE_BURNING || sObjFloor->type == SURFACE_LAVA_HURT_FLOOR)) {
             o->oAction = MOTOS_ACT_DEATH;
         }
     }

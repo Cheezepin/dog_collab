@@ -38,6 +38,7 @@ const LevelScript level_castle_grounds_entry[] = {
 	JUMP_LINK(script_func_global_1), 
 	JUMP_LINK(script_func_global_11), 
 	JUMP_LINK(script_func_global_16), 
+	LOAD_MODEL_FROM_GEO(MODEL_STAR,                    star_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
