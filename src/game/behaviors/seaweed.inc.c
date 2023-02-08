@@ -4,7 +4,10 @@ void bhv_seaweed_init(void) {
     o->header.gfx.animInfo.animFrame = random_float() * 80.0f;
 }
 
+extern u8 gIsConsole;
 void bhv_seaweed_bundle_init(void) {
+    if (gIsConsole) return;
+
     struct Object *seaweed;
 
     seaweed = spawn_object(o, MODEL_SEAWEED, bhvSeaweed);
