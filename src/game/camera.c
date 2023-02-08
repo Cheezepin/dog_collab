@@ -1134,7 +1134,7 @@ s32 snap_to_45_degrees(s16 angle) {
     return angle;
 }
 
-void process_8dir_inputs(struct Camera *c) {
+void process_8dir_inputs(UNUSED struct Camera *c) {
     gLakituState.timeSinceManualRot = MIN(gLakituState.timeSinceManualRot + 1, 0x1000);
 
     if (gPlayer1Controller->buttonPressed & R_CBUTTONS) {
@@ -1553,7 +1553,7 @@ s32 process_hallway_spline_vol(struct Camera *c, CozyVol *vol) {
     // move through spline in the other direction from mario for focus position
     traverse_spline_by_dist(splineArray, focusPos, marioOnLinePos, travelDistInFront, splineStart, c->splineLen, c->splineDir);
 
-    s16 camYaw = s8DirModeBaseYaw + s8DirModeYawOffset;
+    // s16 camYaw = s8DirModeBaseYaw + s8DirModeYawOffset;
 
     // mostly use focus position but allow mario to influence the position as well
     // to round corners and prevent him from getting out of view
@@ -1621,7 +1621,7 @@ s32 check_surf_isnt_flat(struct Surface *surf) {
 }
 
 #define SURF_CAST_RADIUS 20.0f
-s16 process_raycast_cam_collision(struct Camera *c, Vec3f focus, Vec3f pos) {
+s16 process_raycast_cam_collision(struct Camera *c, UNUSED Vec3f focus, Vec3f pos) {
     struct Surface *surf = NULL;
     struct Surface *surf2 = NULL;
     Vec3f camdir;
@@ -3404,7 +3404,7 @@ void update_lakitu(struct Camera *c) {
     f32 distToFloor;
     s16 newYaw;
 
-    if (c->init_view_timer > 0) {
+    if (c->init_view_timer > __FLT_EPSILON__) {
         c->init_view_timer -= 1.0f;
 
         if (gMarioState->controller->buttonPressed & C_BUTTONS) {
@@ -3414,7 +3414,7 @@ void update_lakitu(struct Camera *c) {
             c->init_view_timer *= 0.95f;
         }
 
-        if (c->init_view_timer > 0) {
+        if (c->init_view_timer > __FLT_EPSILON__) {
             f32 fac = smooth_fac(get_lerp(c->init_view_timer, CAM_INIT_TIMER_LERP_START, 0));
 
             gLakituState.posHSpeed = gLakituState.posVSpeed = fac * 0.3f;
@@ -3431,6 +3431,7 @@ void update_lakitu(struct Camera *c) {
         } else {
             gLakituState.posHSpeed = gLakituState.posVSpeed = 0.3f;
             set_fov_function(CAM_FOV_DEFAULT);
+            c->init_view_timer = -1;
         }
     }
 
@@ -3554,8 +3555,7 @@ void update_camera(struct Camera *c) {
 #endif
 
     if (gCurrLevelNum == LEVEL_COZIES) {
-        s32 res = check_cozy_volumes(c, gMarioState);
-        // print_text(20, 20, res ? "YES" : "NO");
+        check_cozy_volumes(c, gMarioState);
     } else {
         c->curVolume = NULL;
     }
@@ -3769,8 +3769,8 @@ void update_camera(struct Camera *c) {
 
     //mrcomit code
     if (gCurrLevelNum == LEVEL_BBH && gComitCam == 1) {
-        vec3f_copy(&c->pos, gComitCamPos[0]);
-        vec3f_copy(&c->focus, gComitCamPos[1]);
+        vec3f_copy(c->pos, gComitCamPos[0]);
+        vec3f_copy(c->focus, gComitCamPos[1]);
         gCamera->yaw = gCamera->nextYaw = 0;
         gComitCam = 2;
         s8DirModeBaseYaw = 0;
@@ -6857,7 +6857,7 @@ struct CutsceneSplinePoint sEndingLookAtSkyFocus[] = {
  * @return the camera's mode after processing, although this is unused in the code
  */
 s16 camera_course_processing(struct Camera *c) {
-    if (gCurrLevelNum != LEVEL_BOB) return;
+    if (gCurrLevelNum != LEVEL_BOB) return c->mode;
 
     s16 level = gCurrLevelNum;
     s8 area = gCurrentArea->index;
@@ -9922,6 +9922,7 @@ void cutscene_hub_world(struct Camera *c) {
                 orbitAngle = 0x8800;
                 break;
             case 2:
+            default:
                 //vec3f_set(pos, -3779.0f, -15560.0f, 2788.0f);
                 targetYawPos = 0xD100;
                 targetPitchPos = 0xCC00;
@@ -9943,7 +9944,7 @@ void cutscene_hub_world(struct Camera *c) {
     } else {
         //Vec3f *targetPos = &hubSelections[gWorldID][gFocusID].camPos;
         //Vec3f *targetFocus = &hubSelections[gWorldID][gFocusID].camFocus;
-        s32 addendum = (gPlayer1Controller->buttonDown & L_TRIG ? 0x10 : 0x100);
+        // s32 addendum = (gPlayer1Controller->buttonDown & L_TRIG ? 0x10 : 0x100);
 
         gHubTargetYawPos = approach_s16_asymptotic(gHubTargetYawPos, hubSelections[gWorldID][gFocusID].camYawPos, 4);
         gHubTargetPitchPos = approach_s16_asymptotic(gHubTargetPitchPos, hubSelections[gWorldID][gFocusID].camPitchPos, 4);
@@ -10717,8 +10718,8 @@ s32 gEndingCutsceneState = 0;
 s32 peachSpin = 0;
 
 void cutscene_ending(struct Camera *c) {
-    Vec3f focus;
-    Vec3f pos;
+    // Vec3f focus;
+    // Vec3f pos;
     struct Object *peach = find_any_object_with_behavior(bhvPeachEnding);
     if(peach) {
         switch(gEndingCutsceneState) {
@@ -12246,15 +12247,15 @@ static UNUSED void unused_displace_obj_randomly(struct Object *obj, f32 xRange, 
     obj->oPosZ += (rnd * zRange - zRange / 2.f);
 }
 
-/**
- * Rotate an object in a random direction within the given bounds.
- */
-static void rotate_obj_randomly(struct Object *obj, float pitchRange, float yawRange) {
-    float rnd = random_float();
+// /**
+//  * Rotate an object in a random direction within the given bounds.
+//  */
+// static void rotate_obj_randomly(struct Object *obj, float pitchRange, float yawRange) {
+//     float rnd = random_float();
 
-    obj->oMoveAnglePitch += (short)(rnd * pitchRange - pitchRange / 2.f);
-    obj->oMoveAngleYaw   += (short)(rnd *   yawRange -   yawRange / 2.f);
-}
+//     obj->oMoveAnglePitch += (short)(rnd * pitchRange - pitchRange / 2.f);
+//     obj->oMoveAngleYaw   += (short)(rnd *   yawRange -   yawRange / 2.f);
+// }
 
 /**
  * Rotate the object towards the point `point`.

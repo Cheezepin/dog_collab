@@ -305,6 +305,9 @@ void change_area(s32 index) {
     if (areaFlags & AREA_FLAG_LOAD) {
         gMarioObject->header.gfx.areaIndex = index, gMarioSpawnInfo->areaIndex = index;
     }
+
+    // prevent instant warp crash
+    gCurrentArea->camera->init_view_timer = -1;
 }
 
 void area_update_objects(void) {
