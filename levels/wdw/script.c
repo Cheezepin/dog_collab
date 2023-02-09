@@ -133,7 +133,7 @@ const LevelScript level_wdw_entry[] = {
 		OBJECT(MODEL_NONE, -2127, 661, -570, 0, 0, 0, (5 << 24), bhvStar),
 		OBJECT(MODEL_MAPLETREE, -6727, 1729, 3081, 0, 0, 0, (100 << 16), bhvPoleGrabbing),
 		OBJECT(MODEL_TREE_NUT, -6060, 2052, 3139, 0, 0, 0, 0x00000000, bhvTreeNut),
-		OBJECT(MODEL_TREE_NUT, -5661, 3411, -6318, 0, 0, 0, 0x00000000, bhvTreeNut),
+		OBJECT(MODEL_TREE_NUT, -4973, 5343, -1941, 0, 0, 0, 0x00000000, bhvTreeNut),
 		OBJECT(MODEL_TREE_NUT, -817, 4634, -6148, 0, 0, 0, 0x00000000, bhvTreeNut),
 		OBJECT(MODEL_MAPLETREE, 1702, 2089, -1487, 0, -57, 0, (100 << 16), bhvPoleGrabbing),
 		OBJECT(MODEL_MAPLETREE, 401, 2089, -2454, 0, 93, 0, (100 << 16), bhvPoleGrabbing),
