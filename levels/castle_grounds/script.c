@@ -34,11 +34,10 @@ const LevelScript level_castle_grounds_entry[] = {
 	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0F, _common0_geoSegmentRomStart, _common0_geoSegmentRomEnd), 
 	ALLOC_LEVEL_POOL(),
-	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
+	MARIO(MODEL_MARIO, 0x00000001, bhvMario),
 	JUMP_LINK(script_func_global_1), 
 	JUMP_LINK(script_func_global_11), 
 	JUMP_LINK(script_func_global_16), 
-	LOAD_MODEL_FROM_GEO(MODEL_STAR,                    star_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
