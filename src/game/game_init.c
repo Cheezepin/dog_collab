@@ -501,6 +501,18 @@ static void auto_dither_filter(void) {
     static u32 prevTime = 40000;
     static s32 overrideTimer = 0;
     static s32 overrideFilter = FALSE;
+    static s32 lastDitherMode = DITHER_MODE_AUTO;
+
+    if (gConfig.ditherMode != lastDitherMode) {
+        if (gConfig.ditherMode == DITHER_MODE_OFF) osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
+        if (gConfig.ditherMode == DITHER_MODE_ON) osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
+        lastDitherMode = gConfig.ditherMode;
+    }
+    if (gConfig.ditherMode > 0) {
+        overrideFilter = gConfig.ditherMode != DITHER_MODE_ON;
+        prevTime = osGetTime();
+        return;
+    }
 
     switch (gCurrLevelNum) {
         case LEVEL_CASTLE_GROUNDS:

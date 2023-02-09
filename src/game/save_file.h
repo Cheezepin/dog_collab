@@ -197,6 +197,7 @@ void save_file_set_star_flags(s32 fileIndex, s32 courseIndex, u32 starFlags);
 s32 save_file_get_course_coin_score(s32 fileIndex, s32 courseIndex);
 s32 save_file_is_cannon_unlocked(void);
 void save_file_set_cannon_unlocked(void);
+void wipe_main_menu_data(void);
 // void save_file_set_cap_pos(s16 x, s16 y, s16 z);
 // s32 save_file_get_cap_pos(Vec3s capPos);
 #ifdef SAVE_NUM_LIVES
