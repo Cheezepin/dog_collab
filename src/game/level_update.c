@@ -430,6 +430,7 @@ void init_mario_after_warp(void) {
 // used for warps inside one level
 void warp_area(void) {
     if (sWarpDest.type != WARP_TYPE_NOT_WARPING) {
+        gEndResultsActive = 0;
         if (sWarpDest.type == WARP_TYPE_CHANGE_AREA) {
             level_control_timer(TIMER_CONTROL_HIDE);
             unload_mario_area();
@@ -442,6 +443,7 @@ void warp_area(void) {
 
 // used for warps between levels
 void warp_level(void) {
+    gEndResultsActive = 0;
     gCurrLevelNum = sWarpDest.levelNum;
 
     level_control_timer(TIMER_CONTROL_HIDE);
@@ -1306,6 +1308,7 @@ s32 init_level(void) {
 
     sDelayedWarpOp = WARP_OP_NONE;
     sTransitionTimer = 0;
+    gEndResultsActive = 0;
     sSpecialWarpDest = WARP_SPECIAL_NONE;
 
     if (gCurrCreditsEntry == NULL) {
