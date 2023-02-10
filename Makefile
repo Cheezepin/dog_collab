@@ -597,7 +597,7 @@ load: $(ROM)
 	cp $< /run/media/$(USER)/CF62-9261/
 
 coz: $(ROM)
-	./UNFLoader.exe $(LOADER_FLAGS) $(ROM)
+	UNFLoader.exe $(LOADER_FLAGS) $(ROM)
 
 libultra: $(BUILD_DIR)/libultra.a
 
