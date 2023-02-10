@@ -384,6 +384,21 @@ void play_transition_after_delay(s16 transType, s16 time, u8 red, u8 green, u8 b
 
 s32 gEndResultsActive = 0;
 
+u8 transitionColors[] = {0,0,0,0};
+
+u32 approach_transition_colors(void) {
+    transitionColors[0] = approach_s32_symmetric(transitionColors[0], gWarpTransRed, 10);
+    transitionColors[1] = approach_s32_symmetric(transitionColors[1], gWarpTransBlue, 10);
+    transitionColors[2] = approach_s32_symmetric(transitionColors[2], gWarpTransGreen, 10);
+    RGBA16 warpTransitionRGBA16 =
+        ((transitionColors[0] >> 3) << IDX_RGBA16_R)
+        | ((transitionColors[1] >> 3) << IDX_RGBA16_G)
+        | ((transitionColors[2] >> 3) << IDX_RGBA16_B)
+        | MSK_RGBA16_A;
+
+    return (warpTransitionRGBA16 << 16) | warpTransitionRGBA16;
+}
+
 void render_game(void) {
     if (gCurrentArea != NULL && !gWarpTransition.pauseRendering) {
         if (gCurrentArea->graphNode) {
@@ -438,15 +453,22 @@ void render_game(void) {
         }
     }
 
+    u32 tColor = approach_transition_colors();
     if(gEndResultsActive) {
-        if(gWarpTransition.pauseRendering) {
+        if(gWarpTransition.pauseRendering || gWarpTransition.isActive) {
+            render_text_labels();
+            if (gViewportClip != NULL) {
+                clear_viewport(gViewportClip, tColor);
+            } else {
+                clear_framebuffer(tColor);
+            }
             gSPViewport(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(&gViewport));
 
             gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, gScreenWidth,
                         gScreenHeight - gBorderHeight);
             render_hud();
+            end_results_loop();
         }
-        end_results_loop();
     }
 
     gViewportOverride = NULL;

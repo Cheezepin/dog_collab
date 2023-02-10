@@ -3324,7 +3324,6 @@ void end_results_loop(void) {
                 }
                 gEndResultMenuState = 2;
                 gEndResultMenuChoice = 0;
-                gEndResultsActive = 0;
                 gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
                 gCoinStarCollected = 0;
                 gRedCoinStarCollected = 0;
@@ -3353,7 +3352,6 @@ void end_results_loop(void) {
                     gCustomStarSelectActive = 0;
                     gLevelEntryConfirmationActive = 0;
                     gEndResultMenuState = 2;
-                    gEndResultsActive = 0;
                     gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
                 }
                 if(nextUnfinishedAct == 0) {

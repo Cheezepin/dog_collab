@@ -478,4 +478,6 @@ void init_file_select(void) {
     if(clearedFiles == NUM_FILES_IN_HERE) {
         wipe_main_menu_data();
     }
+
+    gEndResultsActive = FALSE;
 }
