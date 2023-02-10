@@ -17,7 +17,7 @@ DEFINE_COURSE(COURSE_JRB, 0x20444440) // (3)  Jolly Rodger's Bay (CowQuack, Swir
 DEFINE_COURSE(COURSE_CCM, 0x10102340) // (4)  Cool Cool Mountain (Rovert, Peach Ruins)
 DEFINE_COURSE(COURSE_BBH, 0x44444440) // (5)  Big Boo's Haunt (MrComit, Cumulus Correctional Center)
 DEFINE_COURSE(COURSE_HMC, 0x44444440) // (6)  Hazy Maze Cave (Fazana, Factory)
-DEFINE_COURSE(COURSE_LLL, 0x44444440) // (7)  Lethal Lava Land (Yoshi Milkman, Feudal Fortress)
+DEFINE_COURSE(COURSE_LLL, 0x20022240) // (7)  Lethal Lava Land (Yoshi Milkman, Feudal Fortress)
 DEFINE_COURSE(COURSE_SSL, 0x44444440) // (8)  Shifting Sand Land (Reonu, Floating Lava Lands)
 DEFINE_COURSE(COURSE_DDD, 0x22222240) // (9)  Dire Dire Docks (thecozies, Bowser's Scuba Tower)
 DEFINE_COURSE(COURSE_SL, 0x44444440) // (10) Snowman's Land (axollyon, Upside-Down Ocean)
