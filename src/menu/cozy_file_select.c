@@ -20,6 +20,7 @@
 #include "game/segment7.h"
 #include "game/spawn_object.h"
 #include "game/rumble_init.h"
+#include "game/main.h"
 #include "sm64.h"
 #include "text_strings.h.in"
 #include "buffers/buffers.h"
@@ -33,6 +34,9 @@ s32 on_erase_game(FileSelectMenuState *mState);
 s32 on_erase_game_button(FileSelectMenuState *mState);
 s32 on_continue_game(FileSelectMenuState *mState);
 s32 on_pop_menu(FileSelectMenuState *mState);
+s32 on_change_enum_option(FileSelectMenuState *mState);
+s32 on_change_enum_option_widescreen(FileSelectMenuState *mState);
+s32 on_open_options(FileSelectMenuState *mState);
 extern FileSelectMenu sMainMenu;
 extern FileSelectMenu sExistingFileMenu;
 
@@ -84,10 +88,47 @@ FileSelectOption sNewFileOptions[] = {
 };
 FileSelectMenu sNewFileMenu = MENU_OPTIONS(sNewFileOptions, "New file?", &sMainMenu, MENU_TYPE_BASIC);
 
+EnumOption sAspectOptions[] = {
+    { .label = "4:3",  value: 0 },
+    { .label = "16:9", value: 1 },
+};
+
+EnumOption sDitherOptions[] = {
+    { .label = "Automatic", value: DITHER_MODE_AUTO },
+    { .label = "On",        value: DITHER_MODE_ON },
+    { .label = "Off",       value: DITHER_MODE_OFF },
+};
+
+FileSelectOption sOptionsOptions[] = {
+    {
+        .label = "Aspect ratio",
+        .onSelect = &on_change_enum_option_widescreen,
+        .disabled = FALSE,
+        .enumOptions = sAspectOptions,
+        .numEnumOptions = 2,//ARRAY_COUNT(sAspectOptions),
+        .curEnumValue = &gConfig.widescreen
+    },
+    {
+        .label = "Dithering",
+        .onSelect = &on_change_enum_option,
+        .disabled = FALSE,
+        .enumOptions = sDitherOptions,
+        .numEnumOptions = 3,//ARRAY_COUNT(sDitherOptions),
+        .curEnumValue = &gConfig.ditherMode
+    },
+    {
+        .label = "Cancel",
+        .onSelect = &on_pop_menu,
+        .disabled = FALSE,
+    },
+};
+FileSelectMenu sOptionsMenu = MENU_OPTIONS(sOptionsOptions, "Options", &sMainMenu, MENU_TYPE_BASIC);
+
 enum MM_OPTS {
     MAIN_MENU_OPT_SAVE_A,
     MAIN_MENU_OPT_SAVE_B,
     MAIN_MENU_OPT_SAVE_C,
+    MAIN_MENU_OPT_OPTIONS,
 };
 
 #define START_NEW_GAME_TEXT "Start new game"
@@ -112,13 +153,21 @@ FileSelectOption sMainMenuOptList[] = {
         .onSelect = &on_select_game,
         .disabled = FALSE,
     },
+    [MAIN_MENU_OPT_OPTIONS] = {
+        .label = "Options",
+        .onSelect = &on_open_options,
+        .disabled = FALSE,
+        .overrideMenuType = TRUE
+    },
 };
 
 FileSelectMenu sMainMenu = MENU_OPTIONS(sMainMenuOptList, "Select a file", NULL, MENU_TYPE_NUMBERED);
 
 FileSelectMenuState sMenuState = {
     .waitingForStickReturn = FALSE,
+    .waitingForEnumStickReturn = FALSE,
     .optDirection = 0,
+    .enumDirection = 0,
     .menu = &sMainMenu,
     .parentMenu = NULL,
     .alpha = 0,
@@ -162,6 +211,34 @@ s32 on_continue_game(UNUSED FileSelectMenuState *mState) {
     return OPT_CALLBACK_CLOSE;
 }
 
+s32 on_change_enum_option(FileSelectMenuState *mState) {
+    FileSelectOption *opt = &mState->menu->options[mState->menu->curOpt];
+    s16 newValue = *opt->curEnumValue + mState->enumDirection;
+    if (newValue < 0) newValue = opt->numEnumOptions - 1;
+    if (newValue >= opt->numEnumOptions) newValue = 0;
+
+    osSyncPrintf("on_change_enum_option %d -> %d\n", *opt->curEnumValue, newValue);
+    *opt->curEnumValue = newValue;
+    osSyncPrintf("gConfig.widescreen %d\n", gConfig.widescreen);
+    osSyncPrintf("gConfig.ditherMode %d\n\n", gConfig.ditherMode);
+
+    return OPT_CALLBACK_NONE;
+}
+
+s32 on_change_enum_option_widescreen(FileSelectMenuState *mState) {
+    on_change_enum_option(mState);
+    save_file_set_widescreen_mode(gConfig.widescreen);
+
+    return OPT_CALLBACK_NONE;
+}
+
+s32 on_open_options(FileSelectMenuState *mState) {
+    mState->menu = &sOptionsMenu;
+    sOptionsMenu.curOpt = 0;
+
+    return OPT_CALLBACK_NONE;
+}
+
 // this menu callbacks end
 
 ALWAYS_INLINE void play_change_option_sound(void) {
@@ -194,6 +271,7 @@ void use_menu_direction(FileSelectMenuState *mState) {
 
 s32 get_menu_inputs(FileSelectMenuState *mState) {
     mState->optDirection = 0;
+    mState->enumDirection = 0;
     struct Controller *cont = gPlayer1Controller;
 
     if (cont->buttonPressed & (A_BUTTON | START_BUTTON)) {
@@ -221,6 +299,22 @@ s32 get_menu_inputs(FileSelectMenuState *mState) {
         mState->waitingForStickReturn = FALSE;
     }
 
+    if (!mState->waitingForEnumStickReturn) {
+        if ((cont->rawStickX < -60) || (cont->buttonPressed & (L_CBUTTONS | L_JPAD))) mState->enumDirection--;
+        else if ((cont->rawStickX > 60) || (cont->buttonPressed & (R_CBUTTONS | R_JPAD))) mState->enumDirection++;
+
+        if (mState->enumDirection != 0) {
+            mState->waitingForEnumStickReturn = TRUE;
+
+            if (mState->menu->options[mState->menu->curOpt].enumOptions) {
+                mState->menu->options[mState->menu->curOpt].onSelect(mState);
+                play_change_option_sound();
+            }
+        }
+    } else if (ABS(cont->rawStickX) < 20 && !(cont->buttonDown & (L_CBUTTONS | L_JPAD | R_CBUTTONS | R_JPAD))) {
+        mState->waitingForEnumStickReturn = FALSE;
+    }
+
     return FILE_SELECT_PRESS_NONE;
 }
 
@@ -242,6 +336,7 @@ void render_menu(FileSelectMenuState *mState) {
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, mState->alpha);
     if (mState->menu->label) print_hud_lut_string(HUD_LUT_DIFF, MENU_PADDING, MENU_PADDING, (u8 *)mState->menu->label);
 
+    s32 isNumbered = mState->menu->menuType == MENU_TYPE_NUMBERED;
     for (int i = 0; i < mState->menu->numOptions; i++) {
         FileSelectOption *opt = &mState->menu->options[i];
         s32 yPos = MENU_OPT_LINE_Y(i, mState->menu->numOptions);
@@ -258,13 +353,21 @@ void render_menu(FileSelectMenuState *mState) {
             gDPSetEnvColor(gDisplayListHead++, 150, 150, 150, mState->alpha);
         }
 
-        if (mState->menu->menuType == MENU_TYPE_NUMBERED) {
+        if (isNumbered && !opt->overrideMenuType) {
             char numStr[4];
             sprintf(numStr, "%d.", i+1);
             print_hud_lut_string(HUD_LUT_DIFF, MENU_PADDING, yPos, (u8 *)numStr);
-            print_hud_lut_string(HUD_LUT_DIFF, MENU_PADDING+20, yPos, (u8 *)opt->label);
+            print_hud_lut_string(HUD_LUT_DIFF, MENU_PADDING + 20, yPos, (u8 *)opt->label);
+        } else if (opt->enumOptions) {
+            char strBuffer[64];
+            EnumOption *curEnumOpt = &opt->enumOptions[*opt->curEnumValue];
+            sprintf(strBuffer, "%s: %s", opt->label, curEnumOpt->label);
+
+            s32 offset = isNumbered ? 0 : 8;
+            print_hud_lut_string(HUD_LUT_DIFF, MENU_PADDING + offset, yPos, (u8 *)strBuffer);
         } else {
-            print_hud_lut_string(HUD_LUT_DIFF, MENU_PADDING+8, yPos, (u8 *)opt->label);
+            s32 offset = isNumbered ? 0 : 8;
+            print_hud_lut_string(HUD_LUT_DIFF, MENU_PADDING + offset, yPos, (u8 *)opt->label);
         }
     }
 
@@ -277,6 +380,10 @@ s32 process_menu(FileSelectMenuState *mState) {
 
     switch (input) {
         case FILE_SELECT_PRESS_CONFIRM:
+            if (mState->menu->options[mState->menu->curOpt].enumOptions) {
+                mState->enumDirection = 1;
+            }
+
             play_confirm_selection_sound();
             FileSelectOption *opt = &mState->menu->options[mState->menu->curOpt];
             result = opt->onSelect(mState);
@@ -358,7 +465,7 @@ void store_dog_string(char *dogString, u8 fileNum) {
 #define NUM_FILES_IN_HERE 3
 void init_file_select(void) {
     FileSelectMenuState *mState = &sMenuState;
-    u8 clearedFiles;
+    u8 clearedFiles = 0;
     for (int i = 0; i < NUM_FILES_IN_HERE; i++) {
         if (save_file_exists(i)) {
             store_dog_string(sMainMenuOptList[i].label, i);
@@ -371,4 +478,6 @@ void init_file_select(void) {
     if(clearedFiles == NUM_FILES_IN_HERE) {
         wipe_main_menu_data();
     }
+
+    gEndResultsActive = FALSE;
 }

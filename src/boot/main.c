@@ -53,7 +53,7 @@ OSMesg gUnknownMesgBuf[16];
 
 OSViMode VI;
 
-struct Config gConfig;
+struct Config gConfig = { .ditherMode = DITHER_MODE_AUTO };
 
 struct VblankHandler *gVblankHandler1       = NULL;
 struct VblankHandler *gVblankHandler2       = NULL;

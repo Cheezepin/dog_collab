@@ -24,11 +24,18 @@
 #define SCREEN_CENTER_X (SCREEN_WIDTH  / 2)
 #define SCREEN_CENTER_Y (SCREEN_HEIGHT / 2)
 
+enum DitherModes {
+    DITHER_MODE_AUTO,
+    DITHER_MODE_ON,
+    DITHER_MODE_OFF,
+};
+
 struct Config {
     f32 audioFrequency;
 #ifdef WIDE
     s16 widescreen;
 #endif
+    s16 ditherMode;
     u8 tvType;
 };
 

@@ -3392,6 +3392,12 @@ void set_camera_mode(struct Camera *c, s16 mode, s16 frames) {
 
         vec3f_get_dist_and_angle(start->focus, start->pos, &start->dist, &start->pitch, &start->yaw);
         vec3f_get_dist_and_angle(end->focus, end->pos, &end->dist, &end->pitch, &end->yaw);
+
+        if (sModeInfo.lastMode == CAMERA_MODE_C_UP) {
+            set_fov_function(CAM_FOV_DEFAULT);
+            gMarioState->fadeWarpOpacity = 255;
+            gMarioState->flags &= ~MARIO_TELEPORTING;
+        } 
 }
 
 /**
