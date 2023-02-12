@@ -15,6 +15,7 @@ void bhv_emu_bomb_init(void) {
     o->oFriction = 0.8f;
     o->oBuoyancy = 1.3f;
     o->oInteractionSubtype = INT_SUBTYPE_KICKABLE;
+    spawn_object_relative(ORANGE_NUMBER_A, 0, 160,  8, o, MODEL_NUMBER, bhvOrangeNumber);
 }
 
 void emu_bomb_spawn_coin(void) {
@@ -147,7 +148,6 @@ if (o->oInteractStatus & INT_STATUS_HIT_MINE)
         set_camera_shake_from_point(SHAKE_POS_LARGE, o->oPosX, o->oPosY, o->oPosZ);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
-
     set_object_visibility(o, 7000);
     
     if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 4000) != 0) {
