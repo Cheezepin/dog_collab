@@ -1273,6 +1273,7 @@ void bowser_act_electric_expansion (void){
 
 void bowser_act_sky_attack(void){
     o->oPosY = 500.0f;
+    cur_obj_play_sound_2(SOUND_OBJ2_BOWSER_ROAR);
     struct Object *wave;
     if(o->oTimer%60 == 1){
     wave = spawn_object(o, MODEL_EMU_LASER_RING, bhvLaserRing);
@@ -1381,7 +1382,7 @@ void bowser_act_propane_shooter(void) {
     o->oFaceAngleYaw += 0x600;
     o->oMoveAngleYaw = o->oFaceAngleYaw;
     if (o->oDistanceToMario < 8000.0f) {
-        cur_obj_play_sound_1(SOUND_AIR_BLOW_FIRE);
+        cur_obj_play_sound_1(SOUND_AIR_BOWSER_SPIT_FIRE);
         if (gIsConsole == 1){
         if (o->oTimer%2) {
             obj = spawn_object(o,MODEL_BLUE_FLAME,bhvPropane);
