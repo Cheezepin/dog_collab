@@ -139,7 +139,7 @@ const LevelScript level_pss_entry[] = {
 		WARP_NODE(1, LEVEL_PSS, 3, 1, WARP_NO_CHECKPOINT),
 		WARP_NODE(2, LEVEL_PSS, 4, 1, WARP_NO_CHECKPOINT),
 		OBJECT(0x1F6, -1167, -1, -1, 0, 0, 0, (0 << 16), bhvLaserRingSpawner),
-		OBJECT(0x1F6, -7177, 0, 0, 0, 0, 0, (1 << 16), bhvLaserRingSpawner),
+		OBJECT(0x1F6, -6890, 0, 0, 0, 0, 0, (1 << 16), bhvLaserRingSpawner),
 		OBJECT(0x1F6, 8, -1, -1283, 0, 90, 0, 0x00000000, bhvLaserRingSpawner),
 		OBJECT(0x1F6, -4836, 0, -1086, 0, 0, 0, (1 << 16), bhvLaserRingSpawner),
 		OBJECT(0x1F6, 1243, -1, 2, 0, -180, 0, (1 << 16), bhvLaserRingSpawner),
