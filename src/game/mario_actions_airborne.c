@@ -453,7 +453,7 @@ u32 common_air_action_step(struct MarioState *m, u32 landAction, s32 animation, 
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
 
     }
@@ -718,7 +718,7 @@ s32 act_riding_shell_air(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -774,7 +774,7 @@ s32 act_twirling(struct MarioState *m) {
             break;
         
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -854,7 +854,7 @@ s32 act_dive(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -890,7 +890,7 @@ s32 act_air_throw(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -935,7 +935,7 @@ s32 act_hold_water_jump(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -972,7 +972,7 @@ s32 act_steep_jump(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1159,7 +1159,7 @@ s32 act_crazy_box_bounce(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1214,7 +1214,7 @@ u32 common_air_knockback_step(struct MarioState *m, u32 landAction, u32 hardFall
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1434,7 +1434,7 @@ s32 act_forward_rollout(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1483,7 +1483,7 @@ s32 act_backward_rollout(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1528,7 +1528,7 @@ s32 act_butt_slide_air(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1577,7 +1577,7 @@ s32 act_hold_butt_slide_air(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1638,7 +1638,7 @@ s32 act_lava_boost(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1715,7 +1715,7 @@ s32 act_slide_kick(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1802,7 +1802,7 @@ s32 act_shot_from_cannon(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -1931,7 +1931,7 @@ s32 act_flying(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 
@@ -2056,7 +2056,7 @@ s32 act_flying_triple_jump(struct MarioState *m) {
             break;
 
         case AIR_STEP_HIT_HURT_WALL:
-            set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            collide_with_hurt_floor(m);
             break;
     }
 

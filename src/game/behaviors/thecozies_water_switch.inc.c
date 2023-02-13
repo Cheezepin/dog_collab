@@ -290,7 +290,7 @@ void whirlpool_life_cycle(struct Object *obj) {
             && gMarioState->water->object == obj
             && (ACT_GROUP_SUBMERGED == (gMarioState->action & ACT_GROUP_MASK))
         ) {
-            set_mario_action(gMarioState, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+            set_mario_action(gMarioState, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x200);
         }
     }
 
