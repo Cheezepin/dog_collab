@@ -40,6 +40,8 @@ s32 on_open_options(FileSelectMenuState *mState);
 extern FileSelectMenu sMainMenu;
 extern FileSelectMenu sExistingFileMenu;
 
+s32 gRenderingFileSelect = FALSE;
+
 FileSelectOption sConfirmEraseOptions[] = {
     {
         .label = "Erase",
@@ -99,6 +101,13 @@ EnumOption sDitherOptions[] = {
     { .label = "Off",       value: DITHER_MODE_OFF },
 };
 
+u8 sDitheringDescription[] = 
+    "Set dithering settings (only affects console).\n"
+    "Automatic means that dithering will adjust\n"
+    "based on performance. \"On\" will ensure that\n"
+    "dithering remains enabled, and \"Off\" will never\n"
+    "allow dithering";
+
 FileSelectOption sOptionsOptions[] = {
     {
         .label = "Aspect ratio",
@@ -114,10 +123,11 @@ FileSelectOption sOptionsOptions[] = {
         .disabled = FALSE,
         .enumOptions = sDitherOptions,
         .numEnumOptions = 3,//ARRAY_COUNT(sDitherOptions),
-        .curEnumValue = &gConfig.ditherMode
+        .curEnumValue = &gConfig.ditherMode,
+        .description = sDitheringDescription
     },
     {
-        .label = "Cancel",
+        .label = "Return",
         .onSelect = &on_pop_menu,
         .disabled = FALSE,
     },
@@ -343,6 +353,17 @@ void render_menu(FileSelectMenuState *mState) {
         if (opt->disabled) {
             gDPSetEnvColor(gDisplayListHead++, 127, 127, 127, mState->alpha / 2);
         } else if (i == mState->menu->curOpt) {
+            if (opt->description) {
+                gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
+                gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+                gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, mState->alpha);
+                gDPPipeSync(gDisplayListHead++);
+                print_generic_string(
+                    MENU_PADDING,
+                    SCREEN_HEIGHT - MENU_PADDING - 12 - 32,
+                    (u8 *)opt->description);
+                gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
+            }
             f32 fac = (get_cycle(0.7f, 0.0f, gGlobalTimer) + 1.0f) * 0.5f;
             s32 intensity = lroundf(lerp(200, 255, fac));
             gDPSetEnvColor(gDisplayListHead++, intensity, intensity, intensity, mState->alpha);
@@ -394,8 +415,6 @@ s32 process_menu(FileSelectMenuState *mState) {
         // case FILE_SELECT_PRESS_NONE:
     }
 
-    render_menu(mState);
-
     return result;
 }
 
@@ -410,14 +429,19 @@ void render_file_info(FileSelectMenuState *mState) {
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
 }
 
-s32 run_file_select(void) {
+void render_file_select(void) {
     FileSelectMenuState *mState = &sMenuState;
-
-    s32 menuResponse = process_menu(mState);
+    render_menu(mState);
 
     if (mState->menu == &sExistingFileMenu) {
         render_file_info(mState);
     }
+}
+
+s32 run_file_select(void) {
+    FileSelectMenuState *mState = &sMenuState;
+
+    s32 menuResponse = process_menu(mState);
 
     if (menuResponse == OPT_CALLBACK_CLOSE) {
         mState->closing = TRUE;
@@ -427,7 +451,6 @@ s32 run_file_select(void) {
 
     if (mState->closing) {
         if (mState->closeTimer <= 0) {
-            // mState->closing = FALSE;
             mState->closeTimer = 0;
             return sMainMenu.curOpt + 1;
         } else {

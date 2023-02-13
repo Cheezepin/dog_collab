@@ -67,4 +67,8 @@ s32 get_checkpoint_action(struct MarioState *m);
 void check_mario_floor_checkpoint(struct MarioState *m);
 s32 warp_to_checkpoint(struct MarioState *m, s32 damage);
 
+ALWAYS_INLINE u32 collide_with_hurt_floor(struct MarioState *m) {
+    return set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, HURT_FLOOR_DAMAGE*0x100);
+}
+
 #endif // MARIO_H

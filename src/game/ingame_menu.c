@@ -667,6 +667,27 @@ s32 get_string_width(u8 *str) {
     return width;
 }
 
+// accounts for newlines, gets max width plus height
+// void get_string_dimensions(u8 *str, Vec2s dimensions) {
+//     s16 strPos = 0;
+
+//     dimensions[0] = 0; // line height apparently
+//     dimensions[1] = MAX_STRING_WIDTH; // line height apparently
+//     s16 width = 0;
+
+//     while (str[strPos] != DIALOG_CHAR_TERMINATOR) {
+//         if (str[strPos] == '\n') {
+//             if (width > dimensions[0]) dimensions[0] = width;
+//             width = 0;
+//             dimensions[1] += MAX_STRING_WIDTH;
+//             strPos++;
+//             continue;
+//         }
+//         width += gDialogCharWidths[str[strPos]];
+//         strPos++;
+//     }
+// }
+
 
 void print_hud_my_score_coins(s32 useCourseCoinScore, s8 fileIndex, s8 courseIndex, s16 x, s16 y) {
     u8 strNumCoins[4];
