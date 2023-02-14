@@ -313,7 +313,7 @@
 #define TEXT_FILE_MARIO_QUESTION "Mario!"
 
 #define TEXT_ENTER_DOG_NAME "Name this dog:"
-#define TEXT_KEYBOARD_DEFINES "\x84: Select  \x85: Delete\n\x88: Shift   START: Submit"
+#define TEXT_KEYBOARD_DEFINES "\x84: Select  \x85: Delete  \x88: Shift  START: Submit"
 
 #define TEXT_SELECT_WORLD "Select World:"
 #define TEXT_WORLD_1      "World 1"
