@@ -6,6 +6,4 @@ void scroll_textures_pss() {
 	scroll_pss_level_geo_cozy_pss_bg();
 	scroll_pss_level_geo_water_spout_pss();
 	scroll_pss();
-	scroll_pss();
-	scroll_pss();
 }
