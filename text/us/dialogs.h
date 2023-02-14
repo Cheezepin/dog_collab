@@ -90,7 +90,7 @@ to reach spots.")
 // Yoshi Milkman
 DEFINE_DIALOG(DIALOG_007, 1, 5, 30, 200, "\
 I heard there's a\n\
-hidden enterance\n\
+hidden entrance\n\
 to the castle in\n\
 that big lake to\n\
 the right.\n\
@@ -179,7 +179,7 @@ from the power of the\n\
 world.\n\
 Do you want to Save?\n\
 \n\
-\xD0You Bet\xD0\xD0Not Now")
+\xD0\xD0You Bet\xD0Not Now")
 
 // Yoshi Milkman
 DEFINE_DIALOG(DIALOG_015, 1, 5, 30, 200, "\

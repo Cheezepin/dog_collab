@@ -86,7 +86,7 @@ const LevelScript level_wdw_entry[] = {
 		OBJECT(MODEL_NONE, -4688, 3326, -6299, 0, -70, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -3240, 2089, 941, 0, -19, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -5101, 1729, 2016, 0, -115, 0, 0x00000000, bhvCoinFormation),
-		OBJECT(MODEL_NONE, -5080, 1893, 3302, 0, -147, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, -5080, 1893, 3302, 0, -142, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 1095, 1152, -6410, 0, 127, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -1897, 546, 510, 0, -102, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -640, 3186, 4790, 0, 0, 0, (1 << 16), bhvCoinFormation),

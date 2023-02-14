@@ -41,7 +41,7 @@ const LevelScript level_bitdw_entry[] = {
 	JUMP_LINK(script_func_global_12), 
 	JUMP_LINK(script_func_global_18), 
 	JUMP_LINK(script_func_global_1), 
-	LOAD_MODEL_FROM_GEO(MODEL_STAR,                    rainbow_star_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_RAINBOW_STAR,                    rainbow_star_geo),
 	LOAD_MODEL_FROM_GEO(MODEL_BITDW_WARP_PIPE, warp_pipe_geo),  
 	LOAD_MODEL_FROM_GEO(MODEL_BITDW_RAINBOW_CHAIN, rainbow_chain_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_BITDW_SPHERE, sphere_geo), 
