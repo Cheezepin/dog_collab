@@ -218,7 +218,9 @@ void profiler_print_times() {
         u32 total_rsp = microseconds[PROFILER_TIME_RSP_GFX] + microseconds[PROFILER_TIME_RSP_AUDIO];
         u32 max_rdp = MAX(MAX(microseconds[PROFILER_TIME_TMEM], microseconds[PROFILER_TIME_CMD]), microseconds[PROFILER_TIME_PIPE]);
 
+#ifndef PUPPYPRINT_DEBUG
         if (show_profiler == 2) {
+#endif
             sprintf(text_buffer,
                 "FPS: %5.2f\n"
                 "\n"
@@ -254,6 +256,7 @@ void profiler_print_times() {
                 microseconds[PROFILER_TIME_RSP_GFX],
                 microseconds[PROFILER_TIME_RSP_AUDIO]
             );
+#ifndef PUPPYPRINT_DEBUG
         } else {
             sprintf(text_buffer,
                 "FPS: %5.2f\n"
@@ -268,6 +271,7 @@ void profiler_print_times() {
             );
 
         }
+#endif
 
         Gfx* dlHead = gDisplayListHead;
         gDPPipeSync(dlHead++);

@@ -403,14 +403,20 @@ void init_mario_after_warp(void) {
     }
 
     if (gCurrDemoInput == NULL) {
-        if (gIsConsole && gCurrLevelNum == LEVEL_BOB) {
+#ifndef AUDIO_CRACKLE_DEBUGGING
+        if (gIsConsole && gCurrLevelNum == LEVEL_BOB)
             set_background_music(gCurrentArea->musicParam, SEQ_STREAMED_MUSIC2639LIGHT, 0);
-        }
-        else set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
+        else
+#endif
+            set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
 
         // someone2639
         #include "audio/load.h"
+#ifndef AUDIO_CRACKLE_DEBUGGING
         if ((gIsConsole == FALSE) && gCurrentArea->musicParam == SEQ_CUSTOM_MUSIC2639) {
+#else
+        if (gCurrentArea->musicParam == SEQ_CUSTOM_MUSIC2639) {
+#endif
             for (int i = 0; i < 16; i++) {
                 // fade_channel_volume_scale(SEQ_PLAYER_LEVEL, i, 0, 0);
                 gSequencePlayers[SEQ_PLAYER_LEVEL].channels[i]->volumeScale = 0;;
