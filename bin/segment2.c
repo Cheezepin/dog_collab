@@ -2409,19 +2409,19 @@ const Gfx dl_billboard_num_9[] = {
     gsSPEndDisplayList(),
 };
 
-#ifdef DIALOG_INDICATOR
-const Gfx dl_billboard_num_A[] = {
+const Gfx dl_billboard_num_B[] = {
     gsSPDisplayList(dl_billboard_num_begin),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture_hud_char_A),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture_hud_char_B),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, ((16 * 16) - 1), CALC_DXT(16, G_IM_SIZ_16b_BYTES)),
     gsSPDisplayList(dl_billboard_num_end),
     gsSPEndDisplayList(),
 };
 
-const Gfx dl_billboard_num_B[] = {
+#ifdef DIALOG_INDICATOR
+const Gfx dl_billboard_num_A[] = {
     gsSPDisplayList(dl_billboard_num_begin),
-    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture_hud_char_B),
+    gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture_hud_char_A),
     gsDPLoadSync(),
     gsDPLoadBlock(G_TX_LOADTILE, 0, 0, ((16 * 16) - 1), CALC_DXT(16, G_IM_SIZ_16b_BYTES)),
     gsSPDisplayList(dl_billboard_num_end),

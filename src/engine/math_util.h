@@ -617,7 +617,7 @@ void mtxf_rot_trans_mul(Vec3s rot, Vec3f trans, Mat4 dest, Mat4 src);
 void find_surface_on_ray(Vec3f orig, Vec3f dir, struct Surface **hit_surface, Vec3f hit_pos, s32 flags);
 void surface_center(Vec3f dest, Vec3s vtx1, Vec3s vtx2, Vec3s vtx3);
 void vec3f_center(Vec3f dest, Vec3f v1, Vec3f v2);
-f32 get_cycle(f32 cycleLength, f32 cycleOffset, u32 timer);
+f32 get_cycle(f32 cycleLength, f32 cycleOffset, s32 timer);
 
 #define copy_vec3(vec) { vec[0], vec[1], vec[2] }
 

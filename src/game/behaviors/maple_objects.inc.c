@@ -80,6 +80,7 @@ void bhv_tree_nut_loop(void) {
 
     if(o->oFloor != NULL & o->oFloor->type == SURFACE_HURT_FLOOR_WITH_HEIGHT && o->oPosY - o->oFloorHeight < 200) {
         vec3f_copy(&o->oPosX, &o->oHomeX);
+        o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
     }
                 break;
 

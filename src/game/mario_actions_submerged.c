@@ -135,7 +135,7 @@ static u32 perform_water_full_step(struct MarioState *m, Vec3f nextPos) {
                         || obj_has_behavior(ceil->object, bhvTubeTop)
                     )
                 ) {
-                    set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 0x100);
+                    collide_with_hurt_floor(m);
                     return WATER_STEP_CANCELLED;
                 }
             }

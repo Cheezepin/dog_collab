@@ -27,6 +27,7 @@
 #include "engine/colors.h"
 #include "profiling.h"
 #include "main.h"
+#include "menu/cozy_file_select.h"
 
 struct SpawnInfo gPlayerSpawnInfos[1];
 struct GraphNode *gGraphNodePointers[MODEL_ID_COUNT];
@@ -410,6 +411,9 @@ void render_game(void) {
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, gScreenWidth,
                       gScreenHeight - gBorderHeight);
         render_hud();
+        if (gRenderingFileSelect && gCurrLevelNum == LEVEL_UNKNOWN_1) {
+            render_file_select();
+        }
 
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, gScreenWidth, gScreenHeight);
         render_text_labels();
