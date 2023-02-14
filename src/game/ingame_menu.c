@@ -2044,16 +2044,15 @@ s32 render_pause_courses_and_castle(void) {
             shade_screen();
             render_pause_my_score_coins();
             render_pause_red_coins();
-#ifndef DISABLE_EXIT_COURSE
-#ifdef EXIT_COURSE_WHILE_MOVING
-            if ((gMarioStates[0].action & (ACT_FLAG_SWIMMING | ACT_FLAG_METAL_WATER | ACT_FLAG_PAUSE_EXIT))
-             || (gMarioStates[0].pos[1] <= gMarioStates[0].floorHeight)) {
-#else
-            if (gMarioStates[0].action & ACT_FLAG_PAUSE_EXIT) {
-#endif
+
+            if (
+                !(gMarioState->action & ACT_FLAG_INTANGIBLE) && (
+                    (gMarioStates[0].action & (ACT_FLAG_MOVING | ACT_FLAG_AIR | ACT_FLAG_SWIMMING | ACT_FLAG_METAL_WATER | ACT_FLAG_PAUSE_EXIT))
+                    || (gMarioStates[0].pos[1] <= gMarioStates[0].floorHeight)
+                )
+            ) {
                 render_pause_course_options(99, 93, &gDialogLineNum, 15);
             }
-#endif
 
             if (gPlayer1Controller->buttonPressed & (A_BUTTON | START_BUTTON)) {
                 level_set_transition(0, NULL);
