@@ -1116,7 +1116,9 @@ s32 play_mode_normal(void) {
 #endif
 
     warp_area();
-    check_instant_warp();
+    if(gCamera->cutscene == 0) {
+        check_instant_warp();
+    }
 
     if (sTimerRunning && gHudDisplay.timer < 17999) {
         gHudDisplay.timer++;
