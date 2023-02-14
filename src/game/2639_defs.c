@@ -321,6 +321,7 @@ void Sound2639_Main(void) {
             break;
     }
 
+#ifndef AUDIO_CRACKLE_DEBUGGING
     extern u8 gIsConsole;
     if (gIsConsole) {
         for (int i = 0; i < 16; i++) {
@@ -330,6 +331,7 @@ void Sound2639_Main(void) {
         }
         // return;
     }
+#endif
 
 
     // for (int i = 0; i < 16; i++) {
