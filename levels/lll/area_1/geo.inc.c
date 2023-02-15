@@ -26,7 +26,6 @@ const GeoLayout lll_area_1_geo[] = {
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, lll_dl_fountain_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, lll_dl_fountain_water_mesh_layer_5),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, lll_dl_Grass_Decal_mesh_layer_6),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE_DECAL, lll_dl_Mud_Vis_mesh_layer_2),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE_DECAL, lll_dl_Mud_Vis_001_mesh_layer_2),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, lll_dl_platforms_006_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, lll_dl_pole_vis_mesh_layer_1),

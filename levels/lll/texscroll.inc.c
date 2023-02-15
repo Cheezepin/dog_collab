@@ -28,18 +28,6 @@ void scroll_gfx_mat_lll_dl_water_003_layer5() {
 
 };
 
-void scroll_gfx_mat_lll_dl_slow_mud_004() {
-	Gfx *mat = segmented_to_virtual(mat_lll_dl_slow_mud_004);
-	static int intervalTex0 = 2;
-	static int curInterval0 = 2;
-
-	if (--curInterval0 <= 0) {
-		shift_s(mat, 8, PACK_TILESIZE(0, 1));
-		curInterval0 = intervalTex0;
-	}
-
-};
-
 void scroll_gfx_mat_lll_dl_slow_mud_005() {
 	Gfx *mat = segmented_to_virtual(mat_lll_dl_slow_mud_005);
 	static int intervalTex0 = 2;
@@ -64,7 +52,6 @@ void scroll_gfx_mat_lll_dl_CloudSky_layer5() {
 void scroll_lll() {
 	scroll_lll_dl_ZZ2_Cloud_mesh_layer_5_vtx_0();
 	scroll_gfx_mat_lll_dl_water_003_layer5();
-	scroll_gfx_mat_lll_dl_slow_mud_004();
 	scroll_gfx_mat_lll_dl_slow_mud_005();
 	scroll_gfx_mat_lll_dl_CloudSky_layer5();
 };

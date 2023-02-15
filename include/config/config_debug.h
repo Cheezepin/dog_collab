@@ -58,7 +58,3 @@
 
 // Doesn't set any flags, but skips the tutorial.
 // #define SKIP_TUTORIAL
-
-// Haha console audio go brrr (also convenient toggle between full and light 2639 sequences for console, with this define representing full version when enabled).
-// (This should probably be renamed to something else. Potentially moved to audio config too, though note count also relies on this define FYI.)
-#define AUDIO_CRACKLE_DEBUGGING
