@@ -2123,7 +2123,7 @@ so go play it!)")
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_AnimeFighter, 1, 7, 30, 200, R"(Anime Fighter 64:
 A collaboration
-between procrastinators
+between Janja,
 someone2639 and
 Cheezepin,
 putting a whole 3D
@@ -2184,6 +2184,9 @@ so all we need to do
 is find a way to
 make you look like
 you're blind!
+It's so stupid that
+it might just work!
+
 I saw a
 @00FF00FFCANE@-------- and @34ebe1FFSUNGLASSES@--------
 buried here the other

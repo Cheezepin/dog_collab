@@ -28,26 +28,30 @@ void bhv_DogInLobby_loop(void) {
             }
             break;
         case 1:
+            play_sound(SOUND_CUSTOM_2639BARK, gGlobalSoundSource);
+            o->oAction++;
+            break;
+        case 2:
             cur_obj_init_animation(DOG_ANIM_RUN);
             o->oForwardVel = 0.0f;
             obj_turn_toward_object(o, CaneObj, 16, 0x800);
             if (o->oTimer > 60) {
-                o->oAction = 2;
+                o->oAction = 3;
                 o->oTimer = 0;
             }
             break;
-        case 2:
+        case 3:
             o->oForwardVel = 25.0f;
             if (CaneObj != NULL) {
                 obj_turn_toward_object(o, CaneObj, 16, 0x800);
                 if (dist_between_objects(o, CaneObj) < 50) {
-                    o->oAction = 3;
+                    o->oAction = 4;
                 }
             } else {
                 o->oAction = 0;
             }
             break;
-        case 3:
+        case 4:
             cur_obj_init_animation(DOG_ANIM_DIG);
             o->oForwardVel = 0.0f;
             if (CaneObj == NULL) {
@@ -57,7 +61,7 @@ void bhv_DogInLobby_loop(void) {
 
 
         case 5:
-            play_sound(SOUND_CUSTOM_COIN_DOG_ROO, gGlobalSoundSource);
+            play_sound(SOUND_CUSTOM_2639BARK, gGlobalSoundSource);
             o->oAction++;
         case 6:
             cur_obj_init_animation(DOG_ANIM_RUN);

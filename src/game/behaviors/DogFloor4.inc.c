@@ -31,7 +31,7 @@ void bhv_DogFloor4_loop(void) {
 			}
 			break;
 		case DF4_WOOF:
-			play_sound(SOUND_CUSTOM_COIN_DOG_ROO, gGlobalSoundSource);
+			play_sound(SOUND_CUSTOM_2639BARK, gGlobalSoundSource);
 			o->oAction = DF4_APPROACH;
 			break;
 		case DF4_APPROACH:

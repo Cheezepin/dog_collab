@@ -32,7 +32,7 @@ void bhv_DogFloor3_loop(void) {
 			}
 			break;
 		case DF6_JUMP:
-			play_sound(SOUND_CUSTOM_COIN_DOG_ROO, gGlobalSoundSource);
+			play_sound(SOUND_CUSTOM_2639BARK, gGlobalSoundSource);
 			cur_obj_init_animation(DOG_ANIM_POUNCE);
 			o->oVelY = 20.0f;
 			// o->oForwardVel = 20.0f;
