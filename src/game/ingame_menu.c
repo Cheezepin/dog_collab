@@ -2435,7 +2435,7 @@ u8 topBarMap[2][10] = {
 s32 gKeyboardShifted;
 s8 keyboardCursorX = 0;
 s8 keyboardCursorY = 0;
-void render_dog_keyboard(void) {
+void render_dog_keyboard(s16 saveFileIndex) {
     u8 i, init, max, actualTick, topBar;
     s8 length;
     u32 white = 0xFFFFFFFF;
@@ -2486,7 +2486,7 @@ void render_dog_keyboard(void) {
     print_string_with_shadow(20, 20, textKeyboardDefines, white);
     length = -1;
     for(i = 0; i < DOG_STRING_LENGTH; i++) {
-        dogStringTemp[i] = save_file_get_dog_string(gCurrSaveFileNum - 1, i);
+        dogStringTemp[i] = save_file_get_dog_string(saveFileIndex, i);
         if(dogStringTemp[i] != 0x0) {
             length = i;
         }
@@ -2563,7 +2563,7 @@ void render_dog_keyboard(void) {
         play_sound(SOUND_MENU_MESSAGE_DISAPPEAR, gGlobalSoundSource);
         dogStringTemp[length] = 0x0;
     }
-    save_file_set_dog_string(gCurrSaveFileNum - 1, &dogStringTemp);
+    save_file_set_dog_string(saveFileIndex, &dogStringTemp);
 
     create_dl_scale_matrix(MENU_MTX_PUSH, 3.0f, 3.0f, 1.0f);
     print_string_with_shadow(7, 58, dogStringTemp, white);

@@ -713,7 +713,7 @@ void render_hud(void) {
         }
 
         if (gKeyboard) {
-            render_dog_keyboard();
+            render_dog_keyboard(gCurrSaveFileNum - 1);
         }
 
         if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
