@@ -9,4 +9,5 @@ void scroll_textures_ccm() {
 	scroll_ccm_level_geo_tank_base();
 	scroll_ccm();
 	scroll_ccm_level_geo_rmine();
+	scroll_ccm();
 }

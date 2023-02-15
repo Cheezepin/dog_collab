@@ -40,6 +40,7 @@ void bhv_Magma_Thwomp() {
 
 void bhv_swing_Board (void) {
         if (o->oAction == 0) {
+            load_object_collision_model();
             if (gMarioObject->platform == o) {
                 o->oAction = 1;
                 o->oTimer = 0;
@@ -47,6 +48,10 @@ void bhv_swing_Board (void) {
                 }
             }
         if (o->oAction == 1) {
+            if (o->oTimer < 30) {
+                load_object_collision_model();
+            }
+
             o->oFaceAngleRoll += o->oMoveAngleRoll;
             if (o->oFaceAngleRoll > 0x4000) {
                 o->oMoveAngleRoll -= 0x50;
@@ -59,7 +64,9 @@ void bhv_swing_Board (void) {
             if (o->oTimer < 120) {
                 o->oMoveAngleRoll *= .98;
                 }
-
+            if (o->oTimer > 200) {
+                o->oAction = 2;//do nothing
+            }
             }
         if (o->oDistanceToMario > 5000.0f) {
             o->oAction = 0;
