@@ -6,6 +6,7 @@ void bhv_DogFloor4_init(void) {
 #define DOG_SNAP_SPEED 100.0f
 enum DF4_State {
 	DF4_IDLE,
+	DF4_WOOF,
 	DF4_APPROACH,
 	DF4_HIT,
 	DF4_FILLER1,
@@ -25,9 +26,13 @@ void bhv_DogFloor4_loop(void) {
 			cur_obj_init_animation(DOG_ANIM_IDLE);
 			if (yummyball) {
 				if (ballDist <= 2000.0f) {
-					o->oAction = DF4_APPROACH;
+					o->oAction = DF4_WOOF;
 				}
 			}
+			break;
+		case DF4_WOOF:
+			play_sound(SOUND_CUSTOM_COIN_DOG_ROO, gGlobalSoundSource);
+			o->oAction = DF4_APPROACH;
 			break;
 		case DF4_APPROACH:
 			if (yummyball) {
