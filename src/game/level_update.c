@@ -38,7 +38,7 @@
 
 // TODO: Make these ifdefs better
 const char *credits01[] = { "1DOG COLLAB", "CREDITS" };
-const char *credits02[] = { "4MAPLE MARKINDON", "MUSIC", "ASHLEY", "ROUTE 47 POKEMON HGSS" };
+const char *credits02[] = { "4MAPLE MARKINDON", "MUSIC", "ASHLEY  BEVERLYBEAN", "ROUTE 47 POKEMON HGSS" };
 const char *credits03[] = { "4CUMULUS CORRECTIONAL CENTER", "MUSIC", "MRCOMIT", "ORIGINAL BY MRCOMIT" };
 const char *credits04[] = { "4HAIR RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "ORIGINAL BY SOMEONE2639" };
 
@@ -78,10 +78,11 @@ const char *credits14[] = { "8OTHER MUSIC", "", "FILE SELECT", "KIRBY 64 FILE SE
 const char *credits15[] = { "CIRCUS BOSS", "CACKLETTA BOSS ML SS", "6FINAL BOSS ", "UH IDK", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
 const char *credits16[] = { "8SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD", "CREDITS", "KSSU CREDITS"};
 
-const char *credits17[] = { "3SPECIAL THANKS TO", "THECOZIES' DOG", "CLEVER FOLKS AT DECOMP", "BOOMERDACAT" };
-const char *credits18[] = { "3SPECIAL THANKS TO", "ARTHURTILLY", "HACKERSM64 TEAM", "GILES GODDARD" };
-const char *credits19[] = { "3PLEASE CHECK OUT THE SOCIALS AND", "", "OTHER PROJECTS OF EVERYONE WHO", "WORKED ON THE COLLAB" };
-const char *credits20[] = { "4THANKS TO EVERYONE WHO WORKED ON THE COLLAB", "AND THANK YOU FOR PLAYING", "", "" };
+const char *credits17[] = { "5BETATESTING", "REONU", "HACKER2077", "NESDUDE", "HYENA CHAN", "GTM" };
+const char *credits18[] = { "5SPECIAL THANKS TO", "THECOZIES' DOG", "CLEVER FOLKS AT DECOMP", "BOOMERDACAT", "ARTHURTILLY", "HACKERSM64 TEAM" };
+const char *credits19[] = { "3SPECIAL THANKS TO", "THECOZIES", "ARCTICJAGUAR725", "SMWC MUSICIANS" };
+const char *credits20[] = { "3PLEASE CHECK OUT THE SOCIALS AND", "", "OTHER PROJECTS OF EVERYONE WHO", "WORKED ON THE COLLAB" };
+const char *credits21[] = { "4THANKS TO EVERYONE WHO WORKED ON THE COLLAB", "AND THANK YOU FOR PLAYING", "", "" };
 
 
 struct CreditsEntry sCreditsSequence[] = {
@@ -104,8 +105,9 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_DDD, 1, 51, 54, { 137, 9957, -1954 }, credits16, 1 },
     { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17, 0 },
     { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },
-    { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits19, 0 },
-    { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits20, 0 },
+    { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits19, 0 },
+    { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits20, 0 },
+    { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits21, 0 },
     //{ LEVEL_TTC, 1, 17, -72, { -1304, -71, -967 }, credits15 },
     //{ LEVEL_RR, 1, 33, 64, { 1565, 1024, -148 }, credits16 },
     //{ LEVEL_SA, 1, 1, 24, { -1050, -1330, -1559 }, credits17 },
@@ -1114,7 +1116,9 @@ s32 play_mode_normal(void) {
 #endif
 
     warp_area();
-    check_instant_warp();
+    if(gCamera->cutscene == 0) {
+        check_instant_warp();
+    }
 
     if (sTimerRunning && gHudDisplay.timer < 17999) {
         gHudDisplay.timer++;
