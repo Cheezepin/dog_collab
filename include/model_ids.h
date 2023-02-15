@@ -491,6 +491,8 @@ enum CoziesLevelModels {
 #define MODEL_WOODEN_SIGNPOST             0x7C        // wooden_signpost_geo
 #define MODEL_UNKNOWN_7D                  0x7D        // referenced in macro presets. Unknown usage
 
+#define MODEL_RAINBOW_STAR                0x17A       // rainbow_star_geo
+
 // find me
 #define MODEL_CANNON_BARREL               0x7F        // cannon_barrel_geo
 #define MODEL_CANNON_BASE                 0x80        // cannon_base_geo

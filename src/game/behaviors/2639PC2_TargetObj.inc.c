@@ -7,9 +7,11 @@ void bhv_2639PC2_TargetObj_init(void) {
 
 void bhv_2639PC2_TargetObj_loop(void) {
 	if(gCurrLevelNum == LEVEL_BOB && gCurrCreditsEntry == NULL) {
+#ifndef AUDIO_CRACKLE_DEBUGGING
 		if (gIsConsole == 1) {
 			console_music();
 		} else {
+#endif
 			switch (gCurrAreaIndex) {
 				case 0:
 					challenge_music();
@@ -36,6 +38,8 @@ void bhv_2639PC2_TargetObj_loop(void) {
 					Floor2Music();
 					break;
 			}
+#ifndef AUDIO_CRACKLE_DEBUGGING
 		}
+#endif
 	}
 }

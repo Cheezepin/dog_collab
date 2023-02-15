@@ -52,5 +52,9 @@ extern u8 gShadeScreenAmount;
                 play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_LEVEL_SAD_OLIVIA), 0);
             }
         }
+
+        else if (o->oTimer == 0) {
+            play_music(SEQ_PLAYER_LEVEL, SEQUENCE_ARGS(4, SEQ_LEVEL_SAD_OLIVIA), 0);
+        }
     }
 }

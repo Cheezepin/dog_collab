@@ -439,17 +439,6 @@ void render_init(void) {
 #ifdef DEBUG_FORCE_CRASH_ON_BOOT
     FORCE_CRASH
 #endif
-if (IO_READ(DPC_PIPEBUSY_REG) == 0) {
-        gIsConsole = FALSE;
-        gBorderHeight = BORDER_HEIGHT_EMULATOR;
-        gIsVC = IS_VC();
-        check_cache_emulation();
-    } else {
-        gIsConsole = TRUE;
-        change_vi(&VI, 304, 224);
-        gBorderHeight = BORDER_HEIGHT_CONSOLE;
-    }
-
     gGfxPool = &gGfxPools[0];
     set_segment_base_addr(SEGMENT_RENDER, gGfxPool->buffer);
     gGfxSPTask = &gGfxPool->spTask;

@@ -161,7 +161,15 @@ void spawn_cutscene_star_get_outta_here(u32 bp, f32 x, f32 y, f32 z) {
 
 void spawn_no_exit_star(f32 x, f32 y, f32 z) {
     struct Object *starObj = NULL;
-    starObj = spawn_star(starObj, x, y, z);
+    if(gCurrLevelNum != LEVEL_BITDW) {
+        starObj = spawn_star(starObj, x, y, z);
+    } else {
+        starObj = spawn_object_abs_with_rot(o, 0, MODEL_RAINBOW_STAR, bhvStarSpawnCoordinates, o->oPosX, o->oPosY, o->oPosZ, 0, 0, 0);
+        starObj->oBehParams = o->oBehParams;
+        vec3f_set(&starObj->oHomeVec, x, y, z);
+        starObj->oFaceAnglePitch = 0;
+        starObj->oFaceAngleRoll = 0;
+    }
     starObj->oBehParams2ndByte = SPAWN_STAR_ARC_CUTSCENE_BP_HIDDEN_STAR;
     starObj->oInteractionSubtype |= INT_SUBTYPE_NO_EXIT;
 }
