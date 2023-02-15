@@ -6630,7 +6630,7 @@ struct CameraTrigger sCamBOB[] = {
 	{1, Cam2639_LogoCam, -417, -2141, -4114, 1742, 1742, 1742, 0xffff},
 	{1, Cam2639_HeadroomClearance, -417, -2141, -1704, 889, 889, 889, 0xffff},
 	{2, Cam2639_OutwardSpiral, -418, 1, -4651, 3255, 699, 1131, 0xffff},
-	{2, Cam2639_HeadroomClearance, 218, 357, 1023, 472, 371, 599, 0xffff},
+	{2, Cam2639_HeadroomClearance, 218, 357, 592, 472, 371, 1176, 0xffff},
 	{2, Cam2639_CylinderCam, 82, 4109, -5865, 5597, 3222, 5597, 0xffff},
 	{2, Cam2639_Main, -447, 3858, 1336, 3212, 1917, 1745, 0xffff},
 	{2, Cam2639_Elevator, -17, 3033, -2833, 803, 8515, 803, 0xffff},
