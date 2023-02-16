@@ -429,11 +429,14 @@ void bhv_spectator_lakitu_init(void) {
 void bhv_floor_door_button_loop(void) {
     switch (o->oAction) {
         case 0:
+            o->os1610C += 0x400;
+            o->oOpacity = 15 + (sins(o->os1610C) * 15);
             if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_NO_PURPLE_SWITCH)) {
                 o->oAction = 1;
             }
             break;
         case 1:
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 4);
             cur_obj_scale_over_time(2, 3, 1.0f, 0.2f);
             if (o->oTimer == 3) {
                 cur_obj_play_sound_2(SOUND_GENERAL2_PURPLE_SWITCH);
@@ -517,6 +520,8 @@ void bhv_comit_coin_init(void) {
 void bhv_lightning_button_loop(void) {
     switch (o->oAction) {
         case 0:
+            o->os1610C += 0x400;
+            o->oOpacity = 15 + (sins(o->os1610C) * 15);
             if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_NO_PURPLE_SWITCH)) {
                 o->oAction = 1;
             }
@@ -529,6 +534,7 @@ void bhv_lightning_button_loop(void) {
             }
             break;
         case 2:
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 4);
             cur_obj_scale_over_time(2, 3, 0.2f, 1.0f);
             if (o->oTimer == 3) {
                 o->oAction = 0;
