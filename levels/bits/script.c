@@ -53,6 +53,7 @@ const LevelScript level_bits_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_RC_SIGN, rcsign_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639ELEVATOR_KEY, key2639_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_JETSKI, jetski_bits_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -61,7 +62,7 @@ const LevelScript level_bits_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BITS, 1, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BITS, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(2, LEVEL_BITS, 2, 1, WARP_NO_CHECKPOINT),
-		WARP_NODE(99, LEVEL_PSS, 1, 1, WARP_NO_CHECKPOINT),
+		WARP_NODE(99, LEVEL_BITS, 5, 1, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_GALOOMBA, 6994, -344, 1081, 0, 68, 0, 0x00000000, bhvGaloomba),
 		OBJECT(MODEL_GALOOMBA, 1564, 147, -54, 0, 68, 0, 0x00000000, bhvGaloomba),
 		OBJECT(MODEL_GALOOMBA, 9414, 465, 4915, 0, 68, 0, 0x00000000, bhvGaloomba),
@@ -189,7 +190,8 @@ const LevelScript level_bits_entry[] = {
 		WARP_NODE(0xF1, LEVEL_BITS, 5, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(1, LEVEL_BITS, 5, 1, WARP_NO_CHECKPOINT),
 		WARP_NODE(2, LEVEL_BITS, 6, 1, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_EXCLAMATION_BOX, -4079, 917, -1496, 0, 0, 0, (3 << 16), bhvExclamationBox),
+		OBJECT(MODEL_EXCLAMATION_BOX, -4079, 917, -1496, 0, 0, 0, (EXCLAMATION_BOX_BP_JETSKI_BITS << 16), bhvExclamationBox),
+		OBJECT(MODEL_EXCLAMATION_BOX, 3444, 2676, -6626, 0, 0, 0, (EXCLAMATION_BOX_BP_JETSKI_BITS << 16), bhvExclamationBox),
 		OBJECT(MODEL_NONE, -5093, 250, 565, 0, 0, 0, 0x00000000, bhvKokoTripletSpawner),
 		OBJECT(MODEL_NONE, 1558, 2552, -4821, 0, 0, 0, 0x00000000, bhvKokoTripletSpawner),
 		OBJECT(MODEL_NONE, 8830, 2276, 5702, 0, 0, 0, 0x00000000, bhvKokoTripletSpawner),
