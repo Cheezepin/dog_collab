@@ -41,56 +41,52 @@ void bhv_tree_nut_init(void) {
     o->oFriction = 0.8f;
     o->oBuoyancy = 1.3f;
     //o->oInteractionSubtype = INT_SUBTYPE_KICKABLE;
-
 }
 
 void bhv_tree_nut_loop(void) {
-    switch (o->oHeldState) {
-            case HELD_DROPPED:
-            case HELD_FREE:
-            case HELD_THROWN:
-                o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
-    obj_set_hitbox(o, &sTreeNutHitbox);
-    object_step_without_floor_orient();
-    cur_obj_become_tangible();
 
-    struct Object *dirtPile;
-    struct Object *sussy;
-    struct Surface *floor;
-    dirtPile = cur_obj_nearest_object_with_behavior(bhvDirtPile);
-    if (dirtPile && dirtPile->oAction == 0 && absf(o->oPosX - dirtPile->oPosX) < 200.0f && absf(o->oPosZ - dirtPile->oPosZ) < 200.0f) {
-            play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
-            o->oPosX = dirtPile->oPosX;
-            o->oPosY = dirtPile->oPosY;
-            o->oPosZ = dirtPile->oPosZ;
+    switch (o->oHeldState) {
+        case HELD_DROPPED:
+        case HELD_FREE:
+        case HELD_THROWN: {
+            o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+            o->header.gfx.node.flags |= GRAPH_RENDER_ACTIVE;
+            obj_set_hitbox(o, &sTreeNutHitbox);
+            object_step_without_floor_orient();
+            cur_obj_become_tangible();
+
+            struct Object *dirtPile;
+            struct Object *sussy;
+            struct Surface *floor;
+            dirtPile = cur_obj_nearest_object_with_behavior(bhvDirtPile);
+            if (dirtPile && dirtPile->oAction == 0 && absf(o->oPosX - dirtPile->oPosX) < 200.0f && absf(o->oPosZ - dirtPile->oPosZ) < 200.0f) {
+                play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
+                o->oPosX = dirtPile->oPosX;
+                o->oPosY = dirtPile->oPosY;
+                o->oPosZ = dirtPile->oPosZ;
                 sussy = spawn_object(o,MODEL_DOG,bhvDogRovert);
                 sussy->oPosY += 1000.0f;
                 dirtPile->parentObj = sussy;
                 o->parentObj = dirtPile;
                 //cur_obj_scale_over_time(SCALE_AXIS_Y, 5, 1.0f, 0.2f);
                 dirtPile->oAction = 3;
+            }
+            if (o->parentObj && o->parentObj->oAction == 1) {
+                obj_mark_for_deletion(o);
+            }
+
+            o->oInteractStatus = 0;
+            if (o->oFloor != NULL & (o->oFloor->type == SURFACE_HURT_FLOOR_WITH_HEIGHT || o->oFloor->type == SURFACE_HURT_FLOOR) && o->oPosY - o->oFloorHeight < 200) {
+                vec3f_copy(&o->oPosX, &o->oHomeX);
+                o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+            }
+            break;
         }
-    if (o->parentObj && o->parentObj->oAction == 1) {
-        obj_mark_for_deletion(o);
-    }
-
-
-
-    o->oInteractStatus = 0;
-
-    if(o->oFloor != NULL & o->oFloor->type == SURFACE_HURT_FLOOR_WITH_HEIGHT && o->oPosY - o->oFloorHeight < 200) {
-        vec3f_copy(&o->oPosX, &o->oHomeX);
-        o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
-    }
-                break;
-
-            case HELD_HELD:
+        case HELD_HELD: {
             cur_obj_become_intangible();
             obj_copy_pos(o, gMarioObject);
             o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
-                break;
-    
+            break;
+        }
     }
-
-    //object_step();
 }
