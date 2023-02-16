@@ -1,4 +1,4 @@
-static const s16 jetski_anim_dogskiIdle_values[] = {
+static const s16 jetski_bits_anim_dogskiIdle_values[] = {
 	0x0000, 0x0064, 0xFF9B, 0xF903, 0xF91D, 0xF962, 0xF9C8, 0xFA44, 0xFACA, 
 	0xFB51, 0xFBCD, 0xFC33, 0xFC78, 0xFC91, 0xFC78, 0xFC33, 0xFBCD, 0xFB51, 
 	0xFACA, 0xFA44, 0xF9C8, 0xF962, 0xF91D, 0xF903, 0xFFFF, 0x0000, 0x0000, 
@@ -14,21 +14,21 @@ static const s16 jetski_anim_dogskiIdle_values[] = {
 	0x0000, 
 };
 
-static const u16 jetski_anim_dogskiIdle_indices[] = {
+static const u16 jetski_bits_anim_dogskiIdle_indices[] = {
 	0x0001, 0x0000, 0x0001, 0x0001, 0x0001, 0x0002, 0x0015, 0x0003, 0x0015, 
 	0x0018, 0x0001, 0x002D, 0x0015, 0x002E, 0x0015, 0x0043, 0x0015, 0x0058, 
 	
 };
 
-static const struct Animation jetski_anim_dogskiIdle = {
+static const struct Animation jetski_bits_anim_dogskiIdle = {
 	0,
 	0,
 	0,
 	0,
 	20,
-	ANIMINDEX_NUMPARTS(jetski_anim_dogskiIdle_indices),
-	jetski_anim_dogskiIdle_values,
-	jetski_anim_dogskiIdle_indices,
+	ANIMINDEX_NUMPARTS(jetski_bits_anim_dogskiIdle_indices),
+	jetski_bits_anim_dogskiIdle_values,
+	jetski_bits_anim_dogskiIdle_indices,
 	0,
 };
 

@@ -797,6 +797,7 @@ enum ExclamationBoxContentsList { // oBehParams2ndByte, ExclamationBoxContents->
     EXCLAMATION_BOX_BP_STAR_5,
     EXCLAMATION_BOX_BP_STAR_6,
     EXCLAMATION_BOX_BP_JETSKI,
+    EXCLAMATION_BOX_BP_JETSKI_BITS,
     EXCLAMATION_BOX_BP_NULL = 99
 };
 enum oBehParam1stByteExclamationBox {

@@ -1,9 +1,9 @@
-Lights1 jetski_doggard_f3d_lights = gdSPDefLights1(
+Lights1 jetski_bits_doggard_f3d_lights = gdSPDefLights1(
 	0x7F, 0x7F, 0x7F,
 	0xFF, 0xFF, 0xFF, 0x28, 0x28, 0x28);
 
-Gfx jetski_doggard_ci4_aligner[] = {gsSPEndDisplayList()};
-u8 jetski_doggard_ci4[] = {
+Gfx jetski_bits_doggard_ci4_aligner[] = {gsSPEndDisplayList()};
+u8 jetski_bits_doggard_ci4[] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 	0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 
 	0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x12, 0x22, 
@@ -263,8 +263,8 @@ u8 jetski_doggard_ci4[] = {
 	
 };
 
-Gfx jetski_doggard_ci4_pal_rgba16_aligner[] = {gsSPEndDisplayList()};
-u8 jetski_doggard_ci4_pal_rgba16[] = {
+Gfx jetski_bits_doggard_ci4_pal_rgba16_aligner[] = {gsSPEndDisplayList()};
+u8 jetski_bits_doggard_ci4_pal_rgba16[] = {
 	0x82, 0xcd, 0xcc, 0xdb, 0x72, 0xcf, 0x58, 0x85, 
 	0x00, 0x01, 0xac, 0x17, 0x93, 0x55, 0x9b, 0xd5, 
 	0xbc, 0x59, 0x83, 0x13, 0x5a, 0x4f, 0x52, 0x0f, 
@@ -272,7 +272,7 @@ u8 jetski_doggard_ci4_pal_rgba16[] = {
 	
 };
 
-Vtx jetski_000_displaylist_mesh_layer_1_vtx_0[114] = {
+Vtx jetski_bits_000_displaylist_mesh_layer_1_vtx_0[114] = {
 	{{{19, 70, 118},0, {1045, 2017},{0xB, 0x1F, 0x7B, 0x0}}},
 	{{{-14, 72, 121},0, {1018, 1695},{0xB, 0x1F, 0x7B, 0x0}}},
 	{{{2, 55, 123},0, {1056, 1598},{0xB, 0x1F, 0x7B, 0x0}}},
@@ -389,8 +389,8 @@ Vtx jetski_000_displaylist_mesh_layer_1_vtx_0[114] = {
 	{{{-32, -1, 77},0, {237, 1668},{0xBD, 0x94, 0x9, 0x0}}},
 };
 
-Gfx jetski_000_displaylist_mesh_layer_1_tri_0[] = {
-	gsSPVertex(jetski_000_displaylist_mesh_layer_1_vtx_0 + 0, 32, 0),
+Gfx jetski_bits_000_displaylist_mesh_layer_1_tri_0[] = {
+	gsSPVertex(jetski_bits_000_displaylist_mesh_layer_1_vtx_0 + 0, 32, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
 	gsSP2Triangles(6, 7, 8, 0, 9, 10, 11, 0),
 	gsSP2Triangles(12, 13, 14, 0, 15, 16, 17, 0),
@@ -398,7 +398,7 @@ Gfx jetski_000_displaylist_mesh_layer_1_tri_0[] = {
 	gsSP2Triangles(17, 20, 19, 0, 21, 22, 23, 0),
 	gsSP2Triangles(21, 24, 22, 0, 25, 26, 27, 0),
 	gsSP2Triangles(25, 28, 26, 0, 29, 30, 31, 0),
-	gsSPVertex(jetski_000_displaylist_mesh_layer_1_vtx_0 + 32, 32, 0),
+	gsSPVertex(jetski_bits_000_displaylist_mesh_layer_1_vtx_0 + 32, 32, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
 	gsSP2Triangles(3, 5, 6, 0, 6, 5, 7, 0),
 	gsSP2Triangles(5, 8, 7, 0, 9, 8, 5, 0),
@@ -410,7 +410,7 @@ Gfx jetski_000_displaylist_mesh_layer_1_tri_0[] = {
 	gsSP2Triangles(18, 21, 19, 0, 22, 23, 24, 0),
 	gsSP2Triangles(22, 25, 23, 0, 26, 27, 28, 0),
 	gsSP2Triangles(26, 29, 27, 0, 30, 16, 31, 0),
-	gsSPVertex(jetski_000_displaylist_mesh_layer_1_vtx_0 + 64, 32, 0),
+	gsSPVertex(jetski_bits_000_displaylist_mesh_layer_1_vtx_0 + 64, 32, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
 	gsSP2Triangles(4, 3, 0, 0, 4, 0, 5, 0),
 	gsSP2Triangles(0, 6, 5, 0, 0, 7, 6, 0),
@@ -430,7 +430,7 @@ Gfx jetski_000_displaylist_mesh_layer_1_tri_0[] = {
 	gsSP2Triangles(27, 25, 26, 0, 27, 28, 25, 0),
 	gsSP2Triangles(27, 29, 28, 0, 30, 28, 29, 0),
 	gsSP1Triangle(31, 28, 30, 0),
-	gsSPVertex(jetski_000_displaylist_mesh_layer_1_vtx_0 + 96, 18, 0),
+	gsSPVertex(jetski_bits_000_displaylist_mesh_layer_1_vtx_0 + 96, 18, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 0, 2, 0),
 	gsSP2Triangles(3, 4, 0, 0, 3, 5, 4, 0),
 	gsSP2Triangles(4, 5, 6, 0, 7, 6, 5, 0),
@@ -446,7 +446,7 @@ Gfx jetski_000_displaylist_mesh_layer_1_tri_0[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx jetski_head_mesh_layer_1_vtx_0[34] = {
+Vtx jetski_bits_head_mesh_layer_1_vtx_0[34] = {
 	{{{-19, -2, -52},0, {1907, -516},{0x9F, 0xD4, 0xBB, 0x0}}},
 	{{{13, -7, -28},0, {2156, 858},{0x5A, 0xB6, 0xCE, 0x0}}},
 	{{{-24, -7, -25},0, {2169, -890},{0x9E, 0xB6, 0xDE, 0x0}}},
@@ -483,8 +483,8 @@ Vtx jetski_head_mesh_layer_1_vtx_0[34] = {
 	{{{-47, 44, 10},0, {856, 1520},{0x9A, 0x4B, 0xB, 0x0}}},
 };
 
-Gfx jetski_head_mesh_layer_1_tri_0[] = {
-	gsSPVertex(jetski_head_mesh_layer_1_vtx_0 + 0, 30, 0),
+Gfx jetski_bits_head_mesh_layer_1_tri_0[] = {
+	gsSPVertex(jetski_bits_head_mesh_layer_1_vtx_0 + 0, 30, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
 	gsSP2Triangles(4, 3, 0, 0, 5, 4, 0, 0),
 	gsSP2Triangles(5, 0, 2, 0, 3, 4, 5, 0),
@@ -506,13 +506,13 @@ Gfx jetski_head_mesh_layer_1_tri_0[] = {
 	gsSP2Triangles(22, 25, 21, 0, 23, 25, 22, 0),
 	gsSP2Triangles(26, 27, 28, 0, 26, 29, 27, 0),
 	gsSP2Triangles(29, 26, 28, 0, 29, 28, 27, 0),
-	gsSPVertex(jetski_head_mesh_layer_1_vtx_0 + 30, 4, 0),
+	gsSPVertex(jetski_bits_head_mesh_layer_1_vtx_0 + 30, 4, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 1, 0, 0),
 	gsSP2Triangles(0, 2, 3, 0, 3, 2, 1, 0),
 	gsSPEndDisplayList(),
 };
 
-Vtx jetski_tail_mesh_layer_1_vtx_0[12] = {
+Vtx jetski_bits_tail_mesh_layer_1_vtx_0[12] = {
 	{{{-11, -7, 35},0, {430, 2014},{0xA3, 0xCA, 0x44, 0x0}}},
 	{{{1, 9, 57},0, {685, 1914},{0x6, 0x2C, 0x77, 0x0}}},
 	{{{0, 12, 34},0, {534, 1812},{0x0, 0x7A, 0x22, 0x0}}},
@@ -527,8 +527,8 @@ Vtx jetski_tail_mesh_layer_1_vtx_0[12] = {
 	{{{0, -2, -1},0, {7, 1843},{0xFE, 0xF0, 0x82, 0x0}}},
 };
 
-Gfx jetski_tail_mesh_layer_1_tri_0[] = {
-	gsSPVertex(jetski_tail_mesh_layer_1_vtx_0 + 0, 12, 0),
+Gfx jetski_bits_tail_mesh_layer_1_tri_0[] = {
+	gsSPVertex(jetski_bits_tail_mesh_layer_1_vtx_0 + 0, 12, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(0, 3, 4, 0, 3, 5, 4, 0),
 	gsSP2Triangles(5, 3, 6, 0, 3, 7, 6, 0),
@@ -540,57 +540,57 @@ Gfx jetski_tail_mesh_layer_1_tri_0[] = {
 };
 
 
-Gfx mat_jetski_doggard_f3d[] = {
+Gfx mat_jetski_bits_doggard_f3d[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),
-	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, jetski_doggard_ci4_pal_rgba16),
+	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, jetski_bits_doggard_ci4_pal_rgba16),
 	gsDPTileSync(),
 	gsDPSetTile(0, 0, 0, 256, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
 	gsDPLoadSync(),
 	gsDPLoadTLUTCmd(7, 15),
 	gsDPPipeSync(),
 	gsDPTileSync(),
-	gsDPSetTextureImage(G_IM_FMT_CI, G_IM_SIZ_16b, 1, jetski_doggard_ci4),
+	gsDPSetTextureImage(G_IM_FMT_CI, G_IM_SIZ_16b, 1, jetski_bits_doggard_ci4),
 	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0, 7, 0, G_TX_WRAP | G_TX_MIRROR, 6, 0, G_TX_CLAMP | G_TX_NOMIRROR, 6, 0),
 	gsDPLoadSync(),
 	gsDPLoadBlock(7, 0, 0, 1023, 512),
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_4b, 4, 0, 0, 0, G_TX_WRAP | G_TX_MIRROR, 6, 0, G_TX_CLAMP | G_TX_NOMIRROR, 6, 0),
 	gsDPSetTileSize(0, 0, 0, 252, 252),
-	gsSPSetLights1(jetski_doggard_f3d_lights),
+	gsSPSetLights1(jetski_bits_doggard_f3d_lights),
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_revert_jetski_doggard_f3d[] = {
+Gfx mat_revert_jetski_bits_doggard_f3d[] = {
 	gsDPPipeSync(),
 	gsDPSetTextureLUT(G_TT_NONE),
 	gsSPEndDisplayList(),
 };
 
-Gfx jetski_000_displaylist_mesh_layer_1[] = {
-	gsSPDisplayList(mat_jetski_doggard_f3d),
-	gsSPDisplayList(jetski_000_displaylist_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_jetski_doggard_f3d),
+Gfx jetski_bits_000_displaylist_mesh_layer_1[] = {
+	gsSPDisplayList(mat_jetski_bits_doggard_f3d),
+	gsSPDisplayList(jetski_bits_000_displaylist_mesh_layer_1_tri_0),
+	gsSPDisplayList(mat_revert_jetski_bits_doggard_f3d),
 	gsSPEndDisplayList(),
 };
 
-Gfx jetski_head_mesh_layer_1[] = {
-	gsSPDisplayList(mat_jetski_doggard_f3d),
-	gsSPDisplayList(jetski_head_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_jetski_doggard_f3d),
+Gfx jetski_bits_head_mesh_layer_1[] = {
+	gsSPDisplayList(mat_jetski_bits_doggard_f3d),
+	gsSPDisplayList(jetski_bits_head_mesh_layer_1_tri_0),
+	gsSPDisplayList(mat_revert_jetski_bits_doggard_f3d),
 	gsSPEndDisplayList(),
 };
 
-Gfx jetski_tail_mesh_layer_1[] = {
-	gsSPDisplayList(mat_jetski_doggard_f3d),
-	gsSPDisplayList(jetski_tail_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_jetski_doggard_f3d),
+Gfx jetski_bits_tail_mesh_layer_1[] = {
+	gsSPDisplayList(mat_jetski_bits_doggard_f3d),
+	gsSPDisplayList(jetski_bits_tail_mesh_layer_1_tri_0),
+	gsSPDisplayList(mat_revert_jetski_bits_doggard_f3d),
 	gsSPEndDisplayList(),
 };
 
-Gfx jetski_material_revert_render_settings[] = {
+Gfx jetski_bits_material_revert_render_settings[] = {
 	gsDPPipeSync(),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPClearGeometryMode(G_TEXTURE_GEN),
