@@ -216,7 +216,7 @@
 #define MODEL_BITDW_SPHERE                        0x1AD
 #define MODEL_GODDARD_CAGE                        0x1AF       // only used in Bowser battle 1, not ever used in bitdw
 #define MODEL_EMU_LASER_RING                      0x1B0
-#define MODEL_RAINBOW_STAR						  0x1B1
+// #define MODEL_RAINBOW_STAR						  0x1B1
 
 // vcutm
 #define MODEL_VCUTM_SEESAW_PLATFORM               0x36        // vcutm_geo_0001F0

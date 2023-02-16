@@ -235,7 +235,7 @@ void render_hud_cannon_reticle(void);
 void reset_red_coins_collected(void);
 s32 render_menus_and_dialogs(void);
 
-void render_dog_keyboard(void);
+void render_dog_keyboard(s16 saveFileIndex);
 void render_hub_selection(void);
 void render_hub_star_select(s32 cringeTimer);
 void render_hub_level_confirmation();

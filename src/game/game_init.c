@@ -486,31 +486,34 @@ static void rcp_omg(void) {
     assert(FALSE, "RCP is HUNG UP!! Oh! MY GOD!!");
 }
 
+static s32 sDitherFilterEnabled = TRUE;
+
+static void set_dither_filter(s32 newState) {
+    if (newState != sDitherFilterEnabled) {
+        sDitherFilterEnabled = newState;
+        if (!sDitherFilterEnabled) osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
+        else osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
+    }
+}
+
 static void auto_dither_filter(void) {
     static u32 prevTime = 40000;
     static s32 overrideTimer = 0;
-    static s32 overrideFilter = FALSE;
-    static s32 lastDitherMode = DITHER_MODE_AUTO;
 
-    if (gConfig.ditherMode != lastDitherMode) {
-        if (gConfig.ditherMode == DITHER_MODE_OFF) osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
-        if (gConfig.ditherMode == DITHER_MODE_ON) osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
-        lastDitherMode = gConfig.ditherMode;
-    }
-    if (gConfig.ditherMode > 0) {
-        overrideFilter = gConfig.ditherMode != DITHER_MODE_ON;
+    if (gConfig.ditherMode != DITHER_MODE_AUTO) {
+        if (gConfig.ditherMode == DITHER_MODE_OFF)     set_dither_filter(FALSE);
+        else if (gConfig.ditherMode == DITHER_MODE_ON) set_dither_filter(TRUE);
         prevTime = osGetTime();
         return;
     }
 
     switch (gCurrLevelNum) {
         case LEVEL_CASTLE_GROUNDS:
+        case LEVEL_HMC:
         case LEVEL_COZIES: {
-            if (overrideFilter) {
-                overrideFilter = FALSE;
-                osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
-            }
+            set_dither_filter(TRUE);
             prevTime = osGetTime();
+            overrideTimer = 0;
             return;
         }
     }
@@ -518,25 +521,24 @@ static void auto_dither_filter(void) {
     u32 deltaTime = osGetTime() - prevTime;
     prevTime = osGetTime();
 
-    // 40000 is 25fps, feels not aggressive enough for this hack so I used 37000
-    // overrideTimer -= 40000;
-    overrideTimer -= 37000;
-    overrideTimer += MIN(OS_CYCLES_TO_USEC(deltaTime), 66666);
-    if (overrideTimer <= -100000) {
-        overrideTimer = -100000;
-        if (overrideFilter == TRUE) {
-            overrideFilter = FALSE;
-            osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
-            // osSyncPrintf("OS_VI_DITHER_FILTER_ON\n");
-        }
+    if (sDitherFilterEnabled) {               // performance has been good
+        overrideTimer -= (s32)(1000000/26.5); // 26.5fps threshold, below this will make it more likely filtering will be disabled
+    } else {                                  // performance has been bad
+        overrideTimer -= (s32)(1000000/28.5); // 28.5fps threshold, above this will re-enable filtering
     }
-    if (overrideTimer >= 100000) {
-        overrideTimer = 100000;
-        if (overrideFilter == FALSE) {
-            overrideFilter = TRUE;
-            osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
-            // osSyncPrintf("OS_VI_DITHER_FILTER_OFF\n");
-        }
+
+    overrideTimer += MIN(OS_CYCLES_TO_USEC(deltaTime), 66666);
+
+#define override_threshold_on  100000
+#define override_threshold_off 100000
+
+    if (overrideTimer <= -override_threshold_on) {
+        overrideTimer = -override_threshold_on;
+        set_dither_filter(TRUE);
+    }
+    if (overrideTimer >= override_threshold_off) {
+        overrideTimer = override_threshold_off;
+        set_dither_filter(FALSE);
     }
 }
 
@@ -556,11 +558,11 @@ void display_and_vsync(void) {
     }
     exec_display_list(&gGfxPool->spTask);
 
-if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
+    if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
 
     osViSwapBuffer((void *) PHYSICAL_TO_VIRTUAL(gPhysicalFramebuffers[sRenderedFramebuffer]));
 
- if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
+    if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
 
     // Skip swapping buffers on emulator so that they display immediately as the Gfx task finishes
     if (gIsConsole || gIsVC || gCacheEmulated) {

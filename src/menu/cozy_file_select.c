@@ -20,7 +20,9 @@
 #include "game/segment7.h"
 #include "game/spawn_object.h"
 #include "game/rumble_init.h"
+#include "game/hud.h"
 #include "game/main.h"
+#include "game/level_update.h"
 #include "sm64.h"
 #include "text_strings.h.in"
 #include "buffers/buffers.h"
@@ -29,6 +31,7 @@
 
 void store_dog_string(char *dogString, u8 fileNum);
 
+s32 on_rename_dog_button(FileSelectMenuState *mState);
 s32 on_select_game(FileSelectMenuState *mState);
 s32 on_erase_game(FileSelectMenuState *mState);
 s32 on_erase_game_button(FileSelectMenuState *mState);
@@ -61,6 +64,11 @@ FileSelectOption sExistingFileOptions[] = {
     {
         .label = "Start",
         .onSelect = &on_continue_game,
+        .disabled = FALSE,
+    },
+    {
+        .label = "Rename",
+        .onSelect = &on_rename_dog_button,
         .disabled = FALSE,
     },
     {
@@ -184,13 +192,18 @@ FileSelectMenuState sMenuState = {
     .closing = FALSE,
 };
 
+s32 sShowingKeyboard = FALSE;
+s32 sKBTimer = 0;
+
+#define KB_TRANSITION 4
+#define FILE_SELECT_SELECTED_FILE sMainMenu.curOpt
 
 // this menu callbacks start
 
 s32 on_erase_game(FileSelectMenuState *mState) {
-    save_file_erase(sMainMenu.curOpt);
+    save_file_erase(FILE_SELECT_SELECTED_FILE);
     
-    sprintf(sMainMenu.options[sMainMenu.curOpt].label, START_NEW_GAME_TEXT); 
+    sprintf(sMainMenu.options[FILE_SELECT_SELECTED_FILE].label, START_NEW_GAME_TEXT); 
     mState->menu->curOpt = 0; // reset option
     mState->menu = &sMainMenu;
 
@@ -204,10 +217,21 @@ s32 on_erase_game_button(FileSelectMenuState *mState) {
     return OPT_CALLBACK_NONE;
 }
 
+s32 on_rename_dog_button(UNUSED FileSelectMenuState *mState) {
+    sShowingKeyboard = gKeyboard = TRUE;
+    sKBTimer = KB_TRANSITION;
+    // nuke presses so that the keyboard dont steal em mmhm
+    gPlayer1Controller->buttonDown = 0;
+    gPlayer1Controller->buttonPressed = 0;
+    gPlayer1Controller->buttonReleased = 0;
+
+    return OPT_CALLBACK_NONE;
+}
+
 s32 on_select_game(FileSelectMenuState *mState) {
-    if (save_file_exists(sMainMenu.curOpt)) {
+    if (save_file_exists(FILE_SELECT_SELECTED_FILE)) {
         mState->menu = &sExistingFileMenu;
-        sExistingFileMenu.label = sMainMenu.options[sMainMenu.curOpt].label;
+        sExistingFileMenu.label = sMainMenu.options[FILE_SELECT_SELECTED_FILE].label;
         sExistingFileMenu.curOpt = 0;
     } else {
         mState->menu = &sNewFileMenu;
@@ -419,7 +443,7 @@ s32 process_menu(FileSelectMenuState *mState) {
 }
 
 void render_file_info(FileSelectMenuState *mState) {
-    s32 saveIndex = sMainMenu.curOpt;
+    s32 saveIndex = FILE_SELECT_SELECTED_FILE;
     s32 starCount = save_file_get_total_star_count(saveIndex, COURSE_MIN - 1, COURSE_MAX - 1);
     char buf[8];
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_begin);
@@ -436,10 +460,32 @@ void render_file_select(void) {
     if (mState->menu == &sExistingFileMenu) {
         render_file_info(mState);
     }
+
+    if (sKBTimer > 0) {
+        shade_screen_col(0, 0, 0, lroundf(
+            ((f32)(KB_TRANSITION - sKBTimer) / ((f32)KB_TRANSITION)) * 200));
+        sKBTimer--;
+    } else if (gKeyboard) {
+        shade_screen_col(0, 0, 0, 200);
+        render_dog_keyboard(FILE_SELECT_SELECTED_FILE);
+    }
 }
 
 s32 run_file_select(void) {
     FileSelectMenuState *mState = &sMenuState;
+
+    if (sShowingKeyboard) {
+        if (!gKeyboard) {
+            sShowingKeyboard = FALSE;
+            store_dog_string(sMainMenuOptList[FILE_SELECT_SELECTED_FILE].label, FILE_SELECT_SELECTED_FILE);
+            gSaveFileModified = TRUE;
+            save_file_do_save(FILE_SELECT_SELECTED_FILE);
+        }
+        else {
+            gDirectionsHeld = determine_joystick_movement();
+            return 0;
+        }
+    }
 
     s32 menuResponse = process_menu(mState);
 
@@ -452,7 +498,7 @@ s32 run_file_select(void) {
     if (mState->closing) {
         if (mState->closeTimer <= 0) {
             mState->closeTimer = 0;
-            return sMainMenu.curOpt + 1;
+            return FILE_SELECT_SELECTED_FILE + 1;
         } else {
             mState->closeTimer--;
         }
@@ -503,4 +549,7 @@ void init_file_select(void) {
     }
 
     gEndResultsActive = FALSE;
+    sShowingKeyboard = FALSE;
+    gWorldID = 0;
+    gFocusID = 0;
 }
