@@ -1664,11 +1664,11 @@ void render_pause_red_coins(void) {
 
     if((gCurrLevelNum == LEVEL_PSS || gCurrLevelNum == LEVEL_BITS) && bonesCollected > 0) {
         for (x = 0; x < bonesCollected; x++) {
-            print_animated_red_bone(GFX_DIMENSIONS_FROM_RIGHT_EDGE(30) - x * 20, 16);
+            print_animated_red_bone(GFX_DIMENSIONS_FROM_RIGHT_EDGE(34) - x * 20, 20);
         }
     } else {
         for (x = 0; x < gRedCoinsCollected; x++) {
-            print_animated_red_coin(GFX_DIMENSIONS_FROM_RIGHT_EDGE(30) - x * 20, 16);
+            print_animated_red_coin(GFX_DIMENSIONS_FROM_RIGHT_EDGE(34) - x * 20, 20);
         }
     }
 }
