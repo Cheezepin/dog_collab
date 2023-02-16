@@ -2154,7 +2154,7 @@ void spawn_rainbow_clouds(s32 type) {
             o->oObjF4 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 9354, 145, 2287, DEGREES(0), DEGREES(87), DEGREES(0), bhvRainbowCloud)
             o->oObjF8 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 10710, 145, 1711, DEGREES(0), DEGREES(87), DEGREES(0), bhvRainbowCloud)
             o->oObjFC = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 11634, 145, 1078, DEGREES(0), DEGREES(87), DEGREES(0), bhvRainbowCloud)
-            o->oObj100 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 14986, 145, 1527, DEGREES(0), DEGREES(177), DEGREES(0), bhvRainbowCloud)
+            o->oObj100 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 14986, 148, 1527, DEGREES(0), DEGREES(177), DEGREES(0), bhvRainbowCloud)
             break;
         case 1:
             o->oObjF4 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 15216, 572, -7039, DEGREES(0), DEGREES(98), DEGREES(0), bhvRainbowCloud)
