@@ -292,6 +292,9 @@ void bhv_bobomb_buddy_init(void) {
     o->oFriction = 0.8f;
     o->oBuoyancy = 1.3f;
     o->oInteractionSubtype = INT_SUBTYPE_NPC;
+    if (cur_obj_has_behavior(bhvKoopaDialog) && BPARAM2 == DIALOG_154 && gCurrActNum == 6) {
+        obj_mark_for_deletion(o);
+    } 
 }
 
 void bobomb_buddy_act_idle(void) {
