@@ -478,6 +478,9 @@ void print_generic_string(s16 x, s16 y, const u8 *str) {
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
 
+#ifndef qs510
+#define qs510(n) ((s16)((n)*0x0400))
+#endif
 
 /**
  * Prints a hud string depending of the hud table list defined.
@@ -521,9 +524,21 @@ void print_hud_lut_string(s8 hudLUT, s16 x, s16 y, const u8 *str) {
                     gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, hudLUT2[character]);
                 }
 
+                s32 isLower = character >= 'a' && character <= 'z';
+                u32 yOffsetL = isLower ? 3 : 0;
+
                 gSPDisplayList(gDisplayListHead++, dl_rgba16_load_tex_block);
-                gSPTextureRectangle(gDisplayListHead++, curX << 2, curY << 2, (curX + 16) << 2,
-                                    (curY + 16) << 2, G_TX_RENDERTILE, 0, 0, 1 << 10, 1 << 10);
+                gSPTextureRectangle(
+                    gDisplayListHead++,
+                    qu102(curX),
+                    qu102(curY + yOffsetL),
+                    qu102(curX + 16),
+                    qu102(curY + 16),
+                    G_TX_RENDERTILE,
+                    0, 0,
+                    qs510(1),
+                    isLower ? qs510(1.25f) : qs510(1)
+                );
 
                 curX += kernTable[character];
         }

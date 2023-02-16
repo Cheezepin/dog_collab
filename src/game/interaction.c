@@ -2031,6 +2031,8 @@ void check_hurt_floor(struct MarioState *m) {
         play_sound(SOUND_MARIO_ATTACKED, m->marioObj->header.gfx.cameraToObject);
         take_damage_from_no_interact_object(m, HURT_FLOOR_DAMAGE);
         
+        mario_drop_held_object(m);
+        mario_stop_riding_object(m);
         set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ 2);
     }
 }
@@ -2040,6 +2042,9 @@ void check_hurt_floor_with_height(struct MarioState *m) {
     if (m->pos[1] <= m->floorHeight + aboveFloorHeight) {
         take_damage_from_no_interact_object(m, HURT_FLOOR_DAMAGE);
         play_sound(SOUND_MARIO_ATTACKED, m->marioObj->header.gfx.cameraToObject);
+
+        mario_drop_held_object(m);
+        mario_stop_riding_object(m);
         set_mario_action(m, ACT_FLOOR_CHECKPOINT_WARP_OUT, 2);
     }
 }
