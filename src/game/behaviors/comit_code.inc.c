@@ -591,8 +591,17 @@ void bhv_center_platform_loop(void) {
                 set_mario_npc_dialog(0);
             }
 
-            if (gMarioState->pos[1] - o->oPosY < -1000.0f) {
-                warp_to_checkpoint(gMarioState, 0x100);
+            if (gMarioState->pos[1] - o->oPosY < -1000.0f && o->os16112 == 0) {
+                // warp_to_checkpoint(gMarioState, 0x200);
+                o->os16112 = 1;
+                play_sound(SOUND_MARIO_ATTACKED, gMarioState->marioObj->header.gfx.cameraToObject);
+                take_damage_from_no_interact_object(gMarioState, 2);
+                set_mario_action(gMarioState, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ 2);
+            }
+            if (o->os16112) {
+                if (++o->os16112 > 30) {
+                    o->os16112 = 0;
+                }
             }
             break;
         case 3:
@@ -637,8 +646,8 @@ void bhv_center_platform_loop(void) {
             break;
     }
 
-    o->o110 += 0x400;
-    o->o10C = 20 + (sins(o->o110) * 10);
+    o->os16110 += 0x400;
+    o->o10C = 20 + (sins(o->os16110) * 10);
 }
 
 
@@ -653,7 +662,7 @@ void bhv_lightning_blast_loop(void) {
             && o->oTimer > 6 && !sInvulnerable) {
             actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
             set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
-            gMarioState->hurtCounter += 8;
+            gMarioState->hurtCounter += 4;
             o->oTimer = 0;
         }
     } else {
@@ -662,7 +671,7 @@ void bhv_lightning_blast_loop(void) {
             && o->oTimer > 6 && !sInvulnerable) {
             actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
             set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
-            gMarioState->hurtCounter += 8;
+            gMarioState->hurtCounter += 4;
             o->oTimer = 0;
         }
         if (o->parentObj->o110 != 2) {
@@ -754,7 +763,7 @@ void bhv_lightning_bolt_loop(void) {
     if (o->oInteractStatus) {
         actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
         set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
-        gMarioState->hurtCounter += 8;
+        gMarioState->hurtCounter += 4;
     }
     if (o->oInteractStatus || o->oTimer > 120 || (o->parentObj->os16104 > 3 || o->parentObj->o110 > 3)) {
         spawn_mist_particles();
@@ -2019,8 +2028,13 @@ void bhv_fade_cloud_loop(void) {
             }
             break;
         case 1:
-            if (o->oTimer > 20)
-                o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 0x6);
+            if (o->oTimer > 20) {
+                if (gMarioState->action == ACT_STAR_DANCE_NO_EXIT || gMarioState->action == ACT_FALL_AFTER_STAR_GRAB) {
+                    o->oOpacity = approach_s16_symmetric(o->oOpacity, 255, 0x9);
+                } else {
+                    o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 0x6);
+                }
+            }
             if (o->oOpacity == 0) {
                 o->oAction = 2;
             }
