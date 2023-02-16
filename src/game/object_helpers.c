@@ -123,6 +123,25 @@ Gfx *geo_switch_anim_state(s32 callContext, struct GraphNode *node, UNUSED void 
     return NULL;
 }
 
+Gfx *geo_switch_koopa_col(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct Object *obj = gCurGraphNodeObjectNode;
+
+        // move to a local var because GraphNodes are passed in all geo functions.
+        // cast the pointer.
+        struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
+
+        if (gCurGraphNodeHeldObject != NULL) {
+            obj = gCurGraphNodeHeldObject->objNode;
+        }
+
+        s32 bparam2 = GET_BPARAM2(obj->oBehParams);
+        switchCase->selectedCase = bparam2 == DIALOG_154 || bparam2 == DIALOG_155;
+    }
+
+    return NULL;
+}
+
 Gfx *geo_is_level_b1(s32 callContext, struct GraphNode *node, UNUSED void *context) {
     if (callContext == GEO_CONTEXT_RENDER) {
         struct Object *obj = gCurGraphNodeObjectNode;
