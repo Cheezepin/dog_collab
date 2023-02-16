@@ -781,11 +781,14 @@ u8 koopa_npc_koopa_body_ci4[] = {
 };
 
 Gfx koopa_npc_koopa_body_ci4_pal_rgba16_aligner[] = {gsSPEndDisplayList()};
-u8 koopa_npc_koopa_body_ci4_pal_rgba16[] = {
-	0x00, 0x01, 0x39, 0xcb, 0xf6, 0x41, 0x5a, 0xcf, 
-	0xe6, 0x63, 0xbc, 0x8d, 0xb4, 0x95, 0x7b, 0x09, 
-	0xe6, 0x5d, 0xff, 0xff, 0x9c, 0xa1, 0x23, 0x85, 
-	0x26, 0x07, 0x1c, 0xc3, 0x6d, 0xd9, 
+u16 koopa_npc_koopa_body_ci4_pal_rgba16_RED[] = {
+	0x1, 0x39cb, 0xf641, 0x5acf, 0xe663, 0xbc8d, 0xb495, 0x7b09, 0xe65d, 0xffff, 0x9ca1, 0xa883, 0xf885, 0xe883, 0xfa0f
+};
+u16 koopa_npc_koopa_body_ci4_pal_rgba16[] = {
+	0x0001, 0x39cb, 0xf641, 0x5acf, 
+	0xe663, 0xbc8d, 0xb495, 0x7b09, 
+	0xe65d, 0xffff, 0x9ca1, 0x2385, 
+	0x2607, 0x1cc3, 0x6dd9, 
 };
 
 Vtx koopa_npc_Root_Bone_mesh_layer_6_vtx_0[4] = {
@@ -1366,6 +1369,29 @@ Gfx mat_koopa_npc_Koopa[] = {
 	gsSPEndDisplayList(),
 };
 
+Gfx mat_koopa_npc_Koopa_RED[] = {
+	gsDPPipeSync(),
+	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
+	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsDPSetTextureLUT(G_TT_RGBA16),
+	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, koopa_npc_koopa_body_ci4_pal_rgba16_RED),
+	gsDPTileSync(),
+	gsDPSetTile(0, 0, 0, 256, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
+	gsDPLoadSync(),
+	gsDPLoadTLUTCmd(7, 14),
+	gsDPPipeSync(),
+	gsDPTileSync(),
+	gsDPSetTextureImage(G_IM_FMT_CI, G_IM_SIZ_16b, 1, koopa_npc_koopa_body_ci4),
+	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_16b, 0, 0, 7, 0, G_TX_WRAP | G_TX_MIRROR, 6, 0, G_TX_WRAP | G_TX_MIRROR, 6, 0),
+	gsDPLoadSync(),
+	gsDPLoadBlock(7, 0, 0, 1023, 512),
+	gsDPPipeSync(),
+	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_4b, 4, 0, 0, 0, G_TX_WRAP | G_TX_MIRROR, 6, 0, G_TX_WRAP | G_TX_MIRROR, 6, 0),
+	gsDPSetTileSize(0, 0, 0, 252, 252),
+	gsSPSetLights1(koopa_npc_Koopa_lights),
+	gsSPEndDisplayList(),
+};
+
 Gfx mat_revert_koopa_npc_Koopa[] = {
 	gsDPPipeSync(),
 	gsDPSetTextureLUT(G_TT_NONE),
@@ -1380,7 +1406,6 @@ Gfx koopa_npc_Root_Bone_mesh_layer_6[] = {
 };
 
 Gfx koopa_npc_Torso_mesh_layer_1[] = {
-	gsSPDisplayList(mat_koopa_npc_Koopa),
 	gsSPDisplayList(koopa_npc_Torso_mesh_layer_1_tri_0),
 	gsSPEndDisplayList(),
 };
