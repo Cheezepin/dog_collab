@@ -797,3 +797,4 @@ extern const BehaviorScript bhv2639PresentEater[];
 extern const BehaviorScript bhv2639Jewel[];
 
 extern const BehaviorScript bhv2639ElevatorKey[];
+extern const BehaviorScript bhvTram2639[];

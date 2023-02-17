@@ -6623,12 +6623,13 @@ void Cam2639_CloseFocus();
 void Cam2639_OutwardSpiral();
 void Cam2639_HeadroomClearance();
 void Cam2639_LookDown();
+void Cam2639_InitialShot();
 struct CameraTrigger sCamBOB[] = {
 	{0, Cam2639_Elevator, -17, 3033, -2833, 803, 8515, 803, 0xffff},
-	{1, Cam2639_Main, -57, -404, 3930, 6995, 6995, 6995, 0xffff},
+	{1, Cam2639_InitialShot, 2292, -1412, 2708, 2309, 8500, 463, 0xffff},
 	{-1, Cam2639_Main, 0, 500, 0, 11500, 11500, 11500, 0xffff},
-	{1, Cam2639_LogoCam, -417, -2141, -4114, 1742, 1742, 1742, 0xffff},
-	{1, Cam2639_HeadroomClearance, -417, -2141, -1704, 889, 889, 889, 0xffff},
+	{1, Cam2639_LogoCam, -2526, -2141, -4114, 1742, 1742, 1742, 0xffff},
+	{1, Cam2639_HeadroomClearance, -2417, -2141, -1704, 889, 889, 889, 0xffff},
 	{2, Cam2639_OutwardSpiral, -418, 1, -4651, 3255, 699, 1131, 0xffff},
 	{2, Cam2639_HeadroomClearance, 218, 357, 592, 472, 371, 1176, 0xffff},
 	{2, Cam2639_CylinderCam, 82, 4109, -5865, 5597, 3222, 5597, 0xffff},

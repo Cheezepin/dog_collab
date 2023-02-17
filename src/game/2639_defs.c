@@ -16,6 +16,8 @@
 #include "dialog_ids.h"
 extern s16 sStatusFlags;
 
+void set_camera_mode_fixed2(struct Camera*, s16, s16, s16);
+
 // MODEL FUNCS
 
 u8 envColor[][3] = {
@@ -188,6 +190,25 @@ void Cam2639_Main(struct Camera *c) {
 
 void Cam2639_LookDown(struct Camera *c) {
     set_camera_mode_fixed(c, -125, 958, -380);
+}
+
+void handle_hud2639() {
+
+}
+
+
+void Cam2639_InitialShot(struct Camera *c) {
+    Vec3f pos = {4834, 400, 7778};
+    Vec3f focus = {3064, -1912, -2791};
+    Vec3f finalVec;
+
+    f32 dist;
+    s16 pitch, yaw;
+    vec3f_get_dist_and_angle(pos, focus, &dist, &pitch, &yaw);
+    vec3f_set_dist_and_angle(pos, finalVec, 2000, pitch, yaw);
+
+    set_camera_mode_fixed2(c, finalVec[0], finalVec[1], finalVec[2]);
+    set_camera_height(c, finalVec[1] - 500);
 }
 
 void Cam2639_OutwardSpiral(struct Camera *c) {
