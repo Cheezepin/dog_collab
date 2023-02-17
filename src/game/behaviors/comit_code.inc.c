@@ -429,11 +429,14 @@ void bhv_spectator_lakitu_init(void) {
 void bhv_floor_door_button_loop(void) {
     switch (o->oAction) {
         case 0:
+            o->os1610C += 0x400;
+            o->oOpacity = 15 + (sins(o->os1610C) * 15);
             if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_NO_PURPLE_SWITCH)) {
                 o->oAction = 1;
             }
             break;
         case 1:
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 4);
             cur_obj_scale_over_time(2, 3, 1.0f, 0.2f);
             if (o->oTimer == 3) {
                 cur_obj_play_sound_2(SOUND_GENERAL2_PURPLE_SWITCH);
@@ -517,6 +520,8 @@ void bhv_comit_coin_init(void) {
 void bhv_lightning_button_loop(void) {
     switch (o->oAction) {
         case 0:
+            o->os1610C += 0x400;
+            o->oOpacity = 15 + (sins(o->os1610C) * 15);
             if (gMarioObject->platform == o && !(gMarioStates[0].action & MARIO_NO_PURPLE_SWITCH)) {
                 o->oAction = 1;
             }
@@ -529,6 +534,7 @@ void bhv_lightning_button_loop(void) {
             }
             break;
         case 2:
+            o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 4);
             cur_obj_scale_over_time(2, 3, 0.2f, 1.0f);
             if (o->oTimer == 3) {
                 o->oAction = 0;
@@ -591,8 +597,17 @@ void bhv_center_platform_loop(void) {
                 set_mario_npc_dialog(0);
             }
 
-            if (gMarioState->pos[1] - o->oPosY < -1000.0f) {
-                warp_to_checkpoint(gMarioState, 0x100);
+            if (gMarioState->pos[1] - o->oPosY < -1000.0f && o->os16112 == 0) {
+                // warp_to_checkpoint(gMarioState, 0x200);
+                o->os16112 = 1;
+                play_sound(SOUND_MARIO_ATTACKED, gMarioState->marioObj->header.gfx.cameraToObject);
+                take_damage_from_no_interact_object(gMarioState, 2);
+                set_mario_action(gMarioState, ACT_FLOOR_CHECKPOINT_WARP_OUT, /*m->floor->force*/ 2);
+            }
+            if (o->os16112) {
+                if (++o->os16112 > 30) {
+                    o->os16112 = 0;
+                }
             }
             break;
         case 3:
@@ -637,8 +652,8 @@ void bhv_center_platform_loop(void) {
             break;
     }
 
-    o->o110 += 0x400;
-    o->o10C = 20 + (sins(o->o110) * 10);
+    o->os16110 += 0x400;
+    o->o10C = 20 + (sins(o->os16110) * 10);
 }
 
 
@@ -653,7 +668,7 @@ void bhv_lightning_blast_loop(void) {
             && o->oTimer > 6 && !sInvulnerable) {
             actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
             set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
-            gMarioState->hurtCounter += 8;
+            gMarioState->hurtCounter += 4;
             o->oTimer = 0;
         }
     } else {
@@ -662,7 +677,7 @@ void bhv_lightning_blast_loop(void) {
             && o->oTimer > 6 && !sInvulnerable) {
             actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
             set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
-            gMarioState->hurtCounter += 8;
+            gMarioState->hurtCounter += 4;
             o->oTimer = 0;
         }
         if (o->parentObj->o110 != 2) {
@@ -754,7 +769,7 @@ void bhv_lightning_bolt_loop(void) {
     if (o->oInteractStatus) {
         actionArg = (gMarioState->action & ACT_FLAG_AIR) == 0;
         set_mario_action(gMarioState, ACT_SHOCKED, actionArg);
-        gMarioState->hurtCounter += 8;
+        gMarioState->hurtCounter += 4;
     }
     if (o->oInteractStatus || o->oTimer > 120 || (o->parentObj->os16104 > 3 || o->parentObj->o110 > 3)) {
         spawn_mist_particles();
@@ -840,6 +855,7 @@ void lightning_cloud_bolt_loop(void) {
 
 void lightning_cloud_strike_loop(void) {
     f32 dist, dist2;
+    // print_text_fmt_int(80, 80, "%d", o->oAction);
     switch (o->oAction) {
         case 0:
             o->oPosY = approach_f32(o->oPosY, 1000.0f, 30.0f, 30.0f);
@@ -863,12 +879,12 @@ void lightning_cloud_strike_loop(void) {
             }
             break;
         case 1:
-            dist = absf(o->oVelX);
-            dist2 = absf(o->oVelZ);
+            dist = absf(o->oVelX) + 0.1f;
+            dist2 = absf(o->oVelZ) + 0.1f;
             o->oPosX = approach_f32(o->oPosX, o->oFloatF8, dist, dist);
             o->oPosZ = approach_f32(o->oPosZ, o->oFloatFC, dist2, dist2);
 
-            if (o->oPosX == o->oFloatF8 && o->oPosZ == o->oFloatFC) {
+            if (absf(o->oPosX - o->oFloatF8) < 0.1f && absf(o->oPosZ - o->oFloatFC) < 0.1f) {
                 o->oAction = 2;
             }
             break;
@@ -1186,12 +1202,12 @@ void bonus_lightning_cloud_strike_loop(void) {
             }
             break;
         case 1:
-            dist = absf(o->oVelX);
-            dist2 = absf(o->oVelZ);
+            dist = absf(o->oVelX) + 0.1f;
+            dist2 = absf(o->oVelZ) + 0.1f;
             o->oPosX = approach_f32(o->oPosX, o->oFloatF8, dist, dist);
             o->oPosZ = approach_f32(o->oPosZ, o->oFloatFC, dist2, dist2);
 
-            if (o->oPosX == o->oFloatF8 && o->oPosZ == o->oFloatFC) {
+            if (absf(o->oPosX - o->oFloatF8) < 0.1f && absf(o->oPosZ - o->oFloatFC) < 0.1f) {
                 o->oAction = 2;
             }
             break;
@@ -2019,8 +2035,13 @@ void bhv_fade_cloud_loop(void) {
             }
             break;
         case 1:
-            if (o->oTimer > 20)
+            if (gMarioState->action == ACT_STAR_DANCE_NO_EXIT || gMarioState->action == ACT_FALL_AFTER_STAR_GRAB) {
+                o->oOpacity = approach_s16_symmetric(o->oOpacity, 255, 0x9);
+                o->oTimer = 0;
+            }
+            if (o->oTimer > 20) {
                 o->oOpacity = approach_s16_symmetric(o->oOpacity, 0, 0x6);
+            }
             if (o->oOpacity == 0) {
                 o->oAction = 2;
             }
@@ -2104,6 +2125,10 @@ void bhv_rain_cloud_loop(void) {
 
 
 void bhv_cloud_rainbow_loop(void) {
+    if (gMarioState->action != ACT_STAR_DANCE_EXIT && gMarioState->action != ACT_STAR_DANCE_NO_EXIT && 
+        gMarioState->action != ACT_FALL_AFTER_STAR_GRAB) {
+        load_object_collision_model();
+    }
     switch (o->oAction) {
         case 0:
             o->header.gfx.scale[2] = approach_f32(o->header.gfx.scale[2], 100.0f, 1.5f, 1.5f);
@@ -2140,7 +2165,7 @@ void spawn_rainbow_clouds(s32 type) {
             o->oObjF4 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 9354, 145, 2287, DEGREES(0), DEGREES(87), DEGREES(0), bhvRainbowCloud)
             o->oObjF8 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 10710, 145, 1711, DEGREES(0), DEGREES(87), DEGREES(0), bhvRainbowCloud)
             o->oObjFC = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 11634, 145, 1078, DEGREES(0), DEGREES(87), DEGREES(0), bhvRainbowCloud)
-            o->oObj100 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 14986, 145, 1527, DEGREES(0), DEGREES(177), DEGREES(0), bhvRainbowCloud)
+            o->oObj100 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 14986, 148, 1527, DEGREES(0), DEGREES(177), DEGREES(0), bhvRainbowCloud)
             break;
         case 1:
             o->oObjF4 = COMIT_OBJECT(MODEL_RAINBOW_CLOUD, 15216, 572, -7039, DEGREES(0), DEGREES(98), DEGREES(0), bhvRainbowCloud)

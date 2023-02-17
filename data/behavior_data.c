@@ -7416,7 +7416,7 @@ const BehaviorScript bhvCloudRainbow[] = {
     SET_HOME(),
     //CALL_NATIVE(bhv_cloud_rainbow_init),
     BEGIN_LOOP(),
-        CALL_NATIVE(load_object_collision_model),
+        // CALL_NATIVE(load_object_collision_model),
         CALL_NATIVE(bhv_cloud_rainbow_loop),
     END_LOOP(),
 };
