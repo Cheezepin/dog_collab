@@ -727,6 +727,7 @@ enum CoziesLevelModels {
 #define MODEL_MISSILE 0x110
 #define MODEL_MAPLETREE 0x111
 #define MODEL_SAKSEED 0x112
+#define MODEL_BARON 0x113
 
 //END ROVERT MODEL IDS
 

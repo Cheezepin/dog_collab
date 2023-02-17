@@ -52,6 +52,7 @@ const LevelScript level_wdw_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_CHERRY_TREE, cherry_tree_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_TREE_NUT, tree_seed_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_DIRT_PILE, dirt_patch_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_BARON, baron_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -67,7 +68,7 @@ const LevelScript level_wdw_entry[] = {
 		OBJECT(MODEL_BLUE_COIN, -59, 2730, 5792, 0, 0, 0, 0x00000000, bhvHiddenBlueCoin),
 		OBJECT(MODEL_BLUE_COIN_SWITCH, -2460, 1929, 3037, 0, 0, 0, 0x00000000, bhvBlueCoinSwitch),
 		OBJECT(MODEL_BLOOPER, 539, 1236, -631, 0, -42, 0, 0x00000000, bhvBlooper),
-		OBJECT_WITH_ACTS(MODEL_KING_BOBOMB, 2447, 7092, -4813, 0, 0, 0, 0x00000000, bhvKingBobomb, ACT_1),
+		OBJECT_WITH_ACTS(MODEL_BARON, 2447, 7092, -4813, 0, 0, 0, 0x00000000, bhvKingBobomb, ACT_1),
 		OBJECT(MODEL_BOBOMB_BUDDY, -755, 4352, -5920, 0, 0, 0, 0x00000000, bhvBobombBuddyOpensCannon),
 		OBJECT(MODEL_BOBOMB_BUDDY, -4746, 1897, 4374, 0, 0, 0, (114 << 16), bhvBobombBuddy),
 		OBJECT(MODEL_DL_CANNON_LID, -3968, 4912, -6122, 0, 0, 0, 0x00000000, bhvCannonClosed),

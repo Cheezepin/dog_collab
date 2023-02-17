@@ -65,4 +65,6 @@ extern const LevelScript level_wdw_entry[];
 
 #include "levels/wdw/sakseed/geo_header.h"
 
+#include "levels/wdw/baron/geo_header.h"
+
 #endif
