@@ -22493,6 +22493,13 @@ Gfx mat_revert_bbh_dl_Grass_001_layer1[] = {
 	gsSPEndDisplayList(),
 };
 
+Gfx mat_bbh_dl_DeathfloorReal[] = {
+	gsDPPipeSync(),
+	gsDPSetCombineLERP(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1),
+	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsSPEndDisplayList(),
+};
+
 Gfx mat_bbh_dl_Metal2_003[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
@@ -23753,7 +23760,7 @@ Gfx bbh_dl_FwooshRoom_mesh_layer_1[] = {
 	gsSPDisplayList(mat_bbh_dl_Metal_001),
 	gsSPDisplayList(bbh_dl_FwooshRoom_mesh_layer_1_tri_2),
 	gsSPDisplayList(mat_revert_bbh_dl_Metal_001),
-	gsSPDisplayList(mat_bbh_dl_Deathfloor_001),
+	gsSPDisplayList(mat_bbh_dl_DeathfloorReal),
 	gsSPDisplayList(bbh_dl_FwooshRoom_mesh_layer_1_tri_3),
 	gsSPDisplayList(mat_bbh_dl_Metal2_003),
 	gsSPDisplayList(bbh_dl_FwooshRoom_mesh_layer_1_tri_4),

@@ -534,6 +534,7 @@ extern Gfx mat_revert_bbh_dl_MetalWall_001[];
 extern Gfx mat_bbh_dl_Deathfloor_001[];
 extern Gfx mat_bbh_dl_Grass_001_layer1[];
 extern Gfx mat_revert_bbh_dl_Grass_001_layer1[];
+extern Gfx mat_bbh_dl_DeathfloorReal[];
 extern Gfx mat_bbh_dl_Metal2_003[];
 extern Gfx mat_revert_bbh_dl_Metal2_003[];
 extern Gfx mat_bbh_dl_Glass_001[];
