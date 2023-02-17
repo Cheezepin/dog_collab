@@ -19,39 +19,49 @@ void scroll_lll_dl_ZZ2_Cloud_mesh_layer_5_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_gfx_mat_lll_dl_water_003_layer5() {
-	Gfx *mat = segmented_to_virtual(mat_lll_dl_water_003_layer5);
+void scroll_gfx_lll_dl_fountain_water_mesh_layer_5() {
+	Gfx *mat = segmented_to_virtual(lll_dl_fountain_water_mesh_layer_5);
 
 
-	shift_s_down(mat, 10, PACK_TILESIZE(0, 1));
-	shift_s(mat, 15, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 16, PACK_TILESIZE(0, 1));
+	shift_s(mat, 22, PACK_TILESIZE(0, 1));
 
 };
 
-void scroll_gfx_mat_lll_dl_slow_mud_005() {
-	Gfx *mat = segmented_to_virtual(mat_lll_dl_slow_mud_005);
+void scroll_gfx_lll_dl_Y1_grass_mesh_layer_1() {
+	Gfx *mat = segmented_to_virtual(lll_dl_Y1_grass_mesh_layer_1);
 	static int intervalTex0 = 2;
 	static int curInterval0 = 2;
 
 	if (--curInterval0 <= 0) {
-		shift_s(mat, 9, PACK_TILESIZE(0, 1));
+		shift_s(mat, 167, PACK_TILESIZE(0, 1));
 		curInterval0 = intervalTex0;
 	}
 
 };
 
-void scroll_gfx_mat_lll_dl_CloudSky_layer5() {
-	Gfx *mat = segmented_to_virtual(mat_lll_dl_CloudSky_layer5);
+void scroll_gfx_lll_dl_Y4_water_mesh_layer_5() {
+	Gfx *mat = segmented_to_virtual(lll_dl_Y4_water_mesh_layer_5);
 
 
-	shift_s(mat, 10, PACK_TILESIZE(0, 1));
-	shift_s_down(mat, 15, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 12, PACK_TILESIZE(0, 1));
+	shift_s(mat, 18, PACK_TILESIZE(0, 1));
+
+};
+
+void scroll_gfx_lll_dl_ZZ2_Cloud_mesh_layer_5() {
+	Gfx *mat = segmented_to_virtual(lll_dl_ZZ2_Cloud_mesh_layer_5);
+
+
+	shift_s(mat, 12, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 18, PACK_TILESIZE(0, 1));
 
 };
 
 void scroll_lll() {
 	scroll_lll_dl_ZZ2_Cloud_mesh_layer_5_vtx_0();
-	scroll_gfx_mat_lll_dl_water_003_layer5();
-	scroll_gfx_mat_lll_dl_slow_mud_005();
-	scroll_gfx_mat_lll_dl_CloudSky_layer5();
+	scroll_gfx_lll_dl_fountain_water_mesh_layer_5();
+	scroll_gfx_lll_dl_Y1_grass_mesh_layer_1();
+	scroll_gfx_lll_dl_Y4_water_mesh_layer_5();
+	scroll_gfx_lll_dl_ZZ2_Cloud_mesh_layer_5();
 };
