@@ -205,12 +205,15 @@ void handle_hud2639() {
 
     switch (gCurrActNum) {
         case ACT_LOBBYSCAVENGER:
-            if (_2639_BoB_A1_ToadTalkLatch == 1) {
+            if (gHudDisplay.coins > 0) {
                 print_text_fmt_int(20, 10 + (10 * gIsConsole), "Collected %d/2", IHateGCC);
+            }
+            if (gHudDisplay.coins == 2) {
+                print_text(20, 26 + (10 * gIsConsole), "Talk to the Toad!");
             }
             break;
         case ACT_SCAVENGER:
-            if (gCurrAreaIndex < 2) { // NOT in the lobby or outside or in the challenge
+            if (gCurrAreaIndex < 2 && CountGoods > 0) { // NOT in the lobby or outside or in the challenge
                 print_text_fmt_int(20, 10 + (10 * gIsConsole), "Items %d/4", CountGoods);
             }
             break;

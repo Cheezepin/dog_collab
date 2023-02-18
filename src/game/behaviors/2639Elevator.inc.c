@@ -100,6 +100,10 @@ void bhv_2639Elevator_loop(void) {
         elev_LatchDistance();
     }
 
+    if (gCurrActNum == ACT_SCAVENGER && gHudDisplay.coins == 4) {
+        o->elevLocked = 1;
+    }
+
     switch (o->oAction) {
         case 0:
             if (gCurrAreaIndex != 2) { // make sure this only happens in the new area
