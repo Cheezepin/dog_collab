@@ -14,6 +14,7 @@
 #include "audio/load.h"
 #include "rendering_graph_node.h"
 #include "dialog_ids.h"
+#include "hud.h"
 extern s16 sStatusFlags;
 
 void set_camera_mode_fixed2(struct Camera*, s16, s16, s16);
@@ -56,11 +57,13 @@ Gfx *geo2639_ModulatePrim(s32 callContext, struct GraphNode *node, UNUSED Mat4 *
 u32 _2639_BoB_A1_ToadTalkLatch = 0;
 u32 _2639_BoB_A1_CaneCollected = 0;
 u32 _2639_BoB_A1_SunglassesCollected = 0;
+u32 _2639_BoB_A6_CoinCount = 0;
 
 reset_act_1() {
     _2639_BoB_A1_CaneCollected = 0;
     _2639_BoB_A1_SunglassesCollected = 0;
     _2639_BoB_A1_ToadTalkLatch = 0;
+    _2639_BoB_A6_CoinCount = gHudDisplay.coins;
 }
 
 // s32 in2639Level_Compat(struct Object *co) {
@@ -207,7 +210,7 @@ void handle_hud2639() {
             }
             break;
         case ACT_SCAVENGER:
-            if (gCurrAreaIndex != 2) { // NOT in the lobby
+            if (gCurrAreaIndex < 2) { // NOT in the lobby or outside or in the challenge
                 print_text_fmt_int(20, 10 + (10 * gIsConsole), "Items %d/4", CountGoods);
             }
             break;
