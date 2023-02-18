@@ -192,8 +192,31 @@ void Cam2639_LookDown(struct Camera *c) {
     set_camera_mode_fixed(c, -125, 958, -380);
 }
 
-void handle_hud2639() {
 
+#include "hud.h"
+#include "game_init.h"
+void handle_hud2639() {
+    // #define ITEMCOUNT 6
+    u32 IHateGCC = _2639_BoB_A1_SunglassesCollected + _2639_BoB_A1_CaneCollected;
+    u32 CountGoods = gHudDisplay.coins;
+
+    switch (gCurrActNum) {
+        case ACT_LOBBYSCAVENGER:
+            if (_2639_BoB_A1_ToadTalkLatch == 1) {
+                print_text_fmt_int(20, 10 + (10 * gIsConsole), "Collected %d/2", IHateGCC);
+            }
+            break;
+        case ACT_SCAVENGER:
+            print_text_fmt_int(20, 10 + (10 * gIsConsole), "Items %d/4", CountGoods);
+            break;
+        default: break;
+        case ACT_CHALLENGE:
+        case ACT_PARTY:
+        case ACT_FLOOD:
+        case ACT_BASEMENT:
+        case ACT_COUCHES:
+            break;
+    }
 }
 
 

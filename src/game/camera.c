@@ -5338,7 +5338,8 @@ void radial_camera_input(struct Camera *c) {
         }
     }
 
-    if (!in2639Level()) {
+    // if (!in2639Level()) {
+    if (1) {
         // Zoom in / enter C-Up
         if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
             if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
