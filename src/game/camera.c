@@ -821,8 +821,6 @@ void pan_ahead_of_player(struct Camera *c) {
     pan[0] = sPanDistance;
     yaw = -yaw;
     rotate_in_xz(pan, pan, yaw);
-
-    pan[1] += 100;
     vec3f_add(c->focus, pan);
 }
 
