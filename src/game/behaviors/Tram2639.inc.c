@@ -10,7 +10,7 @@ void bhv_Tram2639_loop(void) {
 	o->oTimer++;
 	vec3f_set(o->header.gfx.scale, TramScale, TramScale, TramScale);
 	if (o->oTimer > 280) {
-		TramScale -= 0.002;
+		TramScale -= 0.01;
 	}
 	if (TramScale < 0) {
 		mark_obj_for_deletion(o);
