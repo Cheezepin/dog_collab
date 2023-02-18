@@ -8928,3 +8928,16 @@ const BehaviorScript bhv2639ElevatorKey[] = {
         ADD_INT(oFaceAngleYaw, 1),
 	END_LOOP(),
 };
+
+const BehaviorScript bhvTram2639[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
+	CALL_NATIVE(bhv_Tram2639_init),
+    SET_FLOAT(oCollisionDistance, 10000),
+    SET_FLOAT(oDrawingDistance, 10000),
+    LOAD_COLLISION_DATA(tram2639_collision),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_Tram2639_loop),
+        CALL_NATIVE(load_object_collision_model),
+	END_LOOP(),
+};

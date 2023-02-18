@@ -57,4 +57,8 @@ extern void geo2639_ModulatePrim();
 
 #include "key2639/geo_header.h"
 
+#include "tram2639/geo_header.h"
+
+#include "tram2639/collision_header.h"
+
 #endif

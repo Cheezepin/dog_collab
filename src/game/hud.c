@@ -616,6 +616,10 @@ void render_hud(void) {
     s16 hudDisplayFlags = gHudDisplay.flags;
     static int shadeFade = 0;
 
+    if (in2639Level()) {
+        handle_hud2639();
+    }
+
     if (hudDisplayFlags == HUD_DISPLAY_NONE) {
         sPowerMeterHUD.animation = POWER_METER_HIDDEN;
         sPowerMeterStoredHealth = 8;
@@ -669,7 +673,17 @@ void render_hud(void) {
 #endif
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
-            render_hud_coins();
+            if (in2639Level()) {
+                // if (gCurrActNum == ACT_CHALLENGE
+                //     || gCurrActNum == ACT_LOBBYSCAVENGER
+                //     || gCurrActNum == ACT_SCAVENGER) {
+
+                // } else {
+                //     render_hud_coins();
+                // }
+            } else {
+                render_hud_coins();
+            }
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_STAR_COUNT) {
