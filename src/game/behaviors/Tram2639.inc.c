@@ -8,11 +8,11 @@ void bhv_Tram2639_init(void) {
 void bhv_Tram2639_loop(void) {
 	o->oPosX -= 70;
 	o->oTimer++;
-	// vec3f_set(o->header.gfx.scale, TramScale, TramScale, TramScale);
+	vec3f_set(o->header.gfx.scale, TramScale, TramScale, TramScale);
 	if (o->oTimer > 280) {
-		mark_obj_for_deletion(o);
-		// TramScale -= 0.01;
+		TramScale -= 0.002;
 	}
-	// if (TramScale < 0.05) {
-	// }
+	if (TramScale < 0) {
+		mark_obj_for_deletion(o);
+	}
 }

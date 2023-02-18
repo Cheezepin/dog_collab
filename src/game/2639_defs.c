@@ -197,7 +197,7 @@ void Cam2639_LookDown(struct Camera *c) {
 #include "game_init.h"
 void handle_hud2639() {
     // #define ITEMCOUNT 6
-    u32 IHateGCC = _2639_BoB_A1_SunglassesCollected + _2639_BoB_A1_CaneCollected;
+    u32 IHateGCC = gHudDisplay.coins;
     u32 CountGoods = gHudDisplay.coins;
 
     switch (gCurrActNum) {
@@ -207,7 +207,9 @@ void handle_hud2639() {
             }
             break;
         case ACT_SCAVENGER:
-            print_text_fmt_int(20, 10 + (10 * gIsConsole), "Items %d/4", CountGoods);
+            if (gCurrAreaIndex != 2) { // NOT in the lobby
+                print_text_fmt_int(20, 10 + (10 * gIsConsole), "Items %d/4", CountGoods);
+            }
             break;
         default: break;
         case ACT_CHALLENGE:
