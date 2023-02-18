@@ -8,6 +8,8 @@
 // The end quote should be here:               "
 #define INTERNAL_ROM_NAME "DOG COLLAB          "
 
+#define DOG_COLLAB_VERSION "0.1.0-beta"
+
 // Enables Rumble Pak Support.
 // Currently not recommended, as it may cause random crashes.
 // #define ENABLE_RUMBLE (1)
