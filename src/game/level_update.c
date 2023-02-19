@@ -90,6 +90,7 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_PSS, 7, 1, -128, { 0, 100, 0 }, NULL, 0 },
     { LEVEL_PSS, 7, 1, 117, { 0, 100, 0 }, credits01, 0 },
     { LEVEL_WDW, 1, 50, 46, { 347, 5376, 326 }, credits02, 0 },
+    { LEVEL_BBH, 1, 18, 22, { 3800, -4840, 2727 }, credits03, 0 },
     { LEVEL_BOB, 2, 34, 25, { -489, 116, 2261 }, credits04, 0 },
     { LEVEL_BITFS, 1, 1, 240, { 15040, 2867, 1676 }, credits05, 1 },
     { LEVEL_WF, 1, -15, 123, { -5516, 1006, 1554 }, credits06, 0 },
