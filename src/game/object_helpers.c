@@ -2641,15 +2641,42 @@ u8 sMapAreaToCourse[2][8] = {
     { COURSE_BITS, COURSE_JRB, COURSE_SSL, COURSE_BITDW, COURSE_LLL,   COURSE_HMC, COURSE_DDD, COURSE_BITS }
 };
 
+// bitdw gets to cycle through all the colors <3
+u32 emuColors[] = {
+    0x00FFFFFF, //hynotizing high rise
+    0xF6ACA9FF, //koopa atoll
+    0xC90000FF, //swirling circus
+    0xFF7200FF, //peach ruins
+    0xFF42B0FF, //cumulus correctional center
+    0x932BC4FF, //forbidden factory
+    0xFFE800FF, //feudal fortress
+    0x00007DFF, //awe-inspiring spires
+    0xDDCEFFFF, //bowsers scuba tower
+    0xA9FF4FFF, //maple markindon
+    0x3F3F3FFF, //bflfo
+    0xFFFFFFFF, //bfufi
+};
+
 Gfx *geo_backdrop_move_cozies_b3(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
     Gfx *dlStart, *dlHead;
     dlStart = NULL;
+    static s32 curR = 127;
+    static s32 curG = 127;
+    static s32 curB = 127;
+    static s32 bitdwIndex = 0;
 
     if (callContext == GEO_CONTEXT_RENDER) {
         s32 bPart = gCurrLevelNum == LEVEL_BITFS ? 0 : 1;
         u8 courseNum = sMapAreaToCourse[bPart][gCurrAreaIndex];
 
         RGBA starColor = { .rgba32 = starColors[courseNum - 1] };
+        if (courseNum == COURSE_BITDW) {
+            if (gGlobalTimer % 60 == 0) {
+                bitdwIndex++;
+                if (bitdwIndex >= ARRAY_COUNT(emuColors)) bitdwIndex = 0;
+            }
+            starColor.rgba32 = emuColors[bitdwIndex];
+        }
 
         dlStart = alloc_display_list(sizeof(Gfx) * 3);
 
@@ -2657,8 +2684,12 @@ Gfx *geo_backdrop_move_cozies_b3(s32 callContext, struct GraphNode *node, UNUSED
 
         // LAYER_FORCE is 0, so this is a noop
         // SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_FORCE);
+        curR = approach_s32_symmetric(curR, starColor.r, 8);
+        curG = approach_s32_symmetric(curG, starColor.g, 8);
+        curB = approach_s32_symmetric(curB, starColor.b, 8);
+        f32 multiplier = get_relative_position_between_ranges(get_cycle(4.0f, 0.0f, gGlobalTimer), -1, 1, 0.6f, 0.9f);
 
-        gDPSetPrimColor(dlHead++, 0, 0, starColor.r / 2, starColor.g / 2, starColor.b / 2, 0xFF);
+        gDPSetPrimColor(dlHead++, 0, 0, curR * multiplier, curG * multiplier, curB * multiplier, 0xFF);
         gSPEndDisplayList(dlHead);
 
         ((struct GraphNodeTranslation *) node->next)->translation[0] = gLakituState.pos[0] * 0.99f;
