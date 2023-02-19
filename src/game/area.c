@@ -59,6 +59,7 @@ Color gWarpTransBlue = 0;
 s16 gCurrSaveFileNum = 1;
 s16 gCurrLevelNum = LEVEL_MIN;
 u8 gShadeScreenAmount = 0;
+u8 gShowVersionText = TRUE;
 
 /*
  * The following two tables are used in get_mario_spawn_type() to determine spawn type
@@ -400,6 +401,32 @@ u32 approach_transition_colors(void) {
     return (warpTransitionRGBA16 << 16) | warpTransitionRGBA16;
 }
 
+void render_doge_version(void) {
+    // This will only render on the very first boot!
+    static s32 timer = 0;
+    static s32 versionOpa = 0;
+    if (gShowVersionText) {
+        timer++;
+        if (timer < 20) {
+            versionOpa = lroundf(get_relative_position_between_ranges(timer, 0, 19, 0, 255));
+        } else if (timer < 75) {
+            versionOpa = 255;
+        } else if (timer < 92) {
+            versionOpa = lroundf(get_relative_position_between_ranges(timer, 75, 91, 255, 0));
+        } else {
+            gShowVersionText = FALSE;
+            return;
+        }
+
+        create_dl_ortho_matrix();
+
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+        gDPSetEnvColor(gDisplayListHead++, 150, 150, 150, versionOpa);
+        print_generic_string(4, 240 - gScreenHeight, (u8 *)DOG_COLLAB_VERSION);
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+    }
+}
+
 void render_game(void) {
     if (gCurrentArea != NULL && !gWarpTransition.pauseRendering) {
         if (gCurrentArea->graphNode) {
@@ -414,6 +441,7 @@ void render_game(void) {
         if (gRenderingFileSelect && gCurrLevelNum == LEVEL_UNKNOWN_1) {
             render_file_select();
         }
+        render_doge_version();
 
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, gScreenWidth, gScreenHeight);
         render_text_labels();

@@ -4,6 +4,8 @@ extern s16 sSourceWarpNodeId;
 #define WARP_OP_WARP_OBJECT 4
 extern s16 sDelayedWarpOp;
 
+#include "game/hud.h"
+
 
 void elvWarpMario(int node) {
     sDelayedWarpTimer = 0x13;
@@ -66,13 +68,40 @@ void keepOutElevator(Vec3f pos) {
 }
 
 #define ELEV_DISTANCE 750
-void bhv_2639Elevator_loop(void) {
 
+void elev_LatchDistance() {
     if (o->oDistanceToMario >= ELEV_DISTANCE) {
         o->elevDistanceLatch = 2;
     }
     if (o->oDistanceToMario < ELEV_DISTANCE && o->elevDistanceLatch == 2) {
         o->elevDistanceLatch = 0;
+    }
+}
+
+void elev_LatchByCoinCount() {
+    if (gHudDisplay.coins != _2639_BoB_A6_CoinCount) {
+        _2639_BoB_A6_CoinCount = gHudDisplay.coins;
+        o->elevDistanceLatch = 0;
+    } else if (o->elevDistanceLatch != 0) {
+        o->elevDistanceLatch = 2;
+    }
+}
+
+
+void bhv_2639Elevator_loop(void) {
+
+    if (gCurrActNum == ACT_SCAVENGER) {
+        if (gCurrAreaIndex == 2 || gCurrAreaIndex == 6) {
+            elev_LatchDistance();
+        } else {
+            elev_LatchByCoinCount();
+        }
+    } else {
+        elev_LatchDistance();
+    }
+
+    if (gCurrActNum == ACT_SCAVENGER && gHudDisplay.coins == 4) {
+        o->elevLocked = 1;
     }
 
     switch (o->oAction) {
