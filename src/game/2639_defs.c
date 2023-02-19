@@ -14,7 +14,10 @@
 #include "audio/load.h"
 #include "rendering_graph_node.h"
 #include "dialog_ids.h"
+#include "hud.h"
 extern s16 sStatusFlags;
+
+void set_camera_mode_fixed2(struct Camera*, s16, s16, s16);
 
 // MODEL FUNCS
 
@@ -54,11 +57,13 @@ Gfx *geo2639_ModulatePrim(s32 callContext, struct GraphNode *node, UNUSED Mat4 *
 u32 _2639_BoB_A1_ToadTalkLatch = 0;
 u32 _2639_BoB_A1_CaneCollected = 0;
 u32 _2639_BoB_A1_SunglassesCollected = 0;
+u32 _2639_BoB_A6_CoinCount = 0;
 
 reset_act_1() {
     _2639_BoB_A1_CaneCollected = 0;
     _2639_BoB_A1_SunglassesCollected = 0;
     _2639_BoB_A1_ToadTalkLatch = 0;
+    _2639_BoB_A6_CoinCount = gHudDisplay.coins;
 }
 
 // s32 in2639Level_Compat(struct Object *co) {
@@ -188,6 +193,53 @@ void Cam2639_Main(struct Camera *c) {
 
 void Cam2639_LookDown(struct Camera *c) {
     set_camera_mode_fixed(c, -125, 958, -380);
+}
+
+
+#include "hud.h"
+#include "game_init.h"
+void handle_hud2639() {
+    // #define ITEMCOUNT 6
+    u32 IHateGCC = gHudDisplay.coins;
+    u32 CountGoods = gHudDisplay.coins;
+
+    switch (gCurrActNum) {
+        case ACT_LOBBYSCAVENGER:
+            if (gHudDisplay.coins > 0) {
+                print_text_fmt_int(20, 10 + (10 * gIsConsole), "Collected %d/2", IHateGCC);
+            }
+            if (gHudDisplay.coins == 2) {
+                print_text(20, 26 + (10 * gIsConsole), "Talk to the Toad!");
+            }
+            break;
+        case ACT_SCAVENGER:
+            if (gCurrAreaIndex < 2 && CountGoods > 0) { // NOT in the lobby or outside or in the challenge
+                print_text_fmt_int(20, 10 + (10 * gIsConsole), "Items %d/4", CountGoods);
+            }
+            break;
+        default: break;
+        case ACT_CHALLENGE:
+        case ACT_PARTY:
+        case ACT_FLOOD:
+        case ACT_BASEMENT:
+        case ACT_COUCHES:
+            break;
+    }
+}
+
+
+void Cam2639_InitialShot(struct Camera *c) {
+    Vec3f pos = {4834, 400, 7778};
+    Vec3f focus = {3064, -1912, -2791};
+    Vec3f finalVec;
+
+    f32 dist;
+    s16 pitch, yaw;
+    vec3f_get_dist_and_angle(pos, focus, &dist, &pitch, &yaw);
+    vec3f_set_dist_and_angle(pos, finalVec, 2000, pitch, yaw);
+
+    set_camera_mode_fixed2(c, finalVec[0], finalVec[1], finalVec[2]);
+    set_camera_height(c, finalVec[1] - 500);
 }
 
 void Cam2639_OutwardSpiral(struct Camera *c) {

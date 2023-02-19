@@ -15379,7 +15379,7 @@ u8 dark_sky_CUSTOM_darksky248x_rgba16[] = {
 	
 };
 
-Vtx dark_sky_skydl_mesh_layer_0_vtx_0[474] = {
+Vtx dark_sky_skydl_mesh_layer_0_vtx_0[478] = {
 	{{{-11, 7262, -17138}, 0, {5936, 2960}, {0xE8, 0xE7, 0x7A, 0xFF}}},
 	{{{6374, 9428, -15416}, 0, {5439, 2717}, {0xE8, 0xE7, 0x7A, 0xFF}}},
 	{{{-11, 9428, -16687}, 0, {5937, 2717}, {0xE8, 0xE7, 0x7A, 0xFF}}},
@@ -15796,6 +15796,10 @@ Vtx dark_sky_skydl_mesh_layer_0_vtx_0[474] = {
 	{{{-15428, 9428, -6386}, 0, {7419, 2731}, {0x6D, 0xC2, 0x15, 0xFF}}},
 	{{{-13335, 13364, -5552}, 0, {7437, 2128}, {0x6D, 0xC2, 0x15, 0xFF}}},
 	{{{-13890, 13364, -2761}, 0, {7701, 2092}, {0x6D, 0xC2, 0x15, 0xFF}}},
+	{{{-15844, 7262, -6558}, 0, {7424, 2960}, {0x7A, 0xE7, 0x18, 0xFF}}},
+	{{{-15428, 9428, -6386}, 0, {7419, 2731}, {0x7A, 0xE7, 0x18, 0xFF}}},
+	{{{-16063, 9428, -3193}, 0, {7716, 2679}, {0x7A, 0xE7, 0x18, 0xFF}}},
+	{{{-16550, 7262, -3009}, 0, {7672, 2941}, {0x7A, 0xE7, 0x18, 0xFF}}},
 	{{{-17149, 163, -7099}, 0, {7424, 3952}, {0x68, 0xE8, 0x45, 0xFF}}},
 	{{{-12129, 7262, -12118}, 0, {6928, 2960}, {0x68, 0xE8, 0x45, 0xFF}}},
 	{{{-15844, 7262, -6558}, 0, {7424, 2960}, {0x68, 0xE8, 0x45, 0xFF}}},
@@ -16211,12 +16215,13 @@ Gfx dark_sky_skydl_mesh_layer_0_tri_0[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 7, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
 	gsDPSetTileSize(0, 864, 120, 964, 368),
-	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 396, 20, 0),
+	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 396, 24, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(4, 5, 6, 0, 4, 7, 5, 0),
 	gsSP2Triangles(8, 9, 10, 0, 8, 11, 9, 0),
 	gsSP2Triangles(12, 13, 14, 0, 12, 14, 15, 0),
 	gsSP2Triangles(16, 17, 18, 0, 16, 18, 19, 0),
+	gsSP2Triangles(20, 21, 22, 0, 20, 22, 23, 0),
 	gsDPPipeSync(),
 	gsDPTileSync(),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 248, dark_sky_CUSTOM_darksky248x_rgba16),
@@ -16226,7 +16231,7 @@ Gfx dark_sky_skydl_mesh_layer_0_tri_0[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 6, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
 	gsDPSetTileSize(0, 864, 364, 956, 616),
-	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 416, 12, 0),
+	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 420, 12, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
 	gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
 	gsSP2Triangles(8, 9, 10, 0, 8, 11, 9, 0),
@@ -16239,7 +16244,7 @@ Gfx dark_sky_skydl_mesh_layer_0_tri_0[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
 	gsDPSetTileSize(0, 864, 616, 924, 988),
-	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 428, 11, 0),
+	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 432, 11, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
 	gsSP2Triangles(3, 6, 4, 0, 7, 8, 9, 0),
 	gsSP1Triangle(7, 10, 8, 0),
@@ -16252,7 +16257,7 @@ Gfx dark_sky_skydl_mesh_layer_0_tri_0[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
 	gsDPSetTileSize(0, 804, 120, 864, 616),
-	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 439, 20, 0),
+	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 443, 20, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
 	gsSP2Triangles(4, 5, 6, 0, 4, 7, 5, 0),
 	gsSP2Triangles(8, 9, 10, 0, 8, 10, 11, 0),
@@ -16267,7 +16272,7 @@ Gfx dark_sky_skydl_mesh_layer_0_tri_0[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
 	gsDPSetTileSize(0, 804, 616, 864, 988),
-	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 459, 11, 0),
+	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 463, 11, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 4, 5, 0),
 	gsSP2Triangles(3, 6, 4, 0, 7, 8, 9, 0),
 	gsSP1Triangle(7, 10, 8, 0),
@@ -16280,13 +16285,13 @@ Gfx dark_sky_skydl_mesh_layer_0_tri_0[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 4, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
 	gsDPSetTileSize(0, 740, 120, 804, 264),
-	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 470, 4, 0),
+	gsSPVertex(dark_sky_skydl_mesh_layer_0_vtx_0 + 474, 4, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
 	gsSPEndDisplayList(),
 };
 
 
-Gfx mat_dark_sky_Skybox_001[] = {
+Gfx mat_dark_sky_Skybox_002[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, 1, TEXEL0, 0, ENVIRONMENT, 0, 0, 0, 0, 1),
 	gsSPTexture(65535, 65535, 0, 0, 1),
@@ -16302,7 +16307,7 @@ Gfx mat_dark_sky_Skybox_001[] = {
 };
 
 Gfx dark_sky_skydl_mesh_layer_0[] = {
-	gsSPDisplayList(mat_dark_sky_Skybox_001),
+	gsSPDisplayList(mat_dark_sky_Skybox_002),
 	gsSPDisplayList(dark_sky_skydl_mesh_layer_0_tri_0),
 	gsSPEndDisplayList(),
 };

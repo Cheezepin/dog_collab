@@ -1958,7 +1958,7 @@ const Texture *const main_hud_lut[] = {
     0x0 /*Space*/,                          texture_hud_char_exclamation,   texture_hud_char_double_quote,  texture_hud_char_double_exclamation /* # */,
     texture_hud_char_minus /* $ */,         texture_hud_char_percent,       texture_hud_char_ampersand,     texture_hud_char_apostrophe,
     0x0 /* ( */,                            0x0 /* ) */,                    texture_hud_char_multiply,      texture_hud_char_coin /* + */,
-    texture_hud_char_mario_head /* , */,    texture_hud_char_star /* - */,  texture_hud_char_decimal_point, 0x0 /* / */,
+    texture_hud_char_mario_head /* , */,    texture_hud_char_star /* - */,  texture_hud_char_decimal_point, texture_hud_char_forward_slash /* / */,
     texture_hud_char_0,                     texture_hud_char_1,             texture_hud_char_2,             texture_hud_char_3,
     texture_hud_char_4,                     texture_hud_char_5,             texture_hud_char_6,             texture_hud_char_7,
     texture_hud_char_8,                     texture_hud_char_9,             texture_hud_char_colon /* : */, texture_hud_char_semi_colon /* ; */,
