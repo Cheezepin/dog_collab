@@ -9,7 +9,7 @@
 // #endif
 
 // Enables most debug options, including PUPPYPRINT_DEBUG.
-// #define DEBUG_ALL
+#define DEBUG_ALL
 
 // Disables all debug options (except PUPPYPRINT)
 // #define DISABLE_ALL
@@ -41,7 +41,7 @@
 // #define VISUAL_DEBUG
 
 // Opens all courses and doors. Used for debugging purposes to unlock all content.
-// #define UNLOCK_ALL
+//#define UNLOCK_ALL
 
 // Same as above, but also reads all save file flags as complete.
 // This will not overwrite existing save file data unless you save over it.

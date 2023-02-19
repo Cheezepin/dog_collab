@@ -53,6 +53,8 @@ const LevelScript level_wdw_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_TREE_NUT, tree_seed_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_DIRT_PILE, dirt_patch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_BARON, baron_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_GODDARD_FIST, gfist_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_BARON_PANCAKE, kpancake_geo),
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */

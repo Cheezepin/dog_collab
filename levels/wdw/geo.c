@@ -31,3 +31,5 @@
 #include "levels/wdw/cherry_tree/geo.inc.c"
 #include "levels/wdw/dirt_patch/geo.inc.c"
 #include "levels/wdw/baron/geo.inc.c"
+#include "levels/wdw/gfist/geo.inc.c"
+#include "levels/wdw/kpancake/geo.inc.c"
