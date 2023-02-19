@@ -365,7 +365,7 @@ void bowser_act_wait_for_mario(void) {
         cur_obj_start_cam_event(o, CAM_EVENT_BOWSER_INIT);
     }
     //o->oHealth = 1; //DEBUG REMOVE LATER
-    // o->oAction = BOWSER_ACT_DEAD;
+    o->oAction = BOWSER_ACT_DEAD;
     //if(o->oTimer == 5) {
     //    spawn_object(o, MODEL_PEACH, bhvPeachEnding);
     //}
@@ -1852,15 +1852,26 @@ s16 sBowserDefeatedDialogText[3] = { DIALOG_119, DIALOG_120, DIALOG_121 };
 s32 bowser_dead_default_stage_ending(void) {
     s32 ret = FALSE;
     if (o->oBowserTimer < 2) {
+        s16 dialogID;
+        if(gCurrLevelNum != LEVEL_BOWSER_3) {
+            dialogID = sBowserDefeatedDialogText[o->oBehParams2ndByte];
+        } else {
+            if (gHudDisplay.stars < 73) {
+                dialogID = DIALOG_121;
+            } else {
+                dialogID = DIALOG_122;
+            }
+        }
         // Lower music volume
         if (o->oBowserTimer == 0) {
             seq_player_lower_volume(SEQ_PLAYER_LEVEL, 60, 40);
             o->oBowserTimer++;
         }
+
         // Play Bowser defeated dialog
         if (cur_obj_update_dialog(MARIO_DIALOG_LOOK_UP,
             (DIALOG_FLAG_TEXT_DEFAULT | DIALOG_FLAG_TIME_STOP_ENABLED),
-            sBowserDefeatedDialogText[o->oBehParams2ndByte], 0)) {
+            dialogID, 0)) {
             // Dialog is done, fade out music and play explode sound effect
             o->oBowserTimer++;
             cur_obj_play_sound_2(SOUND_GENERAL2_BOWSER_EXPLODE);

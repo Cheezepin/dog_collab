@@ -550,6 +550,6 @@ void init_file_select(void) {
 
     gEndResultsActive = FALSE;
     sShowingKeyboard = FALSE;
-    gWorldID = 0;
-    gFocusID = 0;
+    gWorldID = -1;
+    gFocusID = -1;
 }
