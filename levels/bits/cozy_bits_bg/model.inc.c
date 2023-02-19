@@ -1,5 +1,5 @@
-Gfx cozy_pss_bg_water_big_chungus_defined_intensity_i4_aligner[] = {gsSPEndDisplayList()};
-u8 cozy_pss_bg_water_big_chungus_defined_intensity_i4[] = {
+Gfx cozy_bits_bg_water_big_chungus_defined_intensity_i4_aligner[] = {gsSPEndDisplayList()};
+u8 cozy_bits_bg_water_big_chungus_defined_intensity_i4[] = {
 	0x00, 0x00, 0x00, 0x0f, 0xb0, 0x00, 0x00, 0xff, 
 	0xfe, 0x00, 0x00, 0x00, 0x00, 0x0d, 0xfe, 0x00, 
 	0x00, 0x00, 0x00, 0x09, 0xf0, 0x00, 0x00, 0x00, 
@@ -259,8 +259,8 @@ u8 cozy_pss_bg_water_big_chungus_defined_intensity_i4[] = {
 	
 };
 
-Gfx cozy_pss_bg_water_pls_try_sharper_intensity_i4_aligner[] = {gsSPEndDisplayList()};
-u8 cozy_pss_bg_water_pls_try_sharper_intensity_i4[] = {
+Gfx cozy_bits_bg_water_pls_try_sharper_intensity_i4_aligner[] = {gsSPEndDisplayList()};
+u8 cozy_bits_bg_water_pls_try_sharper_intensity_i4[] = {
 	0x00, 0x00, 0x00, 0x0a, 0xb0, 0x00, 0x00, 0x00, 
 	0xef, 0xfc, 0x00, 0x00, 0x00, 0x0e, 0xff, 0xf0, 
 	0x00, 0x00, 0x00, 0xfe, 0x00, 0x00, 0x00, 0xdf, 
@@ -520,7 +520,7 @@ u8 cozy_pss_bg_water_pls_try_sharper_intensity_i4[] = {
 	
 };
 
-Vtx cozy_pss_bg_AABG3D_mesh_layer_0_vtx_0[118] = {
+Vtx cozy_bits_bg_AABG3D_mesh_layer_0_vtx_0[118] = {
 	{{ {0, -6400, -12800}, 0, {-27664, 2105}, {70, 241, 209, 96} }},
 	{{ {-6694, 0, -11594}, 0, {-22203, -6087}, {102, 78, 133, 193} }},
 	{{ {-6400, -6400, -11085}, 0, {-22203, 2105}, {255, 115, 228, 129} }},
@@ -641,7 +641,7 @@ Vtx cozy_pss_bg_AABG3D_mesh_layer_0_vtx_0[118] = {
 	{{ {3588, 11012, -6214}, 0, {-5218, 6892}, {194, 255, 231, 148} }},
 };
 
-Gfx cozy_pss_bg_AABG3D_mesh_layer_0[] = {
+Gfx cozy_bits_bg_AABG3D_mesh_layer_0[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, TEXEL1, SHADE, TEXEL0, 0, TEXEL1, SHADE, COMBINED, ENVIRONMENT, COMBINED_ALPHA, PRIMITIVE, 0, 0, 0, 0),
 	gsSPLoadGeometryMode(G_SHADE | G_CULL_BACK | G_SHADING_SMOOTH),
@@ -650,18 +650,18 @@ Gfx cozy_pss_bg_AABG3D_mesh_layer_0[] = {
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetEnvColor(255, 255, 255, 255),
 	gsDPSetTextureLUT(G_TT_NONE),
-	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_16b, 1, cozy_pss_bg_water_big_chungus_defined_intensity_i4),
+	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_16b, 1, cozy_bits_bg_water_big_chungus_defined_intensity_i4),
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_16b, 0, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 1, G_TX_WRAP | G_TX_NOMIRROR, 6, 1),
 	gsDPLoadBlock(7, 0, 0, 1023, 512),
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_4b, 4, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 1, G_TX_WRAP | G_TX_NOMIRROR, 6, 1),
 	gsDPSetTileSize(0, 0, 0, 252, 252),
 	gsDPSetTextureLUT(G_TT_NONE),
-	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_16b, 1, cozy_pss_bg_water_pls_try_sharper_intensity_i4),
+	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_16b, 1, cozy_bits_bg_water_pls_try_sharper_intensity_i4),
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_16b, 0, 256, 6, 0, G_TX_WRAP | G_TX_MIRROR, 6, 1, G_TX_WRAP | G_TX_MIRROR, 6, 1),
 	gsDPLoadBlock(6, 0, 0, 1023, 512),
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_4b, 4, 256, 1, 0, G_TX_WRAP | G_TX_MIRROR, 6, 1, G_TX_WRAP | G_TX_MIRROR, 6, 1),
 	gsDPSetTileSize(1, 0, 0, 252, 252),
-	gsSPVertex(cozy_pss_bg_AABG3D_mesh_layer_0_vtx_0 + 0, 32, 0),
+	gsSPVertex(cozy_bits_bg_AABG3D_mesh_layer_0_vtx_0 + 0, 32, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
 	gsSP2Triangles(3, 4, 1, 0, 3, 5, 4, 0),
 	gsSP2Triangles(6, 7, 8, 0, 6, 9, 7, 0),
@@ -677,7 +677,7 @@ Gfx cozy_pss_bg_AABG3D_mesh_layer_0[] = {
 	gsSP2Triangles(27, 28, 25, 0, 27, 29, 28, 0),
 	gsSP2Triangles(25, 28, 30, 0, 25, 30, 23, 0),
 	gsSP2Triangles(23, 30, 31, 0, 23, 31, 21, 0),
-	gsSPVertex(cozy_pss_bg_AABG3D_mesh_layer_0_vtx_0 + 32, 32, 0),
+	gsSPVertex(cozy_bits_bg_AABG3D_mesh_layer_0_vtx_0 + 32, 32, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(3, 2, 4, 0, 3, 4, 5, 0),
 	gsSP2Triangles(5, 4, 6, 0, 5, 6, 7, 0),
@@ -692,7 +692,7 @@ Gfx cozy_pss_bg_AABG3D_mesh_layer_0[] = {
 	gsSP2Triangles(22, 24, 27, 0, 27, 24, 28, 0),
 	gsSP2Triangles(27, 28, 29, 0, 29, 28, 30, 0),
 	gsSP1Triangle(29, 30, 31, 0),
-	gsSPVertex(cozy_pss_bg_AABG3D_mesh_layer_0_vtx_0 + 64, 32, 0),
+	gsSPVertex(cozy_bits_bg_AABG3D_mesh_layer_0_vtx_0 + 64, 32, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(3, 2, 4, 0, 3, 4, 5, 0),
 	gsSP2Triangles(5, 4, 6, 0, 5, 6, 7, 0),
@@ -711,7 +711,7 @@ Gfx cozy_pss_bg_AABG3D_mesh_layer_0[] = {
 	gsSP2Triangles(26, 22, 27, 0, 22, 24, 27, 0),
 	gsSP2Triangles(27, 24, 28, 0, 27, 28, 29, 0),
 	gsSP2Triangles(29, 28, 30, 0, 29, 30, 31, 0),
-	gsSPVertex(cozy_pss_bg_AABG3D_mesh_layer_0_vtx_0 + 96, 22, 0),
+	gsSPVertex(cozy_bits_bg_AABG3D_mesh_layer_0_vtx_0 + 96, 22, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(3, 2, 4, 0, 3, 4, 5, 0),
 	gsSP2Triangles(5, 4, 6, 0, 5, 6, 7, 0),
@@ -735,7 +735,7 @@ Gfx cozy_pss_bg_AABG3D_mesh_layer_0[] = {
 };
 
 
-Gfx cozy_pss_bg_material_revert_render_settings[] = {
+Gfx cozy_bits_bg_material_revert_render_settings[] = {
 	gsDPPipeSync(),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPClearGeometryMode(G_TEXTURE_GEN),
