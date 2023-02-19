@@ -27,9 +27,8 @@
 #include "spawn_object.h"
 #include "spawn_sound.h"
 #include "puppylights.h"
+#include "course_table.h"
 #include "levels/ddd/header.h"
-
-static s8 sLevelsWithRooms[] = { LEVEL_BBH, LEVEL_CASTLE, LEVEL_HMC, LEVEL_SL, LEVEL_JRB, LEVEL_BITFS, -1 };
 
 static s32 clear_move_flag(u32 *bitSet, s32 flag);
 
@@ -144,8 +143,6 @@ Gfx *geo_switch_koopa_col(s32 callContext, struct GraphNode *node, UNUSED void *
 
 Gfx *geo_is_level_b1(s32 callContext, struct GraphNode *node, UNUSED void *context) {
     if (callContext == GEO_CONTEXT_RENDER) {
-        struct Object *obj = gCurGraphNodeObjectNode;
-
         // move to a local var because GraphNodes are passed in all geo functions.
         // cast the pointer.
         struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
@@ -697,10 +694,8 @@ struct Object *cur_obj_find_nearest_object_with_behavior(const BehaviorScript *b
 
 struct Object *find_any_object_with_behavior(const BehaviorScript *behavior) {
     uintptr_t *behaviorAddr = segmented_to_virtual(behavior);
-    struct Object *closestObj = NULL;
     struct Object *obj;
     struct ObjectNode *listHead;
-    f32 minDist = 0x20000;
 
     listHead = &gObjectLists[get_object_list_from_behavior(behaviorAddr)];
     obj = (struct Object *) listHead->next;
@@ -2641,15 +2636,68 @@ Gfx *geo_backdrop_move_cozies(s32 callContext, struct GraphNode *node, UNUSED Ma
     return 0;
 }
 
+u8 sMapAreaToCourse[2][8] = {
+    { COURSE_BITS, COURSE_WDW, COURSE_BBH, COURSE_BOB,   COURSE_BITFS, COURSE_WF,  COURSE_CCM, COURSE_BITS },
+    { COURSE_BITS, COURSE_JRB, COURSE_SSL, COURSE_BITDW, COURSE_LLL,   COURSE_HMC, COURSE_DDD, COURSE_BITS }
+};
+
+// bitdw gets to cycle through all the colors <3
+u32 emuColors[] = {
+    0x00FFFFFF, //hynotizing high rise
+    0xF6ACA9FF, //koopa atoll
+    0xC90000FF, //swirling circus
+    0xFF7200FF, //peach ruins
+    0xFF42B0FF, //cumulus correctional center
+    0x932BC4FF, //forbidden factory
+    0xFFE800FF, //feudal fortress
+    0x00007DFF, //awe-inspiring spires
+    0xDDCEFFFF, //bowsers scuba tower
+    0xA9FF4FFF, //maple markindon
+    0x3F3F3FFF, //bflfo
+    0xFFFFFFFF, //bfufi
+};
+
 Gfx *geo_backdrop_move_cozies_b3(s32 callContext, struct GraphNode *node, UNUSED Mat4 *mtx) {
+    Gfx *dlStart, *dlHead;
+    dlStart = NULL;
+    static s32 curR = 127;
+    static s32 curG = 127;
+    static s32 curB = 127;
+    static s32 bitdwIndex = 0;
+
     if (callContext == GEO_CONTEXT_RENDER) {
-        // Gfx *dlStart, *dlHead;
-        // dlStart = alloc_display_list(sizeof(Gfx) * 2);
+        s32 bPart = gCurrLevelNum == LEVEL_BITFS ? 0 : 1;
+        u8 courseNum = sMapAreaToCourse[bPart][gCurrAreaIndex];
+
+        RGBA starColor = { .rgba32 = starColors[courseNum - 1] };
+        if (courseNum == COURSE_BITDW) {
+            if (gGlobalTimer % 60 == 0) {
+                bitdwIndex++;
+                if (bitdwIndex >= ARRAY_COUNT(emuColors)) bitdwIndex = 0;
+            }
+            starColor.rgba32 = emuColors[bitdwIndex];
+        }
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
+
+        dlHead = dlStart;
+
+        // LAYER_FORCE is 0, so this is a noop
+        // SET_GRAPH_NODE_LAYER(currentGraphNode->fnNode.node.flags, LAYER_FORCE);
+        curR = approach_s32_symmetric(curR, starColor.r, 8);
+        curG = approach_s32_symmetric(curG, starColor.g, 8);
+        curB = approach_s32_symmetric(curB, starColor.b, 8);
+        f32 multiplier = get_relative_position_between_ranges(get_cycle(4.0f, 0.0f, gGlobalTimer), -1, 1, 0.6f, 0.9f);
+
+        gDPSetPrimColor(dlHead++, 0, 0, curR * multiplier, curG * multiplier, curB * multiplier, 0xFF);
+        gSPEndDisplayList(dlHead);
+
         ((struct GraphNodeTranslation *) node->next)->translation[0] = gLakituState.pos[0] * 0.99f;
         ((struct GraphNodeTranslation *) node->next)->translation[1] = (gLakituState.pos[1] * 0.99f);
         ((struct GraphNodeTranslation *) node->next)->translation[2] = gLakituState.pos[2] * 0.99f;
     }
-    return 0;
+
+    return dlStart;
 }
 
 Gfx *geo_mountain_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
@@ -2680,7 +2728,6 @@ Gfx *geo_mountain_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) 
 }
 
 Gfx *geo_set_global_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
-    static u32 curUpdateFrame = 0;
     struct GraphNodeGenerated *currentGraphNode;
     Gfx *dlStart, *dlHead;
     dlStart = NULL;
@@ -2744,7 +2791,6 @@ Gfx *debug_geo_asm(s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 m
 
 Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node) {
     Gfx *dlStart, *dlHead;
-    struct Object *objectGraphNode;
     struct GraphNodeGenerated *currentGraphNode;
 
     dlStart = NULL;
@@ -2755,7 +2801,6 @@ Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node) {
         u8 starColorG = (starColor >> 16) & 0xFF;
         u8 starColorB = (starColor >> 8) & 0xFF;
 
-        objectGraphNode = (struct Object *) gCurGraphNodeObject;
         currentGraphNode = (struct GraphNodeGenerated *) node;
 
         dlStart = alloc_display_list(sizeof(Gfx) * 3);
@@ -2772,7 +2817,7 @@ Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node) {
 }
 
 Gfx *geo_warp_box_scale(s32 callContext, struct GraphNode *node) {
-    struct GraphNodeScale *scaleNode = (struct GraphNodeScaleBetter *) node->next;
+    struct GraphNodeScale *scaleNode = (struct GraphNodeScale *) node->next;
     struct Object *objectGraphNode = (struct Object *) gCurGraphNodeObject;
 
     if (callContext == GEO_CONTEXT_RENDER) {
@@ -2784,7 +2829,7 @@ Gfx *geo_warp_box_scale(s32 callContext, struct GraphNode *node) {
 
 Vec3f bowserRightHandLocation = {0, 0, 0};
 Mat4 posMtx;
-Gfx *geo_bowser_hand_location_update(s32 callContext, struct GraphNode *node, Mat4 *mtx) {
+Gfx *geo_bowser_hand_location_update(s32 callContext, UNUSED struct GraphNode *node, Mat4 *mtx) {
 
     if (callContext == GEO_CONTEXT_RENDER) {
         create_transformation_from_matrices(posMtx, *mtx, *gCurGraphNodeCamera->matrixPtr);
@@ -2795,7 +2840,7 @@ Gfx *geo_bowser_hand_location_update(s32 callContext, struct GraphNode *node, Ma
 }
 
 Vec3f dogLaserLocation = {0, 0, 0};
-Gfx *geo_dog_laser_location_update(s32 callContext, struct GraphNode *node, Mat4 *mtx) {
+Gfx *geo_dog_laser_location_update(s32 callContext, UNUSED struct GraphNode *node, Mat4 *mtx) {
 
     if (callContext == GEO_CONTEXT_RENDER) {
         create_transformation_from_matrices(posMtx, *mtx, *gCurGraphNodeCamera->matrixPtr);

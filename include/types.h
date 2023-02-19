@@ -512,6 +512,17 @@ struct MarioState
     s8 paralyzed;
 };
 
+typedef union _RGBA {
+    u32 rgba32;
+    struct {
+        /*0x00*/ u8 r;
+        /*0x01*/ u8 g;
+        /*0x02*/ u8 b;
+        /*0x03*/ u8 a;
+    };
+    u8 arr[4];
+} RGBA;
+
 // thecozies start
 struct GlobalFog
 {
