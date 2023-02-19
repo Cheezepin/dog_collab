@@ -3,6 +3,7 @@
 const GeoLayout bits_area_3_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_BRANCH(1, cozy_bits_bg_geo),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, -373, -8266, -2258, bits_dl_floor_meme_001_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_TRANSPARENT_INTER, -373, -8266, -2258, bits_dl_floor_meme_002_mesh_layer_7),
 		GEO_OPEN_NODE(),
@@ -41,13 +42,6 @@ const GeoLayout bits_area_3_geo[] = {
 const GeoLayout bits_area_3[] = {
 	GEO_NODE_SCREEN_AREA(10, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, SCREEN_WIDTH/2, SCREEN_HEIGHT/2),
 	GEO_OPEN_NODE(),
-		GEO_ZBUFFER(0),
-		GEO_OPEN_NODE(),
-			GEO_NODE_ORTHO(100.0000),
-			GEO_OPEN_NODE(),
-				GEO_BACKGROUND(BACKGROUND_PURPLE_SKY, geo_skybox_main),
-			GEO_CLOSE_NODE(),
-		GEO_CLOSE_NODE(),
 		GEO_ZBUFFER(1),
 		GEO_OPEN_NODE(),
 			GEO_CAMERA_FRUSTUM_WITH_FUNC(45.0000, 100, 30000, geo_camera_fov),

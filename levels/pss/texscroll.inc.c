@@ -52,35 +52,6 @@ void scroll_pss_dl_Beam2_mesh_layer_5_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_pss_dl_Plane_005_mesh_layer_0_vtx_0() {
-	int i = 0;
-	int count = 131;
-	int width = 64 * 0x20;
-	int height = 64 * 0x20;
-
-	static int currentX = 0;
-	int deltaX;
-	static int currentY = 0;
-	int deltaY;
-	Vtx *vertices = segmented_to_virtual(pss_dl_Plane_005_mesh_layer_0_vtx_0);
-
-	deltaX = (int)(0.12999999523162842 * 0x20) % width;
-	deltaY = (int)(0.03999999910593033 * 0x20) % height;
-
-	if (absi(currentX) > width) {
-		deltaX -= (int)(absi(currentX) / width) * width * signum_positive(deltaX);
-	}
-	if (absi(currentY) > height) {
-		deltaY -= (int)(absi(currentY) / height) * height * signum_positive(deltaY);
-	}
-
-	for (i = 0; i < count; i++) {
-		vertices[i].n.tc[0] += deltaX;
-		vertices[i].n.tc[1] += deltaY;
-	}
-	currentX += deltaX;	currentY += deltaY;
-}
-
 void scroll_pss_dl_inner_torus_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 360;
@@ -374,7 +345,6 @@ void scroll_pss() {
 	scroll_sts_mat_pss_dl_f3d_material_015();
 	scroll_sts_mat_pss_dl_f3d_material_021();
 	scroll_pss_dl_Beam2_mesh_layer_5_vtx_0();
-	scroll_pss_dl_Plane_005_mesh_layer_0_vtx_0();
 	scroll_pss_dl_inner_torus_mesh_layer_1_vtx_0();
 	scroll_pss_dl_inner_torus_001_mesh_layer_1_vtx_0();
 	scroll_pss_dl_shock_mesh_layer_5_vtx_0();

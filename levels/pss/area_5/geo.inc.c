@@ -3,7 +3,7 @@
 const GeoLayout pss_area_5_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_SWITCH_CASE(11, geo_switch_area),
+		GEO_SWITCH_CASE(12, geo_switch_area),
 		GEO_OPEN_NODE(),
 			GEO_BRANCH(1, pss_dl_Area_1_Room_1_geo),
 			GEO_BRANCH(1, pss_dl_Area_1_Room_10_geo),
@@ -15,6 +15,7 @@ const GeoLayout pss_area_5_geo[] = {
 			GEO_BRANCH(1, pss_dl_Area_1_Room_7_geo),
 			GEO_BRANCH(1, pss_dl_Area_1_Room_8_geo),
 			GEO_BRANCH(1, pss_dl_Area_1_Room_9_geo),
+			GEO_BRANCH(1, pss_dl_bg_ff_geo),
 		GEO_CLOSE_NODE(),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
@@ -130,16 +131,16 @@ const GeoLayout pss_dl_Area_1_Room_9_geo[] = {
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
+const GeoLayout pss_dl_bg_ff_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_BRANCH(1, cozy_pss_bg_geo),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
 const GeoLayout pss_area_5[] = {
 	GEO_NODE_SCREEN_AREA(10, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, SCREEN_WIDTH/2, SCREEN_HEIGHT/2),
 	GEO_OPEN_NODE(),
-		GEO_ZBUFFER(0),
-		GEO_OPEN_NODE(),
-			GEO_NODE_ORTHO(100.0000),
-			GEO_OPEN_NODE(),
-				GEO_BACKGROUND_COLOR(0x0001),
-			GEO_CLOSE_NODE(),
-		GEO_CLOSE_NODE(),
 		GEO_ZBUFFER(1),
 		GEO_OPEN_NODE(),
 			GEO_CAMERA_FRUSTUM_WITH_FUNC(45.0000, 100, 30000, geo_camera_fov),

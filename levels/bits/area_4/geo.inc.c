@@ -3,10 +3,18 @@
 const GeoLayout bits_area_4_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_SWITCH_CASE(2, geo_switch_area),
+		GEO_SWITCH_CASE(3, geo_switch_area),
 		GEO_OPEN_NODE(),
+			GEO_BRANCH(1, bits_dl_nocol_007_geo),
 			GEO_BRANCH(1, bits_dl_op_004_geo),
 		GEO_CLOSE_NODE(),
+		GEO_BRANCH(1, cozy_bits_bg_geo),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout bits_dl_nocol_007_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, bits_dl_nocol_007_mesh_layer_4),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, bits_dl_nocol_007_mesh_layer_5),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, bits_dl_nocol_007_mesh_layer_1),
@@ -23,13 +31,6 @@ const GeoLayout bits_dl_op_004_geo[] = {
 const GeoLayout bits_area_4[] = {
 	GEO_NODE_SCREEN_AREA(10, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, SCREEN_WIDTH/2, SCREEN_HEIGHT/2),
 	GEO_OPEN_NODE(),
-		GEO_ZBUFFER(0),
-		GEO_OPEN_NODE(),
-			GEO_NODE_ORTHO(100.0000),
-			GEO_OPEN_NODE(),
-				GEO_BACKGROUND(BACKGROUND_PURPLE_SKY, geo_skybox_main),
-			GEO_CLOSE_NODE(),
-		GEO_CLOSE_NODE(),
 		GEO_ZBUFFER(1),
 		GEO_OPEN_NODE(),
 			GEO_CAMERA_FRUSTUM_WITH_FUNC(45.0000, 100, 30000, geo_camera_fov),

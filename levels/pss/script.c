@@ -238,7 +238,7 @@ const LevelScript level_pss_entry[] = {
 		OBJECT(MODEL_BLACK_BOBOMB, 2230, 1208, -2144, 0, 13, 0, 0x00000000, bhvBobomb),
 		OBJECT(MODEL_NONE, 1155, 1864, 236, 0, 13, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -2150, 1892, -132, 0, 13, 0, (2 << 16), bhvCoinFormation),
-		OBJECT(MODEL_NONE, 44, 1159, 3324, 0, 90, 0, 0x00000000, bhvCoinFormation),
+		OBJECT(MODEL_NONE, 44, 1159, 3325, 0, 90, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 1374, 946, 3331, 0, 90, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, 314, 952, -1996, 0, 103, 0, 0x00000000, bhvCoinFormation),
 		OBJECT(MODEL_NONE, -1564, 1798, -2640, 0, 13, 0, (2 << 16), bhvCoinFormation),
