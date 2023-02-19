@@ -3,14 +3,13 @@
 const GeoLayout bits_area_2_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_SWITCH_CASE(5, geo_switch_area),
+		GEO_SWITCH_CASE(4, geo_switch_area),
 		GEO_OPEN_NODE(),
 			GEO_BRANCH(1, bits_dl_11__room_geo),
 			GEO_BRANCH(1, bits_dl_11__room_002_geo),
 			GEO_BRANCH(1, bits_dl_13__room_001_geo),
-			GEO_BRANCH(1, bits_dl_bg_ccc_geo),
 		GEO_CLOSE_NODE(),
-		GEO_ROTATION_NODE(LAYER_OPAQUE, 0, 90, 0),
+		GEO_BRANCH(1, cozy_bits_bg_geo),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -62,13 +61,6 @@ const GeoLayout bits_dl_13__room_001_geo[] = {
 			GEO_ROTATION_NODE_WITH_DL(LAYER_OPAQUE, 0, -90, 0, bits_dl_ZBuilding_003_mesh_layer_1),
 			GEO_ROTATION_NODE_WITH_DL(LAYER_OPAQUE, 0, -90, 0, bits_dl_ZBuilding_004_mesh_layer_1),
 		GEO_CLOSE_NODE(),
-	GEO_CLOSE_NODE(),
-	GEO_RETURN(),
-};
-const GeoLayout bits_dl_bg_ccc_geo[] = {
-	GEO_NODE_START(),
-	GEO_OPEN_NODE(),
-		GEO_BRANCH(1, cozy_bits_bg_geo),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

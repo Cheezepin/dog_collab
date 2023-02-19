@@ -3,27 +3,10 @@
 const GeoLayout bits_area_4_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_SWITCH_CASE(3, geo_switch_area),
-		GEO_OPEN_NODE(),
-			GEO_BRANCH(1, bits_dl_nocol_007_geo),
-			GEO_BRANCH(1, bits_dl_op_004_geo),
-		GEO_CLOSE_NODE(),
 		GEO_BRANCH(1, cozy_bits_bg_geo),
-	GEO_CLOSE_NODE(),
-	GEO_RETURN(),
-};
-const GeoLayout bits_dl_nocol_007_geo[] = {
-	GEO_NODE_START(),
-	GEO_OPEN_NODE(),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, bits_dl_nocol_007_mesh_layer_4),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, bits_dl_nocol_007_mesh_layer_5),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, bits_dl_nocol_007_mesh_layer_1),
-	GEO_CLOSE_NODE(),
-	GEO_RETURN(),
-};
-const GeoLayout bits_dl_op_004_geo[] = {
-	GEO_NODE_START(),
-	GEO_OPEN_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, bits_dl_op_004_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

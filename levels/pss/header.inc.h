@@ -26,7 +26,6 @@ extern const GeoLayout pss_dl_Area_1_Room_6_geo[];
 extern const GeoLayout pss_dl_Area_1_Room_7_geo[];
 extern const GeoLayout pss_dl_Area_1_Room_8_geo[];
 extern const GeoLayout pss_dl_Area_1_Room_9_geo[];
-extern const GeoLayout pss_dl_bg_ff_geo[];
 extern const GeoLayout pss_area_5[];
 extern const Collision pss_area_5_collision[];
 extern const u8 pss_area_5_collision_rooms[];

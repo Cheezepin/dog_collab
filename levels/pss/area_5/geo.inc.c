@@ -3,7 +3,7 @@
 const GeoLayout pss_area_5_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_SWITCH_CASE(12, geo_switch_area),
+		GEO_SWITCH_CASE(11, geo_switch_area),
 		GEO_OPEN_NODE(),
 			GEO_BRANCH(1, pss_dl_Area_1_Room_1_geo),
 			GEO_BRANCH(1, pss_dl_Area_1_Room_10_geo),
@@ -15,8 +15,8 @@ const GeoLayout pss_area_5_geo[] = {
 			GEO_BRANCH(1, pss_dl_Area_1_Room_7_geo),
 			GEO_BRANCH(1, pss_dl_Area_1_Room_8_geo),
 			GEO_BRANCH(1, pss_dl_Area_1_Room_9_geo),
-			GEO_BRANCH(1, pss_dl_bg_ff_geo),
 		GEO_CLOSE_NODE(),
+		GEO_BRANCH(1, cozy_pss_bg_geo),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -128,13 +128,6 @@ const GeoLayout pss_dl_Area_1_Room_9_geo[] = {
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, pss_dl_R6_004_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, pss_dl_R7_004_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, pss_dl_R8_004_mesh_layer_1),
-	GEO_CLOSE_NODE(),
-	GEO_RETURN(),
-};
-const GeoLayout pss_dl_bg_ff_geo[] = {
-	GEO_NODE_START(),
-	GEO_OPEN_NODE(),
-		GEO_BRANCH(1, cozy_pss_bg_geo),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

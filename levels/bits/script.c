@@ -177,7 +177,6 @@ const LevelScript level_bits_entry[] = {
 		OBJECT(MODEL_WARP_BOX, 6244, 16237, -533, 0, 90, 0, (0 << 24) | (2 << 16), bhvWarpBox),
 		OBJECT(MODEL_NONE, -24926, 19766, 0, 0, 90, 0, (0xA << 16), bhvSpinAirborneWarp),
 		TERRAIN(bits_area_4_collision),
-		ROOMS(bits_area_4_collision_rooms),
 		MACRO_OBJECTS(bits_area_4_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
 		TERRAIN_TYPE(TERRAIN_GRASS),

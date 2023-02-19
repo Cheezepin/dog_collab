@@ -2666,7 +2666,7 @@ Gfx *geo_backdrop_move_cozies_b3(s32 callContext, struct GraphNode *node, UNUSED
     static s32 bitdwIndex = 0;
 
     if (callContext == GEO_CONTEXT_RENDER) {
-        s32 bPart = gCurrLevelNum == LEVEL_BITFS ? 0 : 1;
+        s32 bPart = gCurrLevelNum == LEVEL_BITS ? 0 : 1;
         u8 courseNum = sMapAreaToCourse[bPart][gCurrAreaIndex];
 
         RGBA starColor = { .rgba32 = starColors[courseNum - 1] };
