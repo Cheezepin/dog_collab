@@ -203,6 +203,11 @@ void handle_hud2639() {
     u32 IHateGCC = gHudDisplay.coins;
     u32 CountGoods = gHudDisplay.coins;
 
+    if (gCurrAreaIndex == 0) {
+        hud_2639Challenge();
+        return;
+    }
+
     switch (gCurrActNum) {
         case ACT_LOBBYSCAVENGER:
             if (gHudDisplay.coins > 0) {
