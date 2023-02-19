@@ -77,7 +77,7 @@ const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIG
 const char *credits14[] = { "8OTHER MUSIC", "", "FILE SELECT", "KIRBY 64 FILE SELECT", "HUB WORLD", "CROSSING THOSE HILLS FF9", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT" };
 const char *credits15[] = { "6CIRCUS BOSS", "CACKLETTA BOSS ML SS", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING", "BOWSER 2 FIGHT", "E" };
 const char *credits16[] = { "6SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD"};
-const char *credits17[] = { "8B3 PT 1", "E", "B3 PT 2", "E", "BOWSER 3 FIGHT", "E", "CREDITS", "KSSU CREDITS"};
+const char *credits17[] = { "8BOWSER'S FURIOUS FINALE PT 1", "E", "BOWSER'S' FURIOUS FINALE PT 2", "E", "BOWSER 3 FIGHT", "E", "CREDITS", "KSSU CREDITS"};
 
 const char *credits18[] = { "8BETATESTING", "REONU", "HACKER2O77", "NESDUDE", "HYENA CHAN", "GTM", "", "", "" };
 const char *credits19[] = { "8SPECIAL THANKS TO", "THECOZIES' DOG", "BOOMERDACAT", "ARTHURTILLY", "HACKERSM64 TEAM", "", "", "", "" };
@@ -106,7 +106,7 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_DDD, 3, 51, 54, { -15351, -5722, -2567 }, credits16, 1 },
     { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17, 1},
     { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },
-    { LEVEL_DDD, 1, 51, 54, { 0, 9010, 0 }, credits19, 0 },
+    { LEVEL_DDD, 1, 51, 54, { 0, 9050, 0 }, credits19, 0 },
     { LEVEL_LLL, 3, 51, 54, { 1107, 0, 0 }, credits20, 0 },
     { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits21, 0 },
     { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits22, 0 },

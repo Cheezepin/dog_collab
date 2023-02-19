@@ -320,7 +320,7 @@ const LevelScript level_bbh_entry[] = {
 		TERRAIN(bbh_area_3_collision),
 		ROOMS(bbh_area_3_collision_rooms),
 		MACRO_OBJECTS(bbh_area_3_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_SOUND_PLAYER),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -342,7 +342,7 @@ const LevelScript level_bbh_entry[] = {
 		TERRAIN(bbh_area_4_collision),
 		ROOMS(bbh_area_4_collision_rooms),
 		MACRO_OBJECTS(bbh_area_4_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_SOUND_PLAYER),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */

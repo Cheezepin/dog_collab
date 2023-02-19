@@ -3408,6 +3408,10 @@ void update_lakitu(struct Camera *c) {
     f32 distToFloor;
     s16 newYaw;
 
+    if(gCurrCreditsEntry != NULL) {
+        c->init_view_timer = 0;
+    }
+
     if (c->init_view_timer > __FLT_EPSILON__) {
         c->init_view_timer -= 1.0f;
 
@@ -11769,11 +11773,11 @@ struct CutsceneSplinePoint sCotmcCreditsSplineFocus[] = {
 };
 
 struct CutsceneSplinePoint sDddSubCreditsSplinePositions[] = {
-    { 0, 0, { -1224, -6808, -2262 }},
-	{ 1, 0, { -514, -6989, -169 }},
-	{ 2, 0, { 729, -7217, -438 }},
-	{ 3, 0, { 1383, -8060, -1237 }},
-	{ 4, 0, { 1462, -8844, -2521 }},
+    { 0, 0, { -1224, -6435, -2262 }},
+	{ 1, 0, { -514, -6615, -169 }},
+	{ 2, 0, { 673, -6925, -193 }},
+	{ 3, 0, { 799, -8060, -1819 }},
+	{ 4, 0, { 625, -8844, -3176 }},
 	{ -1, 0, { -35, -9500, -4091 }},
 };
 
@@ -11782,8 +11786,8 @@ struct CutsceneSplinePoint sDddSubCreditsSplineFocus[] = {
 	{ 1, 40, { -594, -6989, -1777 }},
 	{ 2, 40, { -333, -6989, -992 }},
 	{ 3, 40, { 256, -6989, -642 }},
-	{ 4, 40, { 670, -6989, -1346 }},
-	{ -1, 40, { 315, -6989, -1923 }},
+	{ 4, 40, { 1117, -6561, -697 }},
+	{ -1, 40, { 1846, -6351, -417 }},
 };
 
 struct CutsceneSplinePoint sCcmOutsideCreditsSplinePositions[] = {
