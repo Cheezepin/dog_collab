@@ -292,7 +292,7 @@ else ifeq ($(COMPRESS),uncomp)
   DEFINES += UNCOMPRESSED=1
 endif
 
-GZIPVER ?= std
+GZIPVER ?= libdef
 $(eval $(call validate-option,GZIPVER,std libdef))
 
 # GODDARD - whether to use libgoddard (Mario Head)
