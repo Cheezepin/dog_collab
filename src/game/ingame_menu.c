@@ -2610,7 +2610,7 @@ void render_bar(s16 y, char *str, u8 filled) {
 s32 gWorldID = -1;
 s32 gFocusID = -1;
 
-#define NULL_ENTRY {{0, 0, 0}, {0, 0, 0}, 0, 0, 0, 0, 0}
+#define NULL_ENTRY {0}
 struct HubSelection hubSelections[3][6] = {
     {
         /* {{6466.0f, 2396.0f, 2919.0f},  {3521.0f, 2615.0f, 2711.0f},  0xF800, TEXT_C0I, TEXT_C0, TEXT_C0A, 0x1},
@@ -2633,7 +2633,6 @@ struct HubSelection hubSelections[3][6] = {
         {0xAE00, 0x400,  6551.0f, 0xAC00, 0xD00,  5120.0f, 0x0000, TEXT_C6I, TEXT_C6, TEXT_C6A, 0x8, 3},
         {0xA950, 0xAA0,  5890.0f, 0x2600, 0x4000,15620.0f, 0x0000, TEXT_C7I, TEXT_C7, TEXT_C7A, 0x9, 8},
         {0xAB90, 0x12E0, 7390.0f, 0x600,  0x900,  7170.0f, 0x0000, TEXT_B2I, TEXT_B2, TEXT_B2A, 0xA, 16},
-        NULL_ENTRY,
         NULL_ENTRY,
     },
     {

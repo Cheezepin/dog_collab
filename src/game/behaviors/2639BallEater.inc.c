@@ -24,7 +24,7 @@ void bhv_2639BallEater_loop(void) {
 	if (obj) {
 		if (ab_boxCheck(obj)) {
 			makeSecret();
-			mark_obj_for_deletion(obj);
+			obj->oAction = 1;
 		}
 	}
 }
