@@ -62,7 +62,7 @@ const LevelScript level_bowser_1_entry[] = {
 		MARIO_POS(0x01, 0, 0, 451, 0),
 		TERRAIN(bowser_1_area_1_collision),
 		MACRO_OBJECTS(bowser_1_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_BOSS_KOOPA_FINAL),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_BOWSER_GALAXY),
 		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
         WARP_NODE(/*id*/ 0x0A, /*destLevel*/ LEVEL_BOWSER_1, /*destArea*/ 0x01, /*destNode*/ 0x0A, /*flags*/ WARP_NO_CHECKPOINT),

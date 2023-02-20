@@ -71,6 +71,9 @@ enum SeqId {
     SEQ_FACTORY_DOWN, // 0x3A
     SEQ_FACTORY, // 0x3B
     SEQ_NEW_FILE_SELECT, // 0x3C
+    SEQ_BOWSER_GALAXY, // 0x3D
+    SEQ_OCEAN_ABYSS, // 0x3E
+    SEQ_CLOCK_TOWER, // 0x3F
     SEQ_COUNT
 };
 
