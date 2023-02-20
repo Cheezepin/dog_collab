@@ -13,5 +13,7 @@ const struct Animation *const dog_anims[] = {
 
 	&dog_anim_laser,
 	&dog_anim_bark,
+	&dog_anim_sleep,
+
 	NULL,
 };
