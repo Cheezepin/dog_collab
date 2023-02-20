@@ -1,6 +1,9 @@
 void bhv_sand_pile(void) {
     struct Object *sussy; 
     f32 dist;
+    if ((gCurrLevelNum == LEVEL_WDW) && (gCurrActNum == 6)) {
+        o->oAction = 2;
+    }
  switch(o->oAction) {
         case 0:
             load_object_collision_model();
