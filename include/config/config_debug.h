@@ -28,7 +28,7 @@
 // #define DEBUG_LEVEL_SELECT
 
 // Enables debug free move (D-pad up to enter, A to exit).
-// #define ENABLE_DEBUG_FREE_MOVE
+#define ENABLE_DEBUG_FREE_MOVE
 
 // Include a custom, enhanced performance profiler. (Enables PUPPYPRINT by default in config_safeguards).
 // #define PUPPYPRINT_DEBUG 1
