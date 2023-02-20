@@ -39,6 +39,7 @@ s32 on_continue_game(FileSelectMenuState *mState);
 s32 on_pop_menu(FileSelectMenuState *mState);
 s32 on_change_enum_option(FileSelectMenuState *mState);
 s32 on_change_enum_option_widescreen(FileSelectMenuState *mState);
+s32 on_change_enum_option_dither(FileSelectMenuState *mState);
 s32 on_open_options(FileSelectMenuState *mState);
 extern FileSelectMenu sMainMenu;
 extern FileSelectMenu sExistingFileMenu;
@@ -127,7 +128,7 @@ FileSelectOption sOptionsOptions[] = {
     },
     {
         .label = "Dithering",
-        .onSelect = &on_change_enum_option,
+        .onSelect = &on_change_enum_option_dither,
         .disabled = FALSE,
         .enumOptions = sDitherOptions,
         .numEnumOptions = 3,//ARRAY_COUNT(sDitherOptions),
@@ -262,6 +263,13 @@ s32 on_change_enum_option(FileSelectMenuState *mState) {
 s32 on_change_enum_option_widescreen(FileSelectMenuState *mState) {
     on_change_enum_option(mState);
     save_file_set_widescreen_mode(gConfig.widescreen);
+
+    return OPT_CALLBACK_NONE;
+}
+
+s32 on_change_enum_option_dither(FileSelectMenuState *mState) {
+    on_change_enum_option(mState);
+    save_file_set_dither_mode(gConfig.ditherMode);
 
     return OPT_CALLBACK_NONE;
 }
@@ -550,6 +558,6 @@ void init_file_select(void) {
 
     gEndResultsActive = FALSE;
     sShowingKeyboard = FALSE;
-    gWorldID = 0;
-    gFocusID = 0;
+    gWorldID = -1;
+    gFocusID = -1;
 }

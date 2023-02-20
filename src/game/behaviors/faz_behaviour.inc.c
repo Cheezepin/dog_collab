@@ -124,14 +124,15 @@ void goddard_hmc_loop(void)
             }
 
             //Punishment, for naughty players who think it's really funny to murder the dog.
-            if (floor->type == SURFACE_DEATH_PLANE)
+            if (floor->type == SURFACE_HURT_FLOOR || floor->type == SURFACE_DEATH_PLANE)
             {
-                struct Object *obj = create_object(bhvExplosion);
+                /*struct Object *obj = create_object(bhvExplosion);
                 obj->oPosX = gMarioState->pos[0];
                 obj->oPosY = gMarioState->pos[1];
                 obj->oPosZ = gMarioState->pos[2];
                 obj_set_model(obj, MODEL_EXPLOSION);
-                set_mario_action(gMarioState, ACT_DISAPPEARED, 0);
+                set_mario_action(gMarioState, ACT_DISAPPEARED, 0);*/
+                spawn_object_abs_with_rot(o, 0, MODEL_DOG, bhvGoddardHMC, o->oHomeX, o->oHomeY, o->oHomeZ, 0, 0, 0);
                 obj_mark_for_deletion(o);
             }
         }

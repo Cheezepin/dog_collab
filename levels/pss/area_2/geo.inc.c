@@ -38,7 +38,6 @@ const GeoLayout pss_area_2_geo[] = {
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 1818, 1200, 3863, 0, 12, 0, pss_dl_Cylinder_060_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 11384, 200, -835, 0, 141, 0, pss_dl_Cylinder_061_mesh_layer_1),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_ALPHA, 5666, -1195, 866, 0, 60, 0, pss_dl_paws_mesh_layer_4),
-		GEO_DISPLAY_LIST(LAYER_FORCE, pss_dl_Plane_005_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -57,7 +56,6 @@ const GeoLayout pss_area_2[] = {
 				GEO_CLOSE_NODE(),
 			GEO_CLOSE_NODE(),
 		GEO_CLOSE_NODE(),
-		GEO_DISPLAY_LIST(LAYER_FORCE, pss_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, pss_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, pss_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, pss_dl_material_revert_render_settings),

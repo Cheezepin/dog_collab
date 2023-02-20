@@ -200,7 +200,11 @@ void bhv_toad_message_loop(void) {
     struct Object *goddardObj = cur_obj_nearest_object_with_behavior(bhvDogfloor1);
     struct Object *hiddenStar = cur_obj_nearest_object_with_behavior(bhv2639a2hiddenstar);
 
-    if (sodaObj != NULL && gCurrActNum == ACT_PARTY) {
+    if (sodaObj != NULL && gCurrActNum == ACT_PARTY
+        && (
+            (gMarioState->heldObj == NULL)
+        )// bugfix
+    ) {
         if (dist_between_objects(o, sodaObj) < 300) {
             bhv_spawn_star_get_outta_here(STAR_BP_ACT_3);
             obj_mark_for_deletion(sodaObj);
@@ -256,7 +260,7 @@ void bhv_toad_message_loop(void) {
     // }
 }
 
-u32 _2639ToadAct6NeedsToChangeDialogue = 0;
+extern u32 _2639ToadAct6NeedsToChangeDialogue;
 void bhv_angry_toad_message_init(void) {
     s32 dialogId = 0;
     static u32 AngryDialogTable[] = {

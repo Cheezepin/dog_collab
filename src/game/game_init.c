@@ -121,6 +121,8 @@ struct DemoInput *gCurrDemoInput = NULL;
 u16 gDemoInputListID = 0;
 struct DemoInput gRecordedDemoInput = { 0 };
 
+s32 gFreezeFrames = 0;
+
 // Display
 // ----------------------------------------------------------------------------------------------------
 
@@ -480,6 +482,18 @@ s32 handle_wait_vblank(OSMesgQueue *mq) {
     return msg == (OSMesg)666;
 }
 
+
+void freeze_game_frames(s32 frames) {
+    gFreezeFrames = MAX(gFreezeFrames, frames);
+}
+
+void handle_freeze_state(void) {
+    while (gFreezeFrames > 0) {
+        gFreezeFrames--;
+        handle_wait_vblank(&gGameVblankQueue);
+    }
+}
+
 static void rcp_omg(void) {
     mark_spot
     osSyncPrintf("RCP is HUNG UP!! Oh! MY GOD!!\n");
@@ -563,6 +577,8 @@ void display_and_vsync(void) {
     osViSwapBuffer((void *) PHYSICAL_TO_VIRTUAL(gPhysicalFramebuffers[sRenderedFramebuffer]));
 
     if (handle_wait_vblank(&gGameVblankQueue)) rcp_omg();
+
+    handle_freeze_state();
 
     // Skip swapping buffers on emulator so that they display immediately as the Gfx task finishes
     if (gIsConsole || gIsVC || gCacheEmulated) {
@@ -900,6 +916,7 @@ void thread5_game_loop(UNUSED void *arg) {
     set_sound_mode(save_file_get_sound_mode());
 #ifdef WIDE
     gConfig.widescreen = save_file_get_widescreen_mode();
+    gConfig.ditherMode = save_file_get_dither_mode();
 #endif
     render_init();
 

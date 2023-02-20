@@ -23,19 +23,19 @@ void scroll_gfx_mat_lll_dl_water_003_layer5() {
 	Gfx *mat = segmented_to_virtual(mat_lll_dl_water_003_layer5);
 
 
-	shift_s_down(mat, 10, PACK_TILESIZE(0, 1));
-	shift_s(mat, 15, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 11, PACK_TILESIZE(0, 1));
+	shift_s(mat, 16, PACK_TILESIZE(0, 1));
 
 };
 
-void scroll_gfx_mat_lll_dl_slow_mud_005() {
-	Gfx *mat = segmented_to_virtual(mat_lll_dl_slow_mud_005);
-	static int intervalTex0 = 2;
-	static int curInterval0 = 2;
+void scroll_gfx_mat_lll_dl_slow_mud_005_layer1() {
+	Gfx *mat = segmented_to_virtual(mat_lll_dl_slow_mud_005_layer1);
+	static int interval_tex_0_lll_dl_slow_mud_005_layer1 = 2;
+	static int cur_interval_tex_0_lll_dl_slow_mud_005_layer1 = 2;
 
-	if (--curInterval0 <= 0) {
-		shift_s(mat, 9, PACK_TILESIZE(0, 1));
-		curInterval0 = intervalTex0;
+	if (--cur_interval_tex_0_lll_dl_slow_mud_005_layer1 <= 0) {
+		shift_s(mat, 11, PACK_TILESIZE(0, 1));
+		cur_interval_tex_0_lll_dl_slow_mud_005_layer1 = interval_tex_0_lll_dl_slow_mud_005_layer1;
 	}
 
 };
@@ -44,14 +44,14 @@ void scroll_gfx_mat_lll_dl_CloudSky_layer5() {
 	Gfx *mat = segmented_to_virtual(mat_lll_dl_CloudSky_layer5);
 
 
-	shift_s(mat, 10, PACK_TILESIZE(0, 1));
-	shift_s_down(mat, 15, PACK_TILESIZE(0, 1));
+	shift_s(mat, 11, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 16, PACK_TILESIZE(0, 1));
 
 };
 
 void scroll_lll() {
 	scroll_lll_dl_ZZ2_Cloud_mesh_layer_5_vtx_0();
 	scroll_gfx_mat_lll_dl_water_003_layer5();
-	scroll_gfx_mat_lll_dl_slow_mud_005();
+	scroll_gfx_mat_lll_dl_slow_mud_005_layer1();
 	scroll_gfx_mat_lll_dl_CloudSky_layer5();
 };

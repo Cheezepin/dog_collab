@@ -39,3 +39,5 @@ u64 aligner2639 = 14241823231;
 #include "Jewel2639/model.inc.c"
 #include "epicpresent/model.inc.c"
 #include "key2639/model.inc.c"
+#include "tram2639/model.inc.c"
+#include "tram2639/collision.inc.c"

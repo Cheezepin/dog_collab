@@ -2610,7 +2610,7 @@ void render_bar(s16 y, char *str, u8 filled) {
 s32 gWorldID = -1;
 s32 gFocusID = -1;
 
-#define NULL_ENTRY {{0, 0, 0}, {0, 0, 0}, 0, 0, 0, 0, 0}
+#define NULL_ENTRY {0}
 struct HubSelection hubSelections[3][6] = {
     {
         /* {{6466.0f, 2396.0f, 2919.0f},  {3521.0f, 2615.0f, 2711.0f},  0xF800, TEXT_C0I, TEXT_C0, TEXT_C0A, 0x1},
@@ -2633,7 +2633,6 @@ struct HubSelection hubSelections[3][6] = {
         {0xAE00, 0x400,  6551.0f, 0xAC00, 0xD00,  5120.0f, 0x0000, TEXT_C6I, TEXT_C6, TEXT_C6A, 0x8, 3},
         {0xA950, 0xAA0,  5890.0f, 0x2600, 0x4000,15620.0f, 0x0000, TEXT_C7I, TEXT_C7, TEXT_C7A, 0x9, 8},
         {0xAB90, 0x12E0, 7390.0f, 0x600,  0x900,  7170.0f, 0x0000, TEXT_B2I, TEXT_B2, TEXT_B2A, 0xA, 16},
-        NULL_ENTRY,
         NULL_ENTRY,
     },
     {
@@ -2664,7 +2663,7 @@ u8 *get_course_string(u8 *levelString, u8 courseIndex) {
     sprintf(levelString, "%s", hubSelections[gWorldID][courseIndex].levelNameString);
     if(hubSelections[gWorldID][courseIndex].courseID > 0) {
         if(hubSelections[gWorldID][courseIndex].courseID == 18) {
-            if(save_file_get_course_star_count(gCurrSaveFileNum - 1, 18) >= 1) {
+            if((save_file_get_course_star_count(gCurrSaveFileNum - 1, 18) >= 1) && (save_file_get_flags() & SAVE_FLAG_BOWSER_3_BEAT)) {
                 sprintf(levelString, "%s \xFA", hubSelections[gWorldID][courseIndex].levelNameString);
             }
         } else if(hubSelections[gWorldID][courseIndex].courseID < 16) {
@@ -2673,7 +2672,10 @@ u8 *get_course_string(u8 *levelString, u8 courseIndex) {
             }
         } else {
             if(save_file_get_course_star_count(gCurrSaveFileNum - 1, hubSelections[gWorldID][courseIndex].courseID - 1) >= 1) {
-                sprintf(levelString, "%s \xFA", hubSelections[gWorldID][courseIndex].levelNameString);
+                if((hubSelections[gWorldID][courseIndex].courseID == 16 && (save_file_get_flags() & SAVE_FLAG_HAVE_KEY_1)) ||
+                (hubSelections[gWorldID][courseIndex].courseID == 17 && (save_file_get_flags() & SAVE_FLAG_HAVE_KEY_2))) {
+                    sprintf(levelString, "%s \xFA", hubSelections[gWorldID][courseIndex].levelNameString);
+                }
             }
         }
     } else {
@@ -2681,10 +2683,47 @@ u8 *get_course_string(u8 *levelString, u8 courseIndex) {
     }
 }
 
+u8 *get_world_string(u8 *worldStringBuffer, u8 *worldString, u8 worldNum) {
+    u8 allLevelsDone = 1;
+    u8 i = 0;
+    u8 worldID = worldNum - 1;
+    for(i = 0; i < 99; i++) {
+        if(hubSelections[worldID][i].courseID > 0) {
+            if(hubSelections[worldID][i].courseID == 18) {
+                if(!((save_file_get_course_star_count(gCurrSaveFileNum - 1, 18) >= 1) && (save_file_get_flags() & SAVE_FLAG_BOWSER_3_BEAT))) {
+                    allLevelsDone = 0;
+                }
+            } else if(hubSelections[worldID][i].courseID == 17) {
+                if(!((save_file_get_course_star_count(gCurrSaveFileNum - 1, 16) >= 1) && (save_file_get_flags() & SAVE_FLAG_HAVE_KEY_2))) {
+                    allLevelsDone = 0;
+                }
+            } else if(hubSelections[worldID][i].courseID == 16) {
+                if(!((save_file_get_course_star_count(gCurrSaveFileNum - 1, 15) >= 1) && (save_file_get_flags() & SAVE_FLAG_HAVE_KEY_1))) {
+                    allLevelsDone = 0;
+                }
+            } else {
+                if(!(save_file_get_course_star_count(gCurrSaveFileNum - 1, hubSelections[worldID][i].courseID - 1) == 7)) {
+                    allLevelsDone = 0;
+                }
+            }
+        } else {
+            i = 99;
+            break;
+        }
+    }
+
+    if(allLevelsDone == 0) {
+        sprintf(worldStringBuffer, "%s", worldString);
+    } else {
+        sprintf(worldStringBuffer, "%s \xFA", worldString);
+    }
+}
+
 void render_hub_selection(void) {
     u32 textColor = 0xFFFFFFFF;
     u32 textDiscolor = 0xDFDFDFFF;
     u8 joystickMovement = gDirectionsHeld;
+    u8 *worldStringBuffer[3][12];
 
     if(gFocusID == -1) {
         sDelayedWarpTimer = 0;
@@ -2724,16 +2763,20 @@ void render_hub_selection(void) {
                 break;
         }
 
+        get_world_string(worldStringBuffer[0], TEXT_WORLD_1, 1);
+        get_world_string(worldStringBuffer[1], TEXT_WORLD_2, 2);
+        get_world_string(worldStringBuffer[2], TEXT_WORLD_3, 3);
+
         render_bar(220, TEXT_SELECT_WORLD, 0);
-        render_bar(200, TEXT_WORLD_1, gWorldID == 0 ? 1 : 0);
-        render_bar(180, TEXT_WORLD_2, gWorldID == 1 ? 1 : 0);
-        render_bar(160, TEXT_WORLD_3, gWorldID == 2 ? 1 : 0);
+        render_bar(200, worldStringBuffer[0], gWorldID == 0 ? 1 : 0);
+        render_bar(180, worldStringBuffer[1], gWorldID == 1 ? 1 : 0);
+        render_bar(160, worldStringBuffer[2], gWorldID == 2 ? 1 : 0);
 
         gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
         print_string_with_shadow(8, 220, TEXT_SELECT_WORLD, textDiscolor);
-        print_string_with_shadow(gWorldID == 0 ? 16 : 8, 200, TEXT_WORLD_1, gWorldID == 0 ? textColor : textDiscolor);
-        print_string_with_shadow(gWorldID == 1 ? 16 : 8, 180, TEXT_WORLD_2, gWorldID == 1 ? textColor : textDiscolor);
-        print_string_with_shadow(gWorldID == 2 ? 16 : 8, 160, TEXT_WORLD_3, gWorldID == 2 ? textColor : textDiscolor);
+        print_string_with_shadow(gWorldID == 0 ? 16 : 8, 200, worldStringBuffer[0], gWorldID == 0 ? textColor : textDiscolor);
+        print_string_with_shadow(gWorldID == 1 ? 16 : 8, 180, worldStringBuffer[1], gWorldID == 1 ? textColor : textDiscolor);
+        print_string_with_shadow(gWorldID == 2 ? 16 : 8, 160, worldStringBuffer[2], gWorldID == 2 ? textColor : textDiscolor);
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
     } else {

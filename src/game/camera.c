@@ -821,8 +821,6 @@ void pan_ahead_of_player(struct Camera *c) {
     pan[0] = sPanDistance;
     yaw = -yaw;
     rotate_in_xz(pan, pan, yaw);
-
-    pan[1] += 100;
     vec3f_add(c->focus, pan);
 }
 
@@ -3410,6 +3408,10 @@ void update_lakitu(struct Camera *c) {
     f32 distToFloor;
     s16 newYaw;
 
+    if(gCurrCreditsEntry != NULL) {
+        c->init_view_timer = 0;
+    }
+
     if (c->init_view_timer > __FLT_EPSILON__) {
         c->init_view_timer -= 1.0f;
 
@@ -5338,7 +5340,8 @@ void radial_camera_input(struct Camera *c) {
         }
     }
 
-    if (!in2639Level()) {
+    // if (!in2639Level()) {
+    if (1) {
         // Zoom in / enter C-Up
         if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
             if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
@@ -6623,12 +6626,13 @@ void Cam2639_CloseFocus();
 void Cam2639_OutwardSpiral();
 void Cam2639_HeadroomClearance();
 void Cam2639_LookDown();
+void Cam2639_InitialShot();
 struct CameraTrigger sCamBOB[] = {
 	{0, Cam2639_Elevator, -17, 3033, -2833, 803, 8515, 803, 0xffff},
-	{1, Cam2639_Main, -57, -404, 3930, 6995, 6995, 6995, 0xffff},
+	{1, Cam2639_InitialShot, 2292, -1412, 2708, 2309, 8500, 463, 0xffff},
 	{-1, Cam2639_Main, 0, 500, 0, 11500, 11500, 11500, 0xffff},
-	{1, Cam2639_LogoCam, -417, -2141, -4114, 1742, 1742, 1742, 0xffff},
-	{1, Cam2639_HeadroomClearance, -417, -2141, -1704, 889, 889, 889, 0xffff},
+	{1, Cam2639_LogoCam, -2526, -2141, -4114, 1742, 1742, 1742, 0xffff},
+	{1, Cam2639_HeadroomClearance, -2417, -2141, -1704, 889, 889, 889, 0xffff},
 	{2, Cam2639_OutwardSpiral, -418, 1, -4651, 3255, 699, 1131, 0xffff},
 	{2, Cam2639_HeadroomClearance, 218, 357, 592, 472, 371, 1176, 0xffff},
 	{2, Cam2639_CylinderCam, 82, 4109, -5865, 5597, 3222, 5597, 0xffff},
@@ -10060,6 +10064,12 @@ extern struct CutsceneSplinePoint sBitsCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sBitsCreditsSplineFocus[];
 extern struct CutsceneSplinePoint sBitdwCreditsSplinePositions[];
 extern struct CutsceneSplinePoint sBitdwCreditsSplineFocus[];
+extern struct CutsceneSplinePoint sLllCastleCreditsSplinePositions[];
+extern struct CutsceneSplinePoint sLllCastleCreditsSplineFocus[];
+extern struct CutsceneSplinePoint sDddEndCreditsSplinePositions[];
+extern struct CutsceneSplinePoint sDddEndCreditsSplineFocus[];
+extern struct CutsceneSplinePoint sBbh2CreditsSplinePositions[];
+extern struct CutsceneSplinePoint sBbh2CreditsSplineFocus[];
 
 /**
  * Follow splines through the courses of the game.
@@ -10099,6 +10109,9 @@ void cutscene_credits(struct Camera *c) {
             pos = sBbhCreditsSplinePositions;
             focus = sBbhCreditsSplineFocus;
             break;
+        case AREA_BBH_2:
+            pos = sBbh2CreditsSplinePositions;
+            focus = sBbh2CreditsSplineFocus;
         case AREA_HMC:
             pos = sHmcCreditsSplinePositions;
             focus = sHmcCreditsSplineFocus;
@@ -10119,6 +10132,10 @@ void cutscene_credits(struct Camera *c) {
             pos = sVolcanoCreditsSplinePositions;
             focus = sVolcanoCreditsSplineFocus;
             break;
+        case AREA_LLL_CASTLE:
+            pos = sLllCastleCreditsSplinePositions;
+            focus = sLllCastleCreditsSplineFocus;
+            break;
         case AREA_SSL_OUTSIDE:
             pos = sSslCreditsSplinePositions;
             focus = sSslCreditsSplineFocus;
@@ -10126,6 +10143,10 @@ void cutscene_credits(struct Camera *c) {
         case AREA_DDD_WHIRLPOOL:
             pos = sDddCreditsSplinePositions;
             focus = sDddCreditsSplineFocus;
+            break;
+        case AREA_DDD_END:
+            pos = sDddEndCreditsSplinePositions;
+            focus = sDddEndCreditsSplineFocus;
             break;
         case AREA_SL_OUTSIDE:
             pos = sSlCreditsSplinePositions;
@@ -11595,27 +11616,23 @@ struct CutsceneSplinePoint sSslCreditsSplineFocus[] = {
 };
 
 struct CutsceneSplinePoint sDddCreditsSplinePositions[] = {
-    /*{ 0, 0, { -874, -4933, 366 } },
-    { 0, 0, { -1463, -4782, 963 } },
-    { 0, 0, { -1893, -4684, 1303 } },
-    { 0, 0, { -2818, -4503, 1583 } },
-    { 0, 0, { -4095, -2924, 730 } },
-    { 0, 0, { -4737, -1594, -63 } },
-    { -1, 0, { -4681, -1084, -623 } }*/
-
-    { 0, 50, { 0, 1000, -1800 } }
+    { 0, 0, { 2948, 11596, 656 }},
+	{ 1, 0, { 1792, 11025, -945 }},
+	{ 2, 0, { -1092, 10419, -1813 }},
+	{ 3, 0, { -1852, 9944, -83 }},
+	{ 4, 0, { -869, 9376, 1102 }},
+	{ 5, 0, { 580, 9204, 1204 }},
+	{ -1, 0, { 1039, 8980, 497 }},
 };
 
 struct CutsceneSplinePoint sDddCreditsSplineFocus[] = {
-    /*{ 0, 50, { -1276, -4683, 622 } },
-    { 0, 50, { -1858, -4407, 1097 } },
-    { 0, 50, { -2324, -4332, 1318 } },
-    { 0, 50, { -3138, -4048, 1434 } },
-    { 0, 50, { -4353, -2444, 533 } },
-    { 0, 50, { -4807, -1169, -436 } },
-    { -1, 50, { -4665, -664, -1007 } }*/
-
-    { -1, 50, { 137, 9957, -1954 } }
+    { 0, 30, { 1980, 11022, 206 }},
+	{ 1, 30, { 1142, 10542, -893 }},
+	{ 2, 30, { -670, 10032, -1494 }},
+	{ 3, 30, { -992, 9632, -216 }},
+	{ 4, 30, { -232, 9153, 522 }},
+	{ 5, 30, { 356, 9008, 199 }},
+	{ -1, 30, { 81, 8820, -286 }},
 };
 
 struct CutsceneSplinePoint sSlCreditsSplinePositions[] = {
@@ -11761,22 +11778,21 @@ struct CutsceneSplinePoint sCotmcCreditsSplineFocus[] = {
 };
 
 struct CutsceneSplinePoint sDddSubCreditsSplinePositions[] = {
-    /*{ 0, 0, { 4656, 2171, 5028 } },
-    { 0, 0, { 4548, 1182, 4596 } },
-    { 0, 0, { 5007, 813, 3257 } },
-    { 0, 0, { 5681, 648, 1060 } },
-    { -1, 0, { 4644, 774, 113 } }*/
-    { -1, 0, { 600, -9400, -1500 } }
+    { 0, 0, { -1224, -6435, -2262 }},
+	{ 1, 0, { -514, -6615, -169 }},
+	{ 2, 0, { 673, -6925, -193 }},
+	{ 3, 0, { 799, -8060, -1819 }},
+	{ 4, 0, { 625, -8844, -3176 }},
+	{ -1, 0, { -35, -9500, -4091 }},
 };
 
 struct CutsceneSplinePoint sDddSubCreditsSplineFocus[] = {
-    /*{ 0, 50, { 4512, 2183, 4549 } },
-    { 0, 50, { 4327, 838, 4308 } },
-    { 0, 50, { 4774, 749, 2819 } },
-    { 0, 50, { 5279, 660, 763 } },
-    { -1, 50, { 4194, 885, -75 } }*/
-
-    { -1, 50, { 405, -9500, -2200 } }
+    { 0, 40, { -468, -6989, -2637 }},
+	{ 1, 40, { -594, -6989, -1777 }},
+	{ 2, 40, { -333, -6989, -992 }},
+	{ 3, 40, { 256, -6989, -642 }},
+	{ 4, 40, { 1117, -6561, -697 }},
+	{ -1, 40, { 1846, -6351, -417 }},
 };
 
 struct CutsceneSplinePoint sCcmOutsideCreditsSplinePositions[] = {
@@ -11868,27 +11884,81 @@ struct CutsceneSplinePoint sBitsCreditsSplineFocus[] = {
 };
 
 struct CutsceneSplinePoint sBitdwCreditsSplinePositions[] = {
-    { 0, 0, { -2802, 92, 3338 }},
-	{ 1, 0, { -2935, 1394, 4664 }},
-	{ 2, 0, { -2981, 2074, 6461 }},
-	{ 3, 0, { -1342, 2949, 7040 }},
-	{ 4, 0, { 883, 3999, 6150 }},
-	{ 5, 0, { 864, 4424, 3943 }},
-	{ 6, 0, { 946, 4093, 1518 }},
-	{ 7, 0, { 384, 3345, 282 }},
-	{ -1, 0, { -388, 2576, -198 }},
+    { 0, 0, { 3754, -137, 6282 }},
+	{ 1, 0, { 8537, -566, 6832 }},
+	{ 2, 0, { 11252, -1382, 8599 }},
+	{ 3, 0, { 10699, -3862, 9979 }},
+	{ 4, 0, { 10065, -4947, 10363 }},
+	{ -1, 0, { 9480, -6511, 10015 }},
 };
 
 struct CutsceneSplinePoint sBitdwCreditsSplineFocus[] = {
-    { 0, 30, { -1675, 621, 2734 }},
-	{ 1, 30, { -1710, 1157, 4013 }},
-	{ 2, 30, { -1275, 1320, 4718 }},
-	{ 3, 30, { -550, 1330, 5547 }},
-	{ 4, 30, { -51, 1603, 5532 }},
-	{ 5, 30, { 547, 1748, 4619 }},
-	{ 6, 40, { 688, 2052, 2767 }},
-	{ 7, 50, { -460, 1291, 367 }},
-	{ -1, 50, { -598, 913, -516 }},
+    { 0, 40, { 5865, -783, 6507 }},
+	{ 1, 40, { 9815, -1186, 7961 }},
+	{ 2, 40, { 10537, -2580, 8958 }},
+	{ 3, 40, { 10185, -4665, 9158 }},
+	{ 4, 40, { 9991, -6095, 9168 }},
+	{ -1, 40, { 9173, -8358, 8563 }},
+};
+
+struct CutsceneSplinePoint sLllCastleCreditsSplinePositions[] = {
+    { 0, 0, { -843, 246, 0 }},
+	{ 1, 0, { -418, 100, -93 }},
+	{ 2, 0, { 137, 100, -918 }},
+	{ 3, 0, { 858, 100, -956 }},
+	{ 4, 0, { 1343, 100, -884 }},
+	{ 5, 0, { 2343, 100, -48 }},
+	{ 6, 0, { 3388, 100, 272 }},
+	{ 7, 0, { 4747, 100, 693 }},
+	{ -1, 0, { 5003, 348, 1620 }},
+};
+
+struct CutsceneSplinePoint sLllCastleCreditsSplineFocus[] = {
+    { 0, 30, { -241, 17, 0 }},
+	{ 1, 30, { -175, 17, -676 }},
+	{ 2, 30, { 419, 17, -859 }},
+	{ 3, 30, { 1153, 17, -930 }},
+	{ 4, 30, { 1597, 17, -573 }},
+	{ 5, 30, { 2721, 17, 96 }},
+	{ 6, 30, { 4141, 17, 481 }},
+	{ 7, 40, { 4971, 17, 1230 }},
+	{ -1, 50, { 5013, 348, 1963 }},
+};
+
+struct CutsceneSplinePoint sDddEndCreditsSplinePositions[] = {
+    { 0, 0, { 446, 1691, -3847 }},
+	{ 1, 0, { -2037, -281, -2519 }},
+	{ 2, 0, { -3628, -3299, -3742 }},
+	{ 3, 0, { -6519, -5016, -3086 }},
+	{ 4, 0, { -10091, -4691, -3148 }},
+	{ -1, 0, { -13105, -5307, -3836 }},
+};
+
+struct CutsceneSplinePoint sDddEndCreditsSplineFocus[] = {
+    { 0, 40, { -1087, 1451, -3233 }},
+	{ 1, 40, { -3253, 100, -3233 }},
+	{ 2, 40, { -5184, -3299, -3233 }},
+	{ 3, 40, { -7643, -4830, -3233 }},
+	{ 4, 40, { -11552, -5573, -3233 }},
+	{ -1, 40, { -15623, -5213, -3233 }},
+};
+
+struct CutsceneSplinePoint sBbh2CreditsSplinePositions[] = {
+    { 0, 0, { 5865, -783, 6507 }},
+	{ 1, 0, { 9815, -1186, 7961 }},
+	{ 2, 0, { 10537, -2580, 8958 }},
+	{ 3, 0, { 10185, -4665, 9158 }},
+	{ 4, 0, { 9991, -6095, 9168 }},
+	{ -1, 0, { 9173, -8358, 8563 }},
+};
+
+struct CutsceneSplinePoint sBbh2CreditsSplineFocus[] = {
+    { 0, 50, { 5865, -783, 6507 }},
+	{ 1, 45, { 9815, -1186, 7961 }},
+	{ 2, 40, { 10537, -2580, 8958 }},
+	{ 3, 35, { 10185, -4665, 9158 }},
+	{ 4, 40, { 9991, -6095, 9168 }},
+	{ -1, 45, { 9173, -8358, 8563 }},
 };
 
 /**

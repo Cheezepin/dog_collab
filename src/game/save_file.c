@@ -21,8 +21,13 @@
 
 #define ALIGN4(val) (((val) + 0x3) & ~0x3)
 
+#ifdef UNIQUE_SAVE_DATA
+u16 MENU_DATA_MAGIC = 0x4849;
+u16 SAVE_FILE_MAGIC = 0x4441;
+#else
 #define MENU_DATA_MAGIC 0x4849
 #define SAVE_FILE_MAGIC 0x4441
+#endif
 
 //STATIC_ASSERT(sizeof(struct SaveBuffer) == EEPROM_SIZE, "eeprom buffer size must match");
 
@@ -253,6 +258,7 @@ void wipe_main_menu_data(void) {
 
     #ifdef WIDE
     gSaveBuffer.menuData[0].wideMode = 0;
+    gSaveBuffer.menuData[0].ditherMode = 0;
     #endif
 
     gMainMenuDataModified = TRUE;
@@ -357,9 +363,27 @@ void save_file_copy(s32 srcFileIndex, s32 destFileIndex) {
     save_file_do_save(destFileIndex);
 }
 
+#ifdef UNIQUE_SAVE_DATA
+// This should only be called once on boot and never again.
+static void calculate_unique_save_magic(void) {
+    u16 checksum = 0;
+
+    for (s32 i = 0; i < 20; i++) {
+        checksum += (u16) INTERNAL_ROM_NAME[i] << (i & 0x07);
+    }
+
+    MENU_DATA_MAGIC += checksum;
+    SAVE_FILE_MAGIC += checksum;
+}
+#endif
+
 void save_file_load_all(void) {
     s32 file;
     s32 validSlots;
+
+#ifdef UNIQUE_SAVE_DATA
+    calculate_unique_save_magic(); // This should only be called once on boot and never again.
+#endif
 
     gMainMenuDataModified = FALSE;
     gSaveFileModified = FALSE;
@@ -749,6 +773,16 @@ void save_file_set_widescreen_mode(u8 mode) {
     save_main_menu_data();
 }
 #endif
+u32 save_file_get_dither_mode(void) {
+    return gSaveBuffer.menuData[0].ditherMode;
+}
+
+void save_file_set_dither_mode(u8 mode) {
+    gSaveBuffer.menuData[0].ditherMode = mode;
+
+    gMainMenuDataModified = TRUE;
+    save_main_menu_data();
+}
 
 u32 save_file_get_sound_mode(void) {
     return gSaveBuffer.menuData[0].soundMode;

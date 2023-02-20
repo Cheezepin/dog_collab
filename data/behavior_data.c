@@ -7416,7 +7416,7 @@ const BehaviorScript bhvCloudRainbow[] = {
     SET_HOME(),
     //CALL_NATIVE(bhv_cloud_rainbow_init),
     BEGIN_LOOP(),
-        CALL_NATIVE(load_object_collision_model),
+        // CALL_NATIVE(load_object_collision_model),
         CALL_NATIVE(bhv_cloud_rainbow_loop),
     END_LOOP(),
 };
@@ -8807,7 +8807,7 @@ const BehaviorScript bhv2639A4DrainScrew[] = {
 
 const BehaviorScript bhv2639SoccerBall[] = {
 	BEGIN(OBJ_LIST_GENACTOR),
-        OR_INT(oFlags, OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+        OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
         SET_HOME(),
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 100, /*Gravity*/ -400, /*Bounciness*/ 20, /*Drag strength*/ 0, /*Friction*/ 1, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
 	CALL_NATIVE(bhv_2639SoccerBall_init),
@@ -8926,5 +8926,18 @@ const BehaviorScript bhv2639ElevatorKey[] = {
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_2639ElevatorKey_loop),
         ADD_INT(oFaceAngleYaw, 1),
+	END_LOOP(),
+};
+
+const BehaviorScript bhvTram2639[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
+	CALL_NATIVE(bhv_Tram2639_init),
+    SET_FLOAT(oCollisionDistance, 10000),
+    SET_FLOAT(oDrawingDistance, 10000),
+    LOAD_COLLISION_DATA(tram2639_collision),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_Tram2639_loop),
+        CALL_NATIVE(load_object_collision_model),
 	END_LOOP(),
 };
