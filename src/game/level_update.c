@@ -70,14 +70,14 @@ const char *credits08[] = { "4SWIRLING CIRCUS", "MUSIC", "COWQUACK", "STRIATION 
 // ...as well as sound composer, sound effects, and sound programmer, and...
 const char *credits09[] = { "4AWE INSPIRING SPIRES", "MUSIC", "KEYBLADER", "METEOR HERD SA2" };
 // ...3D animators and additional graphics in order to make room for screen text writer(s), Mario voice, and Peach voice
-const char *credits10[] = { "6BOWSER'S RAINBOW", "ANUNIDENTIFIEDEMU", "RINGS",  "", "MUSIC", "BOWSER STAGE SM64" };
+const char *credits10[] = { "6BOWSER'S RAINBOW", "ANUNIDENTIFIEDEMU", "RINGS",  "", "MUSIC", "CURSED CLOCK TOWER CASTLEVANIA DOS" };
 const char *credits11[] = { "4SAKURA STRONGHOLD", "MUSIC", "YOSHI MILKMAN", "SAMMERS KINGDOM SPM" };
 const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "ORIGINAL BY THECOZIES" };
-const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIGINAL BY THECOZIES" };
+const char *credits13[] = { "4DESOLATE RESERVOIR", "MUSIC", "THECOZIES", "ORIGINAL BY THECOZIES" };
 const char *credits14[] = { "8OTHER MUSIC", "", "FILE SELECT", "KIRBY 64 FILE SELECT", "HUB WORLD", "CROSSING THOSE HILLS FF9", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT" };
-const char *credits15[] = { "6CIRCUS BOSS", "CACKLETTA BOSS ML SS", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING", "BOWSER 2 FIGHT", "E" };
+const char *credits15[] = { "6CIRCUS BOSS", "CACKLETTA BOSS ML SS", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING", "BOWSER 2 FIGHT", "KING BOWSER MARIO GALAXY" };
 const char *credits16[] = { "6SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD"};
-const char *credits17[] = { "8BOWSER'S FURIOUS FINALE PT 1", "E", "BOWSER'S FURIOUS FINALE PT 2", "E", "BOWSER 3 FIGHT", "E", "CREDITS", "KSSU CREDITS"};
+const char *credits17[] = { "8BOWSER'S FURIOUS FINALE", "", "", "VENGEFUL GOD ETRIAN ODYSSEY 3", "BOWSER 3 FIGHT", "KING OF THE KOOPAS PM64", "CREDITS", "KSSU CREDITS"};
 
 const char *credits18[] = { "8BETATESTING", "REONU", "HACKER2O77", "NESDUDE", "HYENA CHAN", "GTM", "", "", "" };
 const char *credits19[] = { "8SPECIAL THANKS TO", "THECOZIES' DOG", "BOOMERDACAT", "ARTHURTILLY", "HACKERSM64 TEAM", "", "", "", "" };

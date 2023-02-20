@@ -371,7 +371,7 @@
 #define TEXT_C9A "Author: Fazana"
 
 #define TEXT_C10I "Course 10"
-#define TEXT_C10  "Bowser's Scuba Tower"
+#define TEXT_C10  "Desolate Reservoir"
 #define TEXT_C10A "Author: thecozies"
 
 #define TEXT_B3I "Bowser 3"
