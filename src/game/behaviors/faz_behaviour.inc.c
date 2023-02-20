@@ -124,7 +124,7 @@ void goddard_hmc_loop(void)
             }
 
             //Punishment, for naughty players who think it's really funny to murder the dog.
-            if (floor->type == SURFACE_DEATH_PLANE)
+            if (floor->type == SURFACE_HURT_FLOOR || floor->type == SURFACE_DEATH_PLANE)
             {
                 struct Object *obj = create_object(bhvExplosion);
                 obj->oPosX = gMarioState->pos[0];
