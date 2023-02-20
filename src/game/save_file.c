@@ -258,6 +258,7 @@ void wipe_main_menu_data(void) {
 
     #ifdef WIDE
     gSaveBuffer.menuData[0].wideMode = 0;
+    gSaveBuffer.menuData[0].ditherMode = 0;
     #endif
 
     gMainMenuDataModified = TRUE;
@@ -772,6 +773,16 @@ void save_file_set_widescreen_mode(u8 mode) {
     save_main_menu_data();
 }
 #endif
+u32 save_file_get_dither_mode(void) {
+    return gSaveBuffer.menuData[0].ditherMode;
+}
+
+void save_file_set_dither_mode(u8 mode) {
+    gSaveBuffer.menuData[0].ditherMode = mode;
+
+    gMainMenuDataModified = TRUE;
+    save_main_menu_data();
+}
 
 u32 save_file_get_sound_mode(void) {
     return gSaveBuffer.menuData[0].soundMode;

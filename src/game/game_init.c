@@ -916,6 +916,7 @@ void thread5_game_loop(UNUSED void *arg) {
     set_sound_mode(save_file_get_sound_mode());
 #ifdef WIDE
     gConfig.widescreen = save_file_get_widescreen_mode();
+    gConfig.ditherMode = save_file_get_dither_mode();
 #endif
     render_init();
 

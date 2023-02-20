@@ -73,6 +73,7 @@ struct MainMenuSaveData {
     u8 soundMode: 2;
 #ifdef WIDE
     u8 wideMode: 1;
+    u8 ditherMode: 2;
 #endif
 
 #if MULTILANG
@@ -209,6 +210,8 @@ u32 save_file_get_sound_mode(void);
 #ifdef WIDE
 u32 save_file_get_widescreen_mode(void);
 void save_file_set_widescreen_mode(u8 mode);
+u32 save_file_get_dither_mode(void);
+void save_file_set_dither_mode(u8 mode);
 #endif
 void save_file_move_cap_to_default_location(void);
 
