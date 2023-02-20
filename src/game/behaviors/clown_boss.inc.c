@@ -695,6 +695,10 @@ void bhv_goddard_clown_fight_init(void) {
     if (o->parentObj->oClownActionNumber == 4) {
         cur_obj_init_animation_with_accel_and_sound(4, 1.0f);
     }
+
+    if (gCurrLevelNum == LEVEL_WDW) {
+        cur_obj_init_animation(0);
+    }
 }
 
 struct SpawnParticlesInfo sFightStars = {

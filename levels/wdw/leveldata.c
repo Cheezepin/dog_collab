@@ -48,3 +48,6 @@
 
 #include "levels/wdw/mapletree/model.inc.c"
 #include "levels/wdw/sakseed/model.inc.c"
+#include "levels/wdw/baron/model.inc.c"
+#include "levels/wdw/gfist/model.inc.c"
+#include "levels/wdw/kpancake/model.inc.c"
