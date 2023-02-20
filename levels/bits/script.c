@@ -79,7 +79,7 @@ const LevelScript level_bits_entry[] = {
 		OBJECT(MODEL_WARP_BOX, 2330, 373, -577, 0, 90, 0, (0 << 24) | (99 << 16), bhvSpecialWarpBox),
 		TERRAIN(bits_area_1_collision),
 		MACRO_OBJECTS(bits_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OCEAN_ABYSS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -104,7 +104,7 @@ const LevelScript level_bits_entry[] = {
 		TERRAIN(bits_area_2_collision),
 		ROOMS(bits_area_2_collision_rooms),
 		MACRO_OBJECTS(bits_area_2_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OCEAN_ABYSS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -135,7 +135,7 @@ const LevelScript level_bits_entry[] = {
 		OBJECT(MODEL_WARP_BOX, 9, -7459, -2854, 0, 0, 0, (0 << 24) | (2 << 16), bhvWarpBox),
 		TERRAIN(bits_area_3_collision),
 		MACRO_OBJECTS(bits_area_3_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OCEAN_ABYSS),
 		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -178,7 +178,7 @@ const LevelScript level_bits_entry[] = {
 		OBJECT(MODEL_NONE, -24926, 19766, 0, 0, 90, 0, (0xA << 16), bhvSpinAirborneWarp),
 		TERRAIN(bits_area_4_collision),
 		MACRO_OBJECTS(bits_area_4_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OCEAN_ABYSS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -204,7 +204,7 @@ const LevelScript level_bits_entry[] = {
 		OBJECT(MODEL_WARP_BOX, 8901, 1868, 8628, 0, 90, 0, (0 << 24) | (2 << 16), bhvWarpBox),
 		TERRAIN(bits_area_5_collision),
 		MACRO_OBJECTS(bits_area_5_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OCEAN_ABYSS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -241,7 +241,7 @@ const LevelScript level_bits_entry[] = {
 		OBJECT(MODEL_NONE, 9928, -1246, 2466, 0, 90, 0, (0xA << 16), bhvSpinAirborneWarp),
 		TERRAIN(bits_area_6_collision),
 		MACRO_OBJECTS(bits_area_6_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OCEAN_ABYSS),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */

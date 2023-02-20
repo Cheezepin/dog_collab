@@ -101,7 +101,7 @@ const LevelScript level_bitdw_entry[] = {
 		OBJECT(MODEL_NONE, -8248, 1268, -10689, 0, 0, 0, 0x600B0000, bhvWarp),
 		TERRAIN(bitdw_area_1_collision),
 		MACRO_OBJECTS(bitdw_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_KOOPA_ROAD),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_CLOCK_TOWER),
 		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */

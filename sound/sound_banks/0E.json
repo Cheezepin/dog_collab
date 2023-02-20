@@ -79,6 +79,24 @@
             [1, 32700],
             [32700, 29430],
             "hang"
+        ],
+        "envelope13": [
+            [2, 32700],
+            [205, 0],
+            [1, 0],
+            "hang"
+        ],
+        "envelope14": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
+        ],
+        "envelope15": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
         ]
     },
     "instruments": {
@@ -163,6 +181,21 @@
             "envelope": "envelope12",
             "sound": "42_vibraphone"
         },
+        "inst13": {
+            "release_rate": 10,
+            "envelope": "envelope13",
+            "sound": "44_grand_piano"
+        },
+        "inst14": {
+            "release_rate": 208,
+            "envelope": "envelope14",
+            "sound": "1A_slap_bass"
+        },
+        "inst15": {
+            "release_rate": 208,
+            "envelope": "envelope15",
+            "sound": "CUSTOM_distortion_guitar"
+        },
         "percussion": [
             {"release_rate": 10, "pan": 62, "envelope": "envelope8", "sound": {"sample": "06_kick_drum_1", "tuning": 0.210224}},
             {"release_rate": 10, "pan": 62, "envelope": "envelope8", "sound": {"sample": "06_kick_drum_1", "tuning": 0.2227245}},
@@ -243,6 +276,9 @@
         "inst9",
         "inst10",
         "inst11",
-        "inst12"
+        "inst12",
+        "inst13",
+        "inst14",
+        "inst15"
     ]
 }
