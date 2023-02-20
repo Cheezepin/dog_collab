@@ -77,7 +77,7 @@ const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIG
 const char *credits14[] = { "8OTHER MUSIC", "", "FILE SELECT", "KIRBY 64 FILE SELECT", "HUB WORLD", "CROSSING THOSE HILLS FF9", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT" };
 const char *credits15[] = { "6CIRCUS BOSS", "CACKLETTA BOSS ML SS", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING", "BOWSER 2 FIGHT", "E" };
 const char *credits16[] = { "6SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD"};
-const char *credits17[] = { "8BOWSER'S FURIOUS FINALE PT 1", "E", "BOWSER'S' FURIOUS FINALE PT 2", "E", "BOWSER 3 FIGHT", "E", "CREDITS", "KSSU CREDITS"};
+const char *credits17[] = { "8BOWSER'S FURIOUS FINALE PT 1", "E", "BOWSER'S FURIOUS FINALE PT 2", "E", "BOWSER 3 FIGHT", "E", "CREDITS", "KSSU CREDITS"};
 
 const char *credits18[] = { "8BETATESTING", "REONU", "HACKER2O77", "NESDUDE", "HYENA CHAN", "GTM", "", "", "" };
 const char *credits19[] = { "8SPECIAL THANKS TO", "THECOZIES' DOG", "BOOMERDACAT", "ARTHURTILLY", "HACKERSM64 TEAM", "", "", "", "" };
@@ -97,11 +97,11 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_CCM, 1, 17, -32, { 508, 1024, 1942 }, credits07, 0 },
     { LEVEL_JRB, 1, 33, 124, { 6367, 100, -37 }, credits08, 0 },
     { LEVEL_SSL, 1, 65, 98, { -5906, 1024, -2576 }, credits09, 0 },
-    { LEVEL_BITDW, 1, 50, 47, { -4884, -4607, -272 }, credits10, 1 },
+    { LEVEL_BITDW, 1, 50, 47, { 9566, -8006, 8940 }, credits10, 1 },
     { LEVEL_LLL, 1, 17, -34, { 1925, 3328, 563 }, credits11, 0 },
     { LEVEL_HMC, 2, 33, 105, { 400, 4500, -400 }, credits12, 0 },
     { LEVEL_DDD, 2, 2, -33, { 405, -9500, -2200 }, credits13, 0 },
-    { LEVEL_BBH, 2, 51, 54, { -2609, 512, 856 }, credits14, 1 },
+    { LEVEL_BBH, 2, 51, 54, { -12259, -675, 3936 }, credits14, 1 },
     { LEVEL_HMC, 1, 51, 54, { -2609, 512, 856 }, credits15, 1 },
     { LEVEL_DDD, 3, 51, 54, { -15351, -5722, -2567 }, credits16, 1 },
     { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17, 1},
