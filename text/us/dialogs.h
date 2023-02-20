@@ -1384,8 +1384,10 @@ new body! Here--this is a\n\
 present for you. It's sure\n\
 to warm you up.")
 
-DEFINE_DIALOG(DIALOG_112, 1, 4, 30, 200, "\
-")
+DEFINE_DIALOG(DIALOG_112, 1, 3, 30, 200, "\
+You'll have to try\n\
+much harder than that to\n\
+break ME!")
 
 DEFINE_DIALOG(DIALOG_113, 1, 3, 30, 200, "\
 What's this?\n\

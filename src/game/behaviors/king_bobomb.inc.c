@@ -178,17 +178,19 @@ void king_bobomb_act_hit_ground(void) { // act 6
         }
     } else if (o->oSubAction == KING_BOBOMB_SUB_ACT_HIT_GROUND_STAND_UP) {
         if (cur_obj_init_animation_and_check_if_near_end(KING_BOBOMB_ANIM_STAND_UP)) {
+            
             o->oSubAction++; // KING_BOBOMB_SUB_ACT_HIT_GROUND_START_WALKING
             o->oInteractType = INTERACT_GRABBABLE;
 
             cur_obj_become_intangible();
+            
+
+           
         }
     } else {
-        cur_obj_init_animation_with_sound(KING_BOBOMB_ANIM_WALKING);
+        cur_obj_init_animation_with_sound(KING_BOBOMB_ANIM_IDLE);
 
-        if (cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x800)) {
-            o->oAction = KING_BOBOMB_ACT_ACTIVE;
-        }
+        o->oAction = 9;
     }
 }
 
@@ -312,6 +314,170 @@ void king_bobomb_act_return_home(void) { // act 5
     }
 }
 
+void king_bobomb_cutscene(void) {
+    extern s8 gDialogCurPage;
+    struct Object *goddard;
+    f32 dist;
+    
+switch (o->oSubAction) {
+    case 0:
+        create_dialog_box(DIALOG_112);
+set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+o->oSubAction++;
+
+    break;
+case 1:
+    switch (gDialogCurPage) {
+        case 0:
+        gMarioObject->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_NONE];
+        o->oFaceAngleYaw = 0;
+        o->oMoveAngleYaw = 0;
+        //goddard->oPosX = o->oPosX;
+        //goddard->oPosZ = o->oPosZ + 500;
+        gCamera->cutscene = 1;
+        o->oPosX =  2317;
+        o->oPosY =  7090;
+        o->oPosZ =  -4857;
+            gLakituState.goalFocus[0] = o->oPosX;
+         gLakituState.goalFocus[1] = o->oPosY + 200;
+         gLakituState.goalFocus[2] = o->oPosZ;
+         gLakituState.goalPos[0] = o->oPosX;
+         gLakituState.goalPos[1] = o->oPosY + 100;
+         gLakituState.goalPos[2] = o->oPosZ + 700;
+        break;
+        case 1:
+        goddard = spawn_object_relative(0, 0, 0, 1500.0f, o, MODEL_DOG, bhvDogForSC);
+        play_sound(SOUND_MENU_DOG_ROO, gGlobalSoundSource);
+        o->oSubAction++;
+        o->oTimer = 0;
+    
+        break;
+    }
+break;
+
+case 2:
+    //goddard->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_DOG];
+    if (o->oTimer  ==  30) {
+        goddard = cur_obj_find_nearest_object_with_behavior(bhvDogForSC, &dist);
+    goddard->oFaceAngleYaw = 0x8000;
+    goddard->oMoveAngleYaw = 0x8000;
+         gLakituState.goalFocus[0] = goddard->oPosX;
+         gLakituState.goalFocus[1] = goddard->oPosY;
+         gLakituState.goalFocus[2] = goddard->oPosZ - 250;
+         gLakituState.goalPos[0] = goddard->oPosX - 1000;
+         gLakituState.goalPos[1] = goddard->oPosY + 300;
+         gLakituState.goalPos[2] = goddard->oPosZ  - 250;
+         o->oSubAction++;
+         o->oTimer = 0;
+    }
+break;
+
+case 3:
+
+    if (o->oTimer == 60) {
+        create_dialog_box(DIALOG_113);
+        gLakituState.goalFocus[0] = o->oPosX;
+         gLakituState.goalFocus[1] = o->oPosY + 200;
+         gLakituState.goalFocus[2] = o->oPosZ;
+         gLakituState.goalPos[0] = o->oPosX;
+         gLakituState.goalPos[1] = o->oPosY + 100;
+         gLakituState.goalPos[2] = o->oPosZ + 700;
+         goddard = cur_obj_find_nearest_object_with_behavior(bhvDogForSC, &dist);
+         obj_mark_for_deletion(goddard);
+        o->oSubAction++;
+    }
+
+    
+break;
+
+case 4:
+
+if (gDialogCurPage == 1) {
+    o->oSubAction++;
+    o->oKingBobombCustsceneObj = spawn_object_relative(0, 0, 500, 1200, o, MODEL_GODDARD_FIST, bhvStaticObject);
+    o->oKingBobombCustsceneObj->oFaceAngleYaw = -0x4000;
+    obj_scale(o->oKingBobombCustsceneObj, 0.5f);
+}
+
+break;
+
+case 5:
+    gLakituState.goalFocus[0] = o->oPosX;
+         gLakituState.goalFocus[1] = o->oPosY + 400;
+         gLakituState.goalFocus[2] = o->oPosZ + 150;
+         gLakituState.goalPos[0] = o->oPosX - 1000;
+         gLakituState.goalPos[1] = o->oPosY + 300;
+         gLakituState.goalPos[2] = o->oPosZ  + 150;
+
+         if (o->oKingBobombCustsceneObj->oPosZ - o->oPosZ > 50) {
+            o->oKingBobombCustsceneObj->oPosZ -= 40;
+         }
+
+         if (gDialogCurPage == 0) {
+            
+            o->oSubAction++;
+            o->oTimer = 0;
+         }
+break;
+case 6:
+    if (o->oKingBobombCustsceneObj->oPosZ - o->oPosZ > 50) {
+            o->oKingBobombCustsceneObj->oPosZ -= 40;
+         }
+
+         if (o->oTimer > 30) {
+                create_dialog_box(DIALOG_116);
+         }
+         if (gDialogCurPage == 1) {
+            o->oSubAction++;
+         }
+break;
+case 7:
+if (o->oKingBobombCustsceneObj->oFaceAngleRoll < 0x4000) {
+    o->oKingBobombCustsceneObj->oFaceAngleRoll += 0x400;
+}
+else if (o->oKingBobombCustsceneObj->oPosY > o->oPosY)  {
+    o->oKingBobombCustsceneObj->oPosY -= 100.0f;
+}
+else {
+    o->oSubAction++;
+}
+    
+break;
+
+case 8:
+create_sound_spawner(SOUND_OBJ_KING_WHOMP_DEATH);
+
+        cur_obj_set_model(MODEL_BARON_PANCAKE);
+        o->oMoveAngleYaw = -0x4000;
+        o->oFaceAnglePitch = 0x4000;
+        cur_obj_scale(0.3f);
+        cur_obj_become_intangible();
+
+        spawn_mist_particles_variable(0, 0, 200.0f);
+        spawn_triangle_break_particles(20, MODEL_DIRT_ANIMATION, 3.0f, TINY_DIRT_PARTICLE_ANIM_STATE_YELLOW);
+        cur_obj_shake_screen(SHAKE_POS_SMALL);
+
+        cur_obj_spawn_star_at_y_offset(2447.0f, 7292.0f, -4813.0f, 200.0f);
+
+        o->oSubAction++;
+
+break;
+
+case 9:
+    if (o->oKingBobombCustsceneObj) {
+        obj_mark_for_deletion(o->oKingBobombCustsceneObj);
+    }
+
+    stop_background_music(SEQUENCE_ARGS(4, SEQ_EVENT_BOSS));
+    gMarioObject->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_MARIO];
+        gCamera->cutscene = 0;
+        set_mario_action(gMarioState, ACT_IDLE, 0);
+
+    o->oSubAction++;
+break;
+}
+}
+
 ObjActionFunc sKingBobombActions[] = {
     king_bobomb_act_inactive,
     king_bobomb_act_activate,
@@ -322,6 +488,7 @@ ObjActionFunc sKingBobombActions[] = {
     king_bobomb_act_hit_ground,
     king_bobomb_act_death,
     king_bobomb_act_stop_music,
+    king_bobomb_cutscene,
 };
 
 struct SoundState sKingBobombSoundStates[] = {
@@ -357,6 +524,8 @@ void king_bobomb_move(void) {
         cur_obj_disable_rendering();
     }
 }
+
+
 
 void bhv_king_bobomb_loop(void) {
     o->oInteractionSubtype |= INT_SUBTYPE_GRABS_MARIO;
