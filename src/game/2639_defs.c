@@ -58,12 +58,25 @@ u32 _2639_BoB_A1_ToadTalkLatch = 0;
 u32 _2639_BoB_A1_CaneCollected = 0;
 u32 _2639_BoB_A1_SunglassesCollected = 0;
 u32 _2639_BoB_A6_CoinCount = 0;
+int ThereIsOneSodaInThisGame = 0;
+u32 _2639ToadAct6NeedsToChangeDialogue = 0;
+
 
 reset_act_1() {
     _2639_BoB_A1_CaneCollected = 0;
     _2639_BoB_A1_SunglassesCollected = 0;
     _2639_BoB_A1_ToadTalkLatch = 0;
     _2639_BoB_A6_CoinCount = gHudDisplay.coins;
+    ThereIsOneSodaInThisGame = 0;
+    _2639ToadAct6NeedsToChangeDialogue = 0;
+}
+
+reset_act_6() {
+    // _2639_BoB_A1_CaneCollected = 0;
+    // _2639_BoB_A1_SunglassesCollected = 0;
+    // _2639_BoB_A1_ToadTalkLatch = 0;
+    // _2639ToadAct6NeedsToChangeDialogue = 0;
+    // _2639_BoB_A6_CoinCount = gHudDisplay.coins;
 }
 
 // s32 in2639Level_Compat(struct Object *co) {
@@ -203,6 +216,11 @@ void handle_hud2639() {
     u32 IHateGCC = gHudDisplay.coins;
     u32 CountGoods = gHudDisplay.coins;
 
+    if (gCurrAreaIndex == 0) {
+        hud_2639Challenge();
+        return;
+    }
+
     switch (gCurrActNum) {
         case ACT_LOBBYSCAVENGER:
             if (gHudDisplay.coins > 0) {
@@ -213,8 +231,10 @@ void handle_hud2639() {
             }
             break;
         case ACT_SCAVENGER:
-            if (gCurrAreaIndex < 2 && CountGoods > 0) { // NOT in the lobby or outside or in the challenge
+            if (gCurrAreaIndex > 2 && CountGoods > 0) { // NOT in the lobby or outside or in the challenge
                 print_text_fmt_int(20, 10 + (10 * gIsConsole), "Items %d/4", CountGoods);
+            } else if (gCurrAreaIndex == 2 && CountGoods > 0) {
+                print_text(20, 10 + (10 * gIsConsole), "Head to the Fountain!");
             }
             break;
         default: break;

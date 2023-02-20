@@ -481,11 +481,6 @@ void render_hud_stars(void) {
 
     print_text_fmt_int(gScreenWidth - HUD_STARS_X,
         HUD_TOP_Y, "-*%d", gHudDisplay.stars);
-
-
-    if (gCurrAreaIndex == 0) {
-        hud_2639Challenge();
-    }
 }
 
 /**

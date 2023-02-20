@@ -1,7 +1,7 @@
 
 
 #define o2639SodaLatch OBJECT_FIELD_S32(0x1B)
-int ThereIsOneSodaInThisGame = 0;
+extern int ThereIsOneSodaInThisGame;
 
 void bhv_2639Soda_init(void) {
 	o->o2639SodaLatch = 0;
@@ -13,6 +13,8 @@ void bhv_2639Soda_init(void) {
         // }
 }
 void bhv_2639Soda_loop(void) {
+    struct Object *elev = cur_obj_nearest_object_with_behavior(bhv2639elevator);
+
 	switch(o->oHeldState) {
         case HELD_FREE:
             break;
@@ -29,6 +31,11 @@ void bhv_2639Soda_loop(void) {
             cur_obj_get_dropped();
             break;
     }
+    if (gMarioObject->platform == elev && o->oHeldState != HELD_HELD) {
+        o->oPosY = elev->oPosY + 70;
+    }
+    // s16 colFlags = object_step();
+
 
     if (ThereIsOneSodaInThisGame == 1 && gCurrAreaIndex == 4
     	&& o->o2639SodaLatch == 0
@@ -37,6 +44,7 @@ void bhv_2639Soda_loop(void) {
     	gMarioState->heldObj = o;
     	o->o2639SodaLatch = 1;
     }
+
 
     cur_obj_move_standard(78);
 
