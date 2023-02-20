@@ -8807,7 +8807,7 @@ const BehaviorScript bhv2639A4DrainScrew[] = {
 
 const BehaviorScript bhv2639SoccerBall[] = {
 	BEGIN(OBJ_LIST_GENACTOR),
-        OR_INT(oFlags, OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+        OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
         SET_HOME(),
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 100, /*Gravity*/ -400, /*Bounciness*/ 20, /*Drag strength*/ 0, /*Friction*/ 1, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
 	CALL_NATIVE(bhv_2639SoccerBall_init),

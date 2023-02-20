@@ -2701,11 +2701,11 @@ sound_ref .sound_general_big_clock
 sound_ref .sound_general_loud_pound
 sound_ref .sound_general_loud_pound
 sound_ref .sound_general_short_pound
-sound_ref .sound_general_short_pound
-sound_ref .sound_general_short_pound
-sound_ref .sound_general_short_pound
-sound_ref .sound_general_short_pound
-sound_ref .sound_general_short_pound
+sound_ref .sound_general_short_pound2
+sound_ref .sound_general_short_pound3
+sound_ref .sound_general_short_pound4
+sound_ref .sound_general_short_pound4
+sound_ref .sound_general_short_pound4
 sound_ref .sound_general_open_chest
 sound_ref .sound_general_open_chest
 sound_ref .sound_general_clam_shell1
@@ -3119,11 +3119,41 @@ layer_end
 .sound_general_short_pound:
 chan_setbank 4
 chan_setinstr 10
-chan_setlayer 0, .layer_1292
+chan_setlayer 0, .layer_short_pound1
 chan_end
 
-.layer_1292:
-layer_note1 37, 0x12, 120
+.sound_general_short_pound2:
+chan_setbank 4
+chan_setinstr 10
+chan_setlayer 0, .layer_short_pound2
+chan_end
+
+.sound_general_short_pound3:
+chan_setbank 4
+chan_setinstr 10
+chan_setlayer 0, .layer_short_pound3
+chan_end
+
+.sound_general_short_pound4:
+chan_setbank 4
+chan_setinstr 10
+chan_setlayer 0, .layer_short_pound3
+chan_end
+
+.layer_short_pound1:
+layer_note1 37, 0x12, 32
+layer_end
+
+.layer_short_pound2:
+layer_note1 37, 0x12, 64
+layer_end
+
+.layer_short_pound3:
+layer_note1 37, 0x12, 96
+layer_end
+
+.layer_short_pound4:
+layer_note1 37, 0x12, 127
 layer_end
 
 .sound_general_open_chest:
