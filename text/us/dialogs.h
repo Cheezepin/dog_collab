@@ -219,13 +219,9 @@ prized possession!\n\
 Hmph, well then...\n\
 If you so insist,\n\
 then let us duel for it!\n\
-If you manage to lift me\n\
-and hurl me to my royal\n\
-throne, the star's yours.\n\
 I'd be amazed if such a\n\
 little man like yourself\n\
-can lift me up for even\n\
-an inch!\n\
+can make even a dent!\n\
 Come at me!")
 
 
@@ -1391,8 +1387,12 @@ to warm you up.")
 DEFINE_DIALOG(DIALOG_112, 1, 4, 30, 200, "\
 ")
 
-DEFINE_DIALOG(DIALOG_113, 1, 6, 30, 200, "\
-")
+DEFINE_DIALOG(DIALOG_113, 1, 3, 30, 200, "\
+What's this?\n\
+You dare challenge me,\n\
+little dog?\n\
+How can a puny pup\n\
+like you even-")
 
 DEFINE_DIALOG(DIALOG_114, 1, 4, 95, 200, "\
 The Bob-omb Baron has\n\
@@ -1410,18 +1410,7 @@ Baron has very\n\
 little patience.")
 
 DEFINE_DIALOG(DIALOG_116, 1, 6, 95, 200, "\
-Unbelievable...\n\
-I've been a Baron\n\
-for decades, and yet\n\
-I was bested by a\n\
-tiny man in\n\
-less then 5 minutes...\n\
-Since I no longer\n\
-deserve it, here is\n\
-the Power Star, as\n\
-promised.\n\
-Farewell and good luck,\n\
-little man.")
+Oh.")
 
 DEFINE_DIALOG(DIALOG_117, 1, 1, 95, 200, "\
 ")
