@@ -231,8 +231,10 @@ void handle_hud2639() {
             }
             break;
         case ACT_SCAVENGER:
-            if (gCurrAreaIndex < 2 && CountGoods > 0) { // NOT in the lobby or outside or in the challenge
+            if (gCurrAreaIndex > 2 && CountGoods > 0) { // NOT in the lobby or outside or in the challenge
                 print_text_fmt_int(20, 10 + (10 * gIsConsole), "Items %d/4", CountGoods);
+            } else if (gCurrAreaIndex == 2 && CountGoods > 0) {
+                print_text(20, 10 + (10 * gIsConsole), "Head to the Fountain!");
             }
             break;
         default: break;
