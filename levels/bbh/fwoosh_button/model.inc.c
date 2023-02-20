@@ -1,11 +1,3 @@
-Lights1 fwoosh_button_Metal_001_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
-
-Lights1 fwoosh_button_MetalDecal_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
-
 Gfx fwoosh_button_i8_metal_pattern2_i8_aligner[] = {gsSPEndDisplayList()};
 u8 fwoosh_button_i8_metal_pattern2_i8[] = {
 	0x6b, 0x6a, 0x57, 0x6f, 0x77, 0x78, 0x65, 0x63, 
@@ -523,34 +515,43 @@ u8 fwoosh_button_i8_metal_pattern2_i8[] = {
 	
 };
 
-Vtx fwoosh_button_Button_mesh_layer_1_vtx_cull[8] = {
-	{{{-200, 0, 200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-200, 50, 200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-200, 50, -200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-200, 0, -200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{200, 0, 200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{200, 50, 200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{200, 50, -200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{200, 0, -200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
+Vtx fwoosh_button_buttondl_mesh_layer_2_vtx_0[8] = {
+	{{{-150, 0, 150}, 0, {240, 1776}, {0xC3, 0xC3, 0xC3, 0xFF}}},
+	{{{-200, 0, -200}, 0, {-16, -16}, {0xC3, 0xC3, 0xC3, 0xFF}}},
+	{{{-200, 0, 200}, 0, {-16, 2032}, {0xC3, 0xC3, 0xC3, 0xFF}}},
+	{{{-150, 0, -150}, 0, {240, 240}, {0xC3, 0xC3, 0xC3, 0xFF}}},
+	{{{200, 0, -200}, 0, {2032, -16}, {0xC3, 0xC3, 0xC3, 0xFF}}},
+	{{{150, 0, -150}, 0, {1776, 240}, {0xC3, 0xC3, 0xC3, 0xFF}}},
+	{{{200, 0, 200}, 0, {2032, 2032}, {0xC3, 0xC3, 0xC3, 0xFF}}},
+	{{{150, 0, 150}, 0, {1776, 1776}, {0xC3, 0xC3, 0xC3, 0xFF}}},
 };
 
-Vtx fwoosh_button_Button_mesh_layer_1_vtx_0[12] = {
-	{{{150, 0, -150},0, {1776, 10},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-150, 0, -150},0, {240, 10},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-150, 50, -150},0, {240, 240},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{150, 50, -150},0, {1776, 240},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-150, 50, 150},0, {240, 1776},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-150, 0, -150},0, {10, 240},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-150, 0, 150},0, {10, 1776},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{150, 50, 150},0, {1776, 1776},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{-150, 0, 150},0, {240, 2006},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{150, 0, 150},0, {1776, 2006},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{150, 0, 150},0, {2006, 1776},{0xFF, 0xFF, 0xFF, 0xFF}}},
-	{{{150, 0, -150},0, {2006, 240},{0xFF, 0xFF, 0xFF, 0xFF}}},
+Gfx fwoosh_button_buttondl_mesh_layer_2_tri_0[] = {
+	gsSPVertex(fwoosh_button_buttondl_mesh_layer_2_vtx_0 + 0, 8, 0),
+	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
+	gsSP2Triangles(3, 4, 1, 0, 3, 5, 4, 0),
+	gsSP2Triangles(5, 6, 4, 0, 5, 7, 6, 0),
+	gsSP2Triangles(7, 2, 6, 0, 7, 0, 2, 0),
+	gsSPEndDisplayList(),
 };
 
-Gfx fwoosh_button_Button_mesh_layer_1_tri_0[] = {
-	gsSPVertex(fwoosh_button_Button_mesh_layer_1_vtx_0 + 0, 12, 0),
+Vtx fwoosh_button_buttondl_mesh_layer_1_vtx_0[12] = {
+	{{{150, 0, -150}, 0, {1776, 10}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-150, 0, -150}, 0, {240, 10}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-150, 50, -150}, 0, {240, 240}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{150, 50, -150}, 0, {1776, 240}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-150, 50, 150}, 0, {240, 1776}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-150, 0, -150}, 0, {10, 240}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-150, 0, 150}, 0, {10, 1776}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{150, 50, 150}, 0, {1776, 1776}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{-150, 0, 150}, 0, {240, 2006}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{150, 0, 150}, 0, {1776, 2006}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{150, 0, 150}, 0, {2006, 1776}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+	{{{150, 0, -150}, 0, {2006, 240}, {0xFF, 0xFF, 0xFF, 0xFF}}},
+};
+
+Gfx fwoosh_button_buttondl_mesh_layer_1_tri_0[] = {
+	gsSPVertex(fwoosh_button_buttondl_mesh_layer_1_vtx_0 + 0, 12, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(4, 3, 2, 0, 5, 4, 2, 0),
 	gsSP2Triangles(5, 6, 4, 0, 4, 7, 3, 0),
@@ -559,65 +560,11 @@ Gfx fwoosh_button_Button_mesh_layer_1_tri_0[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx fwoosh_button_Button_mesh_layer_2_vtx_cull[8] = {
-	{{{-200, 0, 200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-200, 50, 200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-200, 50, -200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{-200, 0, -200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{200, 0, 200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{200, 50, 200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{200, 50, -200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-	{{{200, 0, -200},0, {-16, -16},{0x0, 0x0, 0x0, 0x0}}},
-};
-
-Vtx fwoosh_button_Button_mesh_layer_2_vtx_0[8] = {
-	{{{-150, 0, 150},0, {240, 1776},{0xC3, 0xC3, 0xC3, 0xFF}}},
-	{{{-150, 0, -150},0, {240, 240},{0xC3, 0xC3, 0xC3, 0xFF}}},
-	{{{-200, 0, -200},0, {-16, -16},{0xC3, 0xC3, 0xC3, 0xFF}}},
-	{{{200, 0, -200},0, {2032, -16},{0xC3, 0xC3, 0xC3, 0xFF}}},
-	{{{150, 0, -150},0, {1776, 240},{0xC3, 0xC3, 0xC3, 0xFF}}},
-	{{{200, 0, 200},0, {2032, 2032},{0xC3, 0xC3, 0xC3, 0xFF}}},
-	{{{150, 0, 150},0, {1776, 1776},{0xC3, 0xC3, 0xC3, 0xFF}}},
-	{{{-200, 0, 200},0, {-16, 2032},{0xC3, 0xC3, 0xC3, 0xFF}}},
-};
-
-Gfx fwoosh_button_Button_mesh_layer_2_tri_0[] = {
-	gsSPVertex(fwoosh_button_Button_mesh_layer_2_vtx_0 + 0, 8, 0),
-	gsSP2Triangles(0, 1, 2, 0, 1, 3, 2, 0),
-	gsSP2Triangles(1, 4, 3, 0, 4, 5, 3, 0),
-	gsSP2Triangles(4, 6, 5, 0, 6, 7, 5, 0),
-	gsSP2Triangles(6, 0, 7, 0, 0, 2, 7, 0),
-	gsSPEndDisplayList(),
-};
-
-
-Gfx mat_fwoosh_button_Metal_001[] = {
-	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
-	gsSPClearGeometryMode(G_LIGHTING),
-	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsDPTileSync(),
-	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 1, fwoosh_button_i8_metal_pattern2_i8),
-	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 0, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0),
-	gsDPLoadSync(),
-	gsDPLoadBlock(7, 0, 0, 2047, 256),
-	gsDPPipeSync(),
-	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b, 8, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0),
-	gsDPSetTileSize(0, 0, 0, 252, 252),
-	gsSPSetLights1(fwoosh_button_Metal_001_lights),
-	gsSPEndDisplayList(),
-};
-
-Gfx mat_revert_fwoosh_button_Metal_001[] = {
-	gsDPPipeSync(),
-	gsSPSetGeometryMode(G_LIGHTING),
-	gsSPEndDisplayList(),
-};
 
 Gfx mat_fwoosh_button_MetalDecal[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
-	gsSPClearGeometryMode(G_LIGHTING),
+	gsSPGeometryMode(G_LIGHTING, 0),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPTileSync(),
 	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 1, fwoosh_button_i8_metal_pattern2_i8),
@@ -627,35 +574,48 @@ Gfx mat_fwoosh_button_MetalDecal[] = {
 	gsDPPipeSync(),
 	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b, 8, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0),
 	gsDPSetTileSize(0, 0, 0, 252, 252),
-	gsSPSetLights1(fwoosh_button_MetalDecal_lights),
 	gsSPEndDisplayList(),
 };
 
 Gfx mat_revert_fwoosh_button_MetalDecal[] = {
 	gsDPPipeSync(),
-	gsSPSetGeometryMode(G_LIGHTING),
+	gsSPGeometryMode(0, G_LIGHTING),
 	gsSPEndDisplayList(),
 };
 
-Gfx fwoosh_button_Button_mesh_layer_1[] = {
-	gsSPClearGeometryMode(G_LIGHTING),
-	gsSPVertex(fwoosh_button_Button_mesh_layer_1_vtx_cull + 0, 8, 0),
-	gsSPSetGeometryMode(G_LIGHTING),
-	gsSPCullDisplayList(0, 7),
-	gsSPDisplayList(mat_fwoosh_button_Metal_001),
-	gsSPDisplayList(fwoosh_button_Button_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_fwoosh_button_Metal_001),
+Gfx mat_fwoosh_button_MetalGlow[] = {
+	gsDPPipeSync(),
+	gsDPSetCombineLERP(TEXEL0, 0, SHADE, ENVIRONMENT, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, ENVIRONMENT, 0, 0, 0, ENVIRONMENT),
+	gsSPGeometryMode(G_LIGHTING, 0),
+	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsDPTileSync(),
+	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 1, fwoosh_button_i8_metal_pattern2_i8),
+	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 0, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0),
+	gsDPLoadSync(),
+	gsDPLoadBlock(7, 0, 0, 2047, 256),
+	gsDPPipeSync(),
+	gsDPSetTile(G_IM_FMT_I, G_IM_SIZ_8b, 8, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0),
+	gsDPSetTileSize(0, 0, 0, 252, 252),
 	gsSPEndDisplayList(),
 };
 
-Gfx fwoosh_button_Button_mesh_layer_2[] = {
-	gsSPClearGeometryMode(G_LIGHTING),
-	gsSPVertex(fwoosh_button_Button_mesh_layer_2_vtx_cull + 0, 8, 0),
-	gsSPSetGeometryMode(G_LIGHTING),
-	gsSPCullDisplayList(0, 7),
+Gfx mat_revert_fwoosh_button_MetalGlow[] = {
+	gsDPPipeSync(),
+	gsSPGeometryMode(0, G_LIGHTING),
+	gsSPEndDisplayList(),
+};
+
+Gfx fwoosh_button_buttondl_mesh_layer_2[] = {
 	gsSPDisplayList(mat_fwoosh_button_MetalDecal),
-	gsSPDisplayList(fwoosh_button_Button_mesh_layer_2_tri_0),
+	gsSPDisplayList(fwoosh_button_buttondl_mesh_layer_2_tri_0),
 	gsSPDisplayList(mat_revert_fwoosh_button_MetalDecal),
+	gsSPEndDisplayList(),
+};
+
+Gfx fwoosh_button_buttondl_mesh_layer_1[] = {
+	gsSPDisplayList(mat_fwoosh_button_MetalGlow),
+	gsSPDisplayList(fwoosh_button_buttondl_mesh_layer_1_tri_0),
+	gsSPDisplayList(mat_revert_fwoosh_button_MetalGlow),
 	gsSPEndDisplayList(),
 };
 

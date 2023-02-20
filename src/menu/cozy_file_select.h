@@ -7,12 +7,22 @@
 
 struct _FileSelectMenuState;
 
+typedef struct _EnumOption {
+    u8 value;
+    char *label;
+} EnumOption;
+
 typedef s32 (*FileSelectOptionCallback)(struct _FileSelectMenuState *mState);
 
 typedef struct _FileSelectOption {
     char *label;
+    u8 *description;
     FileSelectOptionCallback onSelect;
     s8 disabled;
+    EnumOption *enumOptions;
+    u8 numEnumOptions;
+    s16 *curEnumValue;
+    u8 overrideMenuType;
 } FileSelectOption;
 
 typedef struct _FileSelectMenu {
@@ -28,7 +38,9 @@ typedef struct _FileSelectMenu {
 
 typedef struct _FileSelectMenuState {
     u8 waitingForStickReturn;
+    u8 waitingForEnumStickReturn;
     s8 optDirection; // -1/0/1
+    s8 enumDirection; // -1/0/1
     FileSelectMenu *menu;
     FileSelectMenu *parentMenu;
     s32 alpha;
@@ -54,5 +66,8 @@ enum FileSelectMenuTypes {
     MENU_TYPE_NUMBERED,
 };
 
+extern s32 gRenderingFileSelect;
+
 void init_file_select(void);
 s32 run_file_select(void);
+void render_file_select(void);

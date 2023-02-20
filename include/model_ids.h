@@ -216,7 +216,7 @@
 #define MODEL_BITDW_SPHERE                        0x1AD
 #define MODEL_GODDARD_CAGE                        0x1AF       // only used in Bowser battle 1, not ever used in bitdw
 #define MODEL_EMU_LASER_RING                      0x1B0
-#define MODEL_RAINBOW_STAR						  0x1B1
+// #define MODEL_RAINBOW_STAR						  0x1B1
 
 // vcutm
 #define MODEL_VCUTM_SEESAW_PLATFORM               0x36        // vcutm_geo_0001F0
@@ -491,6 +491,8 @@ enum CoziesLevelModels {
 #define MODEL_WOODEN_SIGNPOST             0x7C        // wooden_signpost_geo
 #define MODEL_UNKNOWN_7D                  0x7D        // referenced in macro presets. Unknown usage
 
+#define MODEL_RAINBOW_STAR                0x17A       // rainbow_star_geo
+
 // find me
 #define MODEL_CANNON_BARREL               0x7F        // cannon_barrel_geo
 #define MODEL_CANNON_BASE                 0x80        // cannon_base_geo
@@ -725,6 +727,9 @@ enum CoziesLevelModels {
 #define MODEL_MISSILE 0x110
 #define MODEL_MAPLETREE 0x111
 #define MODEL_SAKSEED 0x112
+#define MODEL_BARON 0x113
+#define MODEL_GODDARD_FIST 0x114
+#define MODEL_BARON_PANCAKE 0x115
 
 //END ROVERT MODEL IDS
 
@@ -745,6 +750,7 @@ enum _2639Models {
     MODEL_2639SCREW,
 
     MODEL_2639BALL,
+    MODEL_2639TRAM,
 
     // ACT 6 PARAPHERNALIA
     MODEL_2639PUMP,

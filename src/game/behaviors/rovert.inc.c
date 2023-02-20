@@ -40,6 +40,7 @@ void bhv_Magma_Thwomp() {
 
 void bhv_swing_Board (void) {
         if (o->oAction == 0) {
+            load_object_collision_model();
             if (gMarioObject->platform == o) {
                 o->oAction = 1;
                 o->oTimer = 0;
@@ -47,6 +48,10 @@ void bhv_swing_Board (void) {
                 }
             }
         if (o->oAction == 1) {
+            if (o->oTimer < 30) {
+                load_object_collision_model();
+            }
+
             o->oFaceAngleRoll += o->oMoveAngleRoll;
             if (o->oFaceAngleRoll > 0x4000) {
                 o->oMoveAngleRoll -= 0x50;
@@ -59,7 +64,9 @@ void bhv_swing_Board (void) {
             if (o->oTimer < 120) {
                 o->oMoveAngleRoll *= .98;
                 }
-
+            if (o->oTimer > 200) {
+                o->oAction = 2;//do nothing
+            }
             }
         if (o->oDistanceToMario > 5000.0f) {
             o->oAction = 0;
@@ -208,7 +215,8 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
             sussy = cur_obj_nearest_object_with_behavior(bhvDogEmu); 
             o->parentObj = sussy;
             if((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (o->parentObj->oAction != GOTO_ASHPILE && o->parentObj->oAction != 50 && o->parentObj->oAction != 4)){ //checks requirements for player and dog
-            if (bowser != NULL && (bowser->oAction == BOWSER_ACT_LIGHTNING || bowser->oAction == BOWSER_ACT_PROPANE_SHOOTER || bowser->oAction == BOWSER_ACT_SKY_ATTACK || bowser->oAction == BOWSER_ACT_LIGHTNING_2 || bowser->oAction == BOWSER_ACT_MID_DIALOG)) //checks requirements for bowser
+            if (bowser != NULL && (bowser->oAction == BOWSER_ACT_LIGHTNING || bowser->oAction == BOWSER_ACT_PROPANE_SHOOTER || bowser->oAction == BOWSER_ACT_SKY_ATTACK || bowser->oAction == BOWSER_ACT_LIGHTNING_2 || bowser->oAction == BOWSER_ACT_MID_DIALOG \
+            || (bowser->oAction == BOWSER_ACT_HIT_MINE && bowser->oSubAction == BOWSER_SUB_ACT_HIT_MINE_STOP))) //checks requirements for bowser
             {}else {
                 play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
                 o->parentObj->oAction = SET_ASHPILE_TARGET;
@@ -716,11 +724,13 @@ static s16 obj_turn_pitch_toward_mario_rovert(f32 targetOffsetY, s16 turnAmount)
 }
 
 void bhv_missile_loop(void) {
-    o->oMoveAnglePitch = obj_turn_pitch_toward_mario_rovert(120.0f, 80);
-    o->oFaceAnglePitch = -o->oMoveAnglePitch;
-    o->oGravity = 0;
-    o->oFaceAngleYaw = o->oMoveAngleYaw+0x7FFF;
-    obj_turn_toward_object(o, gMarioObject, 16, 0x100);
+    if(o->oTimer < 15) {
+        o->oMoveAnglePitch = obj_turn_pitch_toward_mario_rovert(120.0f, 80);
+        o->oFaceAnglePitch = -o->oMoveAnglePitch;
+        o->oGravity = 0;
+        o->oFaceAngleYaw = o->oMoveAngleYaw+0x7FFF;
+        obj_turn_toward_object(o, gMarioObject, 16, 0x100);
+    }
 
     o->oForwardVel = 40.0f *  coss(o->oMoveAnglePitch);
     o->oVelY       = 40.0f * -sins(o->oMoveAnglePitch);

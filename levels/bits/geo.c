@@ -30,3 +30,6 @@
 #include "levels/bits/wf_palm_tree_bits/geo.inc.c"
 #include "levels/bits/koko_bits/geo.inc.c"
 
+#include "levels/bits/jetski_bits/geo.inc.c"
+
+#include "levels/bits/cozy_bits_bg/geo.inc.c"

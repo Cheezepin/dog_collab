@@ -9,6 +9,11 @@ void bhv_DogInLobby_loop(void) {
     struct Object *CaneObj = cur_obj_nearest_object_with_behavior(bhv2639cane);
     struct Object *GlassesObj = cur_obj_nearest_object_with_behavior(bhv2639glasses);
 
+    s16 colFlags = 0;
+
+    if (o->oAction != 0) {
+        colFlags = object_step();
+    }
 
     switch (o->oAction) {
         case 0:
@@ -28,26 +33,30 @@ void bhv_DogInLobby_loop(void) {
             }
             break;
         case 1:
+            play_sound(SOUND_CUSTOM_2639BARK, gGlobalSoundSource);
+            o->oAction++;
+            break;
+        case 2:
             cur_obj_init_animation(DOG_ANIM_RUN);
             o->oForwardVel = 0.0f;
             obj_turn_toward_object(o, CaneObj, 16, 0x800);
             if (o->oTimer > 60) {
-                o->oAction = 2;
+                o->oAction = 3;
                 o->oTimer = 0;
             }
             break;
-        case 2:
+        case 3:
             o->oForwardVel = 25.0f;
             if (CaneObj != NULL) {
                 obj_turn_toward_object(o, CaneObj, 16, 0x800);
                 if (dist_between_objects(o, CaneObj) < 50) {
-                    o->oAction = 3;
+                    o->oAction = 4;
                 }
             } else {
                 o->oAction = 0;
             }
             break;
-        case 3:
+        case 4:
             cur_obj_init_animation(DOG_ANIM_DIG);
             o->oForwardVel = 0.0f;
             if (CaneObj == NULL) {
@@ -57,26 +66,29 @@ void bhv_DogInLobby_loop(void) {
 
 
         case 5:
+            play_sound(SOUND_CUSTOM_2639BARK, gGlobalSoundSource);
+            o->oAction++;
+        case 6:
             cur_obj_init_animation(DOG_ANIM_RUN);
             o->oForwardVel = 0.0f;
             obj_turn_toward_object(o, GlassesObj, 16, 0x800);
             if (o->oTimer > 60) {
-                o->oAction = 6;
+                o->oAction = 7;
                 o->oTimer = 0;
             }
             break;
-        case 6:
+        case 7:
             o->oForwardVel = 25.0f;
             if (GlassesObj != NULL) {
                 obj_turn_toward_object(o, GlassesObj, 16, 0x800);
                 if (dist_between_objects(o, GlassesObj) < 50) {
-                    o->oAction = 7;
+                    o->oAction = 8;
                 }
             } else {
                 o->oAction = 0;
             }
             break;
-        case 7:
+        case 8:
             cur_obj_init_animation(DOG_ANIM_DIG);
             o->oForwardVel = 0.0f;
             if (GlassesObj == NULL) {

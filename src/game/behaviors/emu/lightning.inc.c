@@ -14,6 +14,7 @@ void bhv_bowser_lightning_loop(void){
             }
             if (o->oTimer > 7){
                 cur_obj_set_model(MODEL_LIGHTNING);
+                cur_obj_play_sound_1(SOUND_MOVING_SHOCKED);
                 f32 xDel = gMarioState->pos[0] - o->oPosX;
                 f32 zDel = gMarioState->pos[2] - o->oPosZ;
                 f32 marioXZDist = sqrtf(xDel * xDel + zDel * zDel);
@@ -35,6 +36,7 @@ void bhv_bowser_lightning_loop(void){
         }
         if (o->oTimer > 30){
             cur_obj_set_model(MODEL_LIGHTNING);
+            cur_obj_play_sound_1(SOUND_MOVING_SHOCKED);
             f32 xDel = gMarioState->pos[0] - o->oPosX;
             f32 zDel = gMarioState->pos[2] - o->oPosZ;
             f32 marioXZDist = sqrtf(xDel * xDel + zDel * zDel);
@@ -56,6 +58,7 @@ void bhv_bowser_lightning_loop(void){
             }
             if (o->oTimer > 12){
                 cur_obj_set_model(MODEL_LIGHTNING);
+                cur_obj_play_sound_1(SOUND_MOVING_SHOCKED);
                 f32 xDel = gMarioState->pos[0] - o->oPosX;
                 f32 zDel = gMarioState->pos[2] - o->oPosZ;
                 f32 marioXZDist = sqrtf(xDel * xDel + zDel * zDel);
@@ -77,6 +80,7 @@ void bhv_bowser_lightning_loop(void){
         }
         if (o->oTimer > 50){
             cur_obj_set_model(MODEL_LIGHTNING);
+            cur_obj_play_sound_1(SOUND_MOVING_SHOCKED);
             f32 xDel = gMarioState->pos[0] - o->oPosX;
             f32 zDel = gMarioState->pos[2] - o->oPosZ;
             f32 marioXZDist = sqrtf(xDel * xDel + zDel * zDel);

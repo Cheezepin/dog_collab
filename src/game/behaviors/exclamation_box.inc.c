@@ -36,7 +36,8 @@ struct ExclamationBoxContents sExclamationBoxContents[] = {
     { EXCLAMATION_BOX_BP_STAR_4,           0, 3, MODEL_STAR,             bhvSpawnedStar           },
     { EXCLAMATION_BOX_BP_STAR_5,           0, 4, MODEL_STAR,             bhvSpawnedStar           },
     { EXCLAMATION_BOX_BP_STAR_6,           0, 5, MODEL_STAR,             bhvSpawnedStar           },
-    { EXCLAMATION_BOX_BP_JETSKI,           0, 0, MODEL_JETSKI,           bhvJetski            },
+    { EXCLAMATION_BOX_BP_JETSKI,           0, 0, MODEL_JETSKI,           bhvJetski                },
+    { EXCLAMATION_BOX_BP_JETSKI_BITS,      0, 0, MODEL_JETSKI,           bhvJetskiBits            },
     { EXCLAMATION_BOX_BP_NULL,             0, 0, MODEL_NONE,             NULL                     }
 };
 

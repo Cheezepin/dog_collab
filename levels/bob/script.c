@@ -13,6 +13,7 @@
 
 #include "actors/common1.h"
 #include "actors/group2639.h"
+#include "actors/group0.h"
 
 /* Fast64 begin persistent block [includes] */
 /* Fast64 end persistent block [includes] */
@@ -21,13 +22,14 @@
 #include "levels/bob/header.h"
 
 /* Fast64 begin persistent block [scripts] */
+// LOAD_YAY0(0x0A, _CUSTOM_sky2639_skybox_yay0SegmentRomStart, _CUSTOM_sky2639_skybox_yay0SegmentRomEnd), 
 /* Fast64 end persistent block [scripts] */
 
 const LevelScript level_bob_entry[] = {
 	INIT_LEVEL(),
 	LOAD_YAY0(0x07, _bob_segment_7SegmentRomStart, _bob_segment_7SegmentRomEnd), 
 	LOAD_YAY0_TEXTURE(0x09, _generic_yay0SegmentRomStart, _generic_yay0SegmentRomEnd), 
-	LOAD_YAY0(0x0A, _water_skybox_yay0SegmentRomStart, _water_skybox_yay0SegmentRomEnd), 
+	LOAD_YAY0(0x0A, _CUSTOM_sky2639_skybox_yay0SegmentRomStart, _CUSTOM_sky2639_skybox_yay0SegmentRomEnd), 
 	LOAD_YAY0(0x06, _group15_yay0SegmentRomStart, _group15_yay0SegmentRomEnd), 
 	LOAD_RAW(0x0D, _group15_geoSegmentRomStart, _group15_geoSegmentRomEnd), 
 	LOAD_YAY0(0x08, _common0_yay0SegmentRomStart, _common0_yay0SegmentRomEnd), 
@@ -37,6 +39,7 @@ const LevelScript level_bob_entry[] = {
 	ALLOC_LEVEL_POOL(),
 	MARIO(MODEL_MARIO, 0x00000001, bhvMario), 
 	JUMP_LINK(script_func_global_16), 
+	LOAD_MODEL_FROM_GEO(MODEL_STAR, star_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639COUCH, couch_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_ELEV2639, elevator_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639SODA, soder_geo), 
@@ -54,7 +57,8 @@ const LevelScript level_bob_entry[] = {
 	LOAD_MODEL_FROM_GEO(MODEL_2639JEWEL, jewelwhatever_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_2639EVERYTHINGABOVE, present2639_geo), 
 	LOAD_MODEL_FROM_GEO(MODEL_CASTLE_GROUNDS_WARP_PIPE, warp_pipe_geo), 
-	LOAD_MODEL_FROM_GEO(MODEL_2639ELEVATOR_KEY, key2639_geo),
+	LOAD_MODEL_FROM_GEO(MODEL_2639ELEVATOR_KEY, key2639_geo), 
+	LOAD_MODEL_FROM_GEO(MODEL_2639TRAM, tram2639_geo), 
 
 	/* Fast64 begin persistent block [level commands] */
 	/* Fast64 end persistent block [level commands] */
@@ -72,7 +76,6 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(69, LEVEL_BOB, 0, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_NONE, 46, 0, -190, 0, 0, 0, 0x00000000, bhv2639_DRM),
 		OBJECT(MODEL_NONE, -25, 1058, -280, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
-		OBJECT(MODEL_WOODEN_SIGNPOST, -1023, 0, -3825, 0, 2, 0, (_2639DIAG_A1LobbyHOF_Intro << 16), bhvMessagePanel),
 		OBJECT(MODEL_NONE, -24919, -2124, -436, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
 		OBJECT(MODEL_NONE, -489, 116, 2261, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
 		MARIO_POS(0x01, 0, -1974, 521, 253),
@@ -90,13 +93,14 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(1, LEVEL_BOB, 2, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_DOG, 2726, -2592, 4711, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
-		OBJECT(MODEL_NONE, -476, -2125, -3381, 0, 0, 0, (0x30 << 24) | (01 << 16), bhvWarp),
+		OBJECT(MODEL_2639TRAM, 2170, -2145, 3550, 0, 0, 0, 0x00000000, bhvTram2639),
+		OBJECT(MODEL_DOG, 3404, -1912, 2794, 0, 0, 0, 0x00000000, bhvDogoutsidehotel),
+		OBJECT(MODEL_NONE, -2476, -2125, -3381, 0, 0, 0, (0x30 << 24) | (01 << 16), bhvWarp),
 		OBJECT(MODEL_NONE, -4600, 4981, -1710, 0, 0, 0, 0x00000000, bhv2639_DRM),
 		OBJECT(MODEL_NONE, -2086, -2124, -436, 0, 0, 0, 0x00000000, bhv2639pc2_targetobj),
-		OBJECT(MODEL_2639TURNSTILE, -404, -1727, -1747, 0, 0, 0, 0x00000000, bhvEntranceturnstile),
-		OBJECT(MODEL_NONE, -1674, -1855, 4541, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
-		MARIO_POS(0x01, 0, -1674, -1855, 4541),
+		OBJECT(MODEL_2639TURNSTILE, -2404, -1727, -1747, 0, 0, 0, 0x00000000, bhvEntranceturnstile),
+		OBJECT(MODEL_NONE, 3064, -1912, 2791, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		MARIO_POS(0x01, 0, 3064, -1912, 2791),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_CUSTOM_MUSIC2639),
@@ -136,13 +140,13 @@ const LevelScript level_bob_entry[] = {
 		OBJECT_WITH_ACTS(MODEL_2639VENDING, 1689, 0, -1375, 0, -133, 0, 0x00000000, bhv2639Vending, ACT_3 | ACT_4 | ACT_5),
 		OBJECT_WITH_ACTS(MODEL_WOODEN_SIGNPOST, 1382, 0, -1501, 0, -133, 0, (_2639DIAG_A3RoomVendingMachineInstructions << 16), bhvMessagePanel, ACT_3),
 		OBJECT_WITH_ACTS(MODEL_WOODEN_SIGNPOST, 1382, 0, -1501, 0, -133, 0, (_2639DIAG_A3RoomVendingMachineInstructionsNew << 16), bhvMessagePanel, ACT_4 | ACT_5 | ACT_6),
-		OBJECT_WITH_ACTS(MODEL_TOAD, -1069, 2328, 133, 0, 0, 0, (_2639DIAG_A6PentToad1 << 16), bhvToadMessage, ACT_6),
+		OBJECT_WITH_ACTS(MODEL_TOAD, -1069, 2328, 133, 0, 0, 0, (_2639DIAG_A6PentToad7 << 16), bhvToadMessage, ACT_6),
 		OBJECT_WITH_ACTS(MODEL_WOODEN_SIGNPOST, -1160, 2328, 381, 0, 71, 0, (_2639DIAG_A1Lobby_FountainIntro << 16), bhvMessagePanel, ACT_1),
-		OBJECT(MODEL_NONE, -2786, 0, -4573, 0, 0, 0, (_2639DIAG_A1LobbyHOF_Kirby64 << 16), bhv2639TrophyCase),
-		OBJECT(MODEL_NONE, -1295, 0, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_sUGGOH << 16), bhv2639TrophyCase),
-		OBJECT(MODEL_NONE, -121, 0, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_AnimeFighter << 16), bhv2639TrophyCase),
-		OBJECT(MODEL_NONE, 1083, 0, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_HVQM << 16), bhv2639TrophyCase),
-		OBJECT(MODEL_NONE, 2090, 0, -4682, 0, 0, 0, (_2639DIAG_A1LobbyHOF_1080Decomp << 16), bhv2639TrophyCase),
+		OBJECT(MODEL_WOODEN_SIGNPOST, -2602, 0, -4272, 0, 0, 0, (_2639DIAG_A1LobbyHOF_Kirby64 << 16), bhvMessagePanel),
+		OBJECT(MODEL_WOODEN_SIGNPOST, -1111, 0, -4381, 0, 0, 0, (_2639DIAG_A1LobbyHOF_sUGGOH << 16), bhvMessagePanel),
+		OBJECT(MODEL_WOODEN_SIGNPOST, 64, 0, -4381, 0, 0, 0, (_2639DIAG_A1LobbyHOF_AnimeFighter << 16), bhvMessagePanel),
+		OBJECT(MODEL_WOODEN_SIGNPOST, 1268, 0, -4381, 0, 0, 0, (_2639DIAG_A1LobbyHOF_HVQM << 16), bhvMessagePanel),
+		OBJECT(MODEL_WOODEN_SIGNPOST, 2275, 0, -4381, 0, 0, 0, (_2639DIAG_A1LobbyHOF_1080Decomp << 16), bhvMessagePanel),
 		OBJECT_WITH_ACTS(MODEL_ELEV2639, -5, 0, -2848, 0, 0, 0, 0x00000000, bhv2639elevator, ACT_2),
 		OBJECT_WITH_ACTS(MODEL_ELEV2639, -5, 0, -2848, 0, 0, 0, (1 << 16), bhv2639elevator, ACT_3),
 		OBJECT_WITH_ACTS(MODEL_ELEV2639, -5, 0, -2848, 0, 0, 0, (2 << 16), bhv2639elevator, ACT_4),

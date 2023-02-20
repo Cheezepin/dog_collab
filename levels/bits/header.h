@@ -27,5 +27,9 @@ extern const LevelScript level_bits_entry[];
 #include "levels/bits/wf_palm_tree_bits/anim_header.h"
 #include "levels/bits/koko_bits/geo_header.h"
 
+#include "levels/bits/jetski_bits/geo_header.h"
+#include "levels/bits/jetski_bits/anim_header.h"
+
+#include "levels/bits/cozy_bits_bg/geo_header.h"
 
 #endif

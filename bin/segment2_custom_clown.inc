@@ -152,6 +152,10 @@ ALIGNED8 u8 texture_hud_char_outline_star[] = {
 	#include "textures/segment2/texture_hud_char_outline_star.rgba16.inc.c"
 };
 
+ALIGNED8 u8 texture_hud_char_forward_slash[] = {
+    #include "textures/segment2/texture_hud_char_forward_slash.rgba16.inc.c"
+};
+
 ALIGNED8 u8 delfino_hud_kerning_table[] = {
 	8,	/* CC 0 */
 	8,	/* CC 1 */

@@ -757,7 +757,7 @@ void spawn_orange_number(s8 behParam, s16 relX, s16 relY, s16 relZ) {
 #ifdef DIALOG_INDICATOR
     if (behParam > ORANGE_NUMBER_F) return;
 #else
-    if (behParam > ORANGE_NUMBER_9) return;
+    if (behParam > ORANGE_NUMBER_F) return;
 #endif
 
     struct Object *orangeNumber = spawn_object_relative(behParam, relX, relY, relZ, o, MODEL_NUMBER, bhvOrangeNumber);
@@ -881,3 +881,4 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/2639FinalPresent.inc.c"
 #include "behaviors/2639PresentEater.inc.c"
 #include "behaviors/2639ElevatorKey.inc.c"
+#include "behaviors/Tram2639.inc.c"

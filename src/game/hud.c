@@ -481,11 +481,6 @@ void render_hud_stars(void) {
 
     print_text_fmt_int(gScreenWidth - HUD_STARS_X,
         HUD_TOP_Y, "-*%d", gHudDisplay.stars);
-
-
-    if (gCurrAreaIndex == 0) {
-        hud_2639Challenge();
-    }
 }
 
 /**
@@ -616,6 +611,10 @@ void render_hud(void) {
     s16 hudDisplayFlags = gHudDisplay.flags;
     static int shadeFade = 0;
 
+    if (in2639Level()) {
+        handle_hud2639();
+    }
+
     if (hudDisplayFlags == HUD_DISPLAY_NONE) {
         sPowerMeterHUD.animation = POWER_METER_HIDDEN;
         sPowerMeterStoredHealth = 8;
@@ -669,7 +668,17 @@ void render_hud(void) {
 #endif
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
-            render_hud_coins();
+            if (in2639Level()) {
+                // if (gCurrActNum == ACT_CHALLENGE
+                //     || gCurrActNum == ACT_LOBBYSCAVENGER
+                //     || gCurrActNum == ACT_SCAVENGER) {
+
+                // } else {
+                //     render_hud_coins();
+                // }
+            } else {
+                render_hud_coins();
+            }
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_STAR_COUNT) {
@@ -713,7 +722,7 @@ void render_hud(void) {
         }
 
         if (gKeyboard) {
-            render_dog_keyboard();
+            render_dog_keyboard(gCurrSaveFileNum - 1);
         }
 
         if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {

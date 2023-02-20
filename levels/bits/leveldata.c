@@ -30,3 +30,8 @@
 #include "levels/bits/wf_palm_tree_bits/anims/table.inc.c"
 #include "levels/bits/koko_bits/model.inc.c"
 
+#include "levels/bits/jetski_bits/model.inc.c"
+#include "levels/bits/jetski_bits/anims/data.inc.c"
+#include "levels/bits/jetski_bits/anims/table.inc.c"
+
+#include "levels/bits/cozy_bits_bg/model.inc.c"

@@ -96,6 +96,9 @@ extern const Collision wf_seg7_collision_070102D8[];
 extern const MacroObject wf_seg7_macro_objs[];
 extern const struct MovtexQuadCollection wf_movtex_water[];
 
+extern const Trajectory *const wf_seg7_trajectory_mips[];
+
+
 // script
 extern const LevelScript level_wf_entry[];
 

@@ -305,6 +305,7 @@ Gfx *geo_mountain_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 Gfx *geo_set_global_fog(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 Gfx *geo_update_rain_cloud_rain(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx);
 Gfx *debug_geo_asm(s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 mtx);
+Gfx *geo_switch_koopa_col(s32 callContext, struct GraphNode *node, UNUSED void *context);
 // thecozies end
 
 Gfx *geo_star_set_prim_color(s32 callContext, struct GraphNode *node);

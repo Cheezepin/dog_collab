@@ -38,7 +38,7 @@
 
 // TODO: Make these ifdefs better
 const char *credits01[] = { "1DOG COLLAB", "CREDITS" };
-const char *credits02[] = { "4MAPLE MARKINDON", "MUSIC", "ASHLEY", "ROUTE 47 POKEMON HGSS" };
+const char *credits02[] = { "4MAPLE MARKINDON", "MUSIC", "ASHLEY  BEVERLYBEAN", "ROUTE 47 POKEMON HGSS" };
 const char *credits03[] = { "4CUMULUS CORRECTIONAL CENTER", "MUSIC", "MRCOMIT", "ORIGINAL BY MRCOMIT" };
 const char *credits04[] = { "4HAIR RAISING HIGH RISE", "MUSIC", "SOMEONE2639", "ORIGINAL BY SOMEONE2639" };
 
@@ -75,13 +75,15 @@ const char *credits11[] = { "4SAKURA STRONGHOLD", "MUSIC", "YOSHI MILKMAN", "SAM
 const char *credits12[] = { "4FORBIDDEN FACTORY", "MUSIC", "FAZANA", "ORIGINAL BY THECOZIES" };
 const char *credits13[] = { "4BOWSER'S SCUBA TOWER", "MUSIC", "THECOZIES", "ORIGINAL BY THECOZIES" };
 const char *credits14[] = { "8OTHER MUSIC", "", "FILE SELECT", "KIRBY 64 FILE SELECT", "HUB WORLD", "CROSSING THOSE HILLS FF9", "CUMULUS AREA 2", "ORIGINAL BY MRCOMIT" };
-const char *credits15[] = { "CIRCUS BOSS", "CACKLETTA BOSS ML SS", "6FINAL BOSS ", "UH IDK", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING" };
-const char *credits16[] = { "8SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD", "CREDITS", "KSSU CREDITS"};
+const char *credits15[] = { "6CIRCUS BOSS", "CACKLETTA BOSS ML SS", "CIRCUS POWER OFF", "SAD OLIVIA PM ORIGAMI KING", "BOWSER 2 FIGHT", "E" };
+const char *credits16[] = { "6SAKURA FOREST", "ETERNA FOREST POKEMON DPP", "SAKURA DUNGEON", "THWOMP CAVERNS ML PIT", "SAKURA CASTLE", "BOWSER CASTLE MKDD"};
+const char *credits17[] = { "8BOWSER'S FURIOUS FINALE PT 1", "E", "BOWSER'S' FURIOUS FINALE PT 2", "E", "BOWSER 3 FIGHT", "E", "CREDITS", "KSSU CREDITS"};
 
-const char *credits17[] = { "3SPECIAL THANKS TO", "THECOZIES' DOG", "CLEVER FOLKS AT DECOMP", "BOOMERDACAT" };
-const char *credits18[] = { "3SPECIAL THANKS TO", "ARTHURTILLY", "HACKERSM64 TEAM", "GILES GODDARD" };
-const char *credits19[] = { "3PLEASE CHECK OUT THE SOCIALS AND", "", "OTHER PROJECTS OF EVERYONE WHO", "WORKED ON THE COLLAB" };
-const char *credits20[] = { "4THANKS TO EVERYONE WHO WORKED ON THE COLLAB", "AND THANK YOU FOR PLAYING", "", "" };
+const char *credits18[] = { "8BETATESTING", "REONU", "HACKER2O77", "NESDUDE", "HYENA CHAN", "GTM", "", "", "" };
+const char *credits19[] = { "8SPECIAL THANKS TO", "THECOZIES' DOG", "BOOMERDACAT", "ARTHURTILLY", "HACKERSM64 TEAM", "", "", "", "" };
+const char *credits20[] = { "8SPECIAL THANKS TO", "THECOZIES", "ARCTICJAGUAR725", "SMWC MUSICIANS", "CLEVER FOLKS AT DECOMP", "", "", "", "" };
+const char *credits21[] = { "3PLEASE CHECK OUT THE SOCIALS AND", "", "OTHER PROJECTS OF EVERYONE WHO", "WORKED ON THE COLLAB" };
+const char *credits22[] = { "4THANKS TO EVERYONE WHO WORKED ON THE COLLAB", "AND THANK YOU FOR PLAYING", "", "" };
 
 
 struct CreditsEntry sCreditsSequence[] = {
@@ -101,11 +103,13 @@ struct CreditsEntry sCreditsSequence[] = {
     { LEVEL_DDD, 2, 2, -33, { 405, -9500, -2200 }, credits13, 0 },
     { LEVEL_BBH, 2, 51, 54, { -2609, 512, 856 }, credits14, 1 },
     { LEVEL_HMC, 1, 51, 54, { -2609, 512, 856 }, credits15, 1 },
-    { LEVEL_DDD, 1, 51, 54, { 137, 9957, -1954 }, credits16, 1 },
-    { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17, 0 },
+    { LEVEL_DDD, 3, 51, 54, { -15351, -5722, -2567 }, credits16, 1 },
+    { LEVEL_JRB, 1, 51, 54, { 11870, 496, -8830 }, credits17, 1},
     { LEVEL_LLL, 2, 51, 54, { 1107, 0, 0 }, credits18, 0 },
-    { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits19, 0 },
-    { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits20, 0 },
+    { LEVEL_DDD, 1, 51, 54, { 0, 9050, 0 }, credits19, 0 },
+    { LEVEL_LLL, 3, 51, 54, { 1107, 0, 0 }, credits20, 0 },
+    { LEVEL_CASTLE, 1, 51, 54, { 0, 0, 0 }, credits21, 0 },
+    { LEVEL_CASTLE_GROUNDS, 1, 51, 54, { 0, -6000, 0 }, credits22, 0 },
     //{ LEVEL_TTC, 1, 17, -72, { -1304, -71, -967 }, credits15 },
     //{ LEVEL_RR, 1, 33, 64, { 1565, 1024, -148 }, credits16 },
     //{ LEVEL_SA, 1, 1, 24, { -1050, -1330, -1559 }, credits17 },
@@ -403,14 +407,20 @@ void init_mario_after_warp(void) {
     }
 
     if (gCurrDemoInput == NULL) {
-        if (gIsConsole && gCurrLevelNum == LEVEL_BOB) {
+#ifndef AUDIO_CRACKLE_DEBUGGING
+        if (gIsConsole && gCurrLevelNum == LEVEL_BOB)
             set_background_music(gCurrentArea->musicParam, SEQ_STREAMED_MUSIC2639LIGHT, 0);
-        }
-        else set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
+        else
+#endif
+            set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
 
         // someone2639
         #include "audio/load.h"
+#ifndef AUDIO_CRACKLE_DEBUGGING
         if ((gIsConsole == FALSE) && gCurrentArea->musicParam == SEQ_CUSTOM_MUSIC2639) {
+#else
+        if (gCurrentArea->musicParam == SEQ_CUSTOM_MUSIC2639) {
+#endif
             for (int i = 0; i < 16; i++) {
                 // fade_channel_volume_scale(SEQ_PLAYER_LEVEL, i, 0, 0);
                 gSequencePlayers[SEQ_PLAYER_LEVEL].channels[i]->volumeScale = 0;;
@@ -430,6 +440,7 @@ void init_mario_after_warp(void) {
 // used for warps inside one level
 void warp_area(void) {
     if (sWarpDest.type != WARP_TYPE_NOT_WARPING) {
+        gEndResultsActive = 0;
         if (sWarpDest.type == WARP_TYPE_CHANGE_AREA) {
             level_control_timer(TIMER_CONTROL_HIDE);
             unload_mario_area();
@@ -442,6 +453,7 @@ void warp_area(void) {
 
 // used for warps between levels
 void warp_level(void) {
+    gEndResultsActive = 0;
     gCurrLevelNum = sWarpDest.levelNum;
 
     level_control_timer(TIMER_CONTROL_HIDE);
@@ -1106,7 +1118,9 @@ s32 play_mode_normal(void) {
 #endif
 
     warp_area();
-    check_instant_warp();
+    if(gCamera->cutscene == 0) {
+        check_instant_warp();
+    }
 
     if (sTimerRunning && gHudDisplay.timer < 17999) {
         gHudDisplay.timer++;
@@ -1274,7 +1288,8 @@ s32 update_level(void) {
             changeLevel = play_mode_paused();
             break;
         case PLAY_MODE_CHANGE_AREA:
-            reset_act_1();
+            // reset_act_1();
+            reset_act_6();
             changeLevel = play_mode_change_area();
             break;
         case PLAY_MODE_CHANGE_LEVEL:
@@ -1306,6 +1321,7 @@ s32 init_level(void) {
 
     sDelayedWarpOp = WARP_OP_NONE;
     sTransitionTimer = 0;
+    gEndResultsActive = 0;
     sSpecialWarpDest = WARP_SPECIAL_NONE;
 
     if (gCurrCreditsEntry == NULL) {
@@ -1554,8 +1570,8 @@ s32 ending_get_outta_here(void) {
         if(gPlayer1Controller->buttonPressed & A_BUTTON) {
             fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
             sWarpDest.type = WARP_TYPE_NOT_WARPING;
-            gWorldID = 0;
-            gFocusID = 0;
+            gWorldID = -1;
+            gFocusID = -1;
             gCustomStarSelectActive = 0;
             gHubStarSelectTimer = 0;
             gLevelEntryConfirmationActive = 0;

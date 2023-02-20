@@ -6755,6 +6755,7 @@ const BehaviorScript bhvTreeNut[] = {
     SET_INT(oInteractType, INTERACT_GRABBABLE),
     //SET_INT(oInteractionSubtype, INT_SUBTYPE),
     SET_HITBOX(/*Radius*/ 80, /*Height*/ 80),
+    SET_HOME(),
     //SET_INT(oIntangibleTimer, 0),
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
 	CALL_NATIVE(bhv_tree_nut_init),
@@ -7111,7 +7112,6 @@ const BehaviorScript bhvSwingBoard[] = {
     SET_FLOAT(oDrawingDistance, 4000),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_swing_Board),
-        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
@@ -7250,7 +7250,7 @@ const BehaviorScript bhvRovertFling[] = {
 const BehaviorScript bhvToadCage[] = {
     BEGIN(OBJ_LIST_SURFACE),
     LOAD_COLLISION_DATA(toad_cage_collision),
-    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_ACTIVE_FROM_AFAR)),
     SCALE(/*Unused*/ 0, /*Field*/ 100),
     SET_HOME(),
     SET_FLOAT(oDrawingDistance, 4000),
@@ -7416,7 +7416,7 @@ const BehaviorScript bhvCloudRainbow[] = {
     SET_HOME(),
     //CALL_NATIVE(bhv_cloud_rainbow_init),
     BEGIN_LOOP(),
-        CALL_NATIVE(load_object_collision_model),
+        // CALL_NATIVE(load_object_collision_model),
         CALL_NATIVE(bhv_cloud_rainbow_loop),
     END_LOOP(),
 };
@@ -8498,6 +8498,11 @@ const BehaviorScript bhvFlipSwitch[] = {
     END_LOOP(),
 };
 
+const BehaviorScript bhvJetskiBits[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    LOAD_ANIMATIONS(oAnimations, jetski_bits_anims),
+    GOTO(bhvJetski + 1 + 2),
+};
 
 //cheeze bhvs end
 
@@ -8851,9 +8856,9 @@ const BehaviorScript bhv2639PresentEater[] = {
 
 const BehaviorScript bhvJetski[] = {
     BEGIN(OBJ_LIST_LEVEL),
+    LOAD_ANIMATIONS(oAnimations, jetski_anims),
     OR_LONG(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_SILHOUETTE)), //! Silhouette doesn't show up in-game, due to combiner modes.
     SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 30, /*Gravity*/ -400, /*Bounciness*/ -50, /*Drag strength*/ 1000, /*Friction*/ 1000, /*Buoyancy*/ 200, /*Unused*/ 0, 0),
-    LOAD_ANIMATIONS(oAnimations, jetski_anims),
     ANIMATE(0),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_koopa_shell_loop),
@@ -8921,5 +8926,18 @@ const BehaviorScript bhv2639ElevatorKey[] = {
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_2639ElevatorKey_loop),
         ADD_INT(oFaceAngleYaw, 1),
+	END_LOOP(),
+};
+
+const BehaviorScript bhvTram2639[] = {
+	BEGIN(OBJ_LIST_SURFACE),
+    OR_LONG(oFlags, OBJ_FLAG_DONT_CALC_COLL_DIST | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
+	CALL_NATIVE(bhv_Tram2639_init),
+    SET_FLOAT(oCollisionDistance, 10000),
+    SET_FLOAT(oDrawingDistance, 10000),
+    LOAD_COLLISION_DATA(tram2639_collision),
+	BEGIN_LOOP(),
+		CALL_NATIVE(bhv_Tram2639_loop),
+        CALL_NATIVE(load_object_collision_model),
 	END_LOOP(),
 };

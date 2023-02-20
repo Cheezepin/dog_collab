@@ -1,6 +1,6 @@
-extern void scroll_lll_dl_Cloud_mesh_layer_5_vtx_0();
-extern void scroll_sts_mat_lll_dl_water_001_layer5();
-extern void scroll_sts_mat_lll_dl_slow_mud();
-extern void scroll_sts_mat_lll_dl_slow_mud_002();
-extern void scroll_sts_mat_lll_dl_slow_mud_003();
+extern void scroll_lll_dl_ZZ2_Cloud_mesh_layer_5_vtx_0();
+extern void scroll_gfx_lll_dl_fountain_water_mesh_layer_5();
+extern void scroll_gfx_lll_dl_Y1_grass_mesh_layer_1();
+extern void scroll_gfx_lll_dl_Y4_water_mesh_layer_5();
+extern void scroll_gfx_lll_dl_ZZ2_Cloud_mesh_layer_5();
 extern void scroll_lll();

@@ -1609,8 +1609,9 @@ void mtxf_to_mtx_fast(s16* dst, float* src)
  * @param timer s32: the timer source that should increment once per frame (e.g. gGlobalTimer)
  * @return f32: number between [-1, 1] for your cycle
  */
-f32 get_cycle(f32 cycleLength, f32 cycleOffset, u32 timer) {
-    f32 rate = (f32)DEGREES(360/30) * (1.0f/cycleLength);
-    f32 offset = (f32)DEGREES(360) * cycleOffset;
-    return sins(roundf((rate * (f32)timer) + offset));
+f32 get_cycle(f32 cycleLength, f32 cycleOffset, s32 timer) {
+    s32 rate = (f32)DEGREES(360/30) / cycleLength;
+    s32 offset = (f32)DEGREES(360) * cycleOffset;
+
+    return sins((rate * timer) + offset);
 }

@@ -90,7 +90,7 @@ to reach spots.")
 // Yoshi Milkman
 DEFINE_DIALOG(DIALOG_007, 1, 5, 30, 200, "\
 I heard there's a\n\
-hidden enterance\n\
+hidden entrance\n\
 to the castle in\n\
 that big lake to\n\
 the right.\n\
@@ -179,7 +179,7 @@ from the power of the\n\
 world.\n\
 Do you want to Save?\n\
 \n\
-\xD0You Bet\xD0\xD0Not Now")
+\xD0\xD0You Bet\xD0Not Now")
 
 // Yoshi Milkman
 DEFINE_DIALOG(DIALOG_015, 1, 5, 30, 200, "\
@@ -219,13 +219,9 @@ prized possession!\n\
 Hmph, well then...\n\
 If you so insist,\n\
 then let us duel for it!\n\
-If you manage to lift me\n\
-and hurl me to my royal\n\
-throne, the star's yours.\n\
 I'd be amazed if such a\n\
 little man like yourself\n\
-can lift me up for even\n\
-an inch!\n\
+can make even a dent!\n\
 Come at me!")
 
 
@@ -1388,11 +1384,17 @@ new body! Here--this is a\n\
 present for you. It's sure\n\
 to warm you up.")
 
-DEFINE_DIALOG(DIALOG_112, 1, 4, 30, 200, "\
-")
+DEFINE_DIALOG(DIALOG_112, 1, 3, 30, 200, "\
+You'll have to try\n\
+much harder than that to\n\
+break ME!")
 
-DEFINE_DIALOG(DIALOG_113, 1, 6, 30, 200, "\
-")
+DEFINE_DIALOG(DIALOG_113, 1, 3, 30, 200, "\
+What's this?\n\
+You dare challenge me,\n\
+little dog?\n\
+How can a puny pup\n\
+like you even-")
 
 DEFINE_DIALOG(DIALOG_114, 1, 4, 95, 200, "\
 The Bob-omb Baron has\n\
@@ -1410,18 +1412,7 @@ Baron has very\n\
 little patience.")
 
 DEFINE_DIALOG(DIALOG_116, 1, 6, 95, 200, "\
-Unbelievable...\n\
-I've been a Baron\n\
-for decades, and yet\n\
-I was bested by a\n\
-tiny man in\n\
-less then 5 minutes...\n\
-Since I no longer\n\
-deserve it, here is\n\
-the Power Star, as\n\
-promised.\n\
-Farewell and good luck,\n\
-little man.")
+Oh.")
 
 DEFINE_DIALOG(DIALOG_117, 1, 1, 95, 200, "\
 ")
@@ -2123,7 +2114,7 @@ so go play it!)")
 
 DEFINE_DIALOG(_2639DIAG_A1LobbyHOF_AnimeFighter, 1, 7, 30, 200, R"(Anime Fighter 64:
 A collaboration
-between procrastinators
+between Janja,
 someone2639 and
 Cheezepin,
 putting a whole 3D
@@ -2184,13 +2175,16 @@ so all we need to do
 is find a way to
 make you look like
 you're blind!
+It's so stupid that
+it might just work!
+
 I saw a
 @00FF00FFCANE@-------- and @34ebe1FFSUNGLASSES@--------
 buried here the other
 day. If your dog acts
 up, try ground
 pounding the spot.
-Look around and @bd4200FFread
+Look around and @FF8C4FFFread
 some signs@--------, maybe
 you'll find them too.
 And talk to the
@@ -2259,9 +2253,7 @@ DEFINE_DIALOG(_2639DIAG_A3RoomVendingMachineInstructions, 1, 3, 30, 200, \
 R"(HOW TO USE THIS
 VENDING MACHINE:
 
-just punch it lmao
-(make sure you're
-standing still))")
+just punch it lmao)")
 
 DEFINE_DIALOG(_2639DIAG_A3RoomVendingMachineInstructionsNew, 1, 3, 30, 200, \
 R"(This vending

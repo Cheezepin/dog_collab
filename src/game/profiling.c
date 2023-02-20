@@ -195,7 +195,8 @@ void profiler_print_times() {
 #ifndef PUPPYPRINT_DEBUG
     static u8 show_profiler = 0;
     if (gPlayer1Controller->buttonPressed & L_TRIG) {
-        show_profiler ^= 1;
+        show_profiler += 1;
+        if (show_profiler > 2) show_profiler = 0;
     }
 #endif
 
@@ -217,41 +218,60 @@ void profiler_print_times() {
         u32 total_rsp = microseconds[PROFILER_TIME_RSP_GFX] + microseconds[PROFILER_TIME_RSP_AUDIO];
         u32 max_rdp = MAX(MAX(microseconds[PROFILER_TIME_TMEM], microseconds[PROFILER_TIME_CMD]), microseconds[PROFILER_TIME_PIPE]);
 
-        sprintf(text_buffer,
-            "FPS: %5.2f\n"
-            "\n"
-            "CPU\t\t%d (%d%%)\n"
-            " Input\t\t%d\n"
-            " Dynamic\t\t%d\n"
-            " Mario\t\t\t%d\n"
-            " Behavior\t\t%d\n"
-            " Graph\t\t%d\n"
-            " Audio\t\t\t%d\n"
-            "\n"
-            "RDP\t\t%d (%d%%)\n"
-            " Tmem\t\t\t%d\n"
-            " Cmd\t\t\t%d\n"
-            " Pipe\t\t\t%d\n"
-            "\n"
-            "RSP\t\t%d (%d%%)\n"
-            " Gfx\t\t\t%d\n"
-            " Audio\t\t\t%d\n",
-            1000000.0f / microseconds[PROFILER_TIME_FPS],
-            total_cpu, total_cpu / 333, 
-            microseconds[PROFILER_TIME_CONTROLLERS],
-            microseconds[PROFILER_TIME_DYNAMIC],
-            microseconds[PROFILER_TIME_MARIO],
-            microseconds[PROFILER_TIME_BEHAVIOR_BEFORE_MARIO] + microseconds[PROFILER_TIME_BEHAVIOR_AFTER_MARIO],
-            microseconds[PROFILER_TIME_GFX],
-            microseconds[PROFILER_TIME_AUDIO] * 2, // audio is 60Hz, so double the average
-            max_rdp, max_rdp / 333,
-            microseconds[PROFILER_TIME_TMEM],
-            microseconds[PROFILER_TIME_CMD],
-            microseconds[PROFILER_TIME_PIPE],
-            total_rsp, total_rsp / 333,
-            microseconds[PROFILER_TIME_RSP_GFX],
-            microseconds[PROFILER_TIME_RSP_AUDIO]
-        );
+#ifndef PUPPYPRINT_DEBUG
+        if (show_profiler == 2) {
+#endif
+            sprintf(text_buffer,
+                "FPS: %5.2f\n"
+                "\n"
+                "CPU\t\t%d (%d%%)\n"
+                " Input\t\t%d\n"
+                " Dynamic\t\t%d\n"
+                " Mario\t\t\t%d\n"
+                " Behavior\t\t%d\n"
+                " Graph\t\t%d\n"
+                " Audio\t\t\t%d\n"
+                "\n"
+                "RDP\t\t%d (%d%%)\n"
+                " Tmem\t\t\t%d\n"
+                " Cmd\t\t\t%d\n"
+                " Pipe\t\t\t%d\n"
+                "\n"
+                "RSP\t\t%d (%d%%)\n"
+                " Gfx\t\t\t%d\n"
+                " Audio\t\t\t%d\n",
+                1000000.0f / microseconds[PROFILER_TIME_FPS],
+                total_cpu, total_cpu / 333, 
+                microseconds[PROFILER_TIME_CONTROLLERS],
+                microseconds[PROFILER_TIME_DYNAMIC],
+                microseconds[PROFILER_TIME_MARIO],
+                microseconds[PROFILER_TIME_BEHAVIOR_BEFORE_MARIO] + microseconds[PROFILER_TIME_BEHAVIOR_AFTER_MARIO],
+                microseconds[PROFILER_TIME_GFX],
+                microseconds[PROFILER_TIME_AUDIO] * 2, // audio is 60Hz, so double the average
+                max_rdp, max_rdp / 333,
+                microseconds[PROFILER_TIME_TMEM],
+                microseconds[PROFILER_TIME_CMD],
+                microseconds[PROFILER_TIME_PIPE],
+                total_rsp, total_rsp / 333,
+                microseconds[PROFILER_TIME_RSP_GFX],
+                microseconds[PROFILER_TIME_RSP_AUDIO]
+            );
+#ifndef PUPPYPRINT_DEBUG
+        } else {
+            sprintf(text_buffer,
+                "FPS: %5.2f\n"
+                "\n"
+                "CPU\t\t%d (%d%%)\n"
+                "RDP\t\t%d (%d%%)\n"
+                "RSP\t\t%d (%d%%)\n",
+                1000000.0f / microseconds[PROFILER_TIME_FPS],
+                total_cpu, total_cpu / 333, 
+                max_rdp, max_rdp / 333,
+                total_rsp, total_rsp / 333
+            );
+
+        }
+#endif
 
         Gfx* dlHead = gDisplayListHead;
         gDPPipeSync(dlHead++);

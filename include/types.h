@@ -24,11 +24,18 @@
 #define SCREEN_CENTER_X (SCREEN_WIDTH  / 2)
 #define SCREEN_CENTER_Y (SCREEN_HEIGHT / 2)
 
+enum DitherModes {
+    DITHER_MODE_AUTO,
+    DITHER_MODE_ON,
+    DITHER_MODE_OFF,
+};
+
 struct Config {
     f32 audioFrequency;
 #ifdef WIDE
     s16 widescreen;
 #endif
+    s16 ditherMode;
     u8 tvType;
 };
 
@@ -504,6 +511,17 @@ struct MarioState
     struct FloorCheckpoint floorCheckpoint;
     s8 paralyzed;
 };
+
+typedef union _RGBA {
+    u32 rgba32;
+    struct {
+        /*0x00*/ u8 r;
+        /*0x01*/ u8 g;
+        /*0x02*/ u8 b;
+        /*0x03*/ u8 a;
+    };
+    u8 arr[4];
+} RGBA;
 
 // thecozies start
 struct GlobalFog

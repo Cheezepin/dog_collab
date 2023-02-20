@@ -749,13 +749,17 @@ static void level_cmd_show_dialog(void) {
 #include "seq_ids.h"
 static void level_cmd_set_music(void) {
     if (sCurrAreaIndex != -1) {
+#ifndef AUDIO_CRACKLE_DEBUGGING
         if ((CMD_GET(s16, 4) == SEQ_CUSTOM_MUSIC2639) && gIsConsole) {
             gAreas[sCurrAreaIndex].musicParam = CMD_GET(s16, 2);
             gAreas[sCurrAreaIndex].musicParam2 = SEQ_STREAMED_MUSIC2639LIGHT;
         } else {
+#endif
             gAreas[sCurrAreaIndex].musicParam = CMD_GET(s16, 2);
             gAreas[sCurrAreaIndex].musicParam2 = CMD_GET(s16, 4);
+#ifndef AUDIO_CRACKLE_DEBUGGING
         }
+#endif
     }
     sCurrentCmd = CMD_NEXT;
 }

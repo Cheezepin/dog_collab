@@ -691,6 +691,8 @@ void update_mario_sound_and_camera(struct MarioState *m) {
         gCameraMovementFlags &= ~CAM_MOVE_C_UP_MODE;
         // Go back to the last camera mode
         set_camera_mode(m->area->camera, -1, 1);
+        m->fadeWarpOpacity = 255;
+        m->flags &= ~MARIO_TELEPORTING;
     } else if (action == ACT_SLEEPING) {
         raise_background_noise(2);
     }

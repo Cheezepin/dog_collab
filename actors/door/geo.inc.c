@@ -1,6 +1,6 @@
 // 0x160003A8
 const GeoLayout castle_door_geo[] = {
-   GEO_TRANSLATE_NODE(0x00, 64, 0, 0),
+   GEO_TRANSLATE_NODE(0x00, 78, 0, 0),
    GEO_OPEN_NODE(),
       GEO_SCALE(0x00, 16384),
       GEO_OPEN_NODE(),

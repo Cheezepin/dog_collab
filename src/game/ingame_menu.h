@@ -235,13 +235,14 @@ void render_hud_cannon_reticle(void);
 void reset_red_coins_collected(void);
 s32 render_menus_and_dialogs(void);
 
-void render_dog_keyboard(void);
+void render_dog_keyboard(s16 saveFileIndex);
 void render_hub_selection(void);
 void render_hub_star_select(s32 cringeTimer);
 void render_hub_level_confirmation();
 void end_results_loop(void);
 void shade_screen_amount(int amount);
 void shade_screen_col(int r, int g, int b, int a);
+// void get_string_dimensions(u8 *str, Vec2s dimensions);
 
 extern s32 gWorldID;
 extern s32 gFocusID;

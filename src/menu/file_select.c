@@ -2326,6 +2326,7 @@ void print_file_select_strings(void) {
 Gfx *geo_file_select_strings_and_menu_cursor(s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 mtx) {
     if (callContext == GEO_CONTEXT_RENDER) {
         sSelectedFileNum = run_file_select();
+        gRenderingFileSelect = sSelectedFileNum == 0;
     } else if (callContext == GEO_CONTEXT_CREATE) {
         sSelectedFileNum = 0;
         init_file_select();

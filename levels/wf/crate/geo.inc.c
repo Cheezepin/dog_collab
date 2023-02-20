@@ -5,7 +5,7 @@ const GeoLayout crate_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_CULLING_RADIUS(500),
 		GEO_OPEN_NODE(),
-			GEO_SHADOW(0, 180, 240),
+			GEO_SHADOW(SHADOW_SQUARE_SCALABLE, 180, 240),
 			GEO_OPEN_NODE(),
 				GEO_SWITCH_CASE(2, geo_switch_anim_state),
 				GEO_OPEN_NODE(),

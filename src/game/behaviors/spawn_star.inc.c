@@ -23,7 +23,7 @@ void bhv_collect_star_init(void) {
 #endif
         o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_TRANSPARENT_STAR];
     } else {
-        o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_STAR];
+        o->header.gfx.sharedChild = gLoadedGraphNodes[gCurrLevelNum == LEVEL_BITDW ? MODEL_RAINBOW_STAR : MODEL_STAR];
     }
 
     obj_set_hitbox(o, &sCollectStarHitbox);
