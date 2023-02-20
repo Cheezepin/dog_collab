@@ -1,7 +1,7 @@
 
 
 #define o2639SodaLatch OBJECT_FIELD_S32(0x1B)
-int ThereIsOneSodaInThisGame = 0;
+extern int ThereIsOneSodaInThisGame;
 
 void bhv_2639Soda_init(void) {
 	o->o2639SodaLatch = 0;

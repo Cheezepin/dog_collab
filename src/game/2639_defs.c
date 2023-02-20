@@ -58,12 +58,25 @@ u32 _2639_BoB_A1_ToadTalkLatch = 0;
 u32 _2639_BoB_A1_CaneCollected = 0;
 u32 _2639_BoB_A1_SunglassesCollected = 0;
 u32 _2639_BoB_A6_CoinCount = 0;
+int ThereIsOneSodaInThisGame = 0;
+u32 _2639ToadAct6NeedsToChangeDialogue = 0;
+
 
 reset_act_1() {
     _2639_BoB_A1_CaneCollected = 0;
     _2639_BoB_A1_SunglassesCollected = 0;
     _2639_BoB_A1_ToadTalkLatch = 0;
     _2639_BoB_A6_CoinCount = gHudDisplay.coins;
+    ThereIsOneSodaInThisGame = 0;
+    _2639ToadAct6NeedsToChangeDialogue = 0;
+}
+
+reset_act_6() {
+    // _2639_BoB_A1_CaneCollected = 0;
+    // _2639_BoB_A1_SunglassesCollected = 0;
+    // _2639_BoB_A1_ToadTalkLatch = 0;
+    // _2639ToadAct6NeedsToChangeDialogue = 0;
+    // _2639_BoB_A6_CoinCount = gHudDisplay.coins;
 }
 
 // s32 in2639Level_Compat(struct Object *co) {

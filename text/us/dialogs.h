@@ -2193,7 +2193,7 @@ buried here the other
 day. If your dog acts
 up, try ground
 pounding the spot.
-Look around and @bd4200FFread
+Look around and @FF8C4FFFread
 some signs@--------, maybe
 you'll find them too.
 And talk to the
@@ -2262,9 +2262,7 @@ DEFINE_DIALOG(_2639DIAG_A3RoomVendingMachineInstructions, 1, 3, 30, 200, \
 R"(HOW TO USE THIS
 VENDING MACHINE:
 
-just punch it lmao
-(make sure you're
-standing still))")
+just punch it lmao)")
 
 DEFINE_DIALOG(_2639DIAG_A3RoomVendingMachineInstructionsNew, 1, 3, 30, 200, \
 R"(This vending

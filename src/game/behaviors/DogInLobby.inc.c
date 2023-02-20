@@ -9,6 +9,11 @@ void bhv_DogInLobby_loop(void) {
     struct Object *CaneObj = cur_obj_nearest_object_with_behavior(bhv2639cane);
     struct Object *GlassesObj = cur_obj_nearest_object_with_behavior(bhv2639glasses);
 
+    s16 colFlags = 0;
+
+    if (o->oAction != 0) {
+        colFlags = object_step();
+    }
 
     switch (o->oAction) {
         case 0:
