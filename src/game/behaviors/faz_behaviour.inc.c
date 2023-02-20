@@ -169,27 +169,29 @@ void hmcelevator_init(void)
     o->oMoving = 0;
     o->oOff = 0;
 
-    if (gCurrCreditsEntry == NULL && gCurrActNum != 1) {
-        // im sorry cheezepin if this fucks up credits
-        set_song_to_area(SEQ_FACTORY);
-    }
+    if(gCurrCreditsEntry == NULL) {
+        if (gCurrActNum != 1) {
+            // im sorry cheezepin if this fucks up credits
+            set_song_to_area(SEQ_FACTORY);
+        }
 
-    if (gCurrAreaIndex == 2 && gMarioState->pos[1] > 5000)
-    {
-        o->oPosY = gMarioState->pos[1]-100;
-        o->oMode = 1;
-        o->oMoving = 1;
-        elevatorCD = 1;
-    }
-    if (gCurrAreaIndex == 1 && gMarioState->pos[1] < 1000 && gMarioState->pos[1] > 100)
-    {
-        fadeout_level_music(30);
-        // stop_background_music(SEQ_LEVEL_SNOW);
-        o->oPosY = gMarioState->pos[1]-100;
-        o->oMode = 0;
-        o->oMoving = 1;
-        elevatorCD = 1;
-        gMarioCurrentRoom = 2;
+        if (gCurrAreaIndex == 2 && gMarioState->pos[1] > 5000)
+        {
+            o->oPosY = gMarioState->pos[1]-100;
+            o->oMode = 1;
+            o->oMoving = 1;
+            elevatorCD = 1;
+        }
+        if (gCurrAreaIndex == 1 && gMarioState->pos[1] < 1000 && gMarioState->pos[1] > 100)
+        {
+            fadeout_level_music(30);
+            // stop_background_music(SEQ_LEVEL_SNOW);
+            o->oPosY = gMarioState->pos[1]-100;
+            o->oMode = 0;
+            o->oMoving = 1;
+            elevatorCD = 1;
+            gMarioCurrentRoom = 2;
+        }
     }
 
 }
