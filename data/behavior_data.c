@@ -7250,10 +7250,10 @@ const BehaviorScript bhvRovertFling[] = {
 const BehaviorScript bhvToadCage[] = {
     BEGIN(OBJ_LIST_SURFACE),
     LOAD_COLLISION_DATA(toad_cage_collision),
-    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_ACTIVE_FROM_AFAR)),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
     SCALE(/*Unused*/ 0, /*Field*/ 100),
     SET_HOME(),
-    SET_FLOAT(oDrawingDistance, 4000),
+    SET_FLOAT(oDrawingDistance, 32000),
     SET_FLOAT(oCollisionDistance, 600),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_toad_cage),

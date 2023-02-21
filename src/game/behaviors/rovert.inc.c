@@ -19,12 +19,12 @@ void bhv_Magma_Thwomp() {
         }
 
     if (o->oTimer == o->oBehParams2ndByte*20) {
-        o->oVelY = 60;
+        o->oVelY = 55.0f;
         o->oSubAction = 1;
         cur_obj_play_sound_2(SOUND_OBJ_KING_BOBOMB_JUMP);
         }
 
-    o->oVelY -= 2;
+    o->oVelY -= 1.5f;
     o->oPosY += o->oVelY;
 
     if (o->oPosY < o->oHomeY) {
@@ -34,7 +34,7 @@ void bhv_Magma_Thwomp() {
             o->oSubAction = 0;
             }
         o->oPosY = o->oHomeY;
-        o->oVelY = 0;
+        o->oVelY = 0.0f;
         }
     }
 
@@ -79,11 +79,12 @@ void bhv_Propane_Shooter(void) {
     struct Object *obj;
 
     if (o->oBehParams2ndByte == 1) {
-        o->oFaceAngleYaw += 0x400;
+        o->oFaceAngleYaw += 0x200;
+        //no more cbt!!! also shit code intendation old rovert : )
         }
         else
         {
-        o->oFaceAngleYaw -= 0x400;
+        o->oFaceAngleYaw -= 0x200;
         }
     if (o->oDistanceToMario < 1500.0f) {
         cur_obj_play_sound_1(SOUND_AIR_BLOW_FIRE);
@@ -653,16 +654,13 @@ void bhv_tank_head(void) {
                 spawnobj->oPosY += 300.0f;
                 spawnobj->oPosX -= sinf(o->oFaceAngleYaw+0x5FFF)*270.0f;
                 spawnobj->oPosZ -= cosf(o->oFaceAngleYaw+0x5FFF)*270.0f;
-                }
-                else
-                {
+                }else{
                 cur_obj_play_sound_2(SOUND_OBJ_HEAVEHO_TOSSED);
                 drop_and_set_mario_action(gMarioState, ACT_THROWN_BACKWARD, 1);
                 gMarioState->vel[1] = 40.0f;
                 gMarioState->forwardVel = 40.0f;
-                gMarioState->faceAngle[1] = o->oFaceAngleYaw+0x7FFF;
-                roll_amount = 0x1000;
-                }
+                gMarioState->faceAngle[1] = cur_obj_angle_to_home();
+                roll_amount = 0x1000;}
             }
         }
         else
