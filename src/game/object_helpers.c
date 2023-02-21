@@ -29,6 +29,7 @@
 #include "puppylights.h"
 #include "course_table.h"
 #include "levels/ddd/header.h"
+#include "save_file.h"
 
 static s32 clear_move_flag(u32 *bitSet, s32 flag);
 
@@ -2897,7 +2898,7 @@ Gfx *geo_switch_goddard_state(s32 callContext, struct GraphNode *node) {
         obj_update_blinking(&blinkTimer, 30, 50, 5);
         s32 gold100Offset = 0;
 
-        if ((save_file_get_total_star_count(gCurrSaveFileNum, COURSE_MIN - 1, COURSE_MAX - 1) >= 73)) gold100Offset = 2;
+        if ((save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 73) && (save_file_get_flags() & SAVE_FLAG_BOWSER_3_BEAT)) gold100Offset = 2;
 
         // move to a local var because GraphNodes are passed in all geo functions.
         // cast the pointer.

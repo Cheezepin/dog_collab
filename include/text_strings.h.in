@@ -395,11 +395,11 @@
 #define TEXT_ONE_HUNDRED_COIN_STAR "100 Coin Star"
 #define TEXT_KEY_TO "KEY TO     WORLD 1"
 
-#define TEXT_HA_0 "You need 5 stars to enter this course"
+#define TEXT_HA_0 "You need 8 stars to enter this course"
 #define TEXT_HA_1 "You need to clear Bowser 1 to enter this world"
-#define TEXT_HA_2 "You need 15 stars to enter this course"
+#define TEXT_HA_2 "You need 24 stars to enter this course"
 #define TEXT_HA_3 "You need to clear Bowser 2 to enter this world"
-#define TEXT_HA_4 "You need 30 stars to enter this course"
+#define TEXT_HA_4 "You need 48 stars to enter this course"
 #define TEXT_FILLEDSTRING "ggggggggggggggggggggggggggggggggggggggggggggggggggggg"
 #define TEXT_LEVEL_CONFIRMATION "Are you sure you want to enter this level?"
 

@@ -2827,13 +2827,13 @@ void render_hub_selection(void) {
         if(sDelayedWarpTimer == 0) {
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
 #ifndef UNLOCK_ALL
-                if(hubSelections[gWorldID][gFocusID].courseID == 17 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 5) {
+                if(hubSelections[gWorldID][gFocusID].courseID == 17 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 8) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 0;
-                } else if(hubSelections[gWorldID][gFocusID].courseID == 16 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 15) {
+                } else if(hubSelections[gWorldID][gFocusID].courseID == 16 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 24) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 2;
-                } else if(hubSelections[gWorldID][gFocusID].courseID == 18 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 30) {
+                } else if(hubSelections[gWorldID][gFocusID].courseID == 18 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 48) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 4;
                 } else
