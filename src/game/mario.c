@@ -1440,6 +1440,22 @@ void update_mario_inputs(struct MarioState *m) {
     }
 }
 
+u8 SM64_IsMarioTouchGround4cm(struct MarioState *m)
+{
+    u8 ret;
+
+    if (m->pos[1] <= 4.0f + m->floorHeight) {
+        ret = 1;
+    } else {
+        ret = 0;
+    }
+
+    if (ret)
+        return 1;
+    else
+        return 0;
+}
+
 /**
  * Set's the camera preset for submerged action behaviors.
  */
