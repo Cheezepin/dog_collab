@@ -936,7 +936,7 @@ s32 act_hold_heavy_walking(struct MarioState *m) {
         return set_mario_action(m, ACT_HOLD_HEAVY_IDLE, 0);
     }
 
-    m->intendedMag *= 0.1f;
+    m->intendedMag *= 0.25f;
 
     update_walking_speed(m);
 
