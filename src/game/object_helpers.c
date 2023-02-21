@@ -2889,3 +2889,24 @@ Gfx *geo_switch_is_red_coin_collected(s32 callContext, struct GraphNode *node) {
 
     return NULL;
 }
+
+Gfx *geo_switch_goddard_state(s32 callContext, struct GraphNode *node) {
+    static s32 blinkTimer = 0;
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct Object *obj = gCurGraphNodeObjectNode;
+        obj_update_blinking(&blinkTimer, 30, 50, 5);
+        s32 gold100Offset = 0;
+
+        if ((save_file_get_total_star_count(gCurrSaveFileNum, COURSE_MIN - 1, COURSE_MAX - 1) >= 73)) gold100Offset = 2;
+
+        // move to a local var because GraphNodes are passed in all geo functions.
+        // cast the pointer.
+        struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
+
+        // assign the case number for execution.
+        switchCase->selectedCase = obj->oAnimState + gold100Offset;
+    }
+
+    return NULL;
+}
+
