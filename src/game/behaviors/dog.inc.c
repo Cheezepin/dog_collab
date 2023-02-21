@@ -16,9 +16,9 @@ void dog_FollowMario(void) {
 
     if ((o->oPosY + 300.0f < m->pos[1]) || (o->oDistanceToMario > 2000)) {
         obj_turn_toward_object(o, gMarioObject, 16, 0x1000);
-        o->oPosX = approach_f32(o->oPosX, m->pos[0], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
-        o->oPosY = approach_f32(o->oPosY, m->pos[1], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
-        o->oPosZ = approach_f32(o->oPosZ, m->pos[2], DOG_SNAP_SPEED, DOG_SNAP_SPEED);
+        o->oPosX = m->pos[0];
+        o->oPosY = m->pos[1] + 200;
+        o->oPosZ = m->pos[2];
 
         if (colFlags & OBJ_COL_FLAG_HIT_WALL) {
             o->oPosX = m->pos[0];
