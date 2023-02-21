@@ -317,6 +317,7 @@ Gfx *geo_dog_laser_location_update(s32 callContext, struct GraphNode *node, Mat4
 
 Gfx *geo_cc_set_prim_color(s32 callContext, struct GraphNode *node);
 Gfx *geo_switch_is_red_coin_collected(s32 callContext, struct GraphNode *node);
+Gfx *geo_switch_goddard_state(s32 callContext, struct GraphNode *node);
 
 extern Vec3f bowserRightHandLocation;
 extern Vec3f dogLaserLocation;

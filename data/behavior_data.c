@@ -3975,9 +3975,19 @@ const BehaviorScript bhvMovingYellowCoin[] = {
 
 const BehaviorScript bhvBlueCoinMotos[] = {
     BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    SET_INT(oIntangibleTimer, 0),
+    SET_INT(oBehParams2ndByte, -1),
     CALL_NATIVE(bhv_moving_blue_coin_init),
+    SET_FLOAT(oGravity, 4),
+    SET_FLOAT(oFriction, 1),
+    SET_FLOAT(oBuoyancy, 1),
     SET_INT(oOpacity, 255),
-    GOTO(bhvMovingYellowCoin),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_moving_yellow_coin_loop),
+        ADD_INT(oBehParams2ndByte, 1),
+    END_LOOP(),
 };
 
 const BehaviorScript bhvMovingBlueCoin[] = {
