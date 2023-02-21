@@ -3011,7 +3011,7 @@ u32 starColors[] = {
     0xFF7200FF, //peach ruins
     0xFF42B0FF, //cumulus correctional center
     0x932BC4FF, //forbidden factory
-    0xFFE800FF, //feudal fortress
+    0xFFE800FF, //sakura stronghold
     0x00007DFF, //awe-inspiring spires
     0xDDCEFFFF, //bowsers scuba tower
     0xFFFFFFFF, //upturned deeps

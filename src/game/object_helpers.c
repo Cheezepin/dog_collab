@@ -2898,7 +2898,9 @@ Gfx *geo_switch_goddard_state(s32 callContext, struct GraphNode *node) {
         obj_update_blinking(&blinkTimer, 30, 50, 5);
         s32 gold100Offset = 0;
 
+        if(gCurrLevelNum != 1) {
         if ((save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 73) && (save_file_get_flags() & SAVE_FLAG_BOWSER_3_BEAT)) gold100Offset = 2;
+        }
 
         // move to a local var because GraphNodes are passed in all geo functions.
         // cast the pointer.
