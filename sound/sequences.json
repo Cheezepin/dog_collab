@@ -172,7 +172,7 @@
         "11"
     ],
     "33_custom_route_47": [
-        "0E"
+        "XX_Route47"
     ],
     "34_custom_comit_facility": [
         "26_comit"
@@ -197,6 +197,15 @@
         "XX_factory"
     ],
     "3C_new_file_select": [
+        "0E"
+    ],
+    "3D_custom_bowser_galaxy": [
+        "1A"
+    ],
+    "3E_ocean_abyss": [
+        "0E"
+    ],
+    "3F_clock_tower": [
         "0E"
     ]
 }

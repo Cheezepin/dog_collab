@@ -120,7 +120,7 @@ void bhv_motos_thrown(void) {
             {
             obj_mark_for_deletion(o);
 
-            coin = spawn_object(o, MODEL_BLUE_COIN, bhvBlueCoinMotos);
+            coin = spawn_object(o, MODEL_BLUE_COIN, bhvMovingBlueCoin);
             cur_obj_play_sound_2(SOUND_GENERAL_COIN_SPURT_2);
             coin->oForwardVel = 15.0f;
             coin->oVelY = 25.0f;
@@ -153,7 +153,7 @@ void bhv_motos_death(void) {
     cur_obj_init_animation_with_sound(MOTOS_ANIM_WAIT);
     // Taken from bully code to handle death
     if (obj_lava_death()) {
-        struct Object *coin = spawn_object(o, MODEL_BLUE_COIN, bhvBlueCoinMotos);
+        struct Object *coin = spawn_object(o, MODEL_BLUE_COIN, bhvMovingBlueCoin);
         cur_obj_play_sound_2(SOUND_GENERAL_COIN_SPURT_2);
         coin->oForwardVel = 10.0f;
         coin->oVelY = 100.0f;
