@@ -1356,7 +1356,13 @@ u32 interact_bully(struct MarioState *m, UNUSED u32 interactType, struct Object 
 
         m->forwardVel = -16.0f;
         obj->oMoveAngleYaw = m->faceAngle[1];
-        obj->oForwardVel = 3392.0f / obj->hitboxRadius;
+
+        if (gCurrLevelNum != LEVEL_WF) {
+            // totum boys
+            obj->oForwardVel = 3392.0f / obj->hitboxRadius;
+        } else {
+            obj->oForwardVel = 0;
+        }
 
         attack_object(obj, interaction);
         bounce_back_from_attack(m, interaction);
