@@ -13,6 +13,8 @@ static struct ObjectHitbox sCollectStarHitbox = {
 };
 
 void bhv_collect_star_init(void) {
+    if (gCurrLevelNum == LEVEL_WDW) o->oRoom = -1;
+
     s8 starId = GET_BPARAM1(o->oBehParams);
 #ifdef GLOBAL_STAR_IDS
     u8 currentLevelStarFlags = save_file_get_star_flags((gCurrSaveFileNum - 1), COURSE_NUM_TO_INDEX(starId / 7));
