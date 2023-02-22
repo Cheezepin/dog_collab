@@ -111,8 +111,8 @@ void bhv_trapeze_hitbox_loop() {
         //wahoo
         if (gMarioState->input & INPUT_A_PRESSED) {
             gMarioState->action = ACT_BACKFLIP;
-            gMarioState->forwardVel = -50*sins(o->parentObj->oTrapezeTimer*0x300 - 3*0x300);
-            gMarioState->vel[1] = 30.0f - 60*coss(o->parentObj->oTrapezeTimer*0x300 - 3*0x300);
+            gMarioState->forwardVel = -50*coss(o->parentObj->oTrapezeTimer*0x300 - 3*0x300);
+            gMarioState->vel[1] = 30.0f - 60*sins(o->parentObj->oTrapezeTimer*0x300 - 3*0x300);
             o->oTrapezeFlip = 0;
             o->oTrapezeGrabbing = 0;
             o->oIsLastTrapeze = 1;
