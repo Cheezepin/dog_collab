@@ -18,6 +18,7 @@
 #endif
 #include "puppycam2.h"
 #include "vc_check.h"
+#include "vc_ultra.h"
 
 #define ALIGN4(val) (((val) + 0x3) & ~0x3)
 

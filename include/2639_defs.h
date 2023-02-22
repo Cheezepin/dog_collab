@@ -107,3 +107,18 @@ enum DF6_STATE {
 };
 #define DOG_ANIM_POUNCE 4
 extern s32 gDialogResponse;
+void fadech(u32 ch, u32 vol);
+void warp_mario2(struct MarioState *m, u8 timer, u8 node);
+void handle_hud2639();
+void Scavenger_DropGoods(struct Object *parent, u32 ID);
+void warp_mario(struct MarioState *m, u8 timer, u8 node);
+void dog_FollowMario(void);
+void challenge_music(void);
+void outside_music(void);
+void introcutscene_music(void);
+void Floor2Music(void);
+void Floor5Music(void);
+void Floor7Music(void);
+void reset_act_1(void);
+void reset_act_6(void);
+void Sound2639_Main(void);

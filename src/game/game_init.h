@@ -95,5 +95,6 @@ void render_init(void);
 void select_gfx_pool(void);
 void display_and_vsync(void);
 void freeze_game_frames(s32 frames);
+void check_cache_emulation();
 
 #endif // GAME_INIT_H

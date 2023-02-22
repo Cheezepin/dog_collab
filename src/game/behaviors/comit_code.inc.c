@@ -2,6 +2,7 @@
 extern u8 sGoombaAttackHandlers[][6];
 extern struct ModeTransitionInfo sModeInfo;
 extern s16 sInvulnerable;
+s32 comit_check_ledge_action(struct MarioState *m);
 
 struct ObjectHitbox sRainbowCloudHitbox = {
     /* interactType: */ INTERACT_DAMAGE,

@@ -1,6 +1,6 @@
 #include "src/game/puppycam2.h"
 #include "2639_defs.h"
-void Cam2639_Main(struct gPuppyStruct *);
+
 ///This is the bit that defines where the angles happen. They're basically environment boxes that dictate camera behaviour.
 ///Permaswap is a boolean that simply determines wether or not when the camera changes at this point it stays changed. 0 means it resets when you leave, and 1 means it stays changed.
 ///The camera position fields accept "32767" as an ignore flag.

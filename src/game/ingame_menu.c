@@ -2564,6 +2564,7 @@ void render_dog_keyboard(s16 saveFileIndex) {
                     break;
                 case 2:
                 case 3:
+                default:
                     key = ' ';
                     break;
             }
@@ -2659,7 +2660,7 @@ s32 gLevelEntryConfirmationActive = 0;
 s32 gHubAlertTimer = 0;
 s32 gHubAlertID = 0;
 
-u8 *get_course_string(u8 *levelString, u8 courseIndex) {
+void get_course_string(u8 *levelString, u8 courseIndex) {
     sprintf(levelString, "%s", hubSelections[gWorldID][courseIndex].levelNameString);
     if(hubSelections[gWorldID][courseIndex].courseID > 0) {
         if(hubSelections[gWorldID][courseIndex].courseID == 18) {
@@ -2683,7 +2684,7 @@ u8 *get_course_string(u8 *levelString, u8 courseIndex) {
     }
 }
 
-u8 *get_world_string(u8 *worldStringBuffer, u8 *worldString, u8 worldNum) {
+void get_world_string(u8 *worldStringBuffer, u8 *worldString, u8 worldNum) {
     u8 allLevelsDone = 1;
     u8 i = 0;
     u8 worldID = worldNum - 1;
@@ -3269,7 +3270,7 @@ u8 textAllActsCompleted[] = { TEXT_ALL_ACTS_COMPLETED };
 u8 text100CoinStar[] = { TEXT_ONE_HUNDRED_COIN_STAR };
 u8 textKeyTo[] = { TEXT_KEY_TO };
 
-extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
+void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
 extern LookAt lookAt;
 

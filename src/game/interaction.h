@@ -204,5 +204,9 @@ u32  mario_check_object_grab(struct MarioState *m);
 u32  get_door_save_file_flag(struct Object *door);
 void mario_process_interactions(struct MarioState *m);
 void mario_handle_special_floors(struct MarioState *m);
+u32 take_damage_from_no_interact_object(struct MarioState *m, s32 damage);
+void reset_mario_pitch(struct MarioState *m);
+u32 interact_shock(struct MarioState *m, UNUSED u32 interactType, struct Object *obj);
+u32 take_damage_and_knock_back(struct MarioState *m, struct Object *obj);
 
 #endif // INTERACTION_H

@@ -906,6 +906,8 @@ void play_cutscene(struct Camera *c);
 void cutscene_event(CameraEvent event, struct Camera * c, s16 start, s16 end);
 void cutscene_spawn_obj(u32 obj, s16 frame);
 void set_fov_shake(s16 amplitude, s16 decay, s16 shakeSpeed);
+s32 set_camera_mode_fixed(struct Camera *c, s16 x, s16 y, s16 z);
+void transition_to_camera_mode(struct Camera *c, s16 newMode, s16 numFrames);
 
 void set_fov_function(u8 func);
 void cutscene_set_fov_shake_preset(u8 preset);

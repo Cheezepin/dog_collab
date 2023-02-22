@@ -30,6 +30,8 @@ s32 update_angle_from_move_flags(s32 *angle);
 void cur_obj_spawn_strong_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
 void cur_obj_spawn_weak_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
 void cur_obj_spawn_pinwheel_wind_particles(s32 windSpread, f32 scale, f32 relPosX, f32 relPosY, f32 relPosZ);
+struct Object *spawn_star(struct Object *starObj, f32 x, f32 y, f32 z);
+
 
 //! Lots of these are duplicates
 void bhv_cap_switch_loop(void);
@@ -257,6 +259,7 @@ void bhv_castle_floor_trap_init(void);
 void bhv_castle_floor_trap_loop(void);
 void bhv_floor_trap_in_castle_loop(void);
 void bhv_sparkle_spawn_loop(void);
+void bhv_spawn_star_get_outta_here(u32 params);
 void bhv_scuttlebug_loop(void);
 void bhv_scuttlebug_spawn_loop(void);
 void bhv_whomp_loop(void);

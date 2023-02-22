@@ -33,6 +33,8 @@
 #include "puppyprint.h"
 #include "puppylights.h"
 #include "level_commands.h"
+#include "print.h"
+#include "2639_defs.h"
 
 #include "config.h"
 
@@ -1546,6 +1548,7 @@ s32 ending_init(void) {
     sDelayedWarpOp = WARP_OP_NONE;
     sTransitionTimer = 0;
     sSpecialWarpDest = WARP_SPECIAL_NONE;
+    return TRUE;
 }
 
 char *perfectString[] = {"P", "E", "R", "F", "E", "C", "T", "!"};
