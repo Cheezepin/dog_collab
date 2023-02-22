@@ -651,6 +651,7 @@ void anim_and_audio_for_hold_walk(struct MarioState *m) {
                 } else {
                     //! (Speed Crash) Crashes if Mario's speed exceeds or equals 2^16.
                     animSpeed = (s32)(intendedSpeed / 2.0f * 0x10000);
+                    if (intendedSpeed > 24) animSpeed /= 2;
                     set_mario_anim_with_accel(m, MARIO_ANIM_RUN_WITH_LIGHT_OBJ, animSpeed);
                     play_step_sound(m, 10, 49);
 
@@ -687,7 +688,8 @@ void push_or_sidle_wall(struct MarioState *m, Vec3f startPos) {
         }
 
         if (m->wall != NULL && m->wall->type == SURFACE_SHOCK_WALL) {
-            return m->action = ACT_SHOCKED;
+            m->action = ACT_SHOCKED;
+            return;
         }
 
         if (m->wall == NULL || dWallAngle <= -0x71C8 || dWallAngle >= 0x71C8) {
@@ -898,7 +900,7 @@ s32 act_hold_walking(struct MarioState *m) {
         return drop_and_set_mario_action(m, ACT_CROUCH_SLIDE, 0);
     }
 
-    m->intendedMag *= 0.4f;
+    // m->intendedMag *= 0.75f;
 
     update_walking_speed(m);
 
@@ -1170,6 +1172,7 @@ s32 act_hold_decelerating(struct MarioState *m) {
         return set_mario_action(m, ACT_HOLD_WALKING, 0);
     }
 
+    m->forwardVel = approach_f32(m->forwardVel, 0, 0, 1.0f);
     if (update_decelerating_speed(m)) {
         return set_mario_action(m, ACT_HOLD_IDLE, 0);
     }
