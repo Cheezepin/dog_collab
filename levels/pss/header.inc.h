@@ -505,7 +505,7 @@ extern Vtx pss_dl_R5_002_mesh_layer_1_vtx_1[494];
 extern Gfx pss_dl_R5_002_mesh_layer_1_tri_1[];
 extern Vtx pss_dl_R5_002_mesh_layer_1_vtx_2[96];
 extern Gfx pss_dl_R5_002_mesh_layer_1_tri_2[];
-extern Vtx pss_dl_r6__mesh_layer_1_vtx_0[560];
+extern Vtx pss_dl_r6__mesh_layer_1_vtx_0[561];
 extern Gfx pss_dl_r6__mesh_layer_1_tri_0[];
 extern Vtx pss_dl_r6__mesh_layer_1_vtx_1[402];
 extern Gfx pss_dl_r6__mesh_layer_1_tri_1[];
