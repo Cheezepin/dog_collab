@@ -2575,7 +2575,7 @@ will save!) ")
 DEFINE_DIALOG(CHEEZE_DIALOG_11, 1, 5, 95, 200, "\
 Bark arf woof!\n\
 (If you missed the\n\
-red coin, take the\n\
+red bone, take the\n\
 skinny bridge back\n\
 to the slide!) ")
 
