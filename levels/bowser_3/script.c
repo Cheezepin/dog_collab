@@ -58,12 +58,12 @@ const LevelScript level_bowser_3_entry[] = {
 		OBJECT(MODEL_B3_BRIDGE, 0, -100, 3702, 0, 0, 0, 0x00000000, bhvB3Bridge),
 		OBJECT(MODEL_CHAIN_CHOMP_BOWSER, -347, 0, -835, 0, 0, 0, 0x00000000, bhvChainChompBowser),
 		OBJECT(MODEL_DOG, 624, 0, 1606, 0, 0, 0, 0x00000000, bhvB3Dog),
-		OBJECT(MODEL_HEART, 0, 0, 6404, 0, 0, 0, 0x00000000, bhvRecoveryHeart),
+		OBJECT(MODEL_HEART, 0, 75, 6404, 0, 0, 0, 0x00000000, bhvRecoveryHeart),
 		OBJECT(MODEL_NONE, 0, 0, 9404, 0, 0, 0, (0xA << 16), bhvSpinAirborneWarp),
 		MARIO_POS(0x01, 0, 0, 0, 2404),
 		TERRAIN(bowser_3_area_1_collision),
 		MACRO_OBJECTS(bowser_3_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_BOSS_KOOPA_FINAL),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_FINAL_BOWSER),
 		TERRAIN_TYPE(TERRAIN_STONE),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
