@@ -636,7 +636,10 @@ void bhv_dog_bone_loop(void) {
         if(o->oAnimState == 0) {
             save_file_set_dog_bone_bit(gCurrSaveFileNum - 1, gCurrAreaIndex, gCurrLevelNum);
             numBones = save_file_get_dog_bone_count(gCurrSaveFileNum - 1);
-            spawn_orange_number(numBones, 0, 0, 0);
+            spawn_orange_number(numBones % 10, 14, 0, 0);
+                if (numBones >= 10) {
+                    spawn_orange_number(numBones/10, -14, 0, 0);
+            }
 
         // On all versions but the JP version, each coin collected plays a higher noise.
         play_sound(SOUND_MENU_COLLECT_RED_COIN
