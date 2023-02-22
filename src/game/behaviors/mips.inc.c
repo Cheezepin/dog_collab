@@ -8,7 +8,7 @@
  * hiding him if necessary.
  */
 
-#define MIPS_SPEED              78.0f
+#define MIPS_SPEED              64.1f
 #define DIST_TO_CAUGHT         125.0f
 #define MAX_DIST_TO_WAYPOINT  4800
 #define MIPS_DISTANCE_TO_INIT  750
