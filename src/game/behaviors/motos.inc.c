@@ -99,9 +99,40 @@ void bhv_motos_carry_run(void) {
     // Useless else clause removed
 }
 
+void set_initial_velocity(float currentPosition[3], float goalPosition[3], float velocity[3], float gravity, float verticalOffset) {
+    // Calculate the displacement between the current position and the goal position
+    float displacement[3];
+    for (int i = 0; i < 3; i++) {
+        displacement[i] = goalPosition[i] - currentPosition[i];
+    }
+    displacement[1] += verticalOffset; // Add the offset to the vertical component of the displacement
+
+    // Calculate the time required to reach the peak of the trajectory
+    float time_to_peak = sqrtf(2 * displacement[1] / gravity);
+
+    // Calculate the velocity required to reach the peak of the trajectory
+    float peak_velocity[3];
+    for (int i = 0; i < 3; i++) {
+        peak_velocity[i] = displacement[i] / time_to_peak;
+    }
+    peak_velocity[1] = sqrtf(2 * gravity * displacement[1]);
+
+    // Calculate the time required to reach the goal position
+    float time_to_goal = sqrtf(2 * (displacement[1] + peak_velocity[1] * time_to_peak) / gravity);
+
+    // Calculate the velocity required to reach the goal position
+    for (int i = 0; i < 3; i++) {
+        velocity[i] = displacement[i] / time_to_goal;
+    }
+    velocity[1] = sqrtf(2 * gravity * (displacement[1] + peak_velocity[1] * time_to_peak));
+}
+
 void bhv_motos_thrown(void) {
     struct Object *coin;
     cur_obj_init_animation_with_sound(MOTOS_ANIM_DOWN_STOP);
+    if (o->oTimer == 0) {
+        vec3f_copy(&o->oHomeX, &o->oPosX);
+    }
     
     if (o->oMoveFlags & OBJ_MOVE_LANDED) {
 
@@ -115,21 +146,23 @@ void bhv_motos_thrown(void) {
 
         if (o->oHealth > 0) {
             o->oAction = MOTOS_ACT_RECOVER; // New action: recover (used to go straight back into wait)
-            }
-            else
-            {
+        }
+        else
+        {
             obj_mark_for_deletion(o);
 
             coin = spawn_object(o, MODEL_BLUE_COIN, bhvBlueCoinMotos);
             cur_obj_play_sound_2(SOUND_GENERAL_COIN_SPURT_2);
-            coin->oForwardVel = 15.0f;
-            coin->oVelY = 25.0f;
-            coin->oMoveAngleYaw = (f32)(o->oFaceAngleYaw + 0x8000) + random_float() * 1024.0f;
+            coin->oPosY = o->oPosY + 310.0f;
 
-            if (coin->oPosY < gMarioState->pos[1]-270.0f) {
-                coin->oPosY = gMarioState->pos[1]-270.0f;
-                }
+            if (coin->oPosY < o->oHomeY-300.0f) {
+                coin->oPosY = o->oHomeY-300.0f;
             }
+
+            set_initial_velocity(&coin->oPosX, &o->oHomeX, &coin->oVelX, 4.0f, 300.0f);
+            coin->oMoveAngleYaw = atan2s(coin->oVelZ, coin->oVelX);
+            coin->oForwardVel = sqrtf(sqr(coin->oVelZ) + sqr(coin->oVelX));
+        }
     }
 }
 
@@ -151,18 +184,23 @@ void bhv_motos_recover(void) {
 
 void bhv_motos_death(void) {
     cur_obj_init_animation_with_sound(MOTOS_ANIM_WAIT);
+    if (o->oTimer == 0) {
+        o->oCommonAnchorAction = 2;
+        o->oInteractStatus &= (~INT_STATUS_GRABBED_MARIO);
+    }
     // Taken from bully code to handle death
     if (obj_lava_death()) {
         struct Object *coin = spawn_object(o, MODEL_BLUE_COIN, bhvBlueCoinMotos);
         cur_obj_play_sound_2(SOUND_GENERAL_COIN_SPURT_2);
-        coin->oForwardVel = 10.0f;
-        coin->oVelY = 100.0f;
         coin->oPosY = o->oPosY + 310.0f;
-        coin->oMoveAngleYaw = (f32)(o->oFaceAngleYaw + 0x8000) + random_float() * 1024.0f;
 
-        if (coin->oPosY < gMarioState->pos[1]-300.0f) {
-            coin->oPosY = gMarioState->pos[1]-300.0f;
-            }
+        if (coin->oPosY < o->oHomeY-300.0f) {
+            coin->oPosY = o->oHomeY-300.0f;
+        }
+
+        set_initial_velocity(&coin->oPosX, &o->oHomeX, &coin->oVelX, 4.0f, 300.0f);
+        coin->oMoveAngleYaw = atan2s(coin->oVelZ, coin->oVelX);
+        coin->oForwardVel = sqrtf(sqr(coin->oVelZ) + sqr(coin->oVelX));
     }
 }
 

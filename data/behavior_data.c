@@ -556,6 +556,7 @@ const BehaviorScript bhvGoddardHMC[] = {
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(goddard_hmc_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -3975,9 +3976,19 @@ const BehaviorScript bhvMovingYellowCoin[] = {
 
 const BehaviorScript bhvBlueCoinMotos[] = {
     BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    SET_INT(oIntangibleTimer, 0),
+    SET_INT(oBehParams2ndByte, -1),
     CALL_NATIVE(bhv_moving_blue_coin_init),
+    SET_FLOAT(oGravity, 4),
+    SET_FLOAT(oFriction, 1),
+    SET_FLOAT(oBuoyancy, 1),
     SET_INT(oOpacity, 255),
-    GOTO(bhvMovingYellowCoin),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_moving_yellow_coin_loop),
+        ADD_INT(oBehParams2ndByte, 1),
+    END_LOOP(),
 };
 
 const BehaviorScript bhvMovingBlueCoin[] = {
@@ -5597,6 +5608,7 @@ const BehaviorScript bhvDogStartup[] = {
     SET_INT(oIntangibleTimer, -1),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_intro_object_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 #endif
@@ -6724,6 +6736,7 @@ const BehaviorScript bhvDogNPC[] = {
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(bhv_bobomb_buddy_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -6772,6 +6785,7 @@ const BehaviorScript bhvDogForSC[] = {
     ANIMATE(2),
     BEGIN_LOOP(),
     CALL_NATIVE(bhv_goddard_clown_fight_init),
+    CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -7216,6 +7230,7 @@ const BehaviorScript bhvDogRovert[] = {
     SET_HOME(),
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -7250,10 +7265,10 @@ const BehaviorScript bhvRovertFling[] = {
 const BehaviorScript bhvToadCage[] = {
     BEGIN(OBJ_LIST_SURFACE),
     LOAD_COLLISION_DATA(toad_cage_collision),
-    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE | OBJ_FLAG_ACTIVE_FROM_AFAR)),
+    OR_LONG(oFlags, (OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE)),
     SCALE(/*Unused*/ 0, /*Field*/ 100),
     SET_HOME(),
-    SET_FLOAT(oDrawingDistance, 4000),
+    SET_FLOAT(oDrawingDistance, 32000),
     SET_FLOAT(oCollisionDistance, 600),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_toad_cage),
@@ -7737,6 +7752,7 @@ const BehaviorScript bhvDogEmu[] = {
     BEGIN_LOOP(),
     CALL_NATIVE(cur_obj_rotate_face_angle_using_vel),
         CALL_NATIVE(bhv_idle_dog_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -7924,6 +7940,7 @@ const BehaviorScript bhvComitDog[] = {
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(bhv_comit_dog_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -8211,6 +8228,7 @@ const BehaviorScript bhvCoziesDog[] = {
         SET_INT(oIntangibleTimer, 0),
         SET_INT(oInteractStatus, 0),
         CALL_NATIVE(bhv_cozies_dog_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -8256,6 +8274,7 @@ const BehaviorScript bhvCheezeDog[] = {
         SET_INT(oIntangibleTimer, 0),
         SET_INT(oInteractStatus, 0),
         CALL_NATIVE(bhv_cheezedog_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -8268,6 +8287,7 @@ const BehaviorScript bhvCheezeSkiDog[] = {
     SCALE(0, 50),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_cheezeskidog_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -8284,6 +8304,7 @@ const BehaviorScript bhvB3Dog[] = {
     BEGIN_LOOP(),
         SET_INT(oIntangibleTimer, 0),
         CALL_NATIVE(bhv_b3_dog_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -8360,6 +8381,7 @@ const BehaviorScript bhvDogCutscene[] = {
     SCALE(0, 50),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_cutscenedog_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -8409,6 +8431,7 @@ const BehaviorScript bhvSpiresDog[] = {
         SET_INT(oIntangibleTimer, 0),
         SET_INT(oInteractStatus, 0),
         CALL_NATIVE(bhv_spiresdog_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
     END_LOOP(),
 };
 
@@ -8517,6 +8540,7 @@ const BehaviorScript bhvDoginlobby[] = {
 	CALL_NATIVE(bhv_DogInLobby_init),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_DogInLobby_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
 	END_LOOP(),
 };
 
@@ -8530,6 +8554,7 @@ const BehaviorScript bhvDogoutsidehotel[] = {
 	CALL_NATIVE(bhv_DogOutsideHotel_init),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_DogOutsideHotel_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
 	END_LOOP(),
 };
 
@@ -8543,6 +8568,7 @@ const BehaviorScript bhvDogfloor1[] = {
 	CALL_NATIVE(bhv_DogFloor1_init),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_DogFloor1_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
 	END_LOOP(),
 };
 
@@ -8556,6 +8582,7 @@ const BehaviorScript bhvDogfloor2[] = {
 	CALL_NATIVE(bhv_DogFloor2_init),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_DogFloor2_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
 	END_LOOP(),
 };
 
@@ -8569,6 +8596,7 @@ const BehaviorScript bhvDogfloor3[] = {
 	CALL_NATIVE(bhv_DogFloor3_init),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_DogFloor3_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
 	END_LOOP(),
 };
 
@@ -8584,6 +8612,7 @@ const BehaviorScript bhvDogfloor4[] = {
     SET_FLOAT(oDrawingDistance, 20000),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_DogFloor4_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
 	END_LOOP(),
 };
 
@@ -8597,6 +8626,7 @@ const BehaviorScript bhvDogbalcony[] = {
 	CALL_NATIVE(bhv_DogBalcony_init),
 	BEGIN_LOOP(),
 		CALL_NATIVE(bhv_DogBalcony_loop),
+        CALL_NATIVE(bhv_golden_goddard_loop),
 	END_LOOP(),
 };
 

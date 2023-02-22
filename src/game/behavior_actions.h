@@ -719,6 +719,7 @@ void bhv_intro_object_loop(void);
 void bhv_save_switch_loop(void);
 void bhv_special_warp_box_init(void);
 void bhv_flipswitch_loop(void);
+void bhv_golden_goddard_loop(void);
 //cheeze end
 
 //Koopa Atoll Objects

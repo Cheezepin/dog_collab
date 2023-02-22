@@ -54,7 +54,11 @@ Now that we have\n\
 enough @FFFF00FFstarpower@FFFFFFFF,\n\
 we need you to break\n\
 open the cages and\n\
-set them free!")
+set them free!\n\
+Come back to me\n\
+once you have\n\
+destroyed 5 of\n\
+them!")
 
 DEFINE_DIALOG(DIALOG_003, 1, 4, 95, 200, "\
 Thank you so much!\n\

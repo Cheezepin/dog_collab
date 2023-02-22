@@ -9,7 +9,7 @@
 
 #define OBJ_COL_FLAG_GROUNDED   (1 << 0)
 #define OBJ_COL_FLAG_HIT_WALL   (1 << 1)
- #define DOG_SNAP_SPEED 25.0f
+ #define DOG_SNAP_SPEED 40.0f
 void dog_FollowMario(void) {
     struct MarioState *m = gMarioState;
     s16 colFlags = object_step();
@@ -354,7 +354,9 @@ void bhv_b3_dog_loop(void) {
     }
 
     if(o->oPosY < -200.0f) {
+        o->oPosX = gMarioState->pos[0];
         o->oPosY = gMarioState->pos[1] + 500.0f;
+        o->oPosX = gMarioState->pos[2];
     }
 
     o->oInteractStatus = INT_STATUS_NONE;
