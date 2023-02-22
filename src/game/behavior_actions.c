@@ -46,6 +46,8 @@
 #include "rumble_init.h"
 #include "puppylights.h"
 #include "main.h"
+#include "sound_init.h"
+#include "2639_defs.h"
 
 #include "behaviors/star_door.inc.c"
 #include "behaviors/mr_i.inc.c"

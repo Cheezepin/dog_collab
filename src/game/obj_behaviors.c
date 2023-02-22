@@ -34,6 +34,7 @@
 #include "rumble_init.h"
 #include "puppylights.h"
 #include "2639_defs.h"
+#include "engine/surface_load.h"
 
 /**
  * @file obj_behaviors.c
@@ -628,7 +629,7 @@ void MakeCoinWithModel(struct Object *obj, s8 nCoins, ModelID32 mdl) {
 }
 
 
-void LaunchObject(struct Object *obj, void *behav, ModelID32 mdl) {
+void LaunchObject(struct Object *obj, const BehaviorScript *behav, ModelID32 mdl) {
     struct Object *myObject;
 
     myObject = spawn_object(obj, mdl, behav);

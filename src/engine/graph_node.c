@@ -287,7 +287,7 @@ struct GraphNodeScale *init_graph_node_scale(struct AllocOnlyPool *pool,
     return graphNode;
 }
 
-struct GraphNodeScale *init_graph_node_scale_better(struct AllocOnlyPool *pool,
+struct GraphNodeScaleBetter *init_graph_node_scale_better(struct AllocOnlyPool *pool,
                                              struct GraphNodeScaleBetter *graphNode, s32 drawingLayer,
                                              void *displayList, f32 scaleX, f32 scaleY, f32 scaleZ) {
     if (pool != NULL) {

@@ -23,4 +23,5 @@ void obj_spit_fire(s16 relativePosX, s16 relativePosY, s16 relativePosZ, f32 sca
 void obj_set_speed_to_zero(void);
 void obj_update_blinking(s32 *blinkTimer, s16 baseCycleLength, s16 cycleLengthRange,
                                 s16 blinkLength);
+void dog_FollowMario(void);
 #endif // OBJ_BEHAVIORS_2_H

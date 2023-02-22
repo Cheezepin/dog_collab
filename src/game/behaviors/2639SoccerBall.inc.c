@@ -18,8 +18,6 @@ static struct ObjectHitbox sSoccerBallHitbox = {
 #define SBALL_TERMINAL_VEL -50.0f
 #define SBALL_BOTTOM(b) (b->oPosY - SBALL_RADIUS)
 
-#define is_test_ball() (BPARAM3 != 0)
-
 static const s16 sCourtBoundsX[] = { -1702 + SBALL_RADIUS, 2821 - SBALL_RADIUS };
 static const s16 sCourtBoundsZ[] = { -4000 + SBALL_RADIUS, 3426 - SBALL_RADIUS };
 static const s16 sCourtMaxY = 430;
@@ -70,7 +68,7 @@ void soccerball_surface_collisions(struct Object *ball) {
 			f32 absorbtion = 0.8f;
 			if (surf->normal.y > COS15 && ball->oVelY < 6.1f) absorbtion = 0.4f;
 			reflect_vec3f(&ball->oVelX, velocityDir, surfNormal, absorbtion * vel, 0.85f * vel);
-			if (is_test_ball()) print_text(16, 32+12, "REF");
+
 			if (surf->normal.y > COS15 && absf(ball->oVelY) < 8.1f) {
 				ball->oSoccerBallGrounded = TRUE;
 				ball->oVelY = 0;
@@ -91,7 +89,7 @@ void soccerball_surface_collisions(struct Object *ball) {
 		if (vel > 0.01f) {
 			f32 absorbtion = 0.8f;
 			if (ball->oVelY < 6.1f) absorbtion = 0.4f;
-			if (is_test_ball()) print_text(16, 32, "FLR");
+
 			reflect_vec3f(&ball->oVelX, velocityDir, surfNormal, absorbtion * vel, 0.85f * vel);
 			ball->header.gfx.scale[1] = get_relative_position_between_ranges(vel, 0, -(SBALL_TERMINAL_VEL), 1.0f, 0.8f);
 

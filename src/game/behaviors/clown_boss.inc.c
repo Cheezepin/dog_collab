@@ -260,12 +260,14 @@ void clown_start_stomp(void) {
 void clown_stomp_mario(void) {
 cur_obj_init_animation_with_accel_and_sound(5, 1.0f);
     if (o->oClownActionNumber == 0) {
-        return clown_start_stomp();
+        clown_start_stomp();
+        return;
     }
 
     if (o->oClownActionNumber > 4) {
         o->oClownActionNumber = 0;
-        return o->oClownAction = 1;
+        o->oClownAction = 1;
+        return;
     }
 
     if (o->oClownColFlags != 0x01) {

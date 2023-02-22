@@ -1,10 +1,13 @@
 #include "config.h"
 #include "src/game/game_init.h"
 #include "src/game/ingame_menu.h"
+
 u8 count;
 s32 marioX, marioZ;
 u8 action;
 s32 preChosenAction;
+s32 bowser_set_anim_jump(void);
+
 //some object finding stuff
 struct Object *mario_furthest_object_with_behavior(const BehaviorScript *behavior) {
     uintptr_t *behaviorAddr = segmented_to_virtual(behavior);
@@ -261,7 +264,7 @@ s32 bowser_spawn_electric_ring(void) {
     //return FALSE;
 }
 
-s32 bowser_spawn_lightning(void){
+void bowser_spawn_lightning(void){
     struct Object *bolt;
     bolt = spawn_object(o, MODEL_NONE, bhvBowserLightning);
     bolt->oPosY = 100.0f;

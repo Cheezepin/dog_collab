@@ -30,6 +30,8 @@ static u8 sGaloombaAttackHandlers[][6] = {
     },
 };
 
+void mark_galoomba_as_dead(void);
+
 void bhv_galoomba_init(void) {
 
     //o->oGoombaScale = 1.0f;
