@@ -37,8 +37,8 @@ static struct ObjectHitbox sSpikedLaserRingHitbox = {
 void bhv_laser_ring_spawner_init(void)
 {
     o->oAction = ZH_LASER_RING_SPAWNER_ACT_CHARGING;
-    o->oAnimState = ((o->oBehParams2ndByte & 0x1) ^ 0x1);
-    if(o->oAnimState == 1) {
+    //o->oAnimState = ((o->oBehParams2ndByte & 0x1) ^ 0x1);
+    if(((o->oBehParams2ndByte & 0x1) ^ 0x1) == 1) {
         obj_set_hitbox(o, &sSpikedLaserRingHitbox);
     } else {
         obj_set_hitbox(o, &sLaserRingHitbox);
@@ -47,7 +47,7 @@ void bhv_laser_ring_spawner_init(void)
     o->oLaserRingDetectDist = (f32)(ZH_LASER_RING_BASE_RADIUS * ZH_LASER_RING_GROWTH_TIME);
     if(gCurrLevelNum == LEVEL_PSS) {
         o->oLaserRingDetectDist *= ZH_LASER_RING_GROWTH_RATE*2.0f;
-        if(o->oAnimState == 1) {
+        if(((o->oBehParams2ndByte & 0x1) ^ 0x1)) {
             o->oLaserRingDetectDist *= 2.0f;
         }
     } else {o->oLaserRingDetectDist *= ZH_LASER_RING_GROWTH_RATE;}
@@ -111,11 +111,7 @@ void bhv_laser_ring_spawner_loop(void)
 void bhv_laser_ring_init(void)
 {
     cur_obj_scale(0.1f);
-    if(gCurrLevelNum == LEVEL_PSS) {
-        o->oLaserRingGrowthRate = 0.1f;
-    } else {
-        o->oLaserRingGrowthRate = 0.1f;
-    }
+    o->oLaserRingGrowthRate = 0.1f;
 }
 
 u32 interact_shock(struct MarioState *m, UNUSED u32 interactType, struct Object *o);
@@ -144,7 +140,7 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
     }
     cur_obj_scale(o->oTimer * o->oLaserRingGrowthRate);
 } else {
-     if(o->parentObj->oAnimState == 1) {
+     if(((o->parentObj->oBehParams2ndByte & 0x1) ^ 0x1) == 1) {
         if (o->oTimer > ZH_LASER_RING_GROWTH_TIME *2)
     {
         obj_mark_for_deletion(o);
