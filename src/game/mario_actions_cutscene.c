@@ -2712,6 +2712,8 @@ s32 act_floor_checkpoint_warp_out(struct MarioState *m) {
 
 // NOTE: Should be initiated from warp_to_checkpoint
 s32 act_floor_checkpoint_warp_in(struct MarioState *m) {
+    m->invincTimer = 30;
+
     if (++m->actionTimer <= SLOW_WARP_LEN) {
         m->flags |= MARIO_TELEPORTING;
         m->fadeWarpOpacity = (u8)MIN_MAX(get_relative_position_between_ranges(m->actionTimer, 0, SLOW_WARP_LEN, 0.0f, 255.0f), 0, 255);
