@@ -763,6 +763,9 @@ void spawn_orange_number(s8 behParam, s16 relX, s16 relY, s16 relZ) {
 
     struct Object *orangeNumber = spawn_object_relative(behParam, relX, relY, relZ, o, MODEL_NUMBER, bhvOrangeNumber);
     orangeNumber->oPosY += 25.0f;
+    orangeNumber->o110 = relX;
+    orangeNumber->oHomeX = o->oPosX;
+    orangeNumber->oHomeZ = o->oPosZ;
 }
 
 /**

@@ -172,7 +172,7 @@ u32 pressed_pause(void) {
     u32 intangible = (gMarioState->action & ACT_FLAG_INTANGIBLE) != 0 && !gMarioState->paralyzed;
 
     if (!intangible && !dialogActive && !gWarpTransition.isActive && sDelayedWarpOp == WARP_OP_NONE
-        && (gPlayer1Controller->buttonPressed & START_BUTTON)) {
+        && gCurrLevelNum != LEVEL_CASTLE && (gPlayer1Controller->buttonPressed & START_BUTTON)) {
         return TRUE;
     }
 
