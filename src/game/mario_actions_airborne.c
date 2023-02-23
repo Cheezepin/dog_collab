@@ -2090,7 +2090,7 @@ s32 act_vertical_wind(struct MarioState *m) {
         set_mario_animation(m, MARIO_ANIM_AIRBORNE_ON_STOMACH);
     }
 
-    update_air_without_turn(m);
+    update_air_with_turn(m);
 
     switch (perform_air_step(m, 0)) {
         case AIR_STEP_LANDED:

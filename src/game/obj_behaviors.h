@@ -17,6 +17,13 @@ enum ObjCollisionFlags {
 };
 
 //! Lots of these are duplicates
+void spawn_orange_number(s8 behParam, s16 relX, s16 relY, s16 relZ);
+s32 obj_lava_death(void);
+s16 object_step(void);
+void set_object_visibility(struct Object *obj, s32 dist);
+void obj_spawn_yellow_coins(struct Object *obj, s8 nCoins);
+void obj_check_floor_death(s16 collisionFlags, struct Surface *floor);
+s16 object_step_without_floor_orient(void);
 void set_yoshi_as_not_dead(void);
 s32 coin_step(s16 *collisionFlagsPtr);
 void moving_coin_flicker(void);
@@ -218,3 +225,5 @@ void bhv_2639FinalPresent_init(void); void bhv_2639FinalPresent_loop(void);
 void bhv_2639PresentEater_init(void); void bhv_2639PresentEater_loop(void);
 void bhv_2639ElevatorKey_init(void); void bhv_2639ElevatorKey_loop(void);
 void bhv_Tram2639_init(void); void bhv_Tram2639_loop(void);
+void LaunchObject(struct Object *obj, const BehaviorScript *behav, ModelID32 mdl);
+

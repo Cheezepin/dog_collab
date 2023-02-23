@@ -763,10 +763,6 @@ void reset_mario_pitch(struct MarioState *m) {
 }
 
 u32 interact_coin(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
-    if (obj->behavior == segmented_to_virtual(bhv2639SoccerBall)) {
-        obj->oInteractStatus = INT_STATUS_INTERACTED;
-        return;
-    }
     m->numCoins += obj->oDamageOrCoinValue;
     m->healCounter += 4 * obj->oDamageOrCoinValue;
 #ifdef BREATH_METER
@@ -1268,7 +1264,7 @@ m->marioObj->header.gfx.animInfo.curAnim->flags |= ANIM_FLAG_NO_ACCEL;
         }
     }
 
-    
+    return FALSE;
 }
 
 u32 interact_flame(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
@@ -1360,7 +1356,13 @@ u32 interact_bully(struct MarioState *m, UNUSED u32 interactType, struct Object 
 
         m->forwardVel = -16.0f;
         obj->oMoveAngleYaw = m->faceAngle[1];
-        obj->oForwardVel = 3392.0f / obj->hitboxRadius;
+
+        if (gCurrLevelNum != LEVEL_WF) {
+            // totum boys
+            obj->oForwardVel = 3392.0f / obj->hitboxRadius;
+        } else {
+            obj->oForwardVel = 0;
+        }
 
         attack_object(obj, interaction);
         bounce_back_from_attack(m, interaction);

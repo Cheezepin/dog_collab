@@ -280,6 +280,7 @@ extern const BehaviorScript bhvMerryGoRound[];
 extern const BehaviorScript bhvBetaBowserAnchor[];
 extern const BehaviorScript bhvStaticCheckeredPlatform[];
 extern const BehaviorScript bhvStar[];
+extern const BehaviorScript bhvStarNoRoom[];
 extern const BehaviorScript bhvStaticObject[];
 // Static object stubs for backwards compatibility
 #define bhvLllHexagonalMesh bhvStaticObject

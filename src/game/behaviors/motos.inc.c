@@ -184,6 +184,10 @@ void bhv_motos_recover(void) {
 
 void bhv_motos_death(void) {
     cur_obj_init_animation_with_sound(MOTOS_ANIM_WAIT);
+    if (o->oTimer == 0) {
+        o->oCommonAnchorAction = 2;
+        o->oInteractStatus &= (~INT_STATUS_GRABBED_MARIO);
+    }
     // Taken from bully code to handle death
     if (obj_lava_death()) {
         struct Object *coin = spawn_object(o, MODEL_BLUE_COIN, bhvBlueCoinMotos);

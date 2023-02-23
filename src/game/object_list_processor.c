@@ -22,6 +22,7 @@
 #include "puppyprint.h"
 #include "puppylights.h"
 #include "profiling.h"
+#include "2639_defs.h"
 
 
 /**

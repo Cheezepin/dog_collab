@@ -222,6 +222,7 @@ s32 ending_init(void);
 s32 ending_get_outta_here();
 void basic_update(void);
 s8 determine_joystick_movement(void);
+void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
 extern u8 gDirectionsHeld;
 extern s32 gCoinStarCollected;

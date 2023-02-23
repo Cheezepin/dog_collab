@@ -506,6 +506,7 @@ void bhv_spiresdog_loop(void) {
         s32 dialogResponse;
         case 0:
             if(lateral_dist_between_objects(gMarioObject, o) < 200.0f) {
+                cur_obj_init_animation(DOG_ANIM_IDLE);
                 dialogResponse = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, CHEEZE_DIALOG_7);
                 if(dialogResponse == 0x03) {
                     o->oAction++;
@@ -635,7 +636,10 @@ void bhv_dog_bone_loop(void) {
         if(o->oAnimState == 0) {
             save_file_set_dog_bone_bit(gCurrSaveFileNum - 1, gCurrAreaIndex, gCurrLevelNum);
             numBones = save_file_get_dog_bone_count(gCurrSaveFileNum - 1);
-            spawn_orange_number(numBones, 0, 0, 0);
+            spawn_orange_number(numBones % 10, 14, 0, 0);
+                if (numBones >= 10) {
+                    spawn_orange_number(numBones/10, -14, 0, 0);
+            }
 
         // On all versions but the JP version, each coin collected plays a higher noise.
         play_sound(SOUND_MENU_COLLECT_RED_COIN
@@ -670,5 +674,13 @@ void bhv_flipswitch_loop(void) {
     if(gFlipSwitch == 1 && (o->oAction == 0 || o->oAction == 2)) {o->oAction++; o->oAction %= 4;}
     if(o->oAction == 1) {o->oMoveAnglePitch += 0x400; play_sound(SOUND_GENERAL_ROLLING_LOG, gGlobalSoundSource); if(o->oMoveAnglePitch == 0x8000){o->oAction = 2; gFlipSwitch = 0;}}
     if(o->oAction == 3) {o->oMoveAnglePitch -= 0x400; play_sound(SOUND_GENERAL_ROLLING_LOG, gGlobalSoundSource); if(o->oMoveAnglePitch == 0x0   ){o->oAction = 0; gFlipSwitch = 0;}}
+}
+
+void bhv_golden_goddard_loop(void) {
+    if ((save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) >= 73) && (save_file_get_flags() & SAVE_FLAG_BOWSER_3_BEAT)) {
+        if((gGlobalTimer % 3) == 0) {
+            bhv_golden_coin_sparkles_loop();
+        }
+    }
 }
 

@@ -2564,6 +2564,7 @@ void render_dog_keyboard(s16 saveFileIndex) {
                     break;
                 case 2:
                 case 3:
+                default:
                     key = ' ';
                     break;
             }
@@ -2659,7 +2660,7 @@ s32 gLevelEntryConfirmationActive = 0;
 s32 gHubAlertTimer = 0;
 s32 gHubAlertID = 0;
 
-u8 *get_course_string(u8 *levelString, u8 courseIndex) {
+void get_course_string(u8 *levelString, u8 courseIndex) {
     sprintf(levelString, "%s", hubSelections[gWorldID][courseIndex].levelNameString);
     if(hubSelections[gWorldID][courseIndex].courseID > 0) {
         if(hubSelections[gWorldID][courseIndex].courseID == 18) {
@@ -2683,7 +2684,7 @@ u8 *get_course_string(u8 *levelString, u8 courseIndex) {
     }
 }
 
-u8 *get_world_string(u8 *worldStringBuffer, u8 *worldString, u8 worldNum) {
+void get_world_string(u8 *worldStringBuffer, u8 *worldString, u8 worldNum) {
     u8 allLevelsDone = 1;
     u8 i = 0;
     u8 worldID = worldNum - 1;
@@ -2827,13 +2828,13 @@ void render_hub_selection(void) {
         if(sDelayedWarpTimer == 0) {
             if(gPlayer1Controller->buttonPressed & A_BUTTON) {
 #ifndef UNLOCK_ALL
-                if(hubSelections[gWorldID][gFocusID].courseID == 17 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 5) {
+                if(hubSelections[gWorldID][gFocusID].courseID == 17 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 8) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 0;
-                } else if(hubSelections[gWorldID][gFocusID].courseID == 16 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 15) {
+                } else if(hubSelections[gWorldID][gFocusID].courseID == 16 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 24) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 2;
-                } else if(hubSelections[gWorldID][gFocusID].courseID == 18 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 30) {
+                } else if(hubSelections[gWorldID][gFocusID].courseID == 18 && save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) < 48) {
                     gHubAlertTimer = 30;
                     gHubAlertID = 4;
                 } else
@@ -3011,7 +3012,7 @@ u32 starColors[] = {
     0xFF7200FF, //peach ruins
     0xFF42B0FF, //cumulus correctional center
     0x932BC4FF, //forbidden factory
-    0xFFE800FF, //feudal fortress
+    0xFFE800FF, //sakura stronghold
     0x00007DFF, //awe-inspiring spires
     0xDDCEFFFF, //bowsers scuba tower
     0xFFFFFFFF, //upturned deeps
@@ -3269,7 +3270,7 @@ u8 textAllActsCompleted[] = { TEXT_ALL_ACTS_COMPLETED };
 u8 text100CoinStar[] = { TEXT_ONE_HUNDRED_COIN_STAR };
 u8 textKeyTo[] = { TEXT_KEY_TO };
 
-extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
+void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags);
 
 extern LookAt lookAt;
 

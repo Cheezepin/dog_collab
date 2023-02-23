@@ -24,6 +24,8 @@ static struct ObjectHitbox sRedCoinHitbox = {
  * Red coin initialization function. Sets the coin's hitbox and parent object.
  */
 void bhv_red_coin_init(void) {
+    if (gCurrLevelNum == LEVEL_WDW) o->oRoom = -1;
+
     // Set the red coins to have a parent of the closest red coin star.
     struct Object *hiddenRedCoinStar = cur_obj_nearest_object_with_behavior(bhvHiddenRedCoinStar);
     if (hiddenRedCoinStar != NULL) {

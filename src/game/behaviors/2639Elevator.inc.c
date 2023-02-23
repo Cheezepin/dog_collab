@@ -100,7 +100,7 @@ void bhv_2639Elevator_loop(void) {
         elev_LatchDistance();
     }
 
-    if (gCurrActNum == ACT_SCAVENGER && gHudDisplay.coins == 4) {
+    if (gCurrLevelNum == LEVEL_BOB && gCurrActNum == ACT_SCAVENGER && gHudDisplay.coins == 4) {
         o->elevLocked = 1;
     }
 

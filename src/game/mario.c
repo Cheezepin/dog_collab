@@ -890,8 +890,8 @@ u32 set_mario_action_moving(struct MarioState *m, u32 action, UNUSED u32 actionA
             break;
 
         case ACT_HOLD_WALKING:
-            if (0.0f <= forwardVel && forwardVel < mag / 2.0f) {
-                m->forwardVel = mag / 2.0f;
+            if (0.0f <= forwardVel && forwardVel < mag) {
+                m->forwardVel = mag;
             }
             break;
 

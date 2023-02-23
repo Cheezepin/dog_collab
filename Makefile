@@ -452,8 +452,8 @@ export LD_LIBRARY_PATH=./tools
 AS        := $(CROSS)as
 ifeq ($(COMPILER),gcc)
   CC      := $(CROSS)gcc
-  $(BUILD_DIR)/actors/%.o:           OPT_FLAGS := -Ofast -mlong-calls
-  $(BUILD_DIR)/levels/%.o:           OPT_FLAGS := -Ofast -mlong-calls
+  $(BUILD_DIR)/actors/%.o:           OPT_FLAGS := -Ofast -mlong-calls -Wno-overflow
+  $(BUILD_DIR)/levels/%.o:           OPT_FLAGS := -Ofast -mlong-calls -Wno-overflow
 else ifeq ($(COMPILER),clang)
   CC      := clang
 endif

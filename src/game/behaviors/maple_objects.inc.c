@@ -46,9 +46,17 @@ void bhv_tree_nut_init(void) {
 void bhv_tree_nut_loop(void) {
 
     switch (o->oHeldState) {
-        case HELD_DROPPED:
-        case HELD_FREE:
-        case HELD_THROWN: {
+        case HELD_THROWN:
+        case HELD_DROPPED: {
+            f32 additiveAmount = 50.0f;
+            if (gMarioState->action == ACT_LEDGE_GRAB) additiveAmount += 65.0f;
+            o->oPosX += sins(gMarioState->faceAngle[1]) * (additiveAmount);
+            o->oPosZ += coss(gMarioState->faceAngle[1]) * (additiveAmount);
+            o->oPosY += 20.0f;
+            o->oHeldState = HELD_FREE;
+            FALL_THROUGH;
+        }
+        case HELD_FREE: {
             o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
             o->header.gfx.node.flags |= GRAPH_RENDER_ACTIVE;
             obj_set_hitbox(o, &sTreeNutHitbox);

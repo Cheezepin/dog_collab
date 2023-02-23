@@ -110,7 +110,7 @@ void bhv_laser_ring_spawner_loop(void)
 
 void bhv_laser_ring_init(void)
 {
-    cur_obj_scale(0.0f);
+    cur_obj_scale(0.1f);
     if(gCurrLevelNum == LEVEL_PSS) {
         o->oLaserRingGrowthRate = 0.1f;
     } else {

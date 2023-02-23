@@ -8,6 +8,7 @@
 #include "object_helpers.h"
 #include "object_list_processor.h"
 #include "behavior_data.h"
+#include "behavior_actions.h"
 #include "2639_defs.h"
 #include "camera.h"
 #include "audio/external.h"
@@ -15,9 +16,16 @@
 #include "rendering_graph_node.h"
 #include "dialog_ids.h"
 #include "hud.h"
+#include "mario.h"
+#include "ingame_menu.h"
+#include "obj_behaviors.h"
+#include "spawn_object.h"
+
 extern s16 sStatusFlags;
 
 void set_camera_mode_fixed2(struct Camera*, s16, s16, s16);
+void hud_2639Challenge(void);
+
 
 // MODEL FUNCS
 
@@ -62,7 +70,7 @@ int ThereIsOneSodaInThisGame = 0;
 u32 _2639ToadAct6NeedsToChangeDialogue = 0;
 
 
-reset_act_1() {
+void reset_act_1(void) {
     _2639_BoB_A1_CaneCollected = 0;
     _2639_BoB_A1_SunglassesCollected = 0;
     _2639_BoB_A1_ToadTalkLatch = 0;
@@ -71,7 +79,7 @@ reset_act_1() {
     _2639ToadAct6NeedsToChangeDialogue = 0;
 }
 
-reset_act_6() {
+void reset_act_6(void) {
     // _2639_BoB_A1_CaneCollected = 0;
     // _2639_BoB_A1_SunglassesCollected = 0;
     // _2639_BoB_A1_ToadTalkLatch = 0;
@@ -143,7 +151,7 @@ void StarXYZ(u32 bp, f32 x, f32 y, f32 z) {
     starObj->oBehParams2ndByte = SPAWN_STAR_ARC_CUTSCENE_BP_DEFAULT_STAR;
 }
 
-am_i_stupid() {
+void am_i_stupid() {
     *(vs8*)0=0;
 }
 

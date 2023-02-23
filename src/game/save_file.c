@@ -18,6 +18,7 @@
 #endif
 #include "puppycam2.h"
 #include "vc_check.h"
+#include "vc_ultra.h"
 
 #define ALIGN4(val) (((val) + 0x3) & ~0x3)
 
@@ -392,14 +393,13 @@ void save_file_load_all(void) {
     read_eeprom_data(&gSaveBuffer, sizeof(gSaveBuffer));
 
     // Verify the main menu data and wipe it if invalid.
-    /*validSlots = verify_save_block_signature(&gSaveBuffer.menuData, sizeof(gSaveBuffer.menuData), MENU_DATA_MAGIC);
+    validSlots = verify_save_block_signature(&gSaveBuffer.menuData, sizeof(gSaveBuffer.menuData), MENU_DATA_MAGIC);
     if (!validSlots)
         wipe_main_menu_data();
 
     for (file = 0; file < NUM_SAVE_FILES; file++) {
         // Verify the save file and create a backup copy if only one of the slots is valid.
         validSlots = verify_save_block_signature(&gSaveBuffer.files[file], sizeof(gSaveBuffer.files[file]), SAVE_FILE_MAGIC);
-        //validSlots |= verify_save_block_signature(&gSaveBuffer.files[file][1], sizeof(gSaveBuffer.files[file][1]), SAVE_FILE_MAGIC) << 1;
         switch (validSlots) {
             case 0: // Neither copy is correct
                 save_file_erase(file);
@@ -411,7 +411,7 @@ void save_file_load_all(void) {
                 restore_save_file_data(file, 1);
                 break;
         }
-    }*/
+    }
 }
 
 #ifdef PUPPYCAM
