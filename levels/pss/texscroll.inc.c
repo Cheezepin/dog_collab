@@ -1,41 +1,7 @@
-void scroll_sts_mat_pss_dl_f3d_material_062() {
-	static int intervalTex0 = 12;
-	static int curInterval0 = 12;
-	Gfx *mat = segmented_to_virtual(mat_pss_dl_f3d_material_062);
-
-	if (--curInterval0 <= 0) {
-		shift_t_down(mat, 18, PACK_TILESIZE(0, 64));
-		curInterval0 = intervalTex0;
-	}
-};
-
-void scroll_sts_mat_pss_dl_f3d_material_015() {
-	static int intervalTex0 = 45;
-	static int curInterval0 = 45;
-	Gfx *mat = segmented_to_virtual(mat_pss_dl_f3d_material_015);
-
-	if (--curInterval0 <= 0) {
-		shift_t(mat, 18, PACK_TILESIZE(0, 128));
-		curInterval0 = intervalTex0;
-	}
-};
-
-void scroll_sts_mat_pss_dl_f3d_material_021() {
-	static int intervalTex0 = 45;
-	static int curInterval0 = 45;
-	Gfx *mat = segmented_to_virtual(mat_pss_dl_f3d_material_021);
-
-	if (--curInterval0 <= 0) {
-		shift_t(mat, 11, PACK_TILESIZE(0, 128));
-		curInterval0 = intervalTex0;
-	}
-};
-
 void scroll_pss_dl_Beam2_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 24;
 	int width = 256 * 0x20;
-	int height = 8 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -56,7 +22,6 @@ void scroll_pss_dl_Beam2_mesh_layer_5_vtx_0() {
 void scroll_pss_dl_inner_torus_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 360;
-	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -78,7 +43,6 @@ void scroll_pss_dl_inner_torus_mesh_layer_1_vtx_0() {
 void scroll_pss_dl_inner_torus_001_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 360;
-	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -126,14 +90,6 @@ void scroll_pss_dl_shock_mesh_layer_5_vtx_0() {
 	currentX += deltaX;	currentY += deltaY;
 }
 
-void scroll_sts_mat_pss_dl_electricity_layer5() {
-	Gfx *mat = segmented_to_virtual(mat_pss_dl_electricity_layer5);
-	shift_s(mat, 13, PACK_TILESIZE(0, 5));
-	shift_t_down(mat, 13, PACK_TILESIZE(0, 4));
-	shift_s_down(mat, 21, PACK_TILESIZE(0, 3));
-	shift_t(mat, 21, PACK_TILESIZE(0, 8));
-};
-
 void scroll_pss_dl_shock_001_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 60;
@@ -163,20 +119,9 @@ void scroll_pss_dl_shock_001_mesh_layer_5_vtx_0() {
 	currentX += deltaX;	currentY += deltaY;
 }
 
-void scroll_sts_mat_pss_dl_f3d_material_v4_layer1() {
-	Gfx *mat = segmented_to_virtual(mat_pss_dl_f3d_material_v4_layer1);
-	shift_t(mat, 14, PACK_TILESIZE(0, 1));
-};
-
-void scroll_sts_mat_pss_dl_former_metal_v4_001_layer5() {
-	Gfx *mat = segmented_to_virtual(mat_pss_dl_former_metal_v4_001_layer5);
-	shift_s(mat, 20, PACK_TILESIZE(0, 1));
-};
-
 void scroll_pss_dl_Torus_001_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 64;
-	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -198,7 +143,6 @@ void scroll_pss_dl_Torus_001_mesh_layer_1_vtx_0() {
 void scroll_pss_dl_Torus_003_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 64;
-	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -220,7 +164,6 @@ void scroll_pss_dl_Torus_003_mesh_layer_1_vtx_0() {
 void scroll_pss_dl_Torus_004_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 64;
-	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -242,7 +185,6 @@ void scroll_pss_dl_Torus_004_mesh_layer_1_vtx_0() {
 void scroll_pss_dl_Torus_005_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 64;
-	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -264,7 +206,6 @@ void scroll_pss_dl_Torus_005_mesh_layer_1_vtx_0() {
 void scroll_pss_dl_Torus_006_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 64;
-	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -286,7 +227,6 @@ void scroll_pss_dl_Torus_006_mesh_layer_1_vtx_0() {
 void scroll_pss_dl_Torus_007_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 64;
-	int width = 32 * 0x20;
 	int height = 32 * 0x20;
 
 	static int currentY = 0;
@@ -305,73 +245,155 @@ void scroll_pss_dl_Torus_007_mesh_layer_1_vtx_0() {
 	currentY += deltaY;
 }
 
-void scroll_sts_mat_pss_dl_nebula_layer1() {
+void scroll_gfx_mat_pss_dl_f3d_material_062() {
+	Gfx *mat = segmented_to_virtual(mat_pss_dl_f3d_material_062);
+	static int interval_tex_0_pss_dl_f3d_material_062 = 12;
+	static int cur_interval_tex_0_pss_dl_f3d_material_062 = 12;
+
+	if (--cur_interval_tex_0_pss_dl_f3d_material_062 <= 0) {
+		shift_t_down(mat, 16, PACK_TILESIZE(0, 64));
+		cur_interval_tex_0_pss_dl_f3d_material_062 = interval_tex_0_pss_dl_f3d_material_062;
+	}
+
+};
+
+void scroll_gfx_mat_pss_dl_f3d_material_015() {
+	Gfx *mat = segmented_to_virtual(mat_pss_dl_f3d_material_015);
+	static int interval_tex_0_pss_dl_f3d_material_015 = 45;
+	static int cur_interval_tex_0_pss_dl_f3d_material_015 = 45;
+
+	if (--cur_interval_tex_0_pss_dl_f3d_material_015 <= 0) {
+		shift_t(mat, 16, PACK_TILESIZE(0, 128));
+		cur_interval_tex_0_pss_dl_f3d_material_015 = interval_tex_0_pss_dl_f3d_material_015;
+	}
+
+};
+
+void scroll_gfx_mat_pss_dl_f3d_material_021() {
+	Gfx *mat = segmented_to_virtual(mat_pss_dl_f3d_material_021);
+	static int interval_tex_0_pss_dl_f3d_material_021 = 45;
+	static int cur_interval_tex_0_pss_dl_f3d_material_021 = 45;
+
+	if (--cur_interval_tex_0_pss_dl_f3d_material_021 <= 0) {
+		shift_t(mat, 11, PACK_TILESIZE(0, 128));
+		cur_interval_tex_0_pss_dl_f3d_material_021 = interval_tex_0_pss_dl_f3d_material_021;
+	}
+
+};
+
+void scroll_gfx_mat_pss_dl_electricity_layer5() {
+	Gfx *mat = segmented_to_virtual(mat_pss_dl_electricity_layer5);
+
+
+	shift_s(mat, 12, PACK_TILESIZE(0, 5));
+	shift_t_down(mat, 12, PACK_TILESIZE(0, 4));
+	shift_s_down(mat, 17, PACK_TILESIZE(0, 3));
+	shift_t(mat, 17, PACK_TILESIZE(0, 8));
+
+};
+
+void scroll_gfx_mat_pss_dl_f3d_material_v4_layer1() {
+	Gfx *mat = segmented_to_virtual(mat_pss_dl_f3d_material_v4_layer1);
+
+	shift_t(mat, 11, PACK_TILESIZE(0, 1));
+
+};
+
+void scroll_gfx_mat_pss_dl_former_metal_v4_001_layer5() {
+	Gfx *mat = segmented_to_virtual(mat_pss_dl_former_metal_v4_001_layer5);
+
+	shift_s(mat, 19, PACK_TILESIZE(0, 1));
+
+};
+
+void scroll_gfx_mat_pss_dl_nebula_layer1() {
 	Gfx *mat = segmented_to_virtual(mat_pss_dl_nebula_layer1);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
-	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+
+
+	shift_s(mat, 10, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 15, PACK_TILESIZE(0, 1));
+
 };
 
-void scroll_sts_mat_pss_dl_nebula_not_slippery_layer1() {
+void scroll_gfx_mat_pss_dl_nebula_not_slippery_layer1() {
 	Gfx *mat = segmented_to_virtual(mat_pss_dl_nebula_not_slippery_layer1);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
-	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+
+
+	shift_s(mat, 10, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 15, PACK_TILESIZE(0, 1));
+
 };
 
-void scroll_sts_mat_pss_dl_slide_layer1() {
+void scroll_gfx_mat_pss_dl_slide_layer1() {
 	Gfx *mat = segmented_to_virtual(mat_pss_dl_slide_layer1);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
-	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+
+
+	shift_s(mat, 10, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 15, PACK_TILESIZE(0, 1));
+
 };
 
-void scroll_sts_mat_pss_dl_nebula_hangable_001_layer1() {
+void scroll_gfx_mat_pss_dl_nebula_hangable_001_layer1() {
 	Gfx *mat = segmented_to_virtual(mat_pss_dl_nebula_hangable_001_layer1);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
-	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+
+
+	shift_s(mat, 10, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 15, PACK_TILESIZE(0, 1));
+
 };
 
-void scroll_sts_mat_pss_dl_lava_layer1() {
+void scroll_gfx_mat_pss_dl_lava_layer1() {
 	Gfx *mat = segmented_to_virtual(mat_pss_dl_lava_layer1);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
-	shift_s_down(mat, 21, PACK_TILESIZE(0, 1));
+
+
+	shift_s(mat, 10, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 15, PACK_TILESIZE(0, 1));
+
 };
 
-void scroll_sts_mat_pss_dl_Lava_layer1_area5() {
+void scroll_gfx_mat_pss_dl_Lava_layer1_area5() {
 	Gfx *mat = segmented_to_virtual(mat_pss_dl_Lava_layer1_area5);
-	shift_s(mat, 15, PACK_TILESIZE(0, 1));
-	shift_t(mat, 15, PACK_TILESIZE(0, 1));
-	shift_s_down(mat, 23, PACK_TILESIZE(0, 1));
-	shift_t_down(mat, 23, PACK_TILESIZE(0, 1));
+
+
+	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+	shift_t(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s_down(mat, 18, PACK_TILESIZE(0, 1));
+	shift_t_down(mat, 18, PACK_TILESIZE(0, 1));
+
 };
 
-void scroll_sts_mat_pss_dl_goooooooop_layer1() {
+void scroll_gfx_mat_pss_dl_goooooooop_layer1() {
 	Gfx *mat = segmented_to_virtual(mat_pss_dl_goooooooop_layer1);
-	shift_t_down(mat, 13, PACK_TILESIZE(0, 1));
-	shift_t_down(mat, 21, PACK_TILESIZE(0, 1));
+
+
+	shift_t_down(mat, 12, PACK_TILESIZE(0, 1));
+	shift_t_down(mat, 17, PACK_TILESIZE(0, 1));
+
 };
 
 void scroll_pss() {
-	scroll_sts_mat_pss_dl_f3d_material_062();
-	scroll_sts_mat_pss_dl_f3d_material_015();
-	scroll_sts_mat_pss_dl_f3d_material_021();
 	scroll_pss_dl_Beam2_mesh_layer_5_vtx_0();
 	scroll_pss_dl_inner_torus_mesh_layer_1_vtx_0();
 	scroll_pss_dl_inner_torus_001_mesh_layer_1_vtx_0();
 	scroll_pss_dl_shock_mesh_layer_5_vtx_0();
-	scroll_sts_mat_pss_dl_electricity_layer5();
 	scroll_pss_dl_shock_001_mesh_layer_5_vtx_0();
-	scroll_sts_mat_pss_dl_f3d_material_v4_layer1();
-	scroll_sts_mat_pss_dl_former_metal_v4_001_layer5();
 	scroll_pss_dl_Torus_001_mesh_layer_1_vtx_0();
 	scroll_pss_dl_Torus_003_mesh_layer_1_vtx_0();
 	scroll_pss_dl_Torus_004_mesh_layer_1_vtx_0();
 	scroll_pss_dl_Torus_005_mesh_layer_1_vtx_0();
 	scroll_pss_dl_Torus_006_mesh_layer_1_vtx_0();
 	scroll_pss_dl_Torus_007_mesh_layer_1_vtx_0();
-	scroll_sts_mat_pss_dl_nebula_layer1();
-	scroll_sts_mat_pss_dl_nebula_not_slippery_layer1();
-	scroll_sts_mat_pss_dl_slide_layer1();
-	scroll_sts_mat_pss_dl_nebula_hangable_001_layer1();
-	scroll_sts_mat_pss_dl_lava_layer1();
-	scroll_sts_mat_pss_dl_Lava_layer1_area5();
-	scroll_sts_mat_pss_dl_goooooooop_layer1();
-}
+	scroll_gfx_mat_pss_dl_f3d_material_062();
+	scroll_gfx_mat_pss_dl_f3d_material_015();
+	scroll_gfx_mat_pss_dl_f3d_material_021();
+	scroll_gfx_mat_pss_dl_electricity_layer5();
+	scroll_gfx_mat_pss_dl_f3d_material_v4_layer1();
+	scroll_gfx_mat_pss_dl_former_metal_v4_001_layer5();
+	scroll_gfx_mat_pss_dl_nebula_layer1();
+	scroll_gfx_mat_pss_dl_nebula_not_slippery_layer1();
+	scroll_gfx_mat_pss_dl_slide_layer1();
+	scroll_gfx_mat_pss_dl_nebula_hangable_001_layer1();
+	scroll_gfx_mat_pss_dl_lava_layer1();
+	scroll_gfx_mat_pss_dl_Lava_layer1_area5();
+	scroll_gfx_mat_pss_dl_goooooooop_layer1();
+};

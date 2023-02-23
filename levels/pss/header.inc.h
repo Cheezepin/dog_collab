@@ -136,7 +136,7 @@ extern u8 pss_dl_swirlyboy_i4[];
 extern u8 pss_dl_big_tile2_i8[];
 extern u8 pss_dl_cloud_i8[];
 extern u8 pss_dl_broken_earth_ci4_ci4[];
-extern u8 pss_dl_broken_earth_ci4_ci4_pal_rgba16[];
+extern u8 broken_earth_ci4_x_broken_earth_ci4_ci4_pal_pal_rgba16[];
 extern u8 pss_dl_EARTHWORM_JIM_3D_CB3459EA_0_2_all_rgba16[];
 extern u8 pss_dl_kpcarpet_rgba16[];
 extern u8 pss_dl_castle_rail_ci8[];

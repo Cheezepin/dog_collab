@@ -1,6 +1,3 @@
-extern void scroll_sts_mat_bits_dl_laser_002();
-extern void scroll_sts_mat_bits_dl_atoll_water_layer5();
-extern void scroll_sts_mat_bits_dl_atoll_floor_layer5();
 extern void scroll_bits_dl_Cube_001_mesh_layer_5_vtx_0();
 extern void scroll_bits_dl_Cube_005_mesh_layer_5_vtx_0();
 extern void scroll_bits_dl_Cube_007_mesh_layer_5_vtx_0();
@@ -12,4 +9,7 @@ extern void scroll_bits_dl_Cube_013_mesh_layer_5_vtx_0();
 extern void scroll_bits_dl_Cube_022_mesh_layer_5_vtx_0();
 extern void scroll_bits_dl_Cube_023_mesh_layer_5_vtx_0();
 extern void scroll_bits_dl_Cube_024_mesh_layer_5_vtx_0();
+extern void scroll_gfx_mat_bits_dl_laser_002();
+extern void scroll_gfx_mat_bits_dl_atoll_water_layer5();
+extern void scroll_gfx_mat_bits_dl_atoll_floor_layer5();
 extern void scroll_bits();
