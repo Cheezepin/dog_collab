@@ -3130,6 +3130,7 @@ Gfx mat_bowser_3_dl_floor[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsSPSetLights1(bowser_3_dl_floor_lights),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, bowser_3_dl_Bricks_3_ci8_pal_rgba16),
 	gsDPSetTile(0, 0, 0, 256, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
@@ -3140,7 +3141,6 @@ Gfx mat_bowser_3_dl_floor[] = {
 	gsDPLoadBlock(7, 0, 0, 511, 512),
 	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_8b, 4, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 5, 0, G_TX_WRAP | G_TX_NOMIRROR, 5, 0),
 	gsDPSetTileSize(0, 0, 0, 124, 124),
-	gsSPSetLights1(bowser_3_dl_floor_lights),
 	gsSPEndDisplayList(),
 };
 
@@ -3154,6 +3154,7 @@ Gfx mat_bowser_3_dl_bricks[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsSPSetLights1(bowser_3_dl_bricks_lights),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, bowser_3_dl_brickci4_ci4_pal_rgba16),
 	gsDPSetTile(0, 0, 0, 256, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
@@ -3164,7 +3165,6 @@ Gfx mat_bowser_3_dl_bricks[] = {
 	gsDPLoadBlock(7, 0, 0, 1023, 512),
 	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_4b, 4, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0, G_TX_WRAP | G_TX_NOMIRROR, 6, 0),
 	gsDPSetTileSize(0, 0, 0, 252, 252),
-	gsSPSetLights1(bowser_3_dl_bricks_lights),
 	gsSPEndDisplayList(),
 };
 
@@ -3179,6 +3179,7 @@ Gfx mat_bowser_3_dl_gate[] = {
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, SHADE, 0, TEXEL0, 0, ENVIRONMENT, 0),
 	gsSPClearGeometryMode(G_CULL_BACK),
 	gsSPTexture(65535, 65535, 0, 0, 1),
+	gsSPSetLights1(bowser_3_dl_gate_lights),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, bowser_3_dl_bob_gate_ci4_pal_rgba16),
 	gsDPSetTile(0, 0, 0, 256, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
@@ -3189,7 +3190,6 @@ Gfx mat_bowser_3_dl_gate[] = {
 	gsDPLoadBlock(7, 0, 0, 255, 1024),
 	gsDPSetTile(G_IM_FMT_CI, G_IM_SIZ_4b, 2, 0, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 5, 0, G_TX_WRAP | G_TX_NOMIRROR, 5, 0),
 	gsDPSetTileSize(0, 0, 0, 124, 124),
-	gsSPSetLights1(bowser_3_dl_gate_lights),
 	gsSPEndDisplayList(),
 };
 
