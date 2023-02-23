@@ -638,10 +638,10 @@ enum CoziesLevelModels {
 #define MODEL_STROLLIN_STU                0x1F7
 #define MODEL_LASER_RING_SPAWNER          0x1F6
 #define MODEL_KOOPATROL                   0x1F5
-#define MODEL_LASER_RING                  5
-#define MODEL_SPIKE                       4
-#define MODEL_SPIKE_BALL                  3
-#define MODEL_PODOBOO                     2
+#define MODEL_LASER_RING                  0x1F4
+#define MODEL_SPIKE                       0x1F3
+#define MODEL_SPIKE_BALL                  0x1F2
+#define MODEL_PODOBOO                     0x1F1
 
 #define MODEL_SNOULDER 0x150
 #define MODEL_WARP_BOX 0x151
