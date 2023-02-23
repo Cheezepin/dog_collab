@@ -1,22 +1,3 @@
-void scroll_sts_mat_bits_dl_laser_002() {
-	Gfx *mat = segmented_to_virtual(mat_bits_dl_laser_002);
-	shift_t_down(mat, 8, PACK_TILESIZE(0, 1));
-};
-
-void scroll_sts_mat_bits_dl_atoll_water_layer5() {
-	Gfx *mat = segmented_to_virtual(mat_bits_dl_atoll_water_layer5);
-	shift_t(mat, 10, PACK_TILESIZE(0, 3));
-	shift_s(mat, 15, PACK_TILESIZE(0, 1));
-	shift_t(mat, 15, PACK_TILESIZE(0, 4));
-};
-
-void scroll_sts_mat_bits_dl_atoll_floor_layer5() {
-	Gfx *mat = segmented_to_virtual(mat_bits_dl_atoll_floor_layer5);
-	shift_t(mat, 10, PACK_TILESIZE(0, 3));
-	shift_s(mat, 15, PACK_TILESIZE(0, 1));
-	shift_t(mat, 15, PACK_TILESIZE(0, 4));
-};
-
 void scroll_bits_dl_Cube_001_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 50;
@@ -248,10 +229,34 @@ void scroll_bits_dl_Cube_024_mesh_layer_5_vtx_0() {
 	currentY += deltaY;
 }
 
+void scroll_gfx_mat_bits_dl_laser_002() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_laser_002);
+
+	shift_t_down(mat, 8, PACK_TILESIZE(0, 1));
+
+};
+
+void scroll_gfx_mat_bits_dl_atoll_water_layer5() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_atoll_water_layer5);
+
+
+	shift_t(mat, 11, PACK_TILESIZE(0, 3));
+	shift_s(mat, 16, PACK_TILESIZE(0, 1));
+	shift_t(mat, 16, PACK_TILESIZE(0, 4));
+
+};
+
+void scroll_gfx_mat_bits_dl_atoll_floor_layer5() {
+	Gfx *mat = segmented_to_virtual(mat_bits_dl_atoll_floor_layer5);
+
+
+	shift_t(mat, 11, PACK_TILESIZE(0, 3));
+	shift_s(mat, 16, PACK_TILESIZE(0, 1));
+	shift_t(mat, 16, PACK_TILESIZE(0, 4));
+
+};
+
 void scroll_bits() {
-	scroll_sts_mat_bits_dl_laser_002();
-	scroll_sts_mat_bits_dl_atoll_water_layer5();
-	scroll_sts_mat_bits_dl_atoll_floor_layer5();
 	scroll_bits_dl_Cube_001_mesh_layer_5_vtx_0();
 	scroll_bits_dl_Cube_005_mesh_layer_5_vtx_0();
 	scroll_bits_dl_Cube_007_mesh_layer_5_vtx_0();
@@ -263,4 +268,7 @@ void scroll_bits() {
 	scroll_bits_dl_Cube_022_mesh_layer_5_vtx_0();
 	scroll_bits_dl_Cube_023_mesh_layer_5_vtx_0();
 	scroll_bits_dl_Cube_024_mesh_layer_5_vtx_0();
-}
+	scroll_gfx_mat_bits_dl_laser_002();
+	scroll_gfx_mat_bits_dl_atoll_water_layer5();
+	scroll_gfx_mat_bits_dl_atoll_floor_layer5();
+};
