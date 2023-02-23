@@ -80,6 +80,10 @@ void bhv_yellow_coin_init(void) {
     if (o->oFloorHeight < FLOOR_LOWER_LIMIT_MISC) {
         obj_mark_for_deletion(o);
     }
+
+    if (gCurrLevelNum == LEVEL_PSS && gCurrAreaIndex == 5) {
+        o->oRoom = -1;
+    }
 }
 
 void bhv_20_coin_init(void) {

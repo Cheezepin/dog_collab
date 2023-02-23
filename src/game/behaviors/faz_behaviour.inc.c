@@ -97,6 +97,9 @@ void goddard_hmc_loop(void)
     if (o->oHeldState == HELD_HELD)
     {
         o->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+        if ((gGlobalTimer % 12) == 0) {
+            cur_obj_play_sound_1(SOUND_CUSTOM_2639BARK);
+        }
         cur_obj_init_animation(0);
         cur_obj_set_pos_relative(gMarioObject, 0, 60.0f, 100.0f);
         cur_obj_become_intangible();
@@ -493,7 +496,7 @@ void koopa_boss_jump(void)
         if (lateral_dist_between_objects(o, o->oBitsPlatformBowser) < 100 && ABS(o->oPosY - o->oHomeY) < 50)
         {
             o->oPosY = floorHeight;
-            o->oAmmo = random_u16() % 24 + (8 - o->oHealth);
+            o->oAmmo = random_u16() % (24 + (8 - o->oHealth));
             o->oPhase = 0;
             if (o->oFirstHit == 0)
                 o->oFirstHit = 1;
