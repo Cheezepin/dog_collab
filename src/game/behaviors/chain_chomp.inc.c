@@ -65,7 +65,11 @@ void bhv_chain_chomp_chain_part_update(void) {
  */
 
 void cur_obj_set_bowser_hand_to_home(void) {
-    if(find_any_object_with_behavior(bhvBowser) || find_any_object_with_behavior(bhvBowserSnow)) {
+    struct Object *bowser = find_any_object_with_behavior(bhvBowser);
+    if (!bowser) {
+        bowser = find_any_object_with_behavior(bhvBowserSnow);
+    }
+    if(bowser && bowser->oAction != BOWSER_ACT_WAIT_FOR_MARIO) {
         vec3f_copy(&o->parentObj->oPosX, bowserRightHandLocation);
     }/*  else {
         vec3f_copy(&o->parentObj->oPosX, &o->oHomeX);
