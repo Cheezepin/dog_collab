@@ -14,6 +14,15 @@
 #include "config.h"
 
 struct Object *gMarioPlatform = NULL;
+// Doesn't change in the code, set this to FALSE if you don't want inertia
+u8 gDoInertia = TRUE;
+
+u8 sShouldApplyInertia = FALSE;
+static u8 sInertiaFirstFrame = FALSE;
+static struct PlatformDisplacementInfo sMarioDisplacementInfo;
+Vec3f sMarioAmountDisplaced;
+
+extern s32 gGlobalTimer;
 
 /**
  * Determine if Mario is standing on a platform object, meaning that he is
@@ -51,6 +60,8 @@ void update_mario_platform(void) {
         } else {
             gMarioPlatform = NULL;
             gMarioObject->platform = NULL;
+            sShouldApplyInertia = sInertiaFirstFrame = FALSE;
+            vec3_zero(sMarioAmountDisplaced);
         }
     }
 }
@@ -74,10 +85,7 @@ void set_mario_pos(f32 x, f32 y, f32 z) {
 }
 
 #ifdef PLATFORM_DISPLACEMENT_2
-static struct PlatformDisplacementInfo sMarioDisplacementInfo;
-Vec3f sMarioAmountDisplaced;
 
-extern s32 gGlobalTimer;
 
 /**
  * Upscale or downscale a vector by another vector.
@@ -169,11 +177,7 @@ void apply_platform_displacement(struct PlatformDisplacementInfo *displaceInfo, 
     displaceInfo->prevTimer = gGlobalTimer;
 }
 
-// Doesn't change in the code, set this to FALSE if you don't want inertia
-u8 gDoInertia = TRUE;
 
-u8 sShouldApplyInertia = FALSE;
-static u8 sInertiaFirstFrame = FALSE;
 
 /**
  * Apply inertia based on Mario's last platform.
