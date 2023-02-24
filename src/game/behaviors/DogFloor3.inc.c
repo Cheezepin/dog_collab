@@ -13,6 +13,15 @@ void bhv_DogFloor3_loop(void) {
 	struct Object *eater;
 	float dist;
 	s16 colFlags = object_step();
+
+	// if (o->oAction >= DF6_APPROACH && o->oTimer > 75) {
+	// 	eater = cNearestObj_Bhv(bhv2639FinalPresent, &dist);
+	// 	if (eater) {
+	// 		o->oTimer = 90;
+	// 		// obj_explode_
+	// 	}
+	// }
+
 	switch (o->oAction) {
 		case DF6_NORMAL:
 			dog_FollowMario();
@@ -56,12 +65,16 @@ void bhv_DogFloor3_loop(void) {
 			if (colFlags & (OBJ_COL_FLAG_GROUNDED | OBJ_COL_FLAG_UNDERWATER)) {
 				SET_AC(DF6_SWIM);
 			}
+			if (o->oTimer > 90) {
+				SET_AC(DF6_SWIM);
+			}
 			break;
 		case DF6_SWIM:
 			cur_obj_move_standard(78);
 			o->oVelY--;
 			// cur_obj_move_xz_using_fvel_and_yaw();
 			eater = cNearestObj_Bhv(bhv2639FinalPresent, &dist);
+			LaunchObject(eater, bhv2639Jewel, MODEL_2639JEWEL);
 			if (eater) {
 				obj_turn_toward_object(o, eater, 16, 0x800);
 			}
@@ -70,6 +83,9 @@ void bhv_DogFloor3_loop(void) {
 	}
 	o->oTimer++;
 	// char dbg[50];
+	// char dbg2[50];
 	// sprintf(dbg, "TM %d", o->oTimer);
+	// sprintf(dbg2, "AC %d", o->oAction);
 	// print_text_fmt_int(50, 80, dbg);
+	// print_text_fmt_int(50, 65, dbg2);
 }

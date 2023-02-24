@@ -47,7 +47,7 @@ void bhv_A2PushableCouch_loop(void) {
     if (gCurrActNum != 6) {
         struct Object *goddardObj = cur_obj_nearest_object_with_behavior(bhvDogfloor1);
         if (goddardObj) {
-            if (CouchXZDistSq(&o->oPosX, &goddardObj->oPosX) < 2500 && goddardObj->oAction == 2) {
+            if (CouchXZDistSq(&o->oPosX, &goddardObj->oPosX) < 2500 && goddardObj->oAction == 4) {
                 goddardObj->o2639DogBitten = 1;
                 obj_explode_and_spawn_coins(46.0f, 0);
                 create_sound_spawner(SOUND_GENERAL_BREAK_BOX);

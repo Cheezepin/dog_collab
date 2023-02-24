@@ -14,6 +14,13 @@ void elvWarpMario(int node) {
     if(gCurrLevelNum != LEVEL_BITS) play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x13, 0,0,0);
 }
 
+void elvWarpMario2(int node) {
+    sDelayedWarpTimer = 0x13;
+    sSourceWarpNodeId = node;
+    sDelayedWarpOp = WARP_OP_WARP_OBJECT;
+    if(gCurrLevelNum != LEVEL_BITS) play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 0x13, 0xFF,0,0);
+}
+
 #define oElevatorMovementMultiplier OBJECT_FIELD_F32(0x1B)
 #define elevDistanceLatch OBJECT_FIELD_S32(0x1C)
 #define elevLocked OBJECT_FIELD_S32(0x1D)
