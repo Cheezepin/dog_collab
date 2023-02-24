@@ -372,6 +372,11 @@ s32 comit_dog_in_bounds(s32 param) {
 
 
 void comit_dog_follow_loop(void) {
+    Vec3f curPos;
+    vec3f_copy(curPos, &o->oPosX);
+    struct Surface *oldSur = o->oFloor;
+    f32 oldFloorHeight = o->oFloorHeight;
+    
     switch (o->o110) {
         case 0:
             cur_obj_init_animation_with_sound(0);
@@ -384,6 +389,16 @@ void comit_dog_follow_loop(void) {
         case 1:
             cur_obj_update_floor_and_walls();
             cur_obj_move_standard(-78);
+            //! This prevents an issue where the dog can stand on a rainbow and the collision can unload,
+            //! causing a crash with the dog's shadow. This is a stupid simple fix, and disabling dynamic col is
+            //! probably not ideal. But works for now!
+            //! 
+            //! If the floor is an object, move dog back to original spot.
+            if (o->oFloor && o->oFloor->object) {
+                vec3f_copy(&o->oPosX, curPos);
+                o->oFloorHeight = oldFloorHeight;
+                o->oFloor = oldSur;
+            }
             if (o->oDistanceToMario > 600.0f) {
                 o->oForwardVel = approach_f32(o->oForwardVel, 18.0f + (o->oDistanceToMario / 100.0f), 1.5f, 1.5f);
             } else if (o->oDistanceToMario > 250.0f) {
