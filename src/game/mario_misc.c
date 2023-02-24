@@ -282,8 +282,8 @@ void bhv_angry_toad_message_init(void) {
     o->oToadMessageState = TOAD_MESSAGE_FADED;
     o->oOpacity = 81;
 
-    if (1) {
-    // if (_2639ToadAct6NeedsToChangeDialogue) {
+    // if (1) {
+    if (_2639ToadAct6NeedsToChangeDialogue) {
          o->oToadMessageDialogId = _2639DIAG_A6PentToad6;
          _2639_BoB_A1_ToadTalkLatch = 0;
      }
