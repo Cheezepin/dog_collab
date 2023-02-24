@@ -21,7 +21,7 @@ void bhv_2639PresentEater_loop(void) {
 			gCamera->cutscene = CUTSCENE_2639FINALCUTSCENE;
 			o->StartedScene = 1;
 			vec3f_copy(&obj->oPosX, &o->oPosX);
-			// mark_obj_for_deletion(obj);
+			mark_obj_for_deletion(o);
 		}
 	}
 	// char dbg[50];

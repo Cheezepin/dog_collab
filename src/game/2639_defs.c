@@ -455,7 +455,7 @@ void do2639cutscene(struct Camera *c) {
             approach_vec3f_asymptotic(c->pos, sp, APPROACH_SPD, APPROACH_SPD, APPROACH_SPD);
             if (dog) {
                 approach_vec3f_asymptotic(c->focus, &dog->oPosX, APPROACH_SPD, APPROACH_SPD, APPROACH_SPD);
-                if (dog->oAction == 4) {
+                if (dog->oTimer > 90) {
                     state++;
                 }
             }

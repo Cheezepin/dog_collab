@@ -65,16 +65,13 @@ void bhv_DogFloor3_loop(void) {
 			if (colFlags & (OBJ_COL_FLAG_GROUNDED | OBJ_COL_FLAG_UNDERWATER)) {
 				SET_AC(DF6_SWIM);
 			}
-			if (o->oTimer > 90) {
-				SET_AC(DF6_SWIM);
-			}
 			break;
 		case DF6_SWIM:
 			cur_obj_move_standard(78);
 			o->oVelY--;
 			// cur_obj_move_xz_using_fvel_and_yaw();
 			eater = cNearestObj_Bhv(bhv2639FinalPresent, &dist);
-			LaunchObject(eater, bhv2639Jewel, MODEL_2639JEWEL);
+			// LaunchObject(eater, bhv2639Jewel, MODEL_2639JEWEL);
 			if (eater) {
 				obj_turn_toward_object(o, eater, 16, 0x800);
 			}
