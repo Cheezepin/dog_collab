@@ -10,7 +10,7 @@ void bhv_2639PresentEater_init() {
 	o->StartedScene = 0;
 	o->FixedMario = 0;
 }
-#define oColFlags OBJECT_FIELD_S16(0x1B, 0)
+
 void bhv_2639PresentEater_loop(void) {
 	float superdist;
 	struct Object *obj = cNearestObj_Bhv(bhv2639FinalPresent, &superdist);
