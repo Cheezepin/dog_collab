@@ -227,6 +227,8 @@ void bhv_toad_message_loop(void) {
         if (o->oToadMessageState != TOAD_MESSAGE_TALKING && o->oToadYelled == 0) {
             warp_mario(gMarioState, 12, 0xF1);
             o->oToadYelled = 1;
+            // o->oToadMessageState = TOAD_MESSAGE_OPAQUE;
+            // set_mario_action(gMarioState, ACT_IDLE, 0);
             o->oToadMessageDialogId = _2639DIAG_A2RoomPeachGreeter;
         }
     }
@@ -280,6 +282,7 @@ void bhv_angry_toad_message_init(void) {
     o->oToadMessageState = TOAD_MESSAGE_FADED;
     o->oOpacity = 81;
 
+    // if (1) {
     if (_2639ToadAct6NeedsToChangeDialogue) {
          o->oToadMessageDialogId = _2639DIAG_A6PentToad6;
          _2639_BoB_A1_ToadTalkLatch = 0;

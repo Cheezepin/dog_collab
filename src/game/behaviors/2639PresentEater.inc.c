@@ -10,15 +10,18 @@ void bhv_2639PresentEater_init() {
 	o->StartedScene = 0;
 	o->FixedMario = 0;
 }
+#define oColFlags OBJECT_FIELD_S16(0x1B, 0)
 void bhv_2639PresentEater_loop(void) {
 	float superdist;
 	struct Object *obj = cNearestObj_Bhv(bhv2639FinalPresent, &superdist);
+
 
 	if (obj && o->StartedScene == 0) {
 		if (superdist < 800.0f && obj->oHeldState == HELD_FREE) {
 			gCamera->cutscene = CUTSCENE_2639FINALCUTSCENE;
 			o->StartedScene = 1;
-			// mark_obj_for_deletion(obj);
+			vec3f_copy(&obj->oPosX, &o->oPosX);
+			mark_obj_for_deletion(o);
 		}
 	}
 	// char dbg[50];
