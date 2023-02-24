@@ -507,7 +507,7 @@ void bhv_spiresdog_loop(void) {
         case 0:
             if(lateral_dist_between_objects(gMarioObject, o) < 200.0f) {
                 cur_obj_init_animation(DOG_ANIM_IDLE);
-                dialogResponse = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, CHEEZE_DIALOG_7);
+                dialogResponse = cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_FRONT, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, CHEEZE_DIALOG_7);
                 if(dialogResponse == 0x03) {
                     o->oAction++;
                     if(gCurrLevelNum == LEVEL_PSS) {

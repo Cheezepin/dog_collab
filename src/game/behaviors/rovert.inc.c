@@ -447,14 +447,14 @@ void bhv_rovert_toad(void) {
     o->oFaceAngleYaw = o->oAngleToMario;
     switch(o->oAction) {
         case 0:
-            if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, DIALOG_002)) {
+            if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_FRONT, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, DIALOG_002)) {
                 o->oAction = 1;
                 }
         break;
         case 1:
             
             if ((o->oDistanceToMario < 200.0f)&&(toad_opened_cage_count == 5)) {
-                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_UP, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, DIALOG_003)) {
+                if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_FRONT, DIALOG_FLAG_TURN_TO_MARIO, CUTSCENE_DIALOG, DIALOG_003)) {
                     spawn_default_star(o->oPosX+100.0f,o->oPosY+200.0f,o->oPosZ);
                     o->oAction = 2;
                     }
