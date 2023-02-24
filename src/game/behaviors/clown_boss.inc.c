@@ -359,7 +359,7 @@ void clown_awooga(void) {
          o->oClownSound = 0;
     o->oClownAction = 7;
     }
-    if (dist < 400.0f && gMarioState->action != ACT_THROWING && gMarioState->action != ACT_AIR_THROW) {
+    if (dist < 400.0f && gMarioState->action != ACT_THROWING && gMarioState->action != ACT_AIR_THROW && bomb) {
         bomb->oAction = BOBOMB_ACT_EXPLODE;
         bomb->oTimer = 5;
         spawn_object_relative(0, 0, 50.0f, 0, o, MODEL_EXPLOSION, bhvExplosion);
