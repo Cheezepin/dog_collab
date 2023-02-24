@@ -11,6 +11,8 @@
 #include "main.h"
 #include "debug.h"
 #include "rumble_init.h"
+#include "object_helpers.h"
+#include "rendering_graph_node.h"
 
 #include "sm64.h"
 
@@ -43,6 +45,10 @@ u32 gCrashScreenFont[7 * 9 + 1] = {
 
 u8 crashPage = 0;
 u8 updateBuffer = TRUE;
+
+#ifdef GEO_DEBUG
+char gLastStartNodeFile[0x100] = "UNKNOWN";
+#endif
 
 
 char *gCauseDesc[18] = {
@@ -317,6 +323,13 @@ void draw_assert(UNUSED OSThread *thread) {
         crash_screen_print(30, 70, " %s", __n64Assert_Message);
     } else {
         crash_screen_print(30, 35, "no failed assert to report.");
+    }
+
+    if (gCurGraphNodeObjectNode != NULL) {
+        char buf[0xff];
+        u32 mid = obj_get_model_id(gCurGraphNodeObjectNode);
+        sprintf(buf, "BHV %x MID %x", (uintptr_t)virtual_to_segmented(SEGMENT_BEHAVIOR_DATA, gCurGraphNodeObjectNode->behavior), mid);
+        crash_screen_print(30, 85, buf);
     }
 
     osWritebackDCacheAll();
