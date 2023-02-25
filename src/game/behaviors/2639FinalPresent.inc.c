@@ -1,9 +1,7 @@
-#define oColFlags OBJECT_FIELD_S16(0x1B, 0)
+
 void bhv_2639FinalPresent_init(void) {
-	o->oColFlags = 0;
 }
 void bhv_2639FinalPresent_loop(void) {
-    // o->oColFlags = object_step();
 	switch(o->oHeldState) {
         case HELD_FREE:
             break;

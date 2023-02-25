@@ -14,14 +14,6 @@ void bhv_DogFloor3_loop(void) {
 	float dist;
 	s16 colFlags = object_step();
 
-	// if (o->oAction >= DF6_APPROACH && o->oTimer > 75) {
-	// 	eater = cNearestObj_Bhv(bhv2639FinalPresent, &dist);
-	// 	if (eater) {
-	// 		o->oTimer = 90;
-	// 		// obj_explode_
-	// 	}
-	// }
-
 	switch (o->oAction) {
 		case DF6_NORMAL:
 			dog_FollowMario();
