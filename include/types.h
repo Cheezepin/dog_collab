@@ -510,6 +510,7 @@ struct MarioState
     s16 prevWaterLevel;
     struct FloorCheckpoint floorCheckpoint;
     s8 paralyzed;
+    u8 coyoteFrames;
 };
 
 typedef union _RGBA {

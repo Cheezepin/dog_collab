@@ -122,7 +122,6 @@ static void clear_static_surfaces(void) {
  */
 static void add_surface_to_cell(s32 dynamic, s32 cellX, s32 cellZ, struct Surface *surface) {
     struct SurfaceNode *list;
-    s32 priority;
     s32 sortDir = 1; // highest to lowest, then insertion order (water and floors)
     s32 listIndex;
 
@@ -137,8 +136,6 @@ static void add_surface_to_cell(s32 dynamic, s32 cellX, s32 cellZ, struct Surfac
         listIndex = SPATIAL_PARTITION_WALLS;
         sortDir = 0; // insertion order
     }
-
-    s32 surfacePriority = surface->upperY * sortDir;
 
     struct SurfaceNode *newNode = alloc_surface_node(dynamic);
     newNode->surface = surface;
@@ -166,14 +163,17 @@ static void add_surface_to_cell(s32 dynamic, s32 cellX, s32 cellZ, struct Surfac
     }
 
     // Loop until we find the appropriate place for the surface in the list.
-    while (list->next != NULL) {
-        priority = list->next->surface->upperY * sortDir;
+    if (listIndex == SPATIAL_PARTITION_WATER) {
+        s32 surfacePriority = surface->upperY * sortDir;
+        while (list->next != NULL) {
+            s32 priority = list->next->surface->upperY * sortDir;
 
-        if (surfacePriority > priority) {
-            break;
+            if (surfacePriority > priority) {
+                break;
+            }
+
+            list = list->next;
         }
-
-        list = list->next;
     }
 
     newNode->next = list->next;

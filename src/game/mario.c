@@ -1973,6 +1973,7 @@ void init_mario(void) {
 
     gMarioState->capTimer = 0;
     gMarioState->quicksandDepth = 0.0f;
+    gMarioState->coyoteFrames = 0;
 
     gMarioState->heldObj = NULL;
     gMarioState->riddenObj = NULL;
