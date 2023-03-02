@@ -33,8 +33,8 @@ const Trajectory *ddd_trajectories[] = {
 #define RAIN_CLOUD_WAYPOINT_BAND_SPEED_DOWN 0.015f
 #define RAIN_CLOUD_WAYPOINT_BAND_SPEED_UP   0.015f
 
-#define RAIN_CLOUD_WAYPOINT_BAND_SPEED 0.018f
-#define RAIN_CLOUD_WAYPOINT_BAND_SPEED_DAMP 0.9f
+#define RAIN_CLOUD_WAYPOINT_BAND_SPEED 0.025f
+#define RAIN_CLOUD_WAYPOINT_BAND_SPEED_DAMP 0.95f
 
 void set_rain_cloud_waypoints(struct Waypoint *startWaypoint, struct Waypoint **prevWaypoint, struct Waypoint **nextWaypoint) {
     *prevWaypoint = (startWaypoint + o->oRainCloudWaypointIndex);
@@ -47,6 +47,11 @@ void rain_cloud_follow_trajectory(int mario_on_cloud) {
 
     struct Waypoint *prevWaypoint;
     struct Waypoint *nextWaypoint;
+    o->oRainCloudActiveMix = approach_f32_asymptotic(
+        o->oRainCloudActiveMix,
+        mario_on_cloud != FALSE,
+        0.25f
+    );
 
     f32 lastDir = o->oRainCloudWaypointDirection;
     f32 dir = mario_on_cloud ? 1.0f : -1.0f;
@@ -299,8 +304,10 @@ Gfx *geo_set_rain_cloud_wind_vis(s32 callContext, struct GraphNode *node, UNUSED
 
 // #define RAIN_CLOUD_PLOD_FRAC_MIN 150
 #define RAIN_CLOUD_PLOD_FRAC_MIN 150
+#define RAIN_CLOUD_PLOD_FRAC_MAX 200
 // #define RAIN_CLOUD_PLOD_FRAC_MAX 255
-#define RAIN_CLOUD_PLOD_FRAC_MAX 240
+#define RAIN_CLOUD_SPLINE_PLOD_FRAC_MIN 140
+#define RAIN_CLOUD_SPLINE_PLOD_FRAC_MAX 180
 Gfx *geo_set_rain_cloud_prim(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
     Gfx *dlStart, *dlHead;
     struct Object *cloudObj;
@@ -320,10 +327,19 @@ Gfx *geo_set_rain_cloud_prim(s32 callContext, struct GraphNode *node, UNUSED Mat
         s32 hasSpline = GET_BPARAM1(cloudObj->oBehParams);
 
         if (hasSpline) {
-            f32 cyc = (get_cycle(1.5f, 0.0f, gGlobalTimer) - 1.0f) * 0.5f;
-            u16 primLodFrac = RAIN_CLOUD_PLOD_FRAC_MAX + roundf(cyc * (RAIN_CLOUD_PLOD_FRAC_MAX-RAIN_CLOUD_PLOD_FRAC_MIN));
-            primLodFrac = CLAMP(primLodFrac, RAIN_CLOUD_PLOD_FRAC_MIN, RAIN_CLOUD_PLOD_FRAC_MAX);
-            gDPSetPrimColor(dlHead++, 0, primLodFrac, 111, 115, 122, RAIN_CLOUD_PLOD_FRAC_MAX);
+            // get cycle and map to [0, 1] 
+            f32 cyc        = get_lerp(get_cycle(1.50f, 0.0f, gGlobalTimer), -1, 1);
+            f32 cycOnCloud = get_lerp(get_cycle(0.75f, 0.0f, gGlobalTimer), -1, 1);
+            cyc = (lerp(cyc, cycOnCloud, cloudObj->oRainCloudActiveMix));
+
+            u16 primLodFrac = lroundf(lerp(RAIN_CLOUD_SPLINE_PLOD_FRAC_MIN, RAIN_CLOUD_SPLINE_PLOD_FRAC_MAX, cyc));
+            cyc = lerp(1.0f, 0.5f, cyc); // flip so we're going from blown out to blue
+            s32 pr = lerp(111, 100, cloudObj->oRainCloudActiveMix * cyc);
+            s32 pg = lerp(115, 103, cloudObj->oRainCloudActiveMix * cyc);
+            s32 pb = lerp(122, 254, cloudObj->oRainCloudActiveMix * cyc);
+
+            primLodFrac = CLAMP(primLodFrac, RAIN_CLOUD_SPLINE_PLOD_FRAC_MIN, RAIN_CLOUD_PLOD_FRAC_MAX);
+            gDPSetPrimColor(dlHead++, 0, primLodFrac, pr, pg, pb, RAIN_CLOUD_PLOD_FRAC_MAX);
         } else {
             gDPSetPrimColor(dlHead++, 0, RAIN_CLOUD_PLOD_FRAC_MIN, 111, 115, 122, 255);
         }
