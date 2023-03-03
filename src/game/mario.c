@@ -1069,11 +1069,11 @@ s32 set_jumping_action(struct MarioState *m, u32 action, u32 actionArg) {
         m->vel[1] = 8.0f;
     }
 
-    if (mario_floor_is_steep(m)) {
-        set_steep_jump_action(m);
-    } else {
-        set_mario_action(m, action, actionArg);
-    }
+    // if (mario_floor_is_steep(m)) {
+    //     set_steep_jump_action(m);
+    // } else {
+    set_mario_action(m, action, actionArg);
+    // }
 
     gFlipSwitch = 1;
 
