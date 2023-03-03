@@ -1097,7 +1097,7 @@ s32 check_common_stationary_cancels(struct MarioState *m) {
 s32 mario_execute_stationary_action(struct MarioState *m) {
     s32 cancel;
 
-    m->coyoteFrames = 5;
+    m->coyoteFrames = NUM_COYOTE_FRAMES;
 
     if (check_common_stationary_cancels(m)) {
         return TRUE;
