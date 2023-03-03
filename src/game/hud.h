@@ -3,6 +3,8 @@
 
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
+#include <types.h>
+#include "area.h"
 
 #define HUD_POWER_METER_X            24
 #define HUD_POWER_METER_EMPHASIZED_Y 214
@@ -51,5 +53,9 @@ void render_hud(void);
 
 extern s32 gKeyboard;
 extern s32 gHubStarSelectTimer;
+
+ALWAYS_INLINE s32 speedrun_timer_is_paused(void) {
+    return gEndResultsActive || gCurrLevelNum == LEVEL_CASTLE_GROUNDS;
+}
 
 #endif // HUD_H

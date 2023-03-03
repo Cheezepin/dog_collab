@@ -1364,6 +1364,7 @@
 #define oRainCloudWaypoint                  OBJECT_FIELD_WAYPOINT(0x21)
 #define oRainCloudNextWaypointIndex         OBJECT_FIELD_S32(0x22)
 #define oRainCloudWaypointDirection         OBJECT_FIELD_F32(0x32) // oSubAction
+#define oRainCloudActiveMix                 OBJECT_FIELD_F32(0x00)
 
 #define oBubbleShellScaleVel                OBJECT_FIELD_F32(0x1B)
 #define oBubbleShellObj                     OBJECT_FIELD_OBJ(0x1C)

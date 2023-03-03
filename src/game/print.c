@@ -402,3 +402,17 @@ void render_text_labels(void) {
 
     sTextLabelsCount = 0;
 }
+
+s32 format_time(u32 time, char *text) {
+    s32 min = time / (30 * 60);
+    s32 sec = (time - (min * (30 * 60))) / 30;
+    f32 bestPercentSec = ((f32)(time % 30)) / 30.0f;
+    s32 deca = (s32)(bestPercentSec * 100.0f);
+
+    sprintf(text, "%02d:%02d.%02d",
+        min,
+        sec,
+        deca
+    );
+    return min >= 100;
+}

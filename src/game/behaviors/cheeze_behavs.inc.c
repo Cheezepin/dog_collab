@@ -596,8 +596,30 @@ void bhv_peach_ending_loop(void) {
             find_any_object_with_behavior(bhvB3Dog)->oMoveAngleYaw = obj_angle_to_object(find_any_object_with_behavior(bhvB3Dog), o);
             break;
         case 1:
-            if(gDialogResponse == 0) {create_dialog_box(CHEEZE_DIALOG_8); o->oSubAction = 1;}
+            if(gDialogResponse == 0) {
+                if (gSpeedrun.active) {
+                    if (gSpeedrun.enabled) {
+                        gSpeedrun.enabled = FALSE; // stop timer
+                        set_best_time(gSpeedrun.time);
+                    }
+                    create_dialog_box(DIALOG_SPEEDRUN_ENDING);
+                }
+                else create_dialog_box(CHEEZE_DIALOG_8);
+                o->oSubAction = 1;
+            }
             if(gDialogResponse != 0 && o->oSubAction == 1) {
+                if (gSpeedrun.active) {
+                    fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
+                    gWorldID = 0;
+                    gFocusID = 0;
+                    gCustomStarSelectActive = 0;
+                    gHubStarSelectTimer = 0;
+                    gLevelEntryConfirmationActive = 0;
+                    gSpeedrun.active = FALSE;
+                    o->oSubAction = 0;
+                    return;
+                }
+
                 gEndingCutsceneState++;
                 o->oSubAction = 0;
             }

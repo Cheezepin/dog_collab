@@ -36,5 +36,6 @@ void print_text_centered(s32 x, s32 y, const char *str);
 void render_text_labels(void);
 extern void print_text_fmt_int_centered(s32 x, s32 y, const char *str, s32 n);
 
+s32 format_time(u32 time, char *text);
 
 #endif // PRINT_H

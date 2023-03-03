@@ -2618,3 +2618,19 @@ left from this sign. If you\n\
 choose to go straight, \n\
 the @00FF00FFgreen floors and walls\n\
 @000000FFshow recommended paths.")
+
+/**
+ * params:
+ *    - exclamation ("dang." / "woah!")
+ *    - "didn't get" / "got"
+ *    - "." / "!"
+ *    - "" / " 100%"
+ *    - your time
+ *    - "." / "which is [diff] [faster / slower]\nthan your previous time of [prevTime].\n"
+ *    - "Better luck next time!" / "Congratulations!"
+ */ 
+DEFINE_DIALOG(DIALOG_SPEEDRUN_ENDING, 1, 4, ((360 - 220) / 2), 200, "\
+%s Looks like you %s\
+a new record, Mario%s\n\
+You beat the game%s\
+a time of %s%s\n%s")

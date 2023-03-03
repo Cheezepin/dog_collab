@@ -613,4 +613,16 @@ enum CozyVolumeIds {
 
 #define DEGREES(x) ((x) * 0x2000 / 45)
 
+struct SpeedrunState {
+    u8 enabled;
+    u8 active;
+    u32 time;
+    u32 prevTime;
+};
+
+#define ONE_SECOND 30 // frames
+#define ONE_MINUTE (ONE_SECOND * 60)
+#define ONE_HOUR   (ONE_MINUTE * 60)
+#define MAX_RUN_TIME (ONE_HOUR * 8) // 864000 frames == 8 hours == massive skill issue
+
 #endif // TYPES_H

@@ -259,6 +259,8 @@ enum DialogId {
     EMU_DIALOG_1,
     EMU_DIALOG_2,
 
+    DIALOG_SPEEDRUN_ENDING,
+
     DIALOG_COUNT
 };
 

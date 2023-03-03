@@ -28,6 +28,7 @@
 #include "seq_ids.h"
 #include "sound_init.h"
 #include "rumble_init.h"
+#include "hud.h"
 
 static struct Object *sIntroWarpPipeObj;
 static struct Object *sEndPeachObj;
@@ -629,22 +630,39 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                 break;
 
             case 70:
-                if (!(m->actionArg & 1)) {
+                if (!(m->actionArg & 1)) { // star exits course
                     play_transition(WARP_TRANSITION_FADE_INTO_COLOR, 30, 255, 255, 255);
                     //level_trigger_warp(m, WARP_OP_STAR_EXIT);
                 } else {
-                    enable_time_stop();
-                    create_dialog_box_with_response(gLastCompletedStarNum == 7 ? DIALOG_013 : DIALOG_014);
-                    m->actionState = ACT_STATE_STAR_DANCE_DO_SAVE;
+                    if (gSpeedrun.active) {
+                        m->actionState = ACT_STATE_STAR_DANCE_RETURN;
+                    } else {
+                        enable_time_stop();
+                        create_dialog_box_with_response(gLastCompletedStarNum == 7 ? DIALOG_013 : DIALOG_014);
+                        m->actionState = ACT_STATE_STAR_DANCE_DO_SAVE;
+                    }
                     if(gCurrLevelNum == LEVEL_BITDW || gCurrLevelNum == LEVEL_BITFS) gRedCoinStarCollected = 1;
                     else if(gCurrLevelNum != LEVEL_BITS) gCoinStarCollected = 1;
                 }
                 break;
             case 105:
-                if (!(m->actionArg & 1)) {
-                    gEndResultsActive = 1;
-                    gEndResultMenuChoice = 0;
-                    gEndResultMenuState = 0;
+                if (!(m->actionArg & 1)) { // star exits course
+                    // only go to the end results if not in a speedrun or you're in a course
+                    if (!gSpeedrun.active || (gCurrCourseNum > 0 && gCurrCourseNum < 16)) {
+                        gEndResultsActive = 1;
+                        gEndResultMenuChoice = 0;
+                        gEndResultMenuState = gSpeedrun.active ? 1 : 0;
+                    } else { // you're in a bowser level: just exit course
+                        initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAGS_NONE);
+                        fade_into_special_warp(WARP_SPECIAL_NONE, 0);
+                        gSavedCourseNum = COURSE_NONE;
+                        gHubStarSelectTimer = 0;
+                        gCustomStarSelectActive = 0;
+                        gLevelEntryConfirmationActive = 0;
+                        gEndResultMenuState = 2;
+                        gHudDisplay.flags = HUD_DISPLAY_DEFAULT;
+                        gEndResultMenuChoice = 0;
+                    }
                 }
         }
     } else if (m->actionState == ACT_STATE_STAR_DANCE_DO_SAVE && gDialogResponse != DIALOG_RESPONSE_NONE) {

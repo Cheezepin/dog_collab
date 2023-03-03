@@ -62,19 +62,24 @@ enum SaveFileIndex {
     SAVE_FILE_A,
     SAVE_FILE_B,
     SAVE_FILE_C,
-    SAVE_FILE_D
+    SAVE_FILE_D,
+    SAVE_FILE_SPEEDRUN = SAVE_FILE_D
 };
 
 struct MainMenuSaveData {
     // Each save file has a 2 bit "age" for each course. The higher this value,
     // the older the high score is. This is used for tie-breaking when displaying
     // on the high score screen.
-    u32 coinScoreAges[NUM_SAVE_FILES];
+    union {
+        u32 coinScoreAges[NUM_SAVE_FILES];
+        u32 bestTime;
+    };
     u8 soundMode: 2;
 #ifdef WIDE
     u8 wideMode: 1;
     u8 ditherMode: 2;
 #endif
+    u8 unlockedSpeedrunMode: 1;
 
 #if MULTILANG
     u8 language: 2;
@@ -224,6 +229,13 @@ void save_file_set_dog_string(s32 fileIndex, u8 *string);
 s32 save_file_get_dog_bone_count(s32 fileIndex);
 s32 save_file_check_dog_bone_collected(s32 fileIndex, s16 areaID, s16 levelID);
 void save_file_set_dog_bone_bit(s32 fileIndex, s16 areaID, s16 levelID);
+
+s32 save_file_get_unlocked_speedrun_mode(void);
+void save_file_set_unlocked_speedrun_mode(s32 val);
+
+s32 set_best_time(u32 time);
+u32 get_best_time(void);
+void reset_best_time(void);
 
 #ifdef VERSION_EU
 enum EuLanguages {
