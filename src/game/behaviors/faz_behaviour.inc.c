@@ -226,6 +226,10 @@ void hmcelevator_loop(void)
         else
             o->oPosY += 25;
 
+        if (gMarioState->action == ACT_GROUND_POUND) {
+            gMarioState->action = ACT_SOFT_BONK;
+        }
+
 
         if (o->oPosY < 4219 && gCurrAreaIndex == 2)
         {

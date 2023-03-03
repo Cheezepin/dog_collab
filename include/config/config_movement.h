@@ -8,7 +8,7 @@
 // #define VELOCITY_BASED_TURN_SPEED
 
 // Allows Mario to easily side flip when moving forwards at any speed.
-// #define SIDE_FLIP_AT_LOW_SPEEDS
+ #define SIDE_FLIP_AT_LOW_SPEEDS
 
 // Allows Mario to aim towards a new direction at the end of turning around,
 // and allows Mario to turn around multiple times in a row.
