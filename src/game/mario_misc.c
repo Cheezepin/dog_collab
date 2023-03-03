@@ -782,7 +782,9 @@ Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat
             geo_remove_child(&gMirrorMario.node);
             break;
         case GEO_CONTEXT_RENDER:
-            if (mario->header.gfx.pos[1] >= 76.0f) {
+            if (mario->header.gfx.pos[1] >= 76.0f && 
+                mario->header.gfx.pos[0] > 600.0f && mario->header.gfx.pos[0] < 2400.0f &&
+                mario->header.gfx.pos[2] > 1700.0f && mario->header.gfx.pos[2] < 3400.0f) {
                 // TODO: Is this a geo layout copy or a graph node copy?
                 gMirrorMario.sharedChild = mario->header.gfx.sharedChild;
                 gMirrorMario.areaIndex = mario->header.gfx.areaIndex;
