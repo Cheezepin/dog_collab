@@ -2604,6 +2604,21 @@ could hit them back, \n\
 but they won't \n\
 hurt me! ")
 
+DEFINE_DIALOG(EMU_DIALOG_2, 1, 8, 95, 200, "\
+This hack features 46 \n\
+degree wallkicks! This\n\
+means that if you slide\n\
+down and jump through the \n\
+@FF0000FFred panel@000000FF, you can\n\
+you can wallkick in a circle\n\
+inside the prism! But\n\
+be warned, this is a more \n\
+difficult trek than going\n\
+left from this sign. If you\n\
+choose to go straight, \n\
+the @00FF00FFgreen floors and walls\n\
+@000000FFshow recommended paths.")
+
 /**
  * params:
  *    - exclamation ("dang." / "woah!")

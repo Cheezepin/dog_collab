@@ -1284,9 +1284,9 @@ void bowser_act_sky_attack(void){
     spawn_object_relative(
             /* behParam */ 0x00, /* pos */ 0, 120, 0,
             /* parent */ o, /* model */ MODEL_EMU_LASER_RING, bhvLaserRing);
-    spawn_object_relative(
-            /* behParam */ 0x00, /* pos */ 0, -35, 0,
-            /* parent */ o, /* model */ MODEL_EMU_LASER_RING, bhvLaserRing);
+    //spawn_object_relative(
+     //       /* behParam */ 0x00, /* pos */ 0, -35, 0,
+      //      /* parent */ o, /* model */ MODEL_EMU_LASER_RING, bhvLaserRing);
     }
     if (o->oTimer%20 == 1){
      bowser_spawn_lightning();   
@@ -1382,7 +1382,7 @@ void bowser_act_spit_fire_onto_floor(void) {
 void bowser_act_propane_shooter(void) {
     //mostly stolen from Rovert
     struct Object *obj;
-    o->oFaceAngleYaw += 0x600;
+    o->oFaceAngleYaw += 0x400;
     o->oMoveAngleYaw = o->oFaceAngleYaw;
     if (o->oDistanceToMario < 8000.0f) {
         cur_obj_play_sound_1(SOUND_AIR_BOWSER_SPIT_FIRE);

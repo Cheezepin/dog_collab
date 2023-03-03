@@ -27,7 +27,7 @@ void bhv_attackable_amp_init(void) {
     o->childObj = doggoObj;
     if (o->parentObj->oHealth == 3) o->oPiranhaPlantScale = 20.0f;
     else if (o->parentObj->oHealth == 2) o->oPiranhaPlantScale = 25.0f;
-    else if (o->parentObj->oHealth == 1) o->oPiranhaPlantScale = 35.0f;
+    else if (o->parentObj->oHealth == 1) o->oPiranhaPlantScale = 30.0f;
     else {o->oPiranhaPlantScale = 30.0f;}
     o->oForwardVel = o->oPiranhaPlantScale;
 }
@@ -98,7 +98,7 @@ void attackable_amp_appear_loop(void) {
 
 void attackable_amp_chase_loop(void) {
     if (o->oPiranhaPlantScale > 10){o->oForwardVel = o->oPiranhaPlantScale;}
-    if (o->oForwardVel > 50.0f) o->oForwardVel = 50.0f;
+    if (o->oForwardVel > 45.0f) o->oForwardVel = 45.0f;
     if (o->childObj->oAction == EMU_DOG_RANDOM_LOCATION || o->childObj->oAction == EMU_DOG_RUN_AROUND){
         o->oAction = RETURN_TO_BOWSER;
     } else {
