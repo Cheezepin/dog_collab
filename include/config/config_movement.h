@@ -8,10 +8,11 @@
 // #define VELOCITY_BASED_TURN_SPEED
 
 // Allows Mario to easily side flip when moving forwards at any speed.
- #define SIDE_FLIP_AT_LOW_SPEEDS
+// #define SIDE_FLIP_AT_LOW_SPEEDS
 
 // celeste has 6 at 60fps, so this is slightly more forgiving
-#define NUM_COYOTE_FRAMES 4
+// undefine this to disable
+#define NUM_COYOTE_FRAMES 3
 
 // Allows Mario to aim towards a new direction at the end of turning around,
 // and allows Mario to turn around multiple times in a row.
