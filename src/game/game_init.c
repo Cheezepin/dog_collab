@@ -123,6 +123,8 @@ struct DemoInput gRecordedDemoInput = { 0 };
 
 s32 gFreezeFrames = 0;
 
+struct SpeedrunState gSpeedrun = { .enabled = FALSE, .time = 0 };
+
 // Display
 // ----------------------------------------------------------------------------------------------------
 
@@ -903,6 +905,7 @@ void thread5_game_loop(UNUSED void *arg) {
     createHvqmThread();
 #endif
     save_file_load_all();
+    reset_best_time();
 #ifdef PUPPYCAM
     puppycam_boot();
 #endif

@@ -1237,6 +1237,74 @@ s8  gDialogCourseActNum     =  1;
 #define DIAG_VAL4   5
 #define DIAG_VAL2 240 // JP & US
 
+// 256 SHOULD be more than enough space for the formatted dialog
+u8 sSpeedrunDialogStrBuffer[0x100] = "";
+u32 sSpeedrunDialogTimeId = 0;
+struct DialogEntry sSpeedrunDialog = { .str = sSpeedrunDialogStrBuffer };
+
+char *sSpeedrunFormatStr0[2] = { "Dang.", "Woah!" }; // no pb / pb
+char *sSpeedrunFormatStr1[2] = { "didn't\nget ", "got\n" }; // no pb / pb
+char *sSpeedrunFormatStr2[2] = { ".", "!" }; // no pb / pb
+char *sSpeedrunFormatStr3[2] = { " with\n", " 100%\nwith " }; // any% / 100%
+//  sSpeedrunFormatStr4 (formatted from your time)
+char sSpeedrunFormatStr5[] = ",\nwhich is %s %s\nthan your previous time of\n%s.\n"; // only if record is NOT the first run
+char *sSpeedrunFormatStr5_1[2] = { "slower", "faster" };
+char *sSpeedrunFormatStr6[2] = { "Better luck next time!", "Congratulations!" }; // no pb / pb
+
+
+void format_speedrun_dialog_str(struct DialogEntry *dialog) {
+    if (gSpeedrun.time == MAX_RUN_TIME) {
+        sprintf(sSpeedrunDialogStrBuffer, "Wait...\n\n\nDid you leave the game on?");
+        return;
+    }
+    
+    s32 isPB = gSpeedrun.time < gSpeedrun.prevTime; // indexes some format strings
+    s32 is100 = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1) == 73;
+    s32 firstRun = gSpeedrun.prevTime == MAX_RUN_TIME;
+
+    // format current time
+    char curTimeStr[16];
+    format_time(gSpeedrun.time, curTimeStr);
+
+    // There are a few lines if its not their first run
+    char prevTimeLine[ARRAY_COUNT(sSpeedrunFormatStr5) + 16 + 7 + 16] = ".";
+    if (!firstRun) {
+        // format previous time
+        char prevTimeStr[16];
+        format_time(gSpeedrun.prevTime, prevTimeStr);
+        // format diff
+        char diffStr[16];
+        u32 diff = isPB ? gSpeedrun.prevTime - gSpeedrun.time : gSpeedrun.time - gSpeedrun.prevTime;
+        format_time(diff, diffStr);
+        sprintf(prevTimeLine, sSpeedrunFormatStr5, diffStr, sSpeedrunFormatStr5_1[isPB], prevTimeStr);
+    }
+
+    u8 *dialogFmtStr = segmented_to_virtual(dialog->str);
+    sprintf(
+        sSpeedrunDialogStrBuffer,
+        dialogFmtStr,
+            sSpeedrunFormatStr0[isPB],
+            sSpeedrunFormatStr1[isPB],
+            sSpeedrunFormatStr2[isPB],
+            sSpeedrunFormatStr3[is100],
+            curTimeStr,
+            prevTimeLine,
+            sSpeedrunFormatStr6[isPB]
+    );
+}
+
+struct DialogEntry *get_speedrun_dialog(struct DialogEntry *origDialog) {
+    if (gSpeedrun.time == sSpeedrunDialogTimeId) return &sSpeedrunDialog;
+    sSpeedrunDialogTimeId = gSpeedrun.time;
+    // copy struct values
+    sSpeedrunDialog.leftOffset = origDialog->leftOffset;
+    sSpeedrunDialog.linesPerBox = origDialog->linesPerBox;
+    sSpeedrunDialog.voice = origDialog->voice;
+    sSpeedrunDialog.width = origDialog->width;
+    format_speedrun_dialog_str(origDialog);
+    return &sSpeedrunDialog;
+}
+
 void render_dialog_entries(void) {
     void **dialogTable;
     struct DialogEntry *dialog;
@@ -1252,6 +1320,10 @@ void render_dialog_entries(void) {
     if (segmented_to_virtual(NULL) == dialog) {
         gDialogID = DIALOG_NONE;
         return;
+    }
+
+    if (gDialogID == DIALOG_SPEEDRUN_ENDING) {
+        dialog = get_speedrun_dialog(dialog);
     }
 
     switch (gDialogBoxState) {
@@ -2590,6 +2662,7 @@ void render_dog_keyboard(s16 saveFileIndex) {
     if(length > -1 && gPlayer1Controller->buttonPressed & START_BUTTON) {
         play_sound(SOUND_MENU_DOG_ROO, gGlobalSoundSource);
         gKeyboard = 0;
+        if (gSpeedrun.active) gSpeedrun.enabled = TRUE;
     }
 }
 

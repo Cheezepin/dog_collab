@@ -2604,3 +2604,18 @@ could hit them back, \n\
 but they won't \n\
 hurt me! ")
 
+/**
+ * params:
+ *    - exclamation ("dang." / "woah!")
+ *    - "didn't get" / "got"
+ *    - "." / "!"
+ *    - "" / " 100%"
+ *    - your time
+ *    - "." / "which is [diff] [faster / slower]\nthan your previous time of [prevTime].\n"
+ *    - "Better luck next time!" / "Congratulations!"
+ */ 
+DEFINE_DIALOG(DIALOG_SPEEDRUN_ENDING, 1, 4, ((360 - 220) / 2), 200, "\
+%s Looks like you %s\
+a new record, Mario%s\n\
+You beat the game%s\
+a time of %s%s\n%s")

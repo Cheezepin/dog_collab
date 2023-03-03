@@ -428,6 +428,10 @@ void render_doge_version(void) {
 }
 
 void render_game(void) {
+    if (gSpeedrun.enabled && !speedrun_timer_is_paused()) {
+        gSpeedrun.time = MIN(gSpeedrun.time + 1, MAX_RUN_TIME);
+    }
+
     if (gCurrentArea != NULL && !gWarpTransition.pauseRendering) {
         if (gCurrentArea->graphNode) {
             geo_process_root(gCurrentArea->graphNode, gViewportOverride, gViewportClip, gFBSetColor);
