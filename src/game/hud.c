@@ -612,7 +612,7 @@ void render_speedrun_hud(void) {
     else
         baseX = gConfig.widescreen ? 38 : 48;
 
-    if (overflow) xEnd = 62;
+    if (overflow) xEnd = 64;
 
     gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
     gDPSetRenderMode(gDisplayListHead++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
