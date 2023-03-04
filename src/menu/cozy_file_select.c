@@ -159,6 +159,8 @@ char sMainMenuFile1Label[24] = START_NEW_GAME_TEXT;
 char sMainMenuFile2Label[24] = START_NEW_GAME_TEXT;
 char sMainMenuFile3Label[24] = START_NEW_GAME_TEXT;
 
+u8 sBestTimeDesc[] = "Best time:\n000:00:00   ";
+
 FileSelectOption sMainMenuOptList[] = {
     [MAIN_MENU_OPT_SAVE_A] = {
         .label = sMainMenuFile1Label,
@@ -185,7 +187,8 @@ FileSelectOption sMainMenuOptList[] = {
         .label = "Start Speedrun",
         .onSelect = &on_start_speedrun,
         .disabled = FALSE,
-        .overrideMenuType = TRUE
+        .overrideMenuType = TRUE,
+        .description = sBestTimeDesc
     },
 };
 
@@ -603,6 +606,15 @@ void init_file_select(void) {
     } else {
         // setting the options to one less hides speedrun mode
         sMainMenu.numOptions = NUM_OPTIONS_MAIN_MENU - 1;
+    }
+
+    u32 bestTime = get_best_time();
+    if (bestTime >= MAX_RUN_TIME) {
+        sprintf((char *)sBestTimeDesc, "");
+    } else {
+        char buff[16];
+        format_time(bestTime, buff);
+        sprintf((char *)sBestTimeDesc, "Best time:\n%s", buff);
     }
 
     gSpeedrun.active = FALSE;
