@@ -269,11 +269,14 @@ s32 set_best_time(u32 time) {
 void reset_best_time(void) {
     // this means their save was created before we introduced the speedrun timer
     if (
-        gSaveBuffer.menuData[0].coinScoreAges[0] == 0x3FFFFFFF &&
-        gSaveBuffer.menuData[0].coinScoreAges[1] == 0x2AAAAAAA &&
-        gSaveBuffer.menuData[0].coinScoreAges[2] == 0x15555555
+        gSaveBuffer.menuData[0].coinScoreAges[0] > MAX_RUN_TIME &&
+        gSaveBuffer.menuData[0].coinScoreAges[1] > MAX_RUN_TIME &&
+        gSaveBuffer.menuData[0].coinScoreAges[2] > MAX_RUN_TIME
     ) {
-        gSaveBuffer.menuData[0].bestTime = MAX_RUN_TIME;
+        gSaveBuffer.menuData[0].bestTime =
+            gSaveBuffer.menuData[0].coinScoreAges[1] =
+                gSaveBuffer.menuData[0].coinScoreAges[2] =
+                    MAX_RUN_TIME;
         gMainMenuDataModified = TRUE;
         save_main_menu_data();
     }
@@ -284,8 +287,8 @@ void wipe_main_menu_data(void) {
 
     // Set score ages for all courses to 3, 2, 1, and 0, respectively.
     // gSaveBuffer.menuData[0].coinScoreAges[0] = 0x3FFFFFFF;
-    gSaveBuffer.menuData[0].coinScoreAges[1] = 0x69696969;
-    gSaveBuffer.menuData[0].coinScoreAges[2] = 0x69696969;
+    gSaveBuffer.menuData[0].coinScoreAges[1] = MAX_RUN_TIME;
+    gSaveBuffer.menuData[0].coinScoreAges[2] = MAX_RUN_TIME;
 
     gSaveBuffer.menuData[0].bestTime = MAX_RUN_TIME;
     #ifdef WIDE

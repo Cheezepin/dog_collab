@@ -262,7 +262,7 @@ s32 on_start_speedrun(UNUSED FileSelectMenuState *mState) {
     gSpeedrun.active = TRUE;
     gSpeedrun.enabled = FALSE; // enables after naming doge
     gSpeedrun.time = 0;
-    gSpeedrun.prevTime = get_best_time(); // save prev time now cus it'll get overwritten on success
+    gSpeedrun.prevTime = MIN(get_best_time(), MAX_RUN_TIME); // save prev time now cus it'll get overwritten on success
 
     return OPT_CALLBACK_CLOSE;
 }
