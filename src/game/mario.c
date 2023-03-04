@@ -862,6 +862,20 @@ u32 set_mario_action_airborne(struct MarioState *m, u32 action, u32 actionArg) {
         case ACT_BACKWARD_ROLLOUT:
             m->vel[1] = 30.0f;
             break;
+#ifdef NUM_COYOTE_FRAMES
+        case ACT_FREEFALL: {
+            switch (m->action)
+            {
+                case ACT_WALKING:
+                case ACT_CROUCH_SLIDE:
+                    break;
+                default:
+                    m->coyoteFrames = 0;
+                    break;
+            }
+            break;
+        }        
+#endif
     }
 
     m->peakHeight = m->pos[1];

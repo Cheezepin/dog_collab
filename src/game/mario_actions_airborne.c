@@ -575,6 +575,7 @@ s32 act_freefall(struct MarioState *m) {
 
 #ifdef NUM_COYOTE_FRAMES
     if (m->input & INPUT_A_PRESSED && m->coyoteFrames > 0) {
+        if (m->prevAction == ACT_CROUCH_SLIDE && m->forwardVel > 10.0f) return set_jumping_action(m, ACT_LONG_JUMP, 0);
         return set_jumping_action(m, ACT_JUMP, 0);
     }
 #endif
