@@ -315,7 +315,7 @@ void bhv_warp_box_loop(void) {
             o->oTimer = 0;
             o->oPosY -= 50.0f;
             o->oVelY = 25.0f;
-            stop_shell_music();
+            // stop_shell_music();
             play_sound(SOUND_CUSTOM_WARP_BOX_IN, gGlobalSoundSource);
         }
         if(o->oWarpBoxInnerScale >= 1.0f) {
