@@ -1835,7 +1835,7 @@ void bhv_mg_fwoosh_update(void) {
 s32 sGateOpened = 0;
 
 void bhv_entrance_gate_loop(void) {
-    if (sGateOpened) {
+    if (sGateOpened || gSpeedrun.active) {
         o->activeFlags = 0;
         return;
     }
