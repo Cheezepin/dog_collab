@@ -405,13 +405,15 @@ static struct ObjectHitbox sBossKoopaHitbox = {
     /* hurtboxHeight:     */ 0,
 };
 
+#define FF_AREA2_TRACK SEQ_FACTORY_DOWN
+
 void koopa_boss_prefight(void)
 {
 
     obj_set_hitbox(o, &sBossKoopaHitbox);
     if (o->oDistanceToMario < 1000)
     {
-        stop_background_music(SEQ_LEVEL_UNDERGROUND);
+        stop_background_music(FF_AREA2_TRACK);
         if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_FRONT, DIALOG_FLAG_NONE, CUTSCENE_DIALOG, DIALOG_167))
         {
             o->oMode = MODE_FIGHTING;
@@ -586,7 +588,8 @@ void koopa_boss_mortis(void)
     {
         if (cur_obj_update_dialog_with_cutscene(MARIO_DIALOG_LOOK_FRONT, DIALOG_FLAG_NONE, CUTSCENE_DIALOG, DIALOG_169))
         {
-            set_background_music(SEQ_LEVEL_UNDERGROUND, SEQUENCE_ARGS(4, SEQ_LEVEL_UNDERGROUND), 30);
+            set_song_to_area(FF_AREA2_TRACK);
+            set_background_music(FF_AREA2_TRACK, SEQUENCE_ARGS(4, FF_AREA2_TRACK), 30);
             struct Object *star = spawn_star(star, -354.0f, 250.0f, -9775.0f);
             star->oBehParams = 0x05000000;
             spawn_mist_particles_variable(0, 0, 100.0f);
