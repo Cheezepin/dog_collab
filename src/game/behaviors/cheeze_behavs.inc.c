@@ -679,6 +679,10 @@ void bhv_dog_bone_loop(void) {
 }
 
 void bhv_save_switch_loop(void) {
+    if (gSpeedrun.active) {
+        obj_mark_for_deletion(o);
+        return;
+    }
     save_file_set_flags(SAVE_FLAG_B3_CHECKPOINT_REACHED);
     if(o->oAction == PURPLE_SWITCH_ACT_PRESSED && o->oTimer == 1) {
         gSaveFileModified = TRUE;
