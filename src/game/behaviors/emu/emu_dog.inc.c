@@ -127,10 +127,15 @@ void set_ashpile_target(void) {
     nextZ = o->childObj->oPosZ - o->oPosZ;
     o->oMoveAngleYaw = atan2s(nextZ, nextX);
     o->oForwardVel = 200.0f;
+    o->oTimer = 0;
     o->oAction = GOTO_ASHPILE;
 }
 
-void goto_ashpile(void) {}
+void goto_ashpile(void) {
+    if(o->oTimer > 50){
+        o->oAction = SET_ASHPILE_TARGET;
+    }
+}
 void run_around(void) {
     cur_obj_init_animation(DOG_ANIM_RUN);
     //print_text_fmt_int(5, 20, "X %d", nextX);

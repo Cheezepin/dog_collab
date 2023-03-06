@@ -41,9 +41,11 @@ s32 on_change_enum_option(FileSelectMenuState *mState);
 s32 on_change_enum_option_widescreen(FileSelectMenuState *mState);
 s32 on_change_enum_option_dither(FileSelectMenuState *mState);
 s32 on_open_options(FileSelectMenuState *mState);
+s32 on_start_speedrun(FileSelectMenuState *mState);
 extern FileSelectMenu sMainMenu;
 extern FileSelectMenu sExistingFileMenu;
 
+u32 sCombinedSaveFlags = 0;
 s32 gRenderingFileSelect = FALSE;
 
 FileSelectOption sConfirmEraseOptions[] = {
@@ -148,6 +150,7 @@ enum MM_OPTS {
     MAIN_MENU_OPT_SAVE_B,
     MAIN_MENU_OPT_SAVE_C,
     MAIN_MENU_OPT_OPTIONS,
+    MAIN_MENU_OPT_SPEEDRUN,
 };
 
 #define START_NEW_GAME_TEXT "Start new game"
@@ -155,6 +158,8 @@ enum MM_OPTS {
 char sMainMenuFile1Label[24] = START_NEW_GAME_TEXT;
 char sMainMenuFile2Label[24] = START_NEW_GAME_TEXT;
 char sMainMenuFile3Label[24] = START_NEW_GAME_TEXT;
+
+u8 sBestTimeDesc[] = "Best time:\n000:00:00   ";
 
 FileSelectOption sMainMenuOptList[] = {
     [MAIN_MENU_OPT_SAVE_A] = {
@@ -178,6 +183,13 @@ FileSelectOption sMainMenuOptList[] = {
         .disabled = FALSE,
         .overrideMenuType = TRUE
     },
+    [MAIN_MENU_OPT_SPEEDRUN] = {
+        .label = "Start Speedrun",
+        .onSelect = &on_start_speedrun,
+        .disabled = FALSE,
+        .overrideMenuType = TRUE,
+        .description = sBestTimeDesc
+    },
 };
 
 FileSelectMenu sMainMenu = MENU_OPTIONS(sMainMenuOptList, "Select a file", NULL, MENU_TYPE_NUMBERED);
@@ -193,11 +205,14 @@ FileSelectMenuState sMenuState = {
     .closing = FALSE,
 };
 
+#define NUM_OPTIONS_MAIN_MENU ((s32)(sizeof(sMainMenuOptList) / sizeof(FileSelectOption)))
+
 s32 sShowingKeyboard = FALSE;
 s32 sKBTimer = 0;
 
 #define KB_TRANSITION 4
 #define FILE_SELECT_SELECTED_FILE sMainMenu.curOpt
+#define SPEEDRUN_MODE_UNLOCK_COMBO (L_TRIG | B_BUTTON | Z_TRIG | R_TRIG)
 
 // this menu callbacks start
 
@@ -242,6 +257,16 @@ s32 on_select_game(FileSelectMenuState *mState) {
     return OPT_CALLBACK_NONE;
 }
 
+s32 on_start_speedrun(UNUSED FileSelectMenuState *mState) {
+    save_file_erase(SAVE_FILE_SPEEDRUN); // 3 index == file 4, which is the pseudo file for speedruns
+    gSpeedrun.active = TRUE;
+    gSpeedrun.enabled = FALSE; // enables after naming doge
+    gSpeedrun.time = 0;
+    gSpeedrun.prevTime = MIN(get_best_time(), MAX_RUN_TIME); // save prev time now cus it'll get overwritten on success
+
+    return OPT_CALLBACK_CLOSE;
+}
+
 s32 on_continue_game(UNUSED FileSelectMenuState *mState) {
     return OPT_CALLBACK_CLOSE;
 }
@@ -252,10 +277,7 @@ s32 on_change_enum_option(FileSelectMenuState *mState) {
     if (newValue < 0) newValue = opt->numEnumOptions - 1;
     if (newValue >= opt->numEnumOptions) newValue = 0;
 
-    osSyncPrintf("on_change_enum_option %d -> %d\n", *opt->curEnumValue, newValue);
     *opt->curEnumValue = newValue;
-    osSyncPrintf("gConfig.widescreen %d\n", gConfig.widescreen);
-    osSyncPrintf("gConfig.ditherMode %d\n\n", gConfig.ditherMode);
 
     return OPT_CALLBACK_NONE;
 }
@@ -481,6 +503,18 @@ void render_file_select(void) {
 
 s32 run_file_select(void) {
     FileSelectMenuState *mState = &sMenuState;
+    if (save_file_get_unlocked_speedrun_mode()) {
+        sMainMenu.numOptions = NUM_OPTIONS_MAIN_MENU;
+    } else if (
+        (gPlayer1Controller->buttonDown & SPEEDRUN_MODE_UNLOCK_COMBO) == SPEEDRUN_MODE_UNLOCK_COMBO
+        && gPlayer1Controller->buttonPressed & SPEEDRUN_MODE_UNLOCK_COMBO
+    ) {
+        play_sound(SOUND_MARIO_HOOHOO, gGlobalSoundSource);
+        save_file_set_unlocked_speedrun_mode(TRUE);
+        sMainMenu.numOptions = NUM_OPTIONS_MAIN_MENU;
+        gPlayer1Controller->buttonDown = 0;
+        gPlayer1Controller->buttonPressed = 0;
+    }
 
     if (sShowingKeyboard) {
         if (!gKeyboard) {
@@ -504,9 +538,10 @@ s32 run_file_select(void) {
     }
 
     if (mState->closing) {
+        gShowVersionText = FALSE;
         if (mState->closeTimer <= 0) {
             mState->closeTimer = 0;
-            return FILE_SELECT_SELECTED_FILE + 1;
+            return MIN(FILE_SELECT_SELECTED_FILE + 1, SAVE_FILE_SPEEDRUN + 1);
         } else {
             mState->closeTimer--;
         }
@@ -542,9 +577,12 @@ void store_dog_string(char *dogString, u8 fileNum) {
 #define NUM_FILES_IN_HERE 3
 void init_file_select(void) {
     FileSelectMenuState *mState = &sMenuState;
+    sCombinedSaveFlags = 0;
     u8 clearedFiles = 0;
+
     for (int i = 0; i < NUM_FILES_IN_HERE; i++) {
         if (save_file_exists(i)) {
+            sCombinedSaveFlags |= gSaveBuffer.files[i].flags;
             store_dog_string(sMainMenuOptList[i].label, i);
         } else {
             save_file_erase(i);
@@ -552,12 +590,41 @@ void init_file_select(void) {
         }
     }
     mState->closing = FALSE;
-    if(clearedFiles == NUM_FILES_IN_HERE) {
+    if (
+        clearedFiles == NUM_FILES_IN_HERE
+        && (get_best_time() == MAX_RUN_TIME || get_best_time() == 0x3FFFFFFF) // check no valid runs
+    ) {
         wipe_main_menu_data();
+    } else {
+        // reset best time if needed
+        reset_best_time();
     }
+
+    if (sCombinedSaveFlags & SAVE_FLAG_BOWSER_3_BEAT || save_file_get_unlocked_speedrun_mode()) {
+        save_file_set_unlocked_speedrun_mode(TRUE);
+        // setting the options to the actual number of options shows speedrun mode
+        sMainMenu.numOptions = NUM_OPTIONS_MAIN_MENU;
+    } else {
+        // setting the options to one less hides speedrun mode
+        sMainMenu.numOptions = NUM_OPTIONS_MAIN_MENU - 1;
+    }
+
+    u32 bestTime = get_best_time();
+    if (bestTime >= MAX_RUN_TIME) {
+        sprintf((char *)sBestTimeDesc, "");
+    } else {
+        char buff[16];
+        format_time(bestTime, buff);
+        sprintf((char *)sBestTimeDesc, "Best time:\n%s", buff);
+    }
+
+    gSpeedrun.active = FALSE;
+    gSpeedrun.enabled = FALSE;
+    gSpeedrun.time = 0;
 
     gEndResultsActive = FALSE;
     sShowingKeyboard = FALSE;
     gWorldID = -1;
     gFocusID = -1;
+    gShowVersionText = TRUE;
 }

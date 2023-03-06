@@ -249,14 +249,48 @@ static void save_main_menu_data(void) {
     }
 }
 
+
+u32 get_best_time(void) {
+    return gSaveBuffer.menuData[0].bestTime;
+}
+
+s32 set_best_time(u32 time) {
+    if (time < gSaveBuffer.menuData[0].bestTime) {
+        gSaveBuffer.menuData[0].bestTime = time;
+
+        gMainMenuDataModified = TRUE;
+        save_main_menu_data();
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+void reset_best_time(void) {
+    // this means their save was created before we introduced the speedrun timer
+    if (
+        gSaveBuffer.menuData[0].coinScoreAges[0] > MAX_RUN_TIME &&
+        gSaveBuffer.menuData[0].coinScoreAges[1] > MAX_RUN_TIME &&
+        gSaveBuffer.menuData[0].coinScoreAges[2] > MAX_RUN_TIME
+    ) {
+        gSaveBuffer.menuData[0].bestTime =
+            gSaveBuffer.menuData[0].coinScoreAges[1] =
+                gSaveBuffer.menuData[0].coinScoreAges[2] =
+                    MAX_RUN_TIME;
+        gMainMenuDataModified = TRUE;
+        save_main_menu_data();
+    }
+}
+
 void wipe_main_menu_data(void) {
     bzero(&gSaveBuffer.menuData, sizeof(gSaveBuffer.menuData));
 
     // Set score ages for all courses to 3, 2, 1, and 0, respectively.
-    gSaveBuffer.menuData[0].coinScoreAges[0] = 0x3FFFFFFF;
-    gSaveBuffer.menuData[0].coinScoreAges[1] = 0x2AAAAAAA;
-    gSaveBuffer.menuData[0].coinScoreAges[2] = 0x15555555;
+    // gSaveBuffer.menuData[0].coinScoreAges[0] = 0x3FFFFFFF;
+    gSaveBuffer.menuData[0].coinScoreAges[1] = MAX_RUN_TIME;
+    gSaveBuffer.menuData[0].coinScoreAges[2] = MAX_RUN_TIME;
 
+    gSaveBuffer.menuData[0].bestTime = MAX_RUN_TIME;
     #ifdef WIDE
     gSaveBuffer.menuData[0].wideMode = 0;
     gSaveBuffer.menuData[0].ditherMode = 0;
@@ -266,47 +300,48 @@ void wipe_main_menu_data(void) {
     save_main_menu_data();
 }
 
-static s32 get_coin_score_age(s32 fileIndex, s32 courseIndex) {
-    return (gSaveBuffer.menuData[0].coinScoreAges[fileIndex] >> (2 * courseIndex)) & 0x3;
+static s32 get_coin_score_age(UNUSED s32 fileIndex, UNUSED s32 courseIndex) {
+    // return (gSaveBuffer.menuData[0].coinScoreAges[fileIndex] >> (2 * courseIndex)) & 0x3;
+    return 0;
 }
 
-static void set_coin_score_age(s32 fileIndex, s32 courseIndex, s32 age) {
-    s32 mask = 0x3 << (2 * courseIndex);
+static void set_coin_score_age(UNUSED s32 fileIndex, UNUSED s32 courseIndex, UNUSED s32 age) {
+    // s32 mask = 0x3 << (2 * courseIndex);
 
-    gSaveBuffer.menuData[0].coinScoreAges[fileIndex] &= ~mask;
-    gSaveBuffer.menuData[0].coinScoreAges[fileIndex] |= age << (2 * courseIndex);
+    // gSaveBuffer.menuData[0].coinScoreAges[fileIndex] &= ~mask;
+    // gSaveBuffer.menuData[0].coinScoreAges[fileIndex] |= age << (2 * courseIndex);
 }
 
 /**
  * Mark a coin score for a save file as the newest out of all save files.
  */
-static void touch_coin_score_age(s32 fileIndex, s32 courseIndex) {
-    s32 i;
-    u32 age;
-    u32 currentAge = get_coin_score_age(fileIndex, courseIndex);
+static void touch_coin_score_age(UNUSED s32 fileIndex, UNUSED s32 courseIndex) {
+    // s32 i;
+    // u32 age;
+    // u32 currentAge = get_coin_score_age(fileIndex, courseIndex);
 
-    if (currentAge != 0) {
-        for (i = 0; i < NUM_SAVE_FILES; i++) {
-            age = get_coin_score_age(i, courseIndex);
-            if (age < currentAge) {
-                set_coin_score_age(i, courseIndex, age + 1);
-            }
-        }
+    // if (currentAge != 0) {
+    //     for (i = 0; i < NUM_SAVE_FILES; i++) {
+    //         age = get_coin_score_age(i, courseIndex);
+    //         if (age < currentAge) {
+    //             set_coin_score_age(i, courseIndex, age + 1);
+    //         }
+    //     }
 
-        set_coin_score_age(fileIndex, courseIndex, 0);
-        gMainMenuDataModified = TRUE;
-    }
+    //     set_coin_score_age(fileIndex, courseIndex, 0);
+    //     gMainMenuDataModified = TRUE;
+    // }
 }
 
 /**
  * Mark all coin scores for a save file as new.
  */
-static void touch_high_score_ages(s32 fileIndex) {
-    s32 i;
+static void touch_high_score_ages(UNUSED s32 fileIndex) {
+    // s32 i;
 
-    for (i = COURSE_NUM_TO_INDEX(COURSE_MIN); i <= COURSE_NUM_TO_INDEX(COURSE_STAGES_MAX); i++) {
-        touch_coin_score_age(fileIndex, i);
-    }
+    // for (i = COURSE_NUM_TO_INDEX(COURSE_MIN); i <= COURSE_NUM_TO_INDEX(COURSE_STAGES_MAX); i++) {
+    //     touch_coin_score_age(fileIndex, i);
+    // }
 }
 
 /**
@@ -779,6 +814,17 @@ u32 save_file_get_dither_mode(void) {
 
 void save_file_set_dither_mode(u8 mode) {
     gSaveBuffer.menuData[0].ditherMode = mode;
+
+    gMainMenuDataModified = TRUE;
+    save_main_menu_data();
+}
+
+s32 save_file_get_unlocked_speedrun_mode(void) {
+    return gSaveBuffer.menuData[0].unlockedSpeedrunMode;
+}
+
+void save_file_set_unlocked_speedrun_mode(s32 val) {
+    gSaveBuffer.menuData[0].unlockedSpeedrunMode = val;
 
     gMainMenuDataModified = TRUE;
     save_main_menu_data();

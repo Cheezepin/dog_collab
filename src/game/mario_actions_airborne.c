@@ -573,6 +573,13 @@ s32 act_freefall(struct MarioState *m) {
         return set_mario_action(m, ACT_GROUND_POUND, 0);
     }
 
+#ifdef NUM_COYOTE_FRAMES
+    if (m->input & INPUT_A_PRESSED && m->coyoteFrames > 0) {
+        if (m->prevAction == ACT_CROUCH_SLIDE && m->forwardVel > 10.0f) return set_jumping_action(m, ACT_LONG_JUMP, 0);
+        return set_jumping_action(m, ACT_JUMP, 0);
+    }
+#endif
+
     switch (m->actionArg) {
         case ACT_ARG_FREEFALL_GENERAL:
             animation = MARIO_ANIM_GENERAL_FALL;
@@ -2166,6 +2173,12 @@ s32 check_common_airborne_cancels(struct MarioState *m) {
 
 s32 mario_execute_airborne_action(struct MarioState *m) {
     u32 cancel = FALSE;
+
+#ifdef NUM_COYOTE_FRAMES
+    if (m->coyoteFrames > 0) {
+        m->coyoteFrames--;
+    }
+#endif
 
     if (check_common_airborne_cancels(m)) {
         return TRUE;

@@ -32,6 +32,10 @@
 #include "save_file.h"
 #include "sound_init.h"
 #include "rumble_init.h"
+// this is for forcing speedrun end in MM
+// #include "hud.h"
+// #include "dialog_ids.h"
+// #include "ingame_menu.h"
 
 s8 gCheckingWaterForMario = FALSE;
 
@@ -461,7 +465,11 @@ u32 mario_get_terrain_sound_addend(struct MarioState *m) {
     if (m->floor != NULL) {
         floorType = m->floor->type;
 
-        if ((gCurrLevelNum != LEVEL_LLL) && (m->floorHeight < (m->waterLevel - 10))) {
+        if (
+            gCurrLevelNum != LEVEL_LLL &&
+            m->floorHeight < (m->waterLevel - 10) &&
+            m->pos[1] < (m->waterLevel - 10)
+        ) {
             // Water terrain sound, excluding LLL since it uses water in the volcano.
             ret = SOUND_TERRAIN_WATER << 16;
         } else if (SURFACE_IS_QUICKSAND(floorType)) {
@@ -862,6 +870,20 @@ u32 set_mario_action_airborne(struct MarioState *m, u32 action, u32 actionArg) {
         case ACT_BACKWARD_ROLLOUT:
             m->vel[1] = 30.0f;
             break;
+#ifdef NUM_COYOTE_FRAMES
+        case ACT_FREEFALL: {
+            switch (m->action)
+            {
+                case ACT_WALKING:
+                case ACT_CROUCH_SLIDE:
+                    break;
+                default:
+                    m->coyoteFrames = 0;
+                    break;
+            }
+            break;
+        }        
+#endif
     }
 
     m->peakHeight = m->pos[1];
@@ -1069,11 +1091,11 @@ s32 set_jumping_action(struct MarioState *m, u32 action, u32 actionArg) {
         m->vel[1] = 8.0f;
     }
 
-    if (mario_floor_is_steep(m)) {
-        set_steep_jump_action(m);
-    } else {
-        set_mario_action(m, action, actionArg);
-    }
+    // if (mario_floor_is_steep(m)) {
+    //     set_steep_jump_action(m);
+    // } else {
+    set_mario_action(m, action, actionArg);
+    // }
 
     gFlipSwitch = 1;
 
@@ -1764,6 +1786,28 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
     vec3f_copy(gMarioState->prevPos, gMarioState->pos);
 
     if (gMarioState->action) {
+        // this is for forcing speedrun end in MM
+        // if (gCurrLevelNum != LEVEL_WDW) {
+        // } else if (gMarioState->controller->buttonPressed & D_JPAD) {
+        //     set_mario_action(gMarioState, ACT_WAITING_FOR_DIALOG, 0);
+        //     gSpeedrun.enabled = FALSE; // stop timer
+        //     set_best_time(gSpeedrun.time);
+
+        //     create_dialog_box(DIALOG_SPEEDRUN_ENDING);
+        // } else if (
+        //     gMarioState->action == ACT_WAITING_FOR_DIALOG
+        // ) {
+        //     if (gDialogResponse != 0) {
+        //         set_mario_action(gMarioState, ACT_IDLE, 0);
+        //         fade_into_special_warp(WARP_SPECIAL_MARIO_HEAD_REGULAR, 0);
+        //         gWorldID = 0;
+        //         gFocusID = 0;
+        //         gCustomStarSelectActive = 0;
+        //         gHubStarSelectTimer = 0;
+        //         gLevelEntryConfirmationActive = 0;
+        //         gSpeedrun.active = FALSE;
+        //     }
+        // }
 #ifdef ENABLE_DEBUG_FREE_MOVE
         if (
             !((gMarioState->action & ACT_GROUP_MASK) & ACT_GROUP_CUTSCENE)
@@ -1973,6 +2017,9 @@ void init_mario(void) {
 
     gMarioState->capTimer = 0;
     gMarioState->quicksandDepth = 0.0f;
+#ifdef NUM_COYOTE_FRAMES
+    gMarioState->coyoteFrames = 0;
+#endif
 
     gMarioState->heldObj = NULL;
     gMarioState->riddenObj = NULL;

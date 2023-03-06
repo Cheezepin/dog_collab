@@ -71,13 +71,6 @@ void bhv_DogFloor1_loop(void) {
             }
             break;
         case 1:
-            // o->oForwardVel = 0.0f;
-            play_sound(SOUND_CUSTOM_2639BARK, gGlobalSoundSource);
-            // cur_obj_init_animation(DOG_ANIM_RUN);
-            o->oAction++;
-            break;
-
-        case 2:
             o->oForwardVel = 0.0f;
             cur_obj_init_animation(DOG_ANIM_RUN);
             deliciousCouch = find_unpushed_couch(bhvA2pushablecouch, &dist);
@@ -86,7 +79,8 @@ void bhv_DogFloor1_loop(void) {
             }
             o->oAction++;
             break;
-        case 3:
+
+        case 2:
             o->oForwardVel = 0.0f;
             cur_obj_init_animation(DOG_ANIM_RUN);
             play_sound(SOUND_ACTION_METAL_STEP, gGlobalSoundSource);
@@ -97,6 +91,12 @@ void bhv_DogFloor1_loop(void) {
                     o->oAction++;
                 }
             }
+            break;
+        case 3:
+            // o->oForwardVel = 0.0f;
+            play_sound(SOUND_CUSTOM_2639BARK, gGlobalSoundSource);
+            // cur_obj_init_animation(DOG_ANIM_RUN);
+            o->oAction++;
             break;
         case 4:
             o->oForwardVel = 25.0f;

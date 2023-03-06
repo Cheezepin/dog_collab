@@ -402,3 +402,30 @@ void render_text_labels(void) {
 
     sTextLabelsCount = 0;
 }
+
+// returns TRUE if over an hour
+s32 format_time(u32 time, char *text) {
+    s32 min = time / (30 * 60);
+    s32 sec = (time - (min * (30 * 60))) / 30;
+    f32 bestPercentSec = ((f32)(time % 30)) / 30.0f;
+    s32 deca = (s32)(bestPercentSec * 100.0f);
+    if (min >= 60) {
+        s32 hours = min / 60;
+        min %= 60;
+
+        sprintf(text, "%d:%02d:%02d.%02d",
+            hours,
+            min,
+            sec,
+            deca
+        );
+        return TRUE;
+    }
+
+    sprintf(text, "%02d:%02d.%02d",
+        min,
+        sec,
+        deca
+    );
+    return FALSE;
+}

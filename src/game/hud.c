@@ -599,6 +599,45 @@ void render_hud_camera_status(void) {
     gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
 }
 
+void render_speedrun_hud(void) {
+    char t_buff[16];
+    char buff[64];
+    s32 overflow = format_time(gSpeedrun.time, t_buff);
+    s32 baseX;
+    s32 xEnd = 54;
+    if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS)
+        baseX = 120;
+    else if (gEndResultsActive)
+        baseX = 5;
+    else
+        baseX = gConfig.widescreen ? 38 : 48;
+
+    if (overflow) xEnd = 64;
+
+    gDPSetCycleType(gDisplayListHead++, G_CYC_1CYCLE);
+    gDPSetRenderMode(gDisplayListHead++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+    gDPSetPrimColor(gDisplayListHead++, 0, 0, 0, 0, 0, 100);
+    gDPSetCombineMode(gDisplayListHead++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+    gDPFillRectangle(gDisplayListHead++,
+        baseX - 2,         0,
+        baseX + xEnd - 2,  20
+    );
+    gDPPipeSync(gDisplayListHead++);
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+    if (speedrun_timer_is_paused()) {
+        gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 180);
+    } else if (gSpeedrun.time < get_best_time()) {
+        gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
+    } else {
+        gDPSetEnvColor(gDisplayListHead++, 255, 0, 0, 255);
+    }
+    gDPPipeSync(gDisplayListHead++);
+    print_generic_string(baseX, 221, t_buff);
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+    gDPPipeSync(gDisplayListHead++);
+}
+
 /**
  * Render HUD strings using hudDisplayFlags with it's render functions,
  * excluding the cannon reticle which detects a camera preset for it.
@@ -723,6 +762,8 @@ void render_hud(void) {
 
         if (gKeyboard) {
             render_dog_keyboard(gCurrSaveFileNum - 1);
+        } else if (gSpeedrun.enabled) {
+            render_speedrun_hud();
         }
 
         if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {

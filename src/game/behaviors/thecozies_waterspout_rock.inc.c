@@ -169,8 +169,12 @@ void force_water_spout_pressure(void) {
     }
 }
 
-s32 is_spout_scripted(void) {
+ALWAYS_INLINE s32 is_spout_scripted(void) {
     return 1 == WATER_SPOUT_PARAM_SPRAY_FORWARDS;
+}
+
+ALWAYS_INLINE s32 is_spout_hinty_boy(void) {
+    return !is_spout_scripted() && WATER_SPOUT_PARAM_SWITCH_REQ == 1;
 }
 
 void water_spout_loop(void) {
@@ -201,6 +205,9 @@ void water_spout_loop(void) {
             gMarioState->vel[1] += (WATER_SPOUT_MAX_SPEED * 0.33f);
             // mario's min velocity here should be set in order to not get cucked if you enter from the top
             gMarioState->vel[1] = MAX(gMarioState->vel[1], WATER_SPOUT_MIN_EJECTION_SPEED);
+            if (is_spout_hinty_boy()) {
+                gMarioState->vel[1] = WATER_SPOUT_MAX_SPEED;
+            }
 
             // point mario towards the lab and launch in that direction
             if (is_spout_scripted()) {
@@ -219,7 +226,22 @@ void water_spout_loop(void) {
     o->oAction = WATER_SPOUT_HAS_MARIO;
 
     if (o->oTimer++ > WATER_SPOUT_FORCE_WAIT) {
-        if (gMarioState->pos[1] > o->oPosY - WATER_SPOUT_FORCE_LERP) {
+        if (is_spout_hinty_boy()) {
+            f32 distFromTop = o->oPosY - gMarioState->pos[1];
+            distFromTop = CLAMP(distFromTop, 0, 1800);
+            if (distFromTop < WATER_SPOUT_FORCE_LERP / 2.0f) {
+                force_water_spout_pressure();
+            } else {
+                f32 fac = smooth_fac(get_lerp(distFromTop, 1800, 0));
+
+                gMarioState->waterForce = approach_f32_symmetric(
+                    gMarioState->waterForce,
+                    lerp(WATER_SPOUT_MAX_SPEED * 0.15f, WATER_SPOUT_MAX_SPEED, fac),
+                    lerp(WATER_SPOUT_STEP * 0.15f, WATER_SPOUT_STEP, fac)
+                );
+            }
+        }
+        else if (gMarioState->pos[1] > o->oPosY - WATER_SPOUT_FORCE_LERP) {
             force_water_spout_pressure();
         }
         else gMarioState->waterForce = approach_f32_symmetric(gMarioState->waterForce, WATER_SPOUT_MAX_SPEED, WATER_SPOUT_STEP);

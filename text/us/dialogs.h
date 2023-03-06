@@ -2218,10 +2218,16 @@ she wants!)")
 DEFINE_DIALOG(_2639DIAG_A2RoomPeachGreeter, 1, 4, 30, 200, \
 R"(Hey Mario! How's it
 been?
+
+
 I'm almost done setting
 up my room! All that's
 left is to get these
 couches organized.
+Can you help me out?
+Just @00FF00FFpush them around@--------
+until they get stuck.
+
 I'm not a fan of
 you bringing a
 dog here, but
@@ -2327,7 +2333,7 @@ sports center!
 It's a nice place
 with a ton of
 things to do,
-but right now
+but right now,
 we're closed.
 Would you help
 us out?
@@ -2444,8 +2450,8 @@ to help any of us?!
 Here, I even gift
 wrapped it for you.
 Pick it up and just
-throw it in the
-fountain upstairs.
+@FF0000FFthrow it in the
+fountain upstairs@--------.
 I give up.)")
 
 
@@ -2604,3 +2610,33 @@ could hit them back, \n\
 but they won't \n\
 hurt me! ")
 
+DEFINE_DIALOG(EMU_DIALOG_2, 1, 8, 95, 200, "\
+This hack features 46 \n\
+degree wallkicks! This\n\
+means that if you slide\n\
+down and jump through the \n\
+@FF0000FFred panel@000000FF, you can\n\
+you can wallkick in a circle\n\
+inside the prism! But\n\
+be warned, this is a more \n\
+difficult trek than going\n\
+left from this sign. If you\n\
+choose to go straight, \n\
+the @00FF00FFgreen floors and walls\n\
+@000000FFshow recommended paths.")
+
+/**
+ * params:
+ *    - exclamation ("dang." / "woah!")
+ *    - "didn't get" / "got"
+ *    - "." / "!"
+ *    - "" / " 100%"
+ *    - your time
+ *    - "." / "which is [diff] [faster / slower]\nthan your previous time of [prevTime].\n"
+ *    - "Better luck next time!" / "Congratulations!"
+ */ 
+DEFINE_DIALOG(DIALOG_SPEEDRUN_ENDING, 1, 4, ((360 - 220) / 2), 200, "\
+%s Looks like you %s\
+a new record, Mario%s\n\
+You beat the game%s\
+a time of %s%s\n%s")

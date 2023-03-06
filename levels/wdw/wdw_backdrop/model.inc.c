@@ -415,17 +415,17 @@ Gfx wdw_backdrop_Skybox_mesh_tri_1[] = {
 Gfx mat_wdw_backdrop_sky_001_layer1[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
-	gsSPGeometryMode(G_LIGHTING, 0),
+	gsSPGeometryMode(G_LIGHTING | G_ZBUFFER, 0),
 	gsDPSetDepthSource(G_ZS_PRIM),
 	gsDPSetPrimDepth(32767, -1),
-	gsDPSetRenderMode(G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2),
+	gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsSPEndDisplayList(),
 };
 
 Gfx mat_revert_wdw_backdrop_sky_001_layer1[] = {
 	gsDPPipeSync(),
-	gsSPGeometryMode(0, G_LIGHTING),
+	gsSPGeometryMode(0, G_LIGHTING | G_ZBUFFER),
 	gsDPSetDepthSource(G_ZS_PIXEL),
 	gsDPSetPrimDepth(0, 0),
 	gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
@@ -435,11 +435,11 @@ Gfx mat_revert_wdw_backdrop_sky_001_layer1[] = {
 Gfx mat_wdw_backdrop_backdrop_cloud_layer1[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL1, 0, TEXEL0, 0, TEXEL1, 0, TEXEL0, 0, SHADE, COMBINED, SHADE_ALPHA, COMBINED, SHADE, COMBINED, 0, COMBINED),
-	gsSPGeometryMode(G_LIGHTING, 0),
+	gsSPGeometryMode(G_LIGHTING | G_ZBUFFER, 0),
 	gsDPSetCycleType(G_CYC_2CYCLE),
 	gsDPSetDepthSource(G_ZS_PRIM),
 	gsDPSetPrimDepth(32767, -1),
-	gsDPSetRenderMode(G_RM_PASS, G_RM_ZB_OPA_SURF2),
+	gsDPSetRenderMode(G_RM_PASS, G_RM_OPA_SURF2),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPTileSync(),
 	gsDPSetTextureImage(G_IM_FMT_I, G_IM_SIZ_8b_LOAD_BLOCK, 1, wdw_backdrop_cloud_i8),
@@ -462,7 +462,7 @@ Gfx mat_wdw_backdrop_backdrop_cloud_layer1[] = {
 
 Gfx mat_revert_wdw_backdrop_backdrop_cloud_layer1[] = {
 	gsDPPipeSync(),
-	gsSPGeometryMode(0, G_LIGHTING),
+	gsSPGeometryMode(0, G_LIGHTING | G_ZBUFFER),
 	gsDPSetCycleType(G_CYC_1CYCLE),
 	gsDPSetDepthSource(G_ZS_PIXEL),
 	gsDPSetPrimDepth(0, 0),
@@ -473,7 +473,6 @@ Gfx mat_revert_wdw_backdrop_backdrop_cloud_layer1[] = {
 Gfx wdw_backdrop_Skybox_mesh[] = {
 	gsSPClearGeometryMode(G_LIGHTING),
 	gsSPVertex(wdw_backdrop_Skybox_mesh_vtx_cull + 0, 8, 0),
-	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPCullDisplayList(0, 7),
 	gsSPDisplayList(mat_wdw_backdrop_sky_001_layer1),
 	gsSPDisplayList(wdw_backdrop_Skybox_mesh_tri_0),

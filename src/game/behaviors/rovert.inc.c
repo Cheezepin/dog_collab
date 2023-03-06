@@ -180,13 +180,14 @@ void bhv_castle_raft(void) {
 
 void bhv_ash_pile(void) {
     struct Object *sussy;
+    f32 dist;
+
+    /* emu's section of the code*/
+if (gCurrLevelNum == LEVEL_BOWSER_1){
     struct Object *mine;
     struct Object *bowser;
     struct Object *lightning;
-    f32 dist;
     mine = cur_obj_find_nearest_object_with_behavior(bhvEmuBomb, &dist);
-    /* emu's section of the code*/
-if (gCurrLevelNum == LEVEL_BOWSER_1){
     bowser = cur_obj_nearest_object_with_behavior(bhvBowser);
     lightning = cur_obj_nearest_object_with_behavior(bhvStationaryLightning);
     if (bowser != NULL && (bowser->oAction == BOWSER_ACT_LIGHTNING || bowser->oAction == BOWSER_ACT_PROPANE_SHOOTER || bowser->oAction == BOWSER_ACT_SKY_ATTACK || bowser->oAction == BOWSER_ACT_LIGHTNING_2)){
@@ -215,7 +216,7 @@ if (gCurrLevelNum == LEVEL_BOWSER_1){
             o->oOpacity = 500.0f;
             sussy = cur_obj_nearest_object_with_behavior(bhvDogEmu); 
             o->parentObj = sussy;
-            if((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (o->parentObj->oAction != GOTO_ASHPILE && o->parentObj->oAction != 50 && o->parentObj->oAction != 4)){ //checks requirements for player and dog
+            if((gPlayer1Controller->buttonPressed & Z_TRIG) && (o->oDistanceToMario < 400) && (o->parentObj->oAction == EMU_DOG_RUN_AROUND || o->parentObj->oAction == EMU_DOG_RANDOM_LOCATION)){ //checks requirements for player and dog
             if (bowser != NULL && (bowser->oAction == BOWSER_ACT_LIGHTNING || bowser->oAction == BOWSER_ACT_PROPANE_SHOOTER || bowser->oAction == BOWSER_ACT_SKY_ATTACK || bowser->oAction == BOWSER_ACT_LIGHTNING_2 || bowser->oAction == BOWSER_ACT_MID_DIALOG \
             || (bowser->oAction == BOWSER_ACT_HIT_MINE && bowser->oSubAction == BOWSER_SUB_ACT_HIT_MINE_STOP))) //checks requirements for bowser
             {}else {

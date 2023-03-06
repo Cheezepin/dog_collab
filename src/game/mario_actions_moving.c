@@ -2049,6 +2049,10 @@ s32 check_common_moving_cancels(struct MarioState *m) {
 s32 mario_execute_moving_action(struct MarioState *m) {
     s32 cancel = FALSE;
 
+#ifdef NUM_COYOTE_FRAMES
+    m->coyoteFrames = NUM_COYOTE_FRAMES;
+#endif
+
     if (check_common_moving_cancels(m)) {
         return TRUE;
     }
