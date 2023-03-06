@@ -2218,10 +2218,16 @@ she wants!)")
 DEFINE_DIALOG(_2639DIAG_A2RoomPeachGreeter, 1, 4, 30, 200, \
 R"(Hey Mario! How's it
 been?
+
+
 I'm almost done setting
 up my room! All that's
 left is to get these
 couches organized.
+Can you help me out?
+Just @00FF00FFpush them around@--------
+until they get stuck.
+
 I'm not a fan of
 you bringing a
 dog here, but
@@ -2327,7 +2333,7 @@ sports center!
 It's a nice place
 with a ton of
 things to do,
-but right now
+but right now,
 we're closed.
 Would you help
 us out?
@@ -2444,8 +2450,8 @@ to help any of us?!
 Here, I even gift
 wrapped it for you.
 Pick it up and just
-throw it in the
-fountain upstairs.
+@FF0000FFthrow it in the
+fountain upstairs@--------.
 I give up.)")
 
 
