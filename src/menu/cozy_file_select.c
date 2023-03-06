@@ -538,6 +538,7 @@ s32 run_file_select(void) {
     }
 
     if (mState->closing) {
+        gShowVersionText = FALSE;
         if (mState->closeTimer <= 0) {
             mState->closeTimer = 0;
             return MIN(FILE_SELECT_SELECTED_FILE + 1, SAVE_FILE_SPEEDRUN + 1);
@@ -625,4 +626,5 @@ void init_file_select(void) {
     sShowingKeyboard = FALSE;
     gWorldID = -1;
     gFocusID = -1;
+    gShowVersionText = TRUE;
 }

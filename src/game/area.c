@@ -59,7 +59,7 @@ Color gWarpTransBlue = 0;
 s16 gCurrSaveFileNum = 1;
 s16 gCurrLevelNum = LEVEL_MIN;
 u8 gShadeScreenAmount = 0;
-u8 gShowVersionText = TRUE;
+u8 gShowVersionText = FALSE;
 
 /*
  * The following two tables are used in get_mario_spawn_type() to determine spawn type
@@ -402,27 +402,22 @@ u32 approach_transition_colors(void) {
 }
 
 void render_doge_version(void) {
-    // This will only render on the very first boot!
-    static s32 timer = 0;
     static s32 versionOpa = 0;
     if (gShowVersionText) {
-        timer++;
-        if (timer < 20) {
-            versionOpa = lroundf(get_relative_position_between_ranges(timer, 0, 19, 0, 255));
-        } else if (timer < 75) {
-            versionOpa = 255;
-        } else if (timer < 92) {
-            versionOpa = lroundf(get_relative_position_between_ranges(timer, 75, 91, 255, 0));
-        } else {
-            gShowVersionText = FALSE;
-            return;
-        }
+        versionOpa = approach_s32_symmetric(versionOpa, 255, (255/20));
+    } else {
+        versionOpa = approach_s32_symmetric(versionOpa, 0, (255/20));
+    }
 
+    if (versionOpa > 0) {
+        u8 dcVer[] = DOG_COLLAB_VERSION;
+        // '7' is roughly the average kerning of each character
+        s32 posX = gScreenWidth - ((ARRAY_COUNT(dcVer) - 1) * 7);
         create_dl_ortho_matrix();
 
         gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
         gDPSetEnvColor(gDisplayListHead++, 150, 150, 150, versionOpa);
-        print_generic_string(4, 240 - gScreenHeight, (u8 *)DOG_COLLAB_VERSION);
+        print_generic_string(posX, 222, dcVer);
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
     }
 }

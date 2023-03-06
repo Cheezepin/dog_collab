@@ -181,6 +181,8 @@ extern s16 gCurrLevelNum;
 
 extern s32 gEndResultsActive;
 
+extern u8 gShowVersionText;
+
 void override_viewport_and_clip(Vp *a, Vp *b, u8 c, u8 d, u8 e);
 void print_intro_text(void);
 u32 get_mario_spawn_type(struct Object *obj);
