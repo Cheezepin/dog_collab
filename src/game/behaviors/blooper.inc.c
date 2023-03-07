@@ -25,13 +25,19 @@ void bhv_blooper_init(void) {
 
 void blooper_act_idle(void) {
     o->oForwardVel = 0.0f;
-        if (o->oDistanceToMario < 2500.0f) {
-            o->oForwardVel = 7.5f;
-            if(o->oPosY < gMarioState->pos[1] - 100) 
-                o->oAction = BLOOPER_RISE;
-            if(o->oPosY > gMarioState->pos[1] + 50) 
-                o->oPosY -= 15.0f;
-        }
+    // quick fix for land blooper, could probably be made better by just checking if the blooper is above the water surface
+    // the blooper can still go onto land if you clip into the rock in Sakura Stronghold and lure it up a slope
+    // but I think this is fine for now
+    if((gMarioState->action & ACT_GROUP_MASK) != ACT_GROUP_SUBMERGED) {
+    	return;
+    }
+    if (o->oDistanceToMario < 2500.0f) {
+        o->oForwardVel = 7.5f;
+        if(o->oPosY < gMarioState->pos[1] - 100) 
+    	o->oAction = BLOOPER_RISE;
+        if(o->oPosY > gMarioState->pos[1] + 50) 
+    	o->oPosY -= 15.0f;
+    }
 }
 
 void blooper_act_rise(void) {
