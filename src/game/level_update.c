@@ -1478,6 +1478,11 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
     sWarpCheckpointActive = FALSE;
     gCurrLevelNum = levelNum;
 
+#ifdef PRACTICE_ROM
+    if (gSpeedrun.time > 0) gSpeedrun.prevTime = gSpeedrun.time;
+    gSpeedrun.time = 0;
+#endif
+
     
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
 	if (gCurrLevelNum == LEVEL_PSS) return 0;

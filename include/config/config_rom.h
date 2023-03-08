@@ -10,6 +10,29 @@
 
 #define DOG_COLLAB_VERSION "1.1.0"
 
+// #define PRACTICE_ROM
+
+#ifdef PRACTICE_ROM
+    #undef DOG_COLLAB_VERSION
+    #define DOG_COLLAB_VERSION "1.1.0 DEBUG"
+
+    #ifndef  TEST_LEVEL
+        #define TEST_LEVEL LEVEL_CASTLE_GROUNDS
+    #endif
+    #ifndef  ENABLE_DEBUG_FREE_MOVE
+        #define ENABLE_DEBUG_FREE_MOVE
+    #endif
+    #ifndef  VISUAL_DEBUG
+        #define VISUAL_DEBUG
+    #endif
+    #ifndef  UNLOCK_ALL
+        #define UNLOCK_ALL
+    #endif
+    #ifndef  COMPLETE_SAVE_FILE
+        #define COMPLETE_SAVE_FILE
+    #endif
+#endif
+
 // Enables Rumble Pak Support.
 // Currently not recommended, as it may cause random crashes.
 // #define ENABLE_RUMBLE (1)

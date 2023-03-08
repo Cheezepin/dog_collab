@@ -1808,11 +1808,23 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
         //         gSpeedrun.active = FALSE;
         //     }
         // }
+#ifdef PRACTICE_ROM
+#define ZE_BUTTONS (Z_TRIG | R_TRIG | A_BUTTON | START_BUTTON)
+        if (
+            check_button_combo(gPlayer1Controller, ZE_BUTTONS)
+            || check_debug_combo(gPlayer1Controller, L_JPAD)
+        ) {
+            // reset level
+            sDelayedWarpOp = 1;
+            sDelayedWarpArg = 0x00000002;
+            sDelayedWarpTimer = 2;
+            sSourceWarpNodeId = WARP_NODE_DEATH;
+        }
+#endif
 #ifdef ENABLE_DEBUG_FREE_MOVE
         if (
             !((gMarioState->action & ACT_GROUP_MASK) & ACT_GROUP_CUTSCENE)
-            && gPlayer1Controller->buttonDown & U_JPAD
-            && !(gPlayer1Controller->buttonDown & L_TRIG)
+            && check_debug_combo(gPlayer1Controller, U_JPAD)
         ) {
             set_camera_mode(gMarioState->area->camera, CAMERA_MODE_8_DIRECTIONS, 1);
             set_mario_action(gMarioState, ACT_DEBUG_FREE_MOVE, 0);

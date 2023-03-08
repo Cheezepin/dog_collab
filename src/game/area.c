@@ -59,7 +59,11 @@ Color gWarpTransBlue = 0;
 s16 gCurrSaveFileNum = 1;
 s16 gCurrLevelNum = LEVEL_MIN;
 u8 gShadeScreenAmount = 0;
+#ifdef PRACTICE_ROM
+u8 gShowVersionText = TRUE;
+#else
 u8 gShowVersionText = FALSE;
+#endif
 
 /*
  * The following two tables are used in get_mario_spawn_type() to determine spawn type

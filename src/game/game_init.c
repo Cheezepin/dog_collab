@@ -123,7 +123,11 @@ struct DemoInput gRecordedDemoInput = { 0 };
 
 s32 gFreezeFrames = 0;
 
+#ifdef PRACTICE_ROM
+struct SpeedrunState gSpeedrun = { .enabled = TRUE, .active = TRUE, .time = 0, .prevTime = MAX_RUN_TIME };
+#else
 struct SpeedrunState gSpeedrun = { .enabled = FALSE, .time = 0 };
+#endif
 
 // Display
 // ----------------------------------------------------------------------------------------------------

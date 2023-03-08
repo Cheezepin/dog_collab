@@ -734,4 +734,12 @@ enum MarioActionFlags {
 
 #define JPAD_BUTTONS  (U_JPAD     | D_JPAD     | L_JPAD     | R_JPAD       )
 
+ALWAYS_INLINE s32 check_button_combo(struct Controller *cont, u32 combo) {
+    return (cont->buttonDown & (combo)) == combo && (cont->buttonPressed & combo);
+}
+
+ALWAYS_INLINE s32 check_debug_combo(struct Controller *cont, u32 combo) {
+    return check_button_combo(cont, combo & L_TRIG);
+}
+
 #endif // SM64_H

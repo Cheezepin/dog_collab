@@ -167,6 +167,15 @@ static const Gfx dl_visual_surface[] = {
     gsSPEndDisplayList(),
 };
 
+static const Gfx dl_visual_surface_xlu[] = {
+    gsDPPipeSync(),
+    gsDPSetRenderMode(G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2),
+    gsSPClearGeometryMode(G_LIGHTING),
+    gsSPSetGeometryMode(G_ZBUFFER),
+    gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
+    gsSPEndDisplayList(),
+};
+
 static const Gfx dl_debug_box_end[] = {
     gsDPPipeSync(),
     gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
@@ -182,13 +191,13 @@ u8 viewCycle = 0;
 
 // Puppyprint will call this from elsewhere.
 void debug_box_input(void) {
-    if (gPlayer1Controller->buttonPressed & R_JPAD) {
+    if (check_debug_combo(gPlayer1Controller, R_JPAD)) {
         viewCycle++;
-        if (viewCycle > 3) {
+        if (viewCycle > 2) {
             viewCycle = 0;
         }
-        hitboxView = viewCycle == 1 || viewCycle == 3;
-        surfaceView = viewCycle == 2 || viewCycle == 3;
+        // hitboxView = viewCycle == 1;
+        surfaceView = viewCycle >= 1;
     }
 }
 
@@ -360,7 +369,10 @@ void visual_surface_loop(void) {
     }
     mtxf_to_mtx(mtx, gMatStack[1]);
 
-    gSPDisplayList(gDisplayListHead++, dl_visual_surface);
+    if (viewCycle == 1) {
+        gSPDisplayList(gDisplayListHead++, dl_visual_surface_xlu);
+    }
+    else gSPDisplayList(gDisplayListHead++, dl_visual_surface);
 
     gSPMatrix(gDisplayListHead++, mtx, (G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH));
 

@@ -538,7 +538,9 @@ s32 run_file_select(void) {
     }
 
     if (mState->closing) {
+#ifndef PRACTICE_ROM
         gShowVersionText = FALSE;
+#endif
         if (mState->closeTimer <= 0) {
             mState->closeTimer = 0;
             return MIN(FILE_SELECT_SELECTED_FILE + 1, SAVE_FILE_SPEEDRUN + 1);
