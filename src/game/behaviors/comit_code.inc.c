@@ -2217,11 +2217,6 @@ void bhv_rainbow_cloud_spawner_loop(void) {
             }
             break;
         case 1:
-            if (!gIsConsole) {
-                spawn_rainbow_clouds(1);
-                o->activeFlags = 0;
-                return;
-            }
             if (o->oAction == 0) {
                 if ((gMarioState->pos[0] > o->oPosX && gMarioState->pos[2] < o->oPosZ) || !gIsConsole) {
                     spawn_rainbow_clouds(1);
