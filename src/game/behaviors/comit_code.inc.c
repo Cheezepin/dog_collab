@@ -2197,18 +2197,13 @@ void spawn_rainbow_clouds(s32 type) {
 void bhv_rainbow_cloud_spawner_loop(void) {
     switch (o->oBehParams2ndByte) {
         case 0:
-            if (!gIsConsole) {
-                spawn_rainbow_clouds(0);
-                o->activeFlags = 0;
-                return;
-            }
             if (o->oAction == 0) {
-                if (gMarioState->pos[0] > o->oPosX && gMarioState->pos[2] < o->oPosZ) {
+                if ((gMarioState->pos[0] > o->oPosX && gMarioState->pos[2] < o->oPosZ) || !gIsConsole) {
                     spawn_rainbow_clouds(0);
                     o->oAction = 1;
                 }
             } else {
-                if (gMarioState->pos[0] <= o->oPosX || gMarioState->pos[2] >= o->oPosZ) {
+                if ((gMarioState->pos[0] <= o->oPosX || gMarioState->pos[2] >= o->oPosZ) && gIsConsole) {
                     o->oObjF4->activeFlags = 0;
                     o->oObjF4 = NULL;
                     o->oObjF8->activeFlags = 0;
@@ -2222,18 +2217,13 @@ void bhv_rainbow_cloud_spawner_loop(void) {
             }
             break;
         case 1:
-            if (!gIsConsole) {
-                spawn_rainbow_clouds(1);
-                o->activeFlags = 0;
-                return;
-            }
             if (o->oAction == 0) {
-                if (gMarioState->pos[0] > o->oPosX && gMarioState->pos[2] < o->oPosZ) {
+                if ((gMarioState->pos[0] > o->oPosX && gMarioState->pos[2] < o->oPosZ) || !gIsConsole) {
                     spawn_rainbow_clouds(1);
                     o->oAction = 1;
                 }
             } else {
-                if (gMarioState->pos[0] <= o->oPosX || gMarioState->pos[2] >= o->oPosZ) {
+                if ((gMarioState->pos[0] <= o->oPosX || gMarioState->pos[2] >= o->oPosZ) && gIsConsole) {
                     o->oObjF4->activeFlags = 0;
                     o->oObjF4 = NULL;
                     o->oObjF8->activeFlags = 0;
