@@ -720,9 +720,11 @@ void render_hud(void) {
             }
         }
 
+#ifndef PRACTICE_ROM
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_STAR_COUNT) {
             render_hud_stars();
         }
+#endif
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_KEYS) {
             render_hud_keys();
