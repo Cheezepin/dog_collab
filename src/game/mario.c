@@ -1409,6 +1409,8 @@ void update_mario_geometry_inputs(struct MarioState *m) {
     }
 }
 
+extern s8 gComitCam;
+
 /**
  * Handles Mario's input flags as well as a couple timers.
  */
@@ -1432,10 +1434,15 @@ void update_mario_inputs(struct MarioState *m) {
     debug_print_speed_action_normal(m);
 #endif
     if (gCameraMovementFlags & CAM_MOVE_C_UP_MODE) {
-        if (m->action & ACT_FLAG_ALLOW_FIRST_PERSON) {
-            m->input |= INPUT_FIRST_PERSON;
-        } else {
+        if(gComitCam != 0 ) {
+            play_sound(SOUND_MENU_CAMERA_BUZZ, gGlobalSoundSource);
             gCameraMovementFlags &= ~CAM_MOVE_C_UP_MODE;
+        } else {
+            if (m->action & ACT_FLAG_ALLOW_FIRST_PERSON) {
+                m->input |= INPUT_FIRST_PERSON;
+            } else {
+                gCameraMovementFlags &= ~CAM_MOVE_C_UP_MODE;
+            }
         }
     }
 
