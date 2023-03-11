@@ -6904,7 +6904,7 @@ const BehaviorScript bhvClownDoorSegmentBottom[] = {
     SET_INT(oInteractType, INTERACT_DOOR),
     SET_FLOAT(oDrawingDistance, 10000),
     OR_LONG(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_UCODE_LARGE),
-    CALL_NATIVE(bhv_init_room),
+    //CALL_NATIVE(bhv_init_room),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_clown_door_segment_loop),
         CALL_NATIVE(load_object_collision_model),
