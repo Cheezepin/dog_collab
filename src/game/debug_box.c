@@ -160,10 +160,10 @@ static const Gfx dl_debug_box_begin[] = {
 
 static const Gfx dl_visual_surface[] = {
     gsDPPipeSync(),
-    gsDPSetRenderMode(G_RM_ZB_XLU_DECAL, G_RM_NOOP2),
-    gsSPClearGeometryMode(G_LIGHTING),
-    gsSPSetGeometryMode(G_ZBUFFER),
-    gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
+    gsDPSetRenderMode(G_RM_ZB_XLU_DECAL, G_RM_ZB_XLU_DECAL2),
+    gsSPLoadGeometryMode(G_ZBUFFER | G_SHADE | G_SHADING_SMOOTH),
+    gsSPTexture(0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_OFF),
+    gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
     gsSPEndDisplayList(),
 };
 
@@ -178,9 +178,8 @@ static const Gfx dl_visual_surface_xlu[] = {
 
 static const Gfx dl_debug_box_end[] = {
     gsDPPipeSync(),
-    gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
-    gsSPSetGeometryMode(G_LIGHTING | G_CULL_BACK),
-    gsSPClearGeometryMode(G_ZBUFFER),
+    gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
+    gsSPLoadGeometryMode(G_ZBUFFER | G_LIGHTING | G_CULL_BACK | G_SHADE | G_SHADING_SMOOTH),
     gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
     gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
     gsDPSetEnvColor(0xFF, 0xFF, 0xFF, 0xFF),
@@ -191,14 +190,12 @@ u8 viewCycle = 0;
 
 // Puppyprint will call this from elsewhere.
 void debug_box_input(void) {
-    if (check_debug_combo(gPlayer1Controller, R_JPAD)) {
-        viewCycle++;
-        if (viewCycle > 2) {
-            viewCycle = 0;
-        }
-        // hitboxView = viewCycle == 1;
-        surfaceView = viewCycle >= 1;
-    }
+    viewCycle = !viewCycle;
+    // if (viewCycle > 1) {
+    //     viewCycle = 0;
+    // }
+    // hitboxView = viewCycle == 1;
+    surfaceView = viewCycle >= 1;
 }
 
 s16 gVisualSurfaceCount;
@@ -238,9 +235,9 @@ void iterate_surfaces_visual(s32 x, s32 z, Vtx *verts) {
                 make_vertex(verts, (gVisualSurfaceCount + 1), surf->vertex2[0], surf->vertex2[1], surf->vertex2[2], 0, 0, 0xFF, 0xA0, 0x00, 0x80);
                 make_vertex(verts, (gVisualSurfaceCount + 2), surf->vertex3[0], surf->vertex3[1], surf->vertex3[2], 0, 0, 0xFF, 0xA0, 0x00, 0x80);
             } else {
-                make_vertex(verts, (gVisualSurfaceCount + 0), surf->vertex1[0], surf->vertex1[1], surf->vertex1[2], 0, 0, col[0], col[1], col[2], 0x80);
-                make_vertex(verts, (gVisualSurfaceCount + 1), surf->vertex2[0], surf->vertex2[1], surf->vertex2[2], 0, 0, col[0], col[1], col[2], 0x80);
-                make_vertex(verts, (gVisualSurfaceCount + 2), surf->vertex3[0], surf->vertex3[1], surf->vertex3[2], 0, 0, col[0], col[1], col[2], 0x80);
+                make_vertex(verts, (gVisualSurfaceCount + 0), surf->vertex1[0], surf->vertex1[1], surf->vertex1[2], 0, 0, col[0], col[1], col[2], 0x40);
+                make_vertex(verts, (gVisualSurfaceCount + 1), surf->vertex2[0], surf->vertex2[1], surf->vertex2[2], 0, 0, col[0], col[1], col[2], 0x40);
+                make_vertex(verts, (gVisualSurfaceCount + 2), surf->vertex3[0], surf->vertex3[1], surf->vertex3[2], 0, 0, col[0], col[1], col[2], 0x40);
             }
 
             gVisualSurfaceCount += 3;
@@ -369,10 +366,8 @@ void visual_surface_loop(void) {
     }
     mtxf_to_mtx(mtx, gMatStack[1]);
 
-    if (viewCycle == 1) {
-        gSPDisplayList(gDisplayListHead++, dl_visual_surface_xlu);
-    }
-    else gSPDisplayList(gDisplayListHead++, dl_visual_surface);
+
+    gSPDisplayList(gDisplayListHead++, dl_visual_surface);
 
     gSPMatrix(gDisplayListHead++, mtx, (G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH));
 
@@ -380,11 +375,13 @@ void visual_surface_loop(void) {
 
     visual_surface_display(verts, 0);
 
-    iterate_surfaces_envbox(verts);
+    // iterate_surfaces_envbox(verts);
 
-    gDPSetRenderMode(gDisplayListHead++, G_RM_ZB_XLU_SURF, G_RM_NOOP2);
+    gDPSetAlphaCompare(gDisplayListHead++, G_AC_DITHER);
+    gDPSetRenderMode(gDisplayListHead++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
 
-    visual_surface_display(verts, 1);
+    visual_surface_display(verts, 0);
+    gDPSetAlphaCompare(gDisplayListHead++, G_AC_NONE);
 
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
     gSPDisplayList(gDisplayListHead++, dl_debug_box_end);

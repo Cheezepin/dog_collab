@@ -949,9 +949,7 @@ void thread5_game_loop(UNUSED void *arg) {
         read_controller_inputs(THREAD_5_GAME_LOOP);
         profiler_update(PROFILER_TIME_CONTROLLERS);
         addr = level_script_execute(addr);
-#if !PUPPYPRINT_DEBUG && defined(VISUAL_DEBUG)
-        debug_box_input();
-#endif
+
 #if PUPPYPRINT_DEBUG
         puppyprint_profiler_process();
 #endif

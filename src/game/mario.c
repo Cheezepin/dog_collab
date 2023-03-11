@@ -32,6 +32,7 @@
 #include "save_file.h"
 #include "sound_init.h"
 #include "rumble_init.h"
+
 // this is for forcing speedrun end in MM
 // #include "hud.h"
 // #include "dialog_ids.h"
@@ -1815,36 +1816,6 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
         //         gSpeedrun.active = FALSE;
         //     }
         // }
-#ifdef PRACTICE_ROM
-#define ZE_BUTTONS (Z_TRIG | R_TRIG | A_BUTTON | START_BUTTON)
-        if (
-            check_button_combo(gPlayer1Controller, ZE_BUTTONS)
-            || check_debug_combo(gPlayer1Controller, L_JPAD)
-        ) {
-            // reset level
-            sDelayedWarpOp = 1;
-            sDelayedWarpArg = 0x00000002;
-            sDelayedWarpTimer = 2;
-            sSourceWarpNodeId = WARP_NODE_DEATH;
-        }
-#endif
-#ifdef ENABLE_DEBUG_FREE_MOVE
-        if (
-            !((gMarioState->action & ACT_GROUP_MASK) & ACT_GROUP_CUTSCENE)
-            && check_debug_combo(gPlayer1Controller, U_JPAD)
-        ) {
-            set_camera_mode(gMarioState->area->camera, CAMERA_MODE_8_DIRECTIONS, 1);
-            set_mario_action(gMarioState, ACT_DEBUG_FREE_MOVE, 0);
-        }
-#endif
-#ifdef ENABLE_CREDITS_BENCHMARK
-        static s32 startedBenchmark = FALSE;
-        if (!startedBenchmark) {
-            set_mario_action(gMarioState, ACT_IDLE, 0);
-            level_trigger_warp(gMarioState, WARP_OP_CREDITS_START);
-            startedBenchmark = TRUE;
-        }
-#endif
 
         if(gCurrLevelNum == LEVEL_CASTLE_GROUNDS)
             gMarioState->marioObj->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
