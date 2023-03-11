@@ -164,6 +164,10 @@ void bhv_flame_floating_landing_loop(void) {
         obj_mark_for_deletion(o);
     }
 
+    if (gCurrLevelNum == LEVEL_JRB && o->oPosY < 100) {
+        obj_mark_for_deletion(o);
+    }
+
     if (o->oVelY < sFlameFloatingYLimit[o->oBehParams2ndByte]) {
         o->oVelY = sFlameFloatingYLimit[o->oBehParams2ndByte];
     }
@@ -213,8 +217,11 @@ void bhv_blue_bowser_flame_loop(void) {
         } else {
             spawn_object_relative_with_scale(1, 0, 0, 0, 8.0f, o, MODEL_BLUE_FLAME,
                                              bhvFlameFloatingLanding);
+
+                                             if (gCurrLevelNum != LEVEL_JRB) {
             spawn_object_relative_with_scale(2, 0, 0, 0, 8.0f, o, MODEL_BLUE_FLAME,
                                              bhvFlameFloatingLanding);
+                                             }
         }
         obj_mark_for_deletion(o);
     }
@@ -244,6 +251,10 @@ void bhv_flame_bouncing_loop(void) {
     cur_obj_move_standard(78);
 
     if (bowser_flame_should_despawn(300)) {
+        obj_mark_for_deletion(o);
+    }
+
+    if (gCurrLevelNum == LEVEL_JRB && o->oPosY < 100) {
         obj_mark_for_deletion(o);
     }
 
