@@ -458,6 +458,7 @@ void koopa_boss_hurt(void)
 {
     cur_obj_init_animation(4);
     cur_obj_extend_animation_if_at_end();
+    cur_obj_become_intangible();
     struct Surface *floor;
     f32 floorHeight = find_floor(o->oPosX, o->oPosY+1000, o->oPosZ, &floor);
     o->oForwardVel = 0;
@@ -470,6 +471,7 @@ void koopa_boss_hurt(void)
         o->oPhase = 1;
         o->oHealth--;
         o->oVelY = 0;
+        cur_obj_become_tangible();
         cur_obj_play_sound_2(SOUND_GENERAL_METAL_POUND);
         spawn_mist_particles_variable(0, 0, 100.0f);
         cur_obj_become_tangible();

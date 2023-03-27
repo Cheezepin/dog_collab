@@ -356,7 +356,8 @@ void bhv_b3_dog_loop(void) {
     if(o->oPosY < -200.0f) {
         o->oPosX = gMarioState->pos[0];
         o->oPosY = gMarioState->pos[1] + 500.0f;
-        o->oPosX = gMarioState->pos[2];
+        o->oPosZ = gMarioState->pos[2];
+        o->oVelY = 0.0f;
     }
 
     o->oInteractStatus = INT_STATUS_NONE;
