@@ -146,6 +146,7 @@ const LevelScript level_ddd_entry[] = {
 		OBJECT(MODEL_FLIPPY_BITCH, 8100, 898, -6000, 0, 124, 0, 0x00000000, bhvFlippyBitch),
 		OBJECT(MODEL_STAR, 5300, -7433, 6400, 0, 0, 0, (2 << 24), bhvStar),
 		OBJECT(MODEL_STAR, 7500, 3000, -1300, 0, 0, 0, (3 << 24), bhvStar),
+		OBJECT(MODEL_RAIN_CLOUD, -1700, 1300, -1400, 0, 0, 0, (6 << 24) | (25 << 16), bhvRainCloud),
 		OBJECT(MODEL_NONE, 400, 4600, 4400, 0, 0, 0, (8 << 24) | (10 << 16), bhvAdjacentRoomInitializer),
 		OBJECT(MODEL_NONE, 0, 3800, -1900, 0, 0, 0, (9 << 24) | (0 << 16), bhvAdjacentRoomInitializer),
 		OBJECT(MODEL_WATER_PLANE4_WHIRLPOOL, 0, 2736, 0, 0, 0, 0, (2 << 24) | (4 << 16), bhvWaterPlane4Whirlpool),

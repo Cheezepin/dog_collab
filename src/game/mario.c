@@ -1890,6 +1890,8 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
         queue_rumble_particles(gMarioState);
 #endif
 
+        gMarioState->overrideWhirlpool = FALSE;
+
         return gMarioState->particleFlags;
     }
 
