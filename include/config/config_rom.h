@@ -8,13 +8,13 @@
 // The end quote should be here:               "
 #define INTERNAL_ROM_NAME "DOG COLLAB          "
 
-#define DOG_COLLAB_VERSION "1.1.1 BETA.3"
+#define DOG_COLLAB_VERSION "1.1.1"
 
 // #define PRACTICE_ROM
 
 #ifdef PRACTICE_ROM
     #undef DOG_COLLAB_VERSION
-    #define DOG_COLLAB_VERSION "1.1.1 BETA.3 DEBUG"
+    #define DOG_COLLAB_VERSION "1.1.1 DEBUG"
 
     #ifndef  TEST_LEVEL
         #define TEST_LEVEL LEVEL_CASTLE_GROUNDS
