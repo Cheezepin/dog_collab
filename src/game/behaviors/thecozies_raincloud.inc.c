@@ -27,6 +27,7 @@ const Trajectory *ddd_trajectories[] = {
     ddd_area_3_spline_CloudPath3_STAR,
     ddd_area_3_spline_CloudPath4_STAR,
     ddd_area_2_spline_CloudInTheHolePath,
+    ddd_area_2_spline_whirlpool_safety_cloud_path,
 };
 
 #define RAIN_CLOUD_WAYPOINT_FOLLOW_SPEED 0.016f
@@ -41,6 +42,12 @@ void set_rain_cloud_waypoints(struct Waypoint *startWaypoint, struct Waypoint **
     *nextWaypoint = (startWaypoint + o->oRainCloudNextWaypointIndex);   
 }
 
+void whirlpool_current_override(struct Object *obj) {
+    if (BPARAM1 != 6) return;
+    if (obj->oDistanceToMario < 1000) gMarioState->overrideWhirlpool = TRUE;
+    // note, gets reset each frame at the end of execute_mario_action
+}
+
 void rain_cloud_follow_trajectory(int mario_on_cloud) {
     int continuous = ((o->oBehParams >> 8) & 0xFF) == 1;
     struct Waypoint *startWaypoint = o->oRainCloudWaypoint;
@@ -52,6 +59,8 @@ void rain_cloud_follow_trajectory(int mario_on_cloud) {
         mario_on_cloud != FALSE,
         0.25f
     );
+
+    whirlpool_current_override(o);
 
     f32 lastDir = o->oRainCloudWaypointDirection;
     f32 dir = mario_on_cloud ? 1.0f : -1.0f;

@@ -46,7 +46,7 @@ void flippy_bitch_wait(struct Object *obj) {
             obj->oAngleVelPitch = 0;
             return;
         case 1:
-            obj->oAngleVelPitch += (FLIPPY_VEL/2);
+            obj->oAngleVelPitch += ((s32)(FLIPPY_VEL/2));
             obj->oFaceAnglePitch += obj->oAngleVelPitch;
 
             if (obj->oFaceAnglePitch < DEGREES(-5)) {
@@ -57,16 +57,16 @@ void flippy_bitch_wait(struct Object *obj) {
             }
             break;
         case 2:
-            obj->oAngleVelPitch += (FLIPPY_VEL/3);
+            obj->oAngleVelPitch += ((s32)(FLIPPY_VEL/2.5f));
             obj->oFaceAnglePitch += obj->oAngleVelPitch;
             if (obj->oFaceAnglePitch > 0) {
                 obj->oSubAction = 3;
             }
             break;
         case 3:
-            obj->oAngleVelPitch += (FLIPPY_VEL/4);
+            obj->oAngleVelPitch += ((s32)(FLIPPY_VEL/4.5f));
             obj->oFaceAnglePitch += obj->oAngleVelPitch;
-            if (obj->oFaceAnglePitch < 0) {
+            if (obj->oFaceAnglePitch < FLIPPY_VEL) {
                 cur_obj_change_action(FLIPPY_BITCH_FLIPPIN);
             }
             if (obj->oTimer > 20) {

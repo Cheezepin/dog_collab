@@ -35,6 +35,7 @@
 #include "level_commands.h"
 #include "print.h"
 #include "2639_defs.h"
+#include "debug_box.h"
 
 #include "config.h"
 
@@ -1103,6 +1104,63 @@ s8 determine_joystick_movement(void) {
     return directionsHeld;
 }
 
+#if defined(PRACTICE_ROM) || defined(ENABLE_DEBUG_FREE_MOVE) || defined(VISUAL_DEBUG)
+// returns TRUE if mario should have control still
+s32 handle_debug_inputs(struct MarioState *m) {
+    static s32 consumedLTrig = FALSE;
+    if (!m->action || !gMarioObject) return TRUE;
+    if ((m->action & ACT_GROUP_MASK) == ACT_GROUP_CUTSCENE && m->action != ACT_DEBUG_FREE_MOVE) return TRUE;
+
+    if (m->controller->buttonReleased & L_TRIG) {
+        if (consumedLTrig) consumedLTrig = FALSE;
+#ifdef PRACTICE_ROM
+        else {
+            sDelayedWarpOp = 1;
+            sDelayedWarpArg = 0x00000002;
+            sDelayedWarpTimer = 2;
+            sSourceWarpNodeId = WARP_NODE_DEATH;
+            m->health = 0x880;
+            m->isDead = FALSE;
+            m->numCoins = 0;
+            gHudDisplay.coins = 0;
+            gHudDisplay.wedges = 8;
+        }
+#endif // PRACTICE_ROM
+        return FALSE;
+    } else
+
+    if (!consumedLTrig && m->controller->buttonDown & L_TRIG) {
+#ifdef ENABLE_DEBUG_FREE_MOVE
+        if (m->controller->buttonPressed & U_JPAD) {
+            set_camera_mode(m->area->camera, CAMERA_MODE_8_DIRECTIONS, 1);
+            set_mario_action(m, ACT_DEBUG_FREE_MOVE, 0);
+        } else
+#endif // ENABLE_DEBUG_FREE_MOVE
+#ifdef VISUAL_DEBUG
+        if (m->controller->buttonPressed & R_JPAD) {
+            debug_box_input();
+        } else
+#endif // VISUAL_DEBUG
+        if (!(m->controller->buttonPressed & (~L_TRIG))) {
+            m->controller->buttonDown = L_TRIG; // retain L Trigger for buttonReleased
+            m->controller->buttonPressed = 0;
+            m->controller->buttonReleased = 0;
+            return FALSE;
+        }
+
+        consumedLTrig = TRUE;
+        // an input was made, still zero out everything
+        m->controller->buttonDown =
+            m->controller->buttonPressed =
+                m->controller->buttonReleased = 0;
+        return FALSE;
+    }
+    return TRUE;
+}
+#else
+#define handle_debug_inputs(m) TRUE
+#endif
+
 u8 gDirectionsHeld;
 s32 gCurrentCharacter = 0;
 
@@ -1118,6 +1176,10 @@ s32 play_mode_normal(void) {
         }
     }
 #endif
+    if (!handle_debug_inputs(gMarioState)) {
+        if (gSpeedrun.time) gSpeedrun.time--;
+        return 0;
+    }
 
     warp_area();
     if(gCamera->cutscene == 0) {

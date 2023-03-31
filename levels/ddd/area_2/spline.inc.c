@@ -41,6 +41,13 @@ struct CutsceneSplinePoint ddd_area_2_spline_FunnyCameraPathDownTheTube[] = {
 	{ 18, 1, { 5601, -7432, 5473 }},
 	{ -1, 1, { 5300, -7433, 6400 }},
 };
+const Trajectory ddd_area_2_spline_whirlpool_safety_cloud_path[] = {
+	TRAJECTORY_POS( 0, -1700, 1300, -1400),
+	TRAJECTORY_POS( 1, 700, 2200, -1600),
+	TRAJECTORY_POS( 2, 700, 3300, -1600),
+	TRAJECTORY_POS( 3, 700, 3700, -1600),
+	TRAJECTORY_END(),
+};
 struct CutsceneSplinePoint ddd_area_2_spline_FunnyCameraPathToTheWhirlpool[] = {
 	{ 0, 1, { 7500, 4200, 2200 }},
 	{ 1, 1, { 7500, 4200, 3567 }},

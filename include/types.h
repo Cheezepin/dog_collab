@@ -513,6 +513,7 @@ struct MarioState
 #ifdef NUM_COYOTE_FRAMES
     u8 coyoteFrames;
 #endif
+    u8 overrideWhirlpool; // sorry for dirty solution - with love, thecozies
 };
 
 typedef union _RGBA {

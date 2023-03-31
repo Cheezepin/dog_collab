@@ -208,8 +208,24 @@ static void apply_water_current(struct MarioState *m, Vec3f step) {
         f32 angularStrength = lerp(8, 12, distFac);
 
         yaw += DEGREES(roundf(90.0f-angularStrength));
-        step[0] += rotStrength * sins(yaw);
-        step[2] += rotStrength * coss(yaw);
+
+        f32 s0 = rotStrength * sins(yaw);
+        f32 s2 = rotStrength * coss(yaw);
+
+        // funny safety cloud if you fall in the whirlpool
+        if (m->overrideWhirlpool) {
+            f32 distToCloud;
+            struct Object *cloud = cur_obj_find_nearest_object_with_behavior(bhvRainCloud, &distToCloud);
+            if (cloud != NULL) {
+                s16 angleToCloud = cloud->oAngleToMario + DEGREES(180);
+                f32 rcFac = get_relative_position_between_ranges(CLAMP(distToCloud, 500, 1000), 1000, 500, 0, 1);
+                s0 = lerp(s0, sins(angleToCloud) * 3, rcFac);
+                s2 = lerp(s2, coss(angleToCloud) * 3, rcFac);
+            };
+        }
+
+        step[0] += s0;
+        step[2] += s2;
     }
 }
 
@@ -273,8 +289,8 @@ static u32 perform_water_step(struct MarioState *m) {
         }
 
         if (nextPos[1] < m->waterBottomHeight + 25.0f && !canExitWaterWithMomentum) {
-            nextPos[1] += 3.0f;
-            m->vel[1] += 3.0f;
+            nextPos[1] += 3.0f / 4.0f;
+            m->vel[1] += 3.0f / 4.0f;
         }
 
         s32 quarterStepResult = perform_water_full_step(m, nextPos);
