@@ -1,0 +1,17 @@
+b7703ec2  (thecozies)   v1.1.1
+1b110c3a  (thecozies)   v1.1.1 BETA.3
+de7ab092  (thecozies)   nerfed dr flippers
+4b93e8c5  (thecozies)   added convenience cloud in DR, fixed purple goop OOB
+6ecf116d  (kittrz)      fix dog respawn in bowser 3 (#194)
+4661a2ae  (Fazana)      Fix FF's boss juggling
+218f78a4  (thecozies)   fixed various DR collision issues
+f562fbc4  (thecozies)   v1.1.1 Beta
+86fe8a6e  (thecozies)   practice rom updates
+1c79928e  (Mineqwerty)  fixed clown boss crash and clown door bottom
+480a3c10  (kittrz)      disable first person in ccc minigame
+d4b98ce6  (kittrz)      fix mm acorn star spawning while above a warp plane
+b15cd41c  (thecozies)   increased frustratio to 2
+f31a3f49  (thecozies)   added practice rom define to config_rom
+214428a7  (kittrz)      I forgot to remove the other old console check in the switch statement
+010dd536  (kittrz)      fix rainbow clouds unloading in ccc
+44014005  (kittrz)      quick land blooper fix
