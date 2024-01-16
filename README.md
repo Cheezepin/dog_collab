@@ -205,6 +205,7 @@ A: Newer binutils (Like the one bundled with Ubuntu, 2.34) break linking with li
 This puts me at a crossroads of either touching leaked code and requiring GCC, or just using an older linker that works just fine.
 
 I went with the latter.
+# WARNING: I DIDN'T MAKE THE MARIO MODEL, ALL OWNERSHIP GOES TO KAZE AND YOSHI MILKMAN
 Thanks to "someone2639" for this hacky-ass idea
 
 Q: Will this allow me to use FlashRAM/Transfer Pak/microcode swapping/Other Cool N64 Features?
