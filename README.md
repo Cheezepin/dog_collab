@@ -24,7 +24,7 @@ This is a fork of the ultrasm64 repo by CrashOveride which includes the followin
 - **Arceveti**: Silhouette, various optimizations including shadows, implementation of better wall collision, better hanging, breath meter, 4 controller support, alternate rumble graphics
 - **axollyon**: Console testing, bugfixes, idea-guying, and had a hand in silhouettes
 - **Wiseguy**:  World scale reimplementation, silhouette, graph node optimisations, instant input patch, cake screen fix, segmented code support, and various optimizations/fixes
-- **Kaze**: Graph node optimisations, automatic optimal collision distance
+- **Kaze**: Graph node optimisations, automatic optimal collision distance, Yoshimilkman mario model edit
 - **Pyro Jay**: Texture improvements, repo banner art, some QoL stuff
 - **CrashOveride**: creating the [ultrasm64](https://github.com/CrashOveride95/ultrasm64) repo
 - **falcobuster**: Original coordinate overflow fix (world scale), ASM version of extended bounds
@@ -213,5 +213,3 @@ A: Theoretically, all yes.
 ## Installation help
 
 Go read the original SM64 repo README.md
-
-# WARNING: I DIDN'T MAKE THE MARIO MODEL, ALL OWNERSHIP GOES TO KAZE AND YOSHI MILKMAN
